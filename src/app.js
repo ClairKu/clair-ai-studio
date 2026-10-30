@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 156;
+const DATA_VERSION = 157;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -231,7 +231,8 @@ const initialState = {
       pinned: false,
       position: 0,
       createdAt: "2026-10-30T11:18:05+08:00",
-      source: "参考 M1 Advisor 的产品介绍框架与深蓝长页形式；以且慢官方公开资料组织长期记忆、账户分析与约定复盘。含三种可切换的对话示意、服务流程、对照与FAQ。产品介绍设计稿，非官方页面，不接入真实账户，不构成个性化投资建议。",
+      source: "六项能力特点＋三个六条消息的完整案例＋资金规划、账户诊断、月度复盘三张可放大下载效果图；另含注明2.0版本的官方真实界面与动态演示。依据公开资料整理，所有自编案例与效果图为设计示意，不接入真实账户，不构成个性化投资建议。",
+      updatedAt: "2026-10-30",
       access: "production",
       workType: "product-planning",
       tags: ["AI 小顾", "且慢", "产品介绍", "M1 Advisor", "长期记忆", "主动服务", "HTML", "生产"],

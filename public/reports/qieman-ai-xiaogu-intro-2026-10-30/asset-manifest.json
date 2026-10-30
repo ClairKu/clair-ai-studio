@@ -1,6 +1,7 @@
 {
-  "title": "且慢 AI 小顾产品介绍页",
+  "title": "且慢 AI 小顾产品介绍页 · 能力、案例与成果",
   "createdAt": "2026-10-30",
+  "updatedAt": "2026-10-30T11:45:01+08:00",
   "files": [
     {
       "path": "xiaogu.png",
@@ -13,16 +14,69 @@
       "bytes": 3214,
       "sha256": "3271627b7ab0dbfc307c0f825ab369488b0d279640745597213ba9e9bc47372e",
       "source": "https://asset2.qieman.com/images/a1e7dc4a-2be2-470e-9100-2da7df5f230b.png"
+    },
+    {
+      "path": "official-annual-return.png",
+      "bytes": 324312,
+      "sha256": "2dc98b9e66b88fe56547702266654de6dc7be5e2e820d5d89092db0abb896cd2",
+      "source": "https://cdn-website.yingmi.cn/officialwww/uploads/20260821/ec030274d867e9bba7afc07e0dfb8784.gif",
+      "article": "https://www.yingmi.cn/archives/787.html",
+      "version": "2.0",
+      "provenance": "官方公开GIF原素材或其关键帧，保留原AI提示"
+    },
+    {
+      "path": "official-risk-diagnosis.png",
+      "bytes": 407735,
+      "sha256": "ee457b7b494ac178a4947c1ecea97f9886485a901924ef1bb52287c96fc91e1d",
+      "source": "https://cdn-website.yingmi.cn/officialwww/uploads/20260821/cb5c54b879996daf7a37408624581e7d.gif",
+      "article": "https://www.yingmi.cn/archives/787.html",
+      "version": "2.0",
+      "provenance": "官方公开GIF原素材或其关键帧，保留原AI提示"
+    },
+    {
+      "path": "official-annual-demo.gif",
+      "bytes": 4625524,
+      "sha256": "1dfdc02498d144403fe606b700ad1d0dcc901233784422626840e6b4e03e59dd",
+      "source": "https://cdn-website.yingmi.cn/officialwww/uploads/20260821/ec030274d867e9bba7afc07e0dfb8784.gif",
+      "article": "https://www.yingmi.cn/archives/787.html",
+      "version": "2.0",
+      "provenance": "官方公开GIF原素材或其关键帧，保留原AI提示"
+    },
+    {
+      "path": "effect-plan.jpg",
+      "bytes": 43911,
+      "sha256": "69b05e7c054305135c4cc65a884324a9b16b828e5b8973a93d3bbca0a19ce9ef",
+      "provenance": "本页基于公开能力设计并渲染的产品效果图；虚构示例，非现网截图"
+    },
+    {
+      "path": "effect-account.jpg",
+      "bytes": 43586,
+      "sha256": "81f7e6ef943a7f332291b168c1b232e346e041435395c98afcb64304b6328e83",
+      "provenance": "本页基于公开能力设计并渲染的产品效果图；虚构示例，非现网截图"
+    },
+    {
+      "path": "effect-review.jpg",
+      "bytes": 49494,
+      "sha256": "4799bb9885eba2defc64fdabb0c581aab5607d0f9ad082836c8238e622de28ee",
+      "provenance": "本页基于公开能力设计并渲染的产品效果图；虚构示例，非现网截图"
     }
   ],
   "sources": [
     {
       "url": "https://www.yingmi.cn/archives/913",
-      "role": "长期记忆、账户分析和主动任务公开说明"
+      "role": "3.0能力说明"
     },
     {
       "url": "https://www.yingmi.cn/archives/907",
-      "role": "规划、策略比较与复盘流程的公开演示"
+      "role": "家庭规划、账户检查与月度复盘演示"
+    },
+    {
+      "url": "https://www.yingmi.cn/archives/787.html",
+      "role": "官方2.0公开演示：关键帧与原GIF；非3.0当前界面"
+    },
+    {
+      "url": "https://yingmi.cn/archives/847.html",
+      "role": "长期记忆、定时执行与复杂任务编排介绍"
     },
     {
       "url": "https://m1.com/m1-advisor/",
