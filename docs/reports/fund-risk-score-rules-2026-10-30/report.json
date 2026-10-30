@@ -1,0 +1,248 @@
+{
+  "meta": {
+    "title": "基金风险分的来源与边界",
+    "subtitle": "从晨星公开方法解释风险分；当前 MCP 规则以独立核查为准。",
+    "eyebrow": "CLAIR / RISK SCORE EXPLAINER",
+    "date": "2026-10-30",
+    "cutoff": "2026-10-30",
+    "owner": "Clair",
+    "confidentiality": "公开方法说明",
+    "accent": "#8067e8"
+  },
+  "hero": {
+    "conclusion": "风险分衡量风险程度，不是百分制成绩。",
+    "thesis": "晨星公开口径允许超过100分。全球方法论不能证明当前中国MCP的版本、边界或具体实现；内部完整核查另以本会话私有附件交付。",
+    "badges": [
+      "公开来源",
+      "模型有版本",
+      "接口需核实"
+    ]
+  },
+  "sections": [
+    {
+      "id": "concepts",
+      "kicker": "01 · READ THE NUMBER",
+      "title": "三个概念各有含义",
+      "lead": "阅读分数前，先确认它回答的问题。",
+      "layout": "comparison",
+      "tone": "light",
+      "items": [
+        {
+          "eyebrow": "风险程度",
+          "title": "风险分",
+          "body": "晨星MPRS表达面向未来的风险程度。",
+          "source": "晨星官方术语页 · 2026-10-30检索",
+          "status": "confirmed"
+        },
+        {
+          "eyebrow": "事件概率",
+          "title": "亏损概率",
+          "body": "风险分不能直接解释成亏损概率。",
+          "meta": "解释边界：分值不自带概率单位。",
+          "status": "inferred"
+        },
+        {
+          "eyebrow": "销售适当性",
+          "title": "R等级",
+          "body": "不能凭连续分数自行换算适当性R等级。",
+          "meta": "解释边界：需另核具体评级和映射规则。",
+          "status": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "method",
+      "kicker": "02 · PUBLIC METHODOLOGY",
+      "title": "先估计风险，再映射分数",
+      "lead": "以下仅概括2026年全球方法，不代表当前MCP实现。",
+      "layout": "process",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "01",
+          "title": "识别投资",
+          "body": "确认标的与持仓。",
+          "source": "晨星全球方法论 · 2026-05-30",
+          "status": "confirmed"
+        },
+        {
+          "index": "02",
+          "title": "选择路径",
+          "body": "风险模型优先，条件不足时考虑收益分析。",
+          "source": "晨星全球方法论 · 2026-05-30",
+          "status": "confirmed"
+        },
+        {
+          "index": "03",
+          "title": "估计波动",
+          "body": "形成面向未来的波动估计。",
+          "source": "晨星全球方法论 · 2026-05-30",
+          "status": "confirmed"
+        },
+        {
+          "index": "04",
+          "title": "参照锚点",
+          "body": "对照目标配置指数。",
+          "source": "晨星全球方法论 · 2026-05-30",
+          "status": "confirmed"
+        },
+        {
+          "index": "05",
+          "title": "映射分数",
+          "body": "把风险估计转换为分值。",
+          "source": "晨星全球方法论 · 2026-05-30",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "bounds",
+      "kicker": "03 · THE 100 QUESTION",
+      "title": "100不是通用硬上限",
+      "lead": "“通常范围”与“强制截断”是不同规则。",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {
+          "metric": "0–100",
+          "title": "通常范围",
+          "body": "晨星术语页的常见取值区间。",
+          "source": "晨星官方术语页 · 2026-10-30检索",
+          "status": "confirmed"
+        },
+        {
+          "metric": ">100",
+          "title": "允许更高",
+          "body": "官方说明更高分对应极端风险。",
+          "source": "晨星官方术语页 · 2026-10-30检索",
+          "status": "confirmed"
+        },
+        {
+          "metric": "≠100%",
+          "title": "不能读成概率",
+          "body": "也不能读成百分制成绩。",
+          "meta": "解释边界：分数单位与百分比不同。",
+          "status": "inferred"
+        },
+        {
+          "metric": "待核实",
+          "title": "当前接口上限",
+          "body": "全球说明不证明中国MCP的硬限制。",
+          "meta": "本接口版本、边界与截断规则需独立验证。",
+          "status": "missing"
+        }
+      ]
+    },
+    {
+      "id": "portfolio",
+      "kicker": "04 · PORTFOLIO EFFECT",
+      "title": "组合分不能直接求平均",
+      "lead": "组合还要考虑资产之间如何共同变化。",
+      "layout": "evidence",
+      "tone": "soft",
+      "items": [
+        {
+          "title": "权重与关系共同影响整体风险",
+          "image": "concept-portfolio.svg",
+          "alt": "持仓权重与相互关系共同影响组合风险的概念图，无样本数据。",
+          "body": "原理解读：单项风险分不足以重建组合风险。",
+          "source": "晨星全球方法论 · 2026-05-30；Clair概念图",
+          "status": "inferred"
+        },
+        {
+          "title": "同样的单项分，不同的组合",
+          "body": "原理解读：权重或资产关系变化时，整体风险也可能变化。",
+          "source": "晨星全球方法论 · 2026-05-30",
+          "status": "inferred",
+          "bullets": [
+            "不能仅凭基金分数做算术平均。",
+            "具体重算仍需匹配模型与有效数据。"
+          ],
+          "image": "concept-average.svg",
+          "alt": "单项分数的简单平均不等于组合整体风险的原理示意图，无数值模拟。"
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "kicker": "05 · SCORE AVAILABILITY",
+      "title": "无评分不等于低风险",
+      "lead": "区分模型有结论、数据不足和调用未完成。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {
+          "title": "评分有数据门槛",
+          "body": "全球方法会检查覆盖与收益历史。",
+          "source": "晨星全球方法论 · 2026-05-30",
+          "status": "confirmed"
+        },
+        {
+          "title": "不能自行补成零",
+          "body": "解释建议：缺失应显示“暂无评分”，另标原因。",
+          "meta": "通用展示建议，不声称当前MCP采用此处理。",
+          "status": "inferred"
+        },
+        {
+          "title": "旧分应标日期",
+          "body": "解释建议：沿用历史结果时保留有效日期。",
+          "meta": "通用展示建议；当前缓存与降级待接口核实。",
+          "status": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "scope",
+      "kicker": "06 · EVIDENCE BOUNDARIES",
+      "title": "公开方法不替代接口验收",
+      "lead": "本页说明概念；当前服务规则须由对应证据确认。",
+      "layout": "actions",
+      "tone": "dark",
+      "items": [
+        {
+          "index": "01",
+          "title": "确认版本",
+          "body": "核实模型版本和适用市场。",
+          "meta": "当前MCP：待独立核查。",
+          "status": "missing"
+        },
+        {
+          "index": "02",
+          "title": "确认边界",
+          "body": "核实上下限、分档和缺失处理。",
+          "meta": "当前MCP：待独立核查。",
+          "status": "missing"
+        },
+        {
+          "index": "03",
+          "title": "保留语境",
+          "body": "解释分数时同步展示口径与有效日期。",
+          "meta": "本页建议；不构成投资建议。",
+          "status": "inferred"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "晨星官方术语页｜Portfolio Risk Score",
+      "detail": "2026-10-30检索；定义、通常范围及超过100分的说明。",
+      "url": "https://www.morningstar.com/investing-terms/portfolio-risk-score"
+    },
+    {
+      "label": "晨星全球方法论｜2026-05-30",
+      "detail": "仅用于全球方法解释；不证明当前中国MCP采用相同模型或规则。",
+      "url": "https://developer.morningstar.com/content/hidden-from-navigation/MorningstarPortfolioRiskScoreMethodology.pdf"
+    }
+  ],
+  "openQuestions": [
+    {
+      "title": "当前中国MCP采用哪个版本？",
+      "detail": "本页不公开内部实现；完整核查另以本会话私有附件交付。"
+    },
+    {
+      "title": "实际接口是否设有硬限制？",
+      "detail": "不能依据全球方法替当前接口断言上限、截断、分档或降级规则。"
+    }
+  ]
+}
