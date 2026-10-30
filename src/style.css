@@ -9218,3 +9218,26 @@ body.studio-modal-open {
 .archive-progress-cancel:hover {
   background: rgb(255 255 255 / 12%);
 }
+.report-related-link {
+  display: block;
+  margin: 0 12px 12px;
+  border: 1px solid #e5e1f4;
+  border-radius: 9px;
+  background: #f7f5fe;
+  padding: 9px 10px;
+  color: #6259a7;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.6;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.report-related-link:hover {
+  background: #eeebfb;
+}
+
+.report-related-link:focus-visible {
+  outline: 2px solid #8274bd;
+  outline-offset: 2px;
+}

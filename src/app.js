@@ -2783,6 +2783,8 @@ const initialState = {
       groupId: "xiaogu",
       title: "千问 X 且慢AI小顾｜用户数据看板",
       url: "https://clairku.github.io/clair-ai-studio/reports/qianwen-user-acquisition-dashboard/",
+      internalReportUrl: "https://ontology-dashboard.yingmi-inc.com/r/4c5e1086-99d9-4bef-8882-330459d7edf0",
+      internalReportLabel: "本体动态报告 · 迁移首版 · 需盈米登录",
       preview: "qianwen-user-acquisition-dashboard.svg",
       pinned: true,
       position: 0,
@@ -6825,6 +6827,13 @@ function savedFilesReaderMarkup(report) {
   </section>`;
 }
 
+function internalReportLinkMarkup(report) {
+  const url = report.internalReportUrl || "";
+  if (!validUrl(url) || permissionTarget(url)?.provider !== "盈米组织帐号") return "";
+  const label = report.internalReportLabel || "本体动态报告 · 需盈米登录";
+  return `<a class="report-related-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)} ↗</a>`;
+}
+
 function cardMarkup(report, archivedView = false) {
   const localSaved = !report.url &&
     (Boolean(report.savedContent) || Boolean((report.savedFiles || []).length));
@@ -6884,6 +6893,7 @@ function cardMarkup(report, archivedView = false) {
           ${restricted ? `<span class="report-access-note">${escapeHtml(accessLabel)}</span>` : ""}
         </span>
       </button>
+      ${internalReportLinkMarkup(report)}
       <div class="card-actions">
         ${archivedView
           ? `
@@ -7748,7 +7758,7 @@ function bindReportDragging() {
   };
 
   board.addEventListener("pointerdown", (event) => {
-    if (event.button !== 0 || event.target.closest(".card-actions")) return;
+    if (event.button !== 0 || event.target.closest(".card-actions, .report-related-link")) return;
     const sourceCard = event.target.closest('.report-card[data-report-draggable="true"]');
     if (!sourceCard?.closest(".group-column, .search-results-panel")) return;
     if (event.pointerType === "mouse") event.preventDefault();
