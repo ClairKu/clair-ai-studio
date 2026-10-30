@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "report": "stargate-operations-dashboard-2026-10-30",
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 33752,
+      "sha256": "7acea9d5b00abeadcc6fcc91648493d549076c26ef67066c42abd1eac92610b6"
+    },
+    {
+      "path": "report.css",
+      "bytes": 28502,
+      "sha256": "bf253ba1035c8e2c8e6939f3e0e15b77fb30ce7ed19e20146c89a1949d560fe3"
+    },
+    {
+      "path": "renderer.js",
+      "bytes": 20585,
+      "sha256": "02bdcec2ba30168060e78c2b78339ef588a5cf517462943b88aa038a992df668"
+    },
+    {
+      "path": "app.js",
+      "bytes": 38614,
+      "sha256": "7b9824aa01ea141b6b5489de5462653d061baccece2072d7a74719c1c5da4324"
+    },
+    {
+      "path": "data.json",
+      "bytes": 16357,
+      "sha256": "f8551ad71dfc9f63ab6ee8c52681c80dd3e28d2c3580edb96829ff8bd2297492"
+    },
+    {
+      "path": "standalone.html",
+      "bytes": 121402,
+      "sha256": "945375ee333f0a03d9ec0ef99ef39bc0a7240c7bca096be99b2ee93ddc98190d"
+    }
+  ]
+}

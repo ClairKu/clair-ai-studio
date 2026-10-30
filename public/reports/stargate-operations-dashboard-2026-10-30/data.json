@@ -1,0 +1,806 @@
+{
+  "schemaVersion": "stargate-aggregate-v1",
+  "title": "STARGATE｜开放平台运营动态报告",
+  "nativeReportUrl": "https://ontology-dashboard.yingmi-inc.com/r/071089f9-f98f-4d5b-ae5d-d8f64b132e6f",
+  "snapshot": {
+    "timezone": "Asia/Shanghai",
+    "cutoffDate": "2026-10-30",
+    "minDate": "2026-08-02",
+    "maxDate": "2026-10-30",
+    "partialDay": "2026-10-30",
+    "oauthStart": "2026-10-29",
+    "mode": "聚合快照 · 可交互筛选",
+    "scopeNote": "全空间生产只读聚合；与本体同口径，不含个人、机构或 API Key 明细。"
+  },
+  "sources": [
+    {
+      "id": "key_daily",
+      "label": "API Key 日聚合",
+      "retrievedAt": "2026-10-30T06:35:50.447234+00:00"
+    },
+    {
+      "id": "oauth_daily",
+      "label": "OAuth 平台日聚合",
+      "retrievedAt": "2026-10-30T06:35:50.275299+00:00"
+    },
+    {
+      "id": "key_windows",
+      "label": "API Key 固定窗口去重",
+      "retrievedAt": "2026-10-30T06:35:50.456808+00:00"
+    },
+    {
+      "id": "oauth_uniques",
+      "label": "OAuth 区间账户去重",
+      "retrievedAt": "2026-10-30T06:36:14.745745+00:00"
+    },
+    {
+      "id": "oauth_platforms",
+      "label": "OAuth 平台区间聚合",
+      "retrievedAt": "2026-10-30T06:35:50.275021+00:00"
+    },
+    {
+      "id": "oauth_quality",
+      "label": "OAuth 明细质量聚合",
+      "retrievedAt": "2026-10-30T06:35:50.296172+00:00"
+    }
+  ],
+  "keyDaily": [
+    {
+      "date": "2026-08-02",
+      "calls": 6573,
+      "activeKeys": 214
+    },
+    {
+      "date": "2026-08-03",
+      "calls": 22564,
+      "activeKeys": 434
+    },
+    {
+      "date": "2026-08-04",
+      "calls": 27158,
+      "activeKeys": 417
+    },
+    {
+      "date": "2026-08-05",
+      "calls": 19073,
+      "activeKeys": 448
+    },
+    {
+      "date": "2026-08-06",
+      "calls": 17959,
+      "activeKeys": 471
+    },
+    {
+      "date": "2026-08-07",
+      "calls": 17357,
+      "activeKeys": 449
+    },
+    {
+      "date": "2026-08-08",
+      "calls": 10922,
+      "activeKeys": 243
+    },
+    {
+      "date": "2026-08-09",
+      "calls": 10047,
+      "activeKeys": 229
+    },
+    {
+      "date": "2026-08-10",
+      "calls": 19710,
+      "activeKeys": 484
+    },
+    {
+      "date": "2026-08-11",
+      "calls": 19875,
+      "activeKeys": 464
+    },
+    {
+      "date": "2026-08-12",
+      "calls": 20025,
+      "activeKeys": 491
+    },
+    {
+      "date": "2026-08-13",
+      "calls": 19290,
+      "activeKeys": 494
+    },
+    {
+      "date": "2026-08-14",
+      "calls": 19799,
+      "activeKeys": 472
+    },
+    {
+      "date": "2026-08-15",
+      "calls": 11712,
+      "activeKeys": 213
+    },
+    {
+      "date": "2026-08-16",
+      "calls": 10687,
+      "activeKeys": 211
+    },
+    {
+      "date": "2026-08-17",
+      "calls": 21393,
+      "activeKeys": 525
+    },
+    {
+      "date": "2026-08-18",
+      "calls": 23324,
+      "activeKeys": 542
+    },
+    {
+      "date": "2026-08-19",
+      "calls": 21281,
+      "activeKeys": 522
+    },
+    {
+      "date": "2026-08-20",
+      "calls": 21992,
+      "activeKeys": 565
+    },
+    {
+      "date": "2026-08-21",
+      "calls": 22499,
+      "activeKeys": 546
+    },
+    {
+      "date": "2026-08-22",
+      "calls": 9790,
+      "activeKeys": 239
+    },
+    {
+      "date": "2026-08-23",
+      "calls": 9370,
+      "activeKeys": 219
+    },
+    {
+      "date": "2026-08-24",
+      "calls": 20973,
+      "activeKeys": 533
+    },
+    {
+      "date": "2026-08-25",
+      "calls": 22111,
+      "activeKeys": 528
+    },
+    {
+      "date": "2026-08-26",
+      "calls": 37364,
+      "activeKeys": 524
+    },
+    {
+      "date": "2026-08-27",
+      "calls": 44023,
+      "activeKeys": 585
+    },
+    {
+      "date": "2026-08-28",
+      "calls": 41718,
+      "activeKeys": 553
+    },
+    {
+      "date": "2026-08-29",
+      "calls": 20722,
+      "activeKeys": 266
+    },
+    {
+      "date": "2026-08-30",
+      "calls": 15200,
+      "activeKeys": 265
+    },
+    {
+      "date": "2026-08-31",
+      "calls": 38494,
+      "activeKeys": 565
+    },
+    {
+      "date": "2026-09-01",
+      "calls": 323070,
+      "activeKeys": 680
+    },
+    {
+      "date": "2026-09-02",
+      "calls": 507451,
+      "activeKeys": 655
+    },
+    {
+      "date": "2026-09-03",
+      "calls": 247752,
+      "activeKeys": 626
+    },
+    {
+      "date": "2026-09-04",
+      "calls": 557521,
+      "activeKeys": 600
+    },
+    {
+      "date": "2026-09-05",
+      "calls": 556233,
+      "activeKeys": 262
+    },
+    {
+      "date": "2026-09-06",
+      "calls": 248357,
+      "activeKeys": 272
+    },
+    {
+      "date": "2026-09-07",
+      "calls": 338638,
+      "activeKeys": 570
+    },
+    {
+      "date": "2026-09-08",
+      "calls": 571167,
+      "activeKeys": 599
+    },
+    {
+      "date": "2026-09-09",
+      "calls": 333744,
+      "activeKeys": 573
+    },
+    {
+      "date": "2026-09-10",
+      "calls": 574864,
+      "activeKeys": 662
+    },
+    {
+      "date": "2026-09-11",
+      "calls": 584204,
+      "activeKeys": 627
+    },
+    {
+      "date": "2026-09-12",
+      "calls": 260894,
+      "activeKeys": 281
+    },
+    {
+      "date": "2026-09-13",
+      "calls": 36966,
+      "activeKeys": 281
+    },
+    {
+      "date": "2026-09-14",
+      "calls": 68876,
+      "activeKeys": 592
+    },
+    {
+      "date": "2026-09-15",
+      "calls": 56122,
+      "activeKeys": 619
+    },
+    {
+      "date": "2026-09-16",
+      "calls": 50475,
+      "activeKeys": 662
+    },
+    {
+      "date": "2026-09-17",
+      "calls": 975219,
+      "activeKeys": 651
+    },
+    {
+      "date": "2026-09-18",
+      "calls": 1035075,
+      "activeKeys": 641
+    },
+    {
+      "date": "2026-09-19",
+      "calls": 40295,
+      "activeKeys": 289
+    },
+    {
+      "date": "2026-09-20",
+      "calls": 321207,
+      "activeKeys": 362
+    },
+    {
+      "date": "2026-09-21",
+      "calls": 326016,
+      "activeKeys": 550
+    },
+    {
+      "date": "2026-09-22",
+      "calls": 229524,
+      "activeKeys": 532
+    },
+    {
+      "date": "2026-09-23",
+      "calls": 312888,
+      "activeKeys": 508
+    },
+    {
+      "date": "2026-09-24",
+      "calls": 129276,
+      "activeKeys": 472
+    },
+    {
+      "date": "2026-09-25",
+      "calls": 27249,
+      "activeKeys": 272
+    },
+    {
+      "date": "2026-09-26",
+      "calls": 24849,
+      "activeKeys": 201
+    },
+    {
+      "date": "2026-09-27",
+      "calls": 23923,
+      "activeKeys": 208
+    },
+    {
+      "date": "2026-09-28",
+      "calls": 59529,
+      "activeKeys": 487
+    },
+    {
+      "date": "2026-09-29",
+      "calls": 55408,
+      "activeKeys": 457
+    },
+    {
+      "date": "2026-09-30",
+      "calls": 53928,
+      "activeKeys": 476
+    },
+    {
+      "date": "2026-10-01",
+      "calls": 32520,
+      "activeKeys": 265
+    },
+    {
+      "date": "2026-10-02",
+      "calls": 28161,
+      "activeKeys": 228
+    },
+    {
+      "date": "2026-10-03",
+      "calls": 23265,
+      "activeKeys": 166
+    },
+    {
+      "date": "2026-10-04",
+      "calls": 20199,
+      "activeKeys": 139
+    },
+    {
+      "date": "2026-10-05",
+      "calls": 22085,
+      "activeKeys": 225
+    },
+    {
+      "date": "2026-10-06",
+      "calls": 22193,
+      "activeKeys": 212
+    },
+    {
+      "date": "2026-10-07",
+      "calls": 22601,
+      "activeKeys": 259
+    },
+    {
+      "date": "2026-10-08",
+      "calls": 58360,
+      "activeKeys": 486
+    },
+    {
+      "date": "2026-10-09",
+      "calls": 94147,
+      "activeKeys": 510
+    },
+    {
+      "date": "2026-10-10",
+      "calls": 128895,
+      "activeKeys": 327
+    },
+    {
+      "date": "2026-10-11",
+      "calls": 95043,
+      "activeKeys": 188
+    },
+    {
+      "date": "2026-10-12",
+      "calls": 187314,
+      "activeKeys": 412
+    },
+    {
+      "date": "2026-10-13",
+      "calls": 218932,
+      "activeKeys": 429
+    },
+    {
+      "date": "2026-10-14",
+      "calls": 213012,
+      "activeKeys": 427
+    },
+    {
+      "date": "2026-10-15",
+      "calls": 277909,
+      "activeKeys": 431
+    },
+    {
+      "date": "2026-10-16",
+      "calls": 233748,
+      "activeKeys": 389
+    },
+    {
+      "date": "2026-10-17",
+      "calls": 159668,
+      "activeKeys": 190
+    },
+    {
+      "date": "2026-10-18",
+      "calls": 108041,
+      "activeKeys": 179
+    },
+    {
+      "date": "2026-10-19",
+      "calls": 220641,
+      "activeKeys": 409
+    },
+    {
+      "date": "2026-10-20",
+      "calls": 223627,
+      "activeKeys": 388
+    },
+    {
+      "date": "2026-10-21",
+      "calls": 243344,
+      "activeKeys": 359
+    },
+    {
+      "date": "2026-10-22",
+      "calls": 272049,
+      "activeKeys": 357
+    },
+    {
+      "date": "2026-10-23",
+      "calls": 275763,
+      "activeKeys": 360
+    },
+    {
+      "date": "2026-10-24",
+      "calls": 148551,
+      "activeKeys": 187
+    },
+    {
+      "date": "2026-10-25",
+      "calls": 165709,
+      "activeKeys": 161
+    },
+    {
+      "date": "2026-10-26",
+      "calls": 233558,
+      "activeKeys": 344
+    },
+    {
+      "date": "2026-10-27",
+      "calls": 255497,
+      "activeKeys": 344
+    },
+    {
+      "date": "2026-10-28",
+      "calls": 250854,
+      "activeKeys": 357
+    },
+    {
+      "date": "2026-10-29",
+      "calls": 267900,
+      "activeKeys": 354
+    },
+    {
+      "date": "2026-10-30",
+      "calls": 152405,
+      "activeKeys": 225
+    }
+  ],
+  "oauthDaily": [
+    {
+      "date": "2026-10-29",
+      "platform": "doubao",
+      "calls": 71,
+      "activeAccounts": 71
+    },
+    {
+      "date": "2026-10-29",
+      "platform": "ima",
+      "calls": 7,
+      "activeAccounts": 7
+    },
+    {
+      "date": "2026-10-29",
+      "platform": "qwenwork",
+      "calls": 36,
+      "activeAccounts": 2
+    },
+    {
+      "date": "2026-10-29",
+      "platform": "qwenwork-preregistered",
+      "calls": 4,
+      "activeAccounts": 1
+    },
+    {
+      "date": "2026-10-29",
+      "platform": "unidentified",
+      "calls": 4700,
+      "activeAccounts": 614
+    },
+    {
+      "date": "2026-10-29",
+      "platform": "workbuddy",
+      "calls": 2668,
+      "activeAccounts": 174
+    },
+    {
+      "date": "2026-10-30",
+      "platform": "doubao",
+      "calls": 40,
+      "activeAccounts": 40
+    },
+    {
+      "date": "2026-10-30",
+      "platform": "ima",
+      "calls": 5,
+      "activeAccounts": 5
+    },
+    {
+      "date": "2026-10-30",
+      "platform": "qwenwork",
+      "calls": 4,
+      "activeAccounts": 1
+    },
+    {
+      "date": "2026-10-30",
+      "platform": "unidentified",
+      "calls": 2557,
+      "activeAccounts": 356
+    },
+    {
+      "date": "2026-10-30",
+      "platform": "workbuddy",
+      "calls": 788,
+      "activeAccounts": 93
+    }
+  ],
+  "keyWindows": [
+    {
+      "code": "7d",
+      "start": "2026-10-24",
+      "end": "2026-10-30",
+      "calls": 1474474,
+      "usedKeys": 650,
+      "reusedKeys": 407
+    },
+    {
+      "code": "90d",
+      "start": "2026-08-02",
+      "end": "2026-10-30",
+      "calls": 14209716,
+      "usedKeys": 5891,
+      "reusedKeys": 2975
+    },
+    {
+      "code": "30d",
+      "start": "2026-10-01",
+      "end": "2026-10-30",
+      "calls": 4655991,
+      "usedKeys": 1773,
+      "reusedKeys": 1004
+    }
+  ],
+  "oauthUniques": [
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-29",
+      "platform": "all",
+      "accounts": 865,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-30",
+      "end": "2026-10-30",
+      "platform": "all",
+      "accounts": 494,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-30",
+      "platform": "all",
+      "accounts": 1202,
+      "reusedAccounts": 157
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-30",
+      "platform": "ima",
+      "accounts": 12,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-30",
+      "end": "2026-10-30",
+      "platform": "workbuddy",
+      "accounts": 93,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-30",
+      "end": "2026-10-30",
+      "platform": "doubao",
+      "accounts": 40,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-29",
+      "platform": "ima",
+      "accounts": 7,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-29",
+      "platform": "unidentified",
+      "accounts": 614,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-29",
+      "platform": "qwenwork-preregistered",
+      "accounts": 1,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-30",
+      "platform": "doubao",
+      "accounts": 96,
+      "reusedAccounts": 15
+    },
+    {
+      "start": "2026-10-30",
+      "end": "2026-10-30",
+      "platform": "unidentified",
+      "accounts": 356,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-30",
+      "platform": "unidentified",
+      "accounts": 881,
+      "reusedAccounts": 89
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-30",
+      "platform": "workbuddy",
+      "accounts": 216,
+      "reusedAccounts": 51
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-29",
+      "platform": "qwenwork",
+      "accounts": 2,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-29",
+      "platform": "doubao",
+      "accounts": 71,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-30",
+      "end": "2026-10-30",
+      "platform": "ima",
+      "accounts": 5,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-30",
+      "platform": "qwenwork-preregistered",
+      "accounts": 1,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-29",
+      "platform": "workbuddy",
+      "accounts": 174,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-30",
+      "end": "2026-10-30",
+      "platform": "qwenwork",
+      "accounts": 1,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-30",
+      "platform": "qwenwork",
+      "accounts": 2,
+      "reusedAccounts": 1
+    }
+  ],
+  "oauthPlatforms": [
+    {
+      "platform": "unidentified",
+      "calls": 7257,
+      "usedAccounts": 881
+    },
+    {
+      "platform": "doubao",
+      "calls": 111,
+      "usedAccounts": 96
+    },
+    {
+      "platform": "workbuddy",
+      "calls": 3456,
+      "usedAccounts": 216
+    },
+    {
+      "platform": "qwenwork",
+      "calls": 40,
+      "usedAccounts": 2
+    },
+    {
+      "platform": "qwenwork-preregistered",
+      "calls": 4,
+      "usedAccounts": 1
+    },
+    {
+      "platform": "ima",
+      "calls": 12,
+      "usedAccounts": 12
+    }
+  ],
+  "oauthQuality": [
+    {
+      "success": false,
+      "protocol": "mcp",
+      "records": 674,
+      "logicalCalls": 504,
+      "meanDurationMs": 52.1,
+      "firstEvent": "2026-10-29T02:01:24.721000",
+      "latestEvent": "2026-10-30T14:35:06.572000"
+    },
+    {
+      "success": true,
+      "protocol": "mcp",
+      "records": 12896,
+      "logicalCalls": 7421,
+      "meanDurationMs": 344.3,
+      "firstEvent": "2026-10-29T01:15:27.908000",
+      "latestEvent": "2026-10-30T14:35:46.486000"
+    }
+  ],
+  "evidence": {
+    "issue": "QMRD-47383",
+    "jiraOriginalAvailable": false,
+    "jiraFailure": "Jira 代理返回 502，未取得工单原文。",
+    "designSpecs": [
+      {
+        "name": "OAuth 使用明细设计",
+        "date": "2026-10-21"
+      },
+      {
+        "name": "OAuth Dashboard 迭代设计",
+        "date": "2026-10-26"
+      }
+    ],
+    "sourceBasis": "两份显式关联 QMRD-47383 的设计规格及已上线源码；本页不构成工单逐字验收。",
+    "nativeScope": "本体原生报告已保存为本人私有、未审核版本，支持真实参数查询及平台 → 分页用户 → 调用详情三级下钻，提供选中账户摘要、按日调用；工具 Top20 仅 OAuth，最长 90 天，不包含任何无来源资料。明细仅在本体私有域，工作台只保留聚合。",
+    "workspaceComparison": "本页与本体采用全空间口径。全空间 Key 15,920，官方工作空间 15,854，其余 7 个空间合计 66；全空间近 30 日调用 4,655,991，官方工作空间 4,576,212。差异来自工作空间过滤，比较前需统一范围。"
+  },
+  "nativeReportStatus": "saved_private_unreviewed"
+}

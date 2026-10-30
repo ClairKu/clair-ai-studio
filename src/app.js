@@ -223,6 +223,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "stargate-operations-dashboard-2026-10-30",
+      groupId: "growth-insights",
+      title: "STARGATE｜开放平台运营动态报告",
+      url: "https://clairku.github.io/clair-ai-studio/reports/stargate-operations-dashboard-2026-10-30/",
+      preview: "stargate-operations-dashboard-2026-10-30.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-30T00:00:00+08:00",
+      source: "依据 QMRD-47383 扩展开放平台看板，提供指标口径、趋势、平台与复用分析，并连接盈米本体动态刷新。",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["STARGATE", "OAP", "运营看板", "动态报告", "数据分析", "本体", "HTML", "生产"],
+    },
+    {
       id: "kimi-yingmi-financial-research-2026-10-30",
       groupId: "ai-platform",
       title: "Kimi 为什么还要盈米｜具体合作切口与谈法",
@@ -4151,6 +4165,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "stargate-operations-dashboard-2026-10-30": "data-analysis",
   "kimi-yingmi-financial-research-2026-10-30": "reporting",
   "yingmi-tamp-content-study-2026-10-30": "investment-research",
   "yingmi-ccs-capability-audit-2026-10-28": "governance-review",
@@ -4286,6 +4301,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "stargate-operations-dashboard-2026-10-30": "growth-insights",
   "kimi-yingmi-financial-research-2026-10-30": "ai-platform",
   "qieman-ai-xiaogu-intro-2026-10-30": "xiaogu",
   "yingmi-tamp-content-study-2026-10-30": "research",

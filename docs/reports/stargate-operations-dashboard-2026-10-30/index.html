@@ -1,0 +1,924 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="STARGATE 开放平台运营动态报告：API Key 与 OAuth 双来源聚合、日期和平台交互筛选、统计口径与质量核验。">
+  <meta name="color-scheme" content="light">
+  <meta name="referrer" content="no-referrer">
+  <title>STARGATE｜开放平台运营动态报告</title>
+  <link rel="stylesheet" href="report.css">
+</head>
+<body>
+  <div id="report-root" class="report-page">
+    <header class="topbar">
+      <div class="topbar-brand"><span class="brand-mark" aria-hidden="true">S</span><span>STARGATE <small>OPERATIONS</small></span></div>
+      <nav class="topbar-nav" aria-label="报告章节"><a href="#overview">运营概览</a><a href="#trends">双来源趋势</a><a href="#platform-section">平台分布</a><a href="#quality">数据质量</a><a href="#requirements">需求对照</a></nav>
+      <div class="topbar-meta">CLAIR / OAP<br>2026.10.30</div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="report-title">
+        <div>
+          <div class="eyebrow">OPEN PLATFORM OBSERVATORY</div>
+          <h1 id="report-title">STARGATE｜开放平台<br>运营动态报告</h1>
+          <p class="hero-lead">独立观察 API Key 与 OAuth 的使用、平台归因与复用，把数据口径和采集质量一起看清。</p>
+          <div class="hero-meta"><span class="badge" id="snapshot-label">聚合快照 · 可交互筛选</span><span id="data-cutoff">统计截止 2026-10-30 · 上海时区</span></div>
+          <div class="hero-meta first-retrieved" id="first-retrieved">首次取数时间读取中</div>
+          <div class="hero-actions"><a class="button primary" data-native-link href="https://ontology-dashboard.yingmi-inc.com/r/071089f9-f98f-4d5b-ae5d-d8f64b132e6f" target="_blank" rel="noopener noreferrer">本体实时重查</a><a class="button" href="#trends">查看双来源趋势 ↓</a></div>
+          <p class="source-note" id="native-link-status">本体原生报告已保存：本人私有、未审核，可实时重查。支持平台 → 分页用户 → 调用详情，含账户摘要、按日统计；工具 Top20 仅 OAuth，最长 90 天，不补无来源资料。</p>
+        </div>
+        <aside class="hero-aside" aria-label="报告阅读约定">
+          <div class="card-kicker">TWO SOURCES. CLEAR BOUNDARIES.</div>
+          <div class="hero-symbol" aria-hidden="true"><span>KEY</span><i></i><span>OAUTH</span></div>
+          <h3>双来源独立计量</h3>
+          <p class="muted text-small">Key 与账户主体分开；两种调用口径尚未验证等价。</p>
+          <div class="divider"></div>
+          <div class="status-line"><span class="badge warning">今日不完整</span><span>10/30 仅截至各源读取时刻</span></div>
+          <p class="footnote">本地筛选快照，重新查询请打开本体。</p>
+        </aside>
+      </section>
+
+      <div id="stale-note" class="notes warning" role="status" hidden></div>
+      <div class="report-contract"><span class="contract-icon" aria-hidden="true">↗</span><p><strong>本体实时重查，工作台聚合阅读。</strong>不含个人明细，交互与导出均在本地，无自动上传。</p><button id="import-package" class="button small" type="button">导入新聚合包</button><input id="import-file" type="file" accept="application/json,.json" hidden></div>
+
+      <section class="section" id="overview" aria-labelledby="overview-title">
+        <div class="section-header"><div><div class="section-label">01 / OPERATING OVERVIEW</div><h2 id="overview-title">运营概览</h2><p id="selected-scope"></p></div><span id="range-status" class="badge warning"></span></div>
+        <form class="filters" id="report-filters" onsubmit="return false" aria-label="报告筛选">
+          <div class="filter"><label for="range-select">统计窗口</label><select id="range-select"><option value="7d">近 7 日 · 10/24—10/30</option><option value="30d" selected>近 30 日 · 10/1—10/30</option><option value="90d">近 90 日 · 8/2—10/30</option><option value="custom">自定义日期</option></select></div>
+          <div class="filter"><label for="start-date">开始日期</label><input id="start-date" type="date" value="2026-10-01"></div>
+          <div class="filter"><label for="end-date">结束日期（含）</label><input id="end-date" type="date" value="2026-10-30"></div>
+          <div class="filter"><label for="source-select">鉴权来源</label><select id="source-select"><option value="all">全部来源（分列）</option><option value="key">API Key</option><option value="oauth">OAuth MCP</option></select></div>
+          <div class="filter filter-platform"><label for="platform-select">OAuth 平台</label><select id="platform-select"><option value="all">全部 OAuth 平台</option></select></div>
+          <button id="apply-dates" class="button primary" type="button">应用日期</button>
+          <div class="filter-hint">可选数据范围：2026-08-02—2026-10-30。起止日期均按上海自然日；OAuth 仅从 10/29 开始采集。</div>
+        </form>
+        <div id="platform-filter-note" class="notes" role="status" hidden></div>
+        <div id="no-oauth-note" class="notes warning" role="status" hidden></div>
+        <div id="overview-kpis" class="kpis overview-kpis" aria-live="polite"></div>
+        <div class="source-note" id="overview-note"></div>
+        <div class="export-row"><span class="muted text-small" id="last-rendered"></span><div class="export-actions"><button type="button" id="export-csv" class="button small">导出当前 CSV</button><button type="button" id="export-json" class="button small">导出当前 JSON</button><button type="button" id="print-report" class="button small">打印 / PDF</button></div></div>
+      </section>
+
+      <section class="section" id="trends" aria-labelledby="trends-title">
+        <div class="section-header"><div><div class="section-label">02 / TWO-SOURCE TRENDS</div><h2 id="trends-title">双来源趋势</h2><p>同一日期范围，分别呈现调用量与活跃主体。OAuth 历史空白保留。</p></div><div class="chart-toolbars"><div class="segmented" role="group" aria-label="趋势指标"><button type="button" data-chart-metric="calls" aria-pressed="true">调用</button><button type="button" data-chart-metric="active" aria-pressed="false">活跃主体</button></div><div class="segmented" role="group" aria-label="趋势视图"><button type="button" data-chart-mode="line" aria-pressed="true">折线</button><button type="button" data-chart-mode="bar" aria-pressed="false">柱图</button><button type="button" data-chart-mode="table" aria-pressed="false">表格</button></div></div></div>
+        <div class="grid" id="trend-charts">
+          <article class="card" id="key-trend-card"><div class="card-header"><div><h3>API Key</h3><p id="key-trend-subtitle"></p></div><span class="badge neutral">历史 90 日可用</span></div><div id="key-trend"></div></article>
+          <article class="card" id="oauth-trend-card"><div class="card-header"><div><h3>OAuth MCP</h3><p id="oauth-trend-subtitle"></p></div><span class="badge warning">10/29 起采集</span></div><div id="oauth-trend"></div></article>
+        </div>
+        <div class="table-wrap" id="trend-table" hidden></div>
+        <p class="source-note" id="trend-footnote"></p>
+      </section>
+
+      <section class="section" id="platform-section" aria-labelledby="platform-title">
+        <div class="section-header"><div><div class="section-label">03 / OAUTH PLATFORMS</div><h2 id="platform-title">平台分布与日明细</h2><p>Top 8 + 其他已识别平台；未识别平台独立列示。</p></div><span id="platform-count" class="badge neutral"></span></div>
+        <div class="grid grid-wide">
+          <article class="card"><div class="card-header"><div><h3>成功调用分布</h3><p>调用占比反映当前筛选范围，未识别来源保持可见。</p></div></div><div id="platform-bars"></div><div class="card-footer" id="unknown-share-note"></div></article>
+          <article class="card"><div class="card-header"><div><h3>平台聚合清单</h3><p>平台内账户去重，不等于各平台账户互斥。</p></div></div><div class="table-wrap" id="platform-summary-table"></div></article>
+        </div>
+        <details class="card platform-details"><summary>展开平台逐日明细 <span class="muted text-small">仅聚合，无个人信息</span></summary><div class="detail-toolbar"><div class="search"><label for="platform-search" class="sr-only">搜索平台日明细</label><input id="platform-search" placeholder="搜索平台或日期" type="search"></div><span class="text-small muted">qwenwork-preregistered 保留为独立条目。</span></div><div class="table-wrap" id="platform-daily-table"></div></details>
+      </section>
+
+      <section class="section" id="key-window-section" aria-labelledby="key-window-title">
+        <div class="section-header"><div><div class="section-label">04 / KEY REUSE WINDOWS</div><h2 id="key-window-title">Key 复用窗口</h2><p>跨至少 2 个自然日出现的 Key ÷ 同窗口使用 Key。主体是 API Key 凭据，非去重自然人。</p></div><span class="badge neutral">固定窗口参考</span></div>
+        <div class="card"><div class="table-wrap" id="key-window-table"></div><p id="key-selected-reuse" class="notes neutral window-note"></p><div class="source-note">7／30／90 日是不同长度的观察窗口。跨日复用比例不等于周／月留存；自定义区间不能通过每日活跃 Key 求和反推去重主体。</div></div>
+      </section>
+
+      <section class="section" id="quality" aria-labelledby="quality-title">
+        <div class="section-header"><div><div class="section-label">05 / DATA TRUST & DEFINITIONS</div><h2 id="quality-title">数据质量与统计口径</h2><p>把“已经验证”与“仍待解释”的差异同时摆出来。</p></div><span class="badge" id="check-summary"></span></div>
+        <div class="grid grid-wide">
+          <article class="card"><div class="card-header"><div><h3>OAuth 三种计数层级</h3><p>本区独立展示本次完整采集范围，不随筛选改变。</p></div><span class="badge warning">差异待核</span></div><div class="quality-kpis"><div><span>原始明细事件</span><strong id="quality-events"></strong></div><div><span>成功组内 logical call</span><strong id="quality-logical"></strong></div><div><span>日聚合成功调用</span><strong id="quality-aggregate"></strong></div></div><div class="table-wrap" id="quality-table"></div><p class="source-note" id="latest-event"></p><p class="notes warning" id="quality-discrepancy"></p></article>
+          <article class="card"><div class="card-header"><div><h3>每个来源各有读取时间</h3><p>首次取数时间与本地重绘时间分开标记。</p></div></div><div class="table-wrap" id="source-times"></div><p class="source-note" id="snapshot-skew"></p><div class="notes neutral">这里的“动态”指可交互筛选。本页是聚合快照；本体动态报告在受控环境重新查询，刷新后才能获得新的数据。</div><p class="source-note" id="workspace-scope-note"></p></article>
+        </div>
+        <div class="card consistency-card"><h3>聚合一致性与缺失值自检</h3><ul id="check-results" class="check-list"></ul></div>
+        <div class="card definitions-card"><h3>阅读这些指标时，请保留四条边界</h3><dl class="definition-list"><dt>调用分列</dt><dd>API Key 为日聚合调用记录，OAuth 为 MCP 成功调用；未验证等价，禁止相加成一个总调用量。</dd><dt>主体分开</dt><dd>Key 统计 API Key 凭据；OAuth 使用已验证区间去重账户。账户不是自然人数；每日、平台账户不能相加。</dd><dt>时间与缺口</dt><dd>日期按上海自然日；10/30 尚未完整。OAuth 10/29 前为 null；采集开始后，已确认平台在已采集日无记录才可为 0。</dd><dt>窗口成熟度</dt><dd>OAuth 只有两天，不能作环比、同比、增长或周月留存结论。Key 固定窗口复用率也不是留存率。</dd></dl></div>
+      </section>
+
+      <section class="section" id="requirements" aria-labelledby="requirements-title">
+        <div class="section-header"><div><div class="section-label">06 / REQUIREMENT TRACEABILITY</div><h2 id="requirements-title">需求对照</h2><p>依据 QMRD-47383 的设计规格与上线源码，扩展到可持续阅读的运营报告。</p></div><span class="badge warning">非工单逐字验收</span></div>
+        <div class="notes warning requirement-note"><strong>证据边界：</strong>Jira 代理返回 502，本次未取得工单原文。需求依据是两份显式关联 QMRD-47383 的设计规格（2026-10-21、2026-10-26）及已上线源码；以下为需求映射，不宣称已逐条验收 Jira 原文。</div>
+        <div class="table-wrap"><table class="table requirement-table"><thead><tr><th scope="col">设计规格中的能力</th><th scope="col">本体已验证能力</th><th scope="col">工作台交付与扩展</th></tr></thead><tbody><tr><td class="wrap">按鉴权方式拆分趋势，标记 OAuth 采集起点</td><td class="wrap">受控查询，按日期与来源重查</td><td class="wrap">Key／OAuth 分系列；OAuth 起点竖线、历史留空；避免未验证等价的合计</td></tr><tr><td class="wrap">平台调用明细，Top 8 + 其他</td><td class="wrap">平台筛选 → 分页用户 → 调用详情；最长 90 天</td><td class="wrap">仅平台聚合与日明细；Top 8 + 其他已识别平台；未识别平台独立列示</td></tr><tr><td class="wrap">API Key 与 OAuth 二级用户清单分开</td><td class="wrap">Key 与 OAuth 主体保持独立，按来源查询</td><td class="wrap">不发布个人清单；Key 与 OAuth 账户卡片、标签、窗口分别展示</td></tr><tr><td class="wrap">OAuth 用户详情仅展示有来源的 ID 与调用数据</td><td class="wrap">提供账户摘要、按日调用；工具 Top20 仅 OAuth，不补充无来源资料</td><td class="wrap">只呈聚合，不含用户 ID、个人资料或完整 Key</td></tr><tr><td class="wrap">OAuth 平台级数据受全空间权限约束</td><td class="wrap">由本体登录与数据权限控制查询</td><td class="wrap">快照只含聚合；本地导入与导出不上传，不冒充明细访问控制</td></tr><tr><td class="wrap">本次运营扩展（设计规格以外）</td><td class="wrap">重新查询并沉淀正式报告</td><td class="wrap">一致性自检、来源时间、过期提示、完整日均、Key 复用窗口和可导出聚合</td></tr></tbody></table></div>
+        <p class="source-note">原 classic 看板未包含 OAuth 平台趋势与平台明细能力；已有新版已承载相关功能。本报告复用其业务结构，扩展口径解释与运营阅读能力，不宣称已修改 STARGATE 生产代码。</p>
+      </section>
+
+      <section class="section" id="recommendations" aria-labelledby="recommendations-title">
+        <div class="section-header"><div><div class="section-label">07 / OPERATING ACTIONS</div><h2 id="recommendations-title">下一步该看什么</h2><p>建议基于本次完整采集范围，不随局部筛选改写结论。</p></div></div>
+        <div class="grid grid-3 recommendation-grid"><article class="card recommendation"><span class="recommendation-index">01</span><span class="badge warning">优先补归因</span><h3>先让平台识别可信</h3><p id="recommendation-unknown"></p></article><article class="card recommendation"><span class="recommendation-index">02</span><span class="badge neutral">复用可观察</span><h3>用完整日与固定窗口经营</h3><p id="recommendation-key"></p></article><article class="card recommendation"><span class="recommendation-index">03</span><span class="badge neutral">积累观察周期</span><h3>给 OAuth 足够的时间</h3><p id="recommendation-oauth"></p></article></div>
+      </section>
+
+      <section class="local-data-card"><div><h3>继续查询，或带走当前结果</h3><p>本体用于新鲜数据与权限内下钻；CSV／JSON 导出当前筛选。完整聚合包可在本页重新导入，数据只留在当前页面内存。</p></div><div class="hero-actions"><a class="button primary" data-native-link href="https://ontology-dashboard.yingmi-inc.com/r/071089f9-f98f-4d5b-ae5d-d8f64b132e6f" target="_blank" rel="noopener noreferrer">本体实时重查</a><button id="export-package" class="button" type="button">下载完整聚合包</button></div></section>
+    </main>
+    <footer class="footer"><div>STARGATE / OPEN PLATFORM OPERATIONS<br>聚合快照 · 数据截止 2026-10-30 · Asia/Shanghai</div><div>本地交互与导出 · 无个人明细 · 无第三方脚本<br>来源：生产只读聚合、关联设计规格与已上线源码</div></footer>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <noscript><p class="notes warning">请启用 JavaScript 查看交互图表，或打开本体动态报告模块。</p></noscript>
+  <script id="report-data" type="application/json">{
+  "schemaVersion": "stargate-aggregate-v1",
+  "title": "STARGATE｜开放平台运营动态报告",
+  "nativeReportUrl": "https://ontology-dashboard.yingmi-inc.com/r/071089f9-f98f-4d5b-ae5d-d8f64b132e6f",
+  "snapshot": {
+    "timezone": "Asia/Shanghai",
+    "cutoffDate": "2026-10-30",
+    "minDate": "2026-08-02",
+    "maxDate": "2026-10-30",
+    "partialDay": "2026-10-30",
+    "oauthStart": "2026-10-29",
+    "mode": "聚合快照 · 可交互筛选",
+    "scopeNote": "全空间生产只读聚合；与本体同口径，不含个人、机构或 API Key 明细。"
+  },
+  "sources": [
+    {
+      "id": "key_daily",
+      "label": "API Key 日聚合",
+      "retrievedAt": "2026-10-30T06:35:50.447234+00:00"
+    },
+    {
+      "id": "oauth_daily",
+      "label": "OAuth 平台日聚合",
+      "retrievedAt": "2026-10-30T06:35:50.275299+00:00"
+    },
+    {
+      "id": "key_windows",
+      "label": "API Key 固定窗口去重",
+      "retrievedAt": "2026-10-30T06:35:50.456808+00:00"
+    },
+    {
+      "id": "oauth_uniques",
+      "label": "OAuth 区间账户去重",
+      "retrievedAt": "2026-10-30T06:36:14.745745+00:00"
+    },
+    {
+      "id": "oauth_platforms",
+      "label": "OAuth 平台区间聚合",
+      "retrievedAt": "2026-10-30T06:35:50.275021+00:00"
+    },
+    {
+      "id": "oauth_quality",
+      "label": "OAuth 明细质量聚合",
+      "retrievedAt": "2026-10-30T06:35:50.296172+00:00"
+    }
+  ],
+  "keyDaily": [
+    {
+      "date": "2026-08-02",
+      "calls": 6573,
+      "activeKeys": 214
+    },
+    {
+      "date": "2026-08-03",
+      "calls": 22564,
+      "activeKeys": 434
+    },
+    {
+      "date": "2026-08-04",
+      "calls": 27158,
+      "activeKeys": 417
+    },
+    {
+      "date": "2026-08-05",
+      "calls": 19073,
+      "activeKeys": 448
+    },
+    {
+      "date": "2026-08-06",
+      "calls": 17959,
+      "activeKeys": 471
+    },
+    {
+      "date": "2026-08-07",
+      "calls": 17357,
+      "activeKeys": 449
+    },
+    {
+      "date": "2026-08-08",
+      "calls": 10922,
+      "activeKeys": 243
+    },
+    {
+      "date": "2026-08-09",
+      "calls": 10047,
+      "activeKeys": 229
+    },
+    {
+      "date": "2026-08-10",
+      "calls": 19710,
+      "activeKeys": 484
+    },
+    {
+      "date": "2026-08-11",
+      "calls": 19875,
+      "activeKeys": 464
+    },
+    {
+      "date": "2026-08-12",
+      "calls": 20025,
+      "activeKeys": 491
+    },
+    {
+      "date": "2026-08-13",
+      "calls": 19290,
+      "activeKeys": 494
+    },
+    {
+      "date": "2026-08-14",
+      "calls": 19799,
+      "activeKeys": 472
+    },
+    {
+      "date": "2026-08-15",
+      "calls": 11712,
+      "activeKeys": 213
+    },
+    {
+      "date": "2026-08-16",
+      "calls": 10687,
+      "activeKeys": 211
+    },
+    {
+      "date": "2026-08-17",
+      "calls": 21393,
+      "activeKeys": 525
+    },
+    {
+      "date": "2026-08-18",
+      "calls": 23324,
+      "activeKeys": 542
+    },
+    {
+      "date": "2026-08-19",
+      "calls": 21281,
+      "activeKeys": 522
+    },
+    {
+      "date": "2026-08-20",
+      "calls": 21992,
+      "activeKeys": 565
+    },
+    {
+      "date": "2026-08-21",
+      "calls": 22499,
+      "activeKeys": 546
+    },
+    {
+      "date": "2026-08-22",
+      "calls": 9790,
+      "activeKeys": 239
+    },
+    {
+      "date": "2026-08-23",
+      "calls": 9370,
+      "activeKeys": 219
+    },
+    {
+      "date": "2026-08-24",
+      "calls": 20973,
+      "activeKeys": 533
+    },
+    {
+      "date": "2026-08-25",
+      "calls": 22111,
+      "activeKeys": 528
+    },
+    {
+      "date": "2026-08-26",
+      "calls": 37364,
+      "activeKeys": 524
+    },
+    {
+      "date": "2026-08-27",
+      "calls": 44023,
+      "activeKeys": 585
+    },
+    {
+      "date": "2026-08-28",
+      "calls": 41718,
+      "activeKeys": 553
+    },
+    {
+      "date": "2026-08-29",
+      "calls": 20722,
+      "activeKeys": 266
+    },
+    {
+      "date": "2026-08-30",
+      "calls": 15200,
+      "activeKeys": 265
+    },
+    {
+      "date": "2026-08-31",
+      "calls": 38494,
+      "activeKeys": 565
+    },
+    {
+      "date": "2026-09-01",
+      "calls": 323070,
+      "activeKeys": 680
+    },
+    {
+      "date": "2026-09-02",
+      "calls": 507451,
+      "activeKeys": 655
+    },
+    {
+      "date": "2026-09-03",
+      "calls": 247752,
+      "activeKeys": 626
+    },
+    {
+      "date": "2026-09-04",
+      "calls": 557521,
+      "activeKeys": 600
+    },
+    {
+      "date": "2026-09-05",
+      "calls": 556233,
+      "activeKeys": 262
+    },
+    {
+      "date": "2026-09-06",
+      "calls": 248357,
+      "activeKeys": 272
+    },
+    {
+      "date": "2026-09-07",
+      "calls": 338638,
+      "activeKeys": 570
+    },
+    {
+      "date": "2026-09-08",
+      "calls": 571167,
+      "activeKeys": 599
+    },
+    {
+      "date": "2026-09-09",
+      "calls": 333744,
+      "activeKeys": 573
+    },
+    {
+      "date": "2026-09-10",
+      "calls": 574864,
+      "activeKeys": 662
+    },
+    {
+      "date": "2026-09-11",
+      "calls": 584204,
+      "activeKeys": 627
+    },
+    {
+      "date": "2026-09-12",
+      "calls": 260894,
+      "activeKeys": 281
+    },
+    {
+      "date": "2026-09-13",
+      "calls": 36966,
+      "activeKeys": 281
+    },
+    {
+      "date": "2026-09-14",
+      "calls": 68876,
+      "activeKeys": 592
+    },
+    {
+      "date": "2026-09-15",
+      "calls": 56122,
+      "activeKeys": 619
+    },
+    {
+      "date": "2026-09-16",
+      "calls": 50475,
+      "activeKeys": 662
+    },
+    {
+      "date": "2026-09-17",
+      "calls": 975219,
+      "activeKeys": 651
+    },
+    {
+      "date": "2026-09-18",
+      "calls": 1035075,
+      "activeKeys": 641
+    },
+    {
+      "date": "2026-09-19",
+      "calls": 40295,
+      "activeKeys": 289
+    },
+    {
+      "date": "2026-09-20",
+      "calls": 321207,
+      "activeKeys": 362
+    },
+    {
+      "date": "2026-09-21",
+      "calls": 326016,
+      "activeKeys": 550
+    },
+    {
+      "date": "2026-09-22",
+      "calls": 229524,
+      "activeKeys": 532
+    },
+    {
+      "date": "2026-09-23",
+      "calls": 312888,
+      "activeKeys": 508
+    },
+    {
+      "date": "2026-09-24",
+      "calls": 129276,
+      "activeKeys": 472
+    },
+    {
+      "date": "2026-09-25",
+      "calls": 27249,
+      "activeKeys": 272
+    },
+    {
+      "date": "2026-09-26",
+      "calls": 24849,
+      "activeKeys": 201
+    },
+    {
+      "date": "2026-09-27",
+      "calls": 23923,
+      "activeKeys": 208
+    },
+    {
+      "date": "2026-09-28",
+      "calls": 59529,
+      "activeKeys": 487
+    },
+    {
+      "date": "2026-09-29",
+      "calls": 55408,
+      "activeKeys": 457
+    },
+    {
+      "date": "2026-09-30",
+      "calls": 53928,
+      "activeKeys": 476
+    },
+    {
+      "date": "2026-10-01",
+      "calls": 32520,
+      "activeKeys": 265
+    },
+    {
+      "date": "2026-10-02",
+      "calls": 28161,
+      "activeKeys": 228
+    },
+    {
+      "date": "2026-10-03",
+      "calls": 23265,
+      "activeKeys": 166
+    },
+    {
+      "date": "2026-10-04",
+      "calls": 20199,
+      "activeKeys": 139
+    },
+    {
+      "date": "2026-10-05",
+      "calls": 22085,
+      "activeKeys": 225
+    },
+    {
+      "date": "2026-10-06",
+      "calls": 22193,
+      "activeKeys": 212
+    },
+    {
+      "date": "2026-10-07",
+      "calls": 22601,
+      "activeKeys": 259
+    },
+    {
+      "date": "2026-10-08",
+      "calls": 58360,
+      "activeKeys": 486
+    },
+    {
+      "date": "2026-10-09",
+      "calls": 94147,
+      "activeKeys": 510
+    },
+    {
+      "date": "2026-10-10",
+      "calls": 128895,
+      "activeKeys": 327
+    },
+    {
+      "date": "2026-10-11",
+      "calls": 95043,
+      "activeKeys": 188
+    },
+    {
+      "date": "2026-10-12",
+      "calls": 187314,
+      "activeKeys": 412
+    },
+    {
+      "date": "2026-10-13",
+      "calls": 218932,
+      "activeKeys": 429
+    },
+    {
+      "date": "2026-10-14",
+      "calls": 213012,
+      "activeKeys": 427
+    },
+    {
+      "date": "2026-10-15",
+      "calls": 277909,
+      "activeKeys": 431
+    },
+    {
+      "date": "2026-10-16",
+      "calls": 233748,
+      "activeKeys": 389
+    },
+    {
+      "date": "2026-10-17",
+      "calls": 159668,
+      "activeKeys": 190
+    },
+    {
+      "date": "2026-10-18",
+      "calls": 108041,
+      "activeKeys": 179
+    },
+    {
+      "date": "2026-10-19",
+      "calls": 220641,
+      "activeKeys": 409
+    },
+    {
+      "date": "2026-10-20",
+      "calls": 223627,
+      "activeKeys": 388
+    },
+    {
+      "date": "2026-10-21",
+      "calls": 243344,
+      "activeKeys": 359
+    },
+    {
+      "date": "2026-10-22",
+      "calls": 272049,
+      "activeKeys": 357
+    },
+    {
+      "date": "2026-10-23",
+      "calls": 275763,
+      "activeKeys": 360
+    },
+    {
+      "date": "2026-10-24",
+      "calls": 148551,
+      "activeKeys": 187
+    },
+    {
+      "date": "2026-10-25",
+      "calls": 165709,
+      "activeKeys": 161
+    },
+    {
+      "date": "2026-10-26",
+      "calls": 233558,
+      "activeKeys": 344
+    },
+    {
+      "date": "2026-10-27",
+      "calls": 255497,
+      "activeKeys": 344
+    },
+    {
+      "date": "2026-10-28",
+      "calls": 250854,
+      "activeKeys": 357
+    },
+    {
+      "date": "2026-10-29",
+      "calls": 267900,
+      "activeKeys": 354
+    },
+    {
+      "date": "2026-10-30",
+      "calls": 152405,
+      "activeKeys": 225
+    }
+  ],
+  "oauthDaily": [
+    {
+      "date": "2026-10-29",
+      "platform": "doubao",
+      "calls": 71,
+      "activeAccounts": 71
+    },
+    {
+      "date": "2026-10-29",
+      "platform": "ima",
+      "calls": 7,
+      "activeAccounts": 7
+    },
+    {
+      "date": "2026-10-29",
+      "platform": "qwenwork",
+      "calls": 36,
+      "activeAccounts": 2
+    },
+    {
+      "date": "2026-10-29",
+      "platform": "qwenwork-preregistered",
+      "calls": 4,
+      "activeAccounts": 1
+    },
+    {
+      "date": "2026-10-29",
+      "platform": "unidentified",
+      "calls": 4700,
+      "activeAccounts": 614
+    },
+    {
+      "date": "2026-10-29",
+      "platform": "workbuddy",
+      "calls": 2668,
+      "activeAccounts": 174
+    },
+    {
+      "date": "2026-10-30",
+      "platform": "doubao",
+      "calls": 40,
+      "activeAccounts": 40
+    },
+    {
+      "date": "2026-10-30",
+      "platform": "ima",
+      "calls": 5,
+      "activeAccounts": 5
+    },
+    {
+      "date": "2026-10-30",
+      "platform": "qwenwork",
+      "calls": 4,
+      "activeAccounts": 1
+    },
+    {
+      "date": "2026-10-30",
+      "platform": "unidentified",
+      "calls": 2557,
+      "activeAccounts": 356
+    },
+    {
+      "date": "2026-10-30",
+      "platform": "workbuddy",
+      "calls": 788,
+      "activeAccounts": 93
+    }
+  ],
+  "keyWindows": [
+    {
+      "code": "7d",
+      "start": "2026-10-24",
+      "end": "2026-10-30",
+      "calls": 1474474,
+      "usedKeys": 650,
+      "reusedKeys": 407
+    },
+    {
+      "code": "90d",
+      "start": "2026-08-02",
+      "end": "2026-10-30",
+      "calls": 14209716,
+      "usedKeys": 5891,
+      "reusedKeys": 2975
+    },
+    {
+      "code": "30d",
+      "start": "2026-10-01",
+      "end": "2026-10-30",
+      "calls": 4655991,
+      "usedKeys": 1773,
+      "reusedKeys": 1004
+    }
+  ],
+  "oauthUniques": [
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-29",
+      "platform": "all",
+      "accounts": 865,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-30",
+      "end": "2026-10-30",
+      "platform": "all",
+      "accounts": 494,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-30",
+      "platform": "all",
+      "accounts": 1202,
+      "reusedAccounts": 157
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-30",
+      "platform": "ima",
+      "accounts": 12,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-30",
+      "end": "2026-10-30",
+      "platform": "workbuddy",
+      "accounts": 93,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-30",
+      "end": "2026-10-30",
+      "platform": "doubao",
+      "accounts": 40,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-29",
+      "platform": "ima",
+      "accounts": 7,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-29",
+      "platform": "unidentified",
+      "accounts": 614,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-29",
+      "platform": "qwenwork-preregistered",
+      "accounts": 1,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-30",
+      "platform": "doubao",
+      "accounts": 96,
+      "reusedAccounts": 15
+    },
+    {
+      "start": "2026-10-30",
+      "end": "2026-10-30",
+      "platform": "unidentified",
+      "accounts": 356,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-30",
+      "platform": "unidentified",
+      "accounts": 881,
+      "reusedAccounts": 89
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-30",
+      "platform": "workbuddy",
+      "accounts": 216,
+      "reusedAccounts": 51
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-29",
+      "platform": "qwenwork",
+      "accounts": 2,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-29",
+      "platform": "doubao",
+      "accounts": 71,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-30",
+      "end": "2026-10-30",
+      "platform": "ima",
+      "accounts": 5,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-30",
+      "platform": "qwenwork-preregistered",
+      "accounts": 1,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-29",
+      "platform": "workbuddy",
+      "accounts": 174,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-30",
+      "end": "2026-10-30",
+      "platform": "qwenwork",
+      "accounts": 1,
+      "reusedAccounts": 0
+    },
+    {
+      "start": "2026-10-29",
+      "end": "2026-10-30",
+      "platform": "qwenwork",
+      "accounts": 2,
+      "reusedAccounts": 1
+    }
+  ],
+  "oauthPlatforms": [
+    {
+      "platform": "unidentified",
+      "calls": 7257,
+      "usedAccounts": 881
+    },
+    {
+      "platform": "doubao",
+      "calls": 111,
+      "usedAccounts": 96
+    },
+    {
+      "platform": "workbuddy",
+      "calls": 3456,
+      "usedAccounts": 216
+    },
+    {
+      "platform": "qwenwork",
+      "calls": 40,
+      "usedAccounts": 2
+    },
+    {
+      "platform": "qwenwork-preregistered",
+      "calls": 4,
+      "usedAccounts": 1
+    },
+    {
+      "platform": "ima",
+      "calls": 12,
+      "usedAccounts": 12
+    }
+  ],
+  "oauthQuality": [
+    {
+      "success": false,
+      "protocol": "mcp",
+      "records": 674,
+      "logicalCalls": 504,
+      "meanDurationMs": 52.1,
+      "firstEvent": "2026-10-29T02:01:24.721000",
+      "latestEvent": "2026-10-30T14:35:06.572000"
+    },
+    {
+      "success": true,
+      "protocol": "mcp",
+      "records": 12896,
+      "logicalCalls": 7421,
+      "meanDurationMs": 344.3,
+      "firstEvent": "2026-10-29T01:15:27.908000",
+      "latestEvent": "2026-10-30T14:35:46.486000"
+    }
+  ],
+  "evidence": {
+    "issue": "QMRD-47383",
+    "jiraOriginalAvailable": false,
+    "jiraFailure": "Jira 代理返回 502，未取得工单原文。",
+    "designSpecs": [
+      {
+        "name": "OAuth 使用明细设计",
+        "date": "2026-10-21"
+      },
+      {
+        "name": "OAuth Dashboard 迭代设计",
+        "date": "2026-10-26"
+      }
+    ],
+    "sourceBasis": "两份显式关联 QMRD-47383 的设计规格及已上线源码；本页不构成工单逐字验收。",
+    "nativeScope": "本体原生报告已保存为本人私有、未审核版本，支持真实参数查询及平台 → 分页用户 → 调用详情三级下钻，提供选中账户摘要、按日调用；工具 Top20 仅 OAuth，最长 90 天，不包含任何无来源资料。明细仅在本体私有域，工作台只保留聚合。",
+    "workspaceComparison": "本页与本体采用全空间口径。全空间 Key 15,920，官方工作空间 15,854，其余 7 个空间合计 66；全空间近 30 日调用 4,655,991，官方工作空间 4,576,212。差异来自工作空间过滤，比较前需统一范围。"
+  },
+  "nativeReportStatus": "saved_private_unreviewed"
+}</script>
+  <script src="renderer.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
