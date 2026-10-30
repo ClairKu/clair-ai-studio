@@ -1,0 +1,32 @@
+{
+  "title": "且慢 AI 小顾产品介绍页",
+  "createdAt": "2026-10-30",
+  "files": [
+    {
+      "path": "xiaogu.png",
+      "bytes": 355641,
+      "sha256": "5b75129cfb62b6960e8d2c714e8a18b45221f9f93fe0ffb8f613e719af88002c",
+      "source": "https://cdn2.qieman.com/static/assets/new-xiaogu-upd-20251105-1d833c4.svg"
+    },
+    {
+      "path": "qieman-logo.png",
+      "bytes": 3214,
+      "sha256": "3271627b7ab0dbfc307c0f825ab369488b0d279640745597213ba9e9bc47372e",
+      "source": "https://asset2.qieman.com/images/a1e7dc4a-2be2-470e-9100-2da7df5f230b.png"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://www.yingmi.cn/archives/913",
+      "role": "长期记忆、账户分析和主动任务公开说明"
+    },
+    {
+      "url": "https://www.yingmi.cn/archives/907",
+      "role": "规划、策略比较与复盘流程的公开演示"
+    },
+    {
+      "url": "https://m1.com/m1-advisor/",
+      "role": "信息架构与形式参考"
+    }
+  ]
+}

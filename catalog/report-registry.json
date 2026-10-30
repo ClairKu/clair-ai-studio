@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "qieman-ai-xiaogu-intro-2026-10-30",
     "yingmi-tamp-content-study-2026-10-30",
     "fund-risk-score-rules-2026-10-30",
     "sidi-yingmi-deep-research-2026-10-29",

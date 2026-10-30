@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 155;
+const DATA_VERSION = 156;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -222,6 +222,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qieman-ai-xiaogu-intro-2026-10-30",
+      groupId: "xiaogu",
+      title: "且慢 AI 小顾｜产品介绍页",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-ai-xiaogu-intro-2026-10-30/",
+      preview: "qieman-ai-xiaogu-intro-2026-10-30.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-30T11:18:05+08:00",
+      source: "参考 M1 Advisor 的产品介绍框架与深蓝长页形式；以且慢官方公开资料组织长期记忆、账户分析与约定复盘。含三种可切换的对话示意、服务流程、对照与FAQ。产品介绍设计稿，非官方页面，不接入真实账户，不构成个性化投资建议。",
+      access: "production",
+      workType: "product-planning",
+      tags: ["AI 小顾", "且慢", "产品介绍", "M1 Advisor", "长期记忆", "主动服务", "HTML", "生产"],
+    },
     {
       id: "yingmi-tamp-content-study-2026-10-30",
       groupId: "research",
@@ -4252,6 +4266,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-ai-xiaogu-intro-2026-10-30": "xiaogu",
   "yingmi-tamp-content-study-2026-10-30": "research",
   "sidi-yingmi-deep-research-2026-10-29": "ai-platform",
   "candidate-evaluator-2026-10-29": "knowledge",
