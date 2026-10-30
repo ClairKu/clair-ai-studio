@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 157;
+const DATA_VERSION = 158;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -222,6 +222,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "private-fund-mcp-guide-2026-10-30",
+      groupId: "ai-platform",
+      title: "私募数据 MCP 一页通｜能力与接入验证",
+      url: "https://clairku.github.io/clair-ai-studio/reports/private-fund-mcp-guide-2026-10-30/",
+      preview: "private-fund-mcp-guide-2026-10-30.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-30T15:21:41+08:00",
+      source: "2026-10-30 Codex 接入核验：已取得六个私募工具的真实参数说明；当前 Vesta 与 STARGATE 可见工具列表均未暴露私募工具，实际调用返回工具不存在，文档路由返回404。五个案例为按真实参数设计的待执行场景，0/5业务案例跑通，无真实私募查询结果。",
+      access: "production",
+      workType: "governance-review",
+      tags: ["STARGATE", "私募", "MCP", "Codex", "接入验证", "参数说明", "待执行场景", "HTML", "生产"],
+    },
     {
       id: "stargate-operations-dashboard-2026-10-30",
       groupId: "growth-insights",
@@ -4168,6 +4182,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "private-fund-mcp-guide-2026-10-30": "governance-review",
   "stargate-operations-dashboard-2026-10-30": "data-analysis",
   "kimi-yingmi-financial-research-2026-10-30": "reporting",
   "yingmi-tamp-content-study-2026-10-30": "investment-research",
@@ -4304,6 +4319,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "private-fund-mcp-guide-2026-10-30": "ai-platform",
   "stargate-operations-dashboard-2026-10-30": "growth-insights",
   "kimi-yingmi-financial-research-2026-10-30": "ai-platform",
   "qieman-ai-xiaogu-intro-2026-10-30": "xiaogu",

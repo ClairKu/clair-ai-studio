@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "private-fund-mcp-guide-2026-10-30",
     "stargate-operations-dashboard-2026-10-30",
     "kimi-yingmi-financial-research-2026-10-30",
     "qieman-ai-xiaogu-intro-2026-10-30",
