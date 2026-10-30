@@ -112,6 +112,8 @@ const allowedInlinePasswordPages = new Set([
 const independentEncryptedPages = new Set([
   "reports/yingmi-ccs-capability-audit-2026-10-28/index.html",
   "reports/hiring-review-2026-10-27/index.html",
+  "reports/candidate-evaluator-2026-10-29/index.html",
+  "reports/candidate-evaluator-2026-10-29/report.html",
 ]);
 let reportPages = 0;
 let workspacePages = 0;
@@ -138,7 +140,10 @@ for (const htmlPath of htmlPaths) {
     ensure(passwordInputs.length === 1, `${outputPath} 的独立解密口令框数量异常`);
     ensure(/<form\b[^>]*data-gate=["']decrypt["']/.test(html), `${outputPath} 缺少独立解密表单标记`);
     ensure(html.includes("AES-GCM") && html.includes("PBKDF2"), `${outputPath} 未保持正文加密`);
-    ensure(/const\s+payload\s*=/.test(html), `${outputPath} 缺少密文载荷`);
+    ensure(
+      /const\s+payload\s*=/.test(html) || /fetch\(["'][^"']+\.enc\.json["']/.test(html),
+      `${outputPath} 缺少密文载荷或密文载荷引用`,
+    );
     ensure(!publicConfig.immutableLockedEntries.includes(outputPath.replace(/index\.html$/, "")), `${outputPath} 不应复用共享解密凭证`);
   } else {
     ensure(passwordInputs.length === 0, `${outputPath} 出现未登记的第二套页面密码机制`);

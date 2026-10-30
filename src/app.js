@@ -4220,6 +4220,9 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "sidi-yingmi-deep-research-2026-10-29": "ai-platform",
+  "candidate-evaluator-2026-10-29": "knowledge",
+  "ai-tools-yingmi-links-2026-10-28": "ai-workbench",
   "ai-wealth-interaction-deep-dive-2026-10-22": "xiaogu",
   "feidi-yingmi-cooperation-value-2026-10-28": "ai-platform",
   "composer-predictions-deep-dive-2026-10-28": "ai-workbench",
