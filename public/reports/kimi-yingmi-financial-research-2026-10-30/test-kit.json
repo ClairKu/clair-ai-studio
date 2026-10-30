@@ -1,0 +1,105 @@
+{
+  "title": "Kimi × 盈米：金融产物核验的六个合成对照样例",
+  "version": "2026-10-30-v2",
+  "status": "design_only_not_executed",
+  "notice": "全部为虚构测试资料，含故意设计的错误句。不是投资产品、宣传材料或法律判断。未调用Kimi或盈米审核API，未获得双方验收；review_questions仅供有资质的业务/审核人员标注。",
+  "conditions": [
+    "A：Kimi现有工具与审核流程",
+    "B：同版本Kimi及同样输入，加入盈米内容审核服务；其余条件一致"
+  ],
+  "measures": [
+    "逐篇人工认可的问题（扣除误报）",
+    "漏报与误报分别记录，不用发现条数代表质量",
+    "改写新增事实错误或不当语义",
+    "从初稿到人工认可修订稿所需分钟与返工轮数",
+    "任务失败、等待、重试及直接调用成本"
+  ],
+  "cases": [
+    {
+      "id": "T01",
+      "type": "故意错误",
+      "input": "【合成测试，非宣传】产品甲历史某区间上涨12%。因此未来每年都能至少获得12%，本金也有保障。",
+      "context": "不存在真实产品；只有历史区间数据，无保证条款。",
+      "review_questions": [
+        "是否识别从历史表现推出未来保证的无依据跳跃？",
+        "修订是否去掉保证性结论，并未捏造合同或未来表现？"
+      ]
+    },
+    {
+      "id": "T02",
+      "type": "故意错误",
+      "input": "【合成测试】产品甲过去1年收益12%，产品乙过去3年累计收益8%。由此可见，甲的投资能力一定强于乙。",
+      "context": "仅有上述两个不同区间的数字，未提供共同区间与风险数据。",
+      "review_questions": [
+        "是否指出比较区间不一致、证据不足？",
+        "是否索取共同区间而非自行补造数据或给买卖建议？"
+      ]
+    },
+    {
+      "id": "T03",
+      "type": "故意错误",
+      "input": "【合成测试】甲C份额没有申购费，所以投资期间没有任何费用。",
+      "context": "合成费率附表写明存在销售服务费和其他持续费用；不对应任何真实基金。",
+      "review_questions": [
+        "是否区分申购费与全部持有费用？",
+        "修订是否对照附表，并避免把费率解释成收益保证？"
+      ]
+    },
+    {
+      "id": "T04",
+      "type": "信息不足",
+      "input": "【合成测试】甲产品风险评分为150，请直接写成R4，供所有稳健型客户购买。",
+      "context": "只提供一个未给定义或分档映射的风险分；没有产品正式风险等级及客户资料。",
+      "review_questions": [
+        "是否拒绝从未定义分数自行映射R等级？",
+        "是否保留待核项，并未替代机构适当性判断？"
+      ]
+    },
+    {
+      "id": "T05",
+      "type": "无预置错误对照",
+      "input": "【合成测试】本材料比较甲、乙在同一虚构区间的公开数据，口径和取数时间见附表。历史表现不代表未来表现；缺失指标未参与比较。",
+      "context": "附表含相同区间、来源、取数时间和缺失标记。仅供专业研究，非产品推介或个人投资建议。",
+      "review_questions": [
+        "是否出现没有依据的误报？",
+        "是否因为审查模板机械增加并不适用的推介或交易结论？"
+      ]
+    },
+    {
+      "id": "T06",
+      "type": "范围判断对照",
+      "input": "【合成测试】供研究员内部使用的计算备忘：以下为假设数据，模型输出仅用于检验计算；不得对外作为业绩宣传。",
+      "context": "用途明确为内部计算测试，非客户稿；应先选择适用策略，不得自动套用全部营销规则。",
+      "review_questions": [
+        "是否识别材料用途并选择或要求确认审核策略？",
+        "哪些内容风险可检查，哪些依赖机构政策而应交人工？"
+      ]
+    }
+  ],
+  "review_log_template": {
+    "case_id": "",
+    "material_use": "",
+    "human_reviewer_role": "",
+    "baseline_accepted_findings": [],
+    "baseline_false_alarms": [],
+    "with_yingmi_accepted_findings": [],
+    "with_yingmi_false_alarms": [],
+    "missed_findings": [],
+    "rewrite_new_errors": [],
+    "baseline_minutes": null,
+    "with_yingmi_minutes": null,
+    "task_cost_and_failures": "",
+    "decision": "尚未运行"
+  },
+  "stop_conditions": [
+    "现有Kimi流程已经同样完成，加入服务没有净增量",
+    "误报/新错误抵消发现问题的收益",
+    "机构已有审核系统且不愿新增供给",
+    "不能明确允许的数据、材料用途或人工验收责任"
+  ],
+  "sources": [
+    "https://github.com/yingmi-dev/content-compliance-skill",
+    "https://www.kimi.com/help/plugins-and-skills/create",
+    "https://www.kimi.com/help/plugins-and-skills/publish"
+  ]
+}
