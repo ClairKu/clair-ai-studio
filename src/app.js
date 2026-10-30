@@ -2800,7 +2800,11 @@ const initialState = {
       title: "千问 X 且慢AI小顾｜用户数据看板",
       url: "https://clairku.github.io/clair-ai-studio/reports/qianwen-user-acquisition-dashboard/",
       internalReportUrl: "https://ontology-dashboard.yingmi-inc.com/r/4c5e1086-99d9-4bef-8882-330459d7edf0",
-      internalReportLabel: "本体动态报告 · 迁移首版 · 需盈米登录",
+      internalReportLabel: "本体报告 · 完整历史视图与绑定核验 · 需盈米登录",
+      relatedLinks: [{
+        label: "完整客群与口径 · 10月30日快照",
+        url: "https://clairku.github.io/clair-ai-studio/reports/qianwen-user-acquisition-dashboard/complete-snapshot-20261030.html",
+      }],
       preview: "qianwen-user-acquisition-dashboard.svg",
       pinned: true,
       position: 0,
@@ -6844,11 +6848,18 @@ function savedFilesReaderMarkup(report) {
   </section>`;
 }
 
-function internalReportLinkMarkup(report) {
-  const url = report.internalReportUrl || "";
-  if (!validUrl(url) || permissionTarget(url)?.provider !== "盈米组织帐号") return "";
-  const label = report.internalReportLabel || "本体动态报告 · 需盈米登录";
-  return `<a class="report-related-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)} ↗</a>`;
+function relatedReportLinksMarkup(report) {
+  const links = [];
+  if (validUrl(report.internalReportUrl) && permissionTarget(report.internalReportUrl)?.provider === "盈米组织帐号") {
+    links.push({ url: report.internalReportUrl, label: report.internalReportLabel || "本体动态报告 · 需盈米登录" });
+  }
+  for (const link of Array.isArray(report.relatedLinks) ? report.relatedLinks : []) {
+    if (!validUrl(link?.url)) continue;
+    const url = new URL(link.url);
+    if (url.origin !== "https://clairku.github.io" || !url.pathname.startsWith("/clair-ai-studio/")) continue;
+    links.push({ url: link.url, label: link.label || "关联报告" });
+  }
+  return links.map(({ url, label }) => `<a class="report-related-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)} ↗</a>`).join("");
 }
 
 function cardMarkup(report, archivedView = false) {
@@ -6910,7 +6921,7 @@ function cardMarkup(report, archivedView = false) {
           ${restricted ? `<span class="report-access-note">${escapeHtml(accessLabel)}</span>` : ""}
         </span>
       </button>
-      ${internalReportLinkMarkup(report)}
+      ${relatedReportLinksMarkup(report)}
       <div class="card-actions">
         ${archivedView
           ? `
