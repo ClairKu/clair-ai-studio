@@ -2832,6 +2832,9 @@ const initialState = {
       relatedLinks: [{
         label: "完整客群与口径 · 10月30日快照",
         url: "https://clairku.github.io/clair-ai-studio/reports/qianwen-user-acquisition-dashboard/complete-snapshot-20261030.html",
+      }, {
+        label: "用户案例分析 · 真实动态 · 需盈米登录",
+        url: "https://ontology-dashboard.yingmi-inc.com/r/8108a7b6-e9ce-45a4-8f41-48603d2449b8",
       }],
       preview: "qianwen-user-acquisition-dashboard.svg",
       pinned: true,
@@ -6890,7 +6893,9 @@ function relatedReportLinksMarkup(report) {
   for (const link of Array.isArray(report.relatedLinks) ? report.relatedLinks : []) {
     if (!validUrl(link?.url)) continue;
     const url = new URL(link.url);
-    if (url.origin !== "https://clairku.github.io" || !url.pathname.startsWith("/clair-ai-studio/")) continue;
+    const isPublicReport = url.origin === "https://clairku.github.io" && url.pathname.startsWith("/clair-ai-studio/");
+    const isInternalReport = url.origin === "https://ontology-dashboard.yingmi-inc.com" && /^\/r\/[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(url.pathname) && !url.username && !url.password && !url.search && !url.hash;
+    if (!isPublicReport && !isInternalReport) continue;
     links.push({ url: link.url, label: link.label || "关联报告" });
   }
   return links.map(({ url, label }) => `<a class="report-related-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)} ↗</a>`).join("");
