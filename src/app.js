@@ -297,13 +297,13 @@ const initialState = {
     {
       id: "candidate-evaluator-2026-10-29",
       groupId: "knowledge",
-      title: "候选人评价器与招聘复盘",
+      title: "Clair Select｜招聘工作台",
       url: "https://clairku.github.io/clair-ai-studio/reports/candidate-evaluator-2026-10-29/",
       preview: "candidate-evaluator-2026-10-29.svg",
       pinned: false,
       position: 0,
       createdAt: "2026-10-29T15:50:00+08:00",
-      source: "支持本机履历收集、证据分析、面试前后评价留痕与核验追问；附招聘方向复盘。私有候选档案与报告独立加密，需专用口令。完整沟通历史仍待补齐，自动初筛不代替真人决定。",
+      source: "履历分析、面试复盘与岗位标准校准。候选档案保存在本机。",
       access: "production",
       workType: "product-demo",
       tags: ["招聘", "候选人评价", "面试复盘", "AI", "加密报告", "HTML"],
@@ -4884,7 +4884,9 @@ function migrateState(saved) {
   const catalogReportIds = new Set();
   const reports = catalog.reports.map((report) => {
     const reportUrl = normalizedUrl(report.url);
-    const refreshCatalogMetadata = report.id === "qieman-xiaogu-service-card-landscape-2026-08-13" ||
+    const refreshCatalogMetadata = (report.id === "candidate-evaluator-2026-10-29" &&
+      savedById.get(report.id)?.title === "候选人评价器与招聘复盘") ||
+      report.id === "qieman-xiaogu-service-card-landscape-2026-08-13" ||
       (report.id === "yingmi-ai-capabilities-two-templates-2026-10-28" &&
         savedById.get(report.id)?.title === "盈米 AI 能力全景｜战略叙事 × 场景探索 · 双模板");
     catalogUrls.add(reportUrl);
