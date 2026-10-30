@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 153;
+const DATA_VERSION = 154;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -222,6 +222,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "yingmi-tamp-content-study-2026-10-30",
+      groupId: "research",
+      title: "盈米TAMP投顾助手研究：公开样本与投资理念",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-tamp-content-study-2026-10-30/",
+      preview: "yingmi-tamp-content-study-2026-10-30.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-30T10:33:13+08:00",
+      source: "公开样本，非公众号全量；41篇相关正文、质量与选题分析、10条投资理念，阅读互动/转化未核实。目标号文章归属尚未确认，不将相关机构文章当作该公众号全集。",
+      access: "production",
+      workType: "investment-research",
+      tags: ["盈米TAMP", "公众号", "公开样本", "内容质量", "选题", "投资理念", "HTML", "生产"],
+    },
     {
       id: "fund-risk-score-rules-2026-10-30",
       groupId: "ai-platform",
@@ -4101,6 +4115,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "yingmi-tamp-content-study-2026-10-30": "investment-research",
   "yingmi-ccs-capability-audit-2026-10-28": "governance-review",
   "yingmi-ai-capabilities-two-templates-2026-10-28": "reporting",
   "hiring-review-2026-10-27": "reporting",
@@ -4234,6 +4249,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "yingmi-tamp-content-study-2026-10-30": "research",
   "sidi-yingmi-deep-research-2026-10-29": "ai-platform",
   "candidate-evaluator-2026-10-29": "knowledge",
   "ai-tools-yingmi-links-2026-10-28": "ai-workbench",
