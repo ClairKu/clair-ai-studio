@@ -223,6 +223,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "kimi-yingmi-financial-research-2026-10-30",
+      groupId: "ai-platform",
+      title: "Kimi 金融布局 × 盈米合作沟通",
+      url: "https://clairku.github.io/clair-ai-studio/reports/kimi-yingmi-financial-research-2026-10-30/",
+      preview: "kimi-yingmi-financial-research-2026-10-30.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-30T14:20:00+08:00",
+      source: "公开来源核验：金融行业方案、数据与技能生态、机构案例；区分盈米历史模型对接与Kimi产品端服务分发，提出合作增量、首谈问题与四周试点验收。内部沟通证据仅本地保存；提案不代表双方已采纳或上线。",
+      access: "production",
+      workType: "reporting",
+      tags: ["Kimi", "月之暗面", "盈米基金", "金融AI", "MCP", "合作研究", "HTML", "生产"],
+    },
+    {
       id: "qieman-ai-xiaogu-intro-2026-10-30",
       groupId: "xiaogu",
       title: "且慢 AI 小顾｜产品介绍页",
@@ -4137,6 +4151,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "kimi-yingmi-financial-research-2026-10-30": "reporting",
   "yingmi-tamp-content-study-2026-10-30": "investment-research",
   "yingmi-ccs-capability-audit-2026-10-28": "governance-review",
   "yingmi-ai-capabilities-two-templates-2026-10-28": "reporting",
@@ -4271,6 +4286,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "kimi-yingmi-financial-research-2026-10-30": "ai-platform",
   "qieman-ai-xiaogu-intro-2026-10-30": "xiaogu",
   "yingmi-tamp-content-study-2026-10-30": "research",
   "sidi-yingmi-deep-research-2026-10-29": "ai-platform",

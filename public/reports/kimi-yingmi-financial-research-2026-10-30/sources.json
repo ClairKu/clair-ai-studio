@@ -1,0 +1,24 @@
+{
+  "report_title": "Kimi 金融布局 × 盈米合作沟通",
+  "as_of": "2026-10-30",
+  "timezone": "Asia/Shanghai",
+  "scope": "官方公开事实与明确标注的研究建议；非双方官方联合方案",
+  "method_limitations": [
+    "未进行独立产品测试、效果复现或合同审查",
+    "未采用内部沟通材料或未公开合作状态",
+    "本轮公开检索未发现Kimi端盈米插件上架或联合生产项目证明；未发现不等于不存在",
+    "试点数字为提案，不是实测业绩"
+  ],
+  "sources": [
+    {"id": 1, "publisher": "Kimi", "title": "Kimi 发布金融行业 AI 解决方案", "url": "https://www.kimi.com/news/kimi-financial-industry-ai-solution", "visible_updated_date": "2026-09-17", "accessed_date": "2026-10-30", "supports": ["10+数据源、9金融技能、5安全合规措施", "金融行业方案范围"], "limitations": "发布方产品披露，不等于独立效果、收入或机构付费规模证明"},
+    {"id": 2, "publisher": "Kimi", "title": "金融服务行业产品页", "url": "https://www.kimi.com/solutions/financial-services", "visible_updated_date": null, "accessed_date": "2026-10-30", "supports": ["金融场景定位", "可编辑成果交付"], "limitations": "页面展示不是生产运行统计"},
+    {"id": 3, "publisher": "Kimi", "title": "中信建投携手 Kimi，让大模型合规接入券商工作流", "url": "https://www.kimi.com/customers/csc-financial", "visible_updated_date": "2026-09-23", "accessed_date": "2026-10-30", "supports": ["债券存续期报告初稿的首轮场景验证", "业务人工复核与决策职责"], "limitations": "厂商案例披露；不能迁移为盈米预期效果"},
+    {"id": 4, "publisher": "Kimi", "title": "Kimi Work：面向知识工作的桌面级 AI 智能体", "url": "https://www.kimi.ai/zh-hans/resources/kimi-work-introduction", "visible_updated_date": "2026-10-08", "accessed_date": "2026-10-30", "supports": ["桌面工作流载体"], "limitations": "功能说明不是金融准确率证明"},
+    {"id": 5, "publisher": "Kimi", "title": "Kimi 插件：定义、安装与使用", "url": "https://www.kimi.com/help/plugins-and-skills/overview", "visible_updated_date": null, "accessed_date": "2026-10-30", "supports": ["插件组成", "地区、产品端与账号差异"], "limitations": "技术支持不等于伙伴上架、商业准入或目标用户可用"},
+    {"id": 6, "publisher": "Kimi", "title": "金融财务建模智能体设计", "url": "https://www.kimi.com/academy/financial-modeling-agent", "visible_updated_date": "2026-10-20", "accessed_date": "2026-10-30", "supports": ["数据来源、假设、缺失处理与任务边界"], "limitations": "指南不是准确率或SLA实测"},
+    {"id": 7, "publisher": "Kimi", "title": "深度研究与表格能力", "urls": ["https://www.kimi.com/features/deep-research", "https://www.kimi.com/features/sheets"], "visible_updated_date": null, "accessed_date": "2026-10-30", "supports": ["研究与文档、表格产物能力"], "limitations": "未采用缺少方法说明的效率宣传数字"},
+    {"id": 8, "publisher": "盈米基金", "title": "财富管理的“DeepSeek时刻”，盈米基金的AI变革之道", "url": "https://www.yingmi.cn/archives/529", "visible_updated_date": null, "accessed_date": "2026-10-30", "supports": ["与KIMI等模型的历史技术对接"], "limitations": "不能证明Kimi端盈米插件上架、联合签约或当前生产调用"},
+    {"id": 9, "publisher": "yingmi-dev", "title": "盈米 MCP 官方公开仓库", "url": "https://github.com/yingmi-dev/Yingmi-MCP", "visible_updated_date": null, "accessed_date": "2026-10-30", "supports": ["基金分析、资产配置等MCP能力与接入说明"], "limitations": "实际可用性、许可范围与接口版本需具体确认"},
+    {"id": 10, "publisher": "盈米基金", "title": "盈米“智审先知”合规审查平台入选2026年IDC金融行业AI创新案例50", "url": "https://yingmi.com/archives/991", "visible_updated_date": null, "event_date_in_body": "2026-10-23", "accessed_date": "2026-10-30", "supports": ["内容合规辅助", "TAMP和账户服务产品披露"], "limitations": "不以产品规模数字替代本合作的实际效果"}
+  ]
+}
