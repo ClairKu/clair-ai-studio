@@ -1,0 +1,61 @@
+{
+  "compiledAt": "2026-10-30T15:23:59+08:00",
+  "scope": "Existing authorized connections in Codex; no credentials included",
+  "catalogs": {
+    "vesta": {
+      "tools": 138,
+      "privateFundTools": 0
+    },
+    "stargateAuthorized": {
+      "tools": 69,
+      "privateFundTools": 0
+    },
+    "stargatePublicDocumentation": {
+      "operations": 782,
+      "getPrivateFundOperations": 6
+    }
+  },
+  "mcpCall": {
+    "method": "tools/call",
+    "params": {
+      "name": "GetPrivateFundStrategyTree",
+      "arguments": {}
+    },
+    "response": {
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "MCP error -32602: Tool GetPrivateFundStrategyTree not found"
+          }
+        ],
+        "isError": true
+      },
+      "jsonrpc": "2.0",
+      "id": 1
+    },
+    "latency_ms": 210
+  },
+  "documentedRouteTest": {
+    "tool": "GetPrivateFundStrategyTree",
+    "transport": "STARGATE documented REST route",
+    "method": "POST",
+    "arguments": {},
+    "httpStatus": 404,
+    "latencyMs": 195,
+    "response": {
+      "code": 404,
+      "message": "未找到路由: POST /v2/internal/oap/private-fund/meta/strategy-tree",
+      "data": null
+    }
+  },
+  "businessCases": {
+    "designed": 5,
+    "passed": 0,
+    "productSamplesReturned": 0
+  },
+  "screenshots": {
+    "catalog": "User-provided catalog screenshot",
+    "execution": "Not captured; execution receipts are raw protocol results, not UI screenshots"
+  }
+}

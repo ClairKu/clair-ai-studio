@@ -5,8 +5,8 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 269297,
-      "sha256": "4400b948025833c676bd258799b98169e16ac95e69856b7ff48f540f8fb8053a"
+      "bytes": 268989,
+      "sha256": "eb2a5b900557a26c9101d6694d53c69c98d35e7d323999b7b9454e3a410b9fbe"
     },
     {
       "path": "recommendation-data.json",
