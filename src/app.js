@@ -2842,7 +2842,7 @@ const initialState = {
       title: "千问 X 且慢AI小顾｜用户数据看板",
       url: "https://clairku.github.io/clair-ai-studio/reports/qianwen-user-acquisition-dashboard/",
       internalReportUrl: "https://ontology-dashboard.yingmi-inc.com/r/4c5e1086-99d9-4bef-8882-330459d7edf0",
-      internalReportLabel: "本体报告 · 完整历史视图与绑定核验 · 需盈米登录",
+      internalReportLabel: "本体看板 · 用户与提问可刷新 · 财资为历史对照",
       relatedLinks: [{
         label: "完整客群与口径 · 10月30日快照",
         url: "https://clairku.github.io/clair-ai-studio/reports/qianwen-user-acquisition-dashboard/complete-snapshot-20261030.html",
