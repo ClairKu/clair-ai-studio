@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 152;
+const DATA_VERSION = 153;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -222,6 +222,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "fund-risk-score-rules-2026-10-30",
+      groupId: "ai-platform",
+      title: "基金风险分的来源与边界",
+      url: "https://clairku.github.io/clair-ai-studio/reports/fund-risk-score-rules-2026-10-30/",
+      preview: "fund-risk-score-rules-2026-10-30.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-30T10:00:00+08:00",
+      source: "晨星公开术语与2026-05-30全球方法论的有限解释｜区分风险分、亏损概率和适当性等级，说明通常范围与100以上的边界、组合关系及无评分状态；不据全球文档确认当前中国MCP的模型、上限或降级规则，不含内部实现与生产样例。",
+      access: "production",
+      workType: "governance-review",
+      tags: ["基金风险", "晨星", "MPRS", "MCP", "指标口径", "公开方法", "HTML", "生产"],
+    },
     {
       id: "sidi-yingmi-deep-research-2026-10-29",
       groupId: "ai-platform",
@@ -4223,6 +4237,7 @@ const TOPIC_BY_REPORT = {
   "sidi-yingmi-deep-research-2026-10-29": "ai-platform",
   "candidate-evaluator-2026-10-29": "knowledge",
   "ai-tools-yingmi-links-2026-10-28": "ai-workbench",
+  "fund-risk-score-rules-2026-10-30": "ai-platform",
   "ai-wealth-interaction-deep-dive-2026-10-22": "xiaogu",
   "feidi-yingmi-cooperation-value-2026-10-28": "ai-platform",
   "composer-predictions-deep-dive-2026-10-28": "ai-workbench",
