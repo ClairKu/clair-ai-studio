@@ -2,7 +2,7 @@
   'use strict';
 
   const PLATFORM_NAMES = { unidentified: '未识别平台', workbuddy: 'WorkBuddy', doubao: '豆包', qwenwork: '千问办公 · qwenwork', 'qwenwork-preregistered': 'qwenwork-preregistered（独立项）', ima: 'ima' };
-  const SOURCE_NAMES = { all: '全部来源（分列）', key: 'API Key', oauth: 'OAuth MCP' };
+  const SOURCE_NAMES = { all: '全部来源（合计 + 分列）', key: 'API Key', oauth: 'OAuth MCP' };
   const SOURCE_IDS = ['key_daily', 'oauth_daily', 'key_windows', 'oauth_uniques', 'oauth_platforms', 'oauth_quality'];
   const KNOWN_WINDOWS = { '7d': 7, '30d': 30, '90d': 90 };
   const integer = value => Number.isSafeInteger(value) && value >= 0;
@@ -46,33 +46,47 @@
     return [...new Set(errors)];
   }
 
-  function oauthUnique(data, start, end, platform) {
-    if (end < data.snapshot.oauthStart || start > data.snapshot.maxDate) return null;
+  function oauthUniqueStats(data, start, end, platform) {
+    const unavailable = { accounts: null, reusedAccounts: null };
+    if (end < data.snapshot.oauthStart || start > data.snapshot.maxDate) return unavailable;
     const a = start < data.snapshot.oauthStart ? data.snapshot.oauthStart : start;
     const b = end > data.snapshot.maxDate ? data.snapshot.maxDate : end;
     const exact = data.oauthUniques.find(row => row.start === a && row.end === b && row.platform === platform);
-    if (exact) return exact.accounts;
+    if (exact) return { accounts: exact.accounts, reusedAccounts: exact.reusedAccounts };
     const observed = data.oauthDaily.filter(row => row.date >= a && row.date <= b && (platform === 'all' || row.platform === platform));
     const knownPlatform = data.oauthPlatforms.some(row => row.platform === platform);
     const collectedDays = datesBetween(a, b).every(date => data.oauthUniques.some(row => row.platform === 'all' && row.start === date && row.end === date));
-    if (!observed.length && platform !== 'all' && knownPlatform && collectedDays) return 0;
-    if (a === b && platform !== 'all' && observed.length === 1) return observed[0].activeAccounts;
-    return null;
+    if (!observed.length && platform !== 'all' && knownPlatform && collectedDays) return { accounts: 0, reusedAccounts: 0 };
+    if (a === b && platform !== 'all' && observed.length === 1) return { accounts: observed[0].activeAccounts, reusedAccounts: 0 };
+    return unavailable;
   }
+
+  function oauthUnique(data, start, end, platform) { return oauthUniqueStats(data, start, end, platform).accounts; }
+  function addObserved(values) { const known = values.filter(value => value !== null && value !== undefined); return known.length ? known.reduce((total, value) => total + value, 0) : null; }
 
   function aggregate(data, filter) {
     const start = filter.start, end = filter.end;
     const platform = filter.platform || 'all';
-    const source = platform !== 'all' ? 'oauth' : (filter.source || 'all');
+    const source = platform !== 'all' ? 'oauth' : (['all', 'key', 'oauth'].includes(filter.source) ? filter.source : 'all');
     const keyMap = new Map(data.keyDaily.map(row => [row.date, row]));
     const selectedKey = data.keyDaily.filter(row => row.date >= start && row.date <= end);
     const selectedOAuth = data.oauthDaily.filter(row => row.date >= start && row.date <= end && (platform === 'all' || row.platform === platform));
     const hasOAuthWindow = end >= data.snapshot.oauthStart && start <= data.snapshot.maxDate;
+    let cumulativeKey = null, cumulativeOAuth = null, cumulativeCombined = null;
     const daily = datesBetween(start, end).map(date => {
       const key = keyMap.get(date);
       const oauthRows = selectedOAuth.filter(row => row.date === date);
       const oauthObserved = date >= data.snapshot.oauthStart && date <= data.snapshot.maxDate && data.oauthUniques.some(row => row.platform === 'all' && row.start === date && row.end === date);
-      return { date, keyCalls: key ? key.calls : null, keyActive: key ? key.activeKeys : null, oauthCalls: oauthObserved ? sum(oauthRows, 'calls') : null, oauthActive: oauthObserved ? oauthUnique(data, date, date, platform) : null, partial: date === data.snapshot.partialDay };
+      const keyCalls = key ? key.calls : null, keyActive = key ? key.activeKeys : null;
+      const oauthCalls = oauthObserved ? sum(oauthRows, 'calls') : null;
+      const oauthActive = oauthObserved ? oauthUnique(data, date, date, platform) : null;
+      const combinedCalls = source === 'key' ? keyCalls : source === 'oauth' ? oauthCalls : addObserved([keyCalls, oauthCalls]);
+      const combinedActive = source === 'key' ? keyActive : source === 'oauth' ? oauthActive : addObserved([keyActive, oauthActive]);
+      if (keyCalls !== null) cumulativeKey = (cumulativeKey || 0) + keyCalls;
+      if (oauthCalls !== null) cumulativeOAuth = (cumulativeOAuth || 0) + oauthCalls;
+      if (combinedCalls !== null) cumulativeCombined = (cumulativeCombined || 0) + combinedCalls;
+      const coverage = source === 'key' ? (keyCalls === null ? '未采集' : '仅 API Key（所选来源）') : source === 'oauth' ? (oauthCalls === null ? 'OAuth 未采集' : '仅 OAuth（所选来源）') : keyCalls !== null && oauthCalls !== null ? 'API Key + OAuth' : keyCalls !== null ? '仅 API Key；OAuth 未采集' : oauthCalls !== null ? '仅 OAuth；Key 未采集' : '未采集';
+      return { date, keyCalls, keyActive, oauthCalls, oauthActive, combinedCalls, combinedActive, cumulativeKeyCalls: keyCalls === null ? null : cumulativeKey, cumulativeOAuthCalls: oauthCalls === null ? null : cumulativeOAuth, cumulativeCombinedCalls: combinedCalls === null ? null : cumulativeCombined, coverage, partial: date === data.snapshot.partialDay };
     });
     const keyWindow = data.keyWindows.find(row => row.start === start && row.end === end);
     const keyDistinct = keyWindow ? keyWindow.usedKeys : (start === end && keyMap.has(start) ? keyMap.get(start).activeKeys : null);
@@ -84,18 +98,54 @@
       return { platform: code, name: platformName(code), calls: hasOAuthWindow ? sum(scoped, 'calls') : null, accounts: hasOAuthWindow ? oauthUnique(data, start, end, code) : null };
     }).sort((a, b) => (b.calls || 0) - (a.calls || 0));
     const oauthCalls = hasOAuthWindow ? sum(selectedOAuth, 'calls') : null;
+    const oauthStats = oauthUniqueStats(data, start, end, platform);
     const unknownCalls = sum(selectedOAuth.filter(row => row.platform === 'unidentified'), 'calls');
+    const combineSubjects = (keyValue, oauthValue) => source === 'key' ? keyValue : source === 'oauth' ? oauthValue : keyValue === null ? null : !hasOAuthWindow ? keyValue : oauthValue === null ? null : keyValue + oauthValue;
+    const combinedUsedSubjects = combineSubjects(keyDistinct, oauthStats.accounts);
+    const combinedReusedSubjects = combineSubjects(keyReused, oauthStats.reusedAccounts);
+    const completeDaily = daily.filter(row => !row.partial && row.combinedCalls !== null);
+    const fullOAuth = daily.filter(row => !row.partial && row.oauthCalls !== null);
+    const combinedCalls = daily.some(row => row.combinedCalls !== null) ? sum(daily, 'combinedCalls') : null;
     return {
       start, end, source, platform, daily, platforms, selectedKey, selectedOAuth,
       keyCalls: sum(selectedKey, 'calls'), keyDistinct, keyReused,
       keyReuseRate: keyDistinct && keyReused !== null ? keyReused / keyDistinct : null,
       keyCompleteDays: fullKey.length, keyDailyAverage: fullKey.length ? sum(fullKey, 'calls') / fullKey.length : null,
-      oauthCalls, oauthAccounts: hasOAuthWindow ? oauthUnique(data, start, end, platform) : null,
+      oauthCalls, oauthAccounts: oauthStats.accounts, oauthReused: oauthStats.reusedAccounts,
+      oauthReuseRate: oauthStats.accounts && oauthStats.reusedAccounts !== null ? oauthStats.reusedAccounts / oauthStats.accounts : null,
+      oauthCompleteDays: fullOAuth.length, oauthDailyAverage: fullOAuth.length ? sum(fullOAuth, 'oauthCalls') / fullOAuth.length : null,
       oauthObservedDays: daily.filter(row => row.oauthCalls !== null).length,
+      combinedCalls, combinedUsedSubjects, combinedReusedSubjects,
+      combinedReuseRate: combinedUsedSubjects && combinedReusedSubjects !== null ? combinedReusedSubjects / combinedUsedSubjects : null,
+      combinedCompleteDays: completeDaily.length, combinedDailyAverage: completeDaily.length ? sum(completeDaily, 'combinedCalls') / completeDaily.length : null,
+      combinedCompleteCalls: completeDaily.length ? sum(completeDaily, 'combinedCalls') : null,
+      onlyKeyDays: source === 'all' ? daily.filter(row => row.keyCalls !== null && row.oauthCalls === null).length : 0,
+      completeOnlyKeyDays: source === 'all' ? completeDaily.filter(row => row.keyCalls !== null && row.oauthCalls === null).length : 0,
+      bothSourceDays: source === 'all' ? daily.filter(row => row.keyCalls !== null && row.oauthCalls !== null).length : 0,
       unknownCalls, unknownShare: oauthCalls ? unknownCalls / oauthCalls : null,
       hasPartialDay: start <= data.snapshot.partialDay && end >= data.snapshot.partialDay,
       keyDistinctNote: keyWindow ? '服务端固定窗口去重' : start === end ? '单日活跃 Key' : '需到本体重查，不能累加每日活跃 Key'
     };
+  }
+
+  function buildView(data, filter, exportedAt) {
+    const model = aggregate(data, filter);
+    const scope = { start: model.start, end: model.end, source: model.source, platform: model.platform, timezone: 'Asia/Shanghai', includesPartialDay: model.hasPartialDay, onlyKeyDays: model.onlyKeyDays, bothSourceDays: model.bothSourceDays };
+    const daily = model.daily.map(row => {
+      const value = { date: row.date, observedCallTotal: row.combinedCalls, cumulativeObservedCalls: row.cumulativeCombinedCalls, activeIdentitySubjectTotal: row.combinedActive, sourceCoverage: row.coverage, partial: row.partial };
+      if (model.source !== 'oauth') Object.assign(value, { keyCalls: row.keyCalls, cumulativeKeyCalls: row.cumulativeKeyCalls, keyActiveKeys: row.keyActive });
+      if (model.source !== 'key') Object.assign(value, { oauthMcpSuccessfulCalls: row.oauthCalls, cumulativeOAuthCalls: row.cumulativeOAuthCalls, oauthDistinctAccounts: row.oauthActive });
+      return value;
+    });
+    const summary = { observedCallTotal: model.combinedCalls, usedIdentitySubjectTotal: model.combinedUsedSubjects, reusedIdentitySubjectTotal: model.combinedReusedSubjects, combinedReuseRate: model.combinedReuseRate, completeDayObservedCallAverage: model.combinedDailyAverage, completeDays: model.combinedCompleteDays, crossSourceIdentityDeduplicated: false };
+    if (model.source !== 'oauth') Object.assign(summary, { keyCalls: model.keyCalls, keyUsedKeys: model.keyDistinct, keyReusedKeys: model.keyReused, keyCompleteDayAverage: model.keyDailyAverage, keyCompleteDays: model.keyCompleteDays });
+    if (model.source !== 'key') Object.assign(summary, { oauthMcpSuccessfulCalls: model.oauthCalls, oauthDistinctAccounts: model.oauthAccounts, oauthReusedAccounts: model.oauthReused, oauthCompleteDayAverage: model.oauthDailyAverage, unknownPlatformCallShare: model.unknownShare });
+    return { schemaVersion: 'stargate-view-v2', exportedAt: exportedAt || new Date().toISOString(), scope, cutoffDate: data.snapshot.cutoffDate, summary, daily, oauthPlatforms: model.source !== 'key' ? model.platforms : [], sourceTimestamps: data.sources, notes: ['记录调用合计 = API Key 日聚合调用 + OAuth MCP 成功调用；表示组合范围内已观测记录。', '身份主体合计 = 使用 Key + OAuth 区间去重账户，未跨来源去重，不是自然人数。', '复用主体合计在各来源内跨至少2日；复用率用合计分子÷合计分母重算，不相加百分比。', 'OAuth 采集起点前仍为 null；合计在这些日期仅覆盖 Key，来源覆盖逐日列示。', '平台筛选仅 OAuth；当日 partial，来源查询非统一事务快照。'] };
+  }
+
+  function buildCsvRows(view) {
+    const scope = { start: view.scope.start, end: view.scope.end, source: view.scope.source, platform: view.scope.platform };
+    return [Object.assign({ recordType: 'summary' }, scope, view.summary)].concat(view.daily.map(row => Object.assign({ recordType: 'daily' }, scope, row)));
   }
 
   function selfCheck(data) {
@@ -114,10 +164,12 @@
     const dailyDistinctSum = data.oauthUniques.filter(row => row.platform === 'all' && row.start === row.end).reduce((total, row) => total + row.accounts, 0);
     checks.push({ ok: !!distinct && distinct.accounts <= dailyDistinctSum, label: 'OAuth 去重独立取值', detail: distinct ? '区间 ' + fmt(distinct.accounts) + '；每日人数相加为 ' + fmt(dailyDistinctSum) + '，未用求和替代去重' : '缺少区间去重结果' });
     checks.push({ ok: validateData(data).length === 0, label: '字段与非负数校验', detail: '日期、计数、来源时间与重复行检查' });
+    checks.push({ ok: model.daily.every(row => row.combinedCalls === addObserved([row.keyCalls, row.oauthCalls])), label: '逐日调用合计一致', detail: '合计等于当日已观测 Key 与 OAuth 构成；OAuth 空值保留' });
+    checks.push({ ok: model.daily.length > 0 && model.daily[model.daily.length - 1].cumulativeCombinedCalls === model.combinedCalls, label: '累计与区间合计一致', detail: '累计末值 = 当前筛选区间的已观测调用合计' });
     return checks;
   }
 
-  global.StargateReportModel = Object.freeze({ aggregate, validateData, selfCheck, oauthUnique, datesBetween });
+  global.StargateReportModel = Object.freeze({ aggregate, validateData, selfCheck, oauthUnique, oauthUniqueStats, datesBetween, buildView, buildCsvRows });
   if (typeof document === 'undefined' || !document.getElementById('report-root')) return;
 
   let DATA;
@@ -177,15 +229,31 @@
 
   function renderKpis() {
     const container = $('overview-kpis'); container.replaceChildren();
+    const components = $('component-kpis'); components.replaceChildren();
+    const combined = model.source === 'all';
+    $('component-details').hidden = !combined;
+    container.classList.toggle('combined-kpis', combined);
+    if (combined) {
+      const oauthCallsPart = model.oauthCalls === null ? 'OAuth 未采集' : fmt(model.oauthCalls) + ' OAuth';
+      const identityParts = model.combinedUsedSubjects === null ? '当前区间缺少 Key 或 OAuth 的区间去重结果，需到本体重查。' : fmt(model.keyDistinct) + ' Key + ' + (model.oauthAccounts === null ? 'OAuth 未采集' : fmt(model.oauthAccounts) + ' OAuth') + '；未跨来源去重的身份主体数。';
+      const reuseParts = model.combinedReusedSubjects === null ? '去重分子或分母不可推导，需到本体重查。' : fmt(model.keyReused) + ' Key + ' + (model.oauthReused === null ? 'OAuth 未采集' : fmt(model.oauthReused) + ' OAuth') + '；合计复用率 ' + percent(model.combinedReuseRate) + '。';
+      container.append(card('已观测调用合计', fmt(model.combinedCalls), '次', fmt(model.keyCalls) + ' Key + ' + oauthCallsPart + '；两类记录组合。', { accent: true, badge: '合计' }));
+      container.append(card('使用主体合计', model.combinedUsedSubjects === null ? '需重查' : fmt(model.combinedUsedSubjects), model.combinedUsedSubjects === null ? '' : '主体', identityParts, { accent: true, badge: '未跨源去重' }));
+      container.append(card('复用主体合计', model.combinedReusedSubjects === null ? '需重查' : fmt(model.combinedReusedSubjects), model.combinedReusedSubjects === null ? '' : '主体', reuseParts, { badge: '各源跨 ≥2 日' }));
+      container.append(card('完整日日均 · 合计', decimal(model.combinedDailyAverage), '次/日', '剔除今日，共 ' + model.combinedCompleteDays + ' 天；其中 ' + model.completeOnlyKeyDays + ' 天仅 Key 已观测记录。', { badge: '不含今日' }));
+    }
+    const split = combined ? components : container;
     if (model.source !== 'oauth') {
-      container.append(card('API Key · 区间调用', fmt(model.keyCalls), '次', '日聚合调用记录求和；统计主体为 Key。', { accent: true, badge: 'Key' }));
-      container.append(card('API Key · 使用 Key', model.keyDistinct === null ? '需重查' : fmt(model.keyDistinct), model.keyDistinct === null ? '' : '个', model.keyDistinctNote + '；不是去重自然人数。', { badge: '去重主体' }));
-      container.append(card('API Key · 完整日日均', decimal(model.keyDailyAverage), '次/日', '剔除 ' + DATA.snapshot.partialDay + '，共 ' + model.keyCompleteDays + ' 个完整自然日。', { badge: '不含今日' }));
+      split.append(card('API Key · 区间调用', fmt(model.keyCalls), '次', '日聚合调用记录求和；统计主体为 Key。', { badge: 'Key' }));
+      split.append(card('API Key · 使用 Key', model.keyDistinct === null ? '需重查' : fmt(model.keyDistinct), model.keyDistinct === null ? '' : '个', model.keyDistinctNote + '；不是去重自然人数。', { badge: '凭据' }));
+      split.append(card('API Key · 跨日复用', fmt(model.keyReused), model.keyReused === null ? '' : '个', '同窗口跨 ≥2 日；复用比例 ' + percent(model.keyReuseRate) + '。', { badge: 'Key' }));
+      split.append(card('API Key · 完整日日均', decimal(model.keyDailyAverage), '次/日', '剔除今日，共 ' + model.keyCompleteDays + ' 个完整自然日。', { badge: '不含今日' }));
     }
     if (model.source !== 'key') {
-      container.append(card('OAuth MCP · 成功调用', fmt(model.oauthCalls), model.oauthCalls === null ? '' : '次', model.oauthCalls === null ? '所选范围早于 OAuth 采集起点。' : '仅已采集 ' + model.oauthObservedDays + ' 天，MCP 成功调用口径。', { accent: true, badge: 'OAuth' }));
-      container.append(card('OAuth · 区间去重账户', fmt(model.oauthAccounts), model.oauthAccounts === null ? '' : '个', model.oauthAccounts === null ? '当前区间无已验证去重结果。' : '直接读取区间去重聚合，未累加每日或平台人数。', { badge: '账户' }));
-      container.append(card('未识别平台 · 调用占比', percent(model.unknownShare), '', filter.platform === 'all' ? '当前 OAuth 筛选范围；未知来源独立展示。' : '已筛选单一平台；占比仅代表当前视图。', { badge: '归因质量', badgeType: 'warning' }));
+      split.append(card('OAuth MCP · 成功调用', fmt(model.oauthCalls), model.oauthCalls === null ? '' : '次', model.oauthCalls === null ? '所选范围早于 OAuth 采集起点。' : '仅已采集 ' + model.oauthObservedDays + ' 天，MCP 成功调用口径。', { badge: 'OAuth' }));
+      split.append(card('OAuth · 区间去重账户', fmt(model.oauthAccounts), model.oauthAccounts === null ? '' : '个', model.oauthAccounts === null ? '当前区间无已验证去重结果。' : '直接读取区间去重聚合，未累加每日或平台人数。', { badge: '账户' }));
+      split.append(card('OAuth · 跨日复用账户', fmt(model.oauthReused), model.oauthReused === null ? '' : '个', '各账户跨 ≥2 日；当前比例 ' + percent(model.oauthReuseRate) + '，不代表周月留存。', { badge: 'OAuth' }));
+      split.append(card('OAuth · 完整日日均', decimal(model.oauthDailyAverage), '次/日', '剔除今日，仅 ' + model.oauthCompleteDays + ' 个已采集完整日；与合计日均的天数不同。', { badge: '已采集日' }));
     }
     text('selected-scope', filter.start + ' — ' + filter.end + ' · ' + SOURCE_NAMES[model.source] + (filter.platform === 'all' ? '' : ' · ' + platformName(filter.platform)));
     text('range-status', model.hasPartialDay ? '包含 10/30 不完整日，禁止与完整日直接比较' : '仅包含已结束自然日');
@@ -194,37 +262,46 @@
     text('platform-filter-note', '平台筛选已自动切换至 OAuth。Key 记录没有可验证的平台归属，未将 Key 强行绑定到该平台。');
     $('no-oauth-note').hidden = model.source === 'key' || model.oauthObservedDays > 0;
     text('no-oauth-note', '所选范围早于 2026-10-29，OAuth 尚无已采集历史。图表与表格保留空值，不补零。');
-    text('overview-note', 'API Key 日聚合调用与 OAuth MCP 成功调用尚未验证计量等价，因此分卡分系列展示，不提供两者相加的“总调用”。Key 与 OAuth 账户主体也不合并成人数。');
+    text('overview-note', combined ? '记录调用合计 = API Key 日聚合调用 + OAuth MCP 成功调用。主体合计为 Key 凭据 + OAuth 去重账户，未跨来源去重。当前 ' + model.bothSourceDays + ' 天双来源、' + model.onlyKeyDays + ' 天仅 Key 记录；OAuth 未采集不代表 0。' : '当前仅展示 ' + SOURCE_NAMES[model.source] + (model.platform !== 'all' ? ' · ' + platformName(model.platform) : '') + '。选择“全部来源”查看记录调用与身份主体合计，平台筛选保持仅 OAuth。');
   }
 
   function trendColumns() {
     const cols = [{ label: '日期（上海）', key: 'date' }];
+    if (model.source === 'all') cols.push({ label: '已观测调用合计', numeric: true, value: row => fmt(row.combinedCalls) }, { label: '累计调用合计', numeric: true, value: row => fmt(row.cumulativeCombinedCalls) }, { label: '日活主体合计（未跨源去重）', numeric: true, value: row => fmt(row.combinedActive) });
     if (model.source !== 'oauth') cols.push({ label: 'Key 调用', numeric: true, value: row => fmt(row.keyCalls) }, { label: '单日活跃 Key', numeric: true, value: row => fmt(row.keyActive) });
     if (model.source !== 'key') cols.push({ label: 'OAuth MCP 成功调用', numeric: true, value: row => row.oauthCalls === null ? '未采集' : fmt(row.oauthCalls) }, { label: 'OAuth 单日去重账户', numeric: true, value: row => row.oauthActive === null ? '未采集' : fmt(row.oauthActive) });
-    cols.push({ label: '完整性', value: row => badge(row.partial ? '今日不完整' : '完整自然日', row.partial ? 'warning' : 'neutral') });
+    if (model.source !== 'all') cols.push({ label: '区间累计调用', numeric: true, value: row => fmt(row.cumulativeCombinedCalls) });
+    cols.push({ label: '来源覆盖', value: row => row.coverage }, { label: '完整性', value: row => badge(row.partial ? '今日不完整' : '完整自然日', row.partial ? 'warning' : 'neutral') });
     return cols;
   }
 
   function renderTrends() {
     charts.forEach(chart => chart.destroy()); charts = [];
-    const showKey = model.source !== 'oauth', showOAuth = model.source !== 'key';
-    $('key-trend-card').hidden = !showKey || filter.mode === 'table';
-    $('oauth-trend-card').hidden = !showOAuth || filter.mode === 'table';
-    $('trend-charts').classList.toggle('is-single', model.source !== 'all');
+    const combined = model.source === 'all';
+    $('combined-trend-card').hidden = !combined || filter.mode === 'table';
+    $('key-trend-card').hidden = model.source !== 'key' || filter.mode === 'table';
+    $('oauth-trend-card').hidden = model.source !== 'oauth' || filter.mode === 'table';
+    $('trend-charts').classList.add('is-single');
     $('trend-table').hidden = filter.mode !== 'table';
-    const metric = filter.metric === 'active' ? 'active' : 'calls';
+    const metric = ['active', 'cumulative'].includes(filter.metric) ? filter.metric : 'calls';
     const annotations = [{ date: DATA.snapshot.oauthStart, label: 'OAuth 采集起点 · 10/29', color: '#a87537' }];
     const base = { xKey: 'date', height: 292, mode: filter.mode, allowToggle: false, valueFormatter: fmt };
-    if (filter.mode === 'table') rowTable($('trend-table'), trendColumns(), model.daily, { caption: '当前筛选每日聚合。空值表示尚未采集；0 仅用于采集开始后的无记录日。' });
+    const keyMetric = metric === 'active' ? 'keyActive' : metric === 'cumulative' ? 'cumulativeKeyCalls' : 'keyCalls';
+    const oauthMetric = metric === 'active' ? 'oauthActive' : metric === 'cumulative' ? 'cumulativeOAuthCalls' : 'oauthCalls';
+    const combinedMetric = metric === 'active' ? 'combinedActive' : metric === 'cumulative' ? 'cumulativeCombinedCalls' : 'combinedCalls';
+    if (filter.mode === 'table') rowTable($('trend-table'), trendColumns(), model.daily, { caption: '当前筛选每日聚合与区间累计。合计仅使用已观测记录，OAuth 空值保留，并逐日列示来源覆盖。' });
     else {
-      if (showKey) charts.push(StargateCharts.line($('key-trend'), model.daily, [{ key: metric === 'calls' ? 'keyCalls' : 'keyActive', label: metric === 'calls' ? 'Key 调用记录' : '单日活跃 Key', color: '#193b64' }], Object.assign({}, base, { yLabel: metric === 'calls' ? '次' : 'Key' })));
-      if (showOAuth) charts.push(StargateCharts.line($('oauth-trend'), model.daily, [{ key: metric === 'calls' ? 'oauthCalls' : 'oauthActive', label: metric === 'calls' ? 'OAuth MCP 成功调用' : 'OAuth 去重账户', color: '#087f8c' }], Object.assign({}, base, { annotations, yLabel: metric === 'calls' ? '次' : '账户' })));
+      if (combined) charts.push(StargateCharts.line($('combined-trend'), model.daily, [{ key: combinedMetric, label: metric === 'active' ? '日活主体合计（未跨源去重）' : '已观测调用合计', color: '#087f8c' }, { key: keyMetric, label: metric === 'active' ? 'Key 活跃凭据' : 'API Key 调用记录', color: '#193b64' }, { key: oauthMetric, label: metric === 'active' ? 'OAuth 去重账户' : 'OAuth MCP 成功调用', color: '#d48835' }], Object.assign({}, base, { annotations, yLabel: metric === 'active' ? '身份主体' : '次' })));
+      if (model.source === 'key') charts.push(StargateCharts.line($('key-trend'), model.daily, [{ key: keyMetric, label: metric === 'active' ? '单日活跃 Key' : 'Key 调用记录', color: '#193b64' }], Object.assign({}, base, { yLabel: metric === 'active' ? 'Key' : '次' })));
+      if (model.source === 'oauth') charts.push(StargateCharts.line($('oauth-trend'), model.daily, [{ key: oauthMetric, label: metric === 'active' ? 'OAuth 去重账户' : 'OAuth MCP 成功调用', color: '#087f8c' }], Object.assign({}, base, { annotations, yLabel: metric === 'active' ? '账户' : '次' })));
     }
-    text('key-trend-subtitle', metric === 'calls' ? '调用记录日聚合 · 独立纵轴' : 'API Key 凭据 · 非自然人数 · 独立纵轴');
-    text('oauth-trend-subtitle', metric === 'calls' ? '仅 MCP 成功调用 · 独立纵轴' : '每日账户去重 · 不可相加为区间账户');
+    text('combined-trend-title', metric === 'active' ? '日活主体合计与构成' : metric === 'cumulative' ? '累计已观测调用与构成' : '已观测调用合计与构成');
+    text('combined-trend-subtitle', metric === 'active' ? 'Key 凭据 + OAuth 账户，未跨来源去重；日活不能相加为区间去重主体' : metric === 'cumulative' ? '从当前筛选起始日累计，末值与区间调用合计一致' : '同轴显示合计与两项构成；可用图例单独查看任一来源');
+    text('key-trend-subtitle', metric === 'active' ? 'API Key 凭据 · 非自然人数' : metric === 'cumulative' ? '当前区间累计调用记录' : '调用记录日聚合');
+    text('oauth-trend-subtitle', metric === 'active' ? '每日账户去重 · 不可相加为区间账户' : metric === 'cumulative' ? '当前区间累计 MCP 成功调用' : '仅 MCP 成功调用');
     document.querySelectorAll('[data-chart-mode]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.chartMode === filter.mode)));
     document.querySelectorAll('[data-chart-metric]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.chartMetric === filter.metric)));
-    text('trend-footnote', '两个来源使用独立纵轴，比较量级请看卡片与数值。OAuth 采集起点前留空；10/30 为截至采集时刻的部分数据。图例可开关指标；Tab 与方向键可查看数据点。');
+    text('trend-footnote', combined ? '合计 = 当日已观测 Key + OAuth 记录。10/29 前合计仅覆盖 Key，OAuth 系列仍留空；日活主体合计未跨来源去重。图例可开关三条序列，表格与导出包含来源覆盖；10/30 今日不完整。' : '当前单一来源视图；累计从所选起始日计算。OAuth 起点前留空，10/30 今日不完整。图例可开关指标；Tab 与方向键可查看数据点。');
   }
 
   function renderPlatforms() {
@@ -265,14 +342,18 @@
   function renderKeyWindows() {
     $('key-window-section').hidden = model.source === 'oauth';
     if (model.source === 'oauth') return;
-    rowTable($('key-window-table'), [
+    const combined = model.source === 'all';
+    const windows = DATA.keyWindows.slice().sort((a, b) => KNOWN_WINDOWS[a.code] - KNOWN_WINDOWS[b.code]).map(row => Object.assign({}, row, { view: aggregate(DATA, { start: row.start, end: row.end, source: model.source, platform: 'all' }) }));
+    const columns = [
       { label: '固定窗口', value: row => row.code.toUpperCase() + ' · ' + dateLabel(row.start) + '—' + dateLabel(row.end) },
-      { label: '调用记录', numeric: true, value: row => fmt(row.calls) },
-      { label: '使用 Key', numeric: true, value: row => fmt(row.usedKeys) },
-      { label: '跨 ≥2 日复用 Key', numeric: true, value: row => fmt(row.reusedKeys) },
-      { label: '窗口复用比例', numeric: true, value: row => row.usedKeys ? percent(row.reusedKeys / row.usedKeys) : '—' }
-    ], DATA.keyWindows.slice().sort((a, b) => KNOWN_WINDOWS[a.code] - KNOWN_WINDOWS[b.code]), { caption: '独立固定窗口参考，均截至 10/30；本表不随上方日期改变。窗口长度不同，比例不可当作留存率或增长比较。' });
-    text('key-selected-reuse', model.keyReused === null ? '当前自定义区间无法由日汇总推导去重 Key 与跨日复用 Key，请到本体重查。' : '当前筛选：使用 Key ' + fmt(model.keyDistinct) + '，跨至少 2 个自然日出现 ' + fmt(model.keyReused) + '，窗口复用比例 ' + percent(model.keyReuseRate) + '。');
+      { label: combined ? '已观测调用合计' : 'Key 调用记录', numeric: true, value: row => fmt(row.view.combinedCalls) },
+      { label: combined ? '使用主体合计' : '使用 Key', numeric: true, value: row => fmt(row.view.combinedUsedSubjects) },
+      { label: combined ? '复用主体合计' : '跨 ≥2 日复用 Key', numeric: true, value: row => fmt(row.view.combinedReusedSubjects) },
+      { label: combined ? '合计复用率' : 'Key 窗口复用比例', numeric: true, value: row => percent(row.view.combinedReuseRate) }
+    ];
+    if (combined) columns.push({ label: 'Key 构成（使用 / 复用）', value: row => fmt(row.view.keyDistinct) + ' / ' + fmt(row.view.keyReused) }, { label: 'OAuth 构成（使用 / 复用）', value: row => fmt(row.view.oauthAccounts) + ' / ' + fmt(row.view.oauthReused) });
+    rowTable($('key-window-table'), columns, windows, { caption: '独立固定窗口参考，均截至 10/30，不随上方日期改变。合计主体未跨来源去重；OAuth 仅覆盖 10/29—10/30。不同长度窗口比例不代表留存或增长。' });
+    text('key-selected-reuse', model.combinedReusedSubjects === null ? '当前自定义区间缺少所需区间去重主体或复用结果，合计主体与比例需到本体重查；不累加每日活跃推导。' : combined ? '当前筛选：使用主体合计 ' + fmt(model.combinedUsedSubjects) + ' = ' + fmt(model.keyDistinct) + ' Key + ' + (model.oauthAccounts === null ? 'OAuth 未采集' : fmt(model.oauthAccounts) + ' OAuth') + '；复用主体合计 ' + fmt(model.combinedReusedSubjects) + '，合计复用率 ' + percent(model.combinedReuseRate) + '。复用按各来源内跨 ≥2 日统计，不额外推断跨来源复用。' : '当前筛选：使用 Key ' + fmt(model.keyDistinct) + '，跨至少 2 个自然日出现 ' + fmt(model.keyReused) + '，窗口复用比例 ' + percent(model.keyReuseRate) + '。');
   }
 
   function renderQuality() {
@@ -312,7 +393,7 @@
     text('recommendation-unknown', '本次完整采集范围中，' + fmt(unknown) + ' / ' + fmt(allOAuth) + ' 次 OAuth 调用来自未识别平台，占 ' + percent(unknown / allOAuth) + '。先补可信平台映射与未知来源分层，再判断渠道贡献。qwenwork-preregistered 保留独立项。');
     const keyThirty = DATA.keyWindows.find(row => row.code === '30d');
     const allModel = keyThirty ? aggregate(DATA, { start: keyThirty.start, end: keyThirty.end, platform: 'all', source: 'all' }) : model;
-    text('recommendation-key', '近 30 日有 ' + fmt(keyThirty ? keyThirty.usedKeys : null) + ' 个使用 Key，跨至少 2 日复用 ' + fmt(keyThirty ? keyThirty.reusedKeys : null) + ' 个；剔除今日后完整日日均 ' + decimal(allModel.keyDailyAverage) + ' 次。运营观察可基于这些已核验窗口，避免把 Key 数写成服务人数。');
+    text('recommendation-key', '近 30 日已观测调用合计 ' + fmt(allModel.combinedCalls) + ' 次，使用主体合计 ' + fmt(allModel.combinedUsedSubjects) + '，复用主体合计 ' + fmt(allModel.combinedReusedSubjects) + '；合计复用率 ' + percent(allModel.combinedReuseRate) + '。主体未跨来源去重，合计日均 ' + decimal(allModel.combinedDailyAverage) + ' 次也包含 OAuth 起点前仅 Key 的记录。');
     text('recommendation-oauth', 'OAuth 仅从 10/29 开始采集，共 2 天，且 10/30 尚未结束。当前可观察平台结构与采集质量；增长、环比、同比、周月留存结论均等待完整观察周期。');
   }
 
@@ -333,8 +414,11 @@
     platformSelect.value = filter.platform;
     document.querySelectorAll('[data-native-link]').forEach(link => { link.href = nativeUrl(DATA.nativeReportUrl); });
     const pending = new URL(nativeUrl(DATA.nativeReportUrl)).pathname === '/';
-    document.querySelectorAll('[data-native-link]').forEach(link => { link.textContent = pending ? '打开本体动态报告模块' : '本体实时重查'; });
-    text('native-link-status', pending ? '本体原生报告创建中；当前入口指向本体首页。' : '本体原生报告已保存：本人私有、未审核，可实时重查。支持平台 → 分页用户 → 调用详情，含账户摘要、按日统计；工具 Top20 仅 OAuth，最长 90 天，不补无来源资料。');
+    const combinedPending = (DATA.evidence || {}).nativeCombinedStatus === 'pending_service';
+    document.querySelectorAll('[data-native-link]').forEach(link => { link.textContent = pending ? '打开本体动态报告模块' : combinedPending ? '查看本体报告' : '本体实时重查'; });
+    text('native-link-status', pending ? '本体原生报告创建中；当前入口指向本体首页。' : '本体原生报告已保存：本人私有、未审核' + (combinedPending ? '。' : '，可实时重查。') + '支持平台 → 分页用户 → 调用详情，含账户摘要、按日统计；工具 Top20 仅 OAuth，最长 90 天，不补无来源资料。');
+    $('native-combined-status').hidden = !combinedPending;
+    text('native-combined-status', combinedPending ? '本体查询服务暂不可用，合计扩展尚未保存；现可查看最近成功快照。' : '');
     text('snapshot-label', DATA.snapshot.mode);
     text('data-cutoff', '统计截止 ' + DATA.snapshot.cutoffDate + ' · 上海时区');
     renderQuality(); renderRecommendations(); render();
@@ -354,23 +438,15 @@
     return '"' + textValue.replaceAll('"', '""') + '"';
   }
   function exportView(format) {
-    const context = { start: filter.start, end: filter.end, source: model.source, platform: filter.platform, timezone: 'Asia/Shanghai', includesPartialDay: model.hasPartialDay };
-    const daily = model.daily.map(row => {
-      const value = { date: row.date, partial: row.partial };
-      if (model.source !== 'oauth') { value.keyCalls = row.keyCalls; value.keyActiveKeys = row.keyActive; }
-      if (model.source !== 'key') { value.oauthMcpSuccessfulCalls = row.oauthCalls; value.oauthDistinctAccounts = row.oauthActive; }
-      return value;
-    });
+    const output = buildView(DATA, filter);
+    const daily = output.daily;
     const filename = 'stargate-' + filter.start + '-' + filter.end + '-' + model.source;
     if (format === 'csv') {
-      const keys = Object.keys(daily[0] || { date: '' });
-      const rows = [keys.map(csvCell).join(',')].concat(daily.map(row => keys.map(key => csvCell(row[key])).join(',')));
+      const records = buildCsvRows(output);
+      const keys = [...new Set(records.flatMap(row => Object.keys(row)))];
+      const rows = [keys.map(csvCell).join(',')].concat(records.map(row => keys.map(key => csvCell(row[key])).join(',')));
       download(filename + '.csv', '\uFEFF' + rows.join('\r\n'), 'text/csv;charset=utf-8');
     } else {
-      const summary = {};
-      if (model.source !== 'oauth') Object.assign(summary, { keyCalls: model.keyCalls, keyUsedKeys: model.keyDistinct, keyReusedKeys: model.keyReused, keyCompleteDayAverage: model.keyDailyAverage, keyCompleteDays: model.keyCompleteDays });
-      if (model.source !== 'key') Object.assign(summary, { oauthMcpSuccessfulCalls: model.oauthCalls, oauthDistinctAccounts: model.oauthAccounts, unknownPlatformCallShare: model.unknownShare });
-      const output = { schemaVersion: 'stargate-view-v1', exportedAt: new Date().toISOString(), scope: context, cutoffDate: DATA.snapshot.cutoffDate, summary, daily, oauthPlatforms: model.source !== 'key' ? model.platforms : [], sourceTimestamps: DATA.sources, notes: ['Key 与 OAuth 调用口径未验证等价，未相加。', 'Key 是 API Key 凭据，OAuth 为去重账户；账户数不累加。', 'OAuth 采集起点前 null；当日 partial。', '来源查询非统一事务快照。'] };
       download(filename + '.json', JSON.stringify(output, null, 2), 'application/json;charset=utf-8');
     }
     toast('已导出当前筛选的 ' + format.toUpperCase() + '，文件仅保存在本地。');

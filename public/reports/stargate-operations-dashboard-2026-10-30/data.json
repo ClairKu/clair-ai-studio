@@ -9,7 +9,7 @@
     "maxDate": "2026-10-30",
     "partialDay": "2026-10-30",
     "oauthStart": "2026-10-29",
-    "mode": "聚合快照 · 可交互筛选",
+    "mode": "聚合快照 · 合计与分列交互",
     "scopeNote": "全空间生产只读聚合；与本体同口径，不含个人、机构或 API Key 明细。"
   },
   "sources": [
@@ -800,7 +800,18 @@
     ],
     "sourceBasis": "两份显式关联 QMRD-47383 的设计规格及已上线源码；本页不构成工单逐字验收。",
     "nativeScope": "本体原生报告已保存为本人私有、未审核版本，支持真实参数查询及平台 → 分页用户 → 调用详情三级下钻，提供选中账户摘要、按日调用；工具 Top20 仅 OAuth，最长 90 天，不包含任何无来源资料。明细仅在本体私有域，工作台只保留聚合。",
-    "workspaceComparison": "本页与本体采用全空间口径。全空间 Key 15,920，官方工作空间 15,854，其余 7 个空间合计 66；全空间近 30 日调用 4,655,991，官方工作空间 4,576,212。差异来自工作空间过滤，比较前需统一范围。"
+    "workspaceComparison": "本页与本体采用全空间口径。全空间 Key 15,920，官方工作空间 15,854，其余 7 个空间合计 66；全空间近 30 日 Key 调用 4,655,991，官方工作空间 Key 调用 4,576,212。差异来自工作空间过滤，比较前需统一范围。",
+    "combinedView": "按用户明确要求新增合计为默认主视图，同时保留Key/OAuth构成；继续使用原授权聚合快照，不刷新个人或Key明细。",
+    "nativeCombinedStatus": "pending_service"
   },
-  "nativeReportStatus": "saved_private_unreviewed"
+  "nativeReportStatus": "saved_private_unreviewed",
+  "combinationPolicy": {
+    "calls": "记录调用合计 = API Key日聚合调用 + OAuth MCP成功调用，表示两类已观测记录的组合。",
+    "identities": "使用主体合计 = 使用Key + OAuth区间去重账户，是未跨来源去重的身份主体数，不是自然人数。",
+    "reuse": "复用主体合计 = 同窗跨至少2日复用Key + OAuth跨至少2日复用账户；复用率 = 合计复用主体 / 合计使用主体，不相加百分比。",
+    "history": "OAuth自2026-10-29起采集，之前保持null；此前已观测合计仅覆盖Key，逐日说明来源覆盖。",
+    "dailyAverage": "先对每个完整自然日的所选来源已观测调用合计，再除以这些完整日天数，剔除当日。",
+    "platformFilter": "仅OAuth可归因到平台；平台筛选时只看OAuth，不拼入整个Key总量。",
+    "unavailableDimensions": "工具和机构缺少两侧对齐数据，暂无法合计。"
+  }
 }
