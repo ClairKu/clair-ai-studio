@@ -16,12 +16,12 @@
   },
   "metrics": {
     "application_coverage": {
-      "api_key": 15360,
+      "api_key": 15361,
       "oauth": 6842,
-      "sum": 22202,
+      "sum": 22203,
       "overlap": 1278,
-      "deduplicated": 20924,
-      "scope": "Key申请表非空账号去重 + qieman渠道主动交互授权账号，排已知测试；无账号申请另列"
+      "deduplicated": 20925,
+      "scope": "Key申请表账号去重（缺失时以关联Key补齐） + qieman渠道主动交互授权账号，排已知测试；无法映射的申请另列"
     },
     "recorded_calls": {
       "api_key": 23879691,
@@ -48,8 +48,11 @@
       "yingchat": 17,
       "ympkc": 4
     },
-    "key_application_rows": 15412,
-    "key_application_rows_without_account": 51,
+    "key_application_rows": 15411,
+    "key_application_rows_without_account": 45,
+    "key_application_original_uid_missing_rows": 50,
+    "key_application_uid_recovered_rows": 5,
+    "key_application_uid_conflicts": 0,
     "key_bound_accounts": 15363,
     "key_daily_stat_vs_detail_difference": 1
   },
@@ -61,8 +64,8 @@
   },
   "sources": [
     {
-      "source": "identity-applicant",
-      "retrieved_at": "2026-11-02T06:16:10.316284+00:00"
+      "source": "identity-applicant-mapped",
+      "retrieved_at": "2026-11-02T06:22:45.830613+00:00"
     },
     {
       "source": "key-stats-closed",
