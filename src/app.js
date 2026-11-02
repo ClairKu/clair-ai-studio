@@ -223,6 +223,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "oap-key-oauth-summary-2026-11-02",
+      groupId: "growth-insights",
+      title: "OAP｜API Key 与 OAuth 累计申请、调用及月活",
+      url: "https://clairku.github.io/clair-ai-studio/reports/oap-key-oauth-summary-2026-11-02/",
+      preview: "oap-key-oauth-summary-2026-11-02.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-02T00:00:00+08:00",
+      source: "生产只读聚合核验：分列 API Key 与 OAuth 的累计申请用户、累计调用及近30日活跃，按同一账户标识合并去重，并明确 OAuth 历史采集覆盖。",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["OAP", "API Key", "OAuth", "申请用户", "调用次数", "月活", "去重", "数据分析", "HTML", "生产"],
+    },
+    {
       id: "private-fund-mcp-guide-2026-10-30",
       groupId: "ai-platform",
       title: "私募数据 MCP 一页通｜能力与接入验证",
@@ -4182,6 +4196,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "oap-key-oauth-summary-2026-11-02": "data-analysis",
   "private-fund-mcp-guide-2026-10-30": "governance-review",
   "stargate-operations-dashboard-2026-10-30": "data-analysis",
   "kimi-yingmi-financial-research-2026-10-30": "reporting",
@@ -4319,6 +4334,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "oap-key-oauth-summary-2026-11-02": "growth-insights",
   "private-fund-mcp-guide-2026-10-30": "ai-platform",
   "stargate-operations-dashboard-2026-10-30": "growth-insights",
   "kimi-yingmi-financial-research-2026-10-30": "ai-platform",
