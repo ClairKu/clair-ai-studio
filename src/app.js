@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 158;
+const DATA_VERSION = 159;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -222,6 +222,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qieman-business-product-blueprint-2026-11-03",
+      groupId: "advisor-workbench",
+      title: "且慢业务重塑｜总产品蓝图与Lodestar AI底座",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-business-product-blueprint-2026-11-03/",
+      preview: "qieman-business-product-blueprint-2026-11-03.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-03T14:00:00+08:00",
+      source: "规划讨论稿：梳理AI小顾4.0、Lodestar、独立并列YINGWORK、慧客通、SCRM与智能顾问运营L3的边界，设计统一客户台账与服务包、10项AI平台供给、16个建设工作包、团队分工与验收。历史资料、用户方向与目标建议分别标明；不代表能力已上线或效果承诺。",
+      access: "production",
+      workType: "product-planning",
+      tags: ["且慢", "Lodestar", "AI小顾4.0", "YINGWORK", "慧客通", "SCRM", "L3", "总产品蓝图", "客户台账", "服务包", "AI底座", "平台供给", "共建分工", "规划讨论稿", "HTML"],
+    },
     {
       id: "oap-key-oauth-summary-2026-11-02",
       groupId: "growth-insights",
@@ -4334,6 +4348,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-business-product-blueprint-2026-11-03": "advisor-workbench",
   "oap-key-oauth-summary-2026-11-02": "growth-insights",
   "private-fund-mcp-guide-2026-10-30": "ai-platform",
   "stargate-operations-dashboard-2026-10-30": "growth-insights",
