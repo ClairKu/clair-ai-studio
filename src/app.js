@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 166;
+const DATA_VERSION = 167;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -222,6 +222,29 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "doubao-yingmi-holdings-communication-2026-11-05",
+      groupId: "ai-platform",
+      title: "豆包工作 × 盈米｜客户持仓诊断与沟通材料生成",
+      url: "https://clairku.github.io/clair-ai-studio/reports/doubao-yingmi-holdings-communication-2026-11-05/",
+      preview: "doubao-yingmi-holdings-communication-2026-11-05.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-05T00:00:00+08:00",
+      source: "产品场景设计：六步流程、三档数据完整度、四类沟通材料、连接器与Skill分工及首版验收。合成示例；非插件上线或客户诊断结果。",
+      access: "production",
+      workType: "product-planning",
+      tags: [
+        "豆包工作",
+        "盈米插件",
+        "持仓诊断",
+        "投顾沟通",
+        "连接器",
+        "Skills",
+        "产品规划",
+        "HTML"
+      ]
+    },
     {
       id: "yingmi-mcp-usage-evidence-2026-11-04",
       groupId: "growth-insights",
@@ -4308,6 +4331,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "doubao-yingmi-holdings-communication-2026-11-05": "product-planning",
   "yingmi-mcp-usage-evidence-2026-11-04": "data-analysis",
   "yingmi-ontology-model-audit-2026-11-04": "governance-review",
   "ai-commercialization-candidate-review-2026-11-04": "reporting",
@@ -4449,6 +4473,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "doubao-yingmi-holdings-communication-2026-11-05": "ai-platform",
   "yingmi-mcp-usage-evidence-2026-11-04": "growth-insights",
   "qieman-independent-blueprint-designs-2026-11-04": "advisor-workbench",
   "qieman-product-master-blueprint-2026-11-04": "advisor-workbench",
