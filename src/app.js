@@ -223,6 +223,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "yingmi-doubao-six-scenarios-2026-11-05",
+      groupId: "ai-platform",
+      title: "盈米 × 豆包工作｜六大顾问场景提示词与实测结果",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-doubao-six-scenarios-2026-11-05/",
+      preview: "yingmi-doubao-six-scenarios-2026-11-05.jpg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-05T02:04:37+08:00",
+      source: "六类顾问日常任务的提示词、实际调用结果与复核记录；逐项标注完成状态、数据日期与缺失项。",
+      access: "production",
+      workType: "product-demo",
+      tags: ["盈米", "豆包工作", "盈米插件", "MCP", "Skills", "理财顾问", "六大场景", "提示词", "实测", "HTML"],
+    },
+    {
       id: "doubao-yingmi-holdings-communication-2026-11-05",
       groupId: "ai-platform",
       title: "豆包工作 × 盈米｜客户持仓诊断与沟通材料生成",
@@ -4331,6 +4345,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "yingmi-doubao-six-scenarios-2026-11-05": "product-demo",
   "doubao-yingmi-holdings-communication-2026-11-05": "product-planning",
   "yingmi-mcp-usage-evidence-2026-11-04": "data-analysis",
   "yingmi-ontology-model-audit-2026-11-04": "governance-review",
@@ -4473,6 +4488,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "yingmi-doubao-six-scenarios-2026-11-05": "ai-platform",
   "doubao-yingmi-holdings-communication-2026-11-05": "ai-platform",
   "yingmi-mcp-usage-evidence-2026-11-04": "growth-insights",
   "qieman-independent-blueprint-designs-2026-11-04": "advisor-workbench",

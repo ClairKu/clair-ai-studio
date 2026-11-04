@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "files": [
+    {
+      "path": "assets/01-visualizations-1-01-market.svg",
+      "bytes": 3735,
+      "sha256": "2b6c4e602e836ac8f0387f8744bf7b1bc40a52567b0f4472cba3090360c05aa7"
+    },
+    {
+      "path": "assets/02-visualizations-1-02-product.svg",
+      "bytes": 6576,
+      "sha256": "be7063948987ed0ecd2760054cbed48ab816bf13e032c59b8261364d4880f355"
+    },
+    {
+      "path": "assets/03-visualizations-1-03-comfort.svg",
+      "bytes": 5685,
+      "sha256": "993e11387214680de9071098fee89dbd27857699c3a120a46211b2e7bc58e630"
+    },
+    {
+      "path": "assets/04-visualizations-1-04-holdings.svg",
+      "bytes": 2639,
+      "sha256": "907bf648ba40ed73a9925e036b9b1e854def3f46b19fd4b3c5ae302b85c48717"
+    },
+    {
+      "path": "assets/05-visualizations-1-05-allocation.svg",
+      "bytes": 3219,
+      "sha256": "7ec5f7223abe27f8a97a779a720f7893e21004311b6bc1caace4fc9ec5875bec"
+    },
+    {
+      "path": "assets/06-visualizations-1-06-education.svg",
+      "bytes": 3686,
+      "sha256": "90c24f91f98b9aca85ec2acd7007f055d5cba7c2cae3935102d7862074174d17"
+    },
+    {
+      "path": "executed-prompts.txt",
+      "bytes": 11957,
+      "sha256": "64de39aecc304a9fedd0d4abfc38c7daa90440f09ef081740550011d179de401"
+    },
+    {
+      "path": "index.html",
+      "bytes": 147618,
+      "sha256": "77df24a9bf809a9322dfc6f690257bfe139fab867e5bdc00cf831011003ce594"
+    },
+    {
+      "path": "prompts.txt",
+      "bytes": 15383,
+      "sha256": "0c12f1d2f765f5c48224f21bc381a296612cd71ee13cb994e9c971e8de6dd606"
+    },
+    {
+      "path": "recommended-prompts.txt",
+      "bytes": 15383,
+      "sha256": "0c12f1d2f765f5c48224f21bc381a296612cd71ee13cb994e9c971e8de6dd606"
+    },
+    {
+      "path": "results-public.json",
+      "bytes": 95286,
+      "sha256": "48149e14086bc169b1dc1974a56249711ac04b03484d1a8ac52afab47012f87a"
+    }
+  ]
+}
