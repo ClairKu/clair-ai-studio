@@ -223,6 +223,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "yingmi-mcp-usage-evidence-2026-11-04",
+      groupId: "growth-insights",
+      title: "盈米自有MCP｜累计、近月与峰月调用证据",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-mcp-usage-evidence-2026-11-04/",
+      preview: "yingmi-mcp-usage-evidence-2026-11-04.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-04T17:00:00+08:00",
+      source: "生产只读日志与源码核验：MCP/API成功调用、已记录请求、内部外部保守归属，分列小顾与其他自有服务并排除已证重复链路。非全部公司服务完整审计。",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["盈米MCP", "小顾MCP", "公司自有MCP", "调用量", "内部外部", "峰值月", "豆包工作", "案例申报", "数据证据", "HTML"],
+    },
+    {
       id: "qieman-independent-blueprint-designs-2026-11-04",
       groupId: "advisor-workbench",
       title: "且慢蓝图｜Claude与Kimi四张独立原稿",
@@ -4294,6 +4308,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "yingmi-mcp-usage-evidence-2026-11-04": "data-analysis",
   "yingmi-ontology-model-audit-2026-11-04": "governance-review",
   "ai-commercialization-candidate-review-2026-11-04": "reporting",
   "oap-key-oauth-summary-2026-11-02": "data-analysis",
@@ -4434,6 +4449,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "yingmi-mcp-usage-evidence-2026-11-04": "growth-insights",
   "qieman-independent-blueprint-designs-2026-11-04": "advisor-workbench",
   "qieman-product-master-blueprint-2026-11-04": "advisor-workbench",
   "qieman-product-blueprint-industry-2026-11-04": "advisor-workbench",

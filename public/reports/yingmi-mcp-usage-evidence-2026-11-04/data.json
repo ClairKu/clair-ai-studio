@@ -1,0 +1,564 @@
+{
+  "title": "盈米自有MCP调用量证据",
+  "created": "2026-11-04",
+  "cutoff_exclusive": "2026-11-04T00:00:00+08:00",
+  "recent30": [
+    "2026-10-05",
+    "2026-11-03"
+  ],
+  "metric": "已记录MCP/API工具成功调用；按各系统工具／网关成功定义，非独立业务任务数",
+  "scope_note": "已核验范围的成功记录合计；未证明覆盖全部独立部署服务和全部上线历史；内外按调用客户端／凭据归属，非最终消费者归属。",
+  "peak_month": "2026-09",
+  "periods": [
+    {
+      "key": "cumulative",
+      "label": "可追溯累计",
+      "short": "累计",
+      "note": "现有记录起点—2026-11-03",
+      "total": 25636581,
+      "internal": 2527940,
+      "external": 20656740,
+      "unknown": 2451901
+    },
+    {
+      "key": "recent_30d",
+      "label": "近一个月（近30日）",
+      "short": "近30日",
+      "note": "2026-10-05—2026-11-03",
+      "total": 5669022,
+      "internal": 352686,
+      "external": 5030212,
+      "unknown": 286124
+    },
+    {
+      "key": "peak",
+      "label": "已记录成功量最高的完整自然月（2026-09）",
+      "short": "全量峰值月（2026-09）",
+      "note": "2026年9月 · 各源同月相加",
+      "total": 8998478,
+      "internal": 299098,
+      "external": 8357429,
+      "unknown": 341951
+    },
+    {
+      "key": "october",
+      "label": "最近完整自然月（2026-10）",
+      "short": "2026年10月",
+      "note": "2026-10-01—2026-10-31",
+      "total": 5049490,
+      "internal": 310378,
+      "external": 4456474,
+      "unknown": 282638
+    }
+  ],
+  "sources": [
+    {
+      "name": "OAP 公域 API Key",
+      "periods": {
+        "cumulative": {
+          "internal": 1328536,
+          "external": 20646163,
+          "unknown": 2449021,
+          "total": 24423720
+        },
+        "recent_30d": {
+          "internal": 257121,
+          "external": 5019637,
+          "unknown": 283244,
+          "total": 5560002
+        },
+        "peak": {
+          "internal": 231342,
+          "external": 8357427,
+          "unknown": 341951,
+          "total": 8930720
+        },
+        "october": {
+          "internal": 237723,
+          "external": 4449825,
+          "unknown": 280549,
+          "total": 4968097
+        }
+      },
+      "note": "工具成功落账明细；历史无协议区分字段"
+    },
+    {
+      "name": "OAP 内网 API Key",
+      "periods": {
+        "cumulative": {
+          "total": 1164325,
+          "internal": 1164325,
+          "external": 0,
+          "unknown": 0
+        },
+        "recent_30d": {
+          "total": 60662,
+          "internal": 60662,
+          "external": 0,
+          "unknown": 0
+        },
+        "peak": {
+          "total": 67580,
+          "internal": 67580,
+          "external": 0,
+          "unknown": 0
+        },
+        "october": {
+          "total": 56215,
+          "internal": 56215,
+          "external": 0,
+          "unknown": 0
+        }
+      },
+      "note": "独立部署；工具成功落账；凭据归属逐项核对"
+    },
+    {
+      "name": "OAP OAuth MCP",
+      "periods": {
+        "cumulative": {
+          "total": 43233,
+          "internal": 29784,
+          "external": 10569,
+          "unknown": 2880
+        },
+        "recent_30d": {
+          "total": 43233,
+          "internal": 29784,
+          "external": 10569,
+          "unknown": 2880
+        },
+        "peak": {
+          "availability": "not_collected",
+          "observed_contribution": {
+            "total": 0,
+            "internal": 0,
+            "external": 0,
+            "unknown": 0
+          },
+          "total": null,
+          "internal": null,
+          "external": null,
+          "unknown": null
+        },
+        "october": {
+          "total": 20062,
+          "internal": 11327,
+          "external": 6646,
+          "unknown": 2089
+        }
+      },
+      "note": "protocol=mcp 且 success=1；历史采集从10月29日起"
+    },
+    {
+      "name": "Vesta MCP direct",
+      "periods": {
+        "cumulative": {
+          "total": 5303,
+          "internal": 5295,
+          "external": 8,
+          "unknown": 0
+        },
+        "recent_30d": {
+          "total": 5125,
+          "internal": 5119,
+          "external": 6,
+          "unknown": 0
+        },
+        "peak": {
+          "total": 178,
+          "internal": 176,
+          "external": 2,
+          "unknown": 0
+        },
+        "october": {
+          "total": 5116,
+          "internal": 5113,
+          "external": 3,
+          "unknown": 0
+        }
+      },
+      "note": "provider=direct 且 status=success；不追加 stargate 转发"
+    }
+  ],
+  "services": [
+    {
+      "name": "盈米 MCP／OAP 平台及经其接入的自有服务",
+      "cumulative": "25,631,278",
+      "recent30": "5,663,897",
+      "peak": "2026-09 · 8,998,300",
+      "relation": "计入合计；是平台观察范围，不能拆成85个分组再相加"
+    },
+    {
+      "name": "小顾专用客户端 → MCP",
+      "cumulative": "328,002",
+      "recent30": "112,555",
+      "peak": "2026-10 · 101,764",
+      "relation": "已含在 OAP；是专用凭据／渠道可证子集，不是小顾全部工具执行"
+    },
+    {
+      "name": "小顾知识库 MCP（服务方）",
+      "cumulative": "未取得完整独立计量",
+      "recent30": "未取得完整独立计量",
+      "peak": "待核验",
+      "relation": "旧研发记录有服务及迁移线索；当前网关两路由无记录不能推断历史零"
+    },
+    {
+      "name": "其他自有 MCP：Vesta direct",
+      "cumulative": "5,303",
+      "recent30": "5,125",
+      "peak": "2026-10 · 5,116",
+      "relation": "独立成功调用增量；另有40条已记录失败请求"
+    },
+    {
+      "name": "其他已经 OAP 接入的公司 MCP",
+      "cumulative": "已含在 OAP 平台中",
+      "recent30": "已含在 OAP 平台中",
+      "peak": "按平台口径观察",
+      "relation": "分组重叠且历史日志无分组字段，无法无损拆分每个 MCP server"
+    },
+    {
+      "name": "其他独立部署的 MCP（如 smart-office）",
+      "cumulative": "尚无可复核完整调用量",
+      "recent30": "尚无可复核完整调用量",
+      "peak": "待补日志",
+      "relation": "不补零、不编估；因此本合计是已核验范围，而非全公司完整审计"
+    },
+    {
+      "name": "Vesta direct／投资信号",
+      "cumulative": "14",
+      "recent30": "1",
+      "peak": "2026-09 · 13",
+      "relation": "Vesta direct 的组成，已含5,303；不可再次追加"
+    },
+    {
+      "name": "Vesta direct／组合分析",
+      "cumulative": "95",
+      "recent30": "46",
+      "peak": "2026-09 · 49",
+      "relation": "Vesta direct 的组成，已含5,303；不可再次追加"
+    },
+    {
+      "name": "Vesta direct／盈米研报",
+      "cumulative": "4,998",
+      "recent30": "4,952",
+      "peak": "2026-10 · 4,951",
+      "relation": "Vesta direct 的组成，已含5,303；不可再次追加"
+    },
+    {
+      "name": "Vesta direct／系统配置",
+      "cumulative": "159",
+      "recent30": "121",
+      "peak": "2026-10 · 113",
+      "relation": "Vesta direct 的组成，已含5,303；不可再次追加"
+    },
+    {
+      "name": "Vesta direct／自选基金池",
+      "cumulative": "37",
+      "recent30": "5",
+      "peak": "2026-09 · 32",
+      "relation": "Vesta direct 的组成，已含5,303；不可再次追加"
+    }
+  ],
+  "monthly": [
+    {
+      "month": "2025-05",
+      "oauth_availability": "not_collected",
+      "total": 37630,
+      "internal": 1895,
+      "external": 22578,
+      "unknown": 13157
+    },
+    {
+      "month": "2025-06",
+      "oauth_availability": "not_collected",
+      "total": 800872,
+      "internal": 3863,
+      "external": 760199,
+      "unknown": 36810
+    },
+    {
+      "month": "2025-07",
+      "oauth_availability": "not_collected",
+      "total": 1064478,
+      "internal": 4230,
+      "external": 1026447,
+      "unknown": 33801
+    },
+    {
+      "month": "2025-08",
+      "oauth_availability": "not_collected",
+      "total": 1487166,
+      "internal": 31488,
+      "external": 1430585,
+      "unknown": 25093
+    },
+    {
+      "month": "2025-09",
+      "oauth_availability": "not_collected",
+      "total": 1591183,
+      "internal": 10478,
+      "external": 1559314,
+      "unknown": 21391
+    },
+    {
+      "month": "2025-10",
+      "oauth_availability": "not_collected",
+      "total": 717697,
+      "internal": 3973,
+      "external": 682180,
+      "unknown": 31544
+    },
+    {
+      "month": "2025-11",
+      "oauth_availability": "not_collected",
+      "total": 605865,
+      "internal": 10720,
+      "external": 556481,
+      "unknown": 38664
+    },
+    {
+      "month": "2025-12",
+      "oauth_availability": "not_collected",
+      "total": 135347,
+      "internal": 19456,
+      "external": 48629,
+      "unknown": 67262
+    },
+    {
+      "month": "2026-01",
+      "oauth_availability": "not_collected",
+      "total": 699845,
+      "internal": 28998,
+      "external": 599926,
+      "unknown": 70921
+    },
+    {
+      "month": "2026-02",
+      "oauth_availability": "not_collected",
+      "total": 368951,
+      "internal": 88376,
+      "external": 228096,
+      "unknown": 52479
+    },
+    {
+      "month": "2026-03",
+      "oauth_availability": "not_collected",
+      "total": 501298,
+      "internal": 210299,
+      "external": 107271,
+      "unknown": 183728
+    },
+    {
+      "month": "2026-04",
+      "oauth_availability": "not_collected",
+      "total": 388492,
+      "internal": 192356,
+      "external": 7626,
+      "unknown": 188510
+    },
+    {
+      "month": "2026-05",
+      "oauth_availability": "not_collected",
+      "total": 550509,
+      "internal": 328269,
+      "external": 5036,
+      "unknown": 217204
+    },
+    {
+      "month": "2026-06",
+      "oauth_availability": "not_collected",
+      "total": 583996,
+      "internal": 324260,
+      "external": 4906,
+      "unknown": 254830
+    },
+    {
+      "month": "2026-07",
+      "oauth_availability": "not_collected",
+      "total": 598045,
+      "internal": 329594,
+      "external": 18508,
+      "unknown": 249943
+    },
+    {
+      "month": "2026-08",
+      "oauth_availability": "not_collected",
+      "total": 732343,
+      "internal": 277850,
+      "external": 140118,
+      "unknown": 314375
+    },
+    {
+      "month": "2026-09",
+      "oauth_availability": "not_collected",
+      "total": 8998478,
+      "internal": 299098,
+      "external": 8357429,
+      "unknown": 341951
+    },
+    {
+      "month": "2026-10",
+      "oauth_availability": "partially_observed_from_2026_10_29",
+      "total": 5049490,
+      "internal": 310378,
+      "external": 4456474,
+      "unknown": 282638
+    },
+    {
+      "month": "2026-11",
+      "oauth_availability": "observed",
+      "total": 724896,
+      "internal": 52359,
+      "external": 644937,
+      "unknown": 27600
+    }
+  ],
+  "scope_peaks": {
+    "total": {
+      "month": "2026-09",
+      "value": 8998478
+    },
+    "internal": {
+      "month": "2026-07",
+      "value": 329594
+    },
+    "external": {
+      "month": "2026-09",
+      "value": 8357429
+    }
+  },
+  "submission": "截至2026年11月3日，盈米在已核验日志范围内，自研金融MCP及相关API能力累计记录成功调用25,636,581次，其中已识别内部调用2,527,940次、已识别外部调用至少20,656,740次，另有2,451,901次调用方归属待确认。最近30个完整自然日（2026年10月5日—11月3日）记录成功调用5,669,022次；已记录成功量最高的完整自然月为2026年9月，共8,998,478次。成功按各计量系统的工具／网关成功定义统计，非全部纯MCP协议调用或独立业务任务数，不代表豆包单一渠道调用量。",
+  "quality": [
+    {
+      "title": "D-01｜明细统一计数与加总校验",
+      "body": "采用公域Key、内网Key的工具成功落账记录，OAuth MCP success=1明细及Vesta direct status=success原始日志。逐区间验证总数＝内部＋外部＋待归属，逐月合计与累计一致；统计表仅作对账。"
+    },
+    {
+      "title": "D-02｜1条历史差异已定位",
+      "body": "公域Key日聚合24,423,719，明细24,423,720，多出的1条在2025年5月、归属待确认。本报告一致使用明细；近30日和其他月份两者一致。"
+    },
+    {
+      "title": "D-03｜OAuth不能混用两个口径",
+      "body": "OAuth全部明细47,812条，剔除HTTP179条；MCP请求47,633条中，主表仅取成功43,233条，失败4,400条留在请求补充表。日聚合38,445未用于主表；logical call标识被跨请求复用，未据此全局去重。 源码已确认：日聚合按“日／平台／账户”组内折叠客户端调用ID，成功明细43,233条被折叠4,788条得到38,445；多个会话复用ID会少计，因此申报采用成功明细。"
+    },
+    {
+      "title": "D-04｜已核对记录重叠",
+      "body": "公域与内网Key按凭据＋路由＋请求标识重叠为0；OAuth与Key按路由＋请求标识重叠为0。Vesta stargate转发层不追加，小顾专用客户端子集不追加。这不等于跨系统业务任务去重。"
+    },
+    {
+      "title": "D-05｜内外归属保守处理",
+      "body": "内部按明确公司组织／自有系统的凭据和客户端归属；外部按已命名合作平台专用凭据及已识别第三方OAuth客户端。自报机构或个人未完成核验的留待归属。不是按工作空间直接判内外，也不是最终投资者归属。"
+    },
+    {
+      "title": "D-06｜成功率与价值未外推",
+      "body": "主表已按各系统记录的工具／网关成功定义过滤；这不证明数据内容正确、投资结果或业务办理成功。Key历史日志没有协议字段，仍不能声称全部纯MCP。数据含开发、验证等用途，不由调用量推断成交或收入。"
+    },
+    {
+      "title": "D-07｜全部公司服务覆盖仍有缺口",
+      "body": "已查9个工作空间、85个分组，但目录与计量范围不能等同完整资产盘点。小顾知识库及其他独立部署服务尚无完整独立调用统计，未将缺失填零。"
+    },
+    {
+      "title": "D-08｜月度峰值方法",
+      "body": "先将可加总来源在同一自然月的记录相加，再在截至2026年10月的完整月中取最大值。2026年11月仅含1—3日；OAuth历史未采集区间是缺失，不是零。"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "D-01 / S-01",
+      "source": "OAP公域Key明细与日聚合（生产只读）",
+      "basis": "逐凭据逐月聚合；结果6226107；与日聚合差1定位",
+      "read_at": "2026-11-04 北京时间"
+    },
+    {
+      "id": "D-01 / S-02",
+      "source": "OAP内网Key明细（生产只读）",
+      "basis": "结果6226085；凭据归属逐项核对；46个活跃凭据",
+      "read_at": "2026-11-04 北京时间"
+    },
+    {
+      "id": "D-03 / S-03",
+      "source": "OAP OAuth请求明细（生产只读）",
+      "basis": "质量6226083、月度归属6226104；请求标识唯一；剔除HTTP",
+      "read_at": "2026-11-04 北京时间"
+    },
+    {
+      "id": "D-04 / S-04",
+      "source": "跨入口重叠聚合（生产只读）",
+      "basis": "结果6226088、6226105；两种记录键重叠均为0",
+      "read_at": "2026-11-04 北京时间"
+    },
+    {
+      "id": "D-01 / S-05",
+      "source": "Vesta MCP网关原始日志与路由元数据",
+      "basis": "direct日志6226074、机构月度6226089、凭据映射与质量核验",
+      "read_at": "2026-11-04 北京时间"
+    },
+    {
+      "id": "D-05 / S-06",
+      "source": "凭据与OAuth客户端元数据",
+      "basis": "私有逐凭据分类规则保留；公开结果仅含保守聚合",
+      "read_at": "2026-11-04 北京时间"
+    },
+    {
+      "id": "D-07 / S-07",
+      "source": "小顾研发记录与当前OAP配置",
+      "basis": "研发周报记载知识库MCP及图书馆迁移线索；不以会话／消息代替调用",
+      "read_at": "2026-11-04 核验"
+    },
+    {
+      "id": "D-03 / S-08",
+      "source": "与当前生产版本一致的STARGATE代码与部署配置",
+      "basis": "确认Key仅成功落账且含HTTP/MCP；OAuth组内ID折叠；公／内网独立写入；Key与OAuth记账互斥",
+      "read_at": "2026-11-04 本体受控只读核验"
+    }
+  ],
+  "findings": [
+    "累计已识别外部成功调用至少20,656,740次，尚未识别的2,451,901次保留待确认。",
+    "内部按公司自有客户端发起计量；小顾最终服务投资者的流量，仍归为公司自有系统发起的内部调用。",
+    "小顾专用客户端成功调用328,002次（近30日112,555次），已包含在OAP；不能代替独立小顾知识库MCP的全部被调用量。",
+    "申报若要求“纯MCP tools/call”或“豆包工作单渠道调用量”，当前平台合计不能替代该字段，需按协议与渠道另补证。"
+  ],
+  "request_record_periods": [
+    {
+      "key": "cumulative",
+      "label": "可追溯累计",
+      "short": "累计",
+      "note": "现有记录起点—2026-11-03",
+      "total": 25641021,
+      "internal": 2531559,
+      "external": 20657427,
+      "unknown": 2452035
+    },
+    {
+      "key": "recent_30d",
+      "label": "近一个月（近30日）",
+      "short": "近30日",
+      "note": "2026-10-05—2026-11-03",
+      "total": 5673427,
+      "internal": 356270,
+      "external": 5030899,
+      "unknown": 286258
+    },
+    {
+      "key": "peak",
+      "label": "最高完整月（2026-09）",
+      "short": "峰值月",
+      "note": "2026年9月 · 各源同月相加",
+      "total": 8998513,
+      "internal": 299133,
+      "external": 8357429,
+      "unknown": 341951
+    },
+    {
+      "key": "october",
+      "label": "最近完整自然月（2026-10）",
+      "short": "2026年10月",
+      "note": "2026-10-01—2026-10-31",
+      "total": 5050371,
+      "internal": 310599,
+      "external": 4457022,
+      "unknown": 282750
+    }
+  ],
+  "request_record_note": "补充已记录请求；Key本身仅成功落账，故该表也不是全部失败尝试在内的完整请求量。"
+}
