@@ -1,6 +1,6 @@
 {
   "title": "且慢业务重塑 · 总产品蓝图",
-  "version": "3.0",
+  "version": "3.1",
   "date": "2026-11-04",
   "status": "规划讨论稿；目标架构与分工建议，不代表已上线能力或组织任命",
   "thesis": "以客户服务责任为主线，定义业务能力与对象，再映射应用、技术供给和建设计划；台账引用源事实并持久保存服务事实，标准服务能力包是规范，运行包是快照。",
@@ -773,7 +773,8 @@
     "A09": "企业技术/数据访问",
     "A10": "应用协同（可选）"
   },
-  "primary_design_url": "https://clairku.github.io/clair-ai-studio/reports/qieman-product-blueprint-industry-2026-11-04/",
+  "primary_design_url": "https://clairku.github.io/clair-ai-studio/reports/qieman-product-master-blueprint-2026-11-04/",
   "prior_planning_appendix": true,
-  "customer_service_ledger_rule": "引用源域权威事实；服务域持久维护确认诉求、服务约定、责任、计划任务、判断、交付与回执，避免双主写。"
+  "customer_service_ledger_rule": "引用源域权威事实；服务域持久维护确认诉求、服务约定、责任、计划任务、判断、交付与回执，避免双主写。",
+  "detailed_industry_views_url": "https://clairku.github.io/clair-ai-studio/reports/qieman-product-blueprint-industry-2026-11-04/"
 }

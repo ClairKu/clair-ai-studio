@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 163;
+const DATA_VERSION = 164;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -223,15 +223,29 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-product-master-blueprint-2026-11-04",
+      groupId: "advisor-workbench",
+      title: "且慢总产品蓝图｜宣导一页版",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-product-master-blueprint-2026-11-04/",
+      preview: "qieman-product-master-blueprint-2026-11-04.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-04T11:30:00+08:00",
+      source: "一页收敛客户价值、产品定位、四项共用能力与L3/Lodestar/小顾4.0升级关系。流程、对象、AI供给和建设路线作为默认收起的附图；附一分钟讲解稿、可编辑SVG及6400px PNG。目标规划，非全部已上线能力。",
+      access: "production",
+      workType: "product-planning",
+      tags: ["且慢", "总产品蓝图", "宣导一页版", "客户价值", "产品定位", "共用能力", "L3", "Lodestar", "AI小顾4.0", "YINGWORK", "慧客通", "SCRM", "升级主线", "SVG", "PNG"],
+    },
+    {
       id: "qieman-product-blueprint-industry-2026-11-04",
       groupId: "advisor-workbench",
-      title: "且慢产品蓝图｜行业研究与六图重绘",
+      title: "且慢产品蓝图｜行业研究与六张附图",
       url: "https://clairku.github.io/clair-ai-studio/reports/qieman-product-blueprint-industry-2026-11-04/",
       preview: "qieman-product-blueprint-industry-2026-11-04.svg",
       pinned: false,
       position: 0,
       createdAt: "2026-11-04T10:00:00+08:00",
-      source: "研究平安、恒生、Deloitte、BlackRock、Addepar、Salesforce及NN/g、Patton、Cagan一手资料，重绘经营、产品、服务、对象、AI供给和建设六图。附来源图页、产品分工、五个共建域与验收；目标设计与历史事实分开。",
+      source: "行业原件研究与六张详细视图，作为宣导主图的附图和设计依据；主宣导入口更新为总产品蓝图一页版。",
       access: "production",
       workType: "product-planning",
       tags: ["且慢", "行业研究", "产品蓝图", "Lodestar", "AI小顾4.0", "L3", "YINGWORK", "慧客通", "SCRM", "客户台账", "服务包", "AI底座", "共建", "六图", "SVG", "PNG"],
@@ -267,13 +281,13 @@ const initialState = {
     {
       id: "qieman-product-relationship-map-2026-11-04",
       groupId: "advisor-workbench",
-      title: "且慢产品关系图｜行业研究重绘六视图",
+      title: "且慢总产品关系图｜宣导主图与附图",
       url: "https://clairku.github.io/clair-ai-studio/reports/qieman-product-relationship-map-2026-11-04/",
-      preview: "qieman-product-relationship-map-2026-11-04-v3.svg",
+      preview: "qieman-product-relationship-map-2026-11-04-master.svg",
       pinned: false,
       position: 0,
       createdAt: "2026-11-04T00:00:00+08:00",
-      source: "行业研究重绘版3.0：经营、产品、服务蓝图、共用对象、AI供给与建设路线六个视图；原关系图入口直接展示新版，附可编辑SVG和高清PNG。",
+      source: "原关系图入口收敛为一张宣导总产品蓝图：客户价值、角色产品、共用能力及L3到Lodestar/小顾4.0的资产供给关系；详细流程与技术供给收为附图。",
       access: "production",
       workType: "product-planning",
       tags: ["且慢", "总关系图", "宣导", "Lodestar", "AI小顾4.0", "YINGWORK", "慧客通", "SCRM", "L3", "共用能力", "AI基座", "平台供给", "已有升级新建共建", "SVG", "PNG"],
@@ -281,13 +295,13 @@ const initialState = {
     {
       id: "qieman-business-product-blueprint-2026-11-03",
       groupId: "advisor-workbench",
-      title: "且慢业务重塑｜总蓝图与行业六图入口",
+      title: "且慢业务重塑｜详细规划与工作包",
       url: "https://clairku.github.io/clair-ai-studio/reports/qieman-business-product-blueprint-2026-11-03/",
-      preview: "qieman-business-product-blueprint-2026-11-03-v3.svg",
+      preview: "qieman-business-product-blueprint-2026-11-03-master.svg",
       pinned: false,
       position: 0,
       createdAt: "2026-11-03T14:00:00+08:00",
-      source: "总产品规划与Lodestar底座资料；新增行业研究六图主入口，明确服务生产与履约、源事实引用与服务域持久记录。原工作包等保留作规划附录。",
+      source: "总产品蓝图的详细规划附录；主宣导请看一页总产品蓝图。保留能力供给、共建分工、工作包和验收等详细内容。",
       access: "production",
       workType: "product-planning",
       tags: ["且慢", "Lodestar", "AI小顾4.0", "YINGWORK", "慧客通", "SCRM", "L3", "总产品蓝图", "客户台账", "服务包", "AI底座", "平台供给", "共建分工", "规划讨论稿", "HTML"],
@@ -4406,6 +4420,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-product-master-blueprint-2026-11-04": "advisor-workbench",
   "qieman-product-blueprint-industry-2026-11-04": "advisor-workbench",
   "yingmi-ontology-model-audit-2026-11-04": "knowledge",
   "ai-commercialization-candidate-review-2026-11-04": "knowledge",
