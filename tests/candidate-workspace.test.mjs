@@ -258,7 +258,7 @@ function historyHarness({ local = true } = {}) {
     TextEncoder,
     api: async () => ({}), candidateName: () => 'synthetic candidate',
   });
-  vm.runInContext(historySource, h.context);
+  vm.runInContext(sourceFunction('latestAIRecord')+'\n'+historySource, h.context);
   return h;
 }
 
@@ -612,7 +612,7 @@ test('manual scoring never claims calibration when the server marks it ineligibl
 
 test('recruitment statistics use English labels and no people or document units',()=>{
   const block=source.split('<div class="hiring-metrics">')[1].split('</div><p class="metrics-note"')[0];
-  for(const [key,label]of Object.entries({resume:'Resume',interviewed:'Interview 1',follow_up:'Interview 2',offer:'Offer',onboard:'Joined',rejected:'Reject',pending:'Hold'})){
+  for(const [key,label]of Object.entries({resume:'Resume',interviewed:'Interview 1',follow_up:'Interview 2',offer:'Offer',onboard:'Joined',pass:'Pass',reject:'Reject',pending:'Hold'})){
     const button=block.match(new RegExp('<button[^>]*data-metric-filter="'+key+'"[\\s\\S]*?</button>'))[0];
     assert.ok(button.includes('<span>'+label+'</span>'));assert.ok(button.includes('aria-label="'+label+'"'));
   }
@@ -620,11 +620,11 @@ test('recruitment statistics use English labels and no people or document units'
 });
 
 test('Joined keeps actual onboarding semantics and accessible numeric counts have no units',()=>{
-  const h=harness(),keys=['resume','interviewed','follow_up','offer','onboard','rejected','pending'];
+  const h=harness(),keys=['resume','interviewed','follow_up','offer','onboard','pass','reject','pending'];
   const buttons=keys.map(key=>{const button=new Element('button');button.dataset.metricFilter=key;return button});
   h.context.document.querySelectorAll=()=>buttons;h.context.metricFilter='all';h.context.uiMetricsScope='all|all';
-  h.context.data.hiring_metrics={total_documents:5,viewed_documents:4,interviewed_people:3,follow_up_people:2,offer_people:2,onboard_people:1,pending_people:0,rejected_people:0,candidate_ids_by_metric:Object.fromEntries(keys.map(key=>[key,[]]))};
-  vm.runInContext(sourceFunction('hiringMetricLabel')+'\n'+sourceFunction('metricCount')+'\n'+sourceFunction('renderHiringMetrics')+'\nrenderHiringMetrics();',h.context);
+  h.context.data.hiring_metrics={total_documents:5,viewed_documents:4,interviewed_people:3,follow_up_people:2,offer_people:2,onboard_people:1,pending_people:0,pass_people:2,reject_people:1,candidate_ids_by_metric:Object.fromEntries(keys.map(key=>[key,[]]))};
+  vm.runInContext(sourceFunction('hiringMetricLabel')+'\n'+sourceFunction('metricCount')+'\n'+sourceFunction('metricCandidateIds')+'\n'+sourceFunction('renderHiringMetrics')+'\nrenderHiringMetrics();',h.context);
   assert.equal(h.element('metric-offer').textContent,'2');assert.equal(h.element('metric-onboard').textContent,'1');
   assert.equal(buttons.find(button=>button.dataset.metricFilter==='onboard')['aria-label'],'Joined 1');
   assert.ok(buttons.every(button=>!/份|人/.test(button['aria-label'])));
@@ -887,4 +887,67 @@ test('AI analytical text is shown in resume evaluation rather than repeated in t
   const host=h.element('candidate-detail');
   assert.doesNotMatch(elementText(host.children[0]),/unique professional reasoning/);
   assert.match(elementText(host.children[1]),/履历评价/);assert.match(elementText(host.children[1]),/unique professional reasoning/);assert.doesNotMatch(elementText(host.children[1]),/原始沟通记录|另存人工修订|evidence-only original scheduling record|AI履历分析/);
+});
+
+
+test('fresh state scoring rules outrank a previously opened requirements cache',()=>{
+  const h=projectionHarness();h.context.data.resume_score_mechanisms={advisory_pm:{version:'current-v3',dimensions:[{id:'current',weight:100}]}};
+  h.context.requirementsData={roles:{advisory_pm:{resume_score_mechanism:{version:'old-v2',dimensions:[{id:'old',weight:100}]}}}};
+  vm.runInContext(sourceFunction('scoreMechanism'),h.context);h.context.candidate=currentAiCandidate();
+  assert.equal(vm.runInContext("scoreMechanism('advisory_pm').version",h.context),'current-v3');
+  assert.match(vm.runInContext('currentAiFeedbackEntry(candidate).text',h.context),/current professional analysis/);
+  assert.equal(h.context.requirementsData.roles.advisory_pm.resume_score_mechanism.version,'old-v2','rendering must not mutate the cached requirements record');
+});
+
+function selectionHarness(){
+  const h=projectionHarness();
+  vm.runInContext(['plainCopy','shortAnswer','latestAI','threePoint','reviewIsStale'].map(sourceFunction).join('\n'),h.context);
+  return h;
+}
+
+test('current score, AI summary and three-point text select the same review instead of an old completed job',()=>{
+  const h=selectionHarness();h.context.candidate=currentAiCandidate();
+  h.context.candidate.ai_reviews[0].review.quick_review_fingerprint='current-fingerprint';
+  h.context.candidate.ai_reviews.unshift({id:'old-job',is_current_context:false,review:{three_point:{match:{text:'obsolete job analysis'}},quick_review_fingerprint:'old-fingerprint'}});
+  Object.assign(h.context.candidate,{latest_ai_review_id:'ai-current',latest_quick_review_id:'old-job',quick_review_job:{status:'completed',review_id:'old-job',fingerprint:'other-old-fingerprint'},latest_ai_review:{is_current_context:false},concise_view:{role:'advisory_pm',source_review_id:'old-job',three_point:{match:{text:'obsolete concise copy'}}}});
+  const before=JSON.stringify(h.context.candidate);
+  assert.equal(vm.runInContext('latestAIRecord(candidate).id',h.context),'ai-current');
+  assert.equal(vm.runInContext('threePoint(candidate).match.text',h.context),'current professional analysis');
+  assert.equal(vm.runInContext('reviewIsStale(candidate)',h.context),false);
+  const entry=vm.runInContext('currentAiFeedbackEntry(candidate)',h.context);
+  assert.equal(entry.source_reference.record_id,'ai-current');assert.match(entry.text,/current professional analysis/);assert.doesNotMatch(entry.text,/obsolete/);
+  assert.equal(JSON.stringify(h.context.candidate),before);
+});
+
+test('an expired score pointer cannot outrank the current AI pointer and a matching-job mismatch still marks stale',()=>{
+  const h=selectionHarness();h.context.candidate=currentAiCandidate();
+  h.context.candidate.ai_reviews.unshift({id:'old-score',review:{three_point:{match:{text:'expired scoring body'}}}});
+  h.context.candidate.resume_score_ai={role:'advisory_pm',mechanism_version:'old-v2',review_id:'old-score'};h.context.candidate.latest_ai_review_id='ai-current';
+  assert.equal(vm.runInContext('latestAIRecord(candidate).id',h.context),'ai-current');
+  assert.equal(vm.runInContext('threePoint(candidate).match.text',h.context),'current professional analysis');
+  h.context.candidate.resume_score_ai={role:'advisory_pm',mechanism_version:'current-v3',review_id:'ai-current'};
+  h.context.candidate.quick_review_job={status:'completed',review_id:'ai-current',fingerprint:'wrong-current-input'};h.context.candidate.ai_reviews.at(-1).review.quick_review_fingerprint='current-input';
+  assert.equal(vm.runInContext('reviewIsStale(candidate)',h.context),true);
+});
+
+test('a new canonical resume recommendation remains separate from an actual human Pass decision',()=>{
+  const h=listHarness();h.context.scoreMechanism=()=>({version:'current-v3',decision_policy:{}});h.context.requirementsData=null;
+  h.context.status=()=>({label:'不推进',type:'red',source:'explicit human decision'});
+  vm.runInContext(decisionSource,h.context);
+  h.context.candidate={verified_recruitment_status:'not_proceeding',resume_recommendation:{status:'interview',label:'建议面试',score_origin:'ai',rubric_version:'current-v3'}};
+  const before=JSON.stringify(h.context.candidate),advice=vm.runInContext('candidateAdviceTag(candidate)',h.context),actual=vm.runInContext('candidateActualState(candidate)',h.context);
+  assert.equal(advice.text,'建议面试');assert.equal(actual.text,'不推进');assert.equal(actual.kind,'red');
+  assert.equal(JSON.stringify(h.context.candidate),before,'display must neither revoke Pass nor restart recruitment');
+});
+
+test('Pass uses only the legacy employer-decision alias while missing Reject remains unknown and disabled',()=>{
+  const h=harness(),buttons=['pass','reject'].map(key=>{const b=new Element('button');b.dataset.metricFilter=key;return b});
+  Object.assign(h.context,{filterScope:()=> 'all|all',uiMetricsScope:'all|all',metricFilter:'all'});h.context.document.querySelectorAll=()=>buttons;
+  h.context.data.hiring_metrics={total_documents:3,viewed_documents:2,interviewed_people:1,follow_up_people:0,offer_people:1,onboard_people:0,pending_people:0,rejected_people:2,candidate_ids_by_metric:{rejected:['employer-pass-a','employer-pass-b']}};
+  vm.runInContext(['hiringMetricLabel','metricCount','metricCandidateIds','renderHiringMetrics','activeMetricIds'].map(sourceFunction).join('\n')+'\nrenderHiringMetrics()',h.context);
+  assert.equal(h.element('metric-pass').textContent,'2');assert.equal(h.element('metric-reject').textContent,'—');assert.equal(buttons[0].disabled,false);assert.equal(buttons[1].disabled,true);
+  h.context.metricFilter='pass';assert.equal(vm.runInContext('Array.from(activeMetricIds()).join("|")',h.context),'employer-pass-a|employer-pass-b');
+  Object.assign(h.context.data.hiring_metrics,{pass_people:1,reject_people:1,candidate_ids_by_metric:{pass:['explicit-pass'],reject:['offer-finally-declined']}});
+  vm.runInContext('renderHiringMetrics()',h.context);assert.equal(h.element('metric-pass').textContent,'1');assert.equal(h.element('metric-reject').textContent,'1');assert.equal(buttons[1].disabled,false);
+  h.context.metricFilter='reject';assert.equal(vm.runInContext('Array.from(activeMetricIds()).join("|")',h.context),'offer-finally-declined');
 });
