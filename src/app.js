@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 165;
+const DATA_VERSION = 166;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -225,16 +225,16 @@ const initialState = {
     {
       id: "qieman-independent-blueprint-designs-2026-11-04",
       groupId: "advisor-workbench",
-      title: "且慢蓝图｜Kimi两张独立原稿",
+      title: "且慢蓝图｜Claude与Kimi四张独立原稿",
       url: "https://clairku.github.io/clair-ai-studio/reports/qieman-independent-blueprint-designs-2026-11-04/",
       preview: "qieman-independent-blueprint-designs-2026-11-04.svg",
       pinned: false,
       position: 0,
       createdAt: "2026-11-04T15:01:43+08:00",
-      source: "用户指定Claude与Kimi各两张的独立设计任务。当前收到Kimi Work两张完整原稿：A服务接力，B共同内核与场景生长；保留原始SVG、设计说明和高清PNG。Claude原稿尚未生成，等待可用入口后补充。",
+      source: "用户指定Claude与Kimi各自独立创作两张且慢总产品蓝图。现已收到Claude两稿与Kimi Work两稿，保留四张原始SVG、设计说明、来源披露及高清PNG，供直接比较。",
       access: "production",
       workType: "product-planning",
-      tags: ["且慢", "蓝图", "Kimi", "独立原稿", "方案对比", "Claude待补充", "Lodestar", "AI小顾4.0", "L3", "共同内核", "服务接续", "SVG", "PNG"],
+      tags: ["且慢", "蓝图", "Kimi", "独立原稿", "方案对比", "Lodestar", "AI小顾4.0", "L3", "共同内核", "服务接续", "SVG", "PNG", "Claude", "四稿对比"],
     },
     {
       id: "qieman-product-master-blueprint-2026-11-04",

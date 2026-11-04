@@ -1,193 +1,202 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="3200" height="1800" viewBox="0 0 3200 1800" role="img" aria-labelledby="title desc">
-  <title id="title">且慢财富顾问服务总产品蓝图 A：让每一次服务，都能接上下一次</title>
-  <desc id="desc">以持续服务为主线，AI小顾4.0与Lodestar构成双前台，统一服务台账和标准服务包为共同资产，智能顾问运营L3按场景验证并发布资产，慧客通与SCRM升级整合，YINGWORK独立并列协同。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="3200" height="1800" viewBox="0 0 3200 1800">
+  <title>且慢财富顾问服务总产品蓝图 A：一位客户，AI与真人接力的不断线服务</title>
   <defs>
     <style>
-      text { font-family: "PingFang SC", "Heiti SC", "Microsoft YaHei", sans-serif; }
-      .ink { fill: #142b3a; }
-      .muted { fill: #526673; }
-      .white { fill: #ffffff; }
-      .title { font-size: 68px; font-weight: 700; letter-spacing: 1px; }
-      .subtitle { font-size: 34px; font-weight: 400; }
-      .section { font-size: 42px; font-weight: 700; }
-      .cardtitle { font-size: 40px; font-weight: 700; }
-      .body { font-size: 32px; font-weight: 400; }
-      .body-strong { font-size: 32px; font-weight: 600; }
-      .small { font-size: 30px; font-weight: 400; }
-      .small-strong { font-size: 30px; font-weight: 600; }
-      .label { font-size: 30px; font-weight: 600; letter-spacing: 1px; }
-      .line { fill: none; stroke: #147d78; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
-      .dash { fill: none; stroke: #6c7f89; stroke-width: 5; stroke-dasharray: 13 12; stroke-linecap: round; }
+      text{font-family:"PingFang SC","Heiti SC","Microsoft YaHei",sans-serif;fill:#1F2A44}
+      .b{font-weight:700}
+      .m{fill:#5C6478}
+      .w{fill:#FFFFFF}
+      .c{text-anchor:middle}
+      .e{text-anchor:end}
     </style>
-    <marker id="arrow-teal" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L10,5 L0,10 Z" fill="#147d78"/>
-    </marker>
-    <marker id="arrow-orange" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L10,5 L0,10 Z" fill="#db6b43"/>
-    </marker>
-    <marker id="arrow-orange-start" markerWidth="10" markerHeight="10" refX="2" refY="5" orient="auto" markerUnits="strokeWidth">
-      <path d="M10,0 L0,5 L10,10 Z" fill="#db6b43"/>
-    </marker>
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
-      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#102a3a" flood-opacity="0.09"/>
-    </filter>
+    <marker id="aInk" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F2A44"/></marker>
+    <marker id="aBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#34449A"/></marker>
+    <marker id="aGold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8A6D12"/></marker>
+    <marker id="aPlum" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6B4C8A"/></marker>
   </defs>
 
-  <rect width="3200" height="1800" fill="#f5f2eb"/>
-  <circle cx="3010" cy="90" r="250" fill="#e6eee9"/>
-  <circle cx="3070" cy="30" r="130" fill="#f1d9c9"/>
+  <rect width="3200" height="1800" fill="#F6F3EC"/>
 
-  <!-- Header -->
-  <text x="120" y="82" class="label" fill="#147d78">QIEMAN · WEALTH ADVISORY SERVICE / BLUEPRINT A</text>
-  <text x="120" y="166" class="title ink">让每一次服务，都能接上下一次</text>
-  <text x="120" y="224" class="subtitle muted">且慢财富顾问服务总产品蓝图｜双前台接续服务，共同资产持续进化</text>
-  <rect x="2440" y="88" width="640" height="142" rx="28" fill="#142b3a"/>
-  <text x="2480" y="137" class="small" fill="#a9d8ce">对客户的核心承诺</text>
-  <text x="2480" y="190" class="body-strong white">不必重复讲述，不必重新开始</text>
+  <!-- 标题区 -->
+  <g id="header">
+    <text x="120" y="92" font-size="34" class="m">且慢 · 财富顾问服务总产品蓝图 · 方案A「服务现场」</text>
+    <text x="120" y="176" font-size="68" class="b">一位客户，AI与真人接力的不断线服务</text>
+    <text x="3080" y="120" font-size="32" class="e m">AI与真人共用一本服务台账、一套标准服务包</text>
+    <text x="3080" y="172" font-size="32" class="e m">L3把方法验证成资产，按场景开放给小顾4.0与Lodestar</text>
+  </g>
 
-  <!-- Business vocabulary: deliberately not four peer products -->
-  <rect x="120" y="270" width="2960" height="82" rx="22" fill="#e8e4dc"/>
-  <text x="160" y="322" class="small ink">
-    <tspan font-weight="700">业务定位：</tspan>
-    <tspan>客户服务＝业务总域与服务职能</tspan><tspan fill="#8a989f">　｜　</tspan>
-    <tspan>私域＝渠道与关系方式</tspan><tspan fill="#8a989f">　｜　</tspan>
-    <tspan>VIP＝服务权益与深度</tspan><tspan fill="#8a989f">　｜　</tspan>
-    <tspan>顾问运营＝组织与运营职能</tspan>
-  </text>
+  <!-- 业务总域（包含关系） -->
+  <g id="domain">
+    <rect x="620" y="236" width="1960" height="1264" rx="36" fill="none" stroke="#1F2A44" stroke-width="3"/>
+    <rect x="640" y="258" width="380" height="60" fill="#F6F3EC"/>
+    <text x="660" y="300" font-size="34" class="b">客户服务 · 业务总域</text>
+    <rect x="1240" y="262" width="400" height="52" rx="26" fill="#FFFFFF" stroke="#1F2A44" stroke-width="1.5"/>
+    <text x="1440" y="299" font-size="30" class="c">私域 ＝ 渠道与关系方式</text>
+    <rect x="1660" y="262" width="400" height="52" rx="26" fill="#FFFFFF" stroke="#1F2A44" stroke-width="1.5"/>
+    <text x="1860" y="299" font-size="30" class="c">VIP ＝ 服务权益与深度</text>
+    <rect x="2080" y="262" width="440" height="52" rx="26" fill="#FFFFFF" stroke="#1F2A44" stroke-width="1.5"/>
+    <text x="2300" y="299" font-size="30" class="c">顾问运营 ＝ 组织与运营职能</text>
+  </g>
 
-  <!-- Customer value -->
-  <rect x="120" y="400" width="440" height="1040" rx="36" fill="#142b3a" filter="url(#shadow)"/>
-  <text x="166" y="464" class="label" fill="#a9d8ce">客户价值 / NORTH STAR</text>
-  <text x="166" y="544" class="section white">持续被理解</text>
-  <text x="166" y="602" class="section white">持续被负责</text>
-  <line x1="166" y1="654" x2="514" y2="654" stroke="#3d5361" stroke-width="3"/>
-  <circle cx="190" cy="724" r="12" fill="#70c3b4"/>
-  <text x="226" y="735" class="body white">目标有人记得</text>
-  <circle cx="190" cy="818" r="12" fill="#70c3b4"/>
-  <text x="226" y="829" class="body white">AI与真人接得上</text>
-  <circle cx="190" cy="912" r="12" fill="#70c3b4"/>
-  <text x="226" y="923" class="body white">专业判断有人负责</text>
-  <circle cx="190" cy="1006" r="12" fill="#70c3b4"/>
-  <text x="226" y="1017" class="body white">交付之后仍有跟进</text>
-  <rect x="160" y="1110" width="360" height="250" rx="26" fill="#203b4b"/>
-  <text x="190" y="1170" class="small" fill="#a9d8ce">服务关系的升级</text>
-  <text x="190" y="1240" class="cardtitle white">从一次响应</text>
-  <text x="190" y="1300" class="cardtitle white">到长期接续</text>
-  <text x="190" y="1340" class="small" fill="#c8d5da">客户感知的是同一项服务</text>
+  <!-- 客户价值 -->
+  <g id="customer">
+    <rect x="700" y="350" width="1800" height="190" rx="95" fill="#1F2A44"/>
+    <text x="1600" y="428" font-size="46" class="b c w">客户价值：被持续理解，承诺有回音</text>
+    <text x="1600" y="494" font-size="32" class="c w" opacity="0.88">随时可问 · 主动提醒 · 专业判断有人负责 · 交付与复检可追溯</text>
+  </g>
+  <line x1="1080" y1="616" x2="1080" y2="550" stroke="#1F2A44" stroke-width="6" marker-end="url(#aInk)"/>
+  <line x1="2120" y1="616" x2="2120" y2="550" stroke="#1F2A44" stroke-width="6" marker-end="url(#aInk)"/>
 
-  <!-- Frontstage product cards -->
-  <rect x="700" y="400" width="820" height="340" rx="34" fill="#dcefeb" stroke="#8fc8bb" stroke-width="3" filter="url(#shadow)"/>
-  <rect x="740" y="432" width="278" height="50" rx="25" fill="#147d78"/>
-  <text x="879" y="466" text-anchor="middle" class="small-strong white">已有产品 · 升级 4.0</text>
-  <text x="740" y="550" class="section ink">AI小顾 4.0</text>
-  <text x="740" y="596" class="body muted">客户侧 AI 服务产品</text>
-  <text x="740" y="650" class="body-strong ink">持续服务　·　长期服务状态</text>
-  <text x="740" y="694" class="body-strong ink">跨 AI 与真人接续　·　协同</text>
-  <text x="1460" y="516" text-anchor="end" class="small" fill="#147d78">既有 3.0 基础</text>
-  <text x="1460" y="556" text-anchor="end" class="small muted">工厂化 · 记忆 · 主动服务</text>
-  <text x="1460" y="704" text-anchor="end" class="small muted">既有方向并非 4.0 首创</text>
+  <!-- AI小顾 4.0 -->
+  <g id="xiaogu">
+    <rect x="700" y="620" width="760" height="370" rx="28" fill="#E3F2F1" stroke="#138A8A" stroke-width="4"/>
+    <rect x="740" y="650" width="300" height="50" rx="25" fill="#138A8A"/>
+    <text x="890" y="686" font-size="30" class="c w">已有产品 · 升级4.0</text>
+    <text x="740" y="775" font-size="60" class="b" style="fill:#0E6B6B">AI小顾 4.0</text>
+    <text x="1070" y="772" font-size="34" class="m">客户侧AI服务</text>
+    <text x="740" y="840" font-size="32">持续服务 · 长期服务状态</text>
+    <text x="740" y="890" font-size="32">跨AI与真人的服务接续与协同</text>
+    <text x="740" y="950" font-size="30" class="m">延续3.0方向：工厂化 · 记忆 · 主动服务</text>
+  </g>
 
-  <rect x="1680" y="400" width="820" height="340" rx="34" fill="#f7e3d8" stroke="#e4ad91" stroke-width="3" filter="url(#shadow)"/>
-  <rect x="1720" y="432" width="360" height="50" rx="25" fill="#db6b43"/>
-  <text x="1900" y="466" text-anchor="middle" class="small-strong white">新建 · 真人顾问专业工作台</text>
-  <text x="1720" y="550" class="section ink">Lodestar</text>
-  <text x="1720" y="596" class="body muted">理解客户 · 服务队列 · 专业分析判断</text>
-  <text x="1720" y="650" class="body-strong ink">交付　·　持续跟进</text>
-  <rect x="1720" y="674" width="740" height="44" rx="14" fill="#fff5ee"/>
-  <text x="1750" y="705" class="small-strong" fill="#9f492b">AI 准备与辅助｜顾问承担专业判断责任</text>
+  <!-- 服务接续 -->
+  <g id="handoff">
+    <line x1="1478" y1="800" x2="1722" y2="800" stroke="#1F2A44" stroke-width="6" marker-start="url(#aInk)" marker-end="url(#aInk)"/>
+    <text x="1600" y="768" font-size="34" class="b c">服务接续</text>
+    <text x="1600" y="850" font-size="30" class="c m">同一服务状态</text>
+    <text x="1600" y="890" font-size="30" class="c m">不断线</text>
+  </g>
 
-  <!-- Human-AI service handoff -->
-  <text x="1600" y="520" text-anchor="middle" class="small-strong" fill="#db6b43">跨 AI 与真人</text>
-  <text x="1600" y="560" text-anchor="middle" class="small-strong" fill="#db6b43">双向服务接续</text>
-  <line x1="1540" y1="620" x2="1660" y2="620" stroke="#db6b43" stroke-width="7" marker-start="url(#arrow-orange-start)" marker-end="url(#arrow-orange)"/>
+  <!-- Lodestar -->
+  <g id="lodestar">
+    <rect x="1740" y="620" width="760" height="370" rx="28" fill="#FBEBDD" stroke="#B8661E" stroke-width="4"/>
+    <rect x="1780" y="650" width="180" height="50" rx="25" fill="#B8661E"/>
+    <text x="1870" y="686" font-size="30" class="c w">新建产品</text>
+    <text x="1780" y="775" font-size="60" class="b" style="fill:#8A4A12">Lodestar</text>
+    <text x="2100" y="772" font-size="34" class="m">真人顾问专业工作台</text>
+    <text x="1780" y="840" font-size="32">理解客户 · 服务队列 · 专业分析判断</text>
+    <text x="1780" y="890" font-size="32">交付与持续跟进</text>
+    <text x="1780" y="950" font-size="30" class="m">AI准备与辅助，顾问承担专业判断责任</text>
+  </g>
 
-  <!-- Independent peer collaboration -->
-  <rect x="2580" y="400" width="500" height="340" rx="34" fill="#e7e5f2" stroke="#b6b0d0" stroke-width="3"/>
-  <text x="2620" y="458" class="small-strong" fill="#625b8d">独立平台 · 并列协同</text>
-  <text x="2620" y="526" class="cardtitle ink">YINGWORK</text>
-  <text x="2620" y="576" class="body ink">独立员工 AI 生产力平台</text>
-  <text x="2620" y="626" class="small muted">与 Lodestar 并列，而非上下级</text>
-  <text x="2620" y="674" class="small muted">按需共用技术供给、受控工具</text>
-  <text x="2620" y="714" class="small muted">任务引用与成果</text>
-  <line x1="2518" y1="572" x2="2562" y2="572" class="dash"/>
-  <circle cx="2540" cy="572" r="7" fill="#6c7f89"/>
-  <text x="2540" y="536" text-anchor="middle" class="small-strong muted">协同</text>
+  <!-- 共用服务底座 -->
+  <g id="foundation">
+    <line x1="1080" y1="1046" x2="1080" y2="996" stroke="#34449A" stroke-width="6" marker-end="url(#aBlue)"/>
+    <line x1="2120" y1="1046" x2="2120" y2="996" stroke="#34449A" stroke-width="6" marker-end="url(#aBlue)"/>
+    <text x="1110" y="1032" font-size="30" style="fill:#34449A">按场景供给</text>
+    <text x="2150" y="1032" font-size="30" style="fill:#34449A">按场景供给</text>
 
-  <!-- Shared service ledger -->
-  <rect x="700" y="800" width="1800" height="190" rx="32" fill="#203f50" filter="url(#shadow)"/>
-  <text x="750" y="860" class="cardtitle white">统一面向 AI 与真人的客户服务台账</text>
-  <rect x="2150" y="826" width="300" height="50" rx="25" fill="#70c3b4"/>
-  <text x="2300" y="860" text-anchor="middle" class="small-strong" fill="#102c35">唯一服务主状态</text>
-  <text x="750" y="918" class="body white">引用原系统权威事实｜持久保存已确认的目标诉求、约定、责任与计划</text>
-  <text x="750" y="962" class="small" fill="#c9d9df">持续沉淀交付、回执与复检｜不搬账户交易源库，也不是临时查询视图</text>
-  <path d="M1100 800 L1100 758" class="line" marker-end="url(#arrow-teal)"/>
-  <text x="1140" y="786" class="small-strong" fill="#147d78">共用</text>
-  <path d="M2090 800 L2090 758" class="line" marker-end="url(#arrow-teal)"/>
-  <text x="2130" y="786" class="small-strong" fill="#147d78">共用</text>
+    <rect x="700" y="1050" width="1800" height="400" rx="28" fill="#E6E8F5" stroke="#34449A" stroke-width="3"/>
+    <text x="740" y="1104" font-size="36" class="b" style="fill:#34449A">共用服务底座 · AI小顾、真人顾问、Lodestar同用</text>
 
-  <!-- Key state constraint -->
-  <rect x="2580" y="800" width="500" height="440" rx="34" fill="#fffaf3" stroke="#db6b43" stroke-width="4"/>
-  <text x="2620" y="858" class="small-strong" fill="#db6b43">一个关键约束</text>
-  <text x="2620" y="936" class="section ink">服务主状态</text>
-  <text x="2620" y="994" class="section ink">只维护一套</text>
-  <line x1="2620" y1="1032" x2="3040" y2="1032" stroke="#ecd3c4" stroke-width="3"/>
-  <text x="2620" y="1084" class="small muted">SCRM 保留关系、渠道与留痕深度</text>
-  <text x="2620" y="1128" class="small muted">Lodestar 不另建一套服务主状态</text>
-  <text x="2620" y="1184" class="small-strong" fill="#147d78">事实有出处，服务有延续</text>
+    <!-- 标准服务包 -->
+    <rect x="730" y="1130" width="420" height="290" rx="20" fill="#FFFFFF" stroke="#34449A" stroke-width="2"/>
+    <text x="760" y="1190" font-size="40" class="b">标准服务包</text>
+    <text x="760" y="1245" font-size="30">可版本化的方法 · 知识</text>
+    <text x="760" y="1290" font-size="30">工具 · 责任 · 质量规范</text>
+    <rect x="760" y="1352" width="260" height="46" rx="23" fill="#34449A"/>
+    <text x="890" y="1386" font-size="30" class="c w">三方复用同一包</text>
 
-  <!-- Reusable service packages -->
-  <rect x="700" y="1050" width="1800" height="140" rx="30" fill="#ffffff" stroke="#147d78" stroke-width="4"/>
-  <text x="750" y="1110" class="cardtitle ink">标准服务包</text>
-  <rect x="1030" y="1074" width="176" height="48" rx="24" fill="#dcefeb"/>
-  <text x="1118" y="1107" text-anchor="middle" class="small-strong" fill="#147d78">可版本化</text>
-  <text x="750" y="1158" class="body muted">方法 · 知识 · 工具 · 责任 · 质量规范</text>
-  <text x="2440" y="1112" text-anchor="end" class="body-strong" fill="#147d78">AI小顾、真人顾问与 Lodestar 复用</text>
-  <text x="2440" y="1158" text-anchor="end" class="small muted">同一套专业方法，按场景一致交付</text>
+    <!-- 统一客户服务台账 -->
+    <rect x="1180" y="1130" width="620" height="290" rx="20" fill="#FFFFFF" stroke="#1F2A44" stroke-width="5"/>
+    <text x="1210" y="1192" font-size="42" class="b">统一客户服务台账</text>
+    <text x="1210" y="1245" font-size="30">引用：原系统权威事实（不搬源库）</text>
+    <text x="1210" y="1290" font-size="30">持久保存：目标诉求 · 约定 · 责任</text>
+    <text x="1210" y="1332" font-size="30">计划 · 交付 · 回执 · 复检</text>
+    <rect x="1210" y="1352" width="400" height="46" rx="23" fill="#1F2A44"/>
+    <text x="1410" y="1386" font-size="30" class="c w">全域只维护一套服务主状态</text>
 
-  <!-- Package reuse routes around the ledger -->
-  <path d="M760 1050 H660 V590 H684" class="line" marker-end="url(#arrow-teal)"/>
-  <text x="636" y="930" class="small-strong" fill="#147d78" transform="rotate(-90 636 930)">服务包复用</text>
-  <path d="M2360 1050 H2530 V590 H2516" class="line" marker-end="url(#arrow-teal)"/>
-  <text x="2556" y="930" class="small-strong" fill="#147d78" transform="rotate(90 2556 930)">服务包复用</text>
+    <!-- 证据化洞察（慧客通） -->
+    <rect x="1830" y="1130" width="320" height="290" rx="20" fill="#FFFFFF" stroke="#34449A" stroke-width="2"/>
+    <text x="1855" y="1190" font-size="36" class="b">证据化洞察</text>
+    <text x="1855" y="1240" font-size="30">与服务准备</text>
+    <text x="1855" y="1290" font-size="30" class="m">已有基础：洞察</text>
+    <text x="1855" y="1332" font-size="30" class="m">批量作业 · 质量</text>
+    <rect x="1845" y="1352" width="290" height="46" rx="23" fill="#34449A"/>
+    <text x="1990" y="1386" font-size="30" class="c w">慧客通 · 升级整合</text>
 
-  <!-- L3: verification and assetization, not a customer product -->
-  <rect x="700" y="1240" width="1800" height="200" rx="32" fill="#f3e9d2" stroke="#c59b45" stroke-width="3"/>
-  <rect x="740" y="1270" width="404" height="52" rx="26" fill="#c59b45"/>
-  <text x="942" y="1306" text-anchor="middle" class="small-strong white">建设与验证项目 · 非客户产品</text>
-  <text x="1180" y="1308" class="cardtitle ink">智能顾问运营 L3</text>
-  <text x="740" y="1362" class="body ink">验证服务方法、工具流程、标准服务包与质量评测，真正可用后沉淀为共用资产</text>
-  <text x="740" y="1410" class="body-strong" fill="#8a6727">场景验证 → 资产发布 → 双前台消费 → 质量回流　｜　逐场景开放，非全量串行</text>
-  <text x="2450" y="1306" text-anchor="end" class="small muted">小顾 4.0 关键前提输入之一</text>
-  <path d="M1530 1240 L1530 1206" class="line" marker-end="url(#arrow-teal)"/>
-  <text x="1570" y="1228" class="small-strong" fill="#147d78">验证并发布</text>
+    <!-- 关系与私域（SCRM） -->
+    <rect x="2180" y="1130" width="290" height="290" rx="20" fill="#FFFFFF" stroke="#34449A" stroke-width="2"/>
+    <text x="2200" y="1190" font-size="34" class="b">客户关系与私域</text>
+    <text x="2200" y="1240" font-size="30">服务过程</text>
+    <text x="2200" y="1285" font-size="30">沟通留痕</text>
+    <text x="2200" y="1332" font-size="30" class="m">保留已有业务深度</text>
+    <rect x="2190" y="1352" width="270" height="46" rx="23" fill="#34449A"/>
+    <text x="2325" y="1386" font-size="30" class="c w">SCRM · 升级整合</text>
+  </g>
 
-  <!-- Existing business foundations -->
-  <rect x="120" y="1500" width="900" height="190" rx="30" fill="#e3ecef"/>
-  <text x="160" y="1552" class="small-strong" fill="#426b7a">已有基础 · 升级整合</text>
-  <text x="160" y="1606" class="cardtitle ink">慧客通</text>
-  <text x="360" y="1604" class="small ink">证据化洞察 · 服务准备</text>
-  <text x="360" y="1648" class="small muted">批量作业 · 质量基础｜不只是数据管道</text>
-  <text x="160" y="1650" class="small-strong" fill="#426b7a">洞察</text>
+  <!-- L3 建设与验证项目 -->
+  <g id="l3">
+    <rect x="120" y="350" width="450" height="1100" rx="28" fill="#FFF8E1" stroke="#8A6D12" stroke-width="4" stroke-dasharray="18 12"/>
+    <rect x="150" y="380" width="390" height="50" rx="25" fill="#8A6D12"/>
+    <text x="345" y="416" font-size="30" class="c w">建设与验证项目</text>
+    <text x="150" y="500" font-size="42" class="b">智能顾问运营</text>
+    <text x="150" y="600" font-size="96" class="b" style="fill:#8A6D12">L3</text>
+    <text x="150" y="660" font-size="30">把顾问运营做实、</text>
+    <text x="150" y="702" font-size="30">验证到真正可用：</text>
+    <text x="150" y="760" font-size="32">① 服务方法</text>
+    <text x="150" y="808" font-size="32">② 工具流程</text>
+    <text x="150" y="856" font-size="32">③ 标准服务包</text>
+    <text x="150" y="904" font-size="32">④ 质量评测</text>
+    <text x="150" y="970" font-size="30" class="b" style="fill:#8A6D12">→ 沉淀为共用资产</text>
+    <text x="150" y="1030" font-size="30" class="m">逐场景验证、开放：</text>
+    <rect x="150" y="1050" width="44" height="44" rx="8" fill="#8A6D12"/>
+    <rect x="210" y="1050" width="44" height="44" rx="8" fill="#8A6D12"/>
+    <rect x="270" y="1050" width="44" height="44" rx="8" fill="#8A6D12"/>
+    <rect x="330" y="1050" width="44" height="44" rx="8" fill="none" stroke="#8A6D12" stroke-width="3"/>
+    <rect x="390" y="1050" width="44" height="44" rx="8" fill="none" stroke="#8A6D12" stroke-width="3" stroke-dasharray="6 5"/>
+    <text x="150" y="1160" font-size="30">小顾升级的</text>
+    <text x="150" y="1202" font-size="30">关键前提输入之一</text>
+    <text x="150" y="1300" font-size="30" class="m">并行建设，</text>
+    <text x="150" y="1342" font-size="30" class="m">非全量串行</text>
+    <text x="150" y="1410" font-size="30" class="m">隶属顾问运营职能</text>
+  </g>
+  <line x1="572" y1="800" x2="694" y2="800" stroke="#8A6D12" stroke-width="5" stroke-dasharray="12 8" marker-end="url(#aGold)"/>
+  <text x="634" y="780" font-size="30" class="b c" style="fill:#8A6D12">前提输入</text>
+  <line x1="572" y1="1280" x2="724" y2="1280" stroke="#8A6D12" stroke-width="6" marker-end="url(#aGold)"/>
+  <text x="648" y="1262" font-size="30" class="b c" style="fill:#8A6D12">沉淀</text>
 
-  <rect x="1060" y="1500" width="900" height="190" rx="30" fill="#e3ecef"/>
-  <text x="1100" y="1552" class="small-strong" fill="#426b7a">已有基础 · 升级整合</text>
-  <text x="1100" y="1606" class="cardtitle ink">SCRM</text>
-  <text x="1300" y="1604" class="small ink">客户关系 · 私域渠道</text>
-  <text x="1300" y="1648" class="small muted">服务过程 · 沟通留痕｜保留业务深度</text>
-  <text x="1100" y="1650" class="small-strong" fill="#426b7a">关系</text>
+  <!-- YINGWORK -->
+  <g id="yingwork">
+    <rect x="2630" y="350" width="450" height="1100" rx="28" fill="#EFE8F5" stroke="#6B4C8A" stroke-width="4"/>
+    <rect x="2660" y="380" width="390" height="50" rx="25" fill="#6B4C8A"/>
+    <text x="2855" y="416" font-size="30" class="c w">独立平台 · 并列协同</text>
+    <text x="2660" y="520" font-size="52" class="b" style="fill:#4E3470">YINGWORK</text>
+    <text x="2660" y="580" font-size="34">员工AI生产力平台</text>
+    <text x="2660" y="660" font-size="30" class="m">与Lodestar并列协同</text>
+    <text x="2660" y="702" font-size="30" class="m">非上级、非子产品</text>
+    <text x="2660" y="744" font-size="30" class="m">非必需宿主</text>
+    <text x="2660" y="860" font-size="32" class="b" style="fill:#4E3470">按需共用</text>
+    <text x="2660" y="915" font-size="30">· 技术供给</text>
+    <text x="2660" y="960" font-size="30">· 受控工具</text>
+    <text x="2660" y="1005" font-size="30">· 任务引用与成果</text>
+    <text x="2660" y="1400" font-size="30" class="m">共用平台技术供给 ↓</text>
+  </g>
+  <line x1="2508" y1="800" x2="2622" y2="800" stroke="#6B4C8A" stroke-width="5" marker-start="url(#aPlum)" marker-end="url(#aPlum)"/>
+  <text x="2565" y="772" font-size="30" class="b c" style="fill:#6B4C8A">按需协同</text>
 
-  <rect x="2000" y="1500" width="1080" height="190" rx="30" fill="#e8e4dc"/>
-  <text x="2040" y="1552" class="small-strong muted">平台供给 · 主图极简呈现</text>
-  <text x="2040" y="1608" class="body-strong ink">企业AI　·　专业知识计算　·　业务数据　·　渠道治理</text>
-  <text x="2040" y="1654" class="small muted">详细技术供给、客户流程与接口清单见附图</text>
+  <!-- 平台供给 -->
+  <line x1="1600" y1="1516" x2="1600" y2="1458" stroke="#8C877C" stroke-width="5" marker-end="url(#aInk)"/>
+  <rect x="120" y="1520" width="2960" height="84" rx="42" fill="#ECE8DF" stroke="#A39E92" stroke-width="2"/>
+  <text x="1600" y="1574" font-size="32" class="c">平台供给（极简，详见附图）：企业AI · 专业知识计算 · 业务数据 · 渠道治理</text>
 
-  <!-- Footer legend -->
-  <line x1="120" y1="1740" x2="210" y2="1740" class="line" marker-end="url(#arrow-teal)"/>
-  <text x="232" y="1750" class="small muted">服务 / 资产复用</text>
-  <line x1="600" y1="1740" x2="690" y2="1740" class="dash"/>
-  <text x="712" y="1750" class="small muted">按需协同</text>
-  <rect x="1050" y="1718" width="36" height="36" rx="9" fill="#dcefeb" stroke="#147d78" stroke-width="3"/>
-  <text x="1108" y="1750" class="small muted">色块包含＝产品内职责</text>
-  <text x="3080" y="1750" text-anchor="end" class="small-strong" fill="#147d78">A / 服务接续主线</text>
+  <!-- 图例 -->
+  <g id="legend">
+    <text x="120" y="1712" font-size="30" class="b">图例</text>
+    <line x1="220" y1="1702" x2="300" y2="1702" stroke="#1F2A44" stroke-width="5" marker-end="url(#aInk)"/>
+    <text x="320" y="1712" font-size="30">供给 / 消费</text>
+    <line x1="560" y1="1702" x2="640" y2="1702" stroke="#1F2A44" stroke-width="5" marker-start="url(#aInk)" marker-end="url(#aInk)"/>
+    <text x="660" y="1712" font-size="30">协同 · 接续</text>
+    <rect x="900" y="1680" width="80" height="44" rx="8" fill="#FFF8E1" stroke="#8A6D12" stroke-width="3" stroke-dasharray="10 6"/>
+    <text x="1000" y="1712" font-size="30">建设与验证项目</text>
+    <rect x="1250" y="1680" width="80" height="44" rx="8" fill="none" stroke="#1F2A44" stroke-width="2"/>
+    <text x="1350" y="1712" font-size="30">包含（业务域）</text>
+    <rect x="1620" y="1680" width="190" height="44" rx="22" fill="#138A8A"/>
+    <text x="1715" y="1712" font-size="30" class="c w">已有·升级</text>
+    <rect x="1830" y="1680" width="120" height="44" rx="22" fill="#B8661E"/>
+    <text x="1890" y="1712" font-size="30" class="c w">新建</text>
+    <rect x="1970" y="1680" width="190" height="44" rx="22" fill="#6B4C8A"/>
+    <text x="2065" y="1712" font-size="30" class="c w">独立并列</text>
+    <text x="3080" y="1712" font-size="30" class="e m">客户流程、技术架构、接口清单见附图</text>
+  </g>
 </svg>
