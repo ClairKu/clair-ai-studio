@@ -1100,3 +1100,36 @@ test('resume evaluation prefers the new professional summary plus interview advi
   review.three_point.interview.text='  concise career summary  ';entry=vm.runInContext('currentAiFeedbackEntry(candidate)',h.context);assert.equal(entry.text,'concise career summary');
   delete review.summary;review.three_point.interview.text='current supporting reasoning';entry=vm.runInContext('currentAiFeedbackEntry(candidate)',h.context);assert.match(entry.text,/long match detail/);assert.match(entry.text,/current supporting reasoning/);
 });
+
+
+function peerInterviewCandidate(){
+  const candidate=currentAiCandidate();candidate.human_reviews=[{id:'peer-record',stage:'after',author:'周示例',sender_identity:'contact',evidence_completeness:'full',evidence_verified:true,source_type:'verified_platform_interview_record',interview_completed_explicit:true,scope:'historical_interview_round',is_current_recruitment_decision:false,text:'raw private peer interview text must not render',outcome:'不推进'}];
+  candidate.ai_reviews[0].review.claims=[{kind:'attributed_human_feedback',statement:'Historical feedback questioned the claimed contribution; the external repository remains unverified.',evidence:[{source_type:'human_review',review_id:'peer-record',quote:'private raw evidence quote must not render'}]},{kind:'historical_human_outcome',statement:'The prior interview decision belongs to that historical round and does not establish a current decision.',evidence:[{source_type:'human_review',review_id:'peer-record'}]}];return candidate;
+}
+
+test('verified peer interview fallback shows only linked current AI statements, attributes historical scope and keeps an AI edit reference',()=>{
+  const h=projectionHarness();h.context.candidate=peerInterviewCandidate();h.context.data={candidates:[h.context.candidate]};h.context.engineConnected=true;const before=JSON.stringify(h.context.candidate);
+  const projection=vm.runInContext("feedbackNoteProjection(candidate,'interview')",h.context);assert.equal(projection.entries.length,1);assert.match(projection.text,/周示例 · 历史面评：/);assert.match(projection.text,/Historical feedback/);assert.match(projection.text,/historical round/);assert.doesNotMatch(projection.text,/raw private|private raw/);assert.equal(projection.source_reference.kind,'ai_review');assert.equal(projection.source_reference.record_id,'ai-current');
+  const rendered=elementText(vm.runInContext('feedbackNotesPanel(candidate)',h.context));assert.match(rendered,/面试评价/);assert.doesNotMatch(rendered,/raw private|private raw|原始沟通记录|另存人工修订/);
+  vm.runInContext("openFeedbackNotes(candidate,'interview')",h.context);assert.equal(h.element('notes-text').value,projection.text);assert.equal(vm.runInContext('notesSources.interview.kind',h.context),'ai_review');assert.equal(JSON.stringify(h.context.candidate),before);
+});
+
+test('peer summaries require full verified platform after-review, completed-interview proof and an exact candidate-bound human reference',()=>{
+  const h=projectionHarness();for(const patch of [{evidence_completeness:'partial_preview'},{evidence_verified:false},{source_type:'unverified_import'},{stage:'before'},{interview_completed_explicit:false},{author:'未确认作者'}]){h.context.candidate=peerInterviewCandidate();Object.assign(h.context.candidate.human_reviews[0],patch);assert.equal(vm.runInContext("feedbackNoteProjection(candidate,'interview').text",h.context),'');}
+  h.context.candidate=peerInterviewCandidate();for(const claim of h.context.candidate.ai_reviews[0].review.claims)claim.evidence[0].review_id='other-candidate-peer';assert.equal(vm.runInContext("feedbackNoteProjection(candidate,'interview').text",h.context),'');
+  h.context.candidate=peerInterviewCandidate();for(const claim of h.context.candidate.ai_reviews[0].review.claims)claim.evidence[0].source_type='document';assert.equal(vm.runInContext("feedbackNoteProjection(candidate,'interview').text",h.context),'');
+  h.context.candidate=peerInterviewCandidate();for(const claim of h.context.candidate.ai_reviews[0].review.claims)claim.kind='resume_self_report';assert.equal(vm.runInContext("feedbackNoteProjection(candidate,'interview').text",h.context),'');
+});
+
+test('peer fallback never revives stale AI or replaces owner review, manual edits or an explicit clear',()=>{
+  const h=projectionHarness();h.context.candidate=peerInterviewCandidate();h.context.candidate.ai_review_standard_stale=true;assert.equal(vm.runInContext("feedbackNoteProjection(candidate,'interview').text",h.context),'');
+  h.context.candidate=peerInterviewCandidate();h.context.candidate.ai_reviews[0].is_current_context=false;assert.equal(vm.runInContext("feedbackNoteProjection(candidate,'interview').text",h.context),'');
+  h.context.candidate=peerInterviewCandidate();h.context.candidate.human_reviews.push({id:'owner-after',stage:'after',sender_identity:'owner',text:'owner interview judgment'});assert.equal(vm.runInContext("feedbackNoteProjection(candidate,'interview').text",h.context),'owner interview judgment');
+  h.context.candidate=peerInterviewCandidate();h.context.candidate.feedback_notes={interview:{text:'manual interview judgment',revision_id:'manual-revision'}};assert.equal(vm.runInContext("feedbackNoteProjection(candidate,'interview').text",h.context),'manual interview judgment');h.context.candidate.feedback_notes.interview.text='';assert.equal(vm.runInContext("feedbackNoteProjection(candidate,'interview').text",h.context),'');
+});
+
+test('historical peer outcome summaries do not become current Pass or change recommendations, scores or metrics',()=>{
+  const h=listHarness();h.context.reviewArrays=c=>({pre:[],post:c.human_reviews||[],unknown:[]});h.context.candidate=peerInterviewCandidate();h.context.candidate.resume_recommendation={status:'interview',label:'建议面试',rubric_version:'current-v3',score_origin:'ai'};
+  Object.assign(h.context,{scoreMechanism:()=>({version:'current-v3',decision_policy:{}}),requirementsData:null});h.context.data.hiring_metrics={pass_people:2,reject_people:0};vm.runInContext(decisionSource,h.context);const before=JSON.stringify({candidate:h.context.candidate,metrics:h.context.data.hiring_metrics});const actualBefore=vm.runInContext('candidateActualState(candidate)',h.context),adviceBefore=vm.runInContext('candidateAdviceTag(candidate).text',h.context);
+  const projection=vm.runInContext("feedbackNoteProjection(candidate,'interview')",h.context);assert.match(projection.text,/历史面评/);assert.equal(vm.runInContext('candidateActualState(candidate)',h.context),actualBefore);assert.equal(vm.runInContext('candidateAdviceTag(candidate).text',h.context),adviceBefore);assert.equal(JSON.stringify({candidate:h.context.candidate,metrics:h.context.data.hiring_metrics}),before);
+});

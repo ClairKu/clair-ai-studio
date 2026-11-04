@@ -637,6 +637,15 @@ function currentAiFeedbackEntry(c){
   const fallback=[review.summary,review.recommendation,review.original_deep_assessment?.ai_advice].find(value=>typeof value==='string')||'',text=(parts.length?parts.join('\n\n'):fallback).trim();
   return text?{text:text.slice(0,1200),source_label:'AI履历分析',source_reference:{record_id:record.id,kind:'ai_review'},recorded_at:record.created_at||record.recorded_at}:null;
 }
+function currentPeerInterviewEntry(c){
+  if(!c.resume_score_ai||reviewIsStale(c)||pendingReview(c))return null;const score=c.resume_score_ai,mechanism=scoreMechanism(assignedRole(c));if(score.is_current_context===false||score.role&&score.role!==assignedRole(c)||mechanism?.version&&score.mechanism_version!==mechanism.version)return null;
+  const record=latestAIRecord(c),review=record?.review||record;if(!record?.id||record.is_current_context===false||review?.is_current_context===false)return null;
+  const peers=reviewArrays(c).post.filter(peer=>peer.id&&peer.stage==='after'&&peer.evidence_completeness==='full'&&peer.evidence_verified===true&&peer.source_type==='verified_platform_interview_record'&&peer.interview_completed_explicit===true&&feedbackRecordActor(peer)!=='owner'&&typeof peer.author==='string'&&peer.author.trim()&&!/未知|未确认|未核验|来源不明/.test(peer.author));
+  const linked=peers.map(peer=>{const claims=arr(review.claims).filter(claim=>claim&&['attributed_human_feedback','historical_human_outcome'].includes(claim.kind)&&typeof claim.statement==='string'&&claim.statement.trim()&&arr(claim.evidence).some(ref=>ref?.source_type==='human_review'&&ref.review_id===peer.id)),statements=unique(claims.map(claim=>claim.statement.trim()));return {peer,claims,statements};}).filter(item=>item.statements.length);
+  const latest=latestFeedbackRecord(linked.map(item=>item.peer)),item=linked.find(item=>item.peer===latest);if(!item)return null;
+  const historical=item.peer.scope==='historical_interview_round'||item.claims.some(claim=>claim.kind==='historical_human_outcome'),text=item.peer.author.trim()+' · '+(historical?'历史面评：':'面评：')+'\n'+item.statements.join('\n\n');
+  return {text,source_label:'面试评价',source_reference:{record_id:record.id,kind:'ai_review'},recorded_at:record.created_at||record.recorded_at};
+}
 function feedbackNoteProjection(c,category){
   const manual=c.feedback_notes||{};
   if(Object.hasOwn(manual,category)){const record=manual[category]||{};return {manual:true,text:String(record.text||''),entries:record.text?[{text:record.text,source_label:'人工评价',recorded_at:record.created_at}]:[],revision_id:record.revision_id||null,source_reference:record.source_reference||null,source_references:arr(record.source_references||record.source_reference)};}
@@ -645,7 +654,7 @@ function feedbackNoteProjection(c,category){
     const ai=currentAiFeedbackEntry(c);if(ai)entries.push(ai);
     const owner=latestFeedbackRecord(reviews.pre.filter(record=>feedbackRecordActor(record)==='owner'));if(owner){const entry=feedbackSourceEntry(owner,'human_review','本人履历评价');if(entry)entries.push(entry);}
   }else if(category==='interview'){
-    const owner=latestFeedbackRecord(reviews.post.filter(record=>feedbackRecordActor(record)==='owner'));if(owner){const entry=feedbackSourceEntry(owner,'human_review','本人面试评价');if(entry)entries.push(entry);}
+    const owner=latestFeedbackRecord(reviews.post.filter(record=>feedbackRecordActor(record)==='owner'));if(owner){const entry=feedbackSourceEntry(owner,'human_review','本人面试评价');if(entry)entries.push(entry);}else{const peer=currentPeerInterviewEntry(c);if(peer)entries.push(peer);}
   }else if(category==='hr'){
     const hr=latestFeedbackRecord(all.filter(record=>feedbackRecordActor(record)==='hr'&&record.category==='hr'&&record.stage==='hr'&&record.is_evaluation!==false&&!['interview_scheduled','availability','scheduling','calendar_event'].includes(record.kind||record.type)));if(hr){const entry=feedbackSourceEntry(hr,'human_review','人力评价原文');if(entry)entries.push(entry);}
   }else{
