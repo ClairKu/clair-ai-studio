@@ -17,6 +17,7 @@ class Element {
   replaceChildren(...children) { this.children = children; }
   querySelector() { return new Element('option'); }
   addEventListener(name, callback) { this.handlers[name] = callback; }
+  setAttribute(name, value) { this[name] = value; }
 }
 
 const state = (query = '') => ({ candidates: [{ id: 'synthetic-record' }], filter_scope: { query } });
@@ -99,6 +100,9 @@ test('failed startup gives an actionable offline state and retry reconnects', as
   await h.element('connection-actions').children[0].callback();
   assert.equal(h.context.engineConnected, true);
   assert.equal(h.client.status().state, 'online');
+  assert.equal(h.element('workspace-connection').hidden, true, 'successful connections should not take up workspace space');
+  assert.equal(h.element('connection-status').textContent, '');
+  assert.equal(h.element('connection-description').textContent, '');
   assert.equal(h.stats.merges, 1);
   assert.equal([...h.timers.values()][0].delay, 15000);
 });
@@ -123,8 +127,13 @@ test('a hidden local list retains an accessible restore action', async () => {
   await h.client.connectEngine();
   h.context.sessionLocked = true;
   h.client.renderConnectionStatus();
-  assert.match(h.element('connection-status').textContent, /名单已隐藏/);
-  const restore = h.element('connection-actions').children[0];
+  assert.equal(h.element('workspace-connection').hidden, true);
+  assert.equal(h.element('connection-actions').children.length, 0);
+  h.context.data = {candidates: []};
+  vm.runInContext(source.split('\n').find(line=>line.startsWith('function candidateEmptyState(')),h.context);
+  const empty=vm.runInContext('candidateEmptyState()',h.context);
+  assert.equal(empty.children[0].textContent, '名单已隐藏');
+  const restore = empty.children[1].children[0];
   assert.equal(restore.textContent, '读取名单');
   restore.callback();
   assert.equal(h.stats.unlocks, 1);
@@ -155,6 +164,8 @@ test('refresh failure keeps the loaded records, exposes offline state, and backs
   assert.equal(h.context.data, loaded);
   assert.equal(h.context.engineConnected, false);
   assert.equal(h.client.status().state, 'offline');
+  assert.equal(h.element('workspace-connection').hidden, false, 'real failures must still expose recovery');
+  assert.equal(h.element('connection-actions').children[0].textContent, '重试连接');
   assert.equal(h.client.nextEnginePollDelay(), 5000);
 });
 
@@ -423,4 +434,48 @@ test('an undated approved portrait sample retains unknown period coverage', () =
   const model=vm.runInContext("recruitmentPortraitModel('advisory_pm')",h.context);
   assert.equal(model.count,1);assert.equal(model.dated,0);assert.equal(model.undated,1);assert.equal(model.periodUnknown,1);
   assert.equal(model.dateCoverage.from,null);assert.equal(model.dateCoverage.to,null);
+});
+
+test('months remain source data without an automatically visible or hidden active list filter', () => {
+  const h=harness();
+  h.context.data={candidates:[{id:'newer',first_received_month:'2026-10'},{id:'older',first_received_month:'2025-03'}]};
+  const before=JSON.stringify(h.context.data);
+  h.element('month-filter').value='2025-03';
+  h.context.metricFilter='all';h.context.selected='older';
+  vm.runInContext(sourceFunction('renderMonthFilter')+'\nrenderMonthFilter();',h.context);
+  assert.equal(h.element('month-filter').hidden,true);
+  assert.equal(h.element('month-filter').value,'all','the removed control must not leave an invisible restriction');
+  assert.equal(JSON.stringify(h.context.data),before,'source dates and their order remain unchanged');
+});
+
+test('score badges show only the points while details retain scale, source, partial coverage and old-standard context', () => {
+  const h=harness();
+  vm.runInContext(scoreSource+'\n'+sourceFunction('latestScore')+'\n'+sourceFunction('scoreBadge'),h.context);
+  h.context.assignedRole=()=> 'advisory_pm';
+  h.context.openScoreEditor=()=>{};
+  let badge=vm.runInContext("scoreBadge({display_score:{score:82.9,scale:100,stage:'post_interview',source:'用户面后评价'}})",h.context);
+  assert.equal(badge.textContent,'82.9分');
+  assert.match(badge.title,/面后/);assert.match(badge.title,/用户面后评价/);assert.match(badge.title,/原始 82.9\/100/);
+  badge=vm.runInContext("scoreBadge({review_standard_stale:true,display_score:{score:79,scale:100,source_raw_score:55.3,source_scale:70,coverage:.7,is_partial:true,source:'AI履历分析'}})",h.context);
+  assert.equal(badge.textContent,'79分');
+  assert.match(badge.title,/原始 55.3\/70/);assert.match(badge.title,/已评权重70%/);assert.match(badge.title,/旧标准待复核/);
+  assert.equal(vm.runInContext('scoreBadge({display_score:null}).textContent',h.context),'待评分');
+});
+
+test('the selected candidate heading contains the compact score without a separate technical coverage line', () => {
+  const h=harness();h.context.engineConnected=true;
+  Object.assign(h.context,{
+    uploadActive:false,detailRenderSignature:'',assignedRole:()=> 'advisory_pm',scoreMechanism:()=>null,
+    clearResumeFrames(){},threePoint:()=>null,reviewJob:()=>({}),reviewIsStale:()=>false,
+    candidateName:()=> 'synthetic candidate',status:()=>({label:'阶段待核'}),pendingReview:()=>false,
+    changeMetadata(){},retryReview(){},openFeedback(){},openMaterials(){},
+    personSentence:()=>null,interviewAdvice:()=>null,profileFacts:()=>null,radarPanel:()=>null,
+    communicationPanel:()=>null,resumePanel:()=>new Element('section'),worksPanel:()=>null,
+    append:(parent,...children)=>parent.append(...children),
+  });
+  vm.runInContext(scoreSource+'\n'+sourceFunction('latestScore')+'\n'+sourceFunction('scoreBadge')+'\n'+sourceFunction('renderDetail'),h.context);
+  vm.runInContext("renderDetail({id:'synthetic-record',display_score:{score:79,scale:100}})",h.context);
+  const identity=h.element('candidate-detail').children[0].children[0].children[0];
+  assert.equal(identity.children.length,1,'the profile title must not gain a second technical line');
+  assert.equal(identity.children[0].children[1].textContent,'79分');
 });
