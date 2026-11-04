@@ -1,0 +1,206 @@
+{
+  "title": "且慢业务重塑 · 产品与能力总关系图",
+  "date": "2026-11-04",
+  "status": "规划宣导图，已有为历史基础，目标关系逐项验收",
+  "nodes": [
+    {
+      "id": "xiaogu",
+      "label": "AI小顾4.0",
+      "status": [
+        "升级"
+      ],
+      "role": "客户侧持续服务入口"
+    },
+    {
+      "id": "lodestar",
+      "label": "Lodestar",
+      "status": [
+        "新建"
+      ],
+      "role": "真人顾问专业工作台"
+    },
+    {
+      "id": "yingwork",
+      "label": "YINGWORK",
+      "status": [
+        "已有",
+        "可选协同"
+      ],
+      "role": "独立员工AI生产力平台"
+    },
+    {
+      "id": "service-core",
+      "label": "统一客户服务底座",
+      "status": [
+        "共建",
+        "整合升级",
+        "新建统一层"
+      ],
+      "contains": [
+        "客户台账",
+        "服务包",
+        "事件与业务任务",
+        "服务交付与回执"
+      ]
+    },
+    {
+      "id": "huiketong",
+      "label": "慧客通",
+      "status": [
+        "已有",
+        "升级"
+      ]
+    },
+    {
+      "id": "scrm",
+      "label": "SCRM",
+      "status": [
+        "已有",
+        "升级"
+      ]
+    },
+    {
+      "id": "events",
+      "label": "MESN/CDP",
+      "status": [
+        "已有基础",
+        "升级适配"
+      ]
+    },
+    {
+      "id": "professional",
+      "label": "业务与专业系统",
+      "status": [
+        "已有"
+      ]
+    },
+    {
+      "id": "ai-core",
+      "label": "共用AI基座",
+      "status": [
+        "共建",
+        "复用补齐"
+      ]
+    },
+    {
+      "id": "platforms",
+      "label": "企业与技术平台供给",
+      "status": [
+        "已有基础",
+        "升级适配"
+      ]
+    },
+    {
+      "id": "l3",
+      "label": "智能顾问运营L3",
+      "status": [
+        "新建项目",
+        "共建"
+      ]
+    }
+  ],
+  "edges": [
+    [
+      "service-core",
+      "xiaogu",
+      "授权上下文与服务包",
+      "运行供给"
+    ],
+    [
+      "xiaogu",
+      "service-core",
+      "服务请求、进展和反馈",
+      "回流"
+    ],
+    [
+      "service-core",
+      "lodestar",
+      "客户全景与优先任务",
+      "运行供给"
+    ],
+    [
+      "lodestar",
+      "service-core",
+      "顾问判断、签发与回执",
+      "回流"
+    ],
+    [
+      "lodestar",
+      "yingwork",
+      "任务/成果引用与受控能力，独立并列",
+      "可选协同"
+    ],
+    [
+      "huiketong",
+      "service-core",
+      "洞察、候选信号与证据",
+      "运行供给"
+    ],
+    [
+      "scrm",
+      "service-core",
+      "客户关系、沟通与回执",
+      "回流"
+    ],
+    [
+      "service-core",
+      "scrm",
+      "授权任务与触达指令",
+      "运行供给"
+    ],
+    [
+      "events",
+      "service-core",
+      "事件与静默基础",
+      "运行供给"
+    ],
+    [
+      "professional",
+      "service-core",
+      "权威事实与专业工具",
+      "运行供给"
+    ],
+    [
+      "platforms",
+      "ai-core",
+      "运行、工具、身份、知识、部署和运维",
+      "平台供给"
+    ],
+    [
+      "ai-core",
+      "service-core",
+      "AI执行、上下文、工具与质量治理",
+      "运行供给"
+    ],
+    [
+      "service-core",
+      "ai-core",
+      "任务上下文与执行请求",
+      "运行调用"
+    ],
+    [
+      "ai-core",
+      "yingwork",
+      "按需复用同一组AI平台供给",
+      "供给契约"
+    ],
+    [
+      "l3",
+      "service-core",
+      "服务模板、规则、准备包、派单、回执与验证",
+      "建设交付"
+    ],
+    [
+      "l3",
+      "ai-core",
+      "场景评测与异常要求",
+      "建设交付"
+    ],
+    [
+      "l3",
+      "xiaogu",
+      "对应场景验收后的服务资产，关键前提输入",
+      "建设依赖"
+    ]
+  ]
+}

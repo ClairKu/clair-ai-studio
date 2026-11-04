@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "qieman-product-relationship-map-2026-11-04",
     "qieman-business-product-blueprint-2026-11-03",
     "oap-key-oauth-summary-2026-11-02",
     "private-fund-mcp-guide-2026-10-30",

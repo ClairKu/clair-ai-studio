@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 159;
+const DATA_VERSION = 160;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -222,6 +222,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qieman-product-relationship-map-2026-11-04",
+      groupId: "advisor-workbench",
+      title: "且慢业务重塑｜产品与能力总关系图",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-product-relationship-map-2026-11-04/",
+      preview: "qieman-product-relationship-map-2026-11-04.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-04T00:00:00+08:00",
+      source: "基于已发布总产品蓝图制作的一页宣导图：产品、L3项目、共用业务能力、AI基座及平台供给同图；箭头标注运行供给、业务回流、项目建设交付与可选协同；区分已有历史基础、升级、新建和共建。附SVG矢量版、高清PNG、可编辑关系数据，目标关系不代表已全部接通。",
+      access: "production",
+      workType: "product-planning",
+      tags: ["且慢", "总关系图", "宣导", "Lodestar", "AI小顾4.0", "YINGWORK", "慧客通", "SCRM", "L3", "共用能力", "AI基座", "平台供给", "已有升级新建共建", "SVG", "PNG"],
+    },
     {
       id: "qieman-business-product-blueprint-2026-11-03",
       groupId: "advisor-workbench",
@@ -4348,6 +4362,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-product-relationship-map-2026-11-04": "advisor-workbench",
   "qieman-business-product-blueprint-2026-11-03": "advisor-workbench",
   "oap-key-oauth-summary-2026-11-02": "growth-insights",
   "private-fund-mcp-guide-2026-10-30": "ai-platform",
