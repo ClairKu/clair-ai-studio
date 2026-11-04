@@ -1,0 +1,163 @@
+{
+  "date": "2026-11-04",
+  "main_sources": [
+    {
+      "id": "CN01",
+      "name": "平安银行",
+      "title": "私人银行和财富管理报告",
+      "date": "2019年3月｜历史经营架构",
+      "url": "https://resources.pingan.com/app_upload/file/bank/f89812e565ea408896e86661e61aa132.pdf#page=4",
+      "kind": "经营全景 / 服务生产体系",
+      "position": "PDF实页4、8；页内编号3、7",
+      "seen": true,
+      "learn": "把客户、经营交付与专业支持资产分开；横向建设工程支撑整个经营体系。",
+      "apply": "图01经营全景；图06把L3视作变革工程。",
+      "boundary": "不复制全牌照集团模式；2019年规划不能证明2026年上线状态。"
+    },
+    {
+      "id": "CN02",
+      "name": "恒生电子",
+      "title": "We6品牌手册",
+      "date": "约2020版｜官网2021存储路径，首发日未确认",
+      "url": "https://www.hundsun.com/v1api/upload/2021/05/17/162123742619120k25m.pdf#page=20",
+      "kind": "财富业务 / 应用能力架构",
+      "position": "PDF实页20、27、29；页内编号16、23、25",
+      "seen": true,
+      "learn": "角色终端、业务能力、共享服务及基础平台分层；专业流程另画角色与反馈。",
+      "apply": "图02先呈现业务复用，再标产品承载。",
+      "boundary": "厂商参考架构不等于某机构全量部署；不复制银行全产品矩阵。"
+    },
+    {
+      "id": "D01",
+      "name": "Deloitte",
+      "title": "The future of wealth management revisited",
+      "date": "Winter 2020｜图4沿用并更新2017研究",
+      "url": "https://www.deloitte.com/content/dam/assets-zone3/us/en/docs/industries/financial-services/2020/us-future-of-wealth-management-revisited-winter-2020.pdf#page=9",
+      "kind": "客户 / 顾问双工作站与共享引擎",
+      "position": "PDF实页9，Figure 4",
+      "seen": true,
+      "learn": "客户工作站与顾问工作站共享建议能力、数据与互操作层，外围专业能力各有边界。",
+      "apply": "图01角色交付；图05用能力契约组织底座。",
+      "boundary": "历史参考架构，不是当前Agent平台或且慢生产集成证明。"
+    },
+    {
+      "id": "G01",
+      "name": "BlackRock",
+      "title": "Aladdin Wealth — connected experience",
+      "date": "官网未标日期｜2026-11-04查看",
+      "url": "https://www.blackrock.com/aladdin/platforms/solutions/aladdin-wealth",
+      "kind": "产品边界 / 上下游生态",
+      "position": "A connected experience across your organization一节",
+      "seen": true,
+      "learn": "明确产品内部、CRM/规划/OMS等外部相邻系统，以及单独的集成能力带。",
+      "apply": "图02产品边界；图05跨产品供给。",
+      "boundary": "横向连接不等于严格串行服务流程，也不代表每家机构都启用全部连接。"
+    },
+    {
+      "id": "G02",
+      "name": "Addepar",
+      "title": "The Addepar way",
+      "date": "PDF元数据2021-04-09｜历史产品架构",
+      "url": "https://info.addepar.com/rs/232-KUI-215/images/addepar-overview-rpt.pdf#page=6",
+      "kind": "数据平台 / 应用 / 外部工具",
+      "position": "PDF实页6；实页7补充应用示例",
+      "seen": true,
+      "learn": "数据平台支撑分析、报告与客户门户；外部CRM、规划等工具保留边界。",
+      "apply": "图02共用支撑与应用分离；图04记录语义共用。",
+      "boundary": "图未定义完整服务责任模型，不把数据汇聚等同源事实全部迁库。"
+    },
+    {
+      "id": "G03",
+      "name": "Salesforce",
+      "title": "Financial Services Overview / Action Plan Framework",
+      "date": "图内修改日期2026-04-15 / 2026-04-28",
+      "url": "https://developer.salesforce.com/docs/platform/data-models/guide/financial-services-overview.html",
+      "extra_url": "https://developer.salesforce.com/docs/platform/data-models/guide/action-plan-framework.html",
+      "kind": "业务对象 / 模板与执行分离",
+      "position": "两页官方数据模型原图",
+      "seen": true,
+      "learn": "主体、金融账户、目标、互动与服务分域；模板、模板版本、执行计划与实际任务分别建模。",
+      "apply": "图04标准服务包、客户实例、任务及运行上下文分开。",
+      "boundary": "Account主体不等于投资账户；Action Plan不等于资产配置方案；不照抄许可与全部对象。"
+    },
+    {
+      "id": "G04",
+      "name": "MuleSoft",
+      "title": "Wealth client onboarding — Accelerator 1.12.0",
+      "date": "2025-03-12｜官方参考方案",
+      "url": "https://www.mulesoft.com/exchange/org.mule.examples/mulesoft-accelerator-for-financial-services/minor/1.12/pages/Use%20case%202b%20-%20Client%20onboarding%20-%20Wealth%20management/?embedded=1&is_marketing=1&no_cookie=1&no_navbar=1",
+      "kind": "架构图 / 活动泳道分图",
+      "position": "High-level architecture及Opportunity processing",
+      "seen": true,
+      "learn": "同一财富接入用例，系统/API集成架构和业务活动分开表达；分支、失败通知与状态回写明确。",
+      "apply": "图03具体服务交接；图05能力供给另图表达。",
+      "boundary": "方案包含手动机会转换与模拟KYC，不当作机构生产自动化证明。"
+    },
+    {
+      "id": "M2",
+      "name": "Sarah Gibbons · NN/g",
+      "title": "Service Blueprints: Definition",
+      "date": "2017年原文｜本次查看现行页面",
+      "url": "https://www.nngroup.com/articles/service-blueprints-definition/",
+      "kind": "服务蓝图方法",
+      "position": "家电零售示例、Service Blueprint 101两张原图",
+      "seen": true,
+      "learn": "围绕一个客户目标，将客户动作、可见服务、后台作业与支持过程按旅程对齐。",
+      "apply": "图03只画“半年后用款检视”一个场景，并标交互与可见性边界。",
+      "boundary": "不能用一张蓝图代表所有客户场景；AI与真人不固定属于前台或后台。"
+    },
+    {
+      "id": "M1",
+      "name": "Jeff Patton",
+      "title": "Story Mapping Quick Reference",
+      "date": "版权2013｜不从上传路径推定首发日",
+      "url": "https://jpattonassociates.com/wp-content/uploads/2015/03/story_mapping.pdf",
+      "kind": "用户活动 / 发布切片方法",
+      "position": "2页PDF，Concepts与Process原图",
+      "seen": true,
+      "learn": "用户活动构成横向骨架；发布切片横跨活动，交付完整可用的结果。",
+      "apply": "图06按顾问作业切片，L3、Lodestar和4.0并行围绕服务闭环交付。",
+      "boundary": "故事地图不是精确工作流，也不回答系统或数据权威划分。"
+    },
+    {
+      "id": "M4",
+      "name": "Marty Cagan · SVPG",
+      "title": "Vision vs. Strategy / Product Strategy / Alternative to Roadmaps",
+      "date": "2016 / 2020 / 2015｜产品策略原则",
+      "url": "https://www.svpg.com/vision-vs-strategy/",
+      "extra_url": "https://www.svpg.com/product-strategy-overview/",
+      "kind": "愿景 / 重点问题 / 结果责任",
+      "position": "作者本人3篇文章；第三篇见研究索引",
+      "seen": false,
+      "learn": "愿景表达有价值的未来；策略选择重点问题，团队对可衡量结果负责。",
+      "apply": "图01服务价值；图06按结果设放量闸门。",
+      "boundary": "所读文章没有官方“总产品蓝图”示例图；这里只借原则，不冒称套用作者模板。"
+    }
+  ],
+  "supplementary_sources": [
+    {
+      "id": "CN03",
+      "name": "招商银行",
+      "title": "2022年度业绩摘要",
+      "url": "https://sns.sseinfo.com/resources/images/upload/202311/2023111610100181880807461.pdf#page=30",
+      "note": "实页30，云、数据中台与技术中台供给；仅作图05补充，不能当财富产品总架构。"
+    },
+    {
+      "id": "SF-DIAGRAM",
+      "name": "Salesforce Architect",
+      "title": "Diagram Framework",
+      "url": "https://architect.salesforce.com/docs/architect/reference-diagrams/guide/introduction",
+      "note": "先明确受众与问题，再选择能力图、系统全景、流程、数据模型、路线等视图；不以一张总图回答一切。"
+    },
+    {
+      "id": "BIAN",
+      "name": "BIAN",
+      "title": "v14 Capability Map / Service Landscape",
+      "url": "https://bian.org/servicelandscape-14-0-0/",
+      "note": "官方门户区分能力、服务域、信息模型与场景。原图仅部分视觉核验，不声称完整核验全部银行服务域；不移植全量目录。"
+    }
+  ],
+  "method": "官方/作者一手材料；原图与原文实际核验；公开交付只链接原件，且慢图为原创重绘。",
+  "excluded": "未用搜索摘要、装饰图、厂商效果自报或不可取回原图凑案例；没有把产品策略文章冒称官方蓝图。",
+  "additional_method_url": "https://www.svpg.com/the-alternative-to-roadmaps/"
+}

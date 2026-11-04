@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 162;
+const DATA_VERSION = 163;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -223,6 +223,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-product-blueprint-industry-2026-11-04",
+      groupId: "advisor-workbench",
+      title: "且慢产品蓝图｜行业研究与六图重绘",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-product-blueprint-industry-2026-11-04/",
+      preview: "qieman-product-blueprint-industry-2026-11-04.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-04T10:00:00+08:00",
+      source: "研究平安、恒生、Deloitte、BlackRock、Addepar、Salesforce及NN/g、Patton、Cagan一手资料，重绘经营、产品、服务、对象、AI供给和建设六图。附来源图页、产品分工、五个共建域与验收；目标设计与历史事实分开。",
+      access: "production",
+      workType: "product-planning",
+      tags: ["且慢", "行业研究", "产品蓝图", "Lodestar", "AI小顾4.0", "L3", "YINGWORK", "慧客通", "SCRM", "客户台账", "服务包", "AI底座", "共建", "六图", "SVG", "PNG"],
+    },
+    {
       id: "yingmi-ontology-model-audit-2026-11-04",
       groupId: "knowledge",
       title: "盈米本体的真实增量：轻量业务模型、运行方式与证据边界",
@@ -253,13 +267,13 @@ const initialState = {
     {
       id: "qieman-product-relationship-map-2026-11-04",
       groupId: "advisor-workbench",
-      title: "且慢业务架构｜能力与产品系统映射（重构版）",
+      title: "且慢产品关系图｜行业研究重绘六视图",
       url: "https://clairku.github.io/clair-ai-studio/reports/qieman-product-relationship-map-2026-11-04/",
-      preview: "qieman-product-relationship-map-2026-11-04-v2.svg",
+      preview: "qieman-product-relationship-map-2026-11-04-v3.svg",
       pinned: false,
       position: 0,
       createdAt: "2026-11-04T00:00:00+08:00",
-      source: "重构版2.0：从客户服务责任建立业务过程、五组业务能力及业务对象，再分别映射应用系统职责、技术供给与变更项目。区分事件/任务/系统/协议、台账视图/标准能力包/运行快照；MESN与CDP独立归类。附概念与关系规则说明、SVG和高清PNG。",
+      source: "行业研究重绘版3.0：经营、产品、服务蓝图、共用对象、AI供给与建设路线六个视图；原关系图入口直接展示新版，附可编辑SVG和高清PNG。",
       access: "production",
       workType: "product-planning",
       tags: ["且慢", "总关系图", "宣导", "Lodestar", "AI小顾4.0", "YINGWORK", "慧客通", "SCRM", "L3", "共用能力", "AI基座", "平台供给", "已有升级新建共建", "SVG", "PNG"],
@@ -267,13 +281,13 @@ const initialState = {
     {
       id: "qieman-business-product-blueprint-2026-11-03",
       groupId: "advisor-workbench",
-      title: "且慢业务重塑｜总产品蓝图与Lodestar AI底座",
+      title: "且慢业务重塑｜总蓝图与行业六图入口",
       url: "https://clairku.github.io/clair-ai-studio/reports/qieman-business-product-blueprint-2026-11-03/",
-      preview: "qieman-business-product-blueprint-2026-11-03-v2.svg",
+      preview: "qieman-business-product-blueprint-2026-11-03-v3.svg",
       pinned: false,
       position: 0,
       createdAt: "2026-11-03T14:00:00+08:00",
-      source: "重构版2.0：以持续客户服务责任建立业务过程、能力和对象模型，分别映射角色应用、技术与业务供给、项目变更；明确台账记录视图、标准服务能力包与运行快照。附16个工作包、供给分类和验收，能力组为逻辑设计，非上线或组织任命。",
+      source: "总产品规划与Lodestar底座资料；新增行业研究六图主入口，明确服务生产与履约、源事实引用与服务域持久记录。原工作包等保留作规划附录。",
       access: "production",
       workType: "product-planning",
       tags: ["且慢", "Lodestar", "AI小顾4.0", "YINGWORK", "慧客通", "SCRM", "L3", "总产品蓝图", "客户台账", "服务包", "AI底座", "平台供给", "共建分工", "规划讨论稿", "HTML"],
@@ -4392,6 +4406,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-product-blueprint-industry-2026-11-04": "advisor-workbench",
   "yingmi-ontology-model-audit-2026-11-04": "knowledge",
   "ai-commercialization-candidate-review-2026-11-04": "knowledge",
   "qieman-product-relationship-map-2026-11-04": "advisor-workbench",

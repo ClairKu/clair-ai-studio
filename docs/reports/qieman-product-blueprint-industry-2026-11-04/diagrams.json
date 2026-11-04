@@ -1,0 +1,82 @@
+{
+  "version": "3.0",
+  "date": "2026-11-04",
+  "status": "industry-informed target design, not production evidence",
+  "diagrams": [
+    {
+      "id": "01",
+      "slug": "01-service-business",
+      "title": "经营全景：让客户服务持续发生",
+      "subtitle": "回答：且慢经营的是什么；服务如何产生价值；私域、VIP与顾问运营各处在哪个维度。",
+      "question": "客户的长期目标如何变成持续、可信、有责任的服务",
+      "references": [
+        "CN01",
+        "D01",
+        "M4"
+      ],
+      "note": "参考：平安财富经营全景、Deloitte数字财富顾问架构；本图为且慢经营与服务目标设计。"
+    },
+    {
+      "id": "02",
+      "slug": "02-product-landscape",
+      "title": "产品组合：入口分工，共用服务能力",
+      "subtitle": "回答：AI小顾、Lodestar、慧客通、SCRM、YINGWORK如何各司其职，哪些能力一起建设。",
+      "question": "谁为谁提供什么，产品边界和共建边界在哪里",
+      "references": [
+        "CN02",
+        "G01",
+        "G02"
+      ],
+      "note": "状态：已有指产品或系统基础；升级、新建为目标改造。共建是协作方式，可与状态叠加；接口接通情况另验收。"
+    },
+    {
+      "id": "03",
+      "slug": "03-service-blueprint",
+      "title": "服务蓝图：半年后用款，现有安排怎么检视",
+      "subtitle": "回答：一件具体服务如何跨AI与顾问接续；客户看见什么；后台交付什么；异常由谁接住。",
+      "question": "一次有明确范围的服务如何被前后台协同完成",
+      "references": [
+        "M2",
+        "G04"
+      ],
+      "note": "方法：NN/g服务蓝图；MuleSoft财富接入案例的架构/活动分图。本图是目标场景示例，不是已上线证明。"
+    },
+    {
+      "id": "04",
+      "slug": "04-service-records",
+      "title": "共用对象：台账、服务包、实例与执行上下文",
+      "subtitle": "回答：复用的是什么；谁维护权威状态；AI、真人顾问与工作台如何使用同一套服务。",
+      "question": "哪些是标准资产、客户服务记录、业务工作和当次AI输入",
+      "references": [
+        "G03",
+        "G02"
+      ],
+      "note": "借鉴Salesforce模板/版本/执行计划分离及金融业务对象模型；台账的服务域主写责任为且慢设计建议。"
+    },
+    {
+      "id": "05",
+      "slug": "05-ai-supply",
+      "title": "AI底座与平台供给：按契约接入Lodestar",
+      "subtitle": "回答：Lodestar需要哪些业务、专业和AI基础能力；供给方交付什么；共同建设什么。",
+      "question": "每一项基础能力由谁提供，以什么边界和验收交付",
+      "references": [
+        "D01",
+        "CN03",
+        "G01"
+      ],
+      "note": "借鉴Deloitte互操作层、招行云/数据/技术供给、Aladdin集成边界；具体平台职责与接口需按场景落实。"
+    },
+    {
+      "id": "06",
+      "slug": "06-evolution-story-map",
+      "title": "建设路线：每一步都交付可用的服务闭环",
+      "subtitle": "回答：Lodestar、L3、小顾4.0如何并行建设；什么必须共建；每一阶段凭什么放量。",
+      "question": "如何以客户与顾问可用的结果组织建设，而不是按技术层交付",
+      "references": [
+        "M1",
+        "M4"
+      ],
+      "note": "方法：Jeff Patton用户故事地图的完整发布切片；Marty Cagan的重点问题与团队结果责任。"
+    }
+  ]
+}
