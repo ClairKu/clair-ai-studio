@@ -41,7 +41,7 @@ function harness({ local = true, fetch = async () => response() } = {}) {
     document: { hidden: false }, AbortSignal: { timeout: () => undefined },
     $: element, node: (tag, cls, text) => new Element(tag, cls, text),
     button: (label, callback, cls) => Object.assign(new Element('button', cls, label), { callback }),
-    openUnlock() { stats.unlocks++; }, renderMonthFilter() {}, renderHiringMetrics() {},
+    openUnlock() { stats.unlocks++; }, renderMonthFilter() {}, renderHiringMetrics() {},canManageProgress:()=>false,manualProgressState:()=>null,resetProgressEditor(){},
     filterScope: () => context.scope,
     normalizeSearch: (value) => String(value || '').trim().toLowerCase(),
     mergePayload: (payload) => { stats.merges++; context.data = payload; },
@@ -233,10 +233,11 @@ test('a partial 80/100 display does not silently satisfy the required evidence c
   vm.runInContext('globalThis.result=interviewAdvice(candidate);',context);
   assert.equal(context.result.label, '待补证据');
   assert.match(context.result.reason, /70%/);
-  vm.runInContext(sourceFunction('radarModel') + '\nglobalThis.axes=radarModel({review_standard_stale:true}).axes;', context);
+  vm.runInContext(sourceFunction('aiReviewStandardStale')+'\n'+sourceFunction('radarModel') + '\nglobalThis.axes=radarModel({review_standard_stale:true}).axes;', context);
   assert.equal(context.axes.length, 0, 'old points must not be plotted against a new rubric');
 });
 
+const progressSource=source.split('// BEGIN MANUAL PROGRESS\n')[1].split('// END MANUAL PROGRESS')[0];
 const decisionSource=source.split('// BEGIN RESUME DECISION POLICY\n')[1].split('// END RESUME DECISION POLICY')[0];
 function decisionHarness(){
   const context=vm.createContext({
@@ -258,7 +259,7 @@ function historyHarness({ local = true } = {}) {
     TextEncoder,
     api: async () => ({}), candidateName: () => 'synthetic candidate',
   });
-  vm.runInContext(sourceFunction('latestAIRecord')+'\n'+historySource, h.context);
+  vm.runInContext(sourceFunction('latestAIRecord')+'\n'+sourceFunction('aiReviewStandardStale')+'\n'+sourceFunction('stateCode')+'\n'+progressSource+'\n'+historySource, h.context);
   return h;
 }
 
@@ -612,7 +613,7 @@ test('manual scoring never claims calibration when the server marks it ineligibl
 
 test('recruitment statistics use English labels and no people or document units',()=>{
   const block=source.split('<div class="hiring-metrics">')[1].split('</div><p class="metrics-note"')[0];
-  for(const [key,label]of Object.entries({resume:'Resume',interviewed:'Interview 1',follow_up:'Interview 2',offer:'Offer',onboard:'Joined',pass:'Pass',reject:'Reject',pending:'Hold'})){
+  for(const [key,label]of Object.entries({resume:'Resume',interviewed:'Interview',follow_up:'Interview 2',offer:'Offer',onboard:'Joined',pass:'Pass',reject:'Reject',pending:'Hold'})){
     const button=block.match(new RegExp('<button[^>]*data-metric-filter="'+key+'"[\\s\\S]*?</button>'))[0];
     assert.ok(button.includes('<span>'+label+'</span>'));assert.ok(button.includes('aria-label="'+label+'"'));
   }
@@ -793,7 +794,7 @@ test('saving decision policy preserves its versioned working-rule provenance and
 
 function projectionHarness(){
   const h=historyHarness();
-  Object.assign(h.context,{reviewIsStale:c=>!!(c.review_standard_stale||c.review_feedback_stale||c.review_role_stale),pendingReview:()=>false,scoreMechanism:()=>({version:'current-v3'}),assignedRole:()=> 'advisory_pm',latestAI:c=>c.ai_reviews?.at(-1)?.review});
+  Object.assign(h.context,{reviewIsStale:c=>!!(c.review_feedback_stale||c.review_role_stale)||h.context.aiReviewStandardStale(c),pendingReview:()=>false,scoreMechanism:()=>({version:'current-v3'}),assignedRole:()=> 'advisory_pm',latestAI:c=>c.ai_reviews?.at(-1)?.review});
   return h;
 }
 const currentAiCandidate=()=>({id:'synthetic-record',resume_score_ai:{role:'advisory_pm',mechanism_version:'current-v3',review_id:'ai-current',is_current_context:true},ai_reviews:[{id:'ai-current',is_current_context:true,review:{three_point:{match:{text:'current professional analysis'},interview:{text:'current supporting reasoning'}}}}]});
@@ -811,9 +812,9 @@ test('current AI and attributed before-review populate resume evaluation without
 });
 
 test('stale AI analysis is never projected as a current resume evaluation',()=>{
-  const h=projectionHarness();h.context.candidate=currentAiCandidate();h.context.candidate.review_standard_stale=true;
+  const h=projectionHarness();h.context.candidate=currentAiCandidate();h.context.candidate.ai_review_standard_stale=true;
   assert.equal(vm.runInContext("feedbackNoteProjection(candidate,'resume').text",h.context),'');
-  h.context.candidate.review_standard_stale=false;h.context.candidate.resume_score_ai.mechanism_version='old-v2';
+  delete h.context.candidate.ai_review_standard_stale;h.context.candidate.resume_score_ai.mechanism_version='old-v2';
   assert.equal(vm.runInContext("feedbackNoteProjection(candidate,'resume').text",h.context),'');
 });
 
@@ -950,4 +951,152 @@ test('Pass uses only the legacy employer-decision alias while missing Reject rem
   Object.assign(h.context.data.hiring_metrics,{pass_people:1,reject_people:1,candidate_ids_by_metric:{pass:['explicit-pass'],reject:['offer-finally-declined']}});
   vm.runInContext('renderHiringMetrics()',h.context);assert.equal(h.element('metric-pass').textContent,'1');assert.equal(h.element('metric-reject').textContent,'1');assert.equal(buttons[1].disabled,false);
   h.context.metricFilter='reject';assert.equal(vm.runInContext('Array.from(activeMetricIds()).join("|")',h.context),'offer-finally-declined');
+});
+
+
+const progressRecord=(stage='interview_2',phase='approved')=>({stage,phase,revision_id:'progress-synthetic',recorded_at:'2026-11-04T09:00:00+08:00',schema_version:'recruitment-progress-v1',source:'explicit_user_progress',evidence_verified:true,explicit_user_assertion:true,occurred_at:null,reason:'synthetic progress note'});
+function progressHarness({local=true}={}){
+  const h=historyHarness({local});h.context.engineConnected=true;let requestSequence=0;
+  Object.assign(h.context,{crypto:{randomUUID:()=> 'synthetic-request-'+(++requestSequence)},candidateName:()=> '林示例',refreshEngine:async()=>{}});
+  h.context.candidate={id:'synthetic-record'};h.context.data={candidates:[h.context.candidate],capabilities:{manual_progress:true}};
+  return h;
+}
+
+test('manual progress is available only with the local capability and capability changes update the detail actions',()=>{
+  const h=listHarness();Object.assign(h.context,{engineConnected:true,uploadActive:false,detailRenderSignature:'',clearResumeFrames(){},reviewJob:()=>({}),scoreMechanism:()=>null,personSentence:()=>null,profileFacts:()=>null,radarPanel:()=>null,resumePanel:()=>new Element('section'),worksPanel:()=>null,append:(host,...children)=>host.append(...children)});
+  h.context.candidate={id:'synthetic-record',name:'林示例',display_score:null};h.context.data={candidates:[h.context.candidate],capabilities:{}};
+  vm.runInContext(sourceFunction('renderDetail')+'\nrenderDetail(candidate)',h.context);assert.doesNotMatch(elementText(h.element('candidate-detail')),/跟进/);
+  h.context.data.capabilities.manual_progress=true;vm.runInContext('renderDetail(candidate)',h.context);assert.match(elementText(h.element('candidate-detail')),/跟进/);
+  h.context.status=()=>({label:'不推进',type:'red'});h.context.candidate.recruitment_progress=progressRecord();vm.runInContext('renderDetail(candidate)',h.context);assert.doesNotMatch(elementText(h.element('candidate-detail').children[0].children[0]),/不推进/);
+  h.context.isLoopback=false;vm.runInContext('renderDetail(candidate)',h.context);assert.doesNotMatch(elementText(h.element('candidate-detail')),/跟进/);
+  const publicPage=progressHarness({local:false});vm.runInContext('openProgressEditor(candidate)',publicPage.context);assert.notEqual(publicPage.element('progress-dialog').open,true);
+});
+
+test('progress dates preserve unknown, day and minute precision and allow future only for scheduled phases',()=>{
+  const h=progressHarness();h.context.now=new Date('2026-11-04T12:00:00+08:00');
+  assert.equal(vm.runInContext("progressOccurrence('','','completed',now)",h.context),null);
+  assert.equal(vm.runInContext("progressOccurrence('2026-11-01','','completed',now)",h.context),'2026-11-01');
+  assert.equal(vm.runInContext("progressOccurrence('2026-11-01','10:30','completed',now)",h.context),'2026-11-01T10:30');
+  assert.throws(()=>vm.runInContext("progressOccurrence('','10:30','scheduled',now)",h.context),/补充日期/);
+  assert.throws(()=>vm.runInContext("progressOccurrence('2026-02-30','','completed',now)",h.context),/有效日期/);
+  assert.throws(()=>vm.runInContext("progressOccurrence('2026-13-01','','completed',now)",h.context),/有效日期/);
+  assert.throws(()=>vm.runInContext("progressOccurrence('2026-11-05','','approved',now)",h.context),/未来/);
+  assert.throws(()=>vm.runInContext("progressOccurrence('2026-11-04','12:01','completed',now)",h.context),/未来/);
+  assert.equal(vm.runInContext("progressOccurrence('2099-01-01','09:00','scheduled',now)",h.context),'2099-01-01T09:00');
+});
+
+test('opening progress never inserts now and correctly pre-fills existing day or Shanghai minute precision with readonly history',()=>{
+  const h=progressHarness();vm.runInContext('openProgressEditor(candidate)',h.context);
+  assert.equal(h.element('progress-date').value,'');assert.equal(h.element('progress-time').value,'');assert.equal(h.element('progress-stage').value,'');
+  h.context.candidate.recruitment_progress={...progressRecord(),occurred_at:'2026-11-01',occurred_at_precision:'day'};h.context.candidate.recruitment_progress_history=[h.context.candidate.recruitment_progress];
+  vm.runInContext('openProgressEditor(candidate)',h.context);assert.equal(h.element('progress-date').value,'2026-11-01');assert.equal(h.element('progress-time').value,'');assert.equal(h.element('progress-phase').value,'approved');
+  h.context.candidate.recruitment_progress.occurred_at='2026-11-01T23:15:00Z';vm.runInContext('openProgressEditor(candidate)',h.context);assert.equal(h.element('progress-date').value,'2026-11-02');assert.equal(h.element('progress-time').value,'07:15');
+  assert.match(elementText(h.element('progress-history')),/复面已获准/);assert.doesNotMatch(elementText(h.element('progress-history')),/另存|采用/);
+});
+
+test('manual progress retries reuse their request ID and captured revision without saving feedback or requesting a model',async()=>{
+  const h=progressHarness();h.context.candidate.recruitment_progress=progressRecord();vm.runInContext('openProgressEditor(candidate)',h.context);h.element('progress-date').value='2026-01-02';h.element('progress-reason').value='professional follow-up';
+  const before=JSON.stringify(h.context.candidate),requests=[];let refreshes=0;h.context.refreshEngine=async()=>{refreshes++};
+  h.context.api=async(path,payload)=>{requests.push({path,payload});if(requests.length===1)throw Error('temporary transport failure');return {status:'saved',progress:progressRecord(),model_requested:false}};
+  await assert.rejects(vm.runInContext('saveManualProgress()',h.context),/transport/);await vm.runInContext('saveManualProgress()',h.context);
+  assert.equal(requests.length,2);assert.equal(requests[0].payload.request_id,requests[1].payload.request_id);assert.equal(requests[1].payload.previous_revision_id,'progress-synthetic');assert.equal(requests[1].payload.occurred_at,'2026-01-02');
+  assert.ok(requests.every(request=>request.path==='/api/progress'));assert.deepEqual(Object.keys(requests[1].payload).sort(),['candidate_id','occurred_at','phase','previous_revision_id','reason','request_id','stage']);
+  assert.equal(refreshes,1);assert.equal(JSON.stringify(h.context.candidate),before);assert.equal(h.element('progress-dialog').open,false);
+});
+
+test('progress content changes receive a new request ID and simultaneous saves cannot create overlapping writes',async()=>{
+  const h=progressHarness();vm.runInContext('openProgressEditor(candidate)',h.context);h.element('progress-stage').value='hold';vm.runInContext('renderProgressPhases()',h.context);
+  const ids=[];h.context.api=async(path,payload)=>{ids.push(payload.request_id);throw Error('retry')};
+  await assert.rejects(vm.runInContext('saveManualProgress()',h.context),/retry/);h.element('progress-reason').value='changed manual reason';await assert.rejects(vm.runInContext('saveManualProgress()',h.context),/retry/);assert.notEqual(ids[0],ids[1]);
+  let release,calls=0;h.context.api=async()=>{calls++;await new Promise(resolve=>{release=resolve});return {status:'saved',model_requested:false}};
+  const one=vm.runInContext('saveManualProgress()',h.context),two=vm.runInContext('saveManualProgress()',h.context);await Promise.resolve();assert.equal(calls,1);release();await Promise.all([one,two]);
+});
+
+test('trusted manual progress wins over legacy process labels while AI advice and original records stay unchanged',()=>{
+  const h=listHarness();h.context.candidate={verified_recruitment_status:'not_proceeding',recruitment_progress:progressRecord(),resume_recommendation:{status:'interview',label:'建议面试',score_origin:'ai',rubric_version:'current-v3'}};
+  Object.assign(h.context,{scoreMechanism:()=>({version:'current-v3',decision_policy:{}}),requirementsData:null,status:()=>({label:'不推进',type:'red'})});vm.runInContext(decisionSource,h.context);
+  const before=JSON.stringify(h.context.candidate);assert.equal(vm.runInContext('candidateActualState(candidate).text',h.context),'复面已获准 · 日期待核');assert.equal(vm.runInContext('candidateAdviceTag(candidate).text',h.context),'建议面试');assert.equal(JSON.stringify(h.context.candidate),before);
+  h.context.record=progressRecord('reject','completed');assert.equal(vm.runInContext('trustedManualProgress(record)',h.context),false);Object.assign(h.context.record,{offer_confirmed:true,outcome:'not_joined_after_offer'});assert.equal(vm.runInContext('trustedManualProgress(record)',h.context),true);h.context.record.schema_version='untrusted-version';assert.equal(vm.runInContext('trustedManualProgress(record)',h.context),false);
+});
+
+test('locking discards a late progress response without reopening or refilling the editor',async()=>{
+  const h=progressHarness();vm.runInContext('openProgressEditor(candidate)',h.context);h.element('progress-stage').value='interview_2';vm.runInContext('renderProgressPhases()',h.context);h.element('progress-reason').value='private draft';
+  let release,refreshes=0;h.context.api=()=>new Promise(resolve=>{release=resolve});h.context.refreshEngine=async()=>{refreshes++};const pending=vm.runInContext('saveManualProgress()',h.context);await Promise.resolve();
+  h.context.sessionLocked=true;h.context.sessionEpoch++;vm.runInContext('resetProgressEditor()',h.context);release({status:'saved',progress:progressRecord()});await pending;
+  assert.equal(refreshes,0);assert.equal(h.element('progress-reason').value,'');assert.equal(h.element('progress-dialog').open,false);assert.equal(h.stats.toasts.length,0);
+});
+
+test('Interview 2 prefers verified entered-stage metrics and IDs while retaining old completed-stage fallback',()=>{
+  const h=harness();vm.runInContext(sourceFunction('metricCount')+'\n'+sourceFunction('metricCandidateIds'),h.context);
+  h.context.metrics={follow_up_people:2,candidate_ids_by_metric:{follow_up:['completed-old']}};assert.equal(vm.runInContext("metricCount(metrics,'follow_up_people')",h.context),'2');assert.equal(vm.runInContext("metricCandidateIds(metrics,'follow_up').join('|')",h.context),'completed-old');
+  Object.assign(h.context.metrics,{second_round_people:1,second_round_undated_people:1});h.context.metrics.candidate_ids_by_metric.second_round=['approved-undated'];assert.equal(vm.runInContext("metricCount(metrics,'follow_up_people')",h.context),'1');assert.equal(vm.runInContext("metricCandidateIds(metrics,'follow_up').join('|')",h.context),'approved-undated');
+  h.context.metrics.second_round_people=0;h.context.metrics.candidate_ids_by_metric.second_round=[];assert.equal(vm.runInContext("metricCount(metrics,'follow_up_people')",h.context),'0');assert.equal(vm.runInContext("metricCandidateIds(metrics,'follow_up').length",h.context),0);
+});
+
+
+function knownHoldCandidate(){
+  const review={id:'known-owner-hold',stage:'after',sender_identity:'owner',text:'synthetic full professional interview judgment',outcome:'先待定下',decision_scope:'latest_known_owner_outcome',evidence_completeness:'full',evidence_verified:true,counts_in_pipeline_status:true,is_new_decision:false,is_current_recruitment_decision:false,recorded_at:'2099-01-01T12:00:00+08:00'};
+  return {human_reviews:[review],recruitment_status:{value:'pending',source:'legacy partial status'},latest_known_owner_outcome:{value:'hold',decision_scope:'latest_known_owner_outcome',evidence_completeness:'full',evidence_verified:true,counts_in_pipeline_status:true,is_new_decision:false,fallback_only_no_opposing_current_decision:true,human_review_id:review.id}};
+}
+
+test('a candidate-bound full owner Hold replaces partial pending wording without turning import time into a decision time',()=>{
+  const h=listHarness();h.context.reviewArrays=c=>({pre:[],post:c.human_reviews||[],unknown:[]});h.context.candidate=knownHoldCandidate();const before=JSON.stringify(h.context.candidate);
+  const state=vm.runInContext('candidateActualState(candidate)',h.context);assert.equal(state.text,'待定');assert.match(state.title,/最近已知/);assert.doesNotMatch(state.title,/2099/);assert.match(state.title,/日期待核/);assert.equal(JSON.stringify(h.context.candidate),before);
+  delete h.context.candidate.latest_known_owner_outcome;assert.equal(vm.runInContext('candidateActualState(candidate).text',h.context),'待定');
+  assert.equal(h.context.candidate.human_reviews[0].is_new_decision,false);assert.equal(JSON.stringify(knownHoldCandidate()),before);
+});
+
+test('weak or mismatched Hold evidence cannot override a full current decision, manual progress or verified Offer',()=>{
+  const h=listHarness();h.context.reviewArrays=c=>({pre:[],post:c.human_reviews||[],unknown:[]});h.context.candidate=knownHoldCandidate();h.context.candidate.latest_known_owner_outcome.human_review_id='another-candidate-record';assert.equal(vm.runInContext('latestKnownOwnerHold(candidate)',h.context),null);
+  h.context.candidate=knownHoldCandidate();h.context.candidate.human_reviews[0].evidence_completeness='partial_preview';assert.equal(vm.runInContext('latestKnownOwnerHold(candidate)',h.context),null);
+  h.context.candidate=knownHoldCandidate();h.context.candidate.human_reviews[0].sender_identity='contact';assert.equal(vm.runInContext('latestKnownOwnerHold(candidate)',h.context),null);
+  h.context.candidate=knownHoldCandidate();h.context.candidate.human_reviews.push({id:'current-pass',stage:'after',sender_identity:'owner',evidence_completeness:'full',outcome:'不推进',is_current_recruitment_decision:true});h.context.status=()=>({label:'不推进',type:'red'});assert.equal(vm.runInContext('candidateActualState(candidate).text',h.context),'不推进');
+  h.context.candidate=knownHoldCandidate();h.context.candidate.recruitment_progress=progressRecord('joined','completed');assert.equal(vm.runInContext('candidateActualState(candidate).text',h.context),'已入职');
+  h.context.candidate=knownHoldCandidate();h.context.candidate.communication_events=[{kind:'offer',status:'completed',evidence_verified:true}];h.context.status=()=>({label:'阶段待核'});assert.equal(vm.runInContext('candidateActualState(candidate).text',h.context),'已发Offer');
+});
+
+test('unknown interview rounds stay generic while explicit first, second and manual first-round facts retain their meaning',()=>{
+  const h=listHarness();h.context.candidate={communication_events:[{kind:'interviewed',status:'completed',evidence_verified:true}]};
+  assert.equal(vm.runInContext('candidateActualState(candidate).text',h.context),'已面试 · 轮次待核');assert.equal(vm.runInContext('communicationStageModel(candidate)[0].text',h.context),'已面试 · 轮次待核');
+  h.context.candidate.communication_events[0]={kind:'interview_scheduled',status:'scheduled',evidence_verified:true};assert.equal(vm.runInContext('candidateActualState(candidate).text',h.context),'已约面试 · 轮次待核');
+  h.context.candidate.communication_events[0].round=1;assert.equal(vm.runInContext('candidateActualState(candidate).text',h.context),'已约一面');
+  h.context.candidate.communication_events[0]={kind:'interviewed',status:'completed',evidence_verified:true,interview_type:'first_round'};assert.equal(vm.runInContext('candidateActualState(candidate).text',h.context),'已一面');assert.equal(vm.runInContext('communicationStageModel(candidate)[0].label',h.context),'一面');
+  h.context.candidate.communication_events[0].round=2;assert.equal(vm.runInContext('candidateActualState(candidate).text',h.context),'已二面');
+  h.context.candidate.recruitment_progress=progressRecord('interview_1','completed');assert.equal(vm.runInContext('candidateActualState(candidate).text',h.context),'已一面');
+});
+
+test('verified full after-review facts establish only generic completed interview and a score alone proves no interview',()=>{
+  const h=listHarness();h.context.reviewArrays=c=>({pre:[],post:c.human_reviews||[],unknown:[]});h.context.candidate={human_reviews:[{id:'verified-after',stage:'after',sender_identity:'owner',evidence_completeness:'full',evidence_verified:true,interview_completed_explicit:true}]};
+  assert.equal(vm.runInContext('communicationStageModel(candidate)[0].text',h.context),'已面试 · 轮次待核');assert.equal(vm.runInContext('candidateActualState(candidate).text',h.context),'已面试 · 轮次待核');
+  h.context.candidate={post_interview_score:{score:87}};assert.equal(vm.runInContext('candidateActualState(candidate)',h.context),null);
+});
+
+function aiValidityHarness(){
+  const h=selectionHarness();h.context.mechanism={version:'current-v3',dimensions:[20,20,20,15,15,10].map((weight,index)=>({id:'dimension-'+index,label:'职业能力'+index,weight})),decision_policy:{full_resume_threshold:70,min_coverage:1,critical_dimensions:[]}};h.context.scoreMechanism=()=>h.context.mechanism;
+  vm.runInContext(scoreSource+'\n'+['latestScore','scoreOrigin','scoreBadge','dimensionRows','radarModel'].map(sourceFunction).join('\n')+'\n'+decisionSource,h.context);
+  h.context.candidate=currentAiCandidate();h.context.candidate.resume_score_ai.dimensions=h.context.mechanism.dimensions.map(d=>({id:d.id,points:d.weight*.8,max_points:d.weight}));return h;
+}
+
+test('an old manual primary score cannot suppress current AI analysis, radar or canonical recommendation',()=>{
+  const h=aiValidityHarness();Object.assign(h.context.candidate,{review_standard_stale:true,ai_review_standard_stale:false,display_score:{score:82,scale:100,stage:'resume',origin:'manual',is_policy_stale:true},resume_recommendation:{status:'interview',label:'建议面试',rubric_version:'current-v3',score_origin:'ai'}});
+  const before=JSON.stringify(h.context.candidate);assert.equal(vm.runInContext('reviewIsStale(candidate)',h.context),false);assert.match(vm.runInContext('currentAiFeedbackEntry(candidate).text',h.context),/current professional analysis/);assert.equal(vm.runInContext('radarModel(candidate).axes.length',h.context),6);assert.equal(vm.runInContext('interviewAdvice(candidate).label',h.context),'建议面试');
+  const badge=vm.runInContext('scoreBadge(candidate)',h.context);assert.equal(badge.textContent,'82分');assert.match(badge.className,/manual/);assert.match(badge.title,/旧标准/);assert.equal(JSON.stringify(h.context.candidate),before);
+});
+
+test('legacy APIs infer AI validity from role and mechanism while explicit primary flags do not mislabel post-interview scores',()=>{
+  const h=aiValidityHarness();h.context.candidate.review_standard_stale=true;assert.equal(vm.runInContext('aiReviewStandardStale(candidate)',h.context),false);
+  h.context.candidate.resume_score_ai.mechanism_version='old-v2';assert.equal(vm.runInContext('aiReviewStandardStale(candidate)',h.context),true);
+  delete h.context.candidate.resume_score_ai.mechanism_version;assert.equal(vm.runInContext('aiReviewStandardStale(candidate)',h.context),true);
+  h.context.candidate.ai_review_standard_stale=false;assert.equal(vm.runInContext('aiReviewStandardStale(candidate)',h.context),false);
+  h.context.candidate.display_score={score:87,scale:100,stage:'post_interview',origin:'manual',is_policy_stale:false};let badge=vm.runInContext('scoreBadge(candidate)',h.context);assert.equal(badge.textContent,'87分');assert.doesNotMatch(badge.title,/旧标准/);
+  delete h.context.candidate.display_score.is_policy_stale;badge=vm.runInContext('scoreBadge(candidate)',h.context);assert.doesNotMatch(badge.title,/旧标准/);
+  h.context.candidate.ai_review_standard_stale=true;h.context.candidate.post_interview_score={role:'advisory_pm',is_current_context:true,dimensions:h.context.mechanism.dimensions.map(d=>({id:d.id,label:d.label,points:d.weight,max_points:d.weight}))};assert.equal(vm.runInContext('radarModel(candidate).title',h.context),'面后分项');
+});
+
+
+test('resume evaluation prefers the new professional summary plus interview advice with no duplicate or source prefix',()=>{
+  const h=projectionHarness();h.context.candidate=currentAiCandidate();const review=h.context.candidate.ai_reviews[0].review;review.summary='concise career summary';review.three_point.match.text='long match detail should stay out of the concise summary';
+  let entry=vm.runInContext('currentAiFeedbackEntry(candidate)',h.context);assert.equal(entry.text,'concise career summary\n\ncurrent supporting reasoning');assert.equal(entry.source_reference.record_id,'ai-current');assert.doesNotMatch(entry.text,/long match|AI履历分析/);
+  review.three_point.interview.text='  concise career summary  ';entry=vm.runInContext('currentAiFeedbackEntry(candidate)',h.context);assert.equal(entry.text,'concise career summary');
+  delete review.summary;review.three_point.interview.text='current supporting reasoning';entry=vm.runInContext('currentAiFeedbackEntry(candidate)',h.context);assert.match(entry.text,/long match detail/);assert.match(entry.text,/current supporting reasoning/);
 });
