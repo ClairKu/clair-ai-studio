@@ -529,7 +529,7 @@ function sourceCommunicationPanel(c){
     row.append(node('div','meta',meta),node('p','quote',event.quote),node('p','source-meta',evidenceSource(event)));if(event.conversation_type==='group'&&event.conversation_name)row.append(node('p','source-meta','群聊：'+event.conversation_name));
     if(engineConnected&&!sessionLocked&&event.id)row.append(button('另存人工修订',()=>openFeedbackNotes(c,event.kind==='post_interview_feedback'?'interview':'other',{record_id:event.id,source_id:event.source_id,kind:'communication_event',text:event.quote})));panel.append(row);
   }
-  for(const review of reviews){const row=simpleReview(review);if(engineConnected&&!sessionLocked&&review.id)row.append(button('另存人工修订',()=>openFeedbackNotes(c,review.stage==='before'?'resume':review.stage==='after'?'interview':'other',{record_id:review.id,source_id:review.source_id,kind:'human_review',text:review.quote||review.text||textOf(review)})));panel.append(row);}
+  for(const review of reviews){const row=simpleReview(review);if(engineConnected&&!sessionLocked&&review.id)row.append(button('另存人工修订',()=>openFeedbackNotes(c,feedbackRecordActor(review)==='hr'?'hr':review.stage==='before'?'resume':review.stage==='after'?'interview':'other',{record_id:review.id,source_id:review.source_id,kind:'human_review',text:feedbackRecordActor(review)==='hr'?feedbackSourceText(review):review.quote||review.text||textOf(review)})));panel.append(row);}
   return panel;
 }
 function communicationPanel(c,expanded=false){
@@ -546,7 +546,7 @@ function communicationPanel(c,expanded=false){
 const FEEDBACK_CATEGORIES={resume:'履历评价',interview:'面试评价',hr:'人力评价',other:'其他补充'};
 let notesCandidateId=null,notesCategory='resume',notesDrafts={},notesExpected={},notesSources={},notesSourceLists={};
 function feedbackRecordActor(record){const identity=record?.sender_identity||record?.author_identity||record?.actor_identity;if(identity==='owner'||record?.is_owner_authored===true)return 'owner';if(identity==='hr'&&record?.category==='hr')return 'hr';if(/^(?:我|我（用户录入）|我\(用户录入\))$/.test(String(record?.author||'')))return 'owner';return 'unknown';}
-function feedbackSourceText(record){return String(record?.quote||record?.text||arr(record?.quotes).join('\n')||(typeof record?.score==='number'?'面后评分：'+record.score+'分':'')).trim();}
+function feedbackSourceText(record){if(feedbackRecordActor(record)==='hr'&&Object.hasOwn(record,'professional_excerpt'))return String(record.professional_excerpt||'').trim();return String(record?.quote||record?.text||arr(record?.quotes).join('\n')||(typeof record?.score==='number'?'面后评分：'+record.score+'分':'')).trim();}
 function feedbackSourceEntry(record,kind,label){const text=feedbackSourceText(record);if(!text)return null;return {text,source_label:label,source_reference:record.id?{record_id:record.id,source_id:record.source_id,kind}:null,recorded_at:record.feedback_sent_at||record.sent_at||record.occurred_at||record.date||record.recorded_at};}
 function latestFeedbackRecord(records){return records.slice().sort((a,b)=>String(b.feedback_sent_at||b.sent_at||b.occurred_at||b.date||b.recorded_at||'').localeCompare(String(a.feedback_sent_at||a.sent_at||a.occurred_at||a.date||a.recorded_at||'')))[0];}
 function currentAiFeedbackEntry(c){

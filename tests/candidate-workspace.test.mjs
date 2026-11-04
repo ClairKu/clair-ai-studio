@@ -827,6 +827,18 @@ test('explicit owner stage and HR evaluation determine categories while availabi
   assert.equal(vm.runInContext("feedbackNoteProjection(candidate,'interview').text",h.context),'explicit owner after-review');
   assert.equal(vm.runInContext("feedbackNoteProjection(candidate,'hr').text",h.context),'attributed HR evaluation');
   assert.equal(vm.runInContext("feedbackNoteProjection(candidate,'other').text",h.context),'owner wording with unknown stage');
+  const hr=h.context.candidate.human_reviews.find(row=>row.id==='hr-eval');hr.text='raw HR source with protected facts and professional evidence';hr.professional_excerpt='professional evidence';
+  const rawBefore=hr.text;
+  assert.equal(vm.runInContext("feedbackNoteProjection(candidate,'hr').text",h.context),'professional evidence');
+  h.context.engineConnected=true;h.context.candidate.id='synthetic-hr';h.context.data={candidates:[h.context.candidate]};
+  vm.runInContext("openFeedbackNotes(candidate,'hr')",h.context);assert.equal(h.element('notes-text').value,'professional evidence');
+  hr.professional_excerpt='';assert.equal(vm.runInContext("feedbackNoteProjection(candidate,'hr').text",h.context),'');
+  vm.runInContext("openFeedbackNotes(candidate,'hr')",h.context);assert.equal(h.element('notes-text').value,'');
+  h.context.simpleReview=record=>{const row=new Element('article');row.append(Object.assign(new Element('p'),{textContent:record.text||''}));return row;};
+  h.context.uncertainEvidence=c=>c.human_reviews.filter(row=>row.stage==='hr');
+  const originals=vm.runInContext('sourceCommunicationPanel(candidate)',h.context);assert.match(elementText(originals),/raw HR source with protected facts/);
+  originals.children.find(row=>elementText(row).includes('raw HR source')).children.at(-1).callback();
+  assert.equal(h.element('notes-category').value,'hr');assert.equal(h.element('notes-text').value,'');assert.equal(hr.text,rawBefore);
 });
 
 test('an empty manual key suppresses all derived content even after a new AI review arrives',()=>{
