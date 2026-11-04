@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 161;
+const DATA_VERSION = 162;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -222,6 +222,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "ai-commercialization-candidate-review-2026-11-04",
+      groupId: "knowledge",
+      title: "AI 商业化运营｜产品化与盈利能力评估（匿名版）",
+      url: "https://clairku.github.io/clair-ai-studio/reports/ai-commercialization-candidate-review-2026-11-04/",
+      preview: "ai-commercialization-candidate-review-2026-11-04.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-04T00:00:00+08:00",
+      source: "匿名岗位能力评估：区分商业产品化、盈利验证与增长运营，提供证据矩阵、面试追问和统一实操题。仅依据简历自述形成面试假设，不代表经历已核验或录用结论；可识别履历及完整评估保留本地。",
+      access: "production",
+      workType: "reporting",
+      tags: ["AI商业化", "产品化", "盈利能力", "招聘", "能力评估", "匿名", "面试验证", "HTML"],
+    },
     {
       id: "qieman-product-relationship-map-2026-11-04",
       groupId: "advisor-workbench",
@@ -4224,6 +4238,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "ai-commercialization-candidate-review-2026-11-04": "reporting",
   "oap-key-oauth-summary-2026-11-02": "data-analysis",
   "private-fund-mcp-guide-2026-10-30": "governance-review",
   "stargate-operations-dashboard-2026-10-30": "data-analysis",
@@ -4362,6 +4377,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "ai-commercialization-candidate-review-2026-11-04": "knowledge",
   "qieman-product-relationship-map-2026-11-04": "advisor-workbench",
   "qieman-business-product-blueprint-2026-11-03": "advisor-workbench",
   "oap-key-oauth-summary-2026-11-02": "growth-insights",
