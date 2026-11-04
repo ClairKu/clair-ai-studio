@@ -223,6 +223,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "yingmi-ontology-model-audit-2026-11-04",
+      groupId: "knowledge",
+      title: "盈米本体的真实增量：轻量业务模型、运行方式与证据边界",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ontology-model-audit-2026-11-04/",
+      preview: "yingmi-ontology-model-audit-2026-11-04.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-04T10:46:55+08:00",
+      source: "当前只读取证确认已有版本化、文档化的轻量共享业务模型，并有沿概念、关系与配方阅读复用的采用路径；运行核心仍是 Agent 自主编排。强制语义层、独立应用同版本采用及公平量化增量未证实。",
+      access: "production",
+      workType: "governance-review",
+      tags: ["盈米本体", "业务建模", "知识治理", "Agent", "证据核查"],
+    },
+    {
       id: "ai-commercialization-candidate-review-2026-11-04",
       groupId: "knowledge",
       title: "AI 商业化运营｜产品化与盈利能力评估（匿名版）",
@@ -4238,6 +4252,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "yingmi-ontology-model-audit-2026-11-04": "governance-review",
   "ai-commercialization-candidate-review-2026-11-04": "reporting",
   "oap-key-oauth-summary-2026-11-02": "data-analysis",
   "private-fund-mcp-guide-2026-10-30": "governance-review",
@@ -4377,6 +4392,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "yingmi-ontology-model-audit-2026-11-04": "knowledge",
   "ai-commercialization-candidate-review-2026-11-04": "knowledge",
   "qieman-product-relationship-map-2026-11-04": "advisor-workbench",
   "qieman-business-product-blueprint-2026-11-03": "advisor-workbench",

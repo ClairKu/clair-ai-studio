@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "yingmi-ontology-model-audit-2026-11-04",
     "ai-commercialization-candidate-review-2026-11-04",
     "qieman-product-relationship-map-2026-11-04",
     "qieman-business-product-blueprint-2026-11-03",
