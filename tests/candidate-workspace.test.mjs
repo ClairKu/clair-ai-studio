@@ -347,8 +347,9 @@ test('a filename display label does not become a candidate-name search match', (
   const context = vm.createContext({
     sanitizeName: value => String(value).slice(0, 180),
     candidateSearchCompanies: () => [],
+    unique: values => [...new Set(values)], arr: value => value || [],
   });
-  for (const name of ['candidateIdentityName', 'candidateName', 'normalizeSearch', 'candidateSearchMatch']) vm.runInContext(sourceFunction(name), context);
+  for (const name of ['candidateIdentityName', 'candidateName', 'candidateSearchNames', 'normalizeSearch', 'candidateSearchMatch']) vm.runInContext(sourceFunction(name), context);
   assert.equal(vm.runInContext("candidateSearchMatch({name:'姓名待确认',display_label:'filename-person.pdf'},'filename-person')", context), null);
   assert.equal(vm.runInContext("candidateSearchMatch({name:'已核实姓名',display_label:'filename-person.pdf'},'已核实姓名').field", context), 'name');
 });
@@ -387,4 +388,39 @@ test('empty raw imports are rejected and the widget accepts both JSON and text',
   await assert.rejects(vm.runInContext("importHistoryPayload('   ')", h.context),/请先粘贴或选择/);
   assert.match(source,/id="history-file"[^>]*accept="\.txt,\.json,/);
   assert.match(source,/导入聊天／日程材料，自动提取/);
+});
+
+test('approved undated second interviews are visible without becoming completed interviews', () => {
+  const h = historyHarness();
+  const stage = vm.runInContext("communicationStageModel({communication_events:[{kind:'second_interview',status:'approved',evidence_verified:true,temporal_status:'undated',counts_in_period_statistics:false}]}).find(stage=>stage.label==='二面')", h.context);
+  assert.equal(stage.complete,false); assert.equal(stage.approved,true); assert.equal(stage.datePending,true);
+  assert.match(stage.text,/已获准／日期待核/);
+});
+
+test('generic native owner quotes retain group mention and unknown stage, not private-message or post-interview claims', () => {
+  const h = historyHarness();
+  const panel = vm.runInContext("communicationPanel({communication_events:[{kind:'owner_feedback',status:'completed',sender_identity:'owner',contact:'王甜',conversation_type:'group',conversation_name:'synthetic hiring group',recipient_contacts:['王甜'],sent_at:null,evidence_verified:true,quote:'synthetic owner group quote'}]},true)", h.context);
+  const texts = element => [element.textContent || '', ...element.children.flatMap(texts)];
+  const rendered=texts(panel).join('\n');
+  assert.match(rendered,/我在群内 @王甜/); assert.match(rendered,/本人原话（阶段待核）/);
+  assert.match(rendered,/synthetic hiring group/); assert.match(rendered,/发送时间待核/);
+  assert.doesNotMatch(rendered,/我 → 王甜|面后反馈/);
+});
+
+test('only explicitly confirmed identity aliases participate in name search', () => {
+  const context=vm.createContext({sanitizeName:String,unique:values=>[...new Set(values)],arr:value=>value||[],candidateSearchCompanies:()=>[]});
+  for(const name of ['candidateIdentityName','candidateSearchNames','normalizeSearch','candidateSearchMatch'])vm.runInContext(sourceFunction(name),context);
+  context.candidate={name:'canonical name',identity_aliases:[{name:'confirmed alias',confirmed_same_person:true},{name:'unverified alias',confirmed_same_person:false}]};
+  assert.equal(vm.runInContext("candidateSearchMatch(candidate,'confirmed alias').field",context),'name');
+  assert.equal(vm.runInContext("candidateSearchMatch(candidate,'unverified alias')",context),null);
+});
+
+test('an undated approved portrait sample retains unknown period coverage', () => {
+  const h=historyHarness();
+  h.context.data.recruitment_portraits={advisory_pm:{sample_n:1,dated_sample_n:0,undated_sample_n:1,period_unknown_sample_n:1,date_coverage:{from:null,to:null},professional_themes:[{term:'professional synthetic theme'}]}};
+  const portrait=source.split('// BEGIN RECRUITMENT PORTRAITS\n')[1].split('// END RECRUITMENT PORTRAITS')[0];
+  vm.runInContext(portrait,h.context);
+  const model=vm.runInContext("recruitmentPortraitModel('advisory_pm')",h.context);
+  assert.equal(model.count,1);assert.equal(model.dated,0);assert.equal(model.undated,1);assert.equal(model.periodUnknown,1);
+  assert.equal(model.dateCoverage.from,null);assert.equal(model.dateCoverage.to,null);
 });
