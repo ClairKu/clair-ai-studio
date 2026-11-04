@@ -217,7 +217,7 @@
       "relation": "分组重叠且历史日志无分组字段，无法无损拆分每个 MCP server"
     },
     {
-      "name": "其他独立部署的 MCP（如 smart-office）",
+      "name": "其他独立部署的MCP（如Infra网关）",
       "cumulative": "尚无可复核完整调用量",
       "recent30": "尚无可复核完整调用量",
       "peak": "待补日志",
@@ -455,7 +455,7 @@
     },
     {
       "title": "D-07｜全部公司服务覆盖仍有缺口",
-      "body": "已查9个工作空间、85个分组，但目录与计量范围不能等同完整资产盘点。小顾知识库及其他独立部署服务尚无完整独立调用统计，未将缺失填零。"
+      "body": "已查9个工作空间、85个分组，但目录与计量范围不能等同完整资产盘点。小顾知识库及其他独立部署服务尚无完整独立调用统计，未将缺失填零。 补充目录核验发现Infra网关／后端MCP和本体工具级计量仍有缺口；smart-office已注册于内部OAP，不能重复当独立增量追加。"
     },
     {
       "title": "D-08｜月度峰值方法",
@@ -560,5 +560,95 @@
       "unknown": 282750
     }
   ],
-  "request_record_note": "补充已记录请求；Key本身仅成功落账，故该表也不是全部失败尝试在内的完整请求量。"
+  "request_record_note": "补充已记录请求；Key本身仅成功落账，故该表也不是全部失败尝试在内的完整请求量。",
+  "non_overlapping_views": [
+    {
+      "name": "盈米MCP／OAP（扣除小顾专用接入）",
+      "periods": {
+        "cumulative": {
+          "total": 25303276,
+          "internal": 2194643,
+          "external": 20656732,
+          "unknown": 2451901
+        },
+        "recent_30d": {
+          "total": 5551342,
+          "internal": 235012,
+          "external": 5030206,
+          "unknown": 286124
+        },
+        "peak": {
+          "total": 8900627,
+          "internal": 201249,
+          "external": 8357427,
+          "unknown": 341951
+        },
+        "october": {
+          "total": 4942610,
+          "internal": 203501,
+          "external": 4456471,
+          "unknown": 282638
+        }
+      }
+    },
+    {
+      "name": "小顾专用MCP接入（单列）",
+      "periods": {
+        "cumulative": {
+          "total": 328002,
+          "internal": 328002,
+          "external": 0,
+          "unknown": 0
+        },
+        "recent_30d": {
+          "total": 112555,
+          "internal": 112555,
+          "external": 0,
+          "unknown": 0
+        },
+        "peak": {
+          "total": 97673,
+          "internal": 97673,
+          "external": 0,
+          "unknown": 0
+        },
+        "october": {
+          "total": 101764,
+          "internal": 101764,
+          "external": 0,
+          "unknown": 0
+        }
+      }
+    },
+    {
+      "name": "其他独立计量：Vesta direct",
+      "periods": {
+        "cumulative": {
+          "total": 5303,
+          "internal": 5295,
+          "external": 8,
+          "unknown": 0
+        },
+        "recent_30d": {
+          "total": 5125,
+          "internal": 5119,
+          "external": 6,
+          "unknown": 0
+        },
+        "peak": {
+          "total": 178,
+          "internal": 176,
+          "external": 2,
+          "unknown": 0
+        },
+        "october": {
+          "total": 5116,
+          "internal": 5113,
+          "external": 3,
+          "unknown": 0
+        }
+      }
+    }
+  ],
+  "view_definition": "按小顾专用凭据／渠道和Vesta独立直连拆分可审计记录；其余OAP平台记录保留在盈米MCP／OAP行，不代表历史每个MCP server已能精确分开。"
 }
