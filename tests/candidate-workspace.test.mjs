@@ -806,7 +806,7 @@ test('current AI and attributed before-review populate resume evaluation without
   assert.match(projection.text,/current professional analysis/);assert.match(projection.text,/owner before-review/);
   assert.equal(projection.source_references.length,2);assert.equal(projection.source_references[0].kind,'ai_review');
   const text=elementText(vm.runInContext('feedbackNotesPanel(candidate)',h.context));
-  assert.match(text,/履历评价/);assert.match(text,/AI履历分析/);assert.match(text,/本人履历评价/);
+  assert.match(text,/履历评价/);assert.match(text,/current professional analysis/);assert.match(text,/owner before-review/);assert.doesNotMatch(text,/AI履历分析|本人履历评价/);
   assert.equal(h.context.candidate.feedback_notes,undefined);
 });
 
@@ -853,7 +853,7 @@ test('editing a derived resume note pre-fills source text and saves validated re
   const h=projectionHarness();h.context.engineConnected=true;h.context.candidate=currentAiCandidate();
   h.context.candidate.human_pre_interview=[{id:'before',sender_identity:'owner',stage:'before',text:'owner professional note'}];h.context.data={candidates:[h.context.candidate]};
   const before=JSON.stringify(h.context.candidate.ai_reviews);vm.runInContext("openFeedbackNotes(candidate,'resume')",h.context);
-  assert.match(h.element('notes-text').value,/current professional analysis/);assert.match(h.element('notes-text').value,/owner professional note/);
+  assert.match(h.element('notes-text').value,/current professional analysis/);assert.match(h.element('notes-text').value,/owner professional note/);assert.doesNotMatch(h.element('notes-text').value,/AI履历分析|本人履历评价/);
   let request;h.context.api=async(path,payload)=>{request={path,payload};return {revision_id:'new-manual',updated_context:true,review_requested:false}};
   vm.runInContext('refreshEngine=async()=>{};',h.context);h.element('notes-text').value='human revised professional assessment';
   await vm.runInContext('saveFeedbackNote()',h.context);
@@ -882,9 +882,9 @@ test('AI analytical text is shown in resume evaluation rather than repeated in t
   const h=listHarness();h.context.engineConnected=true;
   Object.assign(h.context,{uploadActive:false,detailRenderSignature:'',clearResumeFrames(){},reviewJob:()=>({}),scoreMechanism:()=>({version:'current-v3'}),latestAI:c=>c.ai_reviews.at(-1).review,
     personSentence:()=>({text:'unique professional reasoning'}),interviewAdvice:()=>({label:'建议面试',reason:'unique professional reasoning',type:'blue'}),profileFacts:()=>null,radarPanel:()=>null,resumePanel:()=>new Element('section'),worksPanel:()=>null,append:(parent,...children)=>parent.append(...children),openFeedbackNotes(){},openMaterials(){},changeMetadata(){},retryReview(){},openFeedback(){}});
-  h.context.candidate=currentAiCandidate();h.context.candidate.name='林示例';h.context.candidate.ai_reviews[0].review.three_point.match.text='unique professional reasoning';h.context.candidate.display_score={score:80,scale:100};
+  h.context.candidate=currentAiCandidate();h.context.candidate.name='林示例';h.context.candidate.ai_reviews[0].review.three_point.match.text='unique professional reasoning';h.context.candidate.display_score={score:80,scale:100};h.context.candidate.communication_events=[{kind:'interview_scheduled',status:'scheduled',evidence_verified:true,quote:'evidence-only original scheduling record'}];
   vm.runInContext(sourceFunction('renderDetail')+'\nrenderDetail(candidate);',h.context);
   const host=h.element('candidate-detail');
   assert.doesNotMatch(elementText(host.children[0]),/unique professional reasoning/);
-  assert.match(elementText(host.children[1]),/履历评价/);assert.match(elementText(host.children[1]),/unique professional reasoning/);
+  assert.match(elementText(host.children[1]),/履历评价/);assert.match(elementText(host.children[1]),/unique professional reasoning/);assert.doesNotMatch(elementText(host.children[1]),/原始沟通记录|另存人工修订|evidence-only original scheduling record|AI履历分析/);
 });

@@ -538,7 +538,6 @@ function communicationPanel(c,expanded=false){
   const timed=verifiedCommunication(c).filter(event=>event.interview_at).concat(arr(c.interview_time_claims).filter(claim=>claim.evidence_verified===true&&claim.interview_at)).sort((a,b)=>String(b.interview_at).localeCompare(String(a.interview_at)))[0];if(timed)summary.append(node('span','source-meta',communicationTime(timed.interview_at,timed.interview_at_precision)));
   if(summary.children.length)panel.append(summary);
   const notes=feedbackNotesPanel(c);if(notes)panel.append(notes);
-  const original=sourceCommunicationPanel(c);if(original){const details=node('details','original-feedback');details.append(node('summary','','原始沟通记录'),original);panel.append(details);}
   return panel.children.length?panel:null;
 }
 const FEEDBACK_CATEGORIES={resume:'履历评价',interview:'面试评价',hr:'人力评价',other:'其他补充'};
@@ -573,11 +572,11 @@ function feedbackNoteProjection(c,category){
     if(record){const entry=feedbackSourceEntry(record,native.includes(record)?'communication_event':'human_review','本人原话 · 阶段待核');if(entry)entries.push(entry);}
   }
   const references=entries.map(entry=>entry.source_reference).filter(Boolean);
-  return {manual:false,text:entries.length===1?entries[0].text:entries.map(entry=>entry.source_label+'：\n'+entry.text).join('\n\n'),entries,revision_id:null,source_reference:references[0]||null,source_references:references};
+  return {manual:false,text:entries.map(entry=>entry.text).join('\n\n'),entries,revision_id:null,source_reference:references[0]||null,source_references:references};
 }
 function feedbackNotesPanel(c){
   const filled=Object.entries(FEEDBACK_CATEGORIES).map(([key,label])=>({key,label,projection:feedbackNoteProjection(c,key)})).filter(row=>row.projection.text.trim());if(!filled.length)return null;
-  const panel=node('section','feedback-notes-panel');for(const {key,label,projection}of filled){const row=node('article','feedback-note'),head=node('div','feedback-note-head');head.append(node('h3','',label));if(engineConnected&&!sessionLocked)head.append(button('编辑',()=>openFeedbackNotes(c,key)));row.append(head);for(const entry of projection.entries){const part=node('div','feedback-note-part');part.append(node('p','quote',entry.text));if(!projection.manual)part.append(node('p','feedback-note-source',entry.source_label));else part.title='人工评价版本';row.append(part)}panel.append(row);}return panel;
+  const panel=node('section','feedback-notes-panel');for(const {key,label,projection}of filled){const row=node('article','feedback-note'),head=node('div','feedback-note-head');head.append(node('h3','',label));if(engineConnected&&!sessionLocked)head.append(button('编辑',()=>openFeedbackNotes(c,key)));row.append(head);for(const entry of projection.entries){const part=node('div','feedback-note-part');part.append(node('p','quote',entry.text));if(projection.manual)part.title='人工评价版本';row.append(part)}panel.append(row);}return panel;
 }
 function openFeedbackNotes(c,category='resume',source=null){
   if(!engineConnected||!isLoopback||sessionLocked)return;
