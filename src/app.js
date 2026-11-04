@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 160;
+const DATA_VERSION = 161;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -225,13 +225,13 @@ const initialState = {
     {
       id: "qieman-product-relationship-map-2026-11-04",
       groupId: "advisor-workbench",
-      title: "且慢业务重塑｜产品与能力总关系图",
+      title: "且慢业务架构｜能力与产品系统映射（重构版）",
       url: "https://clairku.github.io/clair-ai-studio/reports/qieman-product-relationship-map-2026-11-04/",
-      preview: "qieman-product-relationship-map-2026-11-04.svg",
+      preview: "qieman-product-relationship-map-2026-11-04-v2.svg",
       pinned: false,
       position: 0,
       createdAt: "2026-11-04T00:00:00+08:00",
-      source: "基于已发布总产品蓝图制作的一页宣导图：产品、L3项目、共用业务能力、AI基座及平台供给同图；箭头标注运行供给、业务回流、项目建设交付与可选协同；区分已有历史基础、升级、新建和共建。附SVG矢量版、高清PNG、可编辑关系数据，目标关系不代表已全部接通。",
+      source: "重构版2.0：从客户服务责任建立业务过程、五组业务能力及业务对象，再分别映射应用系统职责、技术供给与变更项目。区分事件/任务/系统/协议、台账视图/标准能力包/运行快照；MESN与CDP独立归类。附概念与关系规则说明、SVG和高清PNG。",
       access: "production",
       workType: "product-planning",
       tags: ["且慢", "总关系图", "宣导", "Lodestar", "AI小顾4.0", "YINGWORK", "慧客通", "SCRM", "L3", "共用能力", "AI基座", "平台供给", "已有升级新建共建", "SVG", "PNG"],
@@ -241,11 +241,11 @@ const initialState = {
       groupId: "advisor-workbench",
       title: "且慢业务重塑｜总产品蓝图与Lodestar AI底座",
       url: "https://clairku.github.io/clair-ai-studio/reports/qieman-business-product-blueprint-2026-11-03/",
-      preview: "qieman-business-product-blueprint-2026-11-03.svg",
+      preview: "qieman-business-product-blueprint-2026-11-03-v2.svg",
       pinned: false,
       position: 0,
       createdAt: "2026-11-03T14:00:00+08:00",
-      source: "规划讨论稿：梳理AI小顾4.0、Lodestar、独立并列YINGWORK、慧客通、SCRM与智能顾问运营L3的边界，设计统一客户台账与服务包、10项AI平台供给、16个建设工作包、团队分工与验收。历史资料、用户方向与目标建议分别标明；不代表能力已上线或效果承诺。",
+      source: "重构版2.0：以持续客户服务责任建立业务过程、能力和对象模型，分别映射角色应用、技术与业务供给、项目变更；明确台账记录视图、标准服务能力包与运行快照。附16个工作包、供给分类和验收，能力组为逻辑设计，非上线或组织任命。",
       access: "production",
       workType: "product-planning",
       tags: ["且慢", "Lodestar", "AI小顾4.0", "YINGWORK", "慧客通", "SCRM", "L3", "总产品蓝图", "客户台账", "服务包", "AI底座", "平台供给", "共建分工", "规划讨论稿", "HTML"],
