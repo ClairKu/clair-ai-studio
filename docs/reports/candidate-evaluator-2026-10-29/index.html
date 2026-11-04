@@ -392,12 +392,16 @@ function communicationPanel(c,expanded=false){
   if(!expanded){const more=button('全部沟通记录',()=>{materialsCandidateId=c.id;materialsTab='records';$('materials-title').textContent=candidateName(c)+' · 资料';renderMaterials();$('materials-dialog').showModal()},'small');panel.append(more);}
   return panel;
 }
+function historyReason(value){
+  const labels={candidate_link_unverified:'人选归属待确认',candidate_reference_missing:'尚未找到对应履历',candidate_reference_ambiguous_or_missing:'人选关联不唯一或尚未找到',contact_not_verified_target:'会话归属待核',sender_identity_unverified:'发送人身份待核',message_time_unknown:'发送时间待核',source_locator_missing:'原文位置待补',unsent_draft_not_observed_event:'草稿不能证明实际发生',same_message_id_conflicting_record:'同一消息出现不同版本',document_does_not_establish_owner_interview_stage:'当前材料不足以证明本人面试阶段',scheduled_is_not_completed:'安排尚未证明已完成',planned_or_negated_stage_not_completed:'计划或否定内容不能计作完成',feedback_not_from_owner:'尚不能归为你的面后反馈',owner_interviewer_unverified:'本人是否参与面试待核',interview_completion_unverified:'面试是否完成待核',interview_time_basis_unverified:'面试时间缺少原文依据',interview_time_conflict:'面试时间存在冲突'};
+  return typeof labels[value]==='string'?labels[value]:/^[a-z_]+$/.test(value)?'需补充来源或核对上下文':value;
+}
 function renderHistorySources(){
   const ledger=arr(data.communication_source_ledger),pending=arr(data.pending_communication_records),host=$('history-sources');host.replaceChildren();
   $('history-coverage').textContent='2023-11-04 至今 · 已导入 '+ledger.length+' 份来源 · '+pending.length+' 条待核。已取得资料不等于完整聊天历史。';
   if(ledger.length){const table=node('table','source-ledger'),head=node('tr');['来源','消息','事件','待核'].forEach(label=>head.append(node('th','',label)));const thead=node('thead');thead.append(head);table.append(thead);const body=node('tbody');for(const source of ledger){const row=node('tr');row.append(node('td','',source.label||source.type||'未命名来源'),node('td','',source.messages_added??'—'),node('td','',source.events_added??'—'),node('td','',source.pending_count??'—'));body.append(row)}table.append(body);host.append(table);}else host.append(node('p','helper','尚未导入可核验的沟通记录。可先导入已取得的文件或结构化记录。'));
   $('history-pending-title').textContent='待核记录（'+pending.length+'）';$('history-pending-section').hidden=!pending.length;const list=$('history-pending');list.replaceChildren();
-  for(const record of pending.slice(0,100)){const row=node('article','review');row.append(node('p','meta',[record.contact||'会话待核',record.sent_at?communicationTime(record.sent_at,record.sent_at_precision):'发送时间待核'].join(' · ')),node('p','quote',record.quote||''),node('p','source-meta',arr(record.reasons).map(textOf).join('；')));list.append(row)}
+  for(const record of pending.slice(0,100)){const row=node('article','review');row.append(node('p','meta',[record.contact||'会话待核',record.sent_at?communicationTime(record.sent_at,record.sent_at_precision):'发送时间待核'].join(' · ')),node('p','quote',record.quote||''),node('p','source-meta',arr(record.reasons).map(value=>historyReason(textOf(value))).join('；')));list.append(row)}
   if(pending.length>100)list.append(node('p','helper','这里只显示前100条，其余保留在本机来源记录。'));
 }
 async function openHistorySources(){
