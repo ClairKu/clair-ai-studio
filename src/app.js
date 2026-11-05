@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 170;
+const DATA_VERSION = 171;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -222,6 +222,31 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      "id": "mcp-market-pricing-materials-2026-11-05",
+      "groupId": "ai-platform",
+      "title": "MCP 市场报价与历史材料汇总｜最新公开价与比较口径",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/mcp-market-pricing-materials-2026-11-05/",
+      "preview": "mcp-market-pricing-materials-2026-11-05.svg",
+      "pinned": false,
+      "position": 0,
+      "createdAt": "2026-11-05T12:46:29+08:00",
+      "source": "2026-11-05检索历史报价与对比材料，并核验iFinD、聚源、今日投资、Wind、Tushare等官方来源。完整原件本地交付；工作台仅发布公开资料、历史公开研究入口及计价口径。保留机构新商务报价未取得、终端/API/MCP授权不可混用等边界。",
+      "access": "production",
+      "workType": "reporting",
+      "tags": [
+        "MCP",
+        "报价",
+        "定价",
+        "市场对比",
+        "iFinD",
+        "聚源",
+        "金融数据",
+        "资料库",
+        "HTML",
+        "生产"
+      ]
+    },
     {
       id: "qieman-pension-111-guide-2026-11-05",
       groupId: "pension-planning",
