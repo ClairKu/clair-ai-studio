@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 169;
+const DATA_VERSION = 170;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -222,6 +222,19 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qieman-pension-111-guide-2026-11-05",
+      groupId: "pension-planning",
+      title: "且慢养老1+1+1｜账户、产品与规划说明",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-pension-111-guide-2026-11-05/",
+      preview: "qieman-pension-111-guide-2026-11-05.svg",
+      pinned: false,
+      createdAt: "2026-11-05T11:44:42+08:00",
+      source: "基于公开材料说明且慢养老1+1+1历史框架、三类账户与产品职责、养老规划及陪伴流程；同时标明2026年1+1公开口径与当前在售/入口尚需核验的边界。",
+      access: "production",
+      workType: "reporting",
+      tags: ["且慢", "养老规划", "养老1+1+1", "账户体系", "产品匹配", "服务说明", "HTML", "生产"],
+    },
     {
       id: "yingmi-doubao-advisor-cases-2026-11-05",
       groupId: "ai-platform",

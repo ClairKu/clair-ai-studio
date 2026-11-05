@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "qieman-pension-111-guide-2026-11-05",
     "yingmi-doubao-advisor-cases-2026-11-05",
     "qieman-pension-ai-materials-2026-11-05",
     "doubao-yingmi-holdings-communication-2026-11-05",

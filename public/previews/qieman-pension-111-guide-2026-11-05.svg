@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800" role="img" aria-labelledby="title desc">
+<title id="title">且慢养老1+1+1：账户、产品与规划说明内容封面</title>
+<desc id="desc">基于报告真实首屏标题、配色及三类账户布局的原创内容封面，并非网页截图。</desc>
+<rect width="1280" height="800" fill="#f7f6ef"/>
+<g font-family="system-ui,-apple-system,PingFang SC,Microsoft YaHei,sans-serif">
+<text x="76" y="52" fill="#203f36" font-size="15" font-weight="700" letter-spacing="1.5">且慢养老 · 框架说明</text>
+<text x="1204" y="52" text-anchor="end" fill="#68756b" font-size="12">2026.11.05 整理</text>
+<text x="76" y="111" fill="#a88445" font-size="12" font-weight="650" letter-spacing="2.2">RETIREMENT PLANNING</text>
+<text x="76" y="179" font-family="Songti SC,Noto Serif CJK SC,serif" font-size="50" font-weight="600" fill="#203f36">养老 1+1+1：账户、产品与规划</text>
+<g font-size="18" fill="#52675a"><text x="76" y="226">先测算需要存多少，再决定资金放在哪里、承担多大风险，</text><text x="76" y="258">最后匹配产品，形成一份可以长期执行的养老计划。</text></g>
+<g font-size="13" text-anchor="middle" fill="#203f36">
+<rect x="76" y="283" width="143" height="35" rx="18" fill="#fffef9" stroke="#d9dfd3"/><text x="147" y="306">了解养老目标</text>
+<text x="240" y="306" fill="#a88445">→</text><rect x="260" y="283" width="143" height="35" rx="18" fill="#fffef9" stroke="#d9dfd3"/><text x="331" y="306">测算储蓄计划</text>
+<text x="424" y="306" fill="#a88445">→</text><rect x="444" y="283" width="120" height="35" rx="18" fill="#fffef9" stroke="#d9dfd3"/><text x="504" y="306">账户分配</text>
+<text x="585" y="306" fill="#a88445">→</text><rect x="605" y="283" width="120" height="35" rx="18" fill="#fffef9" stroke="#d9dfd3"/><text x="665" y="306">配置与选品</text>
+<text x="746" y="306" fill="#a88445">→</text><rect x="766" y="283" width="120" height="35" rx="18" fill="#fffef9" stroke="#d9dfd3"/><text x="826" y="306">长期跟踪</text>
+</g>
+<path d="M0 347H1280 M0 396H1280" stroke="#d9dfd3"/>
+<g font-size="13" fill="#68756b"><text x="76" y="378">01 账户框架</text><text x="262" y="378">02 产品类型</text><text x="448" y="378">03 测算规划</text><text x="634" y="378">04 账户分配</text><text x="820" y="378">05 产品推荐</text></g>
+<text x="76" y="455" font-family="Georgia,serif" fill="#a88445" font-size="30">01</text><text x="128" y="455" fill="#203f36" font-size="26" font-weight="650">1+1+1：三类养老安排，共同服务一个目标</text>
+<text x="76" y="491" fill="#68756b" font-size="14">2022 年发布的完整养老服务框架 · 政策性养老储备、补充养老投资和保险安排</text>
+<g>
+<rect x="76" y="517" width="344" height="221" rx="16" fill="#fffef9" stroke="#d9dfd3"/>
+<text x="101" y="550" font-size="11" fill="#a88445" letter-spacing="1.2">政策性养老储备</text><text x="389" y="566" font-family="Georgia,serif" font-size="44" fill="#b1c3b5">1</text>
+<text x="101" y="590" font-size="24" fill="#203f36" font-weight="650">个人养老金账户</text><text x="101" y="628" font-size="15" fill="#203f36" font-weight="650">在个人养老金制度内积累</text><text x="101" y="666" font-size="13" fill="#5e7062">参加意愿 · 税收情况</text><text x="101" y="694" font-size="13" fill="#5e7062">长期资金安排</text>
+<text x="441" y="632" font-family="Georgia,serif" font-size="29" text-anchor="middle" fill="#a3ad9c">+</text>
+<rect x="462" y="517" width="344" height="221" rx="16" fill="#fffef9" stroke="#d9dfd3"/>
+<text x="487" y="550" font-size="11" fill="#a88445" letter-spacing="1.2">补充养老投资</text><text x="775" y="566" font-family="Georgia,serif" font-size="44" fill="#b1c3b5">1</text>
+<text x="487" y="590" font-size="24" fill="#203f36" font-weight="650">且慢补充养老投资账户</text><text x="487" y="628" font-size="15" fill="#203f36" font-weight="650">承接政策账户之外的养老钱</text><text x="487" y="666" font-size="13" fill="#5e7062">用钱时间 · 风险承受能力</text><text x="487" y="694" font-size="13" fill="#5e7062">补充储备需求</text>
+<text x="827" y="632" font-family="Georgia,serif" font-size="29" text-anchor="middle" fill="#a3ad9c">+</text>
+<rect x="848" y="517" width="356" height="221" rx="16" fill="#f5f2e8" stroke="#d9dfd3"/>
+<text x="873" y="550" font-size="11" fill="#a88445" letter-spacing="1.2">养老保险安排</text><text x="1173" y="566" font-family="Georgia,serif" font-size="44" fill="#b1c3b5">1</text>
+<text x="873" y="590" font-size="24" fill="#203f36" font-weight="650">且慢养老保险账户</text><text x="873" y="628" font-size="15" fill="#203f36" font-weight="650">按合同安排退休领取现金流</text><text x="873" y="666" font-size="13" fill="#5e7062">已有保障 · 退休现金流</text><text x="873" y="694" font-size="13" fill="#5e7062">持续缴费能力</text>
+</g>
+<text x="76" y="771" fill="#68756b" font-size="11">三类安排性质与规则不同；历史框架不代表当前实时在售范围。</text>
+<text x="1204" y="771" text-anchor="end" fill="#8a957e" font-size="11">原创内容封面 · 非网页截图</text>
+</g></svg>
