@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 168;
+const DATA_VERSION = 169;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -222,6 +222,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "yingmi-doubao-advisor-cases-2026-11-05",
+      groupId: "ai-platform",
+      title: "盈米 × 豆包工作｜四大顾问场景与六个案例",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-doubao-advisor-cases-2026-11-05/",
+      preview: "yingmi-doubao-advisor-cases-2026-11-05.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-05T11:45:53+08:00",
+      source: "四类顾问场景、六个模拟体验任务；展示实际输入、图文输出及仍需复核的事项。",
+      access: "production",
+      workType: "product-demo",
+      tags: ["盈米","豆包工作","理财顾问","案例","提示词","实测","HTML"],
+    },
     {
       id: "qieman-pension-ai-materials-2026-11-05",
       groupId: "pension-planning",
@@ -4501,6 +4515,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "yingmi-doubao-advisor-cases-2026-11-05": "ai-platform",
   "yingmi-doubao-six-scenarios-2026-11-05": "ai-platform",
   "doubao-yingmi-holdings-communication-2026-11-05": "ai-platform",
   "yingmi-mcp-usage-evidence-2026-11-04": "growth-insights",

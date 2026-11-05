@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" data-clair-access-entry="reports/yingmi-doubao-advisor-cases-2026-11-05/public-case-artifacts/3-1.html" src="../../../access-gate.js?rev=2026-10-10-live-state-v9"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>持仓结构诊断报告 · 45岁模拟客户</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%231B2430'/%3E%3Cpath d='M16 2 A14 14 0 0 1 29 16 L16 16 Z' fill='%232E63C7'/%3E%3Cpath d='M16 2 A14 14 0 0 0 3 16 L16 16 Z' fill='%23C7CED9'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --ink:#1B2430; --muted:#5A6675; --faint:#8A94A3;
+    --bg:#F6F7FA; --paper:#FFFFFF; --line:#E4E8EF;
+    --blue:#2E63C7; --blue-l:#EAF0FB;
+    --teal:#1F9E8F; --teal-l:#E6F5F2;
+    --amber:#D99A2B; --amber-l:#FBF3E3;
+    --cash:#8FA6C8; --gray:#C7CED9; --gray-l:#EFF1F5;
+    --warn:#C4553B; --warn-l:#FBEAE6;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC","Source Han Sans SC",system-ui,-apple-system,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.65; font-size:15px;
+  }
+  .wrap{max-width:1120px; margin:0 auto; padding:20px 16px 48px;}
+  header.hero{
+    background:var(--ink); color:#F4F6FA; border-radius:14px;
+    padding:26px 22px 20px; position:relative; overflow:hidden;
+  }
+  header.hero::after{
+    content:""; position:absolute; right:-40px; top:-40px; width:200px; height:200px;
+    border-radius:50%; background:rgba(255,255,255,.06); pointer-events:none;
+  }
+  .kicker{font-size:12px; letter-spacing:.18em; color:#AEB8C9; margin-bottom:8px;}
+  header.hero h1{font-size:22px; line-height:1.35; font-weight:700; letter-spacing:.02em;}
+  header.hero p.sub{font-size:13px; color:#C6CEDA; margin-top:8px; max-width:640px;}
+  .meta-line{display:flex; flex-wrap:wrap; gap:6px 18px; margin-top:14px; font-size:12.5px; color:#AEB8C9;}
+  .meta-line b{color:#E8ECF4; font-weight:600;}
+  .kpis{display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:14px;}
+  @media (min-width:768px){ .kpis{grid-template-columns:repeat(5,1fr);} }
+  .kpi{background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:12px 14px;}
+  .kpi .v{font-size:20px; font-weight:700; font-variant-numeric:tabular-nums; letter-spacing:-.01em;}
+  .kpi .v small{font-size:12.5px; font-weight:600; color:var(--muted);}
+  .kpi .l{font-size:12px; color:var(--muted); margin-top:2px;}
+  .kpi.hl .v{color:var(--blue);}
+  .kpi.warn .v{color:var(--warn);}
+  section{margin-top:30px;}
+  .sec-head{display:flex; align-items:baseline; gap:12px; border-bottom:1px solid var(--line); padding-bottom:10px;}
+  .sec-head .no{font-size:13px; font-weight:700; color:var(--blue); font-variant-numeric:tabular-nums;}
+  .sec-head h2{font-size:18px; font-weight:700; letter-spacing:.01em;}
+  .sec-head .hint{font-size:12.5px; color:var(--muted); margin-left:auto; text-align:right;}
+  .card{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:18px 16px; margin-top:14px;}
+  .lead{font-size:14px; color:var(--muted); margin-top:12px; max-width:920px;}
+  .lead b{color:var(--ink); font-weight:600;}
+  table{width:100%; border-collapse:collapse; table-layout:fixed; font-size:13px;}
+  th{background:var(--gray-l); text-align:left; font-weight:600; color:var(--ink); padding:9px 10px; font-size:12.5px; white-space:nowrap;}
+  td{padding:9px 10px; border-top:1px solid var(--line); vertical-align:top; word-break:break-word;}
+  tbody tr:nth-child(even) td{background:#FBFCFE;}
+  .num{font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap;}
+  .tag{display:inline-block; padding:1px 8px; border-radius:20px; font-size:12px; font-weight:600; white-space:nowrap;}
+  .tag.blue{background:var(--blue-l); color:var(--blue);}
+  .tag.teal{background:var(--teal-l); color:var(--teal);}
+  .tag.gray{background:var(--gray-l); color:var(--muted);}
+  .tag.amber{background:var(--amber-l); color:#9A6B14;}
+  .tag.warn{background:var(--warn-l); color:var(--warn);}
+  .chart-box{margin-top:6px;}
+  .chart{width:100%; height:300px;}
+  @media (min-width:768px){ .chart.donut{height:340px;} .chart.bar{height:300px;} .chart.ind{height:310px;} }
+  .chart-note{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.55;}
+  .chart-note b{color:var(--ink); font-weight:600;}
+  .cols{display:grid; grid-template-columns:1fr; gap:14px;}
+  @media (min-width:900px){ .cols.two{grid-template-columns:1.05fr .95fr;} }
+  .cover-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px;}
+  @media (min-width:768px){ .cover-grid{grid-template-columns:repeat(4,1fr);} }
+  .cover-item{border:1px solid var(--line); border-radius:10px; padding:11px 13px; background:#FDFEFF;}
+  .cover-item .n{font-size:17px; font-weight:700; font-variant-numeric:tabular-nums;}
+  .cover-item .d{font-size:11.5px; color:var(--muted); margin-top:1px;}
+  .cover-item .s{font-size:11px; color:var(--faint); margin-top:3px;}
+  .cover-item.stock{border-top:3px solid var(--blue);}
+  .cover-item.bond{border-top:3px solid var(--amber);}
+  .cover-item.cash{border-top:3px solid var(--cash);}
+  .cover-item.other{border-top:3px solid var(--gray);}
+  .cover-item.diff{border-top:3px solid var(--warn); background:#FEFCFB;}
+  .cover-item.un{border-top:3px dashed #B6BECB; background:var(--gray-l);}
+  .formula{background:var(--gray-l); border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin-top:12px; font-size:13px;}
+  .formula .f{font-weight:700; color:var(--ink); margin-bottom:4px;}
+  .formula ul{list-style:none; margin-top:6px;}
+  .formula li{font-size:12.5px; color:var(--muted); padding:3px 0 3px 14px; position:relative;}
+  .formula li::before{content:""; position:absolute; left:0; top:10px; width:5px; height:5px; border-radius:50%; background:var(--amber);}
+  .clientline{background:var(--blue-l); border:1px solid #D3E0F6; border-radius:10px; padding:12px 16px; margin-top:12px; font-size:13.5px; color:#24406F; line-height:1.75;}
+  .clientline .lbl{display:inline-block; font-size:11.5px; font-weight:700; color:#fff; background:var(--blue); border-radius:4px; padding:1px 8px; margin-right:8px; vertical-align:2px;}
+  ol.questions{list-style:none; counter-reset:q; margin-top:6px;}
+  ol.questions li{counter-increment:q; position:relative; padding:14px 0 14px 44px; border-bottom:1px dashed var(--line);}
+  ol.questions li:last-child{border-bottom:none;}
+  ol.questions li::before{
+    content:counter(q); position:absolute; left:0; top:13px; width:28px; height:28px; border-radius:50%;
+    background:var(--ink); color:#fff; font-size:13.5px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+  ol.questions li h3{font-size:14.5px; font-weight:700; margin-bottom:4px;}
+  ol.questions li p{font-size:13.5px; color:var(--muted);}
+  ol.questions li p b{color:var(--ink);}
+  .lists{display:grid; grid-template-columns:1fr; gap:14px;}
+  @media (min-width:900px){ .lists{grid-template-columns:repeat(3,1fr);} }
+  .list-box{border:1px solid var(--line); border-radius:12px; padding:14px 16px 16px; background:var(--paper);}
+  .list-box h3{font-size:14px; font-weight:700; margin-bottom:8px; padding-bottom:7px; border-bottom:1px solid var(--line);}
+  .list-box.see h3{color:var(--blue);}
+  .list-box.hold h3{color:var(--amber);}
+  .list-box.ask h3{color:var(--teal);}
+  .list-box ul{list-style:none;}
+  .list-box li{font-size:13px; color:var(--muted); padding:6px 0 6px 18px; position:relative; border-bottom:1px solid #F0F2F7;}
+  .list-box li:last-child{border-bottom:none;}
+  .list-box.see li::before{content:""; position:absolute; left:0; top:12px; width:6px; height:6px; border-radius:50%; background:var(--blue);}
+  .list-box.hold li::before{content:""; position:absolute; left:0; top:12px; width:6px; height:6px; border-radius:50%; background:var(--amber);}
+  .list-box.ask li::before{content:"?"; position:absolute; left:0; top:8px; width:15px; height:15px; border-radius:50%; background:var(--teal-l); color:var(--teal); font-size:10.5px; font-weight:700; text-align:center; line-height:15px;}
+  .list-box li b{color:var(--ink); font-weight:600;}
+  .draft{background:var(--ink); color:#EDF0F6; border-radius:12px; padding:20px 18px; margin-top:14px;}
+  .draft .label{font-size:12px; letter-spacing:.14em; color:#F0C36A; margin-bottom:10px; font-weight:700;}
+  .draft p{font-size:14.5px; line-height:1.85; max-width:860px;}
+  .draft .count{font-size:11.5px; color:#AEB8C9; margin-top:8px;}
+  footer{margin-top:34px; border-top:1px solid var(--line); padding-top:16px; font-size:12px; color:var(--muted); line-height:1.7;}
+  footer h4{font-size:12.5px; color:var(--ink); margin-bottom:4px;}
+  .inline-note{font-size:12px; color:var(--faint);}
+  .pill-note{display:inline-block; background:var(--amber-l); color:#8A5E10; border-radius:6px; padding:2px 10px; font-size:12px; margin:10px 0 0;}
+  .pill-note.blue{background:var(--blue-l); color:var(--blue);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===== 页头 ===== -->
+  <header class="hero">
+    <div class="kicker">顾问会谈版 · 结构诊断（复核更新）</div>
+    <h1>持仓结构诊断报告</h1>
+    <p class="sub">对象：45岁模拟客户（自述风险偏好“稳健”）｜组合市值 100 万元（市值口径，非投入本金）｜正式风险测评、交易流水与用钱计划尚未补齐，资金期限暂按“3 年以上不用”处理。</p>
+    <div class="meta-line">
+      <span>报告生成 <b>2026-11-05</b></span>
+      <span>基金净值截至 <b>2026-11-04</b></span>
+      <span>持仓/行业/配置报告期 <b>2026-09-30</b></span>
+      <span>数据来源 <b>盈米基金数据服务（公开数据）</b></span>
+    </div>
+  </header>
+
+  <!-- ===== 关键数字 ===== -->
+  <div class="kpis">
+    <div class="kpi"><div class="v">100<small> 万</small></div><div class="l">组合总市值（市值口径）</div></div>
+    <div class="kpi hl"><div class="v">60<small> 万 · 60%</small></div><div class="l">已具名基金（已核验，产品占比）</div></div>
+    <div class="kpi hl"><div class="v">≈53.9<small> 万</small></div><div class="l">穿透后股票敞口（占组合约54%，按客户自述货基口径推算）</div></div>
+    <div class="kpi"><div class="v">≈5.8<small> 万</small></div><div class="l">60万具名内的现金及货币</div></div>
+    <div class="kpi warn"><div class="v">40<small> 万 · 40%</small></div><div class="l">未具名货基（客户自述，待核）</div></div>
+  </div>
+
+  <!-- ===== 01 产品核验与权重 ===== -->
+  <section>
+    <div class="sec-head"><span class="no">01</span><h2>产品核验与权重核对</h2><span class="hint">权重按市值核对，非本金口径</span></div>
+    <p class="lead">两只已具名基金均完成<b>代码—名称核验</b>；40 万 / 20 万 / 40 万加总等于 100 万，<b>40% / 20% / 40% 权重核对成立</b>。未具名的 40 万元保留为客户自述的货币基金，未擅自替换为任何产品。</p>
+    <div class="card">
+      <table>
+        <colgroup><col style="width:16%"><col style="width:24%"><col style="width:12%"><col style="width:12%"><col style="width:18%"><col style="width:12%"><col style="width:6%"></colgroup>
+        <thead><tr><th>代码</th><th>基金名称</th><th>类型</th><th>平台风险等级</th><th>基金经理（数据截至2026-09-30）</th><th class="num">规模</th><th class="num">权重</th></tr></thead>
+        <tbody>
+          <tr><td>005827</td><td>易方达蓝筹精选混合</td><td>混合型·偏股</td><td><span class="tag blue">R3 中风险</span></td><td>张坤（任职8.2年）；增聘共同经理何一铖、杨思亮</td><td class="num">189.33亿</td><td class="num">40%</td></tr>
+          <tr><td>003095</td><td>中欧医疗健康混合A</td><td>混合型·偏股</td><td><span class="tag teal">R4 中高风险</span></td><td>葛兰（任职10.1年）；共同经理赵磊</td><td class="num">255.44亿</td><td class="num">20%</td></tr>
+          <tr><td>—</td><td>货币基金（未提供代码）</td><td>客户自述货币基金</td><td><span class="tag gray">未核验</span></td><td>—</td><td class="num">—</td><td class="num">40%</td></tr>
+        </tbody>
+      </table>
+      <p class="inline-note">市值：005827 净值 1.4009（2026-11-04）；003095 净值 1.9091（2026-11-04）。规模截至 2026-09-30。权重=市值占比，净值波动会使市值权重偏离买入时的本金占比；未取得交易流水，本报告不含本金与个人收益核对。</p>
+    </div>
+    <div class="cols two">
+      <div>
+        <div class="chart-box">
+          <div class="chart donut" id="chartDonut" style="height:340px;"></div>
+          <div class="chart-note"><b>图1 产品分布（市值口径）</b>：005827 40万（40%）· 003095 20万（20%）· 未具名货基 40万（40%，客户自述，待核）。图内上方标注<b>已具名覆盖 60%（蓝筹40%＋医疗20%）｜未具名 40%（自述货基）</b>。</div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:14px;">
+        <h3 style="font-size:14px; font-weight:700; margin-bottom:8px;">交易规则要点（影响后续调整）</h3>
+        <table>
+          <colgroup><col style="width:16%"><col style="width:44%"><col style="width:40%"></colgroup>
+          <thead><tr><th>基金</th><th>单日单笔申购上限</th><th>备注</th></tr></thead>
+          <tbody>
+            <tr><td>005827</td><td style="text-align:left">5 万元 / 日</td><td>大额补仓或调仓需分批，规则随渠道与产品变动</td></tr>
+            <tr><td>003095</td><td style="text-align:left">10 万元 / 日</td><td>同上</td></tr>
+          </tbody>
+        </table>
+        <p class="inline-note">限购为申购口径，赎回不受该限额约束；具体费率、确认与到账以实际交易时点为准。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 02 穿透结构 ===== -->
+  <section>
+    <div class="sec-head"><span class="no">02</span><h2>穿透结构：已覆盖敞口与未覆盖金额</h2><span class="hint">按 2026-09-30 报告期实际披露比例穿透</span></div>
+    <p class="lead">以两只具名基金 <b>2026-09-30 报告期披露的资产配置比例</b>穿透其合计 60 万元市值：股票敞口 53.85 万（89.8%）、债券 0.37 万（0.6%）、现金 5.75 万（9.6%）、其他 0.11 万（0.2%）。<b>未覆盖 40 万</b>为客户自述的货币基金，无代码与报告数据，暂不穿透。</p>
+    <div class="cover-grid">
+      <div class="cover-item stock"><div class="n">53.85万</div><div class="d">股票敞口（已覆盖）</div><div class="s">005827 87.05%＋003095 95.16%</div></div>
+      <div class="cover-item bond"><div class="n">0.37万</div><div class="d">债券敞口（已覆盖）</div><div class="s">003095 1.87%，005827 无债券</div></div>
+      <div class="cover-item cash"><div class="n">5.75万</div><div class="d">现金及货币（已覆盖）</div><div class="s">005827 12.68%＋003095 3.41%</div></div>
+      <div class="cover-item other"><div class="n">0.11万</div><div class="d">其他（已覆盖）</div><div class="s">005827 0.27%</div></div>
+      <div class="cover-item diff"><div class="n">0.09万</div><div class="d">披露比例差额（待核）</div><div class="s">003095 披露比例合计100.44%，差额0.44个百分点×20万；未归一化、不作杠杆解释</div></div>
+      <div class="cover-item un"><div class="n">40万</div><div class="d">未具名货币基金（未覆盖）</div><div class="s">客户自述，待提供代码后穿透</div></div>
+    </div>
+    <div class="card">
+      <div class="chart bar" id="chartStack" style="height:300px;"></div>
+      <div class="chart-note"><b>图2 穿透结构（原生SVG静态图，按已核对金额绘制）</b>：前四段为 60 万已具名资产按 2026-09-30 报告期比例的穿透金额；末段 40 万为未具名货基（客户自述，未核验）。图上标注：<b>已具名 60%｜未具名 40%</b>。盈米穿透工具另按基金风格口径将 60 万全部归类“股票权益—中国股票”（医药 20 万 / 风格均衡 40 万），两口径并列呈现，互不替代。</div>
+    </div>
+    <div class="clientline"><span class="lbl">可对客户解释</span>“您账上某只产品占组合 40%，不等于股票敞口就是 40%——基金本身也会留现金、配债券，只有穿透到基金披露的资产配置，才能看到真实的股票比例。以 005827 为例：它占组合 40%，但按 2026-09-30 季报约 87% 投向股票，对应股票敞口约 34.8 万、占组合约 34.8%，其余为现金（约 5.1 万）与其他（约 0.1 万）。”</div>
+    <p class="lead">除大类外，个股层面仍有未穿透部分：005827 前十大重仓合计占净值 42.6%，前十之外持仓（占净值约 57.4%）未逐一穿透；003095 前十大重仓占净值 74.8%，前十之外（约 25.2%）同理——该部分金额已计入上方大类敞口，但未落到具体证券。</p>
+  </section>
+
+  <!-- ===== 03 重叠核验（披露范围内） ===== -->
+  <section>
+    <div class="sec-head"><span class="no">03</span><h2>重叠核验：行业与风格（披露范围内）</h2><span class="hint">行业与风格数据披露日期一致（2026-09-30）</span></div>
+    <div class="formula">
+      <div class="f">行业金额敞口的正确口径（待分母确认后使用）：</div>
+      行业金额敞口 ＝ 基金市值 × 该报告期股票仓位 × 该行业占股票持仓比例
+      <ul>
+        <li><b>基金市值</b>：用户提供，2026-11-05 核对（005827＝40万、003095＝20万，市值口径）</li>
+        <li><b>股票仓位</b>：2026-09-30 报告期资产配置（005827 87.05%、003095 95.16%，披露为占净值比例）</li>
+        <li><b>行业占股票持仓比例</b>：2026-09-30 报告期中信一级行业占比——<b>分母口径未在数据服务返回中说明</b>（披露占比合计约 99.8% / 99.99%，疑似以股票持仓为分母，待核），故医药金额敞口不强算，仅列原始数据</li>
+      </ul>
+    </div>
+    <div class="cols two">
+      <div class="card">
+        <h3 style="font-size:14px; font-weight:700; margin-bottom:4px;">行业配置原始数据（中信一级行业，报告期 2026-09-30）</h3>
+        <p class="inline-note">以下为数据服务返回的披露占比（原始数据），分母口径待核；两基金披露日期一致，可直接并列。</p>
+        <table>
+          <colgroup><col style="width:46%"><col style="width:27%"><col style="width:27%"></colgroup>
+          <thead><tr><th>行业</th><th class="num">005827 蓝筹</th><th class="num">003095 医疗</th></tr></thead>
+          <tbody>
+            <tr><td>医药</td><td class="num">2.77%</td><td class="num">99.08%</td></tr>
+            <tr><td>电子</td><td class="num">26.12%</td><td class="num">0.01%</td></tr>
+            <tr><td>食品饮料</td><td class="num">22.26%</td><td class="num">0</td></tr>
+            <tr><td>传媒</td><td class="num">9.58%</td><td class="num">0</td></tr>
+            <tr><td>消费者服务</td><td class="num">7.18%</td><td class="num">0</td></tr>
+            <tr><td>石油石化</td><td class="num">6.79%</td><td class="num">0</td></tr>
+            <tr><td>通信</td><td class="num">5.95%</td><td class="num">0</td></tr>
+            <tr><td>电力及公用事业</td><td class="num">4.90%</td><td class="num">0</td></tr>
+            <tr><td>计算机</td><td class="num">4.66%</td><td class="num">0.01%</td></tr>
+            <tr><td>基础化工</td><td class="num">0.16%</td><td class="num">0.90%</td></tr>
+            <tr><td>其余行业（各&lt;0.1%）</td><td class="num">—</td><td class="num">—</td></tr>
+          </tbody>
+        </table>
+        <p class="pill-note">结论边界：数据服务未返回重仓股个股明细，行业数据也无法覆盖全部股票持仓明细，本报告不形成“唯一重叠”或个股重叠结论，不做超出披露范围的推断。</p>
+      </div>
+      <div class="card">
+        <h3 style="font-size:14px; font-weight:700; margin-bottom:4px;">风格证据（重仓股口径，报告期 2026-09-30）</h3>
+        <table>
+          <colgroup><col style="width:30%"><col style="width:35%"><col style="width:35%"></colgroup>
+          <thead><tr><th>指标</th><th class="num">005827 蓝筹精选</th><th class="num">003095 医疗健康A</th></tr></thead>
+          <tbody>
+            <tr><td>PE（TTM）</td><td class="num">16.9 倍</td><td class="num">97.7 倍</td></tr>
+            <tr><td>ROE（TTM）</td><td class="num">19.8%</td><td class="num">9.8%</td></tr>
+            <tr><td>股息率</td><td class="num">3.3%</td><td class="num">0.8%</td></tr>
+            <tr><td>年化换手率</td><td class="num">1.57</td><td class="num">4.55</td></tr>
+            <tr><td>前十大重仓占净值</td><td class="num">42.6%</td><td class="num">74.8%</td></tr>
+            <tr><td>抱团股占净值（前10%）</td><td class="num">36.9%</td><td class="num">72.6%</td></tr>
+          </tbody>
+        </table>
+        <p class="inline-note">口径：重仓股（quarter）、持仓比例加权（wavg）、报告期 2026-09-30；“前十大重仓占净值”为披露重仓股占基金净值比例，换手率为年化。两基金在上述披露指标上差异较大（估值、盈利质量、换手率与集中度），属披露数据可直接比较的范围。</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="chart ind" id="chartInd" style="height:310px;"></div>
+      <div class="chart-note"><b>图3 行业配置（披露原始占比，报告期 2026-09-30）</b>：两基金行业配置差异大（003095 集中于医药、005827 分散于电子/食品饮料/传媒等）；图内数字为披露占比，<b>分母口径待核，不构成金额敞口结论</b>。</div>
+    </div>
+  </section>
+
+  <!-- ===== 04 会谈先问 ===== -->
+  <section>
+    <div class="sec-head"><span class="no">04</span><h2>会谈先问：三项优先确认问题</h2><span class="hint">仅凭年龄与自述不足以判定适当性</span></div>
+    <div class="card">
+      <ol class="questions">
+        <li>
+          <h3>资金期限与 40 万货基的用途</h3>
+          <p>“3 年以上不用”目前仅为暂称，未落到具体用钱计划。40 万货基的角色（应急金 / 近期支出 / 长期储蓄）直接决定该部分流动性安排与整体结构是否成立，建议按“四笔钱”口径明确。</p>
+        </li>
+        <li>
+          <h3>正式风险测评与波动承受能力</h3>
+          <p>客户自述“稳健”，但按客户自述货基口径推算，组合穿透后股票敞口约 53.9 万（约占组合 54%），其中 20% 配置于平台判定为 <b>R4 中高风险</b>的 003095（近 1 年波动率 32.7%）；005827 近 1 年收益 −29.1%、最大回撤 −33.8%。需完成正式风险测评后，再以测评结果核定适当性。</p>
+        </li>
+        <li>
+          <h3>产品变化知悉与主题集中度</h3>
+          <p>① 005827 已增聘何一铖、杨思亮两位共同经理，且最新报告期行业配置中电子（26.1%）已高于食品饮料（22.3%），与平台“酒类”标签存在差异，需确认客户是否知悉；② 003095 为医药主题基金，行业配置高度集中于医药（披露占比 99.1%，分母口径待核），单一主题集中风险需客户知悉；③ 005827 单日限购 5 万元，未来如需调整受交易规则约束。</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== 05 结论分级 ===== -->
+  <section>
+    <div class="sec-head"><span class="no">05</span><h2>结论分级：已经看清 · 暂不能判断 · 会谈先问</h2><span class="hint">事实、待核与提问分开，缺失项不臆补</span></div>
+    <div class="lists">
+      <div class="list-box see">
+        <h3>已经看清（可核验）</h3>
+        <ul>
+          <li><b>基金核验：</b>005827＝易方达蓝筹精选混合（R3 中风险）；003095＝中欧医疗健康混合A（R4 中高风险）。</li>
+          <li><b>权重核对：</b>40 万＋20 万＋40 万＝100 万，40%/20%/40% 按市值成立。</li>
+          <li><b>大类穿透（报告期 2026-09-30）：</b>60 万具名→股票 53.85 万、债券 0.37 万、现金 5.75 万、其他 0.11 万。</li>
+          <li><b>风格指标（重仓股口径，2026-09-30）：</b>两基金在估值、盈利质量、换手率与集中度上差异较大。</li>
+          <li><b>交易规则：</b>005827 单日限购 5 万、003095 限购 10 万。</li>
+        </ul>
+      </div>
+      <div class="list-box hold">
+        <h3>暂不能判断（待核 / 缺失）</h3>
+        <ul>
+          <li><b>行业金额敞口：</b>行业占比分母口径未在数据服务中说明，医药金额敞口同口径确认前不强算。</li>
+          <li><b>个股重叠：</b>数据服务未返回重仓股明细，个股层面不可核验。</li>
+          <li><b>相关性：</b>数据服务未返回计算区间、样本频率与方法，本报告不呈现相关性结论。</li>
+          <li><b>个人收益：</b>无交易流水，不计算个人收益与盈亏。</li>
+          <li><b>适当性：</b>未完成正式风险测评（“稳健”为自述）。</li>
+          <li><b>40 万货基：</b>无代码与产品数据。</li>
+          <li><b>调仓变化：</b>2026-09-30 至 2026-11-04 之间未披露。</li>
+        </ul>
+      </div>
+      <div class="list-box ask">
+        <h3>会谈先问（按优先级）</h3>
+        <ul>
+          <li><b>资金期限与货基用途：</b>3 年不用是否成立、40 万的角色，按四笔钱口径明确。</li>
+          <li><b>正式测评与波动承受：</b>自述稳健 vs 股票敞口约 54%、R4 产品占 20%，以测评结果核定适当性。</li>
+          <li><b>产品变化与主题集中：</b>005827 增聘经理、行业配置电子＞食品饮料；003095 医药主题集中（分母口径待核）。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 06 回访草稿 ===== -->
+  <section>
+    <div class="sec-head"><span class="no">06</span><h2>回访草稿</h2><span class="hint">可复制至企微 / 电话话术</span></div>
+    <div class="draft">
+      <div class="label">回访话术（草稿 · 待审核 · 约 180 字）</div>
+      <p>（客户称谓）您好，我是您的理财顾问。您的百万持仓结构诊断已完成：60% 为偏股基金，按 9 月末季报穿透后股票敞口约 53.9 万，另有 40 万货币基金待确认产品。想约 15 分钟确认三件事：① 这笔钱 3 年内是否确定不用、货基用途；② 完成一次正式风险测评；③ 您对易方达蓝筹近一年区间净值约下跌 29%（区间截至 2026-11-04，是区间跌幅、不是波动率）是否知悉并接受。本周三或周四您方便吗？</p>
+      <div class="count">说明：本稿为草稿，发出前需顾问审核；不承诺收益、不催交易，以补齐信息与完成适当性核验为目标。</div>
+    </div>
+  </section>
+
+  <!-- ===== 页脚 ===== -->
+  <footer>
+    <h4>来源与日期</h4>
+    <p>数据来源：盈米基金数据服务（公开数据），查询时间 2026-11-05；持仓市值与权重由用户提供。基金净值截至 2026-11-04；规模、资产配置、行业配置与风格指标均为 2026-09-30 报告期或该时点数据；持仓为定期披露，报告期后可能已调仓。<br>
+    本报告为研究与沟通参考，不构成投资建议，亦不代表完成正式适当性评估；未取得客户交易流水，报告不含个人收益计算；行业占比分母口径、个股持仓明细、风险测评、用钱计划等缺失项待客户补充后更新。</p>
+  </footer>
+</div>
+
+<script src="https://fastly.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script>
+(function(){
+  function load(src, onOk, onErr){
+    var s = document.createElement('script');
+    s.src = src; s.onload = onOk; s.onerror = onErr;
+    document.head.appendChild(s);
+  }
+  function boot(){
+    drawStackSvg(document.getElementById('chartStack'), stackData, 1000880);
+    if (typeof echarts !== 'undefined') { initCharts(); }
+    else { renderSvgFallback(); }
+  }
+  load('https://fastly.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js', boot, function(){
+    load('https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.1/echarts.min.js', boot, function(){
+      renderSvgFallback();
+    });
+  });
+
+  var C = {
+    ink:'#1B2430', muted:'#5A6675', line:'#E4E8EF',
+    blue:'#2E63C7', teal:'#1F9E8F', amber:'#D99A2B',
+    cash:'#8FA6C8', gray:'#C7CED9', un:'#E3E7EE'
+  };
+  var fundData = [
+    {code:'005827', name:'易方达蓝筹精选混合', mv:400000, weight:'40%', color:C.blue},
+    {code:'003095', name:'中欧医疗健康混合A', mv:200000, weight:'20%', color:C.teal},
+    {code:'未提供代码', name:'货币基金（客户自述）', mv:400000, weight:'40%', color:C.gray}
+  ];
+  var stackData = [
+    {name:'股票 53.85万', amount:538520, color:C.blue},
+    {name:'债券 0.37万', amount:3740, color:C.amber},
+    {name:'现金 5.75万', amount:57540, color:C.cash},
+    {name:'其他 0.11万', amount:1080, color:C.gray},
+    {name:'未具名货基 40万（未核验）', amount:400000, color:C.un}
+  ];
+  var indData = [
+    {ind:'医药', a:2.77, b:99.08},
+    {ind:'电子', a:26.12, b:0.01},
+    {ind:'食品饮料', a:22.26, b:0},
+    {ind:'传媒', a:9.58, b:0},
+    {ind:'消费者服务', a:7.18, b:0},
+    {ind:'石油石化', a:6.79, b:0}
+  ];
+
+  function fmtWan(v){ return (v/10000).toLocaleString('zh-CN',{maximumFractionDigits:2}) + ' 万'; }
+
+  function initCharts(){
+    /* 图1 产品分布 */
+    var d = echarts.init(document.getElementById('chartDonut'));
+    d.setOption({
+      color: [C.blue, C.teal, C.gray],
+      title:{text:'已具名覆盖 60%｜未具名 40%（自述货基）', left:'center', top:0, textStyle:{fontSize:12, color:C.muted, fontWeight:500}},
+      tooltip:{trigger:'item', formatter:function(p){
+        return p.name + '<br/>市值 ' + fmtWan(fundData[p.dataIndex].mv) + ' · 权重 ' + fundData[p.dataIndex].weight;
+      }},
+      legend:{bottom:0, itemWidth:14, itemHeight:10, textStyle:{fontSize:12, color:C.muted}},
+      series:[{
+        type:'pie', radius:['44%','72%'], center:['50%','46%'],
+        itemStyle:{borderColor:'#fff', borderWidth:2},
+        label:{show:true, formatter:function(p){
+          return p.name.split('（')[0] + '\n' + p.data.weight + ' · ' + fmtWan(p.data.value);
+        }, fontSize:12, color:C.ink, lineHeight:16},
+        labelLine:{length:14, length2:10},
+        data: fundData.map(function(f){ return {name:f.name, value:f.mv, weight:f.weight}; })
+      }]
+    });
+
+    /* 图3 行业配置（分组条形） */
+    var g = echarts.init(document.getElementById('chartInd'));
+    g.setOption({
+      color:[C.blue, C.teal],
+      grid:{left:88, right:24, top:8, bottom:8},
+      xAxis:{type:'value', max:100, axisLabel:{formatter:'{value}%', fontSize:11, color:C.muted}, splitLine:{lineStyle:{color:'#EEEFF3'}}},
+      yAxis:{type:'category', data: indData.map(function(o){return o.ind;}), axisLabel:{fontSize:12, color:C.ink}, axisLine:{lineStyle:{color:C.line}}, axisTick:{show:false}},
+      legend:{top:0, right:0, itemWidth:14, itemHeight:10, textStyle:{fontSize:12, color:C.muted}},
+      tooltip:{trigger:'axis', axisPointer:{type:'shadow'}, formatter:function(ps){
+        var t = ps[0].axisValue + '<br/>';
+        ps.forEach(function(p){
+          var v = p.value || 0;
+          t += p.marker + p.seriesName + '：' + v.toFixed(2) + '%<br/>';
+        });
+        return t;
+      }},
+      series:[
+        {name:'005827 蓝筹精选', type:'bar', barWidth:13, data: indData.map(function(o){return o.a;}), itemStyle:{borderRadius:2}},
+        {name:'003095 医疗健康A', type:'bar', barWidth:13, data: indData.map(function(o){return o.b;}), itemStyle:{borderRadius:2}}
+      ],
+      label:{show:true, position:'right', fontSize:10.5, color:C.muted, formatter:function(p){ var v=p.value||0; return v>0.05 ? v.toFixed(1)+'%' : ''; }}
+    });
+  }
+
+  /* ---- SVG 兜底（离线可用） ---- */
+  function renderSvgFallback(){
+    drawDonutSvg(document.getElementById('chartDonut'), fundData);
+    drawIndSvg(document.getElementById('chartInd'), indData);
+  }
+  function svgWrap(id, w, h){
+    var el = document.getElementById(id);
+    el.innerHTML = '<svg viewBox="0 0 ' + w + ' ' + h + '" style="width:100%;height:100%;display:block" xmlns="http://www.w3.org/2000/svg"></svg>';
+    return el.firstChild;
+  }
+  function arcPath(cx, cy, r0, r1, a0, a1){
+    var x0 = cx + r1*Math.cos(a0), y0 = cy + r1*Math.sin(a0);
+    var x1 = cx + r1*Math.cos(a1), y1 = cy + r1*Math.sin(a1);
+    var x2 = cx + r0*Math.cos(a1), y2 = cy + r0*Math.sin(a1);
+    var x3 = cx + r0*Math.cos(a0), y3 = cy + r0*Math.sin(a0);
+    var la = (a1-a0) > Math.PI ? 1 : 0;
+    return 'M'+x0.toFixed(1)+','+y0.toFixed(1)+' A'+r1+','+r1+' 0 '+la+' 1 '+x1.toFixed(1)+','+y1.toFixed(1)+' L'+x2.toFixed(1)+','+y2.toFixed(1)+' A'+r0+','+r0+' 0 '+la+' 0 '+x3.toFixed(1)+','+y3.toFixed(1)+' Z';
+  }
+  function drawDonutSvg(el, data){
+    var w=360, h=340, cx=180, cy=158, r0=92, r1=148;
+    var svg = svgWrap(el.id, w, h);
+    var t0 = document.createElementNS('http://www.w3.org/2000/svg','text');
+    t0.setAttribute('x',cx); t0.setAttribute('y',20); t0.setAttribute('text-anchor','middle');
+    t0.setAttribute('font-size','12'); t0.setAttribute('fill','#5A6675');
+    t0.textContent = '已具名覆盖 60%｜未具名 40%（自述货基）';
+    svg.appendChild(t0);
+    var total = data.reduce(function(a,b){return a+b.mv;},0);
+    var a = -Math.PI/2;
+    data.forEach(function(f){
+      var sweep = f.mv/total * Math.PI*2;
+      var path = document.createElementNS('http://www.w3.org/2000/svg','path');
+      path.setAttribute('d', arcPath(cx,cy,r0,r1,a,a+sweep));
+      path.setAttribute('fill', f.color);
+      path.setAttribute('stroke','#fff'); path.setAttribute('stroke-width','2');
+      svg.appendChild(path);
+      var mid = a + sweep/2;
+      var lx = cx + (r1+20)*Math.cos(mid), ly = cy + (r1+20)*Math.sin(mid);
+      var tx = document.createElementNS('http://www.w3.org/2000/svg','text');
+      tx.setAttribute('x', lx); tx.setAttribute('y', ly);
+      tx.setAttribute('text-anchor', Math.cos(mid) > 0.3 ? 'start' : (Math.cos(mid) < -0.3 ? 'end' : 'middle'));
+      tx.setAttribute('font-size','12'); tx.setAttribute('fill','#1B2430');
+      tx.textContent = f.weight + ' · ' + fmtWan(f.mv);
+      svg.appendChild(tx);
+      a += sweep;
+    });
+    var c1 = document.createElementNS('http://www.w3.org/2000/svg','text');
+    c1.setAttribute('x',cx); c1.setAttribute('y',cy-6); c1.setAttribute('text-anchor','middle');
+    c1.setAttribute('font-size','15'); c1.setAttribute('font-weight','700'); c1.setAttribute('fill','#1B2430');
+    c1.textContent = '总市值 100万';
+    svg.appendChild(c1);
+    var c2 = document.createElementNS('http://www.w3.org/2000/svg','text');
+    c2.setAttribute('x',cx); c2.setAttribute('y',cy+16); c2.setAttribute('text-anchor','middle');
+    c2.setAttribute('font-size','11'); c2.setAttribute('fill','#5A6675');
+    c2.textContent = '市值口径 · 非本金';
+    svg.appendChild(c2);
+    data.forEach(function(f,i){
+      var ly = h-34 + i*18;
+      var r = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      r.setAttribute('x',40); r.setAttribute('y',ly-9); r.setAttribute('width',11); r.setAttribute('height',11); r.setAttribute('rx',2); r.setAttribute('fill',f.color);
+      svg.appendChild(r);
+      var t = document.createElementNS('http://www.w3.org/2000/svg','text');
+      t.setAttribute('x',58); t.setAttribute('y',ly); t.setAttribute('font-size','11.5'); t.setAttribute('fill','#5A6675');
+      t.textContent = f.name;
+      svg.appendChild(t);
+    });
+  }
+  function drawStackSvg(el, data, total){
+    var w=680, h=240, padL=8, padR=8, x0=padL, x1=w-padR;
+    var svg = svgWrap(el.id, w, h);
+    var cx = x0, y0 = 78, bh = 42;
+    var xEnd = x0;
+    data.forEach(function(o){
+      var bw = (o.amount/total) * (x1-x0);
+      var r = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      r.setAttribute('x', cx); r.setAttribute('y', y0); r.setAttribute('width', Math.max(bw-1,2)); r.setAttribute('height', bh);
+      r.setAttribute('fill', o.color);
+      if(o.name.indexOf('未具名')> -1){ r.setAttribute('stroke-dasharray','4 3'); r.setAttribute('stroke','#9AA5B5'); }
+      svg.appendChild(r);
+      var pct = (o.amount/total*100).toFixed(1);
+      if(bw > 46){
+        var t = document.createElementNS('http://www.w3.org/2000/svg','text');
+        t.setAttribute('x', cx + bw/2); t.setAttribute('y', y0 + bh/2 + 4);
+        t.setAttribute('text-anchor','middle'); t.setAttribute('font-size','12'); t.setAttribute('font-weight','600');
+        t.setAttribute('fill', o.color === '#E3E7EE' ? '#5A6675' : '#fff');
+        t.textContent = pct + '%';
+        svg.appendChild(t);
+      } else {
+        var tl = document.createElementNS('http://www.w3.org/2000/svg','text');
+        tl.setAttribute('x', cx + bw + 6); tl.setAttribute('y', y0 + bh/2 + 4);
+        tl.setAttribute('font-size','11.5'); tl.setAttribute('fill','#5A6675');
+        tl.textContent = pct + '%';
+        svg.appendChild(tl);
+      }
+      var nm = document.createElementNS('http://www.w3.org/2000/svg','text');
+      nm.setAttribute('x', cx + bw/2); nm.setAttribute('y', y0 - 8);
+      nm.setAttribute('text-anchor','middle'); nm.setAttribute('font-size','11.5'); nm.setAttribute('fill','#1B2430'); nm.setAttribute('font-weight','600');
+      nm.textContent = o.name;
+      svg.appendChild(nm);
+      xEnd += bw;
+      cx += bw;
+    });
+    /* 已具名 / 未具名 标注 */
+    var xSplit = x0 + (600880/total)*(x1-x0);
+    [ [x0, xSplit, '已具名 60%'], [xSplit, xEnd, '未具名 40%（客户自述）'] ].forEach(function(seg){
+      var l1 = document.createElementNS('http://www.w3.org/2000/svg','line');
+      l1.setAttribute('x1',seg[0]); l1.setAttribute('y1',y0-24); l1.setAttribute('x2',seg[1]); l1.setAttribute('y2',y0-24);
+      l1.setAttribute('stroke','#8A94A3'); l1.setAttribute('stroke-width','1');
+      svg.appendChild(l1);
+      var t = document.createElementNS('http://www.w3.org/2000/svg','text');
+      t.setAttribute('x',(seg[0]+seg[1])/2); t.setAttribute('y',y0-30); t.setAttribute('text-anchor','middle');
+      t.setAttribute('font-size','11'); t.setAttribute('fill','#5A6675');
+      t.textContent = seg[2];
+      svg.appendChild(t);
+    });
+    /* 轴刻度 */
+    [0,25,50,75,100].forEach(function(p){
+      var px = x0 + (p/100)*(x1-x0);
+      var ln = document.createElementNS('http://www.w3.org/2000/svg','line');
+      ln.setAttribute('x1',px); ln.setAttribute('y1',y0+bh+6); ln.setAttribute('x2',px); ln.setAttribute('y2',y0+bh+10);
+      ln.setAttribute('stroke','#8A94A3');
+      svg.appendChild(ln);
+      var t = document.createElementNS('http://www.w3.org/2000/svg','text');
+      t.setAttribute('x',px); t.setAttribute('y',y0+bh+28); t.setAttribute('text-anchor','middle'); t.setAttribute('font-size','11'); t.setAttribute('fill','#5A6675');
+      t.textContent = p + '万';
+      svg.appendChild(t);
+    });
+    var note = document.createElementNS('http://www.w3.org/2000/svg','text');
+    note.setAttribute('x',x0); note.setAttribute('y',h-14); note.setAttribute('font-size','11.5'); note.setAttribute('fill','#5A6675');
+    note.textContent = '前四段按 2026-09-30 报告期比例穿透 60 万具名资产；末段为未具名货基，未核验';
+    svg.appendChild(note);
+  }
+  function drawIndSvg(el, data){
+    var w=620, h=300, padL=86, padR=56, x0=padL, x1=w-padR;
+    var svg = svgWrap(el.id, w, h);
+    var rowH = (h-40)/data.length;
+    data.forEach(function(o, i){
+      var y = 10 + i*rowH;
+      var ty = document.createElementNS('http://www.w3.org/2000/svg','text');
+      ty.setAttribute('x', 6); ty.setAttribute('y', y + rowH/2 + 4); ty.setAttribute('font-size','12.5'); ty.setAttribute('fill','#1B2430');
+      ty.textContent = o.ind;
+      svg.appendChild(ty);
+      [ [o.a, C.blue, '005827'], [o.b, C.teal, '003095'] ].forEach(function(s){
+        var bw = (s[0]/100)*(x1-x0);
+        var r = document.createElementNS('http://www.w3.org/2000/svg','rect');
+        r.setAttribute('x', x0); r.setAttribute('y', y + (s[1]===C.blue ? 2 : rowH/2+2));
+        r.setAttribute('width', Math.max(bw,1)); r.setAttribute('height', rowH/2-6); r.setAttribute('rx',2); r.setAttribute('fill', s[1]);
+        svg.appendChild(r);
+        if(s[0] > 0.05){
+          var t = document.createElementNS('http://www.w3.org/2000/svg','text');
+          t.setAttribute('x', x0 + bw + 5); t.setAttribute('y', y + (s[1]===C.blue ? rowH/2 - 2 : rowH - 2));
+          t.setAttribute('font-size','11'); t.setAttribute('fill','#5A6675');
+          t.textContent = s[0].toFixed(1) + '%';
+          svg.appendChild(t);
+        }
+      });
+    });
+    var legY = h - 18;
+    [ [C.blue,'005827 蓝筹精选'], [C.teal,'003095 医疗健康A'] ].forEach(function(s, i){
+      var lx = x0 + i*180;
+      var r = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      r.setAttribute('x',lx); r.setAttribute('y',legY-9); r.setAttribute('width',11); r.setAttribute('height',11); r.setAttribute('rx',2); r.setAttribute('fill',s[0]);
+      svg.appendChild(r);
+      var t = document.createElementNS('http://www.w3.org/2000/svg','text');
+      t.setAttribute('x',lx+16); t.setAttribute('y',legY); t.setAttribute('font-size','11.5'); t.setAttribute('fill','#5A6675');
+      t.textContent = s[1];
+      svg.appendChild(t);
+    });
+  }
+})();
+</script>
+</body>
+</html>

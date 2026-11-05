@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" data-clair-access-entry="reports/yingmi-doubao-advisor-cases-2026-11-05/public-case-artifacts/2-1.html" src="../../../access-gate.js?rev=2026-10-10-live-state-v9"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>005827 易方达蓝筹精选混合 · 客户回访卡</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231b3a5c'/%3E%3Cpath d='M7 21 L13 12 L18 17 L25 7' stroke='%23e0b35c' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<script src="https://fastly.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+:root{
+  --ink:#1b2a3a;
+  --ink-2:#42556b;
+  --ink-3:#6b7d90;
+  --line:#e3e8ee;
+  --bg:#f4f6f9;
+  --card:#ffffff;
+  --navy:#1b3a5c;
+  --navy-2:#2a5685;
+  --amber:#c98f2d;
+  --amber-bg:#faf3e3;
+  --red:#b3392f;
+  --red-bg:#fbeceb;
+  --green:#1f8a5c;
+  --green-bg:#e9f6ef;
+  --blue-bg:#eaf1f8;
+  --radius:12px;
+  --shadow:0 1px 3px rgba(20,35,55,.06), 0 4px 16px rgba(20,35,55,.05);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+  background:var(--bg);color:var(--ink);
+  line-height:1.65;font-size:15px;
+  padding:0 0 40px;
+}
+.wrap{max-width:1060px;margin:0 auto;padding:0 16px;}
+.tnum{font-variant-numeric:tabular-nums;font-feature-settings:"tnum";}
+
+/* ===== 页眉 ===== */
+.masthead{background:linear-gradient(135deg,#142c46 0%,#1b3a5c 58%,#265080 100%);color:#fff;border-radius:0 0 18px 18px;}
+.masthead-inner{max-width:1060px;margin:0 auto;padding:26px 16px 22px;}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;letter-spacing:.12em;color:#9fc0e0;margin-bottom:10px;}
+.kicker::before{content:"";width:18px;height:2px;background:var(--amber);}
+.h1{font-size:21px;font-weight:700;letter-spacing:.01em;line-height:1.4;}
+.h1 .code{color:#9fc0e0;font-weight:500;font-size:15px;margin-left:8px;}
+.subline{margin-top:8px;font-size:13px;color:#b9cbdd;}
+.quote{margin-top:16px;background:rgba(255,255,255,.08);border-left:3px solid var(--amber);padding:12px 14px;border-radius:0 8px 8px 0;font-size:14px;color:#eef3f8;}
+.quote b{color:#ffd98a;font-weight:600;}
+
+/* ===== 章节 ===== */
+section{margin-top:22px;}
+.sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:12px;}
+.sec-no{font-size:12px;font-weight:700;color:var(--amber);letter-spacing:.08em;}
+.sec-title{font-size:17px;font-weight:700;color:var(--navy);}
+.sec-sub{font-size:12.5px;color:var(--ink-3);}
+
+/* ===== 卡片 ===== */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;}
+.grid{display:grid;gap:12px;}
+.g2{grid-template-columns:1fr;}
+.g3{grid-template-columns:1fr;}
+.g4{grid-template-columns:repeat(2,1fr);}
+
+/* ===== 指标卡 ===== */
+.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.metric{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 13px;box-shadow:var(--shadow);}
+.metric .k{font-size:12px;color:var(--ink-3);margin-bottom:4px;}
+.metric .v{font-size:20px;font-weight:700;line-height:1.25;}
+.metric .d{font-size:11.5px;color:var(--ink-3);margin-top:3px;}
+.up{color:var(--green);}
+.down{color:var(--red);}
+.flat{color:var(--ink-2);}
+
+/* ===== 引用/提示 ===== */
+.attention{background:var(--amber-bg);border:1px solid #ecd9ae;border-radius:10px;padding:13px 15px;font-size:14px;color:#5c4a1f;}
+.attention b{color:#8a6412;}
+.correction{background:var(--blue-bg);border:1px solid #cfdfee;border-radius:10px;padding:14px 16px;}
+.correction h4{font-size:14.5px;color:var(--navy);margin-bottom:8px;}
+.correction ul{list-style:none;}
+.correction li{padding:6px 0 6px 22px;position:relative;font-size:13.5px;color:var(--ink-2);border-bottom:1px dashed #dbe6f2;}
+.correction li:last-child{border-bottom:none;}
+.correction li::before{content:"✓";position:absolute;left:0;top:6px;color:var(--navy-2);font-size:12px;font-weight:700;}
+.correction li em{font-style:normal;color:var(--ink);font-weight:600;}
+
+/* ===== 图表 ===== */
+.chart-box{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 10px 8px;}
+.chart-title{font-size:14.5px;font-weight:700;color:var(--navy);padding:0 6px 2px;}
+.chart-note{font-size:11.5px;color:var(--ink-3);padding:0 6px 6px;}
+.chart{width:100%;height:320px;}
+.chart.tall{height:300px;}
+.chart.med{height:300px;}
+
+/* ===== 表格 ===== */
+.tbl-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed;min-width:560px;}
+caption{text-align:left;font-size:12.5px;color:var(--ink-3);padding:8px 2px;}
+th{background:#f0f4f9;color:var(--navy);font-weight:600;padding:9px 10px;text-align:left;border-bottom:2px solid #d7e0ea;}
+td{padding:9px 10px;border-bottom:1px solid var(--line);color:var(--ink-2);vertical-align:top;}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+tr:last-child td{border-bottom:none;}
+.row-mute td{background:#fafbfc;color:var(--ink-3);font-size:12px;}
+.hl-row td{background:var(--blue-bg);font-weight:600;color:var(--navy);}
+.src{color:var(--ink-3);font-size:11px;}
+
+/* ===== 三栏表 ===== */
+.fact-table td:first-child{width:34%;}
+.fact-table td:last-child{width:30%;}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:1px 8px;border-radius:20px;margin-bottom:5px;}
+.b-fact{background:var(--green-bg);color:var(--green);}
+.b-explain{background:var(--amber-bg);color:#8a6412;}
+.b-todo{background:#eef0f4;color:var(--ink-2);}
+.fact-table ul{list-style:none;margin-top:4px;}
+.fact-table li{position:relative;padding:0 0 7px 16px;font-size:12.8px;color:var(--ink-2);}
+.fact-table li::before{content:"";position:absolute;left:2px;top:8px;width:5px;height:5px;border-radius:50%;background:#b7c3d0;}
+.fact-table li b{color:var(--ink);}
+.fact-table li .dt{color:var(--ink-3);font-size:11.5px;display:block;}
+
+/* ===== 问题卡 ===== */
+.q-card{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:13px 14px;box-shadow:var(--shadow);}
+.q-no{flex:0 0 30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;margin-top:2px;}
+.q-body h4{font-size:14.5px;color:var(--navy);margin-bottom:4px;}
+.q-body p{font-size:13px;color:var(--ink-2);}
+.q-body .why{margin-top:5px;font-size:12px;color:var(--ink-3);}
+
+/* ===== 企微草稿 ===== */
+.draft{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 15px;box-shadow:var(--shadow);}
+.draft-tag{display:inline-flex;align-items:center;gap:8px;margin-bottom:8px;}
+.draft-tag .tag{font-size:11.5px;font-weight:700;color:#fff;background:var(--navy);padding:2px 9px;border-radius:20px;}
+.draft-tag .cnt{font-size:11.5px;color:var(--ink-3);}
+.draft p{font-size:13.5px;color:var(--ink-2);white-space:pre-line;}
+
+/* ===== 提醒 ===== */
+.remind{background:#f7f8fa;border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
+.remind h4{font-size:13.5px;color:var(--ink);margin-bottom:8px;}
+.remind ul{list-style:none;}
+.remind li{font-size:12.8px;color:var(--ink-2);padding:4px 0 4px 18px;position:relative;}
+.remind li::before{content:"•";position:absolute;left:4px;color:var(--amber);font-weight:700;}
+
+/* ===== 来源 ===== */
+.sources{font-size:12px;color:var(--ink-3);}
+.sources ol{padding-left:20px;margin-top:6px;}
+.sources li{margin-bottom:6px;word-break:break-all;}
+.sources a{color:var(--navy-2);text-decoration:none;font-size:11.5px;word-break:break-all;}
+.sources .date{color:var(--ink-3);}
+.foot{font-size:11.5px;color:var(--ink-3);text-align:center;margin-top:26px;line-height:1.8;}
+
+@media (min-width:768px){
+  body{font-size:15.5px;}
+  .h1{font-size:25px;}
+  .g2{grid-template-columns:1fr 1fr;}
+  .g3{grid-template-columns:1fr 1fr 1fr;}
+  .g4{grid-template-columns:repeat(4,1fr);}
+  .metrics{grid-template-columns:repeat(4,1fr);}
+  .chart{height:360px;}
+  .chart.tall{height:340px;}
+  .chart.med{height:320px;}
+}
+@media print{
+  body{background:#fff;}
+  .card,.metric,.q-card,.draft,.chart-box{box-shadow:none;}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="kicker">客户回访工作卡 · 仅供顾问会谈使用</div>
+    <div class="h1">易方达蓝筹精选混合<span class="code">005827</span></div>
+    <div class="subline">数据截至 <b class="tnum">2026-11-04</b>（最新净值日）· 持仓报告期 2026-09-30 · 生成 2026-11-05</div>
+    <div class="quote">客户原话：<b>「最近怎么老跌，是不是该全卖了？」</b>——客户成本与持有流水未知，原计划 3 年以上不用钱；<b>客户补充：半年后需用 15 万元支付家里支出</b>（用款确切日期、其余可用资金待核）。</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- 1. 顾问先回应 -->
+  <section>
+    <div class="sec-head"><span class="sec-no">01</span><span class="sec-title">先回应担心，再约定核对</span><span class="sec-sub">建议会谈开头照此结构讲</span></div>
+    <div class="attention">
+      <b>一、接住担心：</b>您说得对，近 3 个月净值确实在跌——近 1 月 <b>-3.87%</b>、近 3 月 <b>-8.19%</b>，区间内最大回撤分别约 -6.46% 和 -12.46%。中间虽有过反弹（如 8 月横盘、10-29 后回升），但反弹不改"您体感在跌"的事实，也不等于回本。<br>
+      <b>二、不急着下结论：</b>"要不要全卖"先不回答。这笔钱半年后有 15 万元要用，能不能不动、动多少，取决于三件我现在还不知道的事：<b>其余可用资金有多少、用款的确切日期、赎回规则（到账要几天）</b>。在核实之前，任何"全卖/别卖"都是拍脑袋。<br>
+      <b>三、分开两件事：</b>"基金净值在跌"（有数据）与"您这笔钱亏了多少"（取决于买入成本，我目前不知道）是两回事，实际个人盈亏还要核对流水。<br>
+      <b>四、约定下一步：</b>我先按上面三件事与您核对，再按 15 万元用款时点，把<b>持有 / 部分赎回 / 转换</b>的利弊和到账时间算清楚，由您决定。建议约 15 分钟电话或面谈。
+    </div>
+  </section>
+
+  <!-- 2. 关键指标 -->
+  <section>
+    <div class="sec-head"><span class="sec-no">02</span><span class="sec-title">最新净值与区间表现</span><span class="sec-sub">区间收益为截至 2026-11-04 的单位净值区间涨跌，未含分红再投资口径差异</span></div>
+    <div class="metrics">
+      <div class="metric"><div class="k">最新单位净值</div><div class="v tnum">1.4009</div><div class="d">2026-11-04，当日 <span class="up">+1.43%</span></div></div>
+      <div class="metric"><div class="k">近 1 月</div><div class="v tnum down">-3.87%</div><div class="d">2026-09-30 → 11-04</div></div>
+      <div class="metric"><div class="k">近 3 月</div><div class="v tnum down">-8.19%</div><div class="d">2026-08-04 → 11-04</div></div>
+      <div class="metric"><div class="k">近 6 月</div><div class="v tnum down">-19.46%</div><div class="d">2026-04-30 → 11-04</div></div>
+      <div class="metric"><div class="k">近 1 年</div><div class="v tnum down">-29.08%</div><div class="d">2025-11-04 → 2026-11-04</div></div>
+      <div class="metric"><div class="k">成立以来</div><div class="v tnum up">+40.09%</div><div class="d">2018-09-05 成立，张坤任职 8.2 年</div></div>
+      <div class="metric"><div class="k">近 1 年最大回撤</div><div class="v tnum down">-33.79%</div><div class="d">峰值 2.0590（2025-11-13）→ 谷值 1.3632（2026-10-29）</div></div>
+      <div class="metric"><div class="k">近 1 月内最大回撤</div><div class="v tnum down">-6.46%</div><div class="d">区间内峰值 1.4573（09-30）→ 谷值 1.3632（10-29）</div></div>
+      <div class="metric"><div class="k">近 3 月内最大回撤</div><div class="v tnum down">-12.46%</div><div class="d">区间内峰值 1.5573（08-18）→ 谷值 1.3632（10-29）</div></div>
+      <div class="metric"><div class="k">官方风险等级</div><div class="v tnum" style="color:var(--navy-2)">中风险</div><div class="d">3 级 · 风险评分 83.59（2026-10-31 有效）</div></div>
+    </div>
+  </section>
+
+  <!-- 3. 净值与回撤图 -->
+  <section>
+    <div class="sec-head"><span class="sec-no">03</span><span class="sec-title">净值与回撤图</span><span class="sec-sub">近 1 年日频（2025-11-04 → 2026-11-04），同一序列</span></div>
+    <div class="grid g2">
+      <div class="chart-box">
+        <div class="chart-title">单位净值（近 1 年，日频）</div>
+        <div class="chart-note">纵轴按数据范围显示、非零起点；图中标注近 3 月起点（08-04）、近 1 月起点（09-30）、区间低点（10-29）</div>
+        <div id="chartNav" class="chart tall"></div>
+      </div>
+      <div class="chart-box">
+        <div class="chart-title">区间回撤（近 1 年，日频）</div>
+        <div class="chart-note">自区间内前期最高净值的回撤幅度，上界为 0，口径：任一日净值相对该日之前（含当日）区间最高净值的最大跌幅；近 1 月内最大回撤 <b>-6.46%</b>（09-30→10-29），近 3 月内最大回撤 <b>-12.46%</b>（08-18→10-29）</div>
+        <div id="chartDraw" class="chart tall"></div>
+      </div>
+    </div>
+    <div class="chart-box" style="margin-top:12px;">
+      <div class="chart-title">区间收益对照（近 1 月 / 近 3 月，同起止日）</div>
+      <div class="chart-note">基金 vs 同类平均 vs 沪深 300 vs 消费指数 vs 中证电子；近 1 月口径 2026-09-30 → 11-04，近 3 月口径 2026-08-04 → 11-04</div>
+      <div id="chartCmp" class="chart med"></div>
+    </div>
+  </section>
+
+  <!-- 4. 前提核对 -->
+  <section>
+    <div class="sec-head"><span class="sec-no">04</span><span class="sec-title">前提核对：「老跌」的感受怎么摆</span><span class="sec-sub">如实呈现，不否定担忧，也不用反弹当安抚理由</span></div>
+    <div class="correction">
+      <h4>数据怎么说（净值截至 2026-11-04）</h4>
+      <ul>
+        <li><em>确认：</em>近 1 月、近 3 月、近 6 月、近 1 年均为下跌，累计跌幅不小，<b>"老跌"的感受成立</b>；区间内还出现过 -6.46%（近 1 月）、-12.46%（近 3 月）的回撤。</li>
+        <li><em>补充——中间也有反弹：</em>8 月整体横盘（1.51–1.56 区间）、9 月上中旬小反弹、10-29 低点 1.3632 后回升至 11-04 的 1.4009。反弹说明<b>不是每天在跌</b>，但不等于跌势结束、也不等于回本。</li>
+        <li><em>不拿反弹否定担忧：</em>"中间有反弹""跌幅小于同类"都<b>不构成"不用担心的理由"</b>；它们只用于描述事实，不能消解客户对下跌的体感。</li>
+        <li><em>关键在个人盈亏：</em>客户实际亏多少取决于买入成本与持有流水，<b>需核对流水后才能说清</b>，不能用净值涨跌代替。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5. 事实/解释/待核 -->
+  <section>
+    <div class="sec-head"><span class="sec-no">05</span><span class="sec-title">已确认事实 / 可能影响因素 / 待核事项</span><span class="sec-sub">解释≠归因：市场观察与经理观点仅作背景，不充当涨跌的确定原因</span></div>
+    <div class="tbl-wrap">
+    <table class="fact-table">
+      <colgroup><col style="width:34%"><col style="width:36%"><col style="width:30%"></colgroup>
+      <thead><tr><th>① 已确认事实（数据）</th><th>② 可能影响因素（背景与观点）</th><th>③ 待核事项（需向客户确认）</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>
+            <span class="badge b-fact">数据</span>
+            <ul>
+              <li><b>净值与区间</b>：1.4009（11-04）；近 1 月 -3.87%、近 3 月 -8.19%、近 6 月 -19.46%、近 1 年 -29.08%、成立来 +40.09%<span class="dt">盈米基金数据 · 截至 2026-11-04</span></li>
+              <li><b>持仓结构</b>：股票 87.05%；前十大重仓占净值 42.62%<span class="dt">盈米基金数据 · 2026-09-30 报告期</span></li>
+              <li><b>行业集中</b>：电子 26.12%、食品饮料 22.26%、传媒 9.58%、消费者服务 7.18%、石油石化 6.79%、通信 5.95%<span class="dt">中信一级行业 · 2026-09-30 报告期</span></li>
+              <li><b>组合质地</b>：PE(TTM) 16.9、PB 4.0、股息率 3.3%、ROE(TTM) 19.8%、营收同比 +8.7%<span class="dt">盈米基金数据 · 2026-09-30</span></li>
+              <li><b>回撤记录</b>：近 1 年最大回撤 -33.79%；近 1 月内 -6.46%、近 3 月内 -12.46%（口径：区间内任一日相对此前区间峰值的最大跌幅）<span class="dt">盈米基金数据 · 由近一年日频净值复算，截至 2026-11-04</span></li>
+              <li><b>指数背景</b>：沪深 300 近 3 月 -9.73%；中证电子近 3 月 -15.11%、10 月单月 -24.98%<span class="dt">同花顺指数数据 · 2026-08-04→11-04</span></li>
+              <li><b>三季报操作</b>（2026-10-27 披露）：张坤减电子、收缩白酒、加码公用事业/医药/港股互联网，新易盛新晋前十大重仓<span class="dt">公开报道 · 2026-10-27</span></li>
+            </ul>
+          </td>
+          <td>
+            <span class="badge b-explain">背景/观点</span>
+            <ul>
+              <li><b>行业（可能关联，非确定归因）</b>：第一大持仓电子（26%）板块近 1 月跌约 22%，与基金区间回撤在时间上高度相关，是<b>可能的关联因素之一</b>；第二大持仓食品饮料（22%）相对抗跌<span class="dt">同花顺 · 2026-09-30→11-04</span></li>
+              <li><b>经理团队归因（观点）</b>：科技板块调整源于前期涨幅偏高、估值消化、外围杠杆挤压、AI 资本开支向现金流转化存疑；中长期仍看好 AI 落地<span class="dt">三季报观点 · 2026-10-27/11-01</span></li>
+              <li><b>白酒行业（数据+观点）</b>：19 家白酒公司前三季营收 -7.64%、净利 -9.44%，去库存、业绩寻底；近期板块反弹属预期修复，基本面反转待春节旺季验证<span class="dt">财联社/证券时报 · 2026-11-05</span></li>
+              <li><b>市场风格（观察）</b>：资金从科技向消费/红利迁移，公募低配赛道受关注<span class="dt">证券时报 · 2026-10-22</span></li>
+              <li><b>边界提示</b>：以上均为市场背景、公开报道与观点，只列<b>可能关联</b>；净值波动是持仓与市场共同作用的结果，<b>不以新闻相关性充当确定归因</b><span class="dt">分析口径说明</span></li>
+            </ul>
+          </td>
+          <td>
+            <span class="badge b-todo">待核</span>
+            <ul>
+              <li><b>客户成本与流水</b>：买入时间、成本、持有份额——决定个人盈亏的计算<span class="dt">客户提供</span></li>
+              <li><b>用款安排（新增）</b>：半年后 15 万元支出的<b>确切日期</b>；除本基金外<b>其余可用资金</b>有多少<span class="dt">客户确认 · 2026-11-05</span></li>
+              <li><b>赎回规则</b>：当前赎回至钱包预计 T+2、至银行卡 T+4（以届时平台规则为准）；确认后倒推用款日前的最晚操作日<span class="dt">盈米交易规则 · 需按查询时点复核</span></li>
+              <li><b>资金用途</b>：3 年以上不用钱的计划是否有变；半年后 15 万是新增安排还是替代原计划<span class="dt">客户确认</span></li>
+              <li><b>承受边界</b>：能接受的最大回撤/浮亏幅度<span class="dt">客户确认</span></li>
+              <li><b>风险测评状态</b>：当前平台风险测评是否有效、结论为何<span class="dt">系统/客户确认</span></li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <!-- 6. 要问客户的3个问题 -->
+  <section>
+    <div class="sec-head"><span class="sec-no">06</span><span class="sec-title">需要问客户的 3 个问题</span><span class="sec-sub">会谈中按顺序确认，问完再谈方案</span></div>
+    <div class="grid g3">
+      <div class="q-card"><div class="q-no">1</div><div class="q-body"><h4>15 万元用款怎么安排？</h4><p>这笔钱<b>确切哪天、以什么形式</b>要用？除基金外，您手头<b>其余可用资金</b>有多少？原来说 3 年以上不用，现在是否只动 15 万这部分？</p><div class="why">先核实用款日期与可替代资金，决定"要不要动基金、动多少"，不跳过核对直接谈卖不卖。</div></div></div>
+      <div class="q-card"><div class="q-no">2</div><div class="q-body"><h4>您的实际盈亏是多少？</h4><p>大概什么时候、以什么价格买入？现在账户浮盈/浮亏多少？</p><div class="why">把"基金净值下跌"与"您的盈亏"分开看，实际亏损需按流水核算。</div></div></div>
+      <div class="q-card"><div class="q-no">3</div><div class="q-body"><h4>能承受多大的回撤？</h4><p>若这部分资金继续持有，最多能接受多大的回撤/浮亏？若需要赎回，钱打算放哪里、多久不用？</p><div class="why">区分"资金用途问题"与"波动承受问题"，处理方式不同。</div></div></div>
+    </div>
+  </section>
+
+  <!-- 7. 企微草稿 -->
+  <section>
+    <div class="sec-head"><span class="sec-no">07</span><span class="sec-title">三段企微草稿</span><span class="sec-sub">各 ≤150 字，按客户回答选用；发送前请审核</span></div>
+    <div class="grid g2">
+      <div class="draft">
+        <div class="draft-tag"><span class="tag">场景 A · 近期确实要用钱</span><span class="cnt">144 字</span></div>
+        <p>理解您的担心。在回答"要不要卖"前，先跟您核对两件事：这笔钱预计什么时候用、用多少；当初买入的成本和现在的盈亏。卖不卖取决于资金用途和期限，而不是短期涨跌。我会把持有、部分赎回、转换的利弊，按您实际的用钱时间和金额算给您看，再一起定。这两天我整理好数据，约15分钟电话聊一下，您看方便吗？</p>
+      </div>
+      <div class="draft">
+        <div class="draft-tag"><span class="tag">场景 B · 长期用途未变，但承受不了波动</span><span class="cnt">146 字</span></div>
+        <p>听到您说跌得难受，很理解。事实是：近3个月净值确实在跌（-8.2%），中间有过反弹，但不改下跌体感；您实际亏多少还需核对流水。这笔钱3年以上不用，短期波动不改变用途安排。但波动已影响情绪，说明持仓可能超出承受力，这比涨跌更重要。请确认：能接受多大回撤、是否真3年不动。核对后再谈。15分钟聊？</p>
+      </div>
+      <div class="draft">
+        <div class="draft-tag"><span class="tag">场景 C · 半年后需用 15 万元（新补充）</span><span class="cnt">137 字</span></div>
+        <p>收到，这笔钱半年后要派用场，我理解您的顾虑。先别急着决定卖不卖——我需要先跟您核对三件事：这15万确切哪天要用、除基金外手头还有多少可用资金、赎回后到账要几天。核实清楚，才能按用款时点算清楚动多少、何时动手。明天我整理好赎回规则和测算，约15分钟电话跟您对一下，您看可以吗？</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. 会谈提醒 -->
+  <section>
+    <div class="sec-head"><span class="sec-no">08</span><span class="sec-title">会谈与合规提醒</span></div>
+    <div class="remind">
+      <h4>供顾问自检，不写入客户可见稿</h4>
+      <ul>
+        <li>不承诺回本、不预测止跌、不统一劝持有；任何方案都须结合客户实际资金用途与风险承受能力。</li>
+        <li><b>本次会谈先核实三件事（按序）：</b>① 其余可用资金有多少；② 15 万元用款的确切日期；③ 赎回规则（当前赎回至钱包预计 T+2、至银行卡 T+4，需按查询时点复核）。核实后再按用款日倒推最晚操作日，谈"动多少、何时动"。</li>
+        <li>不跳过核对直接要求"全卖/不卖"；不给拍脑袋结论，个人盈亏未核算前不把净值涨跌等同于客户亏损。</li>
+        <li>新闻与观点只作背景和<b>可能关联</b>，不充当确定归因；历史业绩不代表未来表现。</li>
+        <li>本稿为顾问工作稿，含数据口径与来源；客户可见版需按沟通需要另行删减内部说明。</li>
+        <li>数据截至 2026-11-04（净值）/ 2026-09-30（持仓与规模），生成 2026-11-05。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 9. 来源 -->
+  <section>
+    <div class="sec-head"><span class="sec-no">09</span><span class="sec-title">来源与日期</span><span class="sec-sub">每项事实均可溯源</span></div>
+    <div class="card sources">
+      <ol>
+        <li>基金净值、业绩区间、回撤、持仓、行业配置、风险评分：<b>盈米基金数据服务</b><span class="date"> · 净值截至 2026-11-04，持仓/规模截至 2026-09-30，风险评分 2026-10-31 有效</span></li>
+        <li>近 1 月 / 近 3 月区间内最大回撤（-6.46%、-12.46%）与起止日：<b>由同一近一年日频净值序列复算</b>，口径为"区间内任一日净值相对该日之前（含当日）区间最高净值的最大跌幅"<span class="date"> · 数据源同上，截至 2026-11-04</span></li>
+        <li>沪深 300 / 消费 / 中证电子指数行情与区间统计：<b>同花顺（豆包官方合作数据库）</b><span class="date"> · 区间 2026-08-04 → 2026-11-04，日 K 截至 2026-11-04</span></li>
+        <li>张坤三季报调仓与观点（减持电子、收缩白酒、新易盛新晋重仓）：<b>每日经济新闻 / 券商中国 / 证券时报</b><span class="date"> · 2026-10-27 ~ 10-28</span><br><a href="https://www.jwview.com/jingwei/html/10-27/694353.shtml">中新经纬：知名基金经理最新调仓曝光（2026-10-27）</a></li>
+        <li>张坤团队对科技板块调整的归因与 AI 长期看法：<b>21 世纪经济报道</b><span class="date"> · 2026-11-01</span><br><a href="http://mp.weixin.qq.com/s?__biz=MjI3Njc0NTk4MQ==&mid=2650668621&idx=1&sn=bd2b158d9f3747d27f855b2cea9f9f69">张坤最新持仓名单曝光（2026-11-01）</a></li>
+        <li>白酒行业三季报（19 家营收 -7.64%、净利 -9.44%，去库存、反转待旺季验证）：<b>财联社 / 证券时报 / 央广网</b><span class="date"> · 2026-11-05</span><br><a href="https://www.cls.cn/subject/1675">财联社·食品饮料（2026-11-05）</a> · <a href="https://news.qq.com/rain/a/20261105A04BW900">腾讯新闻转央广网（2026-11-05）</a></li>
+        <li>资金从科技流向消费/红利：<b>证券时报</b><span class="date"> · 2026-10-22</span><br><a href="https://stcn.com/article/detail/4231676.html">红利基金跑赢科技基金，公募资金加速"转战"低配赛道（2026-10-22）</a></li>
+        <li>科技赛道杀跌、白酒避险逻辑：<b>格隆汇（金融界转载）</b><span class="date"> · 2026-10-23</span><br><a href="https://m.jrj.com.cn/madapter/stock/2026/10/23100858830304.shtml">白酒成避风港背后的三层逻辑（2026-10-23）</a></li>
+        <li>食品饮料防御性凸显、资金再平衡：<b>开源证券（同花顺财经转载）</b><span class="date"> · 2026-10-18</span><br><a href="http://news.10jqka.com.cn/20261019/c680811300.shtml">食品饮料行业周报（2026-10-18）</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="foot">
+    本卡为顾问工作稿，仅作会谈与沟通准备，不构成投资建议，不含收益承诺。<br>
+    数据来源：盈米基金数据服务、同花顺（豆包官方合作数据库）及公开媒体报道，详见上文来源清单。
+  </div>
+
+</div>
+
+<script>
+/* ===== 数据（净值：近一年日频，2025-11-04 → 2026-11-04）===== */
+const NAV = [
+["2025-11-04",1.9754],["2025-11-05",1.9634],["2025-11-06",1.9802],["2025-11-07",1.9655],["2025-11-10",2.0381],["2025-11-11",2.0375],["2025-11-12",2.051],["2025-11-13",2.059],["2025-11-14",2.0416],["2025-11-17",2.0456],["2025-11-18",2.0311],["2025-11-19",2.0277],["2025-11-20",2.0258],["2025-11-21",1.9833],["2025-11-24",1.9892],["2025-11-25",1.9893],["2025-11-26",1.9831],["2025-11-27",1.9775],["2025-11-28",1.976],["2025-12-01",1.9924],["2025-12-02",1.9807],["2025-12-03",1.9601],["2025-12-04",1.942],["2025-12-05",1.9442],["2025-12-08",1.9257],["2025-12-09",1.9004],["2025-12-10",1.9076],["2025-12-11",1.8972],["2025-12-12",1.921],["2025-12-15",1.9058],["2025-12-16",1.8865],["2025-12-17",1.9006],["2025-12-18",1.8978],["2025-12-19",1.9067],["2025-12-22",1.9113],["2025-12-23",1.9],["2025-12-24",1.8943],["2025-12-25",1.9035],["2025-12-26",1.8987],["2025-12-29",1.8753],["2025-12-30",1.8764],["2025-12-31",1.8623],
+["2026-01-05",1.9061],["2026-01-06",1.9236],["2026-01-07",1.9072],["2026-01-08",1.8967],["2026-01-09",1.9109],["2026-01-12",1.9425],["2026-01-13",1.9479],["2026-01-14",1.954],["2026-01-15",1.9343],["2026-01-16",1.9231],["2026-01-19",1.9011],["2026-01-20",1.9003],["2026-01-21",1.8945],["2026-01-22",1.8947],["2026-01-23",1.8914],["2026-01-26",1.8932],["2026-01-27",1.8982],["2026-01-28",1.916],["2026-01-29",1.9887],["2026-01-30",1.9387],
+["2026-02-02",1.9284],["2026-02-03",1.9323],["2026-02-04",1.9464],["2026-02-05",1.97],["2026-02-06",1.9384],["2026-02-09",1.9543],["2026-02-10",1.9487],["2026-02-11",1.9448],["2026-02-12",1.9188],["2026-02-13",1.908],["2026-02-24",1.8877],["2026-02-25",1.891],["2026-02-26",1.859],["2026-02-27",1.8672],
+["2026-03-02",1.8434],["2026-03-03",1.8364],["2026-03-04",1.8053],["2026-03-05",1.7906],["2026-03-06",1.8228],["2026-03-09",1.8143],["2026-03-10",1.8362],["2026-03-11",1.8401],["2026-03-12",1.8395],["2026-03-13",1.8535],["2026-03-16",1.8762],["2026-03-17",1.8771],["2026-03-18",1.8631],["2026-03-19",1.8356],["2026-03-20",1.8202],["2026-03-23",1.777],["2026-03-24",1.7946],["2026-03-25",1.7999],["2026-03-26",1.7735],["2026-03-27",1.7866],["2026-03-30",1.7751],["2026-03-31",1.766],
+["2026-04-01",1.7796],["2026-04-02",1.7699],["2026-04-03",1.7588],["2026-04-07",1.7526],["2026-04-08",1.7877],["2026-04-09",1.7668],["2026-04-10",1.7688],["2026-04-13",1.7415],["2026-04-14",1.7539],["2026-04-15",1.7647],["2026-04-16",1.7904],["2026-04-17",1.7643],["2026-04-20",1.767],["2026-04-21",1.7667],["2026-04-22",1.7502],["2026-04-23",1.7575],["2026-04-24",1.7678],["2026-04-27",1.7425],["2026-04-28",1.7355],["2026-04-29",1.7603],["2026-04-30",1.7393],
+["2026-05-06",1.7244],["2026-05-07",1.7347],["2026-05-08",1.7176],["2026-05-11",1.7053],["2026-05-12",1.6911],["2026-05-13",1.687],["2026-05-14",1.6824],["2026-05-15",1.6588],["2026-05-18",1.6411],["2026-05-19",1.6507],["2026-05-20",1.6484],["2026-05-21",1.6293],["2026-05-22",1.6184],["2026-05-25",1.621],["2026-05-26",1.6074],["2026-05-27",1.6052],["2026-05-28",1.5813],["2026-05-29",1.601],
+["2026-06-01",1.6003],["2026-06-02",1.6205],["2026-06-03",1.5959],["2026-06-04",1.58],["2026-06-05",1.5738],["2026-06-08",1.5554],["2026-06-09",1.5546],["2026-06-10",1.5558],["2026-06-11",1.5514],["2026-06-12",1.5575],["2026-06-15",1.5616],["2026-06-16",1.5427],["2026-06-17",1.535],["2026-06-18",1.5258],["2026-06-22",1.5258],["2026-06-23",1.5006],["2026-06-24",1.5093],["2026-06-25",1.5225],["2026-06-26",1.4936],["2026-06-29",1.5119],["2026-06-30",1.5273],
+["2026-07-01",1.5217],["2026-07-02",1.4895],["2026-07-03",1.499],["2026-07-06",1.5023],["2026-07-07",1.4945],["2026-07-08",1.5118],["2026-07-09",1.5326],["2026-07-10",1.5196],["2026-07-13",1.5043],["2026-07-14",1.5264],["2026-07-15",1.5378],["2026-07-16",1.5361],["2026-07-17",1.4882],["2026-07-20",1.5145],["2026-07-21",1.5345],["2026-07-22",1.5184],["2026-07-23",1.5128],["2026-07-24",1.4931],["2026-07-27",1.506],["2026-07-28",1.4937],["2026-07-29",1.5057],["2026-07-30",1.4935],["2026-07-31",1.5094],
+["2026-08-03",1.5073],["2026-08-04",1.5259],["2026-08-05",1.531],["2026-08-06",1.5268],["2026-08-07",1.547],["2026-08-10",1.5489],["2026-08-11",1.5462],["2026-08-12",1.5499],["2026-08-13",1.5483],["2026-08-14",1.5449],["2026-08-17",1.5555],["2026-08-18",1.5573],["2026-08-19",1.5271],["2026-08-20",1.5341],["2026-08-21",1.5405],["2026-08-24",1.5144],["2026-08-25",1.5132],["2026-08-26",1.5151],["2026-08-27",1.5204],["2026-08-28",1.5171],["2026-08-31",1.5191],
+["2026-09-01",1.5084],["2026-09-02",1.5009],["2026-09-03",1.4919],["2026-09-04",1.4976],["2026-09-07",1.5155],["2026-09-08",1.5109],["2026-09-09",1.5053],["2026-09-10",1.4925],["2026-09-11",1.49],["2026-09-14",1.4809],["2026-09-15",1.479],["2026-09-16",1.4888],["2026-09-17",1.4794],["2026-09-18",1.4865],["2026-09-21",1.4996],["2026-09-22",1.4985],["2026-09-23",1.4922],["2026-09-24",1.4753],["2026-09-28",1.4514],["2026-09-29",1.45],["2026-09-30",1.4573],
+["2026-10-08",1.4333],["2026-10-09",1.4359],["2026-10-12",1.4271],["2026-10-13",1.4314],["2026-10-14",1.4275],["2026-10-15",1.4151],["2026-10-16",1.4162],["2026-10-19",1.4168],["2026-10-20",1.4133],["2026-10-21",1.4006],["2026-10-22",1.3682],["2026-10-23",1.3844],["2026-10-26",1.3853],["2026-10-27",1.3734],["2026-10-28",1.3806],["2026-10-29",1.3632],["2026-10-30",1.3725],
+["2026-11-02",1.3817],["2026-11-03",1.3811],["2026-11-04",1.4009]
+];
+
+/* ===== 回撤序列（与净值同源计算）===== */
+function calcDrawdown(nav){
+  let peak = -Infinity;
+  return nav.map(function(p){
+    if(p[1] > peak) peak = p[1];
+    return [p[0], Math.round((p[1]/peak - 1)*10000)/100];
+  });
+}
+const DRAW = calcDrawdown(NAV);
+
+const NAV_COLOR = '#1b3a5c';
+const RED = '#b3392f';
+const AMBER = '#c98f2d';
+const GREEN = '#1f8a5c';
+const GRID = '#e8edf3';
+
+function baseOpt(){
+  return {
+    animation:false,
+    grid:{left:52,right:18,top:34,bottom:26},
+    tooltip:{trigger:'axis',confine:true,backgroundColor:'#fff',borderColor:'#d7e0ea',textStyle:{color:'#1b2a3a',fontSize:12},axisPointer:{lineStyle:{color:'#b7c3d0'}}},
+    xAxis:{type:'category',data:[],boundaryGap:false,axisLine:{lineStyle:{color:'#c6d0db'}},axisTick:{show:false},axisLabel:{color:'#6b7d90',fontSize:11}},
+    yAxis:{type:'value',axisLabel:{color:'#6b7d90',fontSize:11,formatter:function(v){return v;}},splitLine:{lineStyle:{color:GRID}}},
+    dataZoom:[{type:'inside',start:0,end:100},{type:'slider',height:16,bottom:0,start:0,end:100,borderColor:'#d7e0ea',fillerColor:'rgba(27,58,92,.12)',handleStyle:{color:'#1b3a5c'},textStyle:{color:'#6b7d90',fontSize:10}}]
+  };
+}
+
+/* 净值图 */
+(function(){
+  var opt = baseOpt();
+  opt.xAxis.data = NAV.map(function(p){return p[0];});
+  opt.yAxis.scale = true;
+  opt.yAxis.axisLabel.formatter = function(v){return v.toFixed(2);};
+  opt.series = [{
+    name:'单位净值', type:'line', data:NAV.map(function(p){return p[1];}),
+    showSymbol:false, lineStyle:{width:1.8,color:NAV_COLOR}, itemStyle:{color:NAV_COLOR}, areaStyle:{color:'rgba(27,58,92,.07)'},
+    markPoint:{
+      symbol:'pin', symbolSize:34, label:{fontSize:10,color:'#fff'},
+      data:[
+        {coord:['2026-08-04',1.5259],value:'近3月起点',itemStyle:{color:AMBER}},
+        {coord:['2026-09-30',1.4573],value:'近1月起点',itemStyle:{color:AMBER}},
+        {coord:['2026-10-29',1.3632],value:'低点1.3632',itemStyle:{color:RED}},
+        {coord:['2026-11-04',1.4009],value:'最新1.4009',itemStyle:{color:GREEN}}
+      ]
+    },
+    markLine:{
+      silent:true,symbol:'none',label:{position:'end',fontSize:10,color:'#6b7d90'},
+      lineStyle:{type:'dashed',width:1,color:'#b7c3d0'},
+      data:[{xAxis:'2026-08-04'},{xAxis:'2026-09-30'}]
+    }
+  }];
+  var c = echarts.init(document.getElementById('chartNav'));
+  c.setOption(opt);
+  window.addEventListener('resize',function(){c.resize();});
+})();
+
+/* 回撤图 */
+(function(){
+  var opt = baseOpt();
+  opt.xAxis.data = DRAW.map(function(p){return p[0];});
+  opt.yAxis.max = 0;
+  opt.yAxis.axisLabel.formatter = function(v){return v.toFixed(0)+'%';};
+  opt.series = [{
+    name:'回撤', type:'line', data:DRAW.map(function(p){return p[1];}),
+    showSymbol:false, lineStyle:{width:1.4,color:RED}, itemStyle:{color:RED},
+    areaStyle:{color:'rgba(179,57,47,.13)'},
+    markPoint:{
+      symbol:'pin', symbolSize:34, label:{fontSize:10,color:'#fff'},
+      data:[{coord:['2026-10-29',-33.79],value:'-33.79%',itemStyle:{color:RED}}]
+    }
+  }];
+  var c = echarts.init(document.getElementById('chartDraw'));
+  c.setOption(opt);
+  window.addEventListener('resize',function(){c.resize();});
+})();
+
+/* 区间收益对照 */
+(function(){
+  var cats = ['易方达蓝筹精选','同类平均','沪深300','消费指数','中证电子'];
+  var m1 = [-3.87,-8.78,-5.88,-6.89,-22.25];
+  var m3 = [-8.19,-9.87,-9.73,-2.07,-15.11];
+  function mk(name,data,color){
+    return {name:name,type:'bar',barWidth:'38%',data:data,itemStyle:{color:color},label:{show:true,position:'top',fontSize:10,color:'#42556b',formatter:function(p){return p.value+'%';}}};
+  }
+  var opt = baseOpt();
+  opt.grid = {left:46,right:16,top:40,bottom:44};
+  opt.xAxis.data = cats;
+  opt.xAxis.axisLabel = {color:'#42556b',fontSize:11,interval:0};
+  opt.yAxis.axisLabel.formatter = function(v){return v+'%';};
+  opt.legend = {top:2,right:10,textStyle:{fontSize:11,color:'#42556b'},itemWidth:14,itemHeight:8};
+  opt.series = [
+    mk('近1月',m1,AMBER),
+    mk('近3月',m3,NAV_COLOR)
+  ];
+  var c = echarts.init(document.getElementById('chartCmp'));
+  c.setOption(opt);
+  window.addEventListener('resize',function(){c.resize();});
+})();
+</script>
+</body>
+</html>

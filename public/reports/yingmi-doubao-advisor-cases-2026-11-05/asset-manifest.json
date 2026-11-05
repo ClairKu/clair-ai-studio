@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "slug": "yingmi-doubao-advisor-cases-2026-11-05",
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 1835949,
+      "sha256": "928470e0d6e54d9116d0a978a4aba0786d12899e4a835eb135afab10233b3285"
+    },
+    {
+      "path": "prompts.txt",
+      "bytes": 14020,
+      "sha256": "9f4f8e69015194529e2e20790fe1cd8aae295cbc549752dece47b6cca9c7abd2"
+    },
+    {
+      "path": "public-case-artifacts/1A-1.html",
+      "bytes": 40959,
+      "sha256": "e251eb9ed5ce413a24ba4bf50761b2b84bd3a7eb8bfebfc08f62c1021efea999"
+    },
+    {
+      "path": "public-case-artifacts/1B-1.html",
+      "bytes": 41816,
+      "sha256": "56837ed306ca8bcd9b27ecdd9ae73a3bd1e62d02458efd3b2de2e1c0ed4a3a69"
+    },
+    {
+      "path": "public-case-artifacts/2-1.html",
+      "bytes": 37904,
+      "sha256": "007835109cff9fc333054f5dffaeefdb4eead2aedc99960f1e3ba30d6aa97bad"
+    },
+    {
+      "path": "public-case-artifacts/3-1.html",
+      "bytes": 41885,
+      "sha256": "bc0da4bf5aa76fd837e1026743e77e1bcaf72757ee07ee3c02db51cfce160a24"
+    },
+    {
+      "path": "public-case-artifacts/4A-1.html",
+      "bytes": 84485,
+      "sha256": "55b3a33b7fd20107fc1fffd4c419c9f1d8b0fd44d4e756a9d5e62b4239be6ae7"
+    },
+    {
+      "path": "public-case-artifacts/4B-1.html",
+      "bytes": 77320,
+      "sha256": "b19ba3326837bba0d0d90b199b4968ebdd3327eb74608722957d284585c1f3ad"
+    },
+    {
+      "path": "report-bundle.zip",
+      "bytes": 1431230,
+      "sha256": "10dc6974cc5cce33d95e7f0be2fca1522d072846752619602903ee2bdb8e5379"
+    }
+  ]
+}
