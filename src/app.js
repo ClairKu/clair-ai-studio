@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 167;
+const DATA_VERSION = 168;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -222,6 +222,19 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qieman-pension-ai-materials-2026-11-05",
+      groupId: "pension-planning",
+      title: "且慢养老与 AI 养老投顾｜服务、推品、账户及公开材料汇编",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-pension-ai-materials-2026-11-05/",
+      preview: "qieman-pension-ai-materials-2026-11-05.svg",
+      pinned: false,
+      createdAt: "2026-11-05T10:30:00+08:00",
+      source: "公开来源核验至2026-11-05｜养老服务、需求理解、产品匹配与账户体系；分别标注2022账户发布框架、2026公开业务口径和通用AI家庭规划演示，附来源、日期及适用边界。",
+      access: "production",
+      workType: "reporting",
+      tags: ["且慢", "养老规划", "AI 小顾", "客户理解", "个性化匹配", "公开资料", "HTML", "生产"],
+    },
     {
       id: "yingmi-doubao-six-scenarios-2026-11-05",
       groupId: "ai-platform",
