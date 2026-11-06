@@ -1,18 +1,20 @@
 {
   "schemaVersion": 1,
   "reportId": "yingmi-platform-content-analysis-2026-11-06",
+  "revision": "tpc-commercialization-corrected-scope",
+  "title": "盈米科技平台与内容部：商业化逻辑与经营分析",
   "confidentiality": "public",
-  "sourceScope": "official-public-sources-only",
+  "sourceScope": "public-product-background-and-general-business-analysis",
   "files": [
     {
       "path": "index.html",
-      "bytes": 17513,
-      "sha256": "fcb59f86ad1206eb5d829f034f80f6c9a210c5e33aa7dd98a2be6aecbff53015"
+      "bytes": 15688,
+      "sha256": "763d5c8771c1c68df8a1253eef223ac222f41cd3909e613db9221d018ef33399"
     },
     {
       "path": "yingmi-platform-content-analysis-2026-11-06.zip",
-      "bytes": 7624,
-      "sha256": "d0945f4b3390f4159b754881402f8bdf870c3844f2ae331470a8a361a71d5158"
+      "bytes": 6844,
+      "sha256": "79c0fcf92de72e2f2da11ca3a3589498c00500658d7c9758dc52c82910506599"
     }
   ]
 }
