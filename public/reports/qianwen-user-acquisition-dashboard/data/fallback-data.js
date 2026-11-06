@@ -4,15 +4,15 @@ window.QIANWEN_ACQUISITION_DATA = {
     "title": "千问 X 且慢AI小顾 用户数据看板",
     "window_start_at": "2026-08-03T00:00:00+08:00",
     "launch_at": "2026-08-10T08:00:00+08:00",
-    "generated_at": "2026-11-04T09:35:01+08:00",
-    "data_cutoff": "2026-11-04T09:35:01+08:00",
+    "generated_at": "2026-11-06T13:25:27+08:00",
+    "data_cutoff": "2026-11-06T13:25:27+08:00",
     "timezone": "Asia/Shanghai",
     "source": "盈米本体 · 生产数据库",
     "evidence_state": "confirmed",
     "privacy": "公开总体统计与去标识、脱敏的提问，不含用户或会话标识",
     "privacy_policy": "audience-full-disclosure-v2",
     "latest_day_is_partial": true,
-    "asset_as_of": "2026-11-02"
+    "asset_as_of": "2026-11-05"
   },
   "privacy": {
     "public_grain": "aggregate_only",
@@ -27,9 +27,9 @@ window.QIANWEN_ACQUISITION_DATA = {
     "multi_dimension_cross_tabs_public": false
   },
   "metrics": {
-    "bound_accounts": 20703,
-    "existing_accounts": 1603,
-    "new_accounts": 19100,
+    "bound_accounts": 20728,
+    "existing_accounts": 1611,
+    "new_accounts": 19117,
     "missing_registration_time": 0,
     "duplicate_bindings": 0,
     "unmatched_accounts": 0
@@ -1153,40 +1153,64 @@ window.QIANWEN_ACQUISITION_DATA = {
     },
     {
       "date": "2026-11-04",
-      "new_accounts_today": 5,
-      "existing_accounts_today": 0,
+      "new_accounts_today": 10,
+      "existing_accounts_today": 2,
       "unclassified_accounts_today": 0,
-      "bound_accounts_today": 5,
-      "cumulative_new_accounts": 19100,
-      "cumulative_existing_accounts": 1603,
+      "bound_accounts_today": 12,
+      "cumulative_new_accounts": 19105,
+      "cumulative_existing_accounts": 1605,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 20703,
+      "cumulative_bound_accounts": 20710,
+      "partial": false
+    },
+    {
+      "date": "2026-11-05",
+      "new_accounts_today": 8,
+      "existing_accounts_today": 4,
+      "unclassified_accounts_today": 0,
+      "bound_accounts_today": 12,
+      "cumulative_new_accounts": 19113,
+      "cumulative_existing_accounts": 1609,
+      "cumulative_unclassified_accounts": 0,
+      "cumulative_bound_accounts": 20722,
+      "partial": false
+    },
+    {
+      "date": "2026-11-06",
+      "new_accounts_today": 4,
+      "existing_accounts_today": 2,
+      "unclassified_accounts_today": 0,
+      "bound_accounts_today": 6,
+      "cumulative_new_accounts": 19117,
+      "cumulative_existing_accounts": 1611,
+      "cumulative_unclassified_accounts": 0,
+      "cumulative_bound_accounts": 20728,
       "partial": true
     }
   ],
   "profile": {
     "cohorts": {
       "all": {
-        "population_accounts": 20703,
+        "population_accounts": 20728,
         "dimensions": [
           {
             "id": "asset_holding_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-02",
+            "data_as_of": "2026-11-05",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "has_assets",
-                "accounts": 549
+                "accounts": 552
               },
               {
                 "id": "no_assets",
-                "accounts": 375
+                "accounts": 377
               },
               {
                 "id": "unknown",
-                "accounts": 19779
+                "accounts": 19799
               }
             ]
           },
@@ -1194,34 +1218,34 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "asset_bucket",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-02",
+            "data_as_of": "2026-11-05",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "no_assets",
-                "accounts": 375
+                "accounts": 377
               },
               {
                 "id": "lt_10k",
-                "accounts": 203
+                "accounts": 195
               },
               {
                 "id": "10k_100k",
-                "accounts": 148
+                "accounts": 156
               },
               {
                 "id": "100k_1m",
                 "label": "10—100 万元",
-                "accounts": 173
+                "accounts": 177
               },
               {
                 "id": "gte_1m",
                 "label": "100 万元以上",
-                "accounts": 25
+                "accounts": 24
               },
               {
                 "id": "unknown",
-                "accounts": 19779
+                "accounts": 19799
               }
             ]
           },
@@ -1229,18 +1253,18 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "asset_at_bind_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "zero_at_bind",
                 "label": "绑定时零资产（含未开户）",
-                "accounts": 20178
+                "accounts": 20200
               },
               {
                 "id": "has_assets_at_bind",
                 "label": "绑定时已有资产",
-                "accounts": 525
+                "accounts": 528
               }
             ]
           },
@@ -1248,13 +1272,13 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "holding_lifecycle_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "no_first_investment",
                 "label": "无首投（从未入金）",
-                "accounts": 20068
+                "accounts": 20089
               },
               {
                 "id": "churned",
@@ -1264,7 +1288,7 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "id": "under_management",
                 "label": "在管（当前有资产）",
-                "accounts": 532
+                "accounts": 536
               }
             ]
           },
@@ -1272,16 +1296,16 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "lifetime_investment_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "invested",
-                "accounts": 635
+                "accounts": 639
               },
               {
                 "id": "not_invested",
-                "accounts": 20068
+                "accounts": 20089
               }
             ]
           },
@@ -1289,7 +1313,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "age_bucket",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
@@ -1300,12 +1324,12 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "id": "26_35",
                 "label": "26—35 岁",
-                "accounts": 308
+                "accounts": 312
               },
               {
                 "id": "36_45",
                 "label": "36—45 岁",
-                "accounts": 337
+                "accounts": 338
               },
               {
                 "id": "46_55",
@@ -1324,7 +1348,7 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "unknown",
-                "accounts": 19783
+                "accounts": 19803
               }
             ]
           },
@@ -1332,20 +1356,20 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "gender",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "male",
-                "accounts": 741
+                "accounts": 745
               },
               {
                 "id": "female",
-                "accounts": 182
+                "accounts": 183
               },
               {
                 "id": "unknown",
-                "accounts": 19780
+                "accounts": 19800
               }
             ]
           },
@@ -1353,12 +1377,12 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "residence_province",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "unknown",
-                "accounts": 20521
+                "accounts": 20546
               },
               {
                 "id": "广东",
@@ -1366,13 +1390,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "accounts": 28
               },
               {
-                "id": "北京",
-                "label": "北京",
+                "id": "上海",
+                "label": "上海",
                 "accounts": 24
               },
               {
-                "id": "上海",
-                "label": "上海",
+                "id": "北京",
+                "label": "北京",
                 "accounts": 24
               },
               {
@@ -1406,11 +1430,6 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "accounts": 6
               },
               {
-                "id": "甘肃",
-                "label": "甘肃",
-                "accounts": 5
-              },
-              {
                 "id": "陕西",
                 "label": "陕西",
                 "accounts": 5
@@ -1421,9 +1440,9 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "accounts": 5
               },
               {
-                "id": "广西",
-                "label": "广西",
-                "accounts": 4
+                "id": "甘肃",
+                "label": "甘肃",
+                "accounts": 5
               },
               {
                 "id": "河南",
@@ -1431,9 +1450,9 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "accounts": 4
               },
               {
-                "id": "山西",
-                "label": "山西",
-                "accounts": 3
+                "id": "广西",
+                "label": "广西",
+                "accounts": 4
               },
               {
                 "id": "天津",
@@ -1441,18 +1460,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "accounts": 3
               },
               {
-                "id": "吉林",
-                "label": "吉林",
-                "accounts": 2
-              },
-              {
-                "id": "安徽",
-                "label": "安徽",
-                "accounts": 2
+                "id": "山西",
+                "label": "山西",
+                "accounts": 3
               },
               {
                 "id": "黑龙江",
                 "label": "黑龙江",
+                "accounts": 2
+              },
+              {
+                "id": "吉林",
+                "label": "吉林",
                 "accounts": 2
               },
               {
@@ -1466,6 +1485,11 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "accounts": 2
               },
               {
+                "id": "安徽",
+                "label": "安徽",
+                "accounts": 2
+              },
+              {
                 "id": "辽宁",
                 "label": "辽宁",
                 "accounts": 2
@@ -1476,13 +1500,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "accounts": 1
               },
               {
-                "id": "内蒙古",
-                "label": "内蒙古",
+                "id": "海南",
+                "label": "海南",
                 "accounts": 1
               },
               {
-                "id": "海南",
-                "label": "海南",
+                "id": "内蒙古",
+                "label": "内蒙古",
                 "accounts": 1
               }
             ]
@@ -1491,16 +1515,16 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "app_usage_status",
             "definition_version": "native-app-evidence-v1",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "app_used",
-                "accounts": 1333
+                "accounts": 1338
               },
               {
                 "id": "app_no_record",
-                "accounts": 19370
+                "accounts": 19390
               }
             ]
           },
@@ -1508,16 +1532,16 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "wechat_mp_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "mp_bound",
-                "accounts": 1045
+                "accounts": 1056
               },
               {
                 "id": "mp_not_bound",
-                "accounts": 19658
+                "accounts": 19672
               }
             ]
           },
@@ -1525,16 +1549,16 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "bank_card_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "card_bound",
-                "accounts": 921
+                "accounts": 926
               },
               {
                 "id": "card_not_bound",
-                "accounts": 19782
+                "accounts": 19802
               }
             ]
           },
@@ -1542,29 +1566,29 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "risk_assessment_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "assessed",
-                "accounts": 351
+                "accounts": 356
               },
               {
                 "id": "not_assessed",
-                "accounts": 20352
+                "accounts": 20372
               }
             ]
           }
         ]
       },
       "new": {
-        "population_accounts": 19100,
+        "population_accounts": 19117,
         "dimensions": [
           {
             "id": "asset_holding_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-02",
+            "data_as_of": "2026-11-05",
             "state": "confirmed",
             "buckets": [
               {
@@ -1577,7 +1601,7 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "unknown",
-                "accounts": 19041
+                "accounts": 19058
               }
             ]
           },
@@ -1585,7 +1609,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "asset_bucket",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-02",
+            "data_as_of": "2026-11-05",
             "state": "confirmed",
             "buckets": [
               {
@@ -1594,11 +1618,11 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "lt_10k",
-                "accounts": 12
+                "accounts": 11
               },
               {
                 "id": "10k_100k",
-                "accounts": 3
+                "accounts": 4
               },
               {
                 "id": "100k_1m",
@@ -1612,7 +1636,7 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "unknown",
-                "accounts": 19041
+                "accounts": 19058
               }
             ]
           },
@@ -1620,13 +1644,13 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "asset_at_bind_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "zero_at_bind",
                 "label": "绑定时零资产（含未开户）",
-                "accounts": 19100
+                "accounts": 19117
               },
               {
                 "id": "has_assets_at_bind",
@@ -1639,13 +1663,13 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "holding_lifecycle_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "no_first_investment",
                 "label": "无首投（从未入金）",
-                "accounts": 19082
+                "accounts": 19099
               },
               {
                 "id": "churned",
@@ -1663,7 +1687,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "lifetime_investment_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
@@ -1672,7 +1696,7 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "not_invested",
-                "accounts": 19082
+                "accounts": 19099
               }
             ]
           },
@@ -1680,7 +1704,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "age_bucket",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
@@ -1715,7 +1739,7 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "unknown",
-                "accounts": 19044
+                "accounts": 19061
               }
             ]
           },
@@ -1723,7 +1747,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "gender",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
@@ -1736,7 +1760,7 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "unknown",
-                "accounts": 19041
+                "accounts": 19058
               }
             ]
           },
@@ -1744,12 +1768,12 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "residence_province",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "unknown",
-                "accounts": 19100
+                "accounts": 19117
               }
             ]
           },
@@ -1757,7 +1781,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "app_usage_status",
             "definition_version": "native-app-evidence-v1",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
             "buckets": [
               {
@@ -1766,7 +1790,7 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "app_no_record",
-                "accounts": 18876
+                "accounts": 18893
               }
             ]
           },
@@ -1774,16 +1798,16 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "wechat_mp_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "mp_bound",
-                "accounts": 71
+                "accounts": 77
               },
               {
                 "id": "mp_not_bound",
-                "accounts": 19029
+                "accounts": 19040
               }
             ]
           },
@@ -1791,7 +1815,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "bank_card_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
@@ -1800,7 +1824,7 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "card_not_bound",
-                "accounts": 19042
+                "accounts": 19059
               }
             ]
           },
@@ -1808,7 +1832,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "risk_assessment_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
@@ -1817,33 +1841,33 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "not_assessed",
-                "accounts": 19042
+                "accounts": 19059
               }
             ]
           }
         ]
       },
       "existing": {
-        "population_accounts": 1603,
+        "population_accounts": 1611,
         "dimensions": [
           {
             "id": "asset_holding_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-02",
+            "data_as_of": "2026-11-05",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "has_assets",
-                "accounts": 532
+                "accounts": 535
               },
               {
                 "id": "no_assets",
-                "accounts": 333
+                "accounts": 335
               },
               {
                 "id": "unknown",
-                "accounts": 738
+                "accounts": 741
               }
             ]
           },
@@ -1851,34 +1875,34 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "asset_bucket",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-02",
+            "data_as_of": "2026-11-05",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "no_assets",
-                "accounts": 333
+                "accounts": 335
               },
               {
                 "id": "lt_10k",
-                "accounts": 191
+                "accounts": 184
               },
               {
                 "id": "10k_100k",
-                "accounts": 145
+                "accounts": 152
               },
               {
                 "id": "100k_1m",
                 "label": "10—100 万元",
-                "accounts": 171
+                "accounts": 175
               },
               {
                 "id": "gte_1m",
                 "label": "100 万元以上",
-                "accounts": 25
+                "accounts": 24
               },
               {
                 "id": "unknown",
-                "accounts": 738
+                "accounts": 741
               }
             ]
           },
@@ -1886,18 +1910,18 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "asset_at_bind_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "zero_at_bind",
                 "label": "绑定时零资产（含未开户）",
-                "accounts": 1078
+                "accounts": 1083
               },
               {
                 "id": "has_assets_at_bind",
                 "label": "绑定时已有资产",
-                "accounts": 525
+                "accounts": 528
               }
             ]
           },
@@ -1905,13 +1929,13 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "holding_lifecycle_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "no_first_investment",
                 "label": "无首投（从未入金）",
-                "accounts": 986
+                "accounts": 990
               },
               {
                 "id": "churned",
@@ -1921,7 +1945,7 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "id": "under_management",
                 "label": "在管（当前有资产）",
-                "accounts": 515
+                "accounts": 519
               }
             ]
           },
@@ -1929,16 +1953,16 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "lifetime_investment_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "invested",
-                "accounts": 617
+                "accounts": 621
               },
               {
                 "id": "not_invested",
-                "accounts": 986
+                "accounts": 990
               }
             ]
           },
@@ -1946,7 +1970,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "age_bucket",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
@@ -1957,12 +1981,12 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "id": "26_35",
                 "label": "26—35 岁",
-                "accounts": 291
+                "accounts": 295
               },
               {
                 "id": "36_45",
                 "label": "36—45 岁",
-                "accounts": 322
+                "accounts": 323
               },
               {
                 "id": "46_55",
@@ -1981,7 +2005,7 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "unknown",
-                "accounts": 739
+                "accounts": 742
               }
             ]
           },
@@ -1989,20 +2013,20 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "gender",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "male",
-                "accounts": 696
+                "accounts": 700
               },
               {
                 "id": "female",
-                "accounts": 168
+                "accounts": 169
               },
               {
                 "id": "unknown",
-                "accounts": 739
+                "accounts": 742
               }
             ]
           },
@@ -2010,12 +2034,12 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "residence_province",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "unknown",
-                "accounts": 1421
+                "accounts": 1429
               },
               {
                 "id": "广东",
@@ -2023,13 +2047,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "accounts": 28
               },
               {
-                "id": "北京",
-                "label": "北京",
+                "id": "上海",
+                "label": "上海",
                 "accounts": 24
               },
               {
-                "id": "上海",
-                "label": "上海",
+                "id": "北京",
+                "label": "北京",
                 "accounts": 24
               },
               {
@@ -2063,11 +2087,6 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "accounts": 6
               },
               {
-                "id": "甘肃",
-                "label": "甘肃",
-                "accounts": 5
-              },
-              {
                 "id": "陕西",
                 "label": "陕西",
                 "accounts": 5
@@ -2078,9 +2097,9 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "accounts": 5
               },
               {
-                "id": "广西",
-                "label": "广西",
-                "accounts": 4
+                "id": "甘肃",
+                "label": "甘肃",
+                "accounts": 5
               },
               {
                 "id": "河南",
@@ -2088,9 +2107,9 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "accounts": 4
               },
               {
-                "id": "山西",
-                "label": "山西",
-                "accounts": 3
+                "id": "广西",
+                "label": "广西",
+                "accounts": 4
               },
               {
                 "id": "天津",
@@ -2098,18 +2117,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "accounts": 3
               },
               {
-                "id": "吉林",
-                "label": "吉林",
-                "accounts": 2
-              },
-              {
-                "id": "安徽",
-                "label": "安徽",
-                "accounts": 2
+                "id": "山西",
+                "label": "山西",
+                "accounts": 3
               },
               {
                 "id": "黑龙江",
                 "label": "黑龙江",
+                "accounts": 2
+              },
+              {
+                "id": "吉林",
+                "label": "吉林",
                 "accounts": 2
               },
               {
@@ -2123,6 +2142,11 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "accounts": 2
               },
               {
+                "id": "安徽",
+                "label": "安徽",
+                "accounts": 2
+              },
+              {
                 "id": "辽宁",
                 "label": "辽宁",
                 "accounts": 2
@@ -2133,13 +2157,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "accounts": 1
               },
               {
-                "id": "内蒙古",
-                "label": "内蒙古",
+                "id": "海南",
+                "label": "海南",
                 "accounts": 1
               },
               {
-                "id": "海南",
-                "label": "海南",
+                "id": "内蒙古",
+                "label": "内蒙古",
                 "accounts": 1
               }
             ]
@@ -2148,16 +2172,16 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "app_usage_status",
             "definition_version": "native-app-evidence-v1",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "app_used",
-                "accounts": 1109
+                "accounts": 1114
               },
               {
                 "id": "app_no_record",
-                "accounts": 494
+                "accounts": 497
               }
             ]
           },
@@ -2165,16 +2189,16 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "wechat_mp_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "mp_bound",
-                "accounts": 974
+                "accounts": 979
               },
               {
                 "id": "mp_not_bound",
-                "accounts": 629
+                "accounts": 632
               }
             ]
           },
@@ -2182,16 +2206,16 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "bank_card_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "card_bound",
-                "accounts": 863
+                "accounts": 868
               },
               {
                 "id": "card_not_bound",
-                "accounts": 740
+                "accounts": 743
               }
             ]
           },
@@ -2199,16 +2223,16 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "risk_assessment_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04",
+            "data_as_of": "2026-11-06",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "assessed",
-                "accounts": 293
+                "accounts": 298
               },
               {
                 "id": "not_assessed",
-                "accounts": 1310
+                "accounts": 1313
               }
             ]
           }
@@ -2218,74 +2242,74 @@ window.QIANWEN_ACQUISITION_DATA = {
   },
   "behavior": {
     "window_start_at": "2026-08-03T00:00:00+08:00",
-    "window_end_at": "2026-11-04T09:35:01+08:00",
+    "window_end_at": "2026-11-06T13:25:27+08:00",
     "anchor": "first_bound_at",
     "cohorts": {
       "all": {
-        "population_accounts": 20703,
+        "population_accounts": 20728,
         "metrics": [
           {
             "id": "funded_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 20703,
-            "eligible_accounts": 20703,
+            "population_accounts": 20728,
+            "eligible_accounts": 20728,
             "excluded_accounts": 0,
-            "reached_accounts": 293,
-            "not_reached_accounts": 20410,
+            "reached_accounts": 295,
+            "not_reached_accounts": 20433,
             "unknown_accounts": 0
           },
           {
             "id": "first_investment_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 20703,
-            "eligible_accounts": 20703,
+            "population_accounts": 20728,
+            "eligible_accounts": 20728,
             "excluded_accounts": 0,
-            "reached_accounts": 26,
-            "not_reached_accounts": 20677,
+            "reached_accounts": 27,
+            "not_reached_accounts": 20701,
             "unknown_accounts": 0
           },
           {
             "id": "investment_activity_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 20703,
-            "eligible_accounts": 20703,
+            "population_accounts": 20728,
+            "eligible_accounts": 20728,
             "excluded_accounts": 0,
-            "reached_accounts": 293,
-            "not_reached_accounts": 20410,
+            "reached_accounts": 295,
+            "not_reached_accounts": 20433,
             "unknown_accounts": 0
           },
           {
             "id": "redemption_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 20703,
-            "eligible_accounts": 921,
-            "excluded_accounts": 19782,
-            "reached_accounts": 399,
-            "not_reached_accounts": 522,
+            "population_accounts": 20728,
+            "eligible_accounts": 926,
+            "excluded_accounts": 19802,
+            "reached_accounts": 413,
+            "not_reached_accounts": 513,
             "unknown_accounts": 0
           },
           {
             "id": "xiaogu_used_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 20703,
-            "eligible_accounts": 20703,
+            "population_accounts": 20728,
+            "eligible_accounts": 20728,
             "excluded_accounts": 0,
-            "reached_accounts": 19193,
+            "reached_accounts": 19218,
             "not_reached_accounts": 1510,
             "unknown_accounts": 0
           },
@@ -2293,121 +2317,121 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "account_opened_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 20703,
-            "eligible_accounts": 20703,
+            "population_accounts": 20728,
+            "eligible_accounts": 20728,
             "excluded_accounts": 0,
-            "reached_accounts": 71,
-            "not_reached_accounts": 20632,
+            "reached_accounts": 72,
+            "not_reached_accounts": 20656,
             "unknown_accounts": 0
           },
           {
             "id": "risk_assessed_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 20703,
-            "eligible_accounts": 20703,
+            "population_accounts": 20728,
+            "eligible_accounts": 20728,
             "excluded_accounts": 0,
-            "reached_accounts": 155,
-            "not_reached_accounts": 20548,
+            "reached_accounts": 161,
+            "not_reached_accounts": 20567,
             "unknown_accounts": 0
           },
           {
             "id": "first_funding_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 20703,
-            "eligible_accounts": 20703,
+            "population_accounts": 20728,
+            "eligible_accounts": 20728,
             "excluded_accounts": 0,
-            "reached_accounts": 26,
-            "not_reached_accounts": 20677,
+            "reached_accounts": 27,
+            "not_reached_accounts": 20701,
             "unknown_accounts": 0
           },
           {
             "id": "repeat_investment_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 20703,
-            "eligible_accounts": 20703,
+            "population_accounts": 20728,
+            "eligible_accounts": 20728,
             "excluded_accounts": 0,
-            "reached_accounts": 240,
-            "not_reached_accounts": 20463,
+            "reached_accounts": 243,
+            "not_reached_accounts": 20485,
             "unknown_accounts": 0
           }
         ]
       },
       "new": {
-        "population_accounts": 19100,
+        "population_accounts": 19117,
         "metrics": [
           {
             "id": "funded_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 19100,
-            "eligible_accounts": 19100,
+            "population_accounts": 19117,
+            "eligible_accounts": 19117,
             "excluded_accounts": 0,
             "reached_accounts": 18,
-            "not_reached_accounts": 19082,
+            "not_reached_accounts": 19099,
             "unknown_accounts": 0
           },
           {
             "id": "first_investment_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 19100,
-            "eligible_accounts": 19100,
+            "population_accounts": 19117,
+            "eligible_accounts": 19117,
             "excluded_accounts": 0,
             "reached_accounts": 18,
-            "not_reached_accounts": 19082,
+            "not_reached_accounts": 19099,
             "unknown_accounts": 0
           },
           {
             "id": "investment_activity_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 19100,
-            "eligible_accounts": 19100,
+            "population_accounts": 19117,
+            "eligible_accounts": 19117,
             "excluded_accounts": 0,
             "reached_accounts": 18,
-            "not_reached_accounts": 19082,
+            "not_reached_accounts": 19099,
             "unknown_accounts": 0
           },
           {
             "id": "redemption_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 19100,
+            "population_accounts": 19117,
             "eligible_accounts": 58,
-            "excluded_accounts": 19042,
-            "reached_accounts": 11,
-            "not_reached_accounts": 47,
+            "excluded_accounts": 19059,
+            "reached_accounts": 12,
+            "not_reached_accounts": 46,
             "unknown_accounts": 0
           },
           {
             "id": "xiaogu_used_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 19100,
-            "eligible_accounts": 19100,
+            "population_accounts": 19117,
+            "eligible_accounts": 19117,
             "excluded_accounts": 0,
-            "reached_accounts": 17766,
+            "reached_accounts": 17783,
             "not_reached_accounts": 1334,
             "unknown_accounts": 0
           },
@@ -2415,121 +2439,121 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "account_opened_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 19100,
-            "eligible_accounts": 19100,
+            "population_accounts": 19117,
+            "eligible_accounts": 19117,
             "excluded_accounts": 0,
             "reached_accounts": 57,
-            "not_reached_accounts": 19043,
+            "not_reached_accounts": 19060,
             "unknown_accounts": 0
           },
           {
             "id": "risk_assessed_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 19100,
-            "eligible_accounts": 19100,
+            "population_accounts": 19117,
+            "eligible_accounts": 19117,
             "excluded_accounts": 0,
             "reached_accounts": 58,
-            "not_reached_accounts": 19042,
+            "not_reached_accounts": 19059,
             "unknown_accounts": 0
           },
           {
             "id": "first_funding_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 19100,
-            "eligible_accounts": 19100,
+            "population_accounts": 19117,
+            "eligible_accounts": 19117,
             "excluded_accounts": 0,
             "reached_accounts": 18,
-            "not_reached_accounts": 19082,
+            "not_reached_accounts": 19099,
             "unknown_accounts": 0
           },
           {
             "id": "repeat_investment_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 19100,
-            "eligible_accounts": 19100,
+            "population_accounts": 19117,
+            "eligible_accounts": 19117,
             "excluded_accounts": 0,
-            "reached_accounts": 14,
-            "not_reached_accounts": 19086,
+            "reached_accounts": 15,
+            "not_reached_accounts": 19102,
             "unknown_accounts": 0
           }
         ]
       },
       "existing": {
-        "population_accounts": 1603,
+        "population_accounts": 1611,
         "metrics": [
           {
             "id": "funded_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 1603,
-            "eligible_accounts": 1603,
+            "population_accounts": 1611,
+            "eligible_accounts": 1611,
             "excluded_accounts": 0,
-            "reached_accounts": 275,
-            "not_reached_accounts": 1328,
+            "reached_accounts": 277,
+            "not_reached_accounts": 1334,
             "unknown_accounts": 0
           },
           {
             "id": "first_investment_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 1603,
-            "eligible_accounts": 1603,
+            "population_accounts": 1611,
+            "eligible_accounts": 1611,
             "excluded_accounts": 0,
-            "reached_accounts": 8,
-            "not_reached_accounts": 1595,
+            "reached_accounts": 9,
+            "not_reached_accounts": 1602,
             "unknown_accounts": 0
           },
           {
             "id": "investment_activity_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 1603,
-            "eligible_accounts": 1603,
+            "population_accounts": 1611,
+            "eligible_accounts": 1611,
             "excluded_accounts": 0,
-            "reached_accounts": 275,
-            "not_reached_accounts": 1328,
+            "reached_accounts": 277,
+            "not_reached_accounts": 1334,
             "unknown_accounts": 0
           },
           {
             "id": "redemption_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 1603,
-            "eligible_accounts": 863,
-            "excluded_accounts": 740,
-            "reached_accounts": 388,
-            "not_reached_accounts": 475,
+            "population_accounts": 1611,
+            "eligible_accounts": 868,
+            "excluded_accounts": 743,
+            "reached_accounts": 401,
+            "not_reached_accounts": 467,
             "unknown_accounts": 0
           },
           {
             "id": "xiaogu_used_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 1603,
-            "eligible_accounts": 1603,
+            "population_accounts": 1611,
+            "eligible_accounts": 1611,
             "excluded_accounts": 0,
-            "reached_accounts": 1427,
+            "reached_accounts": 1435,
             "not_reached_accounts": 176,
             "unknown_accounts": 0
           },
@@ -2537,52 +2561,52 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "account_opened_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 1603,
-            "eligible_accounts": 1603,
+            "population_accounts": 1611,
+            "eligible_accounts": 1611,
             "excluded_accounts": 0,
-            "reached_accounts": 14,
-            "not_reached_accounts": 1589,
+            "reached_accounts": 15,
+            "not_reached_accounts": 1596,
             "unknown_accounts": 0
           },
           {
             "id": "risk_assessed_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 1603,
-            "eligible_accounts": 1603,
+            "population_accounts": 1611,
+            "eligible_accounts": 1611,
             "excluded_accounts": 0,
-            "reached_accounts": 97,
-            "not_reached_accounts": 1506,
+            "reached_accounts": 103,
+            "not_reached_accounts": 1508,
             "unknown_accounts": 0
           },
           {
             "id": "first_funding_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 1603,
-            "eligible_accounts": 1603,
+            "population_accounts": 1611,
+            "eligible_accounts": 1611,
             "excluded_accounts": 0,
-            "reached_accounts": 8,
-            "not_reached_accounts": 1595,
+            "reached_accounts": 9,
+            "not_reached_accounts": 1602,
             "unknown_accounts": 0
           },
           {
             "id": "repeat_investment_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "population_accounts": 1603,
-            "eligible_accounts": 1603,
+            "population_accounts": 1611,
+            "eligible_accounts": 1611,
             "excluded_accounts": 0,
-            "reached_accounts": 226,
-            "not_reached_accounts": 1377,
+            "reached_accounts": 228,
+            "not_reached_accounts": 1383,
             "unknown_accounts": 0
           }
         ]
@@ -2591,186 +2615,186 @@ window.QIANWEN_ACQUISITION_DATA = {
   },
   "business": {
     "window_start_at": "2026-08-03T00:00:00+08:00",
-    "window_end_at": "2026-11-04T09:35:01+08:00",
+    "window_end_at": "2026-11-06T13:25:27+08:00",
     "anchor": "first_bound_at",
     "cohorts": {
       "all": {
-        "population_accounts": 20703,
+        "population_accounts": 20728,
         "stats": [
           {
             "id": "holding_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-02",
+            "data_as_of": "2026-11-05",
             "state": "confirmed",
-            "accounts": 549,
-            "amount_wan": 14584.37,
-            "per_capita_wan": 26.5653
+            "accounts": 552,
+            "amount_wan": 14840.78,
+            "per_capita_wan": 26.8855
           },
           {
             "id": "inflow_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "accounts": 293,
-            "amount_wan": 714.0853
+            "accounts": 295,
+            "amount_wan": 759.1473
           },
           {
             "id": "inflow_transactions",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "accounts": 293,
-            "event_count": 2975
+            "accounts": 295,
+            "event_count": 3124
           },
           {
             "id": "buy_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "accounts": 333,
-            "amount_wan": 984.1232
+            "accounts": 335,
+            "amount_wan": 1027.1505
           },
           {
             "id": "zero_asset_inflow_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "accounts": 30,
-            "amount_wan": 74.0106
+            "accounts": 31,
+            "amount_wan": 74.2321
           },
           {
             "id": "sell_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "accounts": 208,
-            "amount_wan": 1371.0788
+            "accounts": 217,
+            "amount_wan": 1415.4055
           }
         ]
       },
       "new": {
-        "population_accounts": 19100,
+        "population_accounts": 19117,
         "stats": [
           {
             "id": "holding_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-02",
+            "data_as_of": "2026-11-05",
             "state": "confirmed",
             "accounts": 17,
-            "amount_wan": 63.09,
-            "per_capita_wan": 3.7112
+            "amount_wan": 63.2,
+            "per_capita_wan": 3.7176
           },
           {
             "id": "inflow_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
             "accounts": 18,
-            "amount_wan": 64.506
+            "amount_wan": 64.5585
           },
           {
             "id": "inflow_transactions",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
             "accounts": 18,
-            "event_count": 72
+            "event_count": 75
           },
           {
             "id": "buy_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
             "accounts": 16,
-            "amount_wan": 55.7558
+            "amount_wan": 56.2577
           },
           {
             "id": "zero_asset_inflow_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
             "accounts": 18,
-            "amount_wan": 64.506
+            "amount_wan": 64.5585
           },
           {
             "id": "sell_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "accounts": 6,
-            "amount_wan": 0.7311
+            "accounts": 7,
+            "amount_wan": 1.1713
           }
         ]
       },
       "existing": {
-        "population_accounts": 1603,
+        "population_accounts": 1611,
         "stats": [
           {
             "id": "holding_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-02",
+            "data_as_of": "2026-11-05",
             "state": "confirmed",
-            "accounts": 532,
-            "amount_wan": 14521.28,
-            "per_capita_wan": 27.2956
+            "accounts": 535,
+            "amount_wan": 14777.58,
+            "per_capita_wan": 27.6216
           },
           {
             "id": "inflow_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "accounts": 275,
-            "amount_wan": 649.5793
+            "accounts": 277,
+            "amount_wan": 694.5888
           },
           {
             "id": "inflow_transactions",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "accounts": 275,
-            "event_count": 2903
+            "accounts": 277,
+            "event_count": 3049
           },
           {
             "id": "buy_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "accounts": 317,
-            "amount_wan": 928.3674
+            "accounts": 319,
+            "amount_wan": 970.8928
           },
           {
             "id": "zero_asset_inflow_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "accounts": 12,
-            "amount_wan": 9.5046
+            "accounts": 13,
+            "amount_wan": 9.6736
           },
           {
             "id": "sell_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-04T09:35:01+08:00",
+            "data_as_of": "2026-11-06T13:25:27+08:00",
             "state": "confirmed",
-            "accounts": 202,
-            "amount_wan": 1370.3477
+            "accounts": 210,
+            "amount_wan": 1414.2342
           }
         ]
       }
@@ -2778,134 +2802,134 @@ window.QIANWEN_ACQUISITION_DATA = {
   },
   "segments": {
     "anchor": "first_bound_at",
-    "window_end_at": "2026-11-04T09:35:01+08:00",
+    "window_end_at": "2026-11-06T13:25:27+08:00",
     "items": [
       {
         "id": "all",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-11-04T09:35:01+08:00",
-        "asset_as_of": "2026-11-02",
-        "population_accounts": 20703,
-        "new_accounts": 19100,
-        "existing_accounts": 1603,
-        "card_bound_accounts": 921,
-        "opened_after_binding_accounts": 71,
-        "risk_assessed_accounts": 351,
-        "risk_after_binding_accounts": 155,
-        "inflow_accounts": 293,
-        "inflow_transactions": 2975,
-        "holders_gte_100k_accounts": 198,
-        "holders_gte_1m_accounts": 25,
-        "reinvested_accounts": 293,
-        "first_investor_accounts": 26,
-        "inflow_amount_wan": 714.0853,
-        "holder_accounts": 549,
-        "total_asset_wan": 14584.37,
-        "per_capita_asset_wan": 26.5653
+        "data_as_of": "2026-11-06T13:25:27+08:00",
+        "asset_as_of": "2026-11-05",
+        "population_accounts": 20728,
+        "new_accounts": 19117,
+        "existing_accounts": 1611,
+        "card_bound_accounts": 926,
+        "opened_after_binding_accounts": 72,
+        "risk_assessed_accounts": 356,
+        "risk_after_binding_accounts": 161,
+        "inflow_accounts": 295,
+        "inflow_transactions": 3124,
+        "holders_gte_100k_accounts": 201,
+        "holders_gte_1m_accounts": 24,
+        "reinvested_accounts": 295,
+        "first_investor_accounts": 27,
+        "inflow_amount_wan": 759.1473,
+        "holder_accounts": 552,
+        "total_asset_wan": 14840.78,
+        "per_capita_asset_wan": 26.8855
       },
       {
         "id": "new_inv",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-11-04T09:35:01+08:00",
-        "asset_as_of": "2026-11-02",
-        "population_accounts": 30,
+        "data_as_of": "2026-11-06T13:25:27+08:00",
+        "asset_as_of": "2026-11-05",
+        "population_accounts": 31,
         "new_accounts": 18,
-        "existing_accounts": 12,
-        "card_bound_accounts": 30,
+        "existing_accounts": 13,
+        "card_bound_accounts": 31,
         "opened_after_binding_accounts": 23,
         "risk_assessed_accounts": 29,
-        "risk_after_binding_accounts": 26,
-        "inflow_accounts": 30,
-        "inflow_transactions": 126,
+        "risk_after_binding_accounts": 27,
+        "inflow_accounts": 31,
+        "inflow_transactions": 135,
         "holders_gte_100k_accounts": 2,
         "holders_gte_1m_accounts": 0,
-        "reinvested_accounts": 30,
-        "first_investor_accounts": 26,
-        "inflow_amount_wan": 74.0106,
+        "reinvested_accounts": 31,
+        "first_investor_accounts": 27,
+        "inflow_amount_wan": 74.2321,
         "holder_accounts": 29,
-        "total_asset_wan": 71.68,
-        "per_capita_asset_wan": 2.4717
+        "total_asset_wan": 71.85,
+        "per_capita_asset_wan": 2.4776
       },
       {
         "id": "first_inv",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-11-04T09:35:01+08:00",
-        "asset_as_of": "2026-11-02",
-        "population_accounts": 26,
+        "data_as_of": "2026-11-06T13:25:27+08:00",
+        "asset_as_of": "2026-11-05",
+        "population_accounts": 27,
         "new_accounts": 18,
-        "existing_accounts": 8,
-        "card_bound_accounts": 26,
+        "existing_accounts": 9,
+        "card_bound_accounts": 27,
         "opened_after_binding_accounts": 23,
         "risk_assessed_accounts": 26,
-        "risk_after_binding_accounts": 24,
-        "inflow_accounts": 26,
-        "inflow_transactions": 118,
+        "risk_after_binding_accounts": 25,
+        "inflow_accounts": 27,
+        "inflow_transactions": 127,
         "holders_gte_100k_accounts": 2,
         "holders_gte_1m_accounts": 0,
-        "reinvested_accounts": 26,
-        "first_investor_accounts": 26,
-        "inflow_amount_wan": 67.9899,
+        "reinvested_accounts": 27,
+        "first_investor_accounts": 27,
+        "inflow_amount_wan": 68.2114,
         "holder_accounts": 25,
-        "total_asset_wan": 66.16,
-        "per_capita_asset_wan": 2.6464
+        "total_asset_wan": 66.09,
+        "per_capita_asset_wan": 2.6436
       },
       {
         "id": "reinvested",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-11-04T09:35:01+08:00",
-        "asset_as_of": "2026-11-02",
-        "population_accounts": 293,
+        "data_as_of": "2026-11-06T13:25:27+08:00",
+        "asset_as_of": "2026-11-05",
+        "population_accounts": 295,
         "new_accounts": 18,
-        "existing_accounts": 275,
-        "card_bound_accounts": 293,
+        "existing_accounts": 277,
+        "card_bound_accounts": 295,
         "opened_after_binding_accounts": 23,
-        "risk_assessed_accounts": 163,
-        "risk_after_binding_accounts": 70,
-        "inflow_accounts": 293,
-        "inflow_transactions": 2975,
-        "holders_gte_100k_accounts": 138,
-        "holders_gte_1m_accounts": 18,
-        "reinvested_accounts": 293,
-        "first_investor_accounts": 26,
-        "inflow_amount_wan": 714.0853,
-        "holder_accounts": 290,
-        "total_asset_wan": 9997.9,
-        "per_capita_asset_wan": 34.4755
+        "risk_assessed_accounts": 165,
+        "risk_after_binding_accounts": 74,
+        "inflow_accounts": 295,
+        "inflow_transactions": 3124,
+        "holders_gte_100k_accounts": 139,
+        "holders_gte_1m_accounts": 17,
+        "reinvested_accounts": 295,
+        "first_investor_accounts": 27,
+        "inflow_amount_wan": 759.1473,
+        "holder_accounts": 291,
+        "total_asset_wan": 10148.45,
+        "per_capita_asset_wan": 34.8744
       },
       {
         "id": "new",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-11-04T09:35:01+08:00",
-        "asset_as_of": "2026-11-02",
-        "population_accounts": 19100,
-        "new_accounts": 19100,
+        "data_as_of": "2026-11-06T13:25:27+08:00",
+        "asset_as_of": "2026-11-05",
+        "population_accounts": 19117,
+        "new_accounts": 19117,
         "existing_accounts": 0,
         "card_bound_accounts": 58,
         "opened_after_binding_accounts": 57,
         "risk_assessed_accounts": 58,
         "risk_after_binding_accounts": 58,
         "inflow_accounts": 18,
-        "inflow_transactions": 72,
+        "inflow_transactions": 75,
         "holders_gte_100k_accounts": 2,
         "holders_gte_1m_accounts": 0,
         "reinvested_accounts": 18,
         "first_investor_accounts": 18,
-        "inflow_amount_wan": 64.506,
+        "inflow_amount_wan": 64.5585,
         "holder_accounts": 17,
-        "total_asset_wan": 63.09,
-        "per_capita_asset_wan": 3.7112
+        "total_asset_wan": 63.2,
+        "per_capita_asset_wan": 3.7176
       },
       {
         "id": "new_first_inv",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-11-04T09:35:01+08:00",
-        "asset_as_of": "2026-11-02",
+        "data_as_of": "2026-11-06T13:25:27+08:00",
+        "asset_as_of": "2026-11-05",
         "population_accounts": 18,
         "new_accounts": 18,
         "existing_accounts": 0,
@@ -2914,92 +2938,92 @@ window.QIANWEN_ACQUISITION_DATA = {
         "risk_assessed_accounts": 18,
         "risk_after_binding_accounts": 18,
         "inflow_accounts": 18,
-        "inflow_transactions": 72,
+        "inflow_transactions": 75,
         "holders_gte_100k_accounts": 2,
         "holders_gte_1m_accounts": 0,
         "reinvested_accounts": 18,
         "first_investor_accounts": 18,
-        "inflow_amount_wan": 64.506,
+        "inflow_amount_wan": 64.5585,
         "holder_accounts": 17,
-        "total_asset_wan": 63.09,
-        "per_capita_asset_wan": 3.7112
+        "total_asset_wan": 63.2,
+        "per_capita_asset_wan": 3.7176
       },
       {
         "id": "existing",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-11-04T09:35:01+08:00",
-        "asset_as_of": "2026-11-02",
-        "population_accounts": 1603,
+        "data_as_of": "2026-11-06T13:25:27+08:00",
+        "asset_as_of": "2026-11-05",
+        "population_accounts": 1611,
         "new_accounts": 0,
-        "existing_accounts": 1603,
-        "card_bound_accounts": 863,
-        "opened_after_binding_accounts": 14,
-        "risk_assessed_accounts": 293,
-        "risk_after_binding_accounts": 97,
-        "inflow_accounts": 275,
-        "inflow_transactions": 2903,
-        "holders_gte_100k_accounts": 196,
-        "holders_gte_1m_accounts": 25,
-        "reinvested_accounts": 275,
-        "first_investor_accounts": 8,
-        "inflow_amount_wan": 649.5793,
-        "holder_accounts": 532,
-        "total_asset_wan": 14521.28,
-        "per_capita_asset_wan": 27.2956
+        "existing_accounts": 1611,
+        "card_bound_accounts": 868,
+        "opened_after_binding_accounts": 15,
+        "risk_assessed_accounts": 298,
+        "risk_after_binding_accounts": 103,
+        "inflow_accounts": 277,
+        "inflow_transactions": 3049,
+        "holders_gte_100k_accounts": 199,
+        "holders_gte_1m_accounts": 24,
+        "reinvested_accounts": 277,
+        "first_investor_accounts": 9,
+        "inflow_amount_wan": 694.5888,
+        "holder_accounts": 535,
+        "total_asset_wan": 14777.58,
+        "per_capita_asset_wan": 27.6216
       },
       {
         "id": "existing_reactivated",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-11-04T09:35:01+08:00",
-        "asset_as_of": "2026-11-02",
-        "population_accounts": 12,
+        "data_as_of": "2026-11-06T13:25:27+08:00",
+        "asset_as_of": "2026-11-05",
+        "population_accounts": 13,
         "new_accounts": 0,
-        "existing_accounts": 12,
-        "card_bound_accounts": 12,
+        "existing_accounts": 13,
+        "card_bound_accounts": 13,
         "opened_after_binding_accounts": 5,
         "risk_assessed_accounts": 11,
-        "risk_after_binding_accounts": 8,
-        "inflow_accounts": 12,
-        "inflow_transactions": 54,
+        "risk_after_binding_accounts": 9,
+        "inflow_accounts": 13,
+        "inflow_transactions": 60,
         "holders_gte_100k_accounts": 0,
         "holders_gte_1m_accounts": 0,
-        "reinvested_accounts": 12,
-        "first_investor_accounts": 8,
-        "inflow_amount_wan": 9.5046,
+        "reinvested_accounts": 13,
+        "first_investor_accounts": 9,
+        "inflow_amount_wan": 9.6736,
         "holder_accounts": 12,
-        "total_asset_wan": 8.59,
-        "per_capita_asset_wan": 0.7158
+        "total_asset_wan": 8.66,
+        "per_capita_asset_wan": 0.7217
       },
       {
         "id": "existing_first_inv",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-11-04T09:35:01+08:00",
-        "asset_as_of": "2026-11-02",
-        "population_accounts": 8,
+        "data_as_of": "2026-11-06T13:25:27+08:00",
+        "asset_as_of": "2026-11-05",
+        "population_accounts": 9,
         "new_accounts": 0,
-        "existing_accounts": 8,
-        "card_bound_accounts": 8,
+        "existing_accounts": 9,
+        "card_bound_accounts": 9,
         "opened_after_binding_accounts": 5,
         "risk_assessed_accounts": 8,
-        "risk_after_binding_accounts": 6,
-        "inflow_accounts": 8,
-        "inflow_transactions": 46,
+        "risk_after_binding_accounts": 7,
+        "inflow_accounts": 9,
+        "inflow_transactions": 52,
         "holders_gte_100k_accounts": 0,
         "holders_gte_1m_accounts": 0,
-        "reinvested_accounts": 8,
-        "first_investor_accounts": 8,
-        "inflow_amount_wan": 3.4838,
+        "reinvested_accounts": 9,
+        "first_investor_accounts": 9,
+        "inflow_amount_wan": 3.6528,
         "holder_accounts": 8,
-        "total_asset_wan": 3.07,
-        "per_capita_asset_wan": 0.3837
+        "total_asset_wan": 2.89,
+        "per_capita_asset_wan": 0.3613
       }
     ]
   },
   "question_insights": {
-    "as_of": "2026-11-04T09:35:01+08:00",
+    "as_of": "2026-11-06T13:25:27+08:00",
     "cohort": "new",
     "cohort_definition": "registered_within_60m_of_first_binding",
     "methodology": {
@@ -3011,118 +3035,118 @@ window.QIANWEN_ACQUISITION_DATA = {
       "preset_evidence": "exact-text plus launch-cluster inference; exposure log unavailable"
     },
     "summary": {
-      "asking_users": 17724,
-      "bound_users": 19100,
+      "asking_users": 17741,
+      "bound_users": 19117,
       "first_question_preset_users": 985,
       "legacy_preset_questions": 3216,
-      "multi_day_users": 3612,
-      "one_day_users": 14112,
-      "questions": 121605,
-      "sessions": 20122,
-      "short_followups": 1767,
-      "top_1pct_questions": 45263,
-      "top_5pct_questions": 65985
+      "multi_day_users": 3617,
+      "one_day_users": 14124,
+      "questions": 122643,
+      "sessions": 20142,
+      "short_followups": 1778,
+      "top_1pct_questions": 46089,
+      "top_5pct_questions": 66987
     },
     "depth": [
       {
         "id": "1",
-        "users": 5535
+        "users": 5542
       },
       {
         "id": "2_4",
-        "users": 7468
+        "users": 7475
       },
       {
         "id": "5_9",
-        "users": 2890
+        "users": 2892
       },
       {
         "id": "10_19",
-        "users": 1123
+        "users": 1122
       },
       {
         "id": "20_plus",
-        "users": 708
+        "users": 710
       }
     ],
     "topics": {
       "all": [
         {
           "id": "holding_account",
-          "questions": 14735,
-          "users": 4825
+          "questions": 14851,
+          "users": 4832
         },
         {
           "id": "product_analysis",
-          "questions": 16219,
-          "users": 5692
+          "questions": 16331,
+          "users": 5698
         },
         {
           "id": "market_research",
-          "questions": 12943,
-          "users": 5119
+          "questions": 13049,
+          "users": 5125
         },
         {
           "id": "product_selection",
-          "questions": 6627,
-          "users": 3718
+          "questions": 6653,
+          "users": 3720
         },
         {
           "id": "transaction_action",
-          "questions": 9628,
-          "users": 3239
+          "questions": 9731,
+          "users": 3241
         },
         {
           "id": "planning_configuration",
-          "questions": 1910,
-          "users": 1122
+          "questions": 1914,
+          "users": 1125
         },
         {
           "id": "knowledge_explain",
-          "questions": 3311,
-          "users": 1865
+          "questions": 3334,
+          "users": 1868
         },
         {
           "id": "qieman_service",
-          "questions": 1507,
-          "users": 654
+          "questions": 1518,
+          "users": 656
         },
         {
           "id": "report_information",
-          "questions": 313,
+          "questions": 315,
           "users": 163
         },
         {
           "id": "dialogue_followup",
-          "questions": 2777,
-          "users": 1127
+          "questions": 2795,
+          "users": 1129
         },
         {
           "id": "other_expression",
-          "questions": 51635,
-          "users": 10282
+          "questions": 52152,
+          "users": 10289
         }
       ],
       "first": [
         {
           "id": "holding_account",
-          "questions": 2345,
-          "users": 2345
+          "questions": 2348,
+          "users": 2348
         },
         {
           "id": "product_analysis",
-          "questions": 3183,
-          "users": 3183
+          "questions": 3186,
+          "users": 3186
         },
         {
           "id": "market_research",
-          "questions": 2638,
-          "users": 2638
+          "questions": 2644,
+          "users": 2644
         },
         {
           "id": "product_selection",
-          "questions": 1266,
-          "users": 1266
+          "questions": 1267,
+          "users": 1267
         },
         {
           "id": "transaction_action",
@@ -3131,8 +3155,8 @@ window.QIANWEN_ACQUISITION_DATA = {
         },
         {
           "id": "planning_configuration",
-          "questions": 292,
-          "users": 292
+          "questions": 293,
+          "users": 293
         },
         {
           "id": "knowledge_explain",
@@ -3156,8 +3180,8 @@ window.QIANWEN_ACQUISITION_DATA = {
         },
         {
           "id": "other_expression",
-          "questions": 5467,
-          "users": 5467
+          "questions": 5470,
+          "users": 5470
         }
       ]
     },
@@ -3172,37 +3196,37 @@ window.QIANWEN_ACQUISITION_DATA = {
       {
         "rank": 2,
         "question": "请查看当前的市场温度，并分析当前所处的位置。",
-        "questions": 21,
-        "users": 20,
+        "questions": 26,
+        "users": 25,
         "direction": "market_insight"
       },
       {
         "rank": 3,
+        "question": "帮我诊断一下我的投资账户，重点看看资产配置、持仓结构和风险匹配情况。",
+        "questions": 21,
+        "users": 18,
+        "direction": "holding_diagnosis"
+      },
+      {
+        "rank": 4,
         "question": "一万元存定期一年利息大概多少？",
         "questions": 18,
         "users": 14,
         "direction": "asset_allocation"
       },
       {
-        "rank": 4,
+        "rank": 5,
+        "question": "帮我生成一份定制方案。",
+        "questions": 16,
+        "users": 15,
+        "direction": "unclear_expression"
+      },
+      {
+        "rank": 6,
         "question": "好的，谢谢",
         "questions": 16,
         "users": 14,
         "direction": "context_followup"
-      },
-      {
-        "rank": 5,
-        "question": "帮我诊断一下我的投资账户，重点看看资产配置、持仓结构和风险匹配情况。",
-        "questions": 14,
-        "users": 14,
-        "direction": "holding_diagnosis"
-      },
-      {
-        "rank": 6,
-        "question": "帮我生成一份定制方案。",
-        "questions": 14,
-        "users": 13,
-        "direction": "unclear_expression"
       },
       {
         "rank": 7,
@@ -3214,7 +3238,7 @@ window.QIANWEN_ACQUISITION_DATA = {
     ],
     "research": {
       "schema_version": "qianwen-question-research-v2",
-      "as_of": "2026-11-04T09:35:01+08:00",
+      "as_of": "2026-11-06T13:25:27+08:00",
       "methodology": {
         "taxonomy": "rule-based-multiaxis-v2",
         "corpus_scope": "new_users_after_first_binding",
@@ -3520,53 +3544,63 @@ window.QIANWEN_ACQUISITION_DATA = {
             "date": "2026-11-03",
             "close": 4008.8748,
             "return_day": -0.002002
+          },
+          {
+            "date": "2026-11-04",
+            "close": 4101.335,
+            "return_day": 0.023064
+          },
+          {
+            "date": "2026-11-05",
+            "close": 4113.4112,
+            "return_day": 0.002944
           }
         ]
       },
       "journey": {
         "observed_from": "2026-08-03",
-        "observed_to": "2026-11-04",
-        "asking_users": 17724,
-        "conversation_sessions": 20122,
-        "user_question_turns": 121605,
+        "observed_to": "2026-11-06",
+        "asking_users": 17741,
+        "conversation_sessions": 20142,
+        "user_question_turns": 122643,
         "preset_questions": 8188,
-        "self_authored_questions": 113417,
-        "substantive_questions": 110633,
-        "short_followups": 2784,
-        "self_authored_users": 16882,
-        "substantive_users": 16858,
-        "substantive_sessions": 19183,
-        "followup_users": 10810,
-        "followup_sessions": 11512,
-        "no_followup_users": 6048,
-        "one_question_users": 6036,
-        "multi_question_users": 10822,
-        "followup_user_substantive_questions": 104561,
-        "average_questions_per_asking_user": 6.861035883547732,
-        "average_self_questions_per_self_user": 6.7182205899774905,
-        "average_substantive_questions_per_user": 6.562640882666983,
-        "average_substantive_questions_per_followup_user": 9.672617946345976,
-        "average_turns_per_session": 6.04338534936885,
+        "self_authored_questions": 114455,
+        "substantive_questions": 111653,
+        "short_followups": 2802,
+        "self_authored_users": 16900,
+        "substantive_users": 16876,
+        "substantive_sessions": 19204,
+        "followup_users": 10821,
+        "followup_sessions": 11523,
+        "no_followup_users": 6055,
+        "one_question_users": 6043,
+        "multi_question_users": 10833,
+        "followup_user_substantive_questions": 105574,
+        "average_questions_per_asking_user": 6.912969956597712,
+        "average_self_questions_per_self_user": 6.772485207100591,
+        "average_substantive_questions_per_user": 6.616082009954965,
+        "average_substantive_questions_per_followup_user": 9.756399593383236,
+        "average_turns_per_session": 6.088918677390527,
         "question_depth": [
           {
             "id": "1",
-            "users": 6036,
-            "questions": 6036
+            "users": 6043,
+            "questions": 6043
           },
           {
             "id": "2_3",
-            "users": 5534,
-            "questions": 13052
+            "users": 5542,
+            "questions": 13072
           },
           {
             "id": "4_9",
-            "users": 3675,
-            "questions": 20418
+            "users": 3677,
+            "questions": 20427
           },
           {
             "id": "10_plus",
-            "users": 1613,
-            "questions": 71127
+            "users": 1614,
+            "questions": 72111
           }
         ]
       },
@@ -3587,196 +3621,196 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "all:all",
             "source": "all",
             "engagement": "all",
-            "questions": 121605,
-            "users": 17724,
-            "sessions": 20122,
+            "questions": 122643,
+            "users": 17741,
+            "sessions": 20142,
             "dimensions": {
               "direction": [
                 {
                   "id": "holding_diagnosis",
-                  "questions": 9198,
-                  "users": 3327
+                  "questions": 9282,
+                  "users": 3335
                 },
                 {
                   "id": "product_research",
-                  "questions": 21271,
-                  "users": 6555
+                  "questions": 21433,
+                  "users": 6562
                 },
                 {
                   "id": "stock_research",
-                  "questions": 8688,
-                  "users": 3804
+                  "questions": 8760,
+                  "users": 3807
                 },
                 {
                   "id": "product_selection",
-                  "questions": 7492,
-                  "users": 3891
+                  "questions": 7523,
+                  "users": 3894
                 },
                 {
                   "id": "asset_allocation",
-                  "questions": 2658,
-                  "users": 1440
+                  "questions": 2669,
+                  "users": 1443
                 },
                 {
                   "id": "market_insight",
-                  "questions": 21668,
-                  "users": 7428
+                  "questions": 21838,
+                  "users": 7435
                 },
                 {
                   "id": "transaction_execution",
-                  "questions": 10471,
-                  "users": 3301
+                  "questions": 10595,
+                  "users": 3303
                 },
                 {
                   "id": "investment_learning",
-                  "questions": 3395,
-                  "users": 1651
+                  "questions": 3412,
+                  "users": 1654
                 },
                 {
                   "id": "qieman_service",
-                  "questions": 1674,
-                  "users": 491
+                  "questions": 1683,
+                  "users": 492
                 },
                 {
                   "id": "task_status",
-                  "questions": 1428,
-                  "users": 135
+                  "questions": 1432,
+                  "users": 137
                 },
                 {
                   "id": "personal_context",
-                  "questions": 3933,
-                  "users": 1647
+                  "questions": 3983,
+                  "users": 1648
                 },
                 {
                   "id": "context_followup",
-                  "questions": 7806,
-                  "users": 2407
+                  "questions": 7871,
+                  "users": 2409
                 },
                 {
                   "id": "non_investment",
-                  "questions": 567,
-                  "users": 331
+                  "questions": 570,
+                  "users": 333
                 },
                 {
                   "id": "other_investment",
-                  "questions": 5368,
+                  "questions": 5421,
                   "users": 2174
                 },
                 {
                   "id": "unclear_expression",
-                  "questions": 15988,
-                  "users": 4408
+                  "questions": 16171,
+                  "users": 4414
                 }
               ],
               "object": [
                 {
                   "id": "own_account",
-                  "questions": 9199,
-                  "users": 3327
+                  "questions": 9283,
+                  "users": 3335
                 },
                 {
                   "id": "specific_product",
-                  "questions": 13428,
-                  "users": 4327
+                  "questions": 13554,
+                  "users": 4333
                 },
                 {
                   "id": "fund_category",
-                  "questions": 5008,
-                  "users": 1971
+                  "questions": 5035,
+                  "users": 1973
                 },
                 {
                   "id": "strategy_portfolio",
-                  "questions": 2919,
-                  "users": 1569
+                  "questions": 2929,
+                  "users": 1573
                 },
                 {
                   "id": "asset_class",
-                  "questions": 7987,
-                  "users": 3350
+                  "questions": 8048,
+                  "users": 3354
                 },
                 {
                   "id": "goal_plan",
-                  "questions": 1937,
-                  "users": 1081
+                  "questions": 1944,
+                  "users": 1084
                 },
                 {
                   "id": "market_environment",
-                  "questions": 10375,
-                  "users": 4272
+                  "questions": 10470,
+                  "users": 4276
                 },
                 {
                   "id": "platform_service",
-                  "questions": 1645,
-                  "users": 595
+                  "questions": 1659,
+                  "users": 599
                 },
                 {
                   "id": "unspecified",
-                  "questions": 69107,
-                  "users": 12896
+                  "questions": 69721,
+                  "users": 12902
                 }
               ],
               "style": [
                 {
                   "id": "direct_request",
-                  "questions": 11288,
-                  "users": 5196
+                  "questions": 11350,
+                  "users": 5201
                 },
                 {
                   "id": "diagnose_evaluate",
-                  "questions": 11107,
-                  "users": 4962
+                  "questions": 11204,
+                  "users": 4969
                 },
                 {
                   "id": "compare_choose",
-                  "questions": 13227,
-                  "users": 4691
+                  "questions": 13349,
+                  "users": 4695
                 },
                 {
                   "id": "why_explain",
-                  "questions": 5551,
-                  "users": 2626
+                  "questions": 5593,
+                  "users": 2628
                 },
                 {
                   "id": "how_to",
-                  "questions": 2009,
-                  "users": 1130
+                  "questions": 2031,
+                  "users": 1131
                 },
                 {
                   "id": "forecast_risk",
-                  "questions": 9999,
-                  "users": 4666
+                  "questions": 10067,
+                  "users": 4671
                 },
                 {
                   "id": "fact_lookup",
-                  "questions": 7253,
-                  "users": 3153
+                  "questions": 7291,
+                  "users": 3157
                 },
                 {
                   "id": "conversation_fragment",
-                  "questions": 61171,
-                  "users": 10761
+                  "questions": 61758,
+                  "users": 10769
                 }
               ],
               "cognition": [
                 {
                   "id": "beginner_signal",
-                  "questions": 3833,
-                  "users": 2417
+                  "questions": 3846,
+                  "users": 2419
                 },
                 {
                   "id": "developing_signal",
-                  "questions": 16658,
-                  "users": 5814
+                  "questions": 16755,
+                  "users": 5818
                 },
                 {
                   "id": "advanced_signal",
-                  "questions": 2793,
-                  "users": 695
+                  "questions": 2812,
+                  "users": 696
                 },
                 {
                   "id": "indeterminate",
-                  "questions": 98321,
-                  "users": 15913
+                  "questions": 99230,
+                  "users": 15928
                 }
               ]
             },
@@ -3784,123 +3818,123 @@ window.QIANWEN_ACQUISITION_DATA = {
               "keywords": [
                 {
                   "label": "ETF",
-                  "questions": 7130,
-                  "users": 2430
+                  "questions": 7188,
+                  "users": 2431
                 },
                 {
                   "label": "行业板块",
-                  "questions": 6183,
-                  "users": 2823
+                  "questions": 6236,
+                  "users": 2824
                 },
                 {
                   "label": "A 股市场",
-                  "questions": 5516,
-                  "users": 2512
+                  "questions": 5577,
+                  "users": 2516
                 },
                 {
                   "label": "收益表现",
-                  "questions": 5501,
-                  "users": 1721
+                  "questions": 5541,
+                  "users": 1723
                 },
                 {
                   "label": "黄金市场",
-                  "questions": 3093,
-                  "users": 1182
+                  "questions": 3116,
+                  "users": 1189
                 },
                 {
                   "label": "定投计划",
-                  "questions": 3039,
-                  "users": 962
+                  "questions": 3055,
+                  "users": 964
                 },
                 {
                   "label": "赎回操作",
-                  "questions": 2245,
-                  "users": 724
+                  "questions": 2276,
+                  "users": 727
                 },
                 {
                   "label": "最大回撤",
-                  "questions": 2019,
-                  "users": 589
-                },
-                {
-                  "label": "长期持有",
-                  "questions": 1894,
-                  "users": 1334
+                  "questions": 2030,
+                  "users": 590
                 },
                 {
                   "label": "美股市场",
-                  "questions": 1882,
-                  "users": 739
+                  "questions": 1908,
+                  "users": 740
+                },
+                {
+                  "label": "长期持有",
+                  "questions": 1895,
+                  "users": 1335
                 },
                 {
                   "label": "指数基金",
-                  "questions": 1522,
-                  "users": 805
+                  "questions": 1540,
+                  "users": 806
                 },
                 {
                   "label": "港股市场",
-                  "questions": 1480,
-                  "users": 745
+                  "questions": 1491,
+                  "users": 746
                 },
                 {
                   "label": "持仓结构",
-                  "questions": 1268,
-                  "users": 963
+                  "questions": 1276,
+                  "users": 967
                 },
                 {
                   "label": "红利基金",
-                  "questions": 1127,
+                  "questions": 1128,
                   "users": 513
                 },
                 {
                   "label": "债券基金",
-                  "questions": 1085,
-                  "users": 358
+                  "questions": 1090,
+                  "users": 359
                 },
                 {
                   "label": "基金推荐",
-                  "questions": 819,
-                  "users": 477
+                  "questions": 823,
+                  "users": 478
                 },
                 {
                   "label": "半导体基金",
-                  "questions": 782,
-                  "users": 347
+                  "questions": 784,
+                  "users": 348
                 },
                 {
                   "label": "科技基金",
-                  "questions": 692,
-                  "users": 366
-                },
-                {
-                  "label": "养老规划",
-                  "questions": 643,
-                  "users": 351
+                  "questions": 705,
+                  "users": 368
                 },
                 {
                   "label": "资产配置",
-                  "questions": 639,
-                  "users": 439
+                  "questions": 646,
+                  "users": 442
+                },
+                {
+                  "label": "养老规划",
+                  "questions": 645,
+                  "users": 352
                 },
                 {
                   "label": "止盈策略",
-                  "questions": 596,
-                  "users": 225
+                  "questions": 607,
+                  "users": 226
                 },
                 {
                   "label": "QDII 基金",
-                  "questions": 561,
-                  "users": 273
+                  "questions": 565,
+                  "users": 274
                 },
                 {
                   "label": "货币基金",
-                  "questions": 481,
-                  "users": 132
+                  "questions": 484,
+                  "users": 133
                 },
                 {
                   "label": "基金净值",
-                  "questions": 425,
-                  "users": 295
+                  "questions": 432,
+                  "users": 297
                 }
               ],
               "products": [
@@ -3915,8 +3949,15 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "创业板ETF（159915）",
                   "query": "159915",
                   "kind": "基金代码",
-                  "questions": 229,
+                  "questions": 241,
                   "users": 41
+                },
+                {
+                  "label": "通信ETF（515880）",
+                  "query": "515880",
+                  "kind": "基金代码",
+                  "questions": 207,
+                  "users": 69
                 },
                 {
                   "label": "沪深300ETF（510300）",
@@ -3926,17 +3967,10 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "users": 70
                 },
                 {
-                  "label": "通信ETF（515880）",
-                  "query": "515880",
-                  "kind": "基金代码",
-                  "questions": 205,
-                  "users": 69
-                },
-                {
                   "label": "红利低波ETF（512890）",
                   "query": "512890",
                   "kind": "基金代码",
-                  "questions": 185,
+                  "questions": 186,
                   "users": 72
                 },
                 {
@@ -3950,8 +3984,15 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "半导体ETF（512480）",
                   "query": "512480",
                   "kind": "基金代码",
-                  "questions": 167,
+                  "questions": 170,
                   "users": 21
+                },
+                {
+                  "label": "华夏上证科创板半导体材料设备主题ETF（588170）",
+                  "query": "588170",
+                  "kind": "基金代码",
+                  "questions": 146,
+                  "users": 66
                 },
                 {
                   "label": "中证500ETF（510500）",
@@ -3959,13 +4000,6 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "kind": "基金代码",
                   "questions": 145,
                   "users": 25
-                },
-                {
-                  "label": "华夏上证科创板半导体材料设备主题ETF（588170）",
-                  "query": "588170",
-                  "kind": "基金代码",
-                  "questions": 144,
-                  "users": 65
                 },
                 {
                   "label": "纳指ETF（513100）",
@@ -3978,21 +4012,21 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "标普500ETF（513500）",
                   "query": "513500",
                   "kind": "基金代码",
-                  "questions": 119,
+                  "questions": 123,
                   "users": 23
                 },
                 {
                   "label": "南方标普红利低波50ETF联接A（008163）",
                   "query": "008163",
                   "kind": "基金代码",
-                  "questions": 112,
+                  "questions": 115,
                   "users": 46
                 },
                 {
                   "label": "易方达供给改革混合（002910）",
                   "query": "002910",
                   "kind": "基金代码",
-                  "questions": 112,
+                  "questions": 113,
                   "users": 24
                 },
                 {
@@ -4020,7 +4054,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "芯片ETF（159995）",
                   "query": "159995",
                   "kind": "基金代码",
-                  "questions": 100,
+                  "questions": 101,
                   "users": 28
                 },
                 {
@@ -4045,6 +4079,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "users": 31
                 },
                 {
+                  "label": "证券ETF（512880）",
+                  "query": "512880",
+                  "kind": "基金代码",
+                  "questions": 83,
+                  "users": 17
+                },
+                {
                   "label": "豆粕ETF（159985）",
                   "query": "159985",
                   "kind": "基金代码",
@@ -4052,17 +4093,10 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "users": 4
                 },
                 {
-                  "label": "证券ETF（512880）",
-                  "query": "512880",
-                  "kind": "基金代码",
-                  "questions": 81,
-                  "users": 17
-                },
-                {
                   "label": "创新药ETF（515120）",
                   "query": "515120",
                   "kind": "基金代码",
-                  "questions": 79,
+                  "questions": 81,
                   "users": 7
                 },
                 {
@@ -11890,13 +11924,181 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-11-04",
                 "end": "2026-11-04",
-                "questions": 9,
-                "users": 3,
-                "sessions": 3,
+                "questions": 528,
+                "users": 82,
+                "sessions": 83,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 4,
+                    "questions": 47,
+                    "users": 25
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 66,
+                    "users": 31
+                  },
+                  {
+                    "id": "stock_research",
+                    "questions": 31,
+                    "users": 16
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 16,
+                    "users": 11
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 91,
+                    "users": 42
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 65,
+                    "users": 23
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 11,
+                    "users": 8
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 7,
+                    "users": 4
+                  },
+                  {
+                    "id": "task_status",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "personal_context",
+                    "questions": 30,
+                    "users": 15
+                  },
+                  {
+                    "id": "context_followup",
+                    "questions": 23,
+                    "users": 13
+                  },
+                  {
+                    "id": "non_investment",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "other_investment",
+                    "questions": 35,
+                    "users": 12
+                  },
+                  {
+                    "id": "unclear_expression",
+                    "questions": 101,
+                    "users": 31
+                  }
+                ]
+              },
+              {
+                "start": "2026-11-05",
+                "end": "2026-11-05",
+                "questions": 500,
+                "users": 90,
+                "sessions": 90,
+                "directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 40,
+                    "users": 18
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 96,
+                    "users": 40
+                  },
+                  {
+                    "id": "stock_research",
+                    "questions": 42,
+                    "users": 16
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 15,
+                    "users": 10
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 9,
+                    "users": 6
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 77,
+                    "users": 38
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 58,
+                    "users": 26
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 5,
+                    "users": 4
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 2,
+                    "users": 1
+                  },
+                  {
+                    "id": "task_status",
+                    "questions": 3,
+                    "users": 1
+                  },
+                  {
+                    "id": "personal_context",
+                    "questions": 20,
+                    "users": 10
+                  },
+                  {
+                    "id": "context_followup",
+                    "questions": 39,
+                    "users": 20
+                  },
+                  {
+                    "id": "non_investment",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "other_investment",
+                    "questions": 17,
+                    "users": 15
+                  },
+                  {
+                    "id": "unclear_expression",
+                    "questions": 77,
+                    "users": 34
+                  }
+                ]
+              },
+              {
+                "start": "2026-11-06",
+                "end": "2026-11-06",
+                "questions": 19,
+                "users": 6,
+                "sessions": 6,
+                "directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 1,
                     "users": 1
                   },
                   {
@@ -11906,7 +12108,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "stock_research",
-                    "questions": 3,
+                    "questions": 2,
                     "users": 1
                   },
                   {
@@ -11921,18 +12123,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
+                    "questions": 3,
+                    "users": 2
+                  },
+                  {
+                    "id": "transaction_execution",
                     "questions": 1,
                     "users": 1
                   },
                   {
-                    "id": "transaction_execution",
-                    "questions": 0,
-                    "users": 0
-                  },
-                  {
                     "id": "investment_learning",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "qieman_service",
@@ -11951,23 +12153,23 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "context_followup",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 3,
+                    "users": 2
                   },
                   {
                     "id": "non_investment",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 5,
+                    "users": 3
                   }
                 ]
               }
@@ -13067,85 +13269,85 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "start": "2026-11-02",
-                "end": "2026-11-04",
-                "questions": 1020,
-                "users": 121,
-                "sessions": 121,
+                "end": "2026-11-06",
+                "questions": 2058,
+                "users": 181,
+                "sessions": 183,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 76,
-                    "users": 36
+                    "questions": 160,
+                    "users": 59
                   },
                   {
                     "id": "product_research",
-                    "questions": 142,
-                    "users": 56
+                    "questions": 304,
+                    "users": 88
                   },
                   {
                     "id": "stock_research",
-                    "questions": 54,
-                    "users": 32
+                    "questions": 126,
+                    "users": 47
                   },
                   {
                     "id": "product_selection",
-                    "questions": 33,
-                    "users": 18
+                    "questions": 64,
+                    "users": 30
                   },
                   {
                     "id": "asset_allocation",
-                    "questions": 15,
-                    "users": 11
+                    "questions": 26,
+                    "users": 16
                   },
                   {
                     "id": "market_insight",
-                    "questions": 157,
-                    "users": 58
+                    "questions": 327,
+                    "users": 92
                   },
                   {
                     "id": "transaction_execution",
-                    "questions": 108,
-                    "users": 36
+                    "questions": 232,
+                    "users": 60
                   },
                   {
                     "id": "investment_learning",
-                    "questions": 26,
-                    "users": 15
+                    "questions": 43,
+                    "users": 23
                   },
                   {
                     "id": "qieman_service",
-                    "questions": 8,
-                    "users": 7
+                    "questions": 17,
+                    "users": 11
                   },
                   {
                     "id": "task_status",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 4,
+                    "users": 2
                   },
                   {
                     "id": "personal_context",
-                    "questions": 57,
-                    "users": 27
+                    "questions": 107,
+                    "users": 41
                   },
                   {
                     "id": "context_followup",
-                    "questions": 65,
-                    "users": 32
+                    "questions": 130,
+                    "users": 48
                   },
                   {
                     "id": "non_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 4,
+                    "users": 4
                   },
                   {
                     "id": "other_investment",
-                    "questions": 71,
-                    "users": 28
+                    "questions": 124,
+                    "users": 41
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 207,
-                    "users": 51
+                    "questions": 390,
+                    "users": 82
                   }
                 ]
               }
@@ -13155,20 +13357,20 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "all:no_followup",
             "source": "all",
             "engagement": "no_followup",
-            "questions": 9625,
-            "users": 6914,
-            "sessions": 6953,
+            "questions": 9626,
+            "users": 6920,
+            "sessions": 6958,
             "dimensions": {
               "direction": [
                 {
                   "id": "holding_diagnosis",
-                  "questions": 972,
-                  "users": 852
+                  "questions": 973,
+                  "users": 853
                 },
                 {
                   "id": "product_research",
-                  "questions": 1660,
-                  "users": 1451
+                  "questions": 1661,
+                  "users": 1452
                 },
                 {
                   "id": "stock_research",
@@ -13177,18 +13379,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "product_selection",
-                  "questions": 1713,
-                  "users": 1254
+                  "questions": 1710,
+                  "users": 1253
                 },
                 {
                   "id": "asset_allocation",
-                  "questions": 391,
-                  "users": 308
+                  "questions": 392,
+                  "users": 309
                 },
                 {
                   "id": "market_insight",
-                  "questions": 2256,
-                  "users": 1991
+                  "questions": 2257,
+                  "users": 1993
                 },
                 {
                   "id": "transaction_execution",
@@ -13212,8 +13414,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "personal_context",
-                  "questions": 164,
-                  "users": 146
+                  "questions": 163,
+                  "users": 145
                 },
                 {
                   "id": "context_followup",
@@ -13232,20 +13434,20 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "unclear_expression",
-                  "questions": 424,
-                  "users": 424
+                  "questions": 425,
+                  "users": 425
                 }
               ],
               "object": [
                 {
                   "id": "own_account",
-                  "questions": 972,
-                  "users": 852
+                  "questions": 973,
+                  "users": 853
                 },
                 {
                   "id": "specific_product",
-                  "questions": 854,
-                  "users": 848
+                  "questions": 855,
+                  "users": 849
                 },
                 {
                   "id": "fund_category",
@@ -13254,23 +13456,23 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "strategy_portfolio",
-                  "questions": 572,
-                  "users": 490
+                  "questions": 571,
+                  "users": 489
                 },
                 {
                   "id": "asset_class",
-                  "questions": 791,
-                  "users": 729
+                  "questions": 793,
+                  "users": 731
                 },
                 {
                   "id": "goal_plan",
-                  "questions": 321,
-                  "users": 241
+                  "questions": 322,
+                  "users": 242
                 },
                 {
                   "id": "market_environment",
-                  "questions": 1275,
-                  "users": 1044
+                  "questions": 1273,
+                  "users": 1045
                 },
                 {
                   "id": "platform_service",
@@ -13279,8 +13481,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "unspecified",
-                  "questions": 4384,
-                  "users": 3775
+                  "questions": 4383,
+                  "users": 3774
                 }
               ],
               "style": [
@@ -13291,13 +13493,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "diagnose_evaluate",
-                  "questions": 1406,
-                  "users": 1202
+                  "questions": 1409,
+                  "users": 1205
                 },
                 {
                   "id": "compare_choose",
-                  "questions": 1513,
-                  "users": 1151
+                  "questions": 1510,
+                  "users": 1150
                 },
                 {
                   "id": "why_explain",
@@ -13321,8 +13523,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "conversation_fragment",
-                  "questions": 2508,
-                  "users": 2366
+                  "questions": 2509,
+                  "users": 2367
                 }
               ],
               "cognition": [
@@ -13333,7 +13535,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "developing_signal",
-                  "questions": 2153,
+                  "questions": 2152,
                   "users": 1623
                 },
                 {
@@ -13343,8 +13545,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "indeterminate",
-                  "questions": 6471,
-                  "users": 5503
+                  "questions": 6473,
+                  "users": 5508
                 }
               ]
             },
@@ -13352,18 +13554,18 @@ window.QIANWEN_ACQUISITION_DATA = {
               "keywords": [
                 {
                   "label": "行业板块",
-                  "questions": 712,
-                  "users": 598
+                  "questions": 710,
+                  "users": 597
                 },
                 {
                   "label": "长期持有",
-                  "questions": 620,
-                  "users": 522
+                  "questions": 619,
+                  "users": 521
                 },
                 {
                   "label": "A 股市场",
-                  "questions": 590,
-                  "users": 534
+                  "questions": 591,
+                  "users": 535
                 },
                 {
                   "label": "持仓结构",
@@ -13372,18 +13574,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "label": "ETF",
-                  "questions": 471,
-                  "users": 468
+                  "questions": 472,
+                  "users": 469
                 },
                 {
                   "label": "黄金市场",
-                  "questions": 280,
-                  "users": 252
+                  "questions": 281,
+                  "users": 253
                 },
                 {
                   "label": "收益表现",
-                  "questions": 259,
-                  "users": 256
+                  "questions": 260,
+                  "users": 257
                 },
                 {
                   "label": "指数基金",
@@ -13417,8 +13619,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "label": "最大回撤",
-                  "questions": 98,
-                  "users": 79
+                  "questions": 99,
+                  "users": 80
                 },
                 {
                   "label": "基金净值",
@@ -19106,9 +19308,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-08",
                 "end": "2026-10-08",
-                "questions": 520,
-                "users": 445,
-                "sessions": 447,
+                "questions": 519,
+                "users": 444,
+                "sessions": 446,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -19137,8 +19339,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 162,
-                    "users": 151
+                    "questions": 161,
+                    "users": 150
                   },
                   {
                     "id": "transaction_execution",
@@ -20282,9 +20484,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-22",
                 "end": "2026-10-22",
-                "questions": 61,
-                "users": 56,
-                "sessions": 56,
+                "questions": 60,
+                "users": 55,
+                "sessions": 55,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -20313,8 +20515,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 11,
-                    "users": 11
+                    "questions": 10,
+                    "users": 10
                   },
                   {
                     "id": "transaction_execution",
@@ -20870,9 +21072,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-29",
                 "end": "2026-10-29",
-                "questions": 17,
-                "users": 7,
-                "sessions": 8,
+                "questions": 11,
+                "users": 6,
+                "sessions": 6,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -20891,8 +21093,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "product_selection",
-                    "questions": 4,
-                    "users": 2
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "asset_allocation",
@@ -20901,8 +21103,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 5,
-                    "users": 3
+                    "questions": 3,
+                    "users": 2
                   },
                   {
                     "id": "transaction_execution",
@@ -20926,8 +21128,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "personal_context",
-                    "questions": 2,
-                    "users": 2
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "context_followup",
@@ -21284,6 +21486,174 @@ window.QIANWEN_ACQUISITION_DATA = {
                     "id": "unclear_expression",
                     "questions": 0,
                     "users": 0
+                  }
+                ]
+              },
+              {
+                "start": "2026-11-04",
+                "end": "2026-11-04",
+                "questions": 3,
+                "users": 3,
+                "sessions": 3,
+                "directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "stock_research",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "task_status",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "personal_context",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "context_followup",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "non_investment",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "other_investment",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "unclear_expression",
+                    "questions": 0,
+                    "users": 0
+                  }
+                ]
+              },
+              {
+                "start": "2026-11-05",
+                "end": "2026-11-05",
+                "questions": 6,
+                "users": 6,
+                "sessions": 6,
+                "directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "stock_research",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 4,
+                    "users": 4
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "task_status",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "personal_context",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "context_followup",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "non_investment",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "other_investment",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "unclear_expression",
+                    "questions": 1,
+                    "users": 1
                   }
                 ]
               }
@@ -22048,9 +22418,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-05",
                 "end": "2026-10-11",
-                "questions": 2548,
-                "users": 2169,
-                "sessions": 2171,
+                "questions": 2547,
+                "users": 2168,
+                "sessions": 2170,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -22079,8 +22449,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 802,
-                    "users": 760
+                    "questions": 801,
+                    "users": 759
                   },
                   {
                     "id": "transaction_execution",
@@ -22216,9 +22586,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-19",
                 "end": "2026-10-25",
-                "questions": 375,
-                "users": 284,
-                "sessions": 285,
+                "questions": 374,
+                "users": 283,
+                "sessions": 284,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -22247,8 +22617,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 59,
-                    "users": 54
+                    "questions": 58,
+                    "users": 53
                   },
                   {
                     "id": "transaction_execution",
@@ -22300,9 +22670,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-26",
                 "end": "2026-11-01",
-                "questions": 109,
-                "users": 66,
-                "sessions": 68,
+                "questions": 103,
+                "users": 65,
+                "sessions": 66,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -22321,8 +22691,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "product_selection",
-                    "questions": 22,
-                    "users": 14
+                    "questions": 19,
+                    "users": 13
                   },
                   {
                     "id": "asset_allocation",
@@ -22331,8 +22701,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 24,
-                    "users": 21
+                    "questions": 22,
+                    "users": 20
                   },
                   {
                     "id": "transaction_execution",
@@ -22356,8 +22726,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "personal_context",
-                    "questions": 3,
-                    "users": 3
+                    "questions": 2,
+                    "users": 2
                   },
                   {
                     "id": "context_followup",
@@ -22383,20 +22753,20 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "start": "2026-11-02",
-                "end": "2026-11-03",
-                "questions": 7,
-                "users": 5,
-                "sessions": 5,
+                "end": "2026-11-05",
+                "questions": 16,
+                "users": 14,
+                "sessions": 14,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 2,
-                    "users": 2
+                    "questions": 3,
+                    "users": 3
                   },
                   {
                     "id": "product_research",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "stock_research",
@@ -22410,13 +22780,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "asset_allocation",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "market_insight",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 6,
+                    "users": 6
                   },
                   {
                     "id": "transaction_execution",
@@ -22460,8 +22830,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 2,
+                    "users": 2
                   }
                 ]
               }
@@ -22471,196 +22841,196 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "all:followup",
             "source": "all",
             "engagement": "followup",
-            "questions": 111980,
-            "users": 10810,
-            "sessions": 13169,
+            "questions": 113017,
+            "users": 10821,
+            "sessions": 13184,
             "dimensions": {
               "direction": [
                 {
                   "id": "holding_diagnosis",
-                  "questions": 8226,
-                  "users": 2475
+                  "questions": 8309,
+                  "users": 2482
                 },
                 {
                   "id": "product_research",
-                  "questions": 19611,
-                  "users": 5104
+                  "questions": 19772,
+                  "users": 5110
                 },
                 {
                   "id": "stock_research",
-                  "questions": 7956,
-                  "users": 3072
+                  "questions": 8028,
+                  "users": 3075
                 },
                 {
                   "id": "product_selection",
-                  "questions": 5779,
-                  "users": 2637
+                  "questions": 5813,
+                  "users": 2641
                 },
                 {
                   "id": "asset_allocation",
-                  "questions": 2267,
-                  "users": 1132
+                  "questions": 2277,
+                  "users": 1134
                 },
                 {
                   "id": "market_insight",
-                  "questions": 19412,
-                  "users": 5437
+                  "questions": 19581,
+                  "users": 5442
                 },
                 {
                   "id": "transaction_execution",
-                  "questions": 9970,
-                  "users": 2801
+                  "questions": 10094,
+                  "users": 2803
                 },
                 {
                   "id": "investment_learning",
-                  "questions": 3086,
-                  "users": 1377
+                  "questions": 3103,
+                  "users": 1380
                 },
                 {
                   "id": "qieman_service",
-                  "questions": 1632,
-                  "users": 449
+                  "questions": 1641,
+                  "users": 450
                 },
                 {
                   "id": "task_status",
-                  "questions": 1418,
-                  "users": 125
+                  "questions": 1422,
+                  "users": 127
                 },
                 {
                   "id": "personal_context",
-                  "questions": 3769,
-                  "users": 1501
+                  "questions": 3820,
+                  "users": 1503
                 },
                 {
                   "id": "context_followup",
-                  "questions": 7646,
-                  "users": 2266
+                  "questions": 7711,
+                  "users": 2268
                 },
                 {
                   "id": "non_investment",
-                  "questions": 527,
-                  "users": 291
+                  "questions": 530,
+                  "users": 293
                 },
                 {
                   "id": "other_investment",
-                  "questions": 5117,
+                  "questions": 5170,
                   "users": 1923
                 },
                 {
                   "id": "unclear_expression",
-                  "questions": 15564,
-                  "users": 3984
+                  "questions": 15746,
+                  "users": 3989
                 }
               ],
               "object": [
                 {
                   "id": "own_account",
-                  "questions": 8227,
-                  "users": 2475
+                  "questions": 8310,
+                  "users": 2482
                 },
                 {
                   "id": "specific_product",
-                  "questions": 12574,
-                  "users": 3479
+                  "questions": 12699,
+                  "users": 3484
                 },
                 {
                   "id": "fund_category",
-                  "questions": 4607,
-                  "users": 1605
+                  "questions": 4634,
+                  "users": 1607
                 },
                 {
                   "id": "strategy_portfolio",
-                  "questions": 2347,
-                  "users": 1079
+                  "questions": 2358,
+                  "users": 1084
                 },
                 {
                   "id": "asset_class",
-                  "questions": 7196,
-                  "users": 2621
+                  "questions": 7255,
+                  "users": 2623
                 },
                 {
                   "id": "goal_plan",
-                  "questions": 1616,
-                  "users": 840
+                  "questions": 1622,
+                  "users": 842
                 },
                 {
                   "id": "market_environment",
-                  "questions": 9100,
-                  "users": 3228
+                  "questions": 9197,
+                  "users": 3231
                 },
                 {
                   "id": "platform_service",
-                  "questions": 1590,
-                  "users": 540
+                  "questions": 1604,
+                  "users": 544
                 },
                 {
                   "id": "unspecified",
-                  "questions": 64723,
-                  "users": 9121
+                  "questions": 65338,
+                  "users": 9128
                 }
               ],
               "style": [
                 {
                   "id": "direct_request",
-                  "questions": 9725,
-                  "users": 3807
+                  "questions": 9787,
+                  "users": 3812
                 },
                 {
                   "id": "diagnose_evaluate",
-                  "questions": 9701,
-                  "users": 3760
+                  "questions": 9795,
+                  "users": 3764
                 },
                 {
                   "id": "compare_choose",
-                  "questions": 11714,
-                  "users": 3540
+                  "questions": 11839,
+                  "users": 3545
                 },
                 {
                   "id": "why_explain",
-                  "questions": 4996,
-                  "users": 2107
+                  "questions": 5038,
+                  "users": 2109
                 },
                 {
                   "id": "how_to",
-                  "questions": 1861,
-                  "users": 982
+                  "questions": 1883,
+                  "users": 983
                 },
                 {
                   "id": "forecast_risk",
-                  "questions": 8659,
-                  "users": 3511
+                  "questions": 8727,
+                  "users": 3516
                 },
                 {
                   "id": "fact_lookup",
-                  "questions": 6661,
-                  "users": 2561
+                  "questions": 6699,
+                  "users": 2565
                 },
                 {
                   "id": "conversation_fragment",
-                  "questions": 58663,
-                  "users": 8395
+                  "questions": 59249,
+                  "users": 8402
                 }
               ],
               "cognition": [
                 {
                   "id": "beginner_signal",
-                  "questions": 2920,
-                  "users": 1661
+                  "questions": 2933,
+                  "users": 1663
                 },
                 {
                   "id": "developing_signal",
-                  "questions": 14505,
-                  "users": 4191
+                  "questions": 14603,
+                  "users": 4195
                 },
                 {
                   "id": "advanced_signal",
-                  "questions": 2705,
-                  "users": 607
+                  "questions": 2724,
+                  "users": 608
                 },
                 {
                   "id": "indeterminate",
-                  "questions": 91850,
-                  "users": 10410
+                  "questions": 92757,
+                  "users": 10420
                 }
               ]
             },
@@ -22668,118 +23038,118 @@ window.QIANWEN_ACQUISITION_DATA = {
               "keywords": [
                 {
                   "label": "ETF",
-                  "questions": 6659,
+                  "questions": 6716,
                   "users": 1962
                 },
                 {
                   "label": "行业板块",
-                  "questions": 5471,
-                  "users": 2225
+                  "questions": 5526,
+                  "users": 2227
                 },
                 {
                   "label": "收益表现",
-                  "questions": 5242,
-                  "users": 1465
+                  "questions": 5281,
+                  "users": 1466
                 },
                 {
                   "label": "A 股市场",
-                  "questions": 4926,
-                  "users": 1978
+                  "questions": 4986,
+                  "users": 1981
                 },
                 {
                   "label": "定投计划",
-                  "questions": 2913,
-                  "users": 836
+                  "questions": 2929,
+                  "users": 838
                 },
                 {
                   "label": "黄金市场",
-                  "questions": 2813,
-                  "users": 930
+                  "questions": 2835,
+                  "users": 936
                 },
                 {
                   "label": "赎回操作",
-                  "questions": 2161,
-                  "users": 640
+                  "questions": 2192,
+                  "users": 643
                 },
                 {
                   "label": "最大回撤",
-                  "questions": 1921,
+                  "questions": 1931,
                   "users": 510
                 },
                 {
                   "label": "美股市场",
-                  "questions": 1779,
-                  "users": 636
+                  "questions": 1805,
+                  "users": 637
                 },
                 {
                   "label": "指数基金",
-                  "questions": 1340,
-                  "users": 657
+                  "questions": 1358,
+                  "users": 658
                 },
                 {
                   "label": "港股市场",
-                  "questions": 1304,
-                  "users": 594
+                  "questions": 1315,
+                  "users": 595
                 },
                 {
                   "label": "长期持有",
-                  "questions": 1274,
-                  "users": 812
+                  "questions": 1276,
+                  "users": 814
                 },
                 {
                   "label": "红利基金",
-                  "questions": 1059,
+                  "questions": 1060,
                   "users": 445
                 },
                 {
                   "label": "债券基金",
-                  "questions": 1033,
-                  "users": 307
+                  "questions": 1038,
+                  "users": 308
                 },
                 {
                   "label": "基金推荐",
-                  "questions": 756,
-                  "users": 415
+                  "questions": 760,
+                  "users": 416
                 },
                 {
                   "label": "半导体基金",
-                  "questions": 730,
-                  "users": 296
+                  "questions": 732,
+                  "users": 297
                 },
                 {
                   "label": "持仓结构",
-                  "questions": 709,
-                  "users": 478
+                  "questions": 717,
+                  "users": 482
                 },
                 {
                   "label": "科技基金",
-                  "questions": 638,
-                  "users": 312
+                  "questions": 651,
+                  "users": 314
                 },
                 {
                   "label": "止盈策略",
-                  "questions": 578,
-                  "users": 207
+                  "questions": 589,
+                  "users": 208
                 },
                 {
                   "label": "养老规划",
-                  "questions": 549,
-                  "users": 274
+                  "questions": 551,
+                  "users": 275
                 },
                 {
                   "label": "QDII 基金",
-                  "questions": 518,
+                  "questions": 521,
                   "users": 230
                 },
                 {
                   "label": "资产配置",
-                  "questions": 467,
-                  "users": 321
+                  "questions": 474,
+                  "users": 324
                 },
                 {
                   "label": "货币基金",
-                  "questions": 462,
-                  "users": 113
+                  "questions": 465,
+                  "users": 114
                 },
                 {
                   "label": "基金经理",
@@ -22799,8 +23169,15 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "创业板ETF（159915）",
                   "query": "159915",
                   "kind": "基金代码",
-                  "questions": 223,
+                  "questions": 235,
                   "users": 35
+                },
+                {
+                  "label": "通信ETF（515880）",
+                  "query": "515880",
+                  "kind": "基金代码",
+                  "questions": 198,
+                  "users": 60
                 },
                 {
                   "label": "沪深300ETF（510300）",
@@ -22810,17 +23187,10 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "users": 61
                 },
                 {
-                  "label": "通信ETF（515880）",
-                  "query": "515880",
-                  "kind": "基金代码",
-                  "questions": 196,
-                  "users": 60
-                },
-                {
                   "label": "红利低波ETF（512890）",
                   "query": "512890",
                   "kind": "基金代码",
-                  "questions": 177,
+                  "questions": 178,
                   "users": 64
                 },
                 {
@@ -22834,7 +23204,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "半导体ETF（512480）",
                   "query": "512480",
                   "kind": "基金代码",
-                  "questions": 166,
+                  "questions": 169,
                   "users": 20
                 },
                 {
@@ -22845,6 +23215,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "users": 23
                 },
                 {
+                  "label": "华夏上证科创板半导体材料设备主题ETF（588170）",
+                  "query": "588170",
+                  "kind": "基金代码",
+                  "questions": 131,
+                  "users": 51
+                },
+                {
                   "label": "纳指ETF（513100）",
                   "query": "513100",
                   "kind": "基金代码",
@@ -22852,24 +23229,24 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "users": 22
                 },
                 {
-                  "label": "华夏上证科创板半导体材料设备主题ETF（588170）",
-                  "query": "588170",
-                  "kind": "基金代码",
-                  "questions": 129,
-                  "users": 50
-                },
-                {
                   "label": "标普500ETF（513500）",
                   "query": "513500",
                   "kind": "基金代码",
-                  "questions": 117,
+                  "questions": 121,
                   "users": 21
+                },
+                {
+                  "label": "南方标普红利低波50ETF联接A（008163）",
+                  "query": "008163",
+                  "kind": "基金代码",
+                  "questions": 111,
+                  "users": 42
                 },
                 {
                   "label": "易方达供给改革混合（002910）",
                   "query": "002910",
                   "kind": "基金代码",
-                  "questions": 110,
+                  "questions": 111,
                   "users": 22
                 },
                 {
@@ -22878,13 +23255,6 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "kind": "基金代码",
                   "questions": 109,
                   "users": 11
-                },
-                {
-                  "label": "南方标普红利低波50ETF联接A（008163）",
-                  "query": "008163",
-                  "kind": "基金代码",
-                  "questions": 108,
-                  "users": 42
                 },
                 {
                   "label": "华夏中证电网设备主题ETF（159326）",
@@ -22904,7 +23274,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "芯片ETF（159995）",
                   "query": "159995",
                   "kind": "基金代码",
-                  "questions": 98,
+                  "questions": 99,
                   "users": 26
                 },
                 {
@@ -22939,22 +23309,22 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "创新药ETF（515120）",
                   "query": "515120",
                   "kind": "基金代码",
-                  "questions": 79,
+                  "questions": 81,
                   "users": 7
                 },
                 {
                   "label": "证券ETF（512880）",
                   "query": "512880",
                   "kind": "基金代码",
-                  "questions": 77,
+                  "questions": 79,
                   "users": 13
                 },
                 {
-                  "label": "科创芯片ETF（588200）",
-                  "query": "588200",
+                  "label": "易方达增强债券A（110017）",
+                  "query": "110017",
                   "kind": "基金代码",
-                  "questions": 75,
-                  "users": 28
+                  "questions": 76,
+                  "users": 10
                 }
               ]
             },
@@ -28506,9 +28876,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-08",
                 "end": "2026-10-08",
-                "questions": 5121,
-                "users": 1119,
-                "sessions": 1132,
+                "questions": 5122,
+                "users": 1120,
+                "sessions": 1133,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -28537,8 +28907,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 1142,
-                    "users": 565
+                    "questions": 1143,
+                    "users": 566
                   },
                   {
                     "id": "transaction_execution",
@@ -29682,9 +30052,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-22",
                 "end": "2026-10-22",
-                "questions": 1805,
-                "users": 275,
-                "sessions": 278,
+                "questions": 1806,
+                "users": 276,
+                "sessions": 279,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -29713,8 +30083,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 296,
-                    "users": 121
+                    "questions": 297,
+                    "users": 122
                   },
                   {
                     "id": "transaction_execution",
@@ -30270,9 +30640,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-29",
                 "end": "2026-10-29",
-                "questions": 721,
-                "users": 96,
-                "sessions": 96,
+                "questions": 727,
+                "users": 97,
+                "sessions": 98,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -30291,8 +30661,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "product_selection",
-                    "questions": 21,
-                    "users": 17
+                    "questions": 24,
+                    "users": 18
                   },
                   {
                     "id": "asset_allocation",
@@ -30301,8 +30671,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 124,
-                    "users": 48
+                    "questions": 126,
+                    "users": 49
                   },
                   {
                     "id": "transaction_execution",
@@ -30326,8 +30696,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "personal_context",
-                    "questions": 52,
-                    "users": 23
+                    "questions": 53,
+                    "users": 24
                   },
                   {
                     "id": "context_followup",
@@ -30774,13 +31144,181 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-11-04",
                 "end": "2026-11-04",
-                "questions": 9,
-                "users": 3,
-                "sessions": 3,
+                "questions": 525,
+                "users": 79,
+                "sessions": 80,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 4,
+                    "questions": 46,
+                    "users": 24
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 65,
+                    "users": 30
+                  },
+                  {
+                    "id": "stock_research",
+                    "questions": 31,
+                    "users": 16
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 16,
+                    "users": 11
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 90,
+                    "users": 41
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 65,
+                    "users": 23
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 11,
+                    "users": 8
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 7,
+                    "users": 4
+                  },
+                  {
+                    "id": "task_status",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "personal_context",
+                    "questions": 30,
+                    "users": 15
+                  },
+                  {
+                    "id": "context_followup",
+                    "questions": 23,
+                    "users": 13
+                  },
+                  {
+                    "id": "non_investment",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "other_investment",
+                    "questions": 35,
+                    "users": 12
+                  },
+                  {
+                    "id": "unclear_expression",
+                    "questions": 101,
+                    "users": 31
+                  }
+                ]
+              },
+              {
+                "start": "2026-11-05",
+                "end": "2026-11-05",
+                "questions": 494,
+                "users": 84,
+                "sessions": 84,
+                "directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 40,
+                    "users": 18
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 96,
+                    "users": 40
+                  },
+                  {
+                    "id": "stock_research",
+                    "questions": 42,
+                    "users": 16
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 15,
+                    "users": 10
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 8,
+                    "users": 5
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 73,
+                    "users": 34
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 58,
+                    "users": 26
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 5,
+                    "users": 4
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 2,
+                    "users": 1
+                  },
+                  {
+                    "id": "task_status",
+                    "questions": 3,
+                    "users": 1
+                  },
+                  {
+                    "id": "personal_context",
+                    "questions": 20,
+                    "users": 10
+                  },
+                  {
+                    "id": "context_followup",
+                    "questions": 39,
+                    "users": 20
+                  },
+                  {
+                    "id": "non_investment",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "other_investment",
+                    "questions": 17,
+                    "users": 15
+                  },
+                  {
+                    "id": "unclear_expression",
+                    "questions": 76,
+                    "users": 33
+                  }
+                ]
+              },
+              {
+                "start": "2026-11-06",
+                "end": "2026-11-06",
+                "questions": 19,
+                "users": 6,
+                "sessions": 6,
+                "directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 1,
                     "users": 1
                   },
                   {
@@ -30790,7 +31328,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "stock_research",
-                    "questions": 3,
+                    "questions": 2,
                     "users": 1
                   },
                   {
@@ -30805,18 +31343,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
+                    "questions": 3,
+                    "users": 2
+                  },
+                  {
+                    "id": "transaction_execution",
                     "questions": 1,
                     "users": 1
                   },
                   {
-                    "id": "transaction_execution",
-                    "questions": 0,
-                    "users": 0
-                  },
-                  {
                     "id": "investment_learning",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "qieman_service",
@@ -30835,23 +31373,23 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "context_followup",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 3,
+                    "users": 2
                   },
                   {
                     "id": "non_investment",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 5,
+                    "users": 3
                   }
                 ]
               }
@@ -31616,9 +32154,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-05",
                 "end": "2026-10-11",
-                "questions": 27125,
-                "users": 4480,
-                "sessions": 4558,
+                "questions": 27126,
+                "users": 4481,
+                "sessions": 4559,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -31647,8 +32185,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 5675,
-                    "users": 2348
+                    "questions": 5676,
+                    "users": 2349
                   },
                   {
                     "id": "transaction_execution",
@@ -31784,9 +32322,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-19",
                 "end": "2026-10-25",
-                "questions": 9381,
-                "users": 1024,
-                "sessions": 1047,
+                "questions": 9382,
+                "users": 1025,
+                "sessions": 1048,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -31815,8 +32353,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 1324,
-                    "users": 380
+                    "questions": 1325,
+                    "users": 381
                   },
                   {
                     "id": "transaction_execution",
@@ -31868,9 +32406,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-26",
                 "end": "2026-11-01",
-                "questions": 5810,
-                "users": 292,
-                "sessions": 1377,
+                "questions": 5816,
+                "users": 293,
+                "sessions": 1379,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -31889,8 +32427,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "product_selection",
-                    "questions": 133,
-                    "users": 64
+                    "questions": 136,
+                    "users": 65
                   },
                   {
                     "id": "asset_allocation",
@@ -31899,8 +32437,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 813,
-                    "users": 140
+                    "questions": 815,
+                    "users": 141
                   },
                   {
                     "id": "transaction_execution",
@@ -31924,8 +32462,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "personal_context",
-                    "questions": 216,
-                    "users": 74
+                    "questions": 217,
+                    "users": 75
                   },
                   {
                     "id": "context_followup",
@@ -31951,85 +32489,85 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "start": "2026-11-02",
-                "end": "2026-11-04",
-                "questions": 1013,
-                "users": 116,
-                "sessions": 116,
+                "end": "2026-11-06",
+                "questions": 2042,
+                "users": 167,
+                "sessions": 169,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 74,
-                    "users": 34
-                  },
-                  {
-                    "id": "product_research",
-                    "questions": 142,
+                    "questions": 157,
                     "users": 56
                   },
                   {
+                    "id": "product_research",
+                    "questions": 303,
+                    "users": 87
+                  },
+                  {
                     "id": "stock_research",
-                    "questions": 54,
-                    "users": 32
+                    "questions": 126,
+                    "users": 47
                   },
                   {
                     "id": "product_selection",
-                    "questions": 33,
-                    "users": 18
-                  },
-                  {
-                    "id": "asset_allocation",
-                    "questions": 15,
-                    "users": 11
-                  },
-                  {
-                    "id": "market_insight",
-                    "questions": 156,
-                    "users": 57
-                  },
-                  {
-                    "id": "transaction_execution",
-                    "questions": 108,
-                    "users": 36
-                  },
-                  {
-                    "id": "investment_learning",
-                    "questions": 26,
-                    "users": 15
-                  },
-                  {
-                    "id": "qieman_service",
-                    "questions": 8,
-                    "users": 7
-                  },
-                  {
-                    "id": "task_status",
-                    "questions": 0,
-                    "users": 0
-                  },
-                  {
-                    "id": "personal_context",
-                    "questions": 57,
-                    "users": 27
-                  },
-                  {
-                    "id": "context_followup",
-                    "questions": 63,
+                    "questions": 64,
                     "users": 30
                   },
                   {
+                    "id": "asset_allocation",
+                    "questions": 25,
+                    "users": 15
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 321,
+                    "users": 86
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 232,
+                    "users": 60
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 43,
+                    "users": 23
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 17,
+                    "users": 11
+                  },
+                  {
+                    "id": "task_status",
+                    "questions": 4,
+                    "users": 2
+                  },
+                  {
+                    "id": "personal_context",
+                    "questions": 107,
+                    "users": 41
+                  },
+                  {
+                    "id": "context_followup",
+                    "questions": 128,
+                    "users": 46
+                  },
+                  {
                     "id": "non_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 4,
+                    "users": 4
                   },
                   {
                     "id": "other_investment",
-                    "questions": 70,
-                    "users": 27
+                    "questions": 123,
+                    "users": 40
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 206,
-                    "users": 50
+                    "questions": 388,
+                    "users": 80
                   }
                 ]
               }
@@ -40813,9 +41351,9 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "preset:no_followup",
             "source": "preset",
             "engagement": "no_followup",
-            "questions": 3415,
-            "users": 1811,
-            "sessions": 1826,
+            "questions": 3409,
+            "users": 1809,
+            "sessions": 1823,
             "dimensions": {
               "direction": [
                 {
@@ -40835,8 +41373,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "product_selection",
-                  "questions": 1362,
-                  "users": 952
+                  "questions": 1359,
+                  "users": 951
                 },
                 {
                   "id": "asset_allocation",
@@ -40845,8 +41383,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "market_insight",
-                  "questions": 691,
-                  "users": 518
+                  "questions": 689,
+                  "users": 516
                 },
                 {
                   "id": "transaction_execution",
@@ -40870,8 +41408,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "personal_context",
-                  "questions": 47,
-                  "users": 30
+                  "questions": 46,
+                  "users": 29
                 },
                 {
                   "id": "context_followup",
@@ -40912,8 +41450,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "strategy_portfolio",
-                  "questions": 502,
-                  "users": 424
+                  "questions": 501,
+                  "users": 423
                 },
                 {
                   "id": "asset_class",
@@ -40927,8 +41465,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "market_environment",
-                  "questions": 728,
-                  "users": 531
+                  "questions": 724,
+                  "users": 529
                 },
                 {
                   "id": "platform_service",
@@ -40937,15 +41475,15 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "unspecified",
-                  "questions": 1080,
-                  "users": 758
+                  "questions": 1079,
+                  "users": 757
                 }
               ],
               "style": [
                 {
                   "id": "direct_request",
-                  "questions": 730,
-                  "users": 591
+                  "questions": 729,
+                  "users": 590
                 },
                 {
                   "id": "diagnose_evaluate",
@@ -40954,8 +41492,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "compare_choose",
-                  "questions": 1034,
-                  "users": 704
+                  "questions": 1030,
+                  "users": 702
                 },
                 {
                   "id": "why_explain",
@@ -40969,8 +41507,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "forecast_risk",
-                  "questions": 606,
-                  "users": 448
+                  "questions": 605,
+                  "users": 447
                 },
                 {
                   "id": "fact_lookup",
@@ -40991,8 +41529,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "developing_signal",
-                  "questions": 1457,
-                  "users": 1002
+                  "questions": 1455,
+                  "users": 1001
                 },
                 {
                   "id": "advanced_signal",
@@ -41001,8 +41539,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "indeterminate",
-                  "questions": 1289,
-                  "users": 829
+                  "questions": 1285,
+                  "users": 827
                 }
               ]
             },
@@ -41010,8 +41548,8 @@ window.QIANWEN_ACQUISITION_DATA = {
               "keywords": [
                 {
                   "label": "长期持有",
-                  "questions": 574,
-                  "users": 480
+                  "questions": 573,
+                  "users": 479
                 },
                 {
                   "label": "持仓结构",
@@ -41020,8 +41558,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "label": "行业板块",
-                  "questions": 300,
-                  "users": 198
+                  "questions": 297,
+                  "users": 196
                 },
                 {
                   "label": "A 股市场",
@@ -47734,9 +48272,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-22",
                 "end": "2026-10-22",
-                "questions": 12,
-                "users": 10,
-                "sessions": 10,
+                "questions": 11,
+                "users": 9,
+                "sessions": 9,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -47765,8 +48303,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 3,
-                    "users": 3
+                    "questions": 2,
+                    "users": 2
                   },
                   {
                     "id": "transaction_execution",
@@ -48322,9 +48860,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-29",
                 "end": "2026-10-29",
-                "questions": 12,
-                "users": 5,
-                "sessions": 6,
+                "questions": 7,
+                "users": 4,
+                "sessions": 4,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -48343,8 +48881,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "product_selection",
-                    "questions": 4,
-                    "users": 2
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "asset_allocation",
@@ -48353,8 +48891,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 2,
-                    "users": 2
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "transaction_execution",
@@ -48378,8 +48916,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "personal_context",
-                    "questions": 2,
-                    "users": 2
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "context_followup",
@@ -49332,9 +49870,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-19",
                 "end": "2026-10-25",
-                "questions": 112,
-                "users": 74,
-                "sessions": 75,
+                "questions": 111,
+                "users": 73,
+                "sessions": 74,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -49363,8 +49901,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 22,
-                    "users": 21
+                    "questions": 21,
+                    "users": 20
                   },
                   {
                     "id": "transaction_execution",
@@ -49416,9 +49954,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-26",
                 "end": "2026-10-29",
-                "questions": 64,
-                "users": 34,
-                "sessions": 35,
+                "questions": 59,
+                "users": 33,
+                "sessions": 33,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -49437,8 +49975,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "product_selection",
-                    "questions": 20,
-                    "users": 12
+                    "questions": 17,
+                    "users": 11
                   },
                   {
                     "id": "asset_allocation",
@@ -49447,8 +49985,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 16,
-                    "users": 15
+                    "questions": 15,
+                    "users": 14
                   },
                   {
                     "id": "transaction_execution",
@@ -49472,8 +50010,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "personal_context",
-                    "questions": 2,
-                    "users": 2
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "context_followup",
@@ -49503,9 +50041,9 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "preset:followup",
             "source": "preset",
             "engagement": "followup",
-            "questions": 4773,
-            "users": 2584,
-            "sessions": 2662,
+            "questions": 4779,
+            "users": 2586,
+            "sessions": 2665,
             "dimensions": {
               "direction": [
                 {
@@ -49525,8 +50063,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "product_selection",
-                  "questions": 1655,
-                  "users": 1181
+                  "questions": 1658,
+                  "users": 1182
                 },
                 {
                   "id": "asset_allocation",
@@ -49535,8 +50073,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "market_insight",
-                  "questions": 1104,
-                  "users": 866
+                  "questions": 1106,
+                  "users": 868
                 },
                 {
                   "id": "transaction_execution",
@@ -49560,8 +50098,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "personal_context",
-                  "questions": 69,
-                  "users": 64
+                  "questions": 70,
+                  "users": 65
                 },
                 {
                   "id": "context_followup",
@@ -49602,8 +50140,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "strategy_portfolio",
-                  "questions": 730,
-                  "users": 609
+                  "questions": 731,
+                  "users": 610
                 },
                 {
                   "id": "asset_class",
@@ -49617,8 +50155,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "market_environment",
-                  "questions": 1097,
-                  "users": 856
+                  "questions": 1101,
+                  "users": 858
                 },
                 {
                   "id": "platform_service",
@@ -49627,15 +50165,15 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "unspecified",
-                  "questions": 1353,
-                  "users": 1070
+                  "questions": 1354,
+                  "users": 1071
                 }
               ],
               "style": [
                 {
                   "id": "direct_request",
-                  "questions": 905,
-                  "users": 683
+                  "questions": 906,
+                  "users": 684
                 },
                 {
                   "id": "diagnose_evaluate",
@@ -49644,8 +50182,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "compare_choose",
-                  "questions": 1511,
-                  "users": 1150
+                  "questions": 1515,
+                  "users": 1152
                 },
                 {
                   "id": "why_explain",
@@ -49659,8 +50197,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "forecast_risk",
-                  "questions": 909,
-                  "users": 736
+                  "questions": 910,
+                  "users": 737
                 },
                 {
                   "id": "fact_lookup",
@@ -49681,8 +50219,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "developing_signal",
-                  "questions": 2079,
-                  "users": 1484
+                  "questions": 2081,
+                  "users": 1485
                 },
                 {
                   "id": "advanced_signal",
@@ -49691,8 +50229,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "indeterminate",
-                  "questions": 1972,
-                  "users": 1358
+                  "questions": 1976,
+                  "users": 1360
                 }
               ]
             },
@@ -49700,8 +50238,8 @@ window.QIANWEN_ACQUISITION_DATA = {
               "keywords": [
                 {
                   "label": "长期持有",
-                  "questions": 631,
-                  "users": 502
+                  "questions": 632,
+                  "users": 503
                 },
                 {
                   "label": "持仓结构",
@@ -49710,8 +50248,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "label": "行业板块",
-                  "questions": 500,
-                  "users": 445
+                  "questions": 503,
+                  "users": 447
                 },
                 {
                   "label": "A 股市场",
@@ -56424,9 +56962,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-22",
                 "end": "2026-10-22",
-                "questions": 45,
-                "users": 29,
-                "sessions": 29,
+                "questions": 46,
+                "users": 30,
+                "sessions": 30,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -56455,8 +56993,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 12,
-                    "users": 10
+                    "questions": 13,
+                    "users": 11
                   },
                   {
                     "id": "transaction_execution",
@@ -57012,9 +57550,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-29",
                 "end": "2026-10-29",
-                "questions": 12,
-                "users": 11,
-                "sessions": 11,
+                "questions": 17,
+                "users": 12,
+                "sessions": 13,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -57033,8 +57571,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "product_selection",
-                    "questions": 5,
-                    "users": 5
+                    "questions": 8,
+                    "users": 6
                   },
                   {
                     "id": "asset_allocation",
@@ -57043,8 +57581,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 7,
-                    "users": 6
+                    "questions": 8,
+                    "users": 7
                   },
                   {
                     "id": "transaction_execution",
@@ -57068,8 +57606,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "personal_context",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "context_followup",
@@ -58106,9 +58644,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-19",
                 "end": "2026-10-25",
-                "questions": 251,
-                "users": 156,
-                "sessions": 161,
+                "questions": 252,
+                "users": 157,
+                "sessions": 162,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -58137,8 +58675,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 60,
-                    "users": 49
+                    "questions": 61,
+                    "users": 50
                   },
                   {
                     "id": "transaction_execution",
@@ -58190,9 +58728,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-26",
                 "end": "2026-10-30",
-                "questions": 87,
-                "users": 50,
-                "sessions": 73,
+                "questions": 92,
+                "users": 51,
+                "sessions": 75,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -58211,8 +58749,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "product_selection",
-                    "questions": 18,
-                    "users": 15
+                    "questions": 21,
+                    "users": 16
                   },
                   {
                     "id": "asset_allocation",
@@ -58221,8 +58759,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 41,
-                    "users": 17
+                    "questions": 42,
+                    "users": 18
                   },
                   {
                     "id": "transaction_execution",
@@ -58246,8 +58784,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "personal_context",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "context_followup",
@@ -58277,196 +58815,196 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "self:all",
             "source": "self",
             "engagement": "all",
-            "questions": 113417,
-            "users": 16882,
-            "sessions": 19209,
+            "questions": 114455,
+            "users": 16900,
+            "sessions": 19230,
             "dimensions": {
               "direction": [
                 {
                   "id": "holding_diagnosis",
-                  "questions": 7946,
-                  "users": 2579
+                  "questions": 8030,
+                  "users": 2587
                 },
                 {
                   "id": "product_research",
-                  "questions": 20084,
-                  "users": 6077
+                  "questions": 20246,
+                  "users": 6084
                 },
                 {
                   "id": "stock_research",
-                  "questions": 8688,
-                  "users": 3804
+                  "questions": 8760,
+                  "users": 3807
                 },
                 {
                   "id": "product_selection",
-                  "questions": 4475,
-                  "users": 2115
+                  "questions": 4506,
+                  "users": 2119
                 },
                 {
                   "id": "asset_allocation",
-                  "questions": 2052,
-                  "users": 1035
+                  "questions": 2063,
+                  "users": 1038
                 },
                 {
                   "id": "market_insight",
-                  "questions": 19873,
-                  "users": 6656
+                  "questions": 20043,
+                  "users": 6664
                 },
                 {
                   "id": "transaction_execution",
-                  "questions": 10471,
-                  "users": 3301
+                  "questions": 10595,
+                  "users": 3303
                 },
                 {
                   "id": "investment_learning",
-                  "questions": 3180,
-                  "users": 1493
+                  "questions": 3197,
+                  "users": 1496
                 },
                 {
                   "id": "qieman_service",
-                  "questions": 1674,
-                  "users": 491
+                  "questions": 1683,
+                  "users": 492
                 },
                 {
                   "id": "task_status",
-                  "questions": 1428,
-                  "users": 135
+                  "questions": 1432,
+                  "users": 137
                 },
                 {
                   "id": "personal_context",
-                  "questions": 3817,
-                  "users": 1575
+                  "questions": 3867,
+                  "users": 1576
                 },
                 {
                   "id": "context_followup",
-                  "questions": 7806,
-                  "users": 2407
+                  "questions": 7871,
+                  "users": 2409
                 },
                 {
                   "id": "non_investment",
-                  "questions": 567,
-                  "users": 331
+                  "questions": 570,
+                  "users": 333
                 },
                 {
                   "id": "other_investment",
-                  "questions": 5368,
+                  "questions": 5421,
                   "users": 2174
                 },
                 {
                   "id": "unclear_expression",
-                  "questions": 15988,
-                  "users": 4408
+                  "questions": 16171,
+                  "users": 4414
                 }
               ],
               "object": [
                 {
                   "id": "own_account",
-                  "questions": 7947,
-                  "users": 2579
+                  "questions": 8031,
+                  "users": 2587
                 },
                 {
                   "id": "specific_product",
-                  "questions": 13397,
-                  "users": 4308
+                  "questions": 13523,
+                  "users": 4314
                 },
                 {
                   "id": "fund_category",
-                  "questions": 4738,
-                  "users": 1799
+                  "questions": 4765,
+                  "users": 1801
                 },
                 {
                   "id": "strategy_portfolio",
-                  "questions": 1687,
-                  "users": 607
+                  "questions": 1697,
+                  "users": 612
                 },
                 {
                   "id": "asset_class",
-                  "questions": 7448,
-                  "users": 3024
+                  "questions": 7509,
+                  "users": 3028
                 },
                 {
                   "id": "goal_plan",
-                  "questions": 1331,
-                  "users": 647
+                  "questions": 1338,
+                  "users": 650
                 },
                 {
                   "id": "market_environment",
-                  "questions": 8550,
-                  "users": 3226
+                  "questions": 8645,
+                  "users": 3231
                 },
                 {
                   "id": "platform_service",
-                  "questions": 1645,
-                  "users": 595
+                  "questions": 1659,
+                  "users": 599
                 },
                 {
                   "id": "unspecified",
-                  "questions": 66674,
-                  "users": 12188
+                  "questions": 67288,
+                  "users": 12195
                 }
               ],
               "style": [
                 {
                   "id": "direct_request",
-                  "questions": 9653,
-                  "users": 4234
+                  "questions": 9715,
+                  "users": 4240
                 },
                 {
                   "id": "diagnose_evaluate",
-                  "questions": 9453,
-                  "users": 4002
+                  "questions": 9550,
+                  "users": 4009
                 },
                 {
                   "id": "compare_choose",
-                  "questions": 10682,
-                  "users": 3237
+                  "questions": 10804,
+                  "users": 3241
                 },
                 {
                   "id": "why_explain",
-                  "questions": 5177,
-                  "users": 2398
+                  "questions": 5219,
+                  "users": 2401
                 },
                 {
                   "id": "how_to",
-                  "questions": 2009,
-                  "users": 1130
+                  "questions": 2031,
+                  "users": 1131
                 },
                 {
                   "id": "forecast_risk",
-                  "questions": 8484,
-                  "users": 3783
+                  "questions": 8552,
+                  "users": 3789
                 },
                 {
                   "id": "fact_lookup",
-                  "questions": 7253,
-                  "users": 3153
+                  "questions": 7291,
+                  "users": 3157
                 },
                 {
                   "id": "conversation_fragment",
-                  "questions": 60706,
-                  "users": 10622
+                  "questions": 61293,
+                  "users": 10630
                 }
               ],
               "cognition": [
                 {
                   "id": "beginner_signal",
-                  "questions": 2442,
-                  "users": 1467
+                  "questions": 2455,
+                  "users": 1469
                 },
                 {
                   "id": "developing_signal",
-                  "questions": 13122,
-                  "users": 4048
+                  "questions": 13219,
+                  "users": 4052
                 },
                 {
                   "id": "advanced_signal",
-                  "questions": 2793,
-                  "users": 695
+                  "questions": 2812,
+                  "users": 696
                 },
                 {
                   "id": "indeterminate",
-                  "questions": 95060,
-                  "users": 15437
+                  "questions": 95969,
+                  "users": 15453
                 }
               ]
             },
@@ -58474,108 +59012,108 @@ window.QIANWEN_ACQUISITION_DATA = {
               "keywords": [
                 {
                   "label": "ETF",
-                  "questions": 7130,
-                  "users": 2430
+                  "questions": 7188,
+                  "users": 2431
                 },
                 {
                   "label": "收益表现",
-                  "questions": 5501,
-                  "users": 1721
+                  "questions": 5541,
+                  "users": 1723
                 },
                 {
                   "label": "行业板块",
-                  "questions": 5383,
-                  "users": 2301
+                  "questions": 5436,
+                  "users": 2303
                 },
                 {
                   "label": "A 股市场",
-                  "questions": 4977,
-                  "users": 2163
+                  "questions": 5038,
+                  "users": 2167
                 },
                 {
                   "label": "定投计划",
-                  "questions": 3039,
-                  "users": 962
+                  "questions": 3055,
+                  "users": 964
                 },
                 {
                   "label": "黄金市场",
-                  "questions": 2822,
-                  "users": 996
+                  "questions": 2845,
+                  "users": 1003
                 },
                 {
                   "label": "赎回操作",
-                  "questions": 2245,
-                  "users": 724
+                  "questions": 2276,
+                  "users": 727
                 },
                 {
                   "label": "最大回撤",
-                  "questions": 1899,
-                  "users": 494
+                  "questions": 1910,
+                  "users": 495
                 },
                 {
                   "label": "美股市场",
-                  "questions": 1882,
-                  "users": 739
+                  "questions": 1908,
+                  "users": 740
                 },
                 {
                   "label": "指数基金",
-                  "questions": 1270,
-                  "users": 613
+                  "questions": 1288,
+                  "users": 614
                 },
                 {
                   "label": "港股市场",
-                  "questions": 1209,
-                  "users": 543
+                  "questions": 1220,
+                  "users": 544
                 },
                 {
                   "label": "红利基金",
-                  "questions": 1127,
+                  "questions": 1128,
                   "users": 513
                 },
                 {
                   "label": "债券基金",
-                  "questions": 1085,
-                  "users": 358
+                  "questions": 1090,
+                  "users": 359
                 },
                 {
                   "label": "基金推荐",
-                  "questions": 819,
-                  "users": 477
+                  "questions": 823,
+                  "users": 478
                 },
                 {
                   "label": "半导体基金",
-                  "questions": 782,
-                  "users": 347
+                  "questions": 784,
+                  "users": 348
                 },
                 {
                   "label": "科技基金",
-                  "questions": 692,
-                  "users": 366
+                  "questions": 705,
+                  "users": 368
                 },
                 {
                   "label": "长期持有",
-                  "questions": 689,
-                  "users": 404
+                  "questions": 690,
+                  "users": 405
                 },
                 {
                   "label": "止盈策略",
-                  "questions": 596,
-                  "users": 225
+                  "questions": 607,
+                  "users": 226
                 },
                 {
                   "label": "QDII 基金",
-                  "questions": 561,
-                  "users": 273
+                  "questions": 565,
+                  "users": 274
                 },
                 {
                   "label": "养老规划",
-                  "questions": 502,
-                  "users": 239
+                  "questions": 504,
+                  "users": 240
                 },
                 {
                   "label": "货币基金",
-                  "questions": 481,
-                  "users": 132
+                  "questions": 484,
+                  "users": 133
                 },
                 {
                   "label": "基金经理",
@@ -58584,13 +59122,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "label": "AI 基金",
-                  "questions": 345,
-                  "users": 165
+                  "questions": 346,
+                  "users": 166
                 },
                 {
                   "label": "资产配置",
-                  "questions": 267,
-                  "users": 140
+                  "questions": 274,
+                  "users": 143
                 }
               ],
               "products": [
@@ -58605,8 +59143,15 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "创业板ETF（159915）",
                   "query": "159915",
                   "kind": "基金代码",
-                  "questions": 229,
+                  "questions": 241,
                   "users": 41
+                },
+                {
+                  "label": "通信ETF（515880）",
+                  "query": "515880",
+                  "kind": "基金代码",
+                  "questions": 207,
+                  "users": 69
                 },
                 {
                   "label": "沪深300ETF（510300）",
@@ -58616,17 +59161,10 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "users": 70
                 },
                 {
-                  "label": "通信ETF（515880）",
-                  "query": "515880",
-                  "kind": "基金代码",
-                  "questions": 205,
-                  "users": 69
-                },
-                {
                   "label": "红利低波ETF（512890）",
                   "query": "512890",
                   "kind": "基金代码",
-                  "questions": 185,
+                  "questions": 186,
                   "users": 72
                 },
                 {
@@ -58640,8 +59178,15 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "半导体ETF（512480）",
                   "query": "512480",
                   "kind": "基金代码",
-                  "questions": 167,
+                  "questions": 170,
                   "users": 21
+                },
+                {
+                  "label": "华夏上证科创板半导体材料设备主题ETF（588170）",
+                  "query": "588170",
+                  "kind": "基金代码",
+                  "questions": 146,
+                  "users": 66
                 },
                 {
                   "label": "中证500ETF（510500）",
@@ -58649,13 +59194,6 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "kind": "基金代码",
                   "questions": 145,
                   "users": 25
-                },
-                {
-                  "label": "华夏上证科创板半导体材料设备主题ETF（588170）",
-                  "query": "588170",
-                  "kind": "基金代码",
-                  "questions": 144,
-                  "users": 65
                 },
                 {
                   "label": "纳指ETF（513100）",
@@ -58668,21 +59206,21 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "标普500ETF（513500）",
                   "query": "513500",
                   "kind": "基金代码",
-                  "questions": 119,
+                  "questions": 123,
                   "users": 23
                 },
                 {
                   "label": "南方标普红利低波50ETF联接A（008163）",
                   "query": "008163",
                   "kind": "基金代码",
-                  "questions": 112,
+                  "questions": 115,
                   "users": 46
                 },
                 {
                   "label": "易方达供给改革混合（002910）",
                   "query": "002910",
                   "kind": "基金代码",
-                  "questions": 112,
+                  "questions": 113,
                   "users": 24
                 },
                 {
@@ -58710,7 +59248,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "芯片ETF（159995）",
                   "query": "159995",
                   "kind": "基金代码",
-                  "questions": 100,
+                  "questions": 101,
                   "users": 28
                 },
                 {
@@ -58735,6 +59273,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "users": 31
                 },
                 {
+                  "label": "证券ETF（512880）",
+                  "query": "512880",
+                  "kind": "基金代码",
+                  "questions": 83,
+                  "users": 17
+                },
+                {
                   "label": "豆粕ETF（159985）",
                   "query": "159985",
                   "kind": "基金代码",
@@ -58742,17 +59287,10 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "users": 4
                 },
                 {
-                  "label": "证券ETF（512880）",
-                  "query": "512880",
-                  "kind": "基金代码",
-                  "questions": 81,
-                  "users": 17
-                },
-                {
                   "label": "创新药ETF（515120）",
                   "query": "515120",
                   "kind": "基金代码",
-                  "questions": 79,
+                  "questions": 81,
                   "users": 7
                 },
                 {
@@ -66580,13 +67118,181 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-11-04",
                 "end": "2026-11-04",
-                "questions": 9,
-                "users": 3,
-                "sessions": 3,
+                "questions": 528,
+                "users": 82,
+                "sessions": 83,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 4,
+                    "questions": 47,
+                    "users": 25
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 66,
+                    "users": 31
+                  },
+                  {
+                    "id": "stock_research",
+                    "questions": 31,
+                    "users": 16
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 16,
+                    "users": 11
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 91,
+                    "users": 42
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 65,
+                    "users": 23
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 11,
+                    "users": 8
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 7,
+                    "users": 4
+                  },
+                  {
+                    "id": "task_status",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "personal_context",
+                    "questions": 30,
+                    "users": 15
+                  },
+                  {
+                    "id": "context_followup",
+                    "questions": 23,
+                    "users": 13
+                  },
+                  {
+                    "id": "non_investment",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "other_investment",
+                    "questions": 35,
+                    "users": 12
+                  },
+                  {
+                    "id": "unclear_expression",
+                    "questions": 101,
+                    "users": 31
+                  }
+                ]
+              },
+              {
+                "start": "2026-11-05",
+                "end": "2026-11-05",
+                "questions": 500,
+                "users": 90,
+                "sessions": 90,
+                "directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 40,
+                    "users": 18
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 96,
+                    "users": 40
+                  },
+                  {
+                    "id": "stock_research",
+                    "questions": 42,
+                    "users": 16
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 15,
+                    "users": 10
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 9,
+                    "users": 6
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 77,
+                    "users": 38
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 58,
+                    "users": 26
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 5,
+                    "users": 4
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 2,
+                    "users": 1
+                  },
+                  {
+                    "id": "task_status",
+                    "questions": 3,
+                    "users": 1
+                  },
+                  {
+                    "id": "personal_context",
+                    "questions": 20,
+                    "users": 10
+                  },
+                  {
+                    "id": "context_followup",
+                    "questions": 39,
+                    "users": 20
+                  },
+                  {
+                    "id": "non_investment",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "other_investment",
+                    "questions": 17,
+                    "users": 15
+                  },
+                  {
+                    "id": "unclear_expression",
+                    "questions": 77,
+                    "users": 34
+                  }
+                ]
+              },
+              {
+                "start": "2026-11-06",
+                "end": "2026-11-06",
+                "questions": 19,
+                "users": 6,
+                "sessions": 6,
+                "directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 1,
                     "users": 1
                   },
                   {
@@ -66596,7 +67302,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "stock_research",
-                    "questions": 3,
+                    "questions": 2,
                     "users": 1
                   },
                   {
@@ -66611,18 +67317,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
+                    "questions": 3,
+                    "users": 2
+                  },
+                  {
+                    "id": "transaction_execution",
                     "questions": 1,
                     "users": 1
                   },
                   {
-                    "id": "transaction_execution",
-                    "questions": 0,
-                    "users": 0
-                  },
-                  {
                     "id": "investment_learning",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "qieman_service",
@@ -66641,23 +67347,23 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "context_followup",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 3,
+                    "users": 2
                   },
                   {
                     "id": "non_investment",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 5,
+                    "users": 3
                   }
                 ]
               }
@@ -67757,85 +68463,85 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "start": "2026-11-02",
-                "end": "2026-11-04",
-                "questions": 1020,
-                "users": 121,
-                "sessions": 121,
+                "end": "2026-11-06",
+                "questions": 2058,
+                "users": 181,
+                "sessions": 183,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 76,
-                    "users": 36
+                    "questions": 160,
+                    "users": 59
                   },
                   {
                     "id": "product_research",
-                    "questions": 142,
-                    "users": 56
+                    "questions": 304,
+                    "users": 88
                   },
                   {
                     "id": "stock_research",
-                    "questions": 54,
-                    "users": 32
+                    "questions": 126,
+                    "users": 47
                   },
                   {
                     "id": "product_selection",
-                    "questions": 33,
-                    "users": 18
+                    "questions": 64,
+                    "users": 30
                   },
                   {
                     "id": "asset_allocation",
-                    "questions": 15,
-                    "users": 11
+                    "questions": 26,
+                    "users": 16
                   },
                   {
                     "id": "market_insight",
-                    "questions": 157,
-                    "users": 58
+                    "questions": 327,
+                    "users": 92
                   },
                   {
                     "id": "transaction_execution",
-                    "questions": 108,
-                    "users": 36
+                    "questions": 232,
+                    "users": 60
                   },
                   {
                     "id": "investment_learning",
-                    "questions": 26,
-                    "users": 15
+                    "questions": 43,
+                    "users": 23
                   },
                   {
                     "id": "qieman_service",
-                    "questions": 8,
-                    "users": 7
+                    "questions": 17,
+                    "users": 11
                   },
                   {
                     "id": "task_status",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 4,
+                    "users": 2
                   },
                   {
                     "id": "personal_context",
-                    "questions": 57,
-                    "users": 27
+                    "questions": 107,
+                    "users": 41
                   },
                   {
                     "id": "context_followup",
-                    "questions": 65,
-                    "users": 32
+                    "questions": 130,
+                    "users": 48
                   },
                   {
                     "id": "non_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 4,
+                    "users": 4
                   },
                   {
                     "id": "other_investment",
-                    "questions": 71,
-                    "users": 28
+                    "questions": 124,
+                    "users": 41
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 207,
-                    "users": 51
+                    "questions": 390,
+                    "users": 82
                   }
                 ]
               }
@@ -67845,20 +68551,20 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "self:no_followup",
             "source": "self",
             "engagement": "no_followup",
-            "questions": 6210,
-            "users": 6072,
-            "sessions": 6096,
+            "questions": 6217,
+            "users": 6079,
+            "sessions": 6103,
             "dimensions": {
               "direction": [
                 {
                   "id": "holding_diagnosis",
-                  "questions": 398,
-                  "users": 396
+                  "questions": 399,
+                  "users": 397
                 },
                 {
                   "id": "product_research",
-                  "questions": 1214,
-                  "users": 1209
+                  "questions": 1215,
+                  "users": 1210
                 },
                 {
                   "id": "stock_research",
@@ -67872,13 +68578,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "asset_allocation",
-                  "questions": 172,
-                  "users": 172
+                  "questions": 173,
+                  "users": 173
                 },
                 {
                   "id": "market_insight",
-                  "questions": 1565,
-                  "users": 1565
+                  "questions": 1568,
+                  "users": 1568
                 },
                 {
                   "id": "transaction_execution",
@@ -67922,20 +68628,20 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "unclear_expression",
-                  "questions": 424,
-                  "users": 424
+                  "questions": 425,
+                  "users": 425
                 }
               ],
               "object": [
                 {
                   "id": "own_account",
-                  "questions": 398,
-                  "users": 396
+                  "questions": 399,
+                  "users": 397
                 },
                 {
                   "id": "specific_product",
-                  "questions": 836,
-                  "users": 830
+                  "questions": 837,
+                  "users": 831
                 },
                 {
                   "id": "fund_category",
@@ -67949,18 +68655,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "asset_class",
-                  "questions": 601,
-                  "users": 601
+                  "questions": 603,
+                  "users": 603
                 },
                 {
                   "id": "goal_plan",
-                  "questions": 102,
-                  "users": 102
+                  "questions": 103,
+                  "users": 103
                 },
                 {
                   "id": "market_environment",
-                  "questions": 547,
-                  "users": 547
+                  "questions": 549,
+                  "users": 549
                 },
                 {
                   "id": "platform_service",
@@ -67976,18 +68682,18 @@ window.QIANWEN_ACQUISITION_DATA = {
               "style": [
                 {
                   "id": "direct_request",
-                  "questions": 833,
-                  "users": 832
+                  "questions": 834,
+                  "users": 833
                 },
                 {
                   "id": "diagnose_evaluate",
-                  "questions": 652,
-                  "users": 649
+                  "questions": 655,
+                  "users": 652
                 },
                 {
                   "id": "compare_choose",
-                  "questions": 479,
-                  "users": 470
+                  "questions": 480,
+                  "users": 471
                 },
                 {
                   "id": "why_explain",
@@ -68001,8 +68707,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "forecast_risk",
-                  "questions": 734,
-                  "users": 734
+                  "questions": 735,
+                  "users": 735
                 },
                 {
                   "id": "fact_lookup",
@@ -68011,8 +68717,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "conversation_fragment",
-                  "questions": 2335,
-                  "users": 2281
+                  "questions": 2336,
+                  "users": 2282
                 }
               ],
               "cognition": [
@@ -68023,8 +68729,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "developing_signal",
-                  "questions": 696,
-                  "users": 693
+                  "questions": 697,
+                  "users": 694
                 },
                 {
                   "id": "advanced_signal",
@@ -68033,8 +68739,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "indeterminate",
-                  "questions": 5182,
-                  "users": 5065
+                  "questions": 5188,
+                  "users": 5071
                 }
               ]
             },
@@ -68042,28 +68748,28 @@ window.QIANWEN_ACQUISITION_DATA = {
               "keywords": [
                 {
                   "label": "ETF",
-                  "questions": 471,
-                  "users": 468
+                  "questions": 472,
+                  "users": 469
                 },
                 {
                   "label": "行业板块",
-                  "questions": 412,
-                  "users": 412
+                  "questions": 413,
+                  "users": 413
                 },
                 {
                   "label": "A 股市场",
-                  "questions": 400,
-                  "users": 400
+                  "questions": 401,
+                  "users": 401
                 },
                 {
                   "label": "收益表现",
-                  "questions": 259,
-                  "users": 256
+                  "questions": 260,
+                  "users": 257
                 },
                 {
                   "label": "黄金市场",
-                  "questions": 188,
-                  "users": 188
+                  "questions": 189,
+                  "users": 189
                 },
                 {
                   "label": "定投计划",
@@ -68122,13 +68828,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "label": "最大回撤",
-                  "questions": 45,
-                  "users": 44
+                  "questions": 46,
+                  "users": 45
                 },
                 {
                   "label": "QDII 基金",
-                  "questions": 43,
-                  "users": 43
+                  "questions": 44,
+                  "users": 44
                 },
                 {
                   "label": "养老规划",
@@ -68156,9 +68862,9 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "users": 18
                 },
                 {
-                  "label": "债券市场",
-                  "questions": 17,
-                  "users": 17
+                  "label": "AI 基金",
+                  "questions": 18,
+                  "users": 18
                 }
               ],
               "products": [
@@ -73796,9 +74502,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-08",
                 "end": "2026-10-08",
-                "questions": 436,
-                "users": 431,
-                "sessions": 433,
+                "questions": 435,
+                "users": 430,
+                "sessions": 432,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -73827,8 +74533,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 132,
-                    "users": 132
+                    "questions": 131,
+                    "users": 131
                   },
                   {
                     "id": "transaction_execution",
@@ -75560,9 +76266,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-29",
                 "end": "2026-10-29",
-                "questions": 5,
-                "users": 5,
-                "sessions": 5,
+                "questions": 4,
+                "users": 4,
+                "sessions": 4,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -75591,8 +76297,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 3,
-                    "users": 3
+                    "questions": 2,
+                    "users": 2
                   },
                   {
                     "id": "transaction_execution",
@@ -75974,6 +76680,174 @@ window.QIANWEN_ACQUISITION_DATA = {
                     "id": "unclear_expression",
                     "questions": 0,
                     "users": 0
+                  }
+                ]
+              },
+              {
+                "start": "2026-11-04",
+                "end": "2026-11-04",
+                "questions": 3,
+                "users": 3,
+                "sessions": 3,
+                "directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "stock_research",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "task_status",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "personal_context",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "context_followup",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "non_investment",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "other_investment",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "unclear_expression",
+                    "questions": 0,
+                    "users": 0
+                  }
+                ]
+              },
+              {
+                "start": "2026-11-05",
+                "end": "2026-11-05",
+                "questions": 6,
+                "users": 6,
+                "sessions": 6,
+                "directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "stock_research",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 4,
+                    "users": 4
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "task_status",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "personal_context",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "context_followup",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "non_investment",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "other_investment",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "unclear_expression",
+                    "questions": 1,
+                    "users": 1
                   }
                 ]
               }
@@ -76738,9 +77612,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-05",
                 "end": "2026-10-11",
-                "questions": 2143,
-                "users": 2111,
-                "sessions": 2113,
+                "questions": 2142,
+                "users": 2110,
+                "sessions": 2112,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -76769,8 +77643,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 677,
-                    "users": 677
+                    "questions": 676,
+                    "users": 676
                   },
                   {
                     "id": "transaction_execution",
@@ -76990,9 +77864,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-26",
                 "end": "2026-11-01",
-                "questions": 45,
-                "users": 43,
-                "sessions": 44,
+                "questions": 44,
+                "users": 42,
+                "sessions": 43,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -77021,8 +77895,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 8,
-                    "users": 8
+                    "questions": 7,
+                    "users": 7
                   },
                   {
                     "id": "transaction_execution",
@@ -77073,20 +77947,20 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "start": "2026-11-02",
-                "end": "2026-11-03",
-                "questions": 7,
-                "users": 5,
-                "sessions": 5,
+                "end": "2026-11-05",
+                "questions": 16,
+                "users": 14,
+                "sessions": 14,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 2,
-                    "users": 2
+                    "questions": 3,
+                    "users": 3
                   },
                   {
                     "id": "product_research",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "stock_research",
@@ -77100,13 +77974,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "asset_allocation",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "market_insight",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 6,
+                    "users": 6
                   },
                   {
                     "id": "transaction_execution",
@@ -77150,8 +78024,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 2,
+                    "users": 2
                   }
                 ]
               }
@@ -77161,196 +78035,196 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "self:followup",
             "source": "self",
             "engagement": "followup",
-            "questions": 107207,
-            "users": 10810,
-            "sessions": 13113,
+            "questions": 108238,
+            "users": 10821,
+            "sessions": 13127,
             "dimensions": {
               "direction": [
                 {
                   "id": "holding_diagnosis",
-                  "questions": 7548,
-                  "users": 2183
+                  "questions": 7631,
+                  "users": 2190
                 },
                 {
                   "id": "product_research",
-                  "questions": 18870,
-                  "users": 4868
+                  "questions": 19031,
+                  "users": 4874
                 },
                 {
                   "id": "stock_research",
-                  "questions": 7956,
-                  "users": 3072
+                  "questions": 8028,
+                  "users": 3075
                 },
                 {
                   "id": "product_selection",
-                  "questions": 4124,
-                  "users": 1768
+                  "questions": 4155,
+                  "users": 1772
                 },
                 {
                   "id": "asset_allocation",
-                  "questions": 1880,
-                  "users": 863
+                  "questions": 1890,
+                  "users": 865
                 },
                 {
                   "id": "market_insight",
-                  "questions": 18308,
-                  "users": 5091
+                  "questions": 18475,
+                  "users": 5096
                 },
                 {
                   "id": "transaction_execution",
-                  "questions": 9970,
-                  "users": 2801
+                  "questions": 10094,
+                  "users": 2803
                 },
                 {
                   "id": "investment_learning",
-                  "questions": 2947,
-                  "users": 1261
+                  "questions": 2964,
+                  "users": 1264
                 },
                 {
                   "id": "qieman_service",
-                  "questions": 1632,
-                  "users": 449
+                  "questions": 1641,
+                  "users": 450
                 },
                 {
                   "id": "task_status",
-                  "questions": 1418,
-                  "users": 125
+                  "questions": 1422,
+                  "users": 127
                 },
                 {
                   "id": "personal_context",
-                  "questions": 3700,
-                  "users": 1458
+                  "questions": 3750,
+                  "users": 1459
                 },
                 {
                   "id": "context_followup",
-                  "questions": 7646,
-                  "users": 2266
+                  "questions": 7711,
+                  "users": 2268
                 },
                 {
                   "id": "non_investment",
-                  "questions": 527,
-                  "users": 291
+                  "questions": 530,
+                  "users": 293
                 },
                 {
                   "id": "other_investment",
-                  "questions": 5117,
+                  "questions": 5170,
                   "users": 1923
                 },
                 {
                   "id": "unclear_expression",
-                  "questions": 15564,
-                  "users": 3984
+                  "questions": 15746,
+                  "users": 3989
                 }
               ],
               "object": [
                 {
                   "id": "own_account",
-                  "questions": 7549,
-                  "users": 2183
+                  "questions": 7632,
+                  "users": 2190
                 },
                 {
                   "id": "specific_product",
-                  "questions": 12561,
-                  "users": 3478
+                  "questions": 12686,
+                  "users": 3483
                 },
                 {
                   "id": "fund_category",
-                  "questions": 4441,
-                  "users": 1503
+                  "questions": 4468,
+                  "users": 1505
                 },
                 {
                   "id": "strategy_portfolio",
-                  "questions": 1617,
-                  "users": 537
+                  "questions": 1627,
+                  "users": 542
                 },
                 {
                   "id": "asset_class",
-                  "questions": 6847,
-                  "users": 2423
+                  "questions": 6906,
+                  "users": 2425
                 },
                 {
                   "id": "goal_plan",
-                  "questions": 1229,
-                  "users": 545
+                  "questions": 1235,
+                  "users": 547
                 },
                 {
                   "id": "market_environment",
-                  "questions": 8003,
-                  "users": 2679
+                  "questions": 8096,
+                  "users": 2682
                 },
                 {
                   "id": "platform_service",
-                  "questions": 1590,
-                  "users": 540
+                  "questions": 1604,
+                  "users": 544
                 },
                 {
                   "id": "unspecified",
-                  "questions": 63370,
-                  "users": 8959
+                  "questions": 63984,
+                  "users": 8966
                 }
               ],
               "style": [
                 {
                   "id": "direct_request",
-                  "questions": 8820,
-                  "users": 3402
+                  "questions": 8881,
+                  "users": 3407
                 },
                 {
                   "id": "diagnose_evaluate",
-                  "questions": 8801,
-                  "users": 3353
+                  "questions": 8895,
+                  "users": 3357
                 },
                 {
                   "id": "compare_choose",
-                  "questions": 10203,
-                  "users": 2767
+                  "questions": 10324,
+                  "users": 2770
                 },
                 {
                   "id": "why_explain",
-                  "questions": 4740,
-                  "users": 1961
+                  "questions": 4782,
+                  "users": 1964
                 },
                 {
                   "id": "how_to",
-                  "questions": 1861,
-                  "users": 982
+                  "questions": 1883,
+                  "users": 983
                 },
                 {
                   "id": "forecast_risk",
-                  "questions": 7750,
-                  "users": 3049
+                  "questions": 7817,
+                  "users": 3054
                 },
                 {
                   "id": "fact_lookup",
-                  "questions": 6661,
-                  "users": 2561
+                  "questions": 6699,
+                  "users": 2565
                 },
                 {
                   "id": "conversation_fragment",
-                  "questions": 58371,
-                  "users": 8341
+                  "questions": 58957,
+                  "users": 8348
                 }
               ],
               "cognition": [
                 {
                   "id": "beginner_signal",
-                  "questions": 2198,
-                  "users": 1224
+                  "questions": 2211,
+                  "users": 1226
                 },
                 {
                   "id": "developing_signal",
-                  "questions": 12426,
-                  "users": 3355
+                  "questions": 12522,
+                  "users": 3358
                 },
                 {
                   "id": "advanced_signal",
-                  "questions": 2705,
-                  "users": 607
+                  "questions": 2724,
+                  "users": 608
                 },
                 {
                   "id": "indeterminate",
-                  "questions": 89878,
-                  "users": 10372
+                  "questions": 90781,
+                  "users": 10382
                 }
               ]
             },
@@ -77358,108 +78232,108 @@ window.QIANWEN_ACQUISITION_DATA = {
               "keywords": [
                 {
                   "label": "ETF",
-                  "questions": 6659,
+                  "questions": 6716,
                   "users": 1962
                 },
                 {
                   "label": "收益表现",
-                  "questions": 5242,
-                  "users": 1465
+                  "questions": 5281,
+                  "users": 1466
                 },
                 {
                   "label": "行业板块",
-                  "questions": 4971,
-                  "users": 1889
+                  "questions": 5023,
+                  "users": 1890
                 },
                 {
                   "label": "A 股市场",
-                  "questions": 4577,
-                  "users": 1763
+                  "questions": 4637,
+                  "users": 1766
                 },
                 {
                   "label": "定投计划",
-                  "questions": 2913,
-                  "users": 836
+                  "questions": 2929,
+                  "users": 838
                 },
                 {
                   "label": "黄金市场",
-                  "questions": 2634,
-                  "users": 808
+                  "questions": 2656,
+                  "users": 814
                 },
                 {
                   "label": "赎回操作",
-                  "questions": 2161,
-                  "users": 640
+                  "questions": 2192,
+                  "users": 643
                 },
                 {
                   "label": "最大回撤",
-                  "questions": 1854,
+                  "questions": 1864,
                   "users": 450
                 },
                 {
                   "label": "美股市场",
-                  "questions": 1779,
-                  "users": 636
+                  "questions": 1805,
+                  "users": 637
                 },
                 {
                   "label": "指数基金",
-                  "questions": 1189,
-                  "users": 532
+                  "questions": 1207,
+                  "users": 533
                 },
                 {
                   "label": "港股市场",
-                  "questions": 1125,
-                  "users": 459
+                  "questions": 1136,
+                  "users": 460
                 },
                 {
                   "label": "红利基金",
-                  "questions": 1059,
+                  "questions": 1060,
                   "users": 445
                 },
                 {
                   "label": "债券基金",
-                  "questions": 1033,
-                  "users": 307
+                  "questions": 1038,
+                  "users": 308
                 },
                 {
                   "label": "基金推荐",
-                  "questions": 756,
-                  "users": 415
+                  "questions": 760,
+                  "users": 416
                 },
                 {
                   "label": "半导体基金",
-                  "questions": 730,
-                  "users": 296
-                },
-                {
-                  "label": "长期持有",
-                  "questions": 643,
-                  "users": 358
+                  "questions": 732,
+                  "users": 297
                 },
                 {
                   "label": "科技基金",
-                  "questions": 638,
-                  "users": 312
+                  "questions": 651,
+                  "users": 314
+                },
+                {
+                  "label": "长期持有",
+                  "questions": 644,
+                  "users": 359
                 },
                 {
                   "label": "止盈策略",
-                  "questions": 578,
-                  "users": 207
+                  "questions": 589,
+                  "users": 208
                 },
                 {
                   "label": "QDII 基金",
-                  "questions": 518,
+                  "questions": 521,
                   "users": 230
                 },
                 {
-                  "label": "养老规划",
-                  "questions": 462,
-                  "users": 199
+                  "label": "货币基金",
+                  "questions": 465,
+                  "users": 114
                 },
                 {
-                  "label": "货币基金",
-                  "questions": 462,
-                  "users": 113
+                  "label": "养老规划",
+                  "questions": 464,
+                  "users": 200
                 },
                 {
                   "label": "基金经理",
@@ -77473,8 +78347,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "label": "资产配置",
-                  "questions": 246,
-                  "users": 119
+                  "questions": 253,
+                  "users": 122
                 }
               ],
               "products": [
@@ -77489,8 +78363,15 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "创业板ETF（159915）",
                   "query": "159915",
                   "kind": "基金代码",
-                  "questions": 223,
+                  "questions": 235,
                   "users": 35
+                },
+                {
+                  "label": "通信ETF（515880）",
+                  "query": "515880",
+                  "kind": "基金代码",
+                  "questions": 198,
+                  "users": 60
                 },
                 {
                   "label": "沪深300ETF（510300）",
@@ -77500,17 +78381,10 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "users": 61
                 },
                 {
-                  "label": "通信ETF（515880）",
-                  "query": "515880",
-                  "kind": "基金代码",
-                  "questions": 196,
-                  "users": 60
-                },
-                {
                   "label": "红利低波ETF（512890）",
                   "query": "512890",
                   "kind": "基金代码",
-                  "questions": 177,
+                  "questions": 178,
                   "users": 64
                 },
                 {
@@ -77524,7 +78398,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "半导体ETF（512480）",
                   "query": "512480",
                   "kind": "基金代码",
-                  "questions": 166,
+                  "questions": 169,
                   "users": 20
                 },
                 {
@@ -77535,6 +78409,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "users": 23
                 },
                 {
+                  "label": "华夏上证科创板半导体材料设备主题ETF（588170）",
+                  "query": "588170",
+                  "kind": "基金代码",
+                  "questions": 131,
+                  "users": 51
+                },
+                {
                   "label": "纳指ETF（513100）",
                   "query": "513100",
                   "kind": "基金代码",
@@ -77542,24 +78423,24 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "users": 22
                 },
                 {
-                  "label": "华夏上证科创板半导体材料设备主题ETF（588170）",
-                  "query": "588170",
-                  "kind": "基金代码",
-                  "questions": 129,
-                  "users": 50
-                },
-                {
                   "label": "标普500ETF（513500）",
                   "query": "513500",
                   "kind": "基金代码",
-                  "questions": 117,
+                  "questions": 121,
                   "users": 21
+                },
+                {
+                  "label": "南方标普红利低波50ETF联接A（008163）",
+                  "query": "008163",
+                  "kind": "基金代码",
+                  "questions": 111,
+                  "users": 42
                 },
                 {
                   "label": "易方达供给改革混合（002910）",
                   "query": "002910",
                   "kind": "基金代码",
-                  "questions": 110,
+                  "questions": 111,
                   "users": 22
                 },
                 {
@@ -77568,13 +78449,6 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "kind": "基金代码",
                   "questions": 109,
                   "users": 11
-                },
-                {
-                  "label": "南方标普红利低波50ETF联接A（008163）",
-                  "query": "008163",
-                  "kind": "基金代码",
-                  "questions": 108,
-                  "users": 42
                 },
                 {
                   "label": "华夏中证电网设备主题ETF（159326）",
@@ -77594,7 +78468,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "芯片ETF（159995）",
                   "query": "159995",
                   "kind": "基金代码",
-                  "questions": 98,
+                  "questions": 99,
                   "users": 26
                 },
                 {
@@ -77629,22 +78503,22 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "创新药ETF（515120）",
                   "query": "515120",
                   "kind": "基金代码",
-                  "questions": 79,
+                  "questions": 81,
                   "users": 7
                 },
                 {
                   "label": "证券ETF（512880）",
                   "query": "512880",
                   "kind": "基金代码",
-                  "questions": 77,
+                  "questions": 79,
                   "users": 13
                 },
                 {
-                  "label": "科创芯片ETF（588200）",
-                  "query": "588200",
+                  "label": "易方达增强债券A（110017）",
+                  "query": "110017",
                   "kind": "基金代码",
-                  "questions": 75,
-                  "users": 28
+                  "questions": 76,
+                  "users": 10
                 }
               ]
             },
@@ -83196,9 +84070,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-08",
                 "end": "2026-10-08",
-                "questions": 4932,
-                "users": 1118,
-                "sessions": 1129,
+                "questions": 4933,
+                "users": 1119,
+                "sessions": 1130,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -83227,8 +84101,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 1090,
-                    "users": 549
+                    "questions": 1091,
+                    "users": 550
                   },
                   {
                     "id": "transaction_execution",
@@ -84960,9 +85834,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-29",
                 "end": "2026-10-29",
-                "questions": 709,
-                "users": 96,
-                "sessions": 96,
+                "questions": 710,
+                "users": 97,
+                "sessions": 97,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -84991,8 +85865,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 117,
-                    "users": 46
+                    "questions": 118,
+                    "users": 47
                   },
                   {
                     "id": "transaction_execution",
@@ -85464,13 +86338,181 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-11-04",
                 "end": "2026-11-04",
-                "questions": 9,
-                "users": 3,
-                "sessions": 3,
+                "questions": 525,
+                "users": 79,
+                "sessions": 80,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 4,
+                    "questions": 46,
+                    "users": 24
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 65,
+                    "users": 30
+                  },
+                  {
+                    "id": "stock_research",
+                    "questions": 31,
+                    "users": 16
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 16,
+                    "users": 11
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 90,
+                    "users": 41
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 65,
+                    "users": 23
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 11,
+                    "users": 8
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 7,
+                    "users": 4
+                  },
+                  {
+                    "id": "task_status",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "personal_context",
+                    "questions": 30,
+                    "users": 15
+                  },
+                  {
+                    "id": "context_followup",
+                    "questions": 23,
+                    "users": 13
+                  },
+                  {
+                    "id": "non_investment",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "other_investment",
+                    "questions": 35,
+                    "users": 12
+                  },
+                  {
+                    "id": "unclear_expression",
+                    "questions": 101,
+                    "users": 31
+                  }
+                ]
+              },
+              {
+                "start": "2026-11-05",
+                "end": "2026-11-05",
+                "questions": 494,
+                "users": 84,
+                "sessions": 84,
+                "directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 40,
+                    "users": 18
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 96,
+                    "users": 40
+                  },
+                  {
+                    "id": "stock_research",
+                    "questions": 42,
+                    "users": 16
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 15,
+                    "users": 10
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 8,
+                    "users": 5
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 73,
+                    "users": 34
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 58,
+                    "users": 26
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 5,
+                    "users": 4
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 2,
+                    "users": 1
+                  },
+                  {
+                    "id": "task_status",
+                    "questions": 3,
+                    "users": 1
+                  },
+                  {
+                    "id": "personal_context",
+                    "questions": 20,
+                    "users": 10
+                  },
+                  {
+                    "id": "context_followup",
+                    "questions": 39,
+                    "users": 20
+                  },
+                  {
+                    "id": "non_investment",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "other_investment",
+                    "questions": 17,
+                    "users": 15
+                  },
+                  {
+                    "id": "unclear_expression",
+                    "questions": 76,
+                    "users": 33
+                  }
+                ]
+              },
+              {
+                "start": "2026-11-06",
+                "end": "2026-11-06",
+                "questions": 19,
+                "users": 6,
+                "sessions": 6,
+                "directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 1,
                     "users": 1
                   },
                   {
@@ -85480,7 +86522,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "stock_research",
-                    "questions": 3,
+                    "questions": 2,
                     "users": 1
                   },
                   {
@@ -85495,18 +86537,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
+                    "questions": 3,
+                    "users": 2
+                  },
+                  {
+                    "id": "transaction_execution",
                     "questions": 1,
                     "users": 1
                   },
                   {
-                    "id": "transaction_execution",
-                    "questions": 0,
-                    "users": 0
-                  },
-                  {
                     "id": "investment_learning",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "qieman_service",
@@ -85525,23 +86567,23 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "context_followup",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 3,
+                    "users": 2
                   },
                   {
                     "id": "non_investment",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 5,
+                    "users": 3
                   }
                 ]
               }
@@ -86306,9 +87348,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-05",
                 "end": "2026-10-11",
-                "questions": 26085,
-                "users": 4477,
-                "sessions": 4552,
+                "questions": 26086,
+                "users": 4478,
+                "sessions": 4553,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -86337,8 +87379,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 5395,
-                    "users": 2255
+                    "questions": 5396,
+                    "users": 2256
                   },
                   {
                     "id": "transaction_execution",
@@ -86558,9 +87600,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-26",
                 "end": "2026-11-01",
-                "questions": 5723,
-                "users": 291,
-                "sessions": 1351,
+                "questions": 5724,
+                "users": 292,
+                "sessions": 1352,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -86589,8 +87631,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 772,
-                    "users": 135
+                    "questions": 773,
+                    "users": 136
                   },
                   {
                     "id": "transaction_execution",
@@ -86641,85 +87683,85 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "start": "2026-11-02",
-                "end": "2026-11-04",
-                "questions": 1013,
-                "users": 116,
-                "sessions": 116,
+                "end": "2026-11-06",
+                "questions": 2042,
+                "users": 167,
+                "sessions": 169,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 74,
-                    "users": 34
-                  },
-                  {
-                    "id": "product_research",
-                    "questions": 142,
+                    "questions": 157,
                     "users": 56
                   },
                   {
+                    "id": "product_research",
+                    "questions": 303,
+                    "users": 87
+                  },
+                  {
                     "id": "stock_research",
-                    "questions": 54,
-                    "users": 32
+                    "questions": 126,
+                    "users": 47
                   },
                   {
                     "id": "product_selection",
-                    "questions": 33,
-                    "users": 18
-                  },
-                  {
-                    "id": "asset_allocation",
-                    "questions": 15,
-                    "users": 11
-                  },
-                  {
-                    "id": "market_insight",
-                    "questions": 156,
-                    "users": 57
-                  },
-                  {
-                    "id": "transaction_execution",
-                    "questions": 108,
-                    "users": 36
-                  },
-                  {
-                    "id": "investment_learning",
-                    "questions": 26,
-                    "users": 15
-                  },
-                  {
-                    "id": "qieman_service",
-                    "questions": 8,
-                    "users": 7
-                  },
-                  {
-                    "id": "task_status",
-                    "questions": 0,
-                    "users": 0
-                  },
-                  {
-                    "id": "personal_context",
-                    "questions": 57,
-                    "users": 27
-                  },
-                  {
-                    "id": "context_followup",
-                    "questions": 63,
+                    "questions": 64,
                     "users": 30
                   },
                   {
+                    "id": "asset_allocation",
+                    "questions": 25,
+                    "users": 15
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 321,
+                    "users": 86
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 232,
+                    "users": 60
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 43,
+                    "users": 23
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 17,
+                    "users": 11
+                  },
+                  {
+                    "id": "task_status",
+                    "questions": 4,
+                    "users": 2
+                  },
+                  {
+                    "id": "personal_context",
+                    "questions": 107,
+                    "users": 41
+                  },
+                  {
+                    "id": "context_followup",
+                    "questions": 128,
+                    "users": 46
+                  },
+                  {
                     "id": "non_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 4,
+                    "users": 4
                   },
                   {
                     "id": "other_investment",
-                    "questions": 70,
-                    "users": 27
+                    "questions": 123,
+                    "users": 40
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 206,
-                    "users": 50
+                    "questions": 388,
+                    "users": 80
                   }
                 ]
               }
@@ -86729,196 +87771,196 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "substantive:all",
             "source": "substantive",
             "engagement": "all",
-            "questions": 110633,
-            "users": 16858,
-            "sessions": 19183,
+            "questions": 111653,
+            "users": 16876,
+            "sessions": 19204,
             "dimensions": {
               "direction": [
                 {
                   "id": "holding_diagnosis",
-                  "questions": 7946,
-                  "users": 2579
+                  "questions": 8030,
+                  "users": 2587
                 },
                 {
                   "id": "product_research",
-                  "questions": 20084,
-                  "users": 6077
+                  "questions": 20246,
+                  "users": 6084
                 },
                 {
                   "id": "stock_research",
-                  "questions": 8688,
-                  "users": 3804
+                  "questions": 8760,
+                  "users": 3807
                 },
                 {
                   "id": "product_selection",
-                  "questions": 4475,
-                  "users": 2115
+                  "questions": 4506,
+                  "users": 2119
                 },
                 {
                   "id": "asset_allocation",
-                  "questions": 2052,
-                  "users": 1035
+                  "questions": 2063,
+                  "users": 1038
                 },
                 {
                   "id": "market_insight",
-                  "questions": 19873,
-                  "users": 6656
+                  "questions": 20043,
+                  "users": 6664
                 },
                 {
                   "id": "transaction_execution",
-                  "questions": 10471,
-                  "users": 3301
+                  "questions": 10595,
+                  "users": 3303
                 },
                 {
                   "id": "investment_learning",
-                  "questions": 3180,
-                  "users": 1493
+                  "questions": 3197,
+                  "users": 1496
                 },
                 {
                   "id": "qieman_service",
-                  "questions": 1674,
-                  "users": 491
+                  "questions": 1683,
+                  "users": 492
                 },
                 {
                   "id": "task_status",
-                  "questions": 1428,
-                  "users": 135
+                  "questions": 1432,
+                  "users": 137
                 },
                 {
                   "id": "personal_context",
-                  "questions": 3817,
-                  "users": 1575
+                  "questions": 3867,
+                  "users": 1576
                 },
                 {
                   "id": "context_followup",
-                  "questions": 5022,
-                  "users": 1615
+                  "questions": 5069,
+                  "users": 1618
                 },
                 {
                   "id": "non_investment",
-                  "questions": 567,
-                  "users": 331
+                  "questions": 570,
+                  "users": 333
                 },
                 {
                   "id": "other_investment",
-                  "questions": 5368,
+                  "questions": 5421,
                   "users": 2174
                 },
                 {
                   "id": "unclear_expression",
-                  "questions": 15988,
-                  "users": 4408
+                  "questions": 16171,
+                  "users": 4414
                 }
               ],
               "object": [
                 {
                   "id": "own_account",
-                  "questions": 7946,
-                  "users": 2579
+                  "questions": 8030,
+                  "users": 2587
                 },
                 {
                   "id": "specific_product",
-                  "questions": 13397,
-                  "users": 4308
+                  "questions": 13523,
+                  "users": 4314
                 },
                 {
                   "id": "fund_category",
-                  "questions": 4734,
-                  "users": 1798
+                  "questions": 4761,
+                  "users": 1800
                 },
                 {
                   "id": "strategy_portfolio",
-                  "questions": 1687,
-                  "users": 607
+                  "questions": 1697,
+                  "users": 612
                 },
                 {
                   "id": "asset_class",
-                  "questions": 7435,
-                  "users": 3019
+                  "questions": 7495,
+                  "users": 3023
                 },
                 {
                   "id": "goal_plan",
-                  "questions": 1331,
-                  "users": 647
+                  "questions": 1338,
+                  "users": 650
                 },
                 {
                   "id": "market_environment",
-                  "questions": 8546,
-                  "users": 3225
+                  "questions": 8641,
+                  "users": 3230
                 },
                 {
                   "id": "platform_service",
-                  "questions": 1637,
-                  "users": 591
+                  "questions": 1651,
+                  "users": 595
                 },
                 {
                   "id": "unspecified",
-                  "questions": 63920,
-                  "users": 12035
+                  "questions": 64517,
+                  "users": 12042
                 }
               ],
               "style": [
                 {
                   "id": "direct_request",
-                  "questions": 9653,
-                  "users": 4234
+                  "questions": 9715,
+                  "users": 4240
                 },
                 {
                   "id": "diagnose_evaluate",
-                  "questions": 9453,
-                  "users": 4002
+                  "questions": 9550,
+                  "users": 4009
                 },
                 {
                   "id": "compare_choose",
-                  "questions": 10682,
-                  "users": 3237
+                  "questions": 10804,
+                  "users": 3241
                 },
                 {
                   "id": "why_explain",
-                  "questions": 5177,
-                  "users": 2398
+                  "questions": 5219,
+                  "users": 2401
                 },
                 {
                   "id": "how_to",
-                  "questions": 2009,
-                  "users": 1130
+                  "questions": 2031,
+                  "users": 1131
                 },
                 {
                   "id": "forecast_risk",
-                  "questions": 8484,
-                  "users": 3783
+                  "questions": 8552,
+                  "users": 3789
                 },
                 {
                   "id": "fact_lookup",
-                  "questions": 7253,
-                  "users": 3153
+                  "questions": 7291,
+                  "users": 3157
                 },
                 {
                   "id": "conversation_fragment",
-                  "questions": 57922,
-                  "users": 10440
+                  "questions": 58491,
+                  "users": 10448
                 }
               ],
               "cognition": [
                 {
                   "id": "beginner_signal",
-                  "questions": 2442,
-                  "users": 1467
+                  "questions": 2455,
+                  "users": 1469
                 },
                 {
                   "id": "developing_signal",
-                  "questions": 13119,
-                  "users": 4048
+                  "questions": 13216,
+                  "users": 4052
                 },
                 {
                   "id": "advanced_signal",
-                  "questions": 2792,
-                  "users": 694
+                  "questions": 2811,
+                  "users": 695
                 },
                 {
                   "id": "indeterminate",
-                  "questions": 92280,
-                  "users": 15387
+                  "questions": 93171,
+                  "users": 15403
                 }
               ]
             },
@@ -86926,108 +87968,108 @@ window.QIANWEN_ACQUISITION_DATA = {
               "keywords": [
                 {
                   "label": "ETF",
-                  "questions": 7130,
-                  "users": 2430
+                  "questions": 7188,
+                  "users": 2431
                 },
                 {
                   "label": "收益表现",
-                  "questions": 5500,
-                  "users": 1721
+                  "questions": 5540,
+                  "users": 1723
                 },
                 {
                   "label": "行业板块",
-                  "questions": 5383,
-                  "users": 2301
+                  "questions": 5436,
+                  "users": 2303
                 },
                 {
                   "label": "A 股市场",
-                  "questions": 4972,
-                  "users": 2159
+                  "questions": 5033,
+                  "users": 2163
                 },
                 {
                   "label": "定投计划",
-                  "questions": 3038,
-                  "users": 961
+                  "questions": 3054,
+                  "users": 963
                 },
                 {
                   "label": "黄金市场",
-                  "questions": 2816,
-                  "users": 995
+                  "questions": 2838,
+                  "users": 1002
                 },
                 {
                   "label": "赎回操作",
-                  "questions": 2245,
-                  "users": 724
+                  "questions": 2276,
+                  "users": 727
                 },
                 {
                   "label": "最大回撤",
-                  "questions": 1898,
-                  "users": 494
+                  "questions": 1909,
+                  "users": 495
                 },
                 {
                   "label": "美股市场",
-                  "questions": 1881,
-                  "users": 739
+                  "questions": 1907,
+                  "users": 740
                 },
                 {
                   "label": "指数基金",
-                  "questions": 1266,
-                  "users": 612
+                  "questions": 1284,
+                  "users": 613
                 },
                 {
                   "label": "港股市场",
-                  "questions": 1209,
-                  "users": 543
+                  "questions": 1220,
+                  "users": 544
                 },
                 {
                   "label": "红利基金",
-                  "questions": 1127,
+                  "questions": 1128,
                   "users": 513
                 },
                 {
                   "label": "债券基金",
-                  "questions": 1085,
-                  "users": 358
+                  "questions": 1090,
+                  "users": 359
                 },
                 {
                   "label": "基金推荐",
-                  "questions": 819,
-                  "users": 477
+                  "questions": 823,
+                  "users": 478
                 },
                 {
                   "label": "半导体基金",
-                  "questions": 782,
-                  "users": 347
+                  "questions": 784,
+                  "users": 348
                 },
                 {
                   "label": "科技基金",
-                  "questions": 692,
-                  "users": 366
+                  "questions": 705,
+                  "users": 368
                 },
                 {
                   "label": "长期持有",
-                  "questions": 689,
-                  "users": 404
+                  "questions": 690,
+                  "users": 405
                 },
                 {
                   "label": "止盈策略",
-                  "questions": 596,
-                  "users": 225
+                  "questions": 607,
+                  "users": 226
                 },
                 {
                   "label": "QDII 基金",
-                  "questions": 561,
-                  "users": 273
+                  "questions": 565,
+                  "users": 274
                 },
                 {
                   "label": "养老规划",
-                  "questions": 502,
-                  "users": 239
+                  "questions": 504,
+                  "users": 240
                 },
                 {
                   "label": "货币基金",
-                  "questions": 481,
-                  "users": 132
+                  "questions": 484,
+                  "users": 133
                 },
                 {
                   "label": "基金经理",
@@ -87036,13 +88078,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "label": "AI 基金",
-                  "questions": 345,
-                  "users": 165
+                  "questions": 346,
+                  "users": 166
                 },
                 {
                   "label": "资产配置",
-                  "questions": 267,
-                  "users": 140
+                  "questions": 274,
+                  "users": 143
                 }
               ],
               "products": [
@@ -87057,8 +88099,15 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "创业板ETF（159915）",
                   "query": "159915",
                   "kind": "基金代码",
-                  "questions": 229,
+                  "questions": 241,
                   "users": 41
+                },
+                {
+                  "label": "通信ETF（515880）",
+                  "query": "515880",
+                  "kind": "基金代码",
+                  "questions": 207,
+                  "users": 69
                 },
                 {
                   "label": "沪深300ETF（510300）",
@@ -87068,17 +88117,10 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "users": 70
                 },
                 {
-                  "label": "通信ETF（515880）",
-                  "query": "515880",
-                  "kind": "基金代码",
-                  "questions": 205,
-                  "users": 69
-                },
-                {
                   "label": "红利低波ETF（512890）",
                   "query": "512890",
                   "kind": "基金代码",
-                  "questions": 185,
+                  "questions": 186,
                   "users": 72
                 },
                 {
@@ -87092,8 +88134,15 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "半导体ETF（512480）",
                   "query": "512480",
                   "kind": "基金代码",
-                  "questions": 167,
+                  "questions": 170,
                   "users": 21
+                },
+                {
+                  "label": "华夏上证科创板半导体材料设备主题ETF（588170）",
+                  "query": "588170",
+                  "kind": "基金代码",
+                  "questions": 146,
+                  "users": 66
                 },
                 {
                   "label": "中证500ETF（510500）",
@@ -87101,13 +88150,6 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "kind": "基金代码",
                   "questions": 145,
                   "users": 25
-                },
-                {
-                  "label": "华夏上证科创板半导体材料设备主题ETF（588170）",
-                  "query": "588170",
-                  "kind": "基金代码",
-                  "questions": 144,
-                  "users": 65
                 },
                 {
                   "label": "纳指ETF（513100）",
@@ -87120,21 +88162,21 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "标普500ETF（513500）",
                   "query": "513500",
                   "kind": "基金代码",
-                  "questions": 119,
+                  "questions": 123,
                   "users": 23
                 },
                 {
                   "label": "南方标普红利低波50ETF联接A（008163）",
                   "query": "008163",
                   "kind": "基金代码",
-                  "questions": 112,
+                  "questions": 115,
                   "users": 46
                 },
                 {
                   "label": "易方达供给改革混合（002910）",
                   "query": "002910",
                   "kind": "基金代码",
-                  "questions": 112,
+                  "questions": 113,
                   "users": 24
                 },
                 {
@@ -87162,7 +88204,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "芯片ETF（159995）",
                   "query": "159995",
                   "kind": "基金代码",
-                  "questions": 100,
+                  "questions": 101,
                   "users": 28
                 },
                 {
@@ -87187,6 +88229,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "users": 31
                 },
                 {
+                  "label": "证券ETF（512880）",
+                  "query": "512880",
+                  "kind": "基金代码",
+                  "questions": 83,
+                  "users": 17
+                },
+                {
                   "label": "豆粕ETF（159985）",
                   "query": "159985",
                   "kind": "基金代码",
@@ -87194,17 +88243,10 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "users": 4
                 },
                 {
-                  "label": "证券ETF（512880）",
-                  "query": "512880",
-                  "kind": "基金代码",
-                  "questions": 81,
-                  "users": 17
-                },
-                {
                   "label": "创新药ETF（515120）",
                   "query": "515120",
                   "kind": "基金代码",
-                  "questions": 79,
+                  "questions": 81,
                   "users": 7
                 },
                 {
@@ -95032,13 +96074,181 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-11-04",
                 "end": "2026-11-04",
-                "questions": 9,
-                "users": 3,
-                "sessions": 3,
+                "questions": 524,
+                "users": 82,
+                "sessions": 83,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 4,
+                    "questions": 47,
+                    "users": 25
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 66,
+                    "users": 31
+                  },
+                  {
+                    "id": "stock_research",
+                    "questions": 31,
+                    "users": 16
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 16,
+                    "users": 11
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 91,
+                    "users": 42
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 65,
+                    "users": 23
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 11,
+                    "users": 8
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 7,
+                    "users": 4
+                  },
+                  {
+                    "id": "task_status",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "personal_context",
+                    "questions": 30,
+                    "users": 15
+                  },
+                  {
+                    "id": "context_followup",
+                    "questions": 19,
+                    "users": 10
+                  },
+                  {
+                    "id": "non_investment",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "other_investment",
+                    "questions": 35,
+                    "users": 12
+                  },
+                  {
+                    "id": "unclear_expression",
+                    "questions": 101,
+                    "users": 31
+                  }
+                ]
+              },
+              {
+                "start": "2026-11-05",
+                "end": "2026-11-05",
+                "questions": 489,
+                "users": 90,
+                "sessions": 90,
+                "directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 40,
+                    "users": 18
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 96,
+                    "users": 40
+                  },
+                  {
+                    "id": "stock_research",
+                    "questions": 42,
+                    "users": 16
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 15,
+                    "users": 10
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 9,
+                    "users": 6
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 77,
+                    "users": 38
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 58,
+                    "users": 26
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 5,
+                    "users": 4
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 2,
+                    "users": 1
+                  },
+                  {
+                    "id": "task_status",
+                    "questions": 3,
+                    "users": 1
+                  },
+                  {
+                    "id": "personal_context",
+                    "questions": 20,
+                    "users": 10
+                  },
+                  {
+                    "id": "context_followup",
+                    "questions": 28,
+                    "users": 15
+                  },
+                  {
+                    "id": "non_investment",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "other_investment",
+                    "questions": 17,
+                    "users": 15
+                  },
+                  {
+                    "id": "unclear_expression",
+                    "questions": 77,
+                    "users": 34
+                  }
+                ]
+              },
+              {
+                "start": "2026-11-06",
+                "end": "2026-11-06",
+                "questions": 16,
+                "users": 6,
+                "sessions": 6,
+                "directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 1,
                     "users": 1
                   },
                   {
@@ -95048,7 +96258,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "stock_research",
-                    "questions": 3,
+                    "questions": 2,
                     "users": 1
                   },
                   {
@@ -95063,18 +96273,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
+                    "questions": 3,
+                    "users": 2
+                  },
+                  {
+                    "id": "transaction_execution",
                     "questions": 1,
                     "users": 1
                   },
                   {
-                    "id": "transaction_execution",
-                    "questions": 0,
-                    "users": 0
-                  },
-                  {
                     "id": "investment_learning",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "qieman_service",
@@ -95098,18 +96308,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 5,
+                    "users": 3
                   }
                 ]
               }
@@ -96209,85 +97419,85 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "start": "2026-11-02",
-                "end": "2026-11-04",
-                "questions": 1002,
-                "users": 121,
-                "sessions": 121,
+                "end": "2026-11-06",
+                "questions": 2022,
+                "users": 181,
+                "sessions": 183,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 76,
-                    "users": 36
+                    "questions": 160,
+                    "users": 59
                   },
                   {
                     "id": "product_research",
-                    "questions": 142,
-                    "users": 56
+                    "questions": 304,
+                    "users": 88
                   },
                   {
                     "id": "stock_research",
-                    "questions": 54,
-                    "users": 32
+                    "questions": 126,
+                    "users": 47
                   },
                   {
                     "id": "product_selection",
-                    "questions": 33,
-                    "users": 18
+                    "questions": 64,
+                    "users": 30
                   },
                   {
                     "id": "asset_allocation",
-                    "questions": 15,
-                    "users": 11
+                    "questions": 26,
+                    "users": 16
                   },
                   {
                     "id": "market_insight",
-                    "questions": 157,
-                    "users": 58
+                    "questions": 327,
+                    "users": 92
                   },
                   {
                     "id": "transaction_execution",
-                    "questions": 108,
-                    "users": 36
+                    "questions": 232,
+                    "users": 60
                   },
                   {
                     "id": "investment_learning",
-                    "questions": 26,
-                    "users": 15
+                    "questions": 43,
+                    "users": 23
                   },
                   {
                     "id": "qieman_service",
-                    "questions": 8,
-                    "users": 7
+                    "questions": 17,
+                    "users": 11
                   },
                   {
                     "id": "task_status",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 4,
+                    "users": 2
                   },
                   {
                     "id": "personal_context",
-                    "questions": 57,
-                    "users": 27
+                    "questions": 107,
+                    "users": 41
                   },
                   {
                     "id": "context_followup",
-                    "questions": 47,
-                    "users": 25
+                    "questions": 94,
+                    "users": 37
                   },
                   {
                     "id": "non_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 4,
+                    "users": 4
                   },
                   {
                     "id": "other_investment",
-                    "questions": 71,
-                    "users": 28
+                    "questions": 124,
+                    "users": 41
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 207,
-                    "users": 51
+                    "questions": 390,
+                    "users": 82
                   }
                 ]
               }
@@ -96297,20 +97507,20 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "substantive:no_followup",
             "source": "substantive",
             "engagement": "no_followup",
-            "questions": 6072,
-            "users": 6048,
-            "sessions": 6072,
+            "questions": 6079,
+            "users": 6055,
+            "sessions": 6079,
             "dimensions": {
               "direction": [
                 {
                   "id": "holding_diagnosis",
-                  "questions": 398,
-                  "users": 396
+                  "questions": 399,
+                  "users": 397
                 },
                 {
                   "id": "product_research",
-                  "questions": 1214,
-                  "users": 1209
+                  "questions": 1215,
+                  "users": 1210
                 },
                 {
                   "id": "stock_research",
@@ -96324,13 +97534,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "asset_allocation",
-                  "questions": 172,
-                  "users": 172
+                  "questions": 173,
+                  "users": 173
                 },
                 {
                   "id": "market_insight",
-                  "questions": 1565,
-                  "users": 1565
+                  "questions": 1568,
+                  "users": 1568
                 },
                 {
                   "id": "transaction_execution",
@@ -96374,20 +97584,20 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "unclear_expression",
-                  "questions": 424,
-                  "users": 424
+                  "questions": 425,
+                  "users": 425
                 }
               ],
               "object": [
                 {
                   "id": "own_account",
-                  "questions": 398,
-                  "users": 396
+                  "questions": 399,
+                  "users": 397
                 },
                 {
                   "id": "specific_product",
-                  "questions": 836,
-                  "users": 830
+                  "questions": 837,
+                  "users": 831
                 },
                 {
                   "id": "fund_category",
@@ -96401,18 +97611,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "asset_class",
-                  "questions": 600,
-                  "users": 600
+                  "questions": 602,
+                  "users": 602
                 },
                 {
                   "id": "goal_plan",
-                  "questions": 102,
-                  "users": 102
+                  "questions": 103,
+                  "users": 103
                 },
                 {
                   "id": "market_environment",
-                  "questions": 546,
-                  "users": 546
+                  "questions": 548,
+                  "users": 548
                 },
                 {
                   "id": "platform_service",
@@ -96428,18 +97638,18 @@ window.QIANWEN_ACQUISITION_DATA = {
               "style": [
                 {
                   "id": "direct_request",
-                  "questions": 833,
-                  "users": 832
+                  "questions": 834,
+                  "users": 833
                 },
                 {
                   "id": "diagnose_evaluate",
-                  "questions": 652,
-                  "users": 649
+                  "questions": 655,
+                  "users": 652
                 },
                 {
                   "id": "compare_choose",
-                  "questions": 479,
-                  "users": 470
+                  "questions": 480,
+                  "users": 471
                 },
                 {
                   "id": "why_explain",
@@ -96453,8 +97663,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "forecast_risk",
-                  "questions": 734,
-                  "users": 734
+                  "questions": 735,
+                  "users": 735
                 },
                 {
                   "id": "fact_lookup",
@@ -96463,8 +97673,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "conversation_fragment",
-                  "questions": 2197,
-                  "users": 2195
+                  "questions": 2198,
+                  "users": 2196
                 }
               ],
               "cognition": [
@@ -96475,8 +97685,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "developing_signal",
-                  "questions": 696,
-                  "users": 693
+                  "questions": 697,
+                  "users": 694
                 },
                 {
                   "id": "advanced_signal",
@@ -96485,8 +97695,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "indeterminate",
-                  "questions": 5044,
-                  "users": 5027
+                  "questions": 5050,
+                  "users": 5033
                 }
               ]
             },
@@ -96494,28 +97704,28 @@ window.QIANWEN_ACQUISITION_DATA = {
               "keywords": [
                 {
                   "label": "ETF",
-                  "questions": 471,
-                  "users": 468
+                  "questions": 472,
+                  "users": 469
                 },
                 {
                   "label": "行业板块",
-                  "questions": 412,
-                  "users": 412
+                  "questions": 413,
+                  "users": 413
                 },
                 {
                   "label": "A 股市场",
-                  "questions": 398,
-                  "users": 398
+                  "questions": 399,
+                  "users": 399
                 },
                 {
                   "label": "收益表现",
-                  "questions": 259,
-                  "users": 256
+                  "questions": 260,
+                  "users": 257
                 },
                 {
                   "label": "黄金市场",
-                  "questions": 188,
-                  "users": 188
+                  "questions": 189,
+                  "users": 189
                 },
                 {
                   "label": "定投计划",
@@ -96574,13 +97784,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "label": "最大回撤",
-                  "questions": 45,
-                  "users": 44
+                  "questions": 46,
+                  "users": 45
                 },
                 {
                   "label": "QDII 基金",
-                  "questions": 43,
-                  "users": 43
+                  "questions": 44,
+                  "users": 44
                 },
                 {
                   "label": "养老规划",
@@ -96608,9 +97818,9 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "users": 18
                 },
                 {
-                  "label": "债券市场",
-                  "questions": 17,
-                  "users": 17
+                  "label": "AI 基金",
+                  "questions": 18,
+                  "users": 18
                 }
               ],
               "products": [
@@ -102248,9 +103458,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-08",
                 "end": "2026-10-08",
-                "questions": 431,
-                "users": 429,
-                "sessions": 431,
+                "questions": 430,
+                "users": 428,
+                "sessions": 430,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -102279,8 +103489,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 132,
-                    "users": 132
+                    "questions": 131,
+                    "users": 131
                   },
                   {
                     "id": "transaction_execution",
@@ -104012,9 +105222,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-29",
                 "end": "2026-10-29",
-                "questions": 5,
-                "users": 5,
-                "sessions": 5,
+                "questions": 4,
+                "users": 4,
+                "sessions": 4,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -104043,8 +105253,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 3,
-                    "users": 3
+                    "questions": 2,
+                    "users": 2
                   },
                   {
                     "id": "transaction_execution",
@@ -104426,6 +105636,174 @@ window.QIANWEN_ACQUISITION_DATA = {
                     "id": "unclear_expression",
                     "questions": 0,
                     "users": 0
+                  }
+                ]
+              },
+              {
+                "start": "2026-11-04",
+                "end": "2026-11-04",
+                "questions": 3,
+                "users": 3,
+                "sessions": 3,
+                "directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "stock_research",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "task_status",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "personal_context",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "context_followup",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "non_investment",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "other_investment",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "unclear_expression",
+                    "questions": 0,
+                    "users": 0
+                  }
+                ]
+              },
+              {
+                "start": "2026-11-05",
+                "end": "2026-11-05",
+                "questions": 6,
+                "users": 6,
+                "sessions": 6,
+                "directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "stock_research",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 4,
+                    "users": 4
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "task_status",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "personal_context",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "context_followup",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "non_investment",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "other_investment",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "unclear_expression",
+                    "questions": 1,
+                    "users": 1
                   }
                 ]
               }
@@ -105190,9 +106568,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-05",
                 "end": "2026-10-11",
-                "questions": 2107,
-                "users": 2105,
-                "sessions": 2107,
+                "questions": 2106,
+                "users": 2104,
+                "sessions": 2106,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -105221,8 +106599,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 677,
-                    "users": 677
+                    "questions": 676,
+                    "users": 676
                   },
                   {
                     "id": "transaction_execution",
@@ -105442,9 +106820,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-26",
                 "end": "2026-11-01",
-                "questions": 44,
-                "users": 43,
-                "sessions": 44,
+                "questions": 43,
+                "users": 42,
+                "sessions": 43,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -105473,8 +106851,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 8,
-                    "users": 8
+                    "questions": 7,
+                    "users": 7
                   },
                   {
                     "id": "transaction_execution",
@@ -105525,20 +106903,20 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "start": "2026-11-02",
-                "end": "2026-11-03",
-                "questions": 5,
-                "users": 5,
-                "sessions": 5,
+                "end": "2026-11-05",
+                "questions": 14,
+                "users": 14,
+                "sessions": 14,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 2,
-                    "users": 2
+                    "questions": 3,
+                    "users": 3
                   },
                   {
                     "id": "product_research",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "stock_research",
@@ -105552,13 +106930,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "asset_allocation",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "market_insight",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 6,
+                    "users": 6
                   },
                   {
                     "id": "transaction_execution",
@@ -105602,8 +106980,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 2,
+                    "users": 2
                   }
                 ]
               }
@@ -105613,196 +106991,196 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "substantive:followup",
             "source": "substantive",
             "engagement": "followup",
-            "questions": 104561,
-            "users": 10810,
-            "sessions": 13111,
+            "questions": 105574,
+            "users": 10821,
+            "sessions": 13125,
             "dimensions": {
               "direction": [
                 {
                   "id": "holding_diagnosis",
-                  "questions": 7548,
-                  "users": 2183
+                  "questions": 7631,
+                  "users": 2190
                 },
                 {
                   "id": "product_research",
-                  "questions": 18870,
-                  "users": 4868
+                  "questions": 19031,
+                  "users": 4874
                 },
                 {
                   "id": "stock_research",
-                  "questions": 7956,
-                  "users": 3072
+                  "questions": 8028,
+                  "users": 3075
                 },
                 {
                   "id": "product_selection",
-                  "questions": 4124,
-                  "users": 1768
+                  "questions": 4155,
+                  "users": 1772
                 },
                 {
                   "id": "asset_allocation",
-                  "questions": 1880,
-                  "users": 863
+                  "questions": 1890,
+                  "users": 865
                 },
                 {
                   "id": "market_insight",
-                  "questions": 18308,
-                  "users": 5091
+                  "questions": 18475,
+                  "users": 5096
                 },
                 {
                   "id": "transaction_execution",
-                  "questions": 9970,
-                  "users": 2801
+                  "questions": 10094,
+                  "users": 2803
                 },
                 {
                   "id": "investment_learning",
-                  "questions": 2947,
-                  "users": 1261
+                  "questions": 2964,
+                  "users": 1264
                 },
                 {
                   "id": "qieman_service",
-                  "questions": 1632,
-                  "users": 449
+                  "questions": 1641,
+                  "users": 450
                 },
                 {
                   "id": "task_status",
-                  "questions": 1418,
-                  "users": 125
+                  "questions": 1422,
+                  "users": 127
                 },
                 {
                   "id": "personal_context",
-                  "questions": 3700,
-                  "users": 1458
+                  "questions": 3750,
+                  "users": 1459
                 },
                 {
                   "id": "context_followup",
-                  "questions": 5000,
-                  "users": 1593
+                  "questions": 5047,
+                  "users": 1596
                 },
                 {
                   "id": "non_investment",
-                  "questions": 527,
-                  "users": 291
+                  "questions": 530,
+                  "users": 293
                 },
                 {
                   "id": "other_investment",
-                  "questions": 5117,
+                  "questions": 5170,
                   "users": 1923
                 },
                 {
                   "id": "unclear_expression",
-                  "questions": 15564,
-                  "users": 3984
+                  "questions": 15746,
+                  "users": 3989
                 }
               ],
               "object": [
                 {
                   "id": "own_account",
-                  "questions": 7548,
-                  "users": 2183
+                  "questions": 7631,
+                  "users": 2190
                 },
                 {
                   "id": "specific_product",
-                  "questions": 12561,
-                  "users": 3478
+                  "questions": 12686,
+                  "users": 3483
                 },
                 {
                   "id": "fund_category",
-                  "questions": 4437,
-                  "users": 1502
+                  "questions": 4464,
+                  "users": 1504
                 },
                 {
                   "id": "strategy_portfolio",
-                  "questions": 1617,
-                  "users": 537
+                  "questions": 1627,
+                  "users": 542
                 },
                 {
                   "id": "asset_class",
-                  "questions": 6835,
-                  "users": 2419
+                  "questions": 6893,
+                  "users": 2421
                 },
                 {
                   "id": "goal_plan",
-                  "questions": 1229,
-                  "users": 545
+                  "questions": 1235,
+                  "users": 547
                 },
                 {
                   "id": "market_environment",
-                  "questions": 8000,
-                  "users": 2679
+                  "questions": 8093,
+                  "users": 2682
                 },
                 {
                   "id": "platform_service",
-                  "questions": 1585,
-                  "users": 539
+                  "questions": 1599,
+                  "users": 543
                 },
                 {
                   "id": "unspecified",
-                  "questions": 60749,
-                  "users": 8873
+                  "questions": 61346,
+                  "users": 8880
                 }
               ],
               "style": [
                 {
                   "id": "direct_request",
-                  "questions": 8820,
-                  "users": 3402
+                  "questions": 8881,
+                  "users": 3407
                 },
                 {
                   "id": "diagnose_evaluate",
-                  "questions": 8801,
-                  "users": 3353
+                  "questions": 8895,
+                  "users": 3357
                 },
                 {
                   "id": "compare_choose",
-                  "questions": 10203,
-                  "users": 2767
+                  "questions": 10324,
+                  "users": 2770
                 },
                 {
                   "id": "why_explain",
-                  "questions": 4740,
-                  "users": 1961
+                  "questions": 4782,
+                  "users": 1964
                 },
                 {
                   "id": "how_to",
-                  "questions": 1861,
-                  "users": 982
+                  "questions": 1883,
+                  "users": 983
                 },
                 {
                   "id": "forecast_risk",
-                  "questions": 7750,
-                  "users": 3049
+                  "questions": 7817,
+                  "users": 3054
                 },
                 {
                   "id": "fact_lookup",
-                  "questions": 6661,
-                  "users": 2561
+                  "questions": 6699,
+                  "users": 2565
                 },
                 {
                   "id": "conversation_fragment",
-                  "questions": 55725,
-                  "users": 8245
+                  "questions": 56293,
+                  "users": 8252
                 }
               ],
               "cognition": [
                 {
                   "id": "beginner_signal",
-                  "questions": 2198,
-                  "users": 1224
+                  "questions": 2211,
+                  "users": 1226
                 },
                 {
                   "id": "developing_signal",
-                  "questions": 12423,
-                  "users": 3355
+                  "questions": 12519,
+                  "users": 3358
                 },
                 {
                   "id": "advanced_signal",
-                  "questions": 2704,
-                  "users": 606
+                  "questions": 2723,
+                  "users": 607
                 },
                 {
                   "id": "indeterminate",
-                  "questions": 87236,
-                  "users": 10360
+                  "questions": 88121,
+                  "users": 10370
                 }
               ]
             },
@@ -105810,108 +107188,108 @@ window.QIANWEN_ACQUISITION_DATA = {
               "keywords": [
                 {
                   "label": "ETF",
-                  "questions": 6659,
+                  "questions": 6716,
                   "users": 1962
                 },
                 {
                   "label": "收益表现",
-                  "questions": 5241,
-                  "users": 1465
+                  "questions": 5280,
+                  "users": 1466
                 },
                 {
                   "label": "行业板块",
-                  "questions": 4971,
-                  "users": 1889
+                  "questions": 5023,
+                  "users": 1890
                 },
                 {
                   "label": "A 股市场",
-                  "questions": 4574,
-                  "users": 1761
+                  "questions": 4634,
+                  "users": 1764
                 },
                 {
                   "label": "定投计划",
-                  "questions": 2912,
-                  "users": 835
+                  "questions": 2928,
+                  "users": 837
                 },
                 {
                   "label": "黄金市场",
-                  "questions": 2628,
-                  "users": 807
+                  "questions": 2649,
+                  "users": 813
                 },
                 {
                   "label": "赎回操作",
-                  "questions": 2161,
-                  "users": 640
+                  "questions": 2192,
+                  "users": 643
                 },
                 {
                   "label": "最大回撤",
-                  "questions": 1853,
+                  "questions": 1863,
                   "users": 450
                 },
                 {
                   "label": "美股市场",
-                  "questions": 1778,
-                  "users": 636
+                  "questions": 1804,
+                  "users": 637
                 },
                 {
                   "label": "指数基金",
-                  "questions": 1185,
-                  "users": 531
+                  "questions": 1203,
+                  "users": 532
                 },
                 {
                   "label": "港股市场",
-                  "questions": 1125,
-                  "users": 459
+                  "questions": 1136,
+                  "users": 460
                 },
                 {
                   "label": "红利基金",
-                  "questions": 1059,
+                  "questions": 1060,
                   "users": 445
                 },
                 {
                   "label": "债券基金",
-                  "questions": 1033,
-                  "users": 307
+                  "questions": 1038,
+                  "users": 308
                 },
                 {
                   "label": "基金推荐",
-                  "questions": 756,
-                  "users": 415
+                  "questions": 760,
+                  "users": 416
                 },
                 {
                   "label": "半导体基金",
-                  "questions": 730,
-                  "users": 296
-                },
-                {
-                  "label": "长期持有",
-                  "questions": 643,
-                  "users": 358
+                  "questions": 732,
+                  "users": 297
                 },
                 {
                   "label": "科技基金",
-                  "questions": 638,
-                  "users": 312
+                  "questions": 651,
+                  "users": 314
+                },
+                {
+                  "label": "长期持有",
+                  "questions": 644,
+                  "users": 359
                 },
                 {
                   "label": "止盈策略",
-                  "questions": 578,
-                  "users": 207
+                  "questions": 589,
+                  "users": 208
                 },
                 {
                   "label": "QDII 基金",
-                  "questions": 518,
+                  "questions": 521,
                   "users": 230
                 },
                 {
-                  "label": "养老规划",
-                  "questions": 462,
-                  "users": 199
+                  "label": "货币基金",
+                  "questions": 465,
+                  "users": 114
                 },
                 {
-                  "label": "货币基金",
-                  "questions": 462,
-                  "users": 113
+                  "label": "养老规划",
+                  "questions": 464,
+                  "users": 200
                 },
                 {
                   "label": "基金经理",
@@ -105925,8 +107303,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "label": "资产配置",
-                  "questions": 246,
-                  "users": 119
+                  "questions": 253,
+                  "users": 122
                 }
               ],
               "products": [
@@ -105941,8 +107319,15 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "创业板ETF（159915）",
                   "query": "159915",
                   "kind": "基金代码",
-                  "questions": 223,
+                  "questions": 235,
                   "users": 35
+                },
+                {
+                  "label": "通信ETF（515880）",
+                  "query": "515880",
+                  "kind": "基金代码",
+                  "questions": 198,
+                  "users": 60
                 },
                 {
                   "label": "沪深300ETF（510300）",
@@ -105952,17 +107337,10 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "users": 61
                 },
                 {
-                  "label": "通信ETF（515880）",
-                  "query": "515880",
-                  "kind": "基金代码",
-                  "questions": 196,
-                  "users": 60
-                },
-                {
                   "label": "红利低波ETF（512890）",
                   "query": "512890",
                   "kind": "基金代码",
-                  "questions": 177,
+                  "questions": 178,
                   "users": 64
                 },
                 {
@@ -105976,7 +107354,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "半导体ETF（512480）",
                   "query": "512480",
                   "kind": "基金代码",
-                  "questions": 166,
+                  "questions": 169,
                   "users": 20
                 },
                 {
@@ -105987,6 +107365,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "users": 23
                 },
                 {
+                  "label": "华夏上证科创板半导体材料设备主题ETF（588170）",
+                  "query": "588170",
+                  "kind": "基金代码",
+                  "questions": 131,
+                  "users": 51
+                },
+                {
                   "label": "纳指ETF（513100）",
                   "query": "513100",
                   "kind": "基金代码",
@@ -105994,24 +107379,24 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "users": 22
                 },
                 {
-                  "label": "华夏上证科创板半导体材料设备主题ETF（588170）",
-                  "query": "588170",
-                  "kind": "基金代码",
-                  "questions": 129,
-                  "users": 50
-                },
-                {
                   "label": "标普500ETF（513500）",
                   "query": "513500",
                   "kind": "基金代码",
-                  "questions": 117,
+                  "questions": 121,
                   "users": 21
+                },
+                {
+                  "label": "南方标普红利低波50ETF联接A（008163）",
+                  "query": "008163",
+                  "kind": "基金代码",
+                  "questions": 111,
+                  "users": 42
                 },
                 {
                   "label": "易方达供给改革混合（002910）",
                   "query": "002910",
                   "kind": "基金代码",
-                  "questions": 110,
+                  "questions": 111,
                   "users": 22
                 },
                 {
@@ -106020,13 +107405,6 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "kind": "基金代码",
                   "questions": 109,
                   "users": 11
-                },
-                {
-                  "label": "南方标普红利低波50ETF联接A（008163）",
-                  "query": "008163",
-                  "kind": "基金代码",
-                  "questions": 108,
-                  "users": 42
                 },
                 {
                   "label": "华夏中证电网设备主题ETF（159326）",
@@ -106046,7 +107424,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "芯片ETF（159995）",
                   "query": "159995",
                   "kind": "基金代码",
-                  "questions": 98,
+                  "questions": 99,
                   "users": 26
                 },
                 {
@@ -106081,22 +107459,22 @@ window.QIANWEN_ACQUISITION_DATA = {
                   "label": "创新药ETF（515120）",
                   "query": "515120",
                   "kind": "基金代码",
-                  "questions": 79,
+                  "questions": 81,
                   "users": 7
                 },
                 {
                   "label": "证券ETF（512880）",
                   "query": "512880",
                   "kind": "基金代码",
-                  "questions": 77,
+                  "questions": 79,
                   "users": 13
                 },
                 {
-                  "label": "科创芯片ETF（588200）",
-                  "query": "588200",
+                  "label": "易方达增强债券A（110017）",
+                  "query": "110017",
                   "kind": "基金代码",
-                  "questions": 75,
-                  "users": 28
+                  "questions": 76,
+                  "users": 10
                 }
               ]
             },
@@ -111648,9 +113026,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-08",
                 "end": "2026-10-08",
-                "questions": 4824,
-                "users": 1118,
-                "sessions": 1129,
+                "questions": 4825,
+                "users": 1119,
+                "sessions": 1130,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -111679,8 +113057,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 1090,
-                    "users": 549
+                    "questions": 1091,
+                    "users": 550
                   },
                   {
                     "id": "transaction_execution",
@@ -113412,9 +114790,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-29",
                 "end": "2026-10-29",
-                "questions": 698,
-                "users": 96,
-                "sessions": 96,
+                "questions": 699,
+                "users": 97,
+                "sessions": 97,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -113443,8 +114821,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 117,
-                    "users": 46
+                    "questions": 118,
+                    "users": 47
                   },
                   {
                     "id": "transaction_execution",
@@ -113916,13 +115294,181 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-11-04",
                 "end": "2026-11-04",
-                "questions": 9,
-                "users": 3,
-                "sessions": 3,
+                "questions": 521,
+                "users": 79,
+                "sessions": 80,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 4,
+                    "questions": 46,
+                    "users": 24
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 65,
+                    "users": 30
+                  },
+                  {
+                    "id": "stock_research",
+                    "questions": 31,
+                    "users": 16
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 16,
+                    "users": 11
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 90,
+                    "users": 41
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 65,
+                    "users": 23
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 11,
+                    "users": 8
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 7,
+                    "users": 4
+                  },
+                  {
+                    "id": "task_status",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "personal_context",
+                    "questions": 30,
+                    "users": 15
+                  },
+                  {
+                    "id": "context_followup",
+                    "questions": 19,
+                    "users": 10
+                  },
+                  {
+                    "id": "non_investment",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "other_investment",
+                    "questions": 35,
+                    "users": 12
+                  },
+                  {
+                    "id": "unclear_expression",
+                    "questions": 101,
+                    "users": 31
+                  }
+                ]
+              },
+              {
+                "start": "2026-11-05",
+                "end": "2026-11-05",
+                "questions": 483,
+                "users": 84,
+                "sessions": 84,
+                "directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 40,
+                    "users": 18
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 96,
+                    "users": 40
+                  },
+                  {
+                    "id": "stock_research",
+                    "questions": 42,
+                    "users": 16
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 15,
+                    "users": 10
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 8,
+                    "users": 5
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 73,
+                    "users": 34
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 58,
+                    "users": 26
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 5,
+                    "users": 4
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 2,
+                    "users": 1
+                  },
+                  {
+                    "id": "task_status",
+                    "questions": 3,
+                    "users": 1
+                  },
+                  {
+                    "id": "personal_context",
+                    "questions": 20,
+                    "users": 10
+                  },
+                  {
+                    "id": "context_followup",
+                    "questions": 28,
+                    "users": 15
+                  },
+                  {
+                    "id": "non_investment",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "other_investment",
+                    "questions": 17,
+                    "users": 15
+                  },
+                  {
+                    "id": "unclear_expression",
+                    "questions": 76,
+                    "users": 33
+                  }
+                ]
+              },
+              {
+                "start": "2026-11-06",
+                "end": "2026-11-06",
+                "questions": 16,
+                "users": 6,
+                "sessions": 6,
+                "directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 1,
                     "users": 1
                   },
                   {
@@ -113932,7 +115478,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "stock_research",
-                    "questions": 3,
+                    "questions": 2,
                     "users": 1
                   },
                   {
@@ -113947,18 +115493,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
+                    "questions": 3,
+                    "users": 2
+                  },
+                  {
+                    "id": "transaction_execution",
                     "questions": 1,
                     "users": 1
                   },
                   {
-                    "id": "transaction_execution",
-                    "questions": 0,
-                    "users": 0
-                  },
-                  {
                     "id": "investment_learning",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "qieman_service",
@@ -113982,18 +115528,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 5,
+                    "users": 3
                   }
                 ]
               }
@@ -114758,9 +116304,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-05",
                 "end": "2026-10-11",
-                "questions": 25447,
-                "users": 4477,
-                "sessions": 4552,
+                "questions": 25448,
+                "users": 4478,
+                "sessions": 4553,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -114789,8 +116335,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 5395,
-                    "users": 2255
+                    "questions": 5396,
+                    "users": 2256
                   },
                   {
                     "id": "transaction_execution",
@@ -115010,9 +116556,9 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "start": "2026-10-26",
                 "end": "2026-11-01",
-                "questions": 5643,
-                "users": 291,
-                "sessions": 1350,
+                "questions": 5644,
+                "users": 292,
+                "sessions": 1351,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
@@ -115041,8 +116587,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 772,
-                    "users": 135
+                    "questions": 773,
+                    "users": 136
                   },
                   {
                     "id": "transaction_execution",
@@ -115093,85 +116639,85 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "start": "2026-11-02",
-                "end": "2026-11-04",
-                "questions": 997,
-                "users": 116,
-                "sessions": 116,
+                "end": "2026-11-06",
+                "questions": 2008,
+                "users": 167,
+                "sessions": 169,
                 "directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 74,
-                    "users": 34
-                  },
-                  {
-                    "id": "product_research",
-                    "questions": 142,
+                    "questions": 157,
                     "users": 56
                   },
                   {
+                    "id": "product_research",
+                    "questions": 303,
+                    "users": 87
+                  },
+                  {
                     "id": "stock_research",
-                    "questions": 54,
-                    "users": 32
+                    "questions": 126,
+                    "users": 47
                   },
                   {
                     "id": "product_selection",
-                    "questions": 33,
-                    "users": 18
+                    "questions": 64,
+                    "users": 30
                   },
                   {
                     "id": "asset_allocation",
-                    "questions": 15,
-                    "users": 11
-                  },
-                  {
-                    "id": "market_insight",
-                    "questions": 156,
-                    "users": 57
-                  },
-                  {
-                    "id": "transaction_execution",
-                    "questions": 108,
-                    "users": 36
-                  },
-                  {
-                    "id": "investment_learning",
-                    "questions": 26,
+                    "questions": 25,
                     "users": 15
                   },
                   {
+                    "id": "market_insight",
+                    "questions": 321,
+                    "users": 86
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 232,
+                    "users": 60
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 43,
+                    "users": 23
+                  },
+                  {
                     "id": "qieman_service",
-                    "questions": 8,
-                    "users": 7
+                    "questions": 17,
+                    "users": 11
                   },
                   {
                     "id": "task_status",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 4,
+                    "users": 2
                   },
                   {
                     "id": "personal_context",
-                    "questions": 57,
-                    "users": 27
+                    "questions": 107,
+                    "users": 41
                   },
                   {
                     "id": "context_followup",
-                    "questions": 47,
-                    "users": 25
+                    "questions": 94,
+                    "users": 37
                   },
                   {
                     "id": "non_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 4,
+                    "users": 4
                   },
                   {
                     "id": "other_investment",
-                    "questions": 70,
-                    "users": 27
+                    "questions": 123,
+                    "users": 40
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 206,
-                    "users": 50
+                    "questions": 388,
+                    "users": 80
                   }
                 ]
               }
@@ -115180,20 +116726,20 @@ window.QIANWEN_ACQUISITION_DATA = {
         ]
       },
       "summary": {
-        "questions": 121605,
-        "asking_users": 17724,
-        "sessions": 20122,
+        "questions": 122643,
+        "asking_users": 17741,
+        "sessions": 20142,
         "preset_questions": 8188,
         "preset_users": 4395,
         "preset_first_users": 1367,
-        "self_authored_questions": 113417,
-        "self_authored_users": 16882,
-        "substantive_questions": 110633,
-        "substantive_users": 16858,
-        "short_followups": 2784,
-        "preset_only_users": 842,
-        "preset_follow_on_users": 2422,
-        "preset_follow_on_questions": 32555
+        "self_authored_questions": 114455,
+        "self_authored_users": 16900,
+        "substantive_questions": 111653,
+        "substantive_users": 16876,
+        "short_followups": 2802,
+        "preset_only_users": 841,
+        "preset_follow_on_users": 2424,
+        "preset_follow_on_questions": 33073
       },
       "presets": {
         "true_impressions_available": false,
@@ -115225,7 +116771,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "clicks": 3017,
             "users": 2133,
             "first_question_users": 645,
-            "follow_on_users": 1117
+            "follow_on_users": 1118
           },
           {
             "id": "asset_allocation",
@@ -115239,7 +116785,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "clicks": 1795,
             "users": 1384,
             "first_question_users": 200,
-            "follow_on_users": 746
+            "follow_on_users": 747
           },
           {
             "id": "transaction_execution",
@@ -115308,43 +116854,43 @@ window.QIANWEN_ACQUISITION_DATA = {
         "follow_on_directions": [
           {
             "id": "holding_diagnosis",
-            "questions": 2373,
-            "users": 577
+            "questions": 2417,
+            "users": 581
           },
           {
             "id": "product_research",
-            "questions": 6197,
+            "questions": 6279,
             "users": 1101
           },
           {
             "id": "stock_research",
-            "questions": 1965,
-            "users": 562
+            "questions": 1991,
+            "users": 563
           },
           {
             "id": "product_selection",
-            "questions": 1229,
-            "users": 475
+            "questions": 1245,
+            "users": 478
           },
           {
             "id": "asset_allocation",
-            "questions": 529,
+            "questions": 534,
             "users": 208
           },
           {
             "id": "market_insight",
-            "questions": 5223,
-            "users": 909
+            "questions": 5299,
+            "users": 911
           },
           {
             "id": "transaction_execution",
-            "questions": 3309,
-            "users": 646
+            "questions": 3361,
+            "users": 647
           },
           {
             "id": "investment_learning",
-            "questions": 871,
-            "users": 258
+            "questions": 877,
+            "users": 259
           },
           {
             "id": "qieman_service",
@@ -115353,33 +116899,33 @@ window.QIANWEN_ACQUISITION_DATA = {
           },
           {
             "id": "task_status",
-            "questions": 403,
-            "users": 32
+            "questions": 404,
+            "users": 33
           },
           {
             "id": "personal_context",
-            "questions": 1352,
-            "users": 352
+            "questions": 1375,
+            "users": 353
           },
           {
             "id": "context_followup",
-            "questions": 1787,
-            "users": 372
+            "questions": 1809,
+            "users": 376
           },
           {
             "id": "non_investment",
-            "questions": 119,
-            "users": 57
+            "questions": 121,
+            "users": 59
           },
           {
             "id": "other_investment",
-            "questions": 1739,
+            "questions": 1775,
             "users": 427
           },
           {
             "id": "unclear_expression",
-            "questions": 5205,
-            "users": 878
+            "questions": 5332,
+            "users": 879
           }
         ],
         "versions": [
@@ -115393,41 +116939,41 @@ window.QIANWEN_ACQUISITION_DATA = {
             "users": 1697,
             "first_question_users": 985,
             "follow_on_users": 819,
-            "follow_on_questions": 11934,
+            "follow_on_questions": 12011,
             "follow_on_directions": [
               {
                 "id": "holding_diagnosis",
-                "questions": 988,
-                "users": 247
+                "questions": 1000,
+                "users": 248
               },
               {
                 "id": "product_research",
-                "questions": 2598,
+                "questions": 2615,
                 "users": 391
               },
               {
                 "id": "stock_research",
-                "questions": 620,
+                "questions": 623,
                 "users": 153
               },
               {
                 "id": "product_selection",
-                "questions": 570,
+                "questions": 572,
                 "users": 208
               },
               {
                 "id": "asset_allocation",
-                "questions": 191,
+                "questions": 192,
                 "users": 52
               },
               {
                 "id": "market_insight",
-                "questions": 1597,
+                "questions": 1609,
                 "users": 248
               },
               {
                 "id": "transaction_execution",
-                "questions": 1240,
+                "questions": 1253,
                 "users": 219
               },
               {
@@ -115447,12 +116993,12 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "personal_context",
-                "questions": 500,
+                "questions": 502,
                 "users": 121
               },
               {
                 "id": "context_followup",
-                "questions": 749,
+                "questions": 750,
                 "users": 129
               },
               {
@@ -115462,13 +117008,13 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "other_investment",
-                "questions": 565,
+                "questions": 567,
                 "users": 121
               },
               {
                 "id": "unclear_expression",
-                "questions": 1787,
-                "users": 275
+                "questions": 1799,
+                "users": 276
               }
             ],
             "asker_proxy_denominator": 3700,
@@ -115481,7 +117027,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 898,
                 "first_question_users": 378,
                 "follow_on_users": 455,
-                "follow_on_questions": 4945,
+                "follow_on_questions": 4957,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
@@ -115490,12 +117036,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "product_research",
-                    "questions": 972,
+                    "questions": 977,
                     "users": 164
                   },
                   {
                     "id": "stock_research",
-                    "questions": 328,
+                    "questions": 329,
                     "users": 62
                   },
                   {
@@ -115510,12 +117056,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 548,
+                    "questions": 550,
                     "users": 81
                   },
                   {
                     "id": "transaction_execution",
-                    "questions": 487,
+                    "questions": 488,
                     "users": 102
                   },
                   {
@@ -115535,7 +117081,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "personal_context",
-                    "questions": 204,
+                    "questions": 205,
                     "users": 51
                   },
                   {
@@ -115555,7 +117101,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 858,
+                    "questions": 860,
                     "users": 147
                   }
                 ]
@@ -115568,41 +117114,41 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 791,
                 "first_question_users": 249,
                 "follow_on_users": 368,
-                "follow_on_questions": 4005,
+                "follow_on_questions": 4064,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 363,
+                    "questions": 374,
                     "users": 72
                   },
                   {
                     "id": "product_research",
-                    "questions": 985,
+                    "questions": 996,
                     "users": 166
                   },
                   {
                     "id": "stock_research",
-                    "questions": 119,
+                    "questions": 121,
                     "users": 36
                   },
                   {
                     "id": "product_selection",
-                    "questions": 238,
+                    "questions": 240,
                     "users": 113
                   },
                   {
                     "id": "asset_allocation",
-                    "questions": 97,
+                    "questions": 98,
                     "users": 23
                   },
                   {
                     "id": "market_insight",
-                    "questions": 512,
+                    "questions": 521,
                     "users": 90
                   },
                   {
                     "id": "transaction_execution",
-                    "questions": 466,
+                    "questions": 478,
                     "users": 91
                   },
                   {
@@ -115622,12 +117168,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "personal_context",
-                    "questions": 182,
+                    "questions": 183,
                     "users": 42
                   },
                   {
                     "id": "context_followup",
-                    "questions": 233,
+                    "questions": 234,
                     "users": 49
                   },
                   {
@@ -115637,12 +117183,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "other_investment",
-                    "questions": 193,
+                    "questions": 195,
                     "users": 48
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 467,
+                    "questions": 474,
                     "users": 73
                   }
                 ]
@@ -115742,16 +117288,16 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 347,
                 "first_question_users": 86,
                 "follow_on_users": 170,
-                "follow_on_questions": 1907,
+                "follow_on_questions": 1913,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 108,
-                    "users": 23
+                    "questions": 109,
+                    "users": 24
                   },
                   {
                     "id": "product_research",
-                    "questions": 370,
+                    "questions": 371,
                     "users": 64
                   },
                   {
@@ -115771,8 +117317,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 325,
-                    "users": 60
+                    "questions": 326,
+                    "users": 61
                   },
                   {
                     "id": "transaction_execution",
@@ -115816,8 +117362,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 282,
-                    "users": 43
+                    "questions": 285,
+                    "users": 44
                   }
                 ]
               }
@@ -115832,48 +117378,48 @@ window.QIANWEN_ACQUISITION_DATA = {
             "clicks": 3453,
             "users": 2180,
             "first_question_users": 289,
-            "follow_on_users": 1266,
-            "follow_on_questions": 11541,
+            "follow_on_users": 1268,
+            "follow_on_questions": 11741,
             "follow_on_directions": [
               {
                 "id": "holding_diagnosis",
-                "questions": 742,
-                "users": 240
+                "questions": 754,
+                "users": 241
               },
               {
                 "id": "product_research",
-                "questions": 2269,
+                "questions": 2301,
                 "users": 532
               },
               {
                 "id": "stock_research",
-                "questions": 867,
-                "users": 302
+                "questions": 882,
+                "users": 303
               },
               {
                 "id": "product_selection",
-                "questions": 393,
-                "users": 194
+                "questions": 402,
+                "users": 197
               },
               {
                 "id": "asset_allocation",
-                "questions": 156,
+                "questions": 157,
                 "users": 82
               },
               {
                 "id": "market_insight",
-                "questions": 2100,
-                "users": 481
+                "questions": 2125,
+                "users": 484
               },
               {
                 "id": "transaction_execution",
-                "questions": 1201,
+                "questions": 1217,
                 "users": 308
               },
               {
                 "id": "investment_learning",
-                "questions": 356,
-                "users": 125
+                "questions": 360,
+                "users": 127
               },
               {
                 "id": "qieman_service",
@@ -115882,32 +117428,32 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "task_status",
-                "questions": 92,
-                "users": 13
+                "questions": 93,
+                "users": 14
               },
               {
                 "id": "personal_context",
-                "questions": 430,
-                "users": 142
+                "questions": 436,
+                "users": 143
               },
               {
                 "id": "context_followup",
-                "questions": 517,
-                "users": 162
+                "questions": 526,
+                "users": 166
               },
               {
                 "id": "non_investment",
-                "questions": 37,
-                "users": 25
+                "questions": 38,
+                "users": 26
               },
               {
                 "id": "other_investment",
-                "questions": 651,
-                "users": 199
+                "questions": 660,
+                "users": 200
               },
               {
                 "id": "unclear_expression",
-                "questions": 1669,
+                "questions": 1729,
                 "users": 399
               }
             ],
@@ -115921,16 +117467,16 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 250,
                 "first_question_users": 24,
                 "follow_on_users": 136,
-                "follow_on_questions": 1293,
+                "follow_on_questions": 1309,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 88,
+                    "questions": 90,
                     "users": 20
                   },
                   {
                     "id": "product_research",
-                    "questions": 263,
+                    "questions": 269,
                     "users": 40
                   },
                   {
@@ -115940,7 +117486,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "product_selection",
-                    "questions": 33,
+                    "questions": 34,
                     "users": 19
                   },
                   {
@@ -115950,7 +117496,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 254,
+                    "questions": 255,
                     "users": 58
                   },
                   {
@@ -115975,12 +117521,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "personal_context",
-                    "questions": 51,
+                    "questions": 52,
                     "users": 13
                   },
                   {
                     "id": "context_followup",
-                    "questions": 73,
+                    "questions": 75,
                     "users": 21
                   },
                   {
@@ -115995,7 +117541,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 211,
+                    "questions": 214,
                     "users": 46
                   }
                 ]
@@ -116007,8 +117553,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "clicks": 269,
                 "users": 234,
                 "first_question_users": 23,
-                "follow_on_users": 136,
-                "follow_on_questions": 1097,
+                "follow_on_users": 137,
+                "follow_on_questions": 1110,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
@@ -116017,13 +117563,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "product_research",
-                    "questions": 149,
+                    "questions": 150,
                     "users": 37
                   },
                   {
                     "id": "stock_research",
-                    "questions": 114,
-                    "users": 34
+                    "questions": 115,
+                    "users": 35
                   },
                   {
                     "id": "product_selection",
@@ -116037,8 +117583,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 235,
-                    "users": 55
+                    "questions": 242,
+                    "users": 56
                   },
                   {
                     "id": "transaction_execution",
@@ -116082,7 +117628,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 175,
+                    "questions": 179,
                     "users": 46
                   }
                 ]
@@ -116095,7 +117641,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 210,
                 "first_question_users": 22,
                 "follow_on_users": 133,
-                "follow_on_questions": 1223,
+                "follow_on_questions": 1240,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
@@ -116104,12 +117650,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "product_research",
-                    "questions": 197,
+                    "questions": 201,
                     "users": 44
                   },
                   {
                     "id": "stock_research",
-                    "questions": 90,
+                    "questions": 91,
                     "users": 44
                   },
                   {
@@ -116124,12 +117670,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 220,
+                    "questions": 221,
                     "users": 54
                   },
                   {
                     "id": "transaction_execution",
-                    "questions": 125,
+                    "questions": 130,
                     "users": 28
                   },
                   {
@@ -116149,12 +117695,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "personal_context",
-                    "questions": 43,
+                    "questions": 44,
                     "users": 15
                   },
                   {
                     "id": "context_followup",
-                    "questions": 78,
+                    "questions": 79,
                     "users": 20
                   },
                   {
@@ -116164,12 +117710,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "other_investment",
-                    "questions": 104,
+                    "questions": 106,
                     "users": 24
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 170,
+                    "questions": 172,
                     "users": 43
                   }
                 ]
@@ -116269,7 +117815,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 233,
                 "first_question_users": 25,
                 "follow_on_users": 127,
-                "follow_on_questions": 905,
+                "follow_on_questions": 907,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
@@ -116298,7 +117844,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 203,
+                    "questions": 204,
                     "users": 54
                   },
                   {
@@ -116343,7 +117889,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 96,
+                    "questions": 97,
                     "users": 24
                   }
                 ]
@@ -116356,21 +117902,21 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 212,
                 "first_question_users": 20,
                 "follow_on_users": 114,
-                "follow_on_questions": 1078,
+                "follow_on_questions": 1125,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 55,
+                    "questions": 56,
                     "users": 16
                   },
                   {
                     "id": "product_research",
-                    "questions": 115,
+                    "questions": 116,
                     "users": 30
                   },
                   {
                     "id": "stock_research",
-                    "questions": 65,
+                    "questions": 66,
                     "users": 26
                   },
                   {
@@ -116385,18 +117931,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 284,
+                    "questions": 288,
                     "users": 40
                   },
                   {
                     "id": "transaction_execution",
-                    "questions": 113,
+                    "questions": 118,
                     "users": 20
                   },
                   {
                     "id": "investment_learning",
-                    "questions": 38,
-                    "users": 14
+                    "questions": 39,
+                    "users": 15
                   },
                   {
                     "id": "qieman_service",
@@ -116415,8 +117961,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "context_followup",
-                    "questions": 62,
-                    "users": 16
+                    "questions": 63,
+                    "users": 17
                   },
                   {
                     "id": "non_investment",
@@ -116425,12 +117971,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "other_investment",
-                    "questions": 62,
+                    "questions": 67,
                     "users": 22
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 186,
+                    "questions": 214,
                     "users": 43
                   }
                 ]
@@ -116530,27 +118076,27 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 240,
                 "first_question_users": 21,
                 "follow_on_users": 139,
-                "follow_on_questions": 605,
+                "follow_on_questions": 634,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 50,
+                    "questions": 54,
                     "users": 24
                   },
                   {
                     "id": "product_research",
-                    "questions": 192,
-                    "users": 62
+                    "questions": 200,
+                    "users": 63
                   },
                   {
                     "id": "stock_research",
-                    "questions": 36,
+                    "questions": 43,
                     "users": 9
                   },
                   {
                     "id": "product_selection",
-                    "questions": 43,
-                    "users": 26
+                    "questions": 45,
+                    "users": 28
                   },
                   {
                     "id": "asset_allocation",
@@ -116559,12 +118105,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 102,
+                    "questions": 103,
                     "users": 36
                   },
                   {
                     "id": "transaction_execution",
-                    "questions": 67,
+                    "questions": 71,
                     "users": 27
                   },
                   {
@@ -116584,13 +118130,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "personal_context",
-                    "questions": 11,
+                    "questions": 12,
                     "users": 6
                   },
                   {
                     "id": "context_followup",
-                    "questions": 9,
-                    "users": 7
+                    "questions": 10,
+                    "users": 8
                   },
                   {
                     "id": "non_investment",
@@ -116604,7 +118150,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 51,
+                    "questions": 52,
                     "users": 27
                   }
                 ]
@@ -116617,7 +118163,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 213,
                 "first_question_users": 11,
                 "follow_on_users": 119,
-                "follow_on_questions": 1073,
+                "follow_on_questions": 1083,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
@@ -116626,12 +118172,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "product_research",
-                    "questions": 326,
+                    "questions": 330,
                     "users": 52
                   },
                   {
                     "id": "stock_research",
-                    "questions": 64,
+                    "questions": 65,
                     "users": 19
                   },
                   {
@@ -116651,7 +118197,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "transaction_execution",
-                    "questions": 117,
+                    "questions": 119,
                     "users": 21
                   },
                   {
@@ -116671,7 +118217,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "personal_context",
-                    "questions": 35,
+                    "questions": 36,
                     "users": 11
                   },
                   {
@@ -116686,12 +118232,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "other_investment",
-                    "questions": 77,
+                    "questions": 78,
                     "users": 17
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 144,
+                    "questions": 145,
                     "users": 30
                   }
                 ]
@@ -116704,16 +118250,16 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 232,
                 "first_question_users": 20,
                 "follow_on_users": 157,
-                "follow_on_questions": 1015,
+                "follow_on_questions": 1026,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 80,
-                    "users": 24
+                    "questions": 83,
+                    "users": 25
                   },
                   {
                     "id": "product_research",
-                    "questions": 225,
+                    "questions": 230,
                     "users": 74
                   },
                   {
@@ -116733,7 +118279,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 106,
+                    "questions": 107,
                     "users": 44
                   },
                   {
@@ -116753,8 +118299,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "task_status",
-                    "questions": 66,
-                    "users": 3
+                    "questions": 67,
+                    "users": 4
                   },
                   {
                     "id": "personal_context",
@@ -116763,8 +118309,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "context_followup",
-                    "questions": 30,
-                    "users": 14
+                    "questions": 31,
+                    "users": 15
                   },
                   {
                     "id": "non_investment",
@@ -116790,27 +118336,27 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "clicks": 256,
                 "users": 218,
                 "first_question_users": 34,
-                "follow_on_users": 117,
-                "follow_on_questions": 407,
+                "follow_on_users": 118,
+                "follow_on_questions": 429,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 19,
+                    "questions": 20,
                     "users": 13
                   },
                   {
                     "id": "product_research",
-                    "questions": 66,
+                    "questions": 67,
                     "users": 23
                   },
                   {
                     "id": "stock_research",
-                    "questions": 53,
+                    "questions": 54,
                     "users": 29
                   },
                   {
                     "id": "product_selection",
-                    "questions": 25,
+                    "questions": 28,
                     "users": 13
                   },
                   {
@@ -116820,8 +118366,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 74,
-                    "users": 40
+                    "questions": 76,
+                    "users": 41
                   },
                   {
                     "id": "transaction_execution",
@@ -116845,18 +118391,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "personal_context",
-                    "questions": 8,
-                    "users": 5
+                    "questions": 9,
+                    "users": 6
                   },
                   {
                     "id": "context_followup",
-                    "questions": 16,
-                    "users": 8
+                    "questions": 19,
+                    "users": 9
                   },
                   {
                     "id": "non_investment",
-                    "questions": 3,
-                    "users": 3
+                    "questions": 4,
+                    "users": 4
                   },
                   {
                     "id": "other_investment",
@@ -116865,7 +118411,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 62,
+                    "questions": 71,
                     "users": 34
                   }
                 ]
@@ -116878,7 +118424,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 200,
                 "first_question_users": 21,
                 "follow_on_users": 124,
-                "follow_on_questions": 858,
+                "follow_on_questions": 874,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
@@ -116887,12 +118433,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "product_research",
-                    "questions": 162,
+                    "questions": 163,
                     "users": 46
                   },
                   {
                     "id": "stock_research",
-                    "questions": 68,
+                    "questions": 70,
                     "users": 19
                   },
                   {
@@ -116907,8 +118453,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 165,
-                    "users": 30
+                    "questions": 166,
+                    "users": 31
                   },
                   {
                     "id": "transaction_execution",
@@ -116917,8 +118463,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "investment_learning",
-                    "questions": 47,
-                    "users": 7
+                    "questions": 50,
+                    "users": 8
                   },
                   {
                     "id": "qieman_service",
@@ -116947,12 +118493,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "other_investment",
-                    "questions": 44,
-                    "users": 13
+                    "questions": 45,
+                    "users": 14
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 146,
+                    "questions": 154,
                     "users": 26
                   }
                 ]
@@ -117052,36 +118598,36 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 122,
                 "first_question_users": 4,
                 "follow_on_users": 64,
-                "follow_on_questions": 303,
+                "follow_on_questions": 320,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 18,
-                    "users": 8
+                    "questions": 19,
+                    "users": 9
                   },
                   {
                     "id": "product_research",
-                    "questions": 38,
+                    "questions": 39,
                     "users": 17
                   },
                   {
                     "id": "stock_research",
-                    "questions": 16,
+                    "questions": 17,
                     "users": 8
                   },
                   {
                     "id": "product_selection",
-                    "questions": 18,
-                    "users": 7
+                    "questions": 21,
+                    "users": 8
                   },
                   {
                     "id": "asset_allocation",
-                    "questions": 11,
+                    "questions": 12,
                     "users": 8
                   },
                   {
                     "id": "market_insight",
-                    "questions": 53,
+                    "questions": 59,
                     "users": 14
                   },
                   {
@@ -117106,7 +118652,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "personal_context",
-                    "questions": 11,
+                    "questions": 12,
                     "users": 6
                   },
                   {
@@ -117126,7 +118672,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 77,
+                    "questions": 80,
                     "users": 12
                   }
                 ]
@@ -117143,46 +118689,46 @@ window.QIANWEN_ACQUISITION_DATA = {
             "users": 1022,
             "first_question_users": 43,
             "follow_on_users": 640,
-            "follow_on_questions": 7543,
+            "follow_on_questions": 7784,
             "follow_on_directions": [
               {
                 "id": "holding_diagnosis",
-                "questions": 612,
-                "users": 114
+                "questions": 632,
+                "users": 116
               },
               {
                 "id": "product_research",
-                "questions": 1211,
+                "questions": 1244,
                 "users": 230
               },
               {
                 "id": "stock_research",
-                "questions": 383,
-                "users": 126
+                "questions": 391,
+                "users": 127
               },
               {
                 "id": "product_selection",
-                "questions": 235,
+                "questions": 240,
                 "users": 92
               },
               {
                 "id": "asset_allocation",
-                "questions": 180,
+                "questions": 183,
                 "users": 82
               },
               {
                 "id": "market_insight",
-                "questions": 1117,
+                "questions": 1156,
                 "users": 223
               },
               {
                 "id": "transaction_execution",
-                "questions": 822,
-                "users": 156
+                "questions": 845,
+                "users": 157
               },
               {
                 "id": "investment_learning",
-                "questions": 190,
+                "questions": 192,
                 "users": 76
               },
               {
@@ -117197,27 +118743,27 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "personal_context",
-                "questions": 331,
+                "questions": 346,
                 "users": 104
               },
               {
                 "id": "context_followup",
-                "questions": 452,
+                "questions": 464,
                 "users": 108
               },
               {
                 "id": "non_investment",
-                "questions": 33,
-                "users": 13
+                "questions": 34,
+                "users": 14
               },
               {
                 "id": "other_investment",
-                "questions": 427,
+                "questions": 452,
                 "users": 128
               },
               {
                 "id": "unclear_expression",
-                "questions": 1384,
+                "questions": 1439,
                 "users": 236
               }
             ],
@@ -117318,16 +118864,16 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 117,
                 "first_question_users": 6,
                 "follow_on_users": 73,
-                "follow_on_questions": 962,
+                "follow_on_questions": 1067,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 82,
+                    "questions": 83,
                     "users": 9
                   },
                   {
                     "id": "product_research",
-                    "questions": 104,
+                    "questions": 108,
                     "users": 16
                   },
                   {
@@ -117337,7 +118883,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "product_selection",
-                    "questions": 22,
+                    "questions": 24,
                     "users": 9
                   },
                   {
@@ -117347,12 +118893,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 86,
+                    "questions": 93,
                     "users": 12
                   },
                   {
                     "id": "transaction_execution",
-                    "questions": 122,
+                    "questions": 134,
                     "users": 18
                   },
                   {
@@ -117372,27 +118918,27 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "personal_context",
-                    "questions": 73,
+                    "questions": 85,
                     "users": 12
                   },
                   {
                     "id": "context_followup",
-                    "questions": 79,
+                    "questions": 86,
                     "users": 7
                   },
                   {
                     "id": "non_investment",
-                    "questions": 0,
-                    "users": 0
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
-                    "questions": 95,
+                    "questions": 115,
                     "users": 13
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 236,
+                    "questions": 275,
                     "users": 23
                   }
                 ]
@@ -117405,16 +118951,16 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 104,
                 "first_question_users": 6,
                 "follow_on_users": 55,
-                "follow_on_questions": 404,
+                "follow_on_questions": 424,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 40,
+                    "questions": 42,
                     "users": 9
                   },
                   {
                     "id": "product_research",
-                    "questions": 67,
+                    "questions": 74,
                     "users": 19
                   },
                   {
@@ -117424,7 +118970,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "product_selection",
-                    "questions": 21,
+                    "questions": 24,
                     "users": 9
                   },
                   {
@@ -117434,12 +118980,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 66,
+                    "questions": 71,
                     "users": 16
                   },
                   {
                     "id": "transaction_execution",
-                    "questions": 29,
+                    "questions": 32,
                     "users": 11
                   },
                   {
@@ -117492,21 +119038,21 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 91,
                 "first_question_users": 0,
                 "follow_on_users": 54,
-                "follow_on_questions": 408,
+                "follow_on_questions": 427,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 31,
-                    "users": 9
+                    "questions": 36,
+                    "users": 10
                   },
                   {
                     "id": "product_research",
-                    "questions": 41,
+                    "questions": 42,
                     "users": 17
                   },
                   {
                     "id": "stock_research",
-                    "questions": 26,
+                    "questions": 27,
                     "users": 12
                   },
                   {
@@ -117521,13 +119067,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 71,
+                    "questions": 75,
                     "users": 19
                   },
                   {
                     "id": "transaction_execution",
-                    "questions": 40,
-                    "users": 6
+                    "questions": 44,
+                    "users": 7
                   },
                   {
                     "id": "investment_learning",
@@ -117551,7 +119097,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "context_followup",
-                    "questions": 19,
+                    "questions": 21,
                     "users": 6
                   },
                   {
@@ -117566,7 +119112,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 96,
+                    "questions": 98,
                     "users": 16
                   }
                 ]
@@ -117579,16 +119125,16 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 96,
                 "first_question_users": 2,
                 "follow_on_users": 58,
-                "follow_on_questions": 1753,
+                "follow_on_questions": 1774,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 139,
-                    "users": 11
+                    "questions": 140,
+                    "users": 12
                   },
                   {
                     "id": "product_research",
-                    "questions": 270,
+                    "questions": 271,
                     "users": 17
                   },
                   {
@@ -117608,17 +119154,17 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 328,
+                    "questions": 336,
                     "users": 24
                   },
                   {
                     "id": "transaction_execution",
-                    "questions": 156,
+                    "questions": 157,
                     "users": 13
                   },
                   {
                     "id": "investment_learning",
-                    "questions": 42,
+                    "questions": 43,
                     "users": 10
                   },
                   {
@@ -117633,12 +119179,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "personal_context",
-                    "questions": 71,
+                    "questions": 72,
                     "users": 12
                   },
                   {
                     "id": "context_followup",
-                    "questions": 85,
+                    "questions": 87,
                     "users": 7
                   },
                   {
@@ -117648,12 +119194,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "other_investment",
-                    "questions": 95,
+                    "questions": 97,
                     "users": 12
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 309,
+                    "questions": 313,
                     "users": 23
                   }
                 ]
@@ -117666,7 +119212,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 95,
                 "first_question_users": 6,
                 "follow_on_users": 68,
-                "follow_on_questions": 370,
+                "follow_on_questions": 371,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
@@ -117700,7 +119246,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "transaction_execution",
-                    "questions": 52,
+                    "questions": 53,
                     "users": 15
                   },
                   {
@@ -117753,7 +119299,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 93,
                 "first_question_users": 2,
                 "follow_on_users": 56,
-                "follow_on_questions": 489,
+                "follow_on_questions": 497,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
@@ -117762,7 +119308,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "product_research",
-                    "questions": 52,
+                    "questions": 55,
                     "users": 15
                   },
                   {
@@ -117777,7 +119323,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "asset_allocation",
-                    "questions": 16,
+                    "questions": 19,
                     "users": 8
                   },
                   {
@@ -117827,7 +119373,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 125,
+                    "questions": 127,
                     "users": 13
                   }
                 ]
@@ -117840,11 +119386,11 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 85,
                 "first_question_users": 2,
                 "follow_on_users": 54,
-                "follow_on_questions": 274,
+                "follow_on_questions": 291,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 24,
+                    "questions": 30,
                     "users": 4
                   },
                   {
@@ -117854,7 +119400,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "stock_research",
-                    "questions": 33,
+                    "questions": 34,
                     "users": 9
                   },
                   {
@@ -117869,12 +119415,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 45,
+                    "questions": 49,
                     "users": 11
                   },
                   {
                     "id": "transaction_execution",
-                    "questions": 38,
+                    "questions": 39,
                     "users": 10
                   },
                   {
@@ -117909,12 +119455,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "other_investment",
-                    "questions": 12,
+                    "questions": 15,
                     "users": 9
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 41,
+                    "questions": 43,
                     "users": 15
                   }
                 ]
@@ -117927,22 +119473,22 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 94,
                 "first_question_users": 2,
                 "follow_on_users": 64,
-                "follow_on_questions": 436,
+                "follow_on_questions": 459,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 22,
+                    "questions": 23,
                     "users": 13
                   },
                   {
                     "id": "product_research",
-                    "questions": 103,
+                    "questions": 110,
                     "users": 20
                   },
                   {
                     "id": "stock_research",
-                    "questions": 28,
-                    "users": 11
+                    "questions": 32,
+                    "users": 12
                   },
                   {
                     "id": "product_selection",
@@ -117956,7 +119502,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 71,
+                    "questions": 78,
                     "users": 20
                   },
                   {
@@ -117966,7 +119512,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "investment_learning",
-                    "questions": 11,
+                    "questions": 12,
                     "users": 7
                   },
                   {
@@ -117986,7 +119532,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "context_followup",
-                    "questions": 15,
+                    "questions": 16,
                     "users": 9
                   },
                   {
@@ -118001,7 +119547,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 83,
+                    "questions": 85,
                     "users": 21
                   }
                 ]
@@ -118014,7 +119560,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 87,
                 "first_question_users": 4,
                 "follow_on_users": 46,
-                "follow_on_questions": 317,
+                "follow_on_questions": 318,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
@@ -118023,8 +119569,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "product_research",
-                    "questions": 61,
-                    "users": 13
+                    "questions": 62,
+                    "users": 14
                   },
                   {
                     "id": "stock_research",
@@ -118101,21 +119647,21 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 94,
                 "first_question_users": 5,
                 "follow_on_users": 53,
-                "follow_on_questions": 294,
+                "follow_on_questions": 313,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
-                    "questions": 22,
+                    "questions": 26,
                     "users": 11
                   },
                   {
                     "id": "product_research",
-                    "questions": 76,
+                    "questions": 84,
                     "users": 16
                   },
                   {
                     "id": "stock_research",
-                    "questions": 15,
+                    "questions": 17,
                     "users": 6
                   },
                   {
@@ -118130,7 +119676,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 56,
+                    "questions": 59,
                     "users": 16
                   },
                   {
@@ -118175,7 +119721,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 35,
+                    "questions": 37,
                     "users": 16
                   }
                 ]
@@ -118188,7 +119734,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 83,
                 "first_question_users": 1,
                 "follow_on_users": 50,
-                "follow_on_questions": 425,
+                "follow_on_questions": 429,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
@@ -118197,7 +119743,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "product_research",
-                    "questions": 67,
+                    "questions": 68,
                     "users": 22
                   },
                   {
@@ -118217,7 +119763,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "market_insight",
-                    "questions": 64,
+                    "questions": 65,
                     "users": 19
                   },
                   {
@@ -118242,7 +119788,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "personal_context",
-                    "questions": 18,
+                    "questions": 20,
                     "users": 6
                   },
                   {
@@ -118275,7 +119821,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "users": 86,
                 "first_question_users": 5,
                 "follow_on_users": 53,
-                "follow_on_questions": 328,
+                "follow_on_questions": 331,
                 "follow_on_directions": [
                   {
                     "id": "holding_diagnosis",
@@ -118309,7 +119855,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "transaction_execution",
-                    "questions": 50,
+                    "questions": 51,
                     "users": 9
                   },
                   {
@@ -118349,7 +119895,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 40,
+                    "questions": 42,
                     "users": 15
                   }
                 ]
@@ -118802,110 +120348,110 @@ window.QIANWEN_ACQUISITION_DATA = {
         "direction": [
           {
             "id": "holding_diagnosis",
-            "questions": 7946,
-            "users": 2579
+            "questions": 8030,
+            "users": 2587
           },
           {
             "id": "product_research",
-            "questions": 20084,
-            "users": 6077
+            "questions": 20246,
+            "users": 6084
           },
           {
             "id": "stock_research",
-            "questions": 8688,
-            "users": 3804
+            "questions": 8760,
+            "users": 3807
           },
           {
             "id": "product_selection",
-            "questions": 4475,
-            "users": 2115
+            "questions": 4506,
+            "users": 2119
           },
           {
             "id": "asset_allocation",
-            "questions": 2052,
-            "users": 1035
+            "questions": 2063,
+            "users": 1038
           },
           {
             "id": "market_insight",
-            "questions": 19873,
-            "users": 6656
+            "questions": 20043,
+            "users": 6664
           },
           {
             "id": "transaction_execution",
-            "questions": 10471,
-            "users": 3301
+            "questions": 10595,
+            "users": 3303
           },
           {
             "id": "investment_learning",
-            "questions": 3180,
-            "users": 1493
+            "questions": 3197,
+            "users": 1496
           },
           {
             "id": "qieman_service",
-            "questions": 1674,
-            "users": 491
+            "questions": 1683,
+            "users": 492
           },
           {
             "id": "task_status",
-            "questions": 1428,
-            "users": 135
+            "questions": 1432,
+            "users": 137
           },
           {
             "id": "personal_context",
-            "questions": 3817,
-            "users": 1575
+            "questions": 3867,
+            "users": 1576
           },
           {
             "id": "context_followup",
-            "questions": 5022,
-            "users": 1615
+            "questions": 5069,
+            "users": 1618
           },
           {
             "id": "non_investment",
-            "questions": 567,
-            "users": 331
+            "questions": 570,
+            "users": 333
           },
           {
             "id": "other_investment",
-            "questions": 5368,
+            "questions": 5421,
             "users": 2174
           },
           {
             "id": "unclear_expression",
-            "questions": 15988,
-            "users": 4408
+            "questions": 16171,
+            "users": 4414
           }
         ],
         "first_direction": [
           {
             "id": "holding_diagnosis",
-            "questions": 1233,
-            "users": 1233
+            "questions": 1235,
+            "users": 1235
           },
           {
             "id": "product_research",
-            "questions": 3684,
-            "users": 3684
+            "questions": 3689,
+            "users": 3689
           },
           {
             "id": "stock_research",
-            "questions": 1860,
-            "users": 1860
+            "questions": 1861,
+            "users": 1861
           },
           {
             "id": "product_selection",
-            "questions": 952,
-            "users": 952
+            "questions": 953,
+            "users": 953
           },
           {
             "id": "asset_allocation",
-            "questions": 444,
-            "users": 444
+            "questions": 445,
+            "users": 445
           },
           {
             "id": "market_insight",
-            "questions": 4382,
-            "users": 4382
+            "questions": 4388,
+            "users": 4388
           },
           {
             "id": "transaction_execution",
@@ -118949,147 +120495,147 @@ window.QIANWEN_ACQUISITION_DATA = {
           },
           {
             "id": "unclear_expression",
-            "questions": 953,
-            "users": 953
+            "questions": 955,
+            "users": 955
           }
         ],
         "object": [
           {
             "id": "own_account",
-            "questions": 7946,
-            "users": 2579
+            "questions": 8030,
+            "users": 2587
           },
           {
             "id": "specific_product",
-            "questions": 13397,
-            "users": 4308
+            "questions": 13523,
+            "users": 4314
           },
           {
             "id": "fund_category",
-            "questions": 4734,
-            "users": 1798
+            "questions": 4761,
+            "users": 1800
           },
           {
             "id": "strategy_portfolio",
-            "questions": 1687,
-            "users": 607
+            "questions": 1697,
+            "users": 612
           },
           {
             "id": "asset_class",
-            "questions": 7435,
-            "users": 3019
+            "questions": 7495,
+            "users": 3023
           },
           {
             "id": "goal_plan",
-            "questions": 1331,
-            "users": 647
+            "questions": 1338,
+            "users": 650
           },
           {
             "id": "market_environment",
-            "questions": 8546,
-            "users": 3225
+            "questions": 8641,
+            "users": 3230
           },
           {
             "id": "platform_service",
-            "questions": 1637,
-            "users": 591
+            "questions": 1651,
+            "users": 595
           },
           {
             "id": "unspecified",
-            "questions": 63920,
-            "users": 12035
+            "questions": 64517,
+            "users": 12042
           }
         ],
         "style": [
           {
             "id": "direct_request",
-            "questions": 9653,
-            "users": 4234
+            "questions": 9715,
+            "users": 4240
           },
           {
             "id": "diagnose_evaluate",
-            "questions": 9453,
-            "users": 4002
+            "questions": 9550,
+            "users": 4009
           },
           {
             "id": "compare_choose",
-            "questions": 10682,
-            "users": 3237
+            "questions": 10804,
+            "users": 3241
           },
           {
             "id": "why_explain",
-            "questions": 5177,
-            "users": 2398
+            "questions": 5219,
+            "users": 2401
           },
           {
             "id": "how_to",
-            "questions": 2009,
-            "users": 1130
+            "questions": 2031,
+            "users": 1131
           },
           {
             "id": "forecast_risk",
-            "questions": 8484,
-            "users": 3783
+            "questions": 8552,
+            "users": 3789
           },
           {
             "id": "fact_lookup",
-            "questions": 7253,
-            "users": 3153
+            "questions": 7291,
+            "users": 3157
           },
           {
             "id": "conversation_fragment",
-            "questions": 57922,
-            "users": 10440
+            "questions": 58491,
+            "users": 10448
           }
         ],
         "cognition": [
           {
             "id": "beginner_signal",
-            "questions": 2442,
-            "users": 1467
+            "questions": 2455,
+            "users": 1469
           },
           {
             "id": "developing_signal",
-            "questions": 13119,
-            "users": 4048
+            "questions": 13216,
+            "users": 4052
           },
           {
             "id": "advanced_signal",
-            "questions": 2792,
-            "users": 694
+            "questions": 2811,
+            "users": 695
           },
           {
             "id": "indeterminate",
-            "questions": 92280,
-            "users": 15387
+            "questions": 93171,
+            "users": 15403
           }
         ]
       },
       "personas": [
         {
           "id": "holding_optimizer",
-          "users": 1354,
-          "questions": 8114
+          "users": 1357,
+          "questions": 8277
         },
         {
           "id": "product_decider",
-          "users": 7144,
-          "questions": 41055
+          "users": 7153,
+          "questions": 41542
         },
         {
           "id": "planning_allocator",
-          "users": 635,
-          "questions": 1996
+          "users": 636,
+          "questions": 1997
         },
         {
           "id": "market_tracker",
-          "users": 4496,
-          "questions": 27957
+          "users": 4500,
+          "questions": 28238
         },
         {
           "id": "execution_seeker",
-          "users": 1288,
-          "questions": 9144
+          "users": 1287,
+          "questions": 9211
         },
         {
           "id": "learning_builder",
@@ -119103,13 +120649,13 @@ window.QIANWEN_ACQUISITION_DATA = {
         },
         {
           "id": "preset_only",
-          "users": 850,
+          "users": 849,
           "questions": 0
         },
         {
           "id": "light_conversation",
-          "users": 1411,
-          "questions": 17649
+          "users": 1413,
+          "questions": 17670
         }
       ],
       "user_cognition": [
@@ -119119,7 +120665,7 @@ window.QIANWEN_ACQUISITION_DATA = {
         },
         {
           "id": "developing_signal",
-          "users": 1382
+          "users": 1384
         },
         {
           "id": "advanced_signal",
@@ -119127,7 +120673,7 @@ window.QIANWEN_ACQUISITION_DATA = {
         },
         {
           "id": "indeterminate",
-          "users": 14954
+          "users": 14970
         }
       ],
       "conversation_analysis": {
@@ -119135,13 +120681,13 @@ window.QIANWEN_ACQUISITION_DATA = {
         "categories": [
           {
             "id": "investment_or_service",
-            "questions": 87155,
-            "users": 16151
+            "questions": 87936,
+            "users": 16167
           },
           {
             "id": "investment_reassurance",
-            "questions": 467,
-            "users": 238
+            "questions": 470,
+            "users": 239
           },
           {
             "id": "general_emotional_support",
@@ -119155,13 +120701,13 @@ window.QIANWEN_ACQUISITION_DATA = {
           },
           {
             "id": "non_investment_learning",
-            "questions": 171,
-            "users": 115
+            "questions": 172,
+            "users": 116
           },
           {
             "id": "non_investment_writing",
-            "questions": 20,
-            "users": 14
+            "questions": 21,
+            "users": 15
           },
           {
             "id": "non_investment_life",
@@ -119170,58 +120716,58 @@ window.QIANWEN_ACQUISITION_DATA = {
           },
           {
             "id": "non_investment_other",
-            "questions": 346,
-            "users": 194
+            "questions": 347,
+            "users": 195
           },
           {
             "id": "task_meta",
-            "questions": 1428,
-            "users": 135
+            "questions": 1432,
+            "users": 137
           },
           {
             "id": "short_acknowledgement",
-            "questions": 2699,
-            "users": 1096
+            "questions": 2717,
+            "users": 1098
           },
           {
             "id": "context_followup",
-            "questions": 5005,
-            "users": 1611
+            "questions": 5052,
+            "users": 1614
           },
           {
             "id": "unclear_fragment",
-            "questions": 15927,
-            "users": 4398
+            "questions": 16109,
+            "users": 4404
           }
         ],
         "off_topic": {
-          "questions": 681,
-          "users": 391
+          "questions": 684,
+          "users": 393
         },
         "low_information": {
-          "questions": 18626,
-          "users": 4843
+          "questions": 18826,
+          "users": 4850
         },
         "emotional_support": {
-          "questions": 522,
-          "users": 257
+          "questions": 525,
+          "users": 258
         },
         "task_meta": {
-          "questions": 1428,
-          "users": 135
+          "questions": 1432,
+          "users": 137
         }
       },
       "rhythm": {
         "active_days": [
           {
             "id": "1",
-            "count": 14112,
-            "users": 14112
+            "count": 14124,
+            "users": 14124
           },
           {
             "id": "2",
-            "count": 2204,
-            "users": 2204
+            "count": 2206,
+            "users": 2206
           },
           {
             "id": "3_7",
@@ -119230,89 +120776,89 @@ window.QIANWEN_ACQUISITION_DATA = {
           },
           {
             "id": "8_plus",
-            "count": 248,
-            "users": 248
+            "count": 251,
+            "users": 251
           }
         ],
         "time_of_day": [
           {
             "id": "00_06",
-            "count": 10469,
-            "users": 2335
+            "count": 10529,
+            "users": 2336
           },
           {
             "id": "06_09",
-            "count": 12345,
-            "users": 2864
+            "count": 12460,
+            "users": 2868
           },
           {
             "id": "09_12",
-            "count": 22240,
-            "users": 4599
+            "count": 22426,
+            "users": 4602
           },
           {
             "id": "12_14",
-            "count": 12953,
+            "count": 13073,
             "users": 2876
           },
           {
             "id": "14_18",
-            "count": 28058,
-            "users": 5188
+            "count": 28305,
+            "users": 5199
           },
           {
             "id": "18_22",
-            "count": 22654,
-            "users": 4398
+            "count": 22892,
+            "users": 4406
           },
           {
             "id": "22_24",
-            "count": 12886,
-            "users": 2709
+            "count": 12958,
+            "users": 2713
           }
         ],
         "session_depth": [
           {
             "id": "1",
-            "count": 7197,
-            "users": 5612
+            "count": 7206,
+            "users": 5621
           },
           {
             "id": "2_3",
-            "count": 6553,
-            "users": 6050
+            "count": 6560,
+            "users": 6056
           },
           {
             "id": "4_9",
-            "count": 4484,
-            "users": 4412
+            "count": 4487,
+            "users": 4415
           },
           {
             "id": "10_plus",
-            "count": 1888,
-            "users": 1805
+            "count": 1889,
+            "users": 1806
           }
         ],
         "gaps": [
           {
             "id": "lte_5m",
-            "count": 71938,
-            "users": 10529
+            "count": 72491,
+            "users": 10539
           },
           {
             "id": "5_30m",
-            "count": 15391,
+            "count": 15581,
             "users": 4507
           },
           {
             "id": "30m_1d",
-            "count": 10547,
-            "users": 3079
+            "count": 10742,
+            "users": 3082
           },
           {
             "id": "gte_1d",
-            "count": 6005,
-            "users": 3058
+            "count": 6088,
+            "users": 3063
           }
         ]
       },
@@ -119321,74 +120867,74 @@ window.QIANWEN_ACQUISITION_DATA = {
           {
             "from": "market_insight",
             "to": "product_research",
-            "count": 2198,
-            "users": 1131
+            "count": 2217,
+            "users": 1133
           },
           {
             "from": "product_research",
             "to": "market_insight",
-            "count": 2168,
-            "users": 1118
+            "count": 2191,
+            "users": 1120
           },
           {
             "from": "product_research",
             "to": "transaction_execution",
-            "count": 1770,
-            "users": 868
+            "count": 1790,
+            "users": 869
           },
           {
             "from": "transaction_execution",
             "to": "product_research",
-            "count": 1711,
-            "users": 823
+            "count": 1729,
+            "users": 825
           },
           {
             "from": "market_insight",
             "to": "stock_research",
-            "count": 1604,
-            "users": 944
+            "count": 1619,
+            "users": 947
           },
           {
             "from": "stock_research",
             "to": "market_insight",
-            "count": 1480,
-            "users": 838
+            "count": 1494,
+            "users": 839
           },
           {
             "from": "holding_diagnosis",
             "to": "product_research",
-            "count": 1360,
-            "users": 693
+            "count": 1380,
+            "users": 695
           },
           {
             "from": "product_research",
             "to": "holding_diagnosis",
-            "count": 1312,
-            "users": 660
+            "count": 1326,
+            "users": 664
           },
           {
             "from": "market_insight",
             "to": "transaction_execution",
-            "count": 1259,
-            "users": 663
+            "count": 1279,
+            "users": 667
           },
           {
             "from": "transaction_execution",
             "to": "market_insight",
-            "count": 1244,
-            "users": 631
+            "count": 1261,
+            "users": 633
           },
           {
             "from": "holding_diagnosis",
             "to": "transaction_execution",
-            "count": 936,
-            "users": 468
+            "count": 950,
+            "users": 470
           },
           {
             "from": "holding_diagnosis",
             "to": "market_insight",
-            "count": 907,
-            "users": 464
+            "count": 924,
+            "users": 472
           }
         ],
         "sequences": [
@@ -119397,21 +120943,21 @@ window.QIANWEN_ACQUISITION_DATA = {
               "market_insight",
               "product_research"
             ],
-            "users": 240
+            "users": 239
           },
           {
             "path": [
               "market_insight",
               "stock_research"
             ],
-            "users": 222
+            "users": 223
           },
           {
             "path": [
               "product_research",
               "market_insight"
             ],
-            "users": 195
+            "users": 196
           },
           {
             "path": [
@@ -119426,7 +120972,7 @@ window.QIANWEN_ACQUISITION_DATA = {
               "stock_research",
               "market_insight"
             ],
-            "users": 144
+            "users": 145
           },
           {
             "path": [
@@ -119472,108 +121018,108 @@ window.QIANWEN_ACQUISITION_DATA = {
         "keywords": [
           {
             "label": "ETF",
-            "questions": 7130,
-            "users": 2430
+            "questions": 7188,
+            "users": 2431
           },
           {
             "label": "收益表现",
-            "questions": 5500,
-            "users": 1721
+            "questions": 5540,
+            "users": 1723
           },
           {
             "label": "行业板块",
-            "questions": 5383,
-            "users": 2301
+            "questions": 5436,
+            "users": 2303
           },
           {
             "label": "A 股市场",
-            "questions": 4972,
-            "users": 2159
+            "questions": 5033,
+            "users": 2163
           },
           {
             "label": "定投计划",
-            "questions": 3038,
-            "users": 961
+            "questions": 3054,
+            "users": 963
           },
           {
             "label": "黄金市场",
-            "questions": 2816,
-            "users": 995
+            "questions": 2838,
+            "users": 1002
           },
           {
             "label": "赎回操作",
-            "questions": 2245,
-            "users": 724
+            "questions": 2276,
+            "users": 727
           },
           {
             "label": "最大回撤",
-            "questions": 1898,
-            "users": 494
+            "questions": 1909,
+            "users": 495
           },
           {
             "label": "美股市场",
-            "questions": 1881,
-            "users": 739
+            "questions": 1907,
+            "users": 740
           },
           {
             "label": "指数基金",
-            "questions": 1266,
-            "users": 612
+            "questions": 1284,
+            "users": 613
           },
           {
             "label": "港股市场",
-            "questions": 1209,
-            "users": 543
+            "questions": 1220,
+            "users": 544
           },
           {
             "label": "红利基金",
-            "questions": 1127,
+            "questions": 1128,
             "users": 513
           },
           {
             "label": "债券基金",
-            "questions": 1085,
-            "users": 358
+            "questions": 1090,
+            "users": 359
           },
           {
             "label": "基金推荐",
-            "questions": 819,
-            "users": 477
+            "questions": 823,
+            "users": 478
           },
           {
             "label": "半导体基金",
-            "questions": 782,
-            "users": 347
+            "questions": 784,
+            "users": 348
           },
           {
             "label": "科技基金",
-            "questions": 692,
-            "users": 366
+            "questions": 705,
+            "users": 368
           },
           {
             "label": "长期持有",
-            "questions": 689,
-            "users": 404
+            "questions": 690,
+            "users": 405
           },
           {
             "label": "止盈策略",
-            "questions": 596,
-            "users": 225
+            "questions": 607,
+            "users": 226
           },
           {
             "label": "QDII 基金",
-            "questions": 561,
-            "users": 273
+            "questions": 565,
+            "users": 274
           },
           {
             "label": "养老规划",
-            "questions": 502,
-            "users": 239
+            "questions": 504,
+            "users": 240
           },
           {
             "label": "货币基金",
-            "questions": 481,
-            "users": 132
+            "questions": 484,
+            "users": 133
           },
           {
             "label": "基金经理",
@@ -119582,23 +121128,23 @@ window.QIANWEN_ACQUISITION_DATA = {
           },
           {
             "label": "AI 基金",
-            "questions": 345,
-            "users": 165
+            "questions": 346,
+            "users": 166
           },
           {
             "label": "资产配置",
-            "questions": 267,
-            "users": 140
+            "questions": 274,
+            "users": 143
           },
           {
             "label": "债券市场",
-            "questions": 233,
+            "questions": 234,
             "users": 122
           },
           {
             "label": "基金净值",
-            "questions": 191,
-            "users": 103
+            "questions": 198,
+            "users": 105
           },
           {
             "label": "医药基金",
@@ -119607,8 +121153,8 @@ window.QIANWEN_ACQUISITION_DATA = {
           },
           {
             "label": "持仓结构",
-            "questions": 130,
-            "users": 81
+            "questions": 138,
+            "users": 85
           },
           {
             "label": "消费基金",
@@ -119617,18 +121163,18 @@ window.QIANWEN_ACQUISITION_DATA = {
           },
           {
             "label": "市场风险",
-            "questions": 105,
+            "questions": 106,
             "users": 40
           },
           {
             "label": "主动基金",
-            "questions": 99,
+            "questions": 101,
             "users": 50
           },
           {
             "label": "新能源基金",
-            "questions": 98,
-            "users": 32
+            "questions": 99,
+            "users": 33
           },
           {
             "label": "买房资金",
@@ -119637,8 +121183,8 @@ window.QIANWEN_ACQUISITION_DATA = {
           },
           {
             "label": "基金费率",
-            "questions": 57,
-            "users": 37
+            "questions": 58,
+            "users": 38
           },
           {
             "label": "市场机会",
@@ -119668,7 +121214,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "label": "红利低波ETF（512890）",
             "query": "512890",
             "kind": "基金代码",
-            "questions": 185,
+            "questions": 186,
             "users": 72
           },
           {
@@ -119682,28 +121228,28 @@ window.QIANWEN_ACQUISITION_DATA = {
             "label": "通信ETF（515880）",
             "query": "515880",
             "kind": "基金代码",
-            "questions": 205,
+            "questions": 207,
             "users": 69
           },
           {
             "label": "华夏上证科创板半导体材料设备主题ETF（588170）",
             "query": "588170",
             "kind": "基金代码",
-            "questions": 144,
-            "users": 65
+            "questions": 146,
+            "users": 66
           },
           {
             "label": "南方标普红利低波50ETF联接A（008163）",
             "query": "008163",
             "kind": "基金代码",
-            "questions": 112,
+            "questions": 115,
             "users": 46
           },
           {
             "label": "创业板ETF（159915）",
             "query": "159915",
             "kind": "基金代码",
-            "questions": 229,
+            "questions": 241,
             "users": 41
           },
           {
@@ -119738,7 +121284,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "label": "东方人工智能主题混合C（017811）",
             "query": "017811",
             "kind": "基金代码",
-            "questions": 59,
+            "questions": 60,
             "users": 33
           },
           {
@@ -119763,6 +121309,13 @@ window.QIANWEN_ACQUISITION_DATA = {
             "users": 31
           },
           {
+            "label": "易方达沪深300ETF联接A（110020）",
+            "query": "110020",
+            "kind": "基金代码",
+            "questions": 43,
+            "users": 31
+          },
+          {
             "label": "红利低波50ETF（515450）",
             "query": "515450",
             "kind": "基金代码",
@@ -119777,18 +121330,18 @@ window.QIANWEN_ACQUISITION_DATA = {
             "users": 29
           },
           {
-            "label": "易方达沪深300ETF联接A（110020）",
-            "query": "110020",
-            "kind": "基金代码",
-            "questions": 40,
-            "users": 29
-          },
-          {
             "label": "芯片ETF（159995）",
             "query": "159995",
             "kind": "基金代码",
-            "questions": 100,
+            "questions": 101,
             "users": 28
+          },
+          {
+            "label": "兴银长乐半年定开债A（001246）",
+            "query": "001246",
+            "kind": "基金代码",
+            "questions": 37,
+            "users": 26
           },
           {
             "label": "中证500ETF（510500）",
@@ -119805,17 +121358,10 @@ window.QIANWEN_ACQUISITION_DATA = {
             "users": 25
           },
           {
-            "label": "兴银长乐半年定开债A（001246）",
-            "query": "001246",
-            "kind": "基金代码",
-            "questions": 36,
-            "users": 25
-          },
-          {
             "label": "易方达供给改革混合（002910）",
             "query": "002910",
             "kind": "基金代码",
-            "questions": 112,
+            "questions": 113,
             "users": 24
           },
           {
@@ -119836,7 +121382,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "label": "标普500ETF（513500）",
             "query": "513500",
             "kind": "基金代码",
-            "questions": 119,
+            "questions": 123,
             "users": 23
           },
           {
@@ -119850,21 +121396,21 @@ window.QIANWEN_ACQUISITION_DATA = {
             "label": "纳指ETF（159941）",
             "query": "159941",
             "kind": "基金代码",
-            "questions": 42,
+            "questions": 44,
             "users": 23
           },
           {
             "label": "半导体ETF（512480）",
             "query": "512480",
             "kind": "基金代码",
-            "questions": 167,
+            "questions": 170,
             "users": 21
           },
           {
             "label": "纳指科技ETF（159509）",
             "query": "159509",
             "kind": "基金代码",
-            "questions": 43,
+            "questions": 44,
             "users": 21
           },
           {
@@ -119899,7 +121445,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "label": "恒生互联网ETF（513330）",
             "query": "513330",
             "kind": "基金代码",
-            "questions": 51,
+            "questions": 54,
             "users": 19
           },
           {
@@ -119944,38 +121490,38 @@ window.QIANWEN_ACQUISITION_DATA = {
           {
             "id": "1",
             "label": "第 1 问",
-            "questions": 19183,
-            "users": 16858,
+            "questions": 19204,
+            "users": 16876,
             "directions": [
               {
                 "id": "holding_diagnosis",
-                "questions": 1549,
-                "users": 1257
+                "questions": 1551,
+                "users": 1259
               },
               {
                 "id": "product_research",
-                "questions": 4110,
-                "users": 3708
+                "questions": 4115,
+                "users": 3713
               },
               {
                 "id": "stock_research",
-                "questions": 1877,
-                "users": 1872
+                "questions": 1879,
+                "users": 1874
               },
               {
                 "id": "product_selection",
-                "questions": 1048,
-                "users": 961
+                "questions": 1050,
+                "users": 962
               },
               {
                 "id": "asset_allocation",
-                "questions": 488,
-                "users": 454
+                "questions": 489,
+                "users": 455
               },
               {
                 "id": "market_insight",
-                "questions": 4555,
-                "users": 4412
+                "questions": 4561,
+                "users": 4418
               },
               {
                 "id": "transaction_execution",
@@ -119989,8 +121535,8 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "qieman_service",
-                "questions": 733,
-                "users": 108
+                "questions": 734,
+                "users": 109
               },
               {
                 "id": "task_status",
@@ -120019,8 +121565,8 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "unclear_expression",
-                "questions": 1201,
-                "users": 976
+                "questions": 1203,
+                "users": 978
               }
             ],
             "transitions": [
@@ -120033,8 +121579,8 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "from": "market_insight",
                 "to": "product_research",
-                "count": 244,
-                "users": 243
+                "count": 245,
+                "users": 244
               },
               {
                 "from": "product_research",
@@ -120057,8 +121603,8 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "from": "stock_research",
                 "to": "market_insight",
-                "count": 151,
-                "users": 151
+                "count": 152,
+                "users": 152
               },
               {
                 "from": "holding_diagnosis",
@@ -120093,26 +121639,26 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "from": "product_selection",
                 "to": "product_research",
-                "count": 112,
-                "users": 111
+                "count": 113,
+                "users": 112
               }
             ]
           },
           {
             "id": "2",
             "label": "第 2 问",
-            "questions": 11512,
-            "users": 10810,
+            "questions": 11523,
+            "users": 10821,
             "directions": [
               {
                 "id": "holding_diagnosis",
-                "questions": 778,
-                "users": 749
+                "questions": 779,
+                "users": 750
               },
               {
                 "id": "product_research",
-                "questions": 2290,
-                "users": 2130
+                "questions": 2294,
+                "users": 2134
               },
               {
                 "id": "stock_research",
@@ -120131,8 +121677,8 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "market_insight",
-                "questions": 2269,
-                "users": 2211
+                "questions": 2271,
+                "users": 2213
               },
               {
                 "id": "transaction_execution",
@@ -120176,8 +121722,8 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "unclear_expression",
-                "questions": 1473,
-                "users": 1382
+                "questions": 1477,
+                "users": 1386
               }
             ],
             "transitions": [
@@ -120190,8 +121736,8 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "from": "product_research",
                 "to": "market_insight",
-                "count": 135,
-                "users": 135
+                "count": 136,
+                "users": 136
               },
               {
                 "from": "product_research",
@@ -120243,23 +121789,23 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "from": "product_research",
-                "to": "stock_research",
-                "count": 70,
+                "to": "product_selection",
+                "count": 71,
                 "users": 70
               },
               {
                 "from": "product_research",
-                "to": "product_selection",
+                "to": "stock_research",
                 "count": 70,
-                "users": 69
+                "users": 70
               }
             ]
           },
           {
             "id": "3",
             "label": "第 3 问",
-            "questions": 7508,
-            "users": 7253,
+            "questions": 7514,
+            "users": 7259,
             "directions": [
               {
                 "id": "holding_diagnosis",
@@ -120268,8 +121814,8 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "product_research",
-                "questions": 1414,
-                "users": 1379
+                "questions": 1415,
+                "users": 1380
               },
               {
                 "id": "stock_research",
@@ -120278,18 +121824,18 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "product_selection",
-                "questions": 385,
-                "users": 377
+                "questions": 386,
+                "users": 378
               },
               {
                 "id": "asset_allocation",
-                "questions": 151,
-                "users": 150
+                "questions": 152,
+                "users": 151
               },
               {
                 "id": "market_insight",
-                "questions": 1382,
-                "users": 1354
+                "questions": 1384,
+                "users": 1356
               },
               {
                 "id": "transaction_execution",
@@ -120333,8 +121879,8 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "unclear_expression",
-                "questions": 1091,
-                "users": 1073
+                "questions": 1092,
+                "users": 1074
               }
             ],
             "transitions": [
@@ -120353,8 +121899,8 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "from": "market_insight",
                 "to": "stock_research",
-                "count": 87,
-                "users": 87
+                "count": 88,
+                "users": 88
               },
               {
                 "from": "transaction_execution",
@@ -120415,8 +121961,8 @@ window.QIANWEN_ACQUISITION_DATA = {
           {
             "id": "4_5",
             "label": "第 4–5 问",
-            "questions": 9577,
-            "users": 5265,
+            "questions": 9583,
+            "users": 5268,
             "directions": [
               {
                 "id": "holding_diagnosis",
@@ -120425,18 +121971,18 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "product_research",
-                "questions": 1796,
-                "users": 1413
+                "questions": 1797,
+                "users": 1414
               },
               {
                 "id": "stock_research",
-                "questions": 866,
-                "users": 756
+                "questions": 868,
+                "users": 758
               },
               {
                 "id": "product_selection",
-                "questions": 446,
-                "users": 381
+                "questions": 448,
+                "users": 382
               },
               {
                 "id": "asset_allocation",
@@ -120445,7 +121991,7 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "market_insight",
-                "questions": 1625,
+                "questions": 1626,
                 "users": 1322
               },
               {
@@ -120528,8 +122074,8 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "from": "holding_diagnosis",
                 "to": "product_research",
-                "count": 101,
-                "users": 101
+                "count": 102,
+                "users": 102
               },
               {
                 "from": "product_research",
@@ -120572,157 +122118,157 @@ window.QIANWEN_ACQUISITION_DATA = {
           {
             "id": "6_plus",
             "label": "第 6 问以上",
-            "questions": 62853,
+            "questions": 63829,
             "users": 3161,
             "directions": [
               {
                 "id": "holding_diagnosis",
-                "questions": 4536,
-                "users": 826
+                "questions": 4617,
+                "users": 833
               },
               {
                 "id": "product_research",
-                "questions": 10474,
+                "questions": 10625,
                 "users": 1545
               },
               {
                 "id": "stock_research",
-                "questions": 4180,
-                "users": 995
+                "questions": 4248,
+                "users": 996
               },
               {
                 "id": "product_selection",
-                "questions": 2009,
-                "users": 608
+                "questions": 2035,
+                "users": 611
               },
               {
                 "id": "asset_allocation",
-                "questions": 981,
-                "users": 361
+                "questions": 990,
+                "users": 362
               },
               {
                 "id": "market_insight",
-                "questions": 10042,
-                "users": 1539
+                "questions": 10201,
+                "users": 1540
               },
               {
                 "id": "transaction_execution",
-                "questions": 6255,
-                "users": 1080
+                "questions": 6379,
+                "users": 1082
               },
               {
                 "id": "investment_learning",
-                "questions": 1755,
-                "users": 511
+                "questions": 1772,
+                "users": 514
               },
               {
                 "id": "qieman_service",
-                "questions": 579,
+                "questions": 587,
                 "users": 225
               },
               {
                 "id": "task_status",
-                "questions": 1243,
-                "users": 76
+                "questions": 1247,
+                "users": 78
               },
               {
                 "id": "personal_context",
-                "questions": 2615,
-                "users": 681
+                "questions": 2665,
+                "users": 683
               },
               {
                 "id": "context_followup",
-                "questions": 3853,
-                "users": 861
+                "questions": 3900,
+                "users": 864
               },
               {
                 "id": "non_investment",
-                "questions": 239,
-                "users": 122
+                "questions": 242,
+                "users": 124
               },
               {
                 "id": "other_investment",
-                "questions": 3305,
-                "users": 833
+                "questions": 3358,
+                "users": 834
               },
               {
                 "id": "unclear_expression",
-                "questions": 10787,
-                "users": 1599
+                "questions": 10963,
+                "users": 1601
               }
             ],
             "transitions": [
               {
                 "from": "market_insight",
                 "to": "product_research",
-                "count": 1089,
-                "users": 440
+                "count": 1102,
+                "users": 441
               },
               {
                 "from": "product_research",
                 "to": "market_insight",
-                "count": 1077,
-                "users": 450
+                "count": 1098,
+                "users": 452
               },
               {
                 "from": "product_research",
                 "to": "transaction_execution",
-                "count": 946,
-                "users": 367
+                "count": 961,
+                "users": 369
               },
               {
                 "from": "transaction_execution",
                 "to": "product_research",
-                "count": 891,
-                "users": 350
+                "count": 907,
+                "users": 353
               },
               {
                 "from": "holding_diagnosis",
                 "to": "product_research",
-                "count": 686,
-                "users": 297
+                "count": 700,
+                "users": 298
               },
               {
                 "from": "product_research",
                 "to": "holding_diagnosis",
-                "count": 683,
-                "users": 275
+                "count": 695,
+                "users": 279
               },
               {
                 "from": "market_insight",
                 "to": "stock_research",
-                "count": 641,
-                "users": 307
+                "count": 652,
+                "users": 308
               },
               {
                 "from": "market_insight",
                 "to": "transaction_execution",
-                "count": 634,
-                "users": 284
+                "count": 645,
+                "users": 286
+              },
+              {
+                "from": "transaction_execution",
+                "to": "market_insight",
+                "count": 628,
+                "users": 278
               },
               {
                 "from": "stock_research",
                 "to": "market_insight",
-                "count": 618,
+                "count": 627,
                 "users": 298
               },
               {
                 "from": "transaction_execution",
-                "to": "market_insight",
-                "count": 617,
-                "users": 274
-              },
-              {
-                "from": "transaction_execution",
                 "to": "holding_diagnosis",
-                "count": 512,
+                "count": 525,
                 "users": 206
               },
               {
                 "from": "holding_diagnosis",
                 "to": "transaction_execution",
-                "count": 511,
-                "users": 213
+                "count": 519,
+                "users": 214
               }
             ]
           }
@@ -120739,37 +122285,37 @@ window.QIANWEN_ACQUISITION_DATA = {
         {
           "rank": 2,
           "question": "请查看当前的市场温度，并分析当前所处的位置。",
-          "questions": 21,
-          "users": 20,
+          "questions": 26,
+          "users": 25,
           "direction": "market_insight"
         },
         {
           "rank": 3,
+          "question": "帮我诊断一下我的投资账户，重点看看资产配置、持仓结构和风险匹配情况。",
+          "questions": 21,
+          "users": 18,
+          "direction": "holding_diagnosis"
+        },
+        {
+          "rank": 4,
           "question": "一万元存定期一年利息大概多少？",
           "questions": 18,
           "users": 14,
           "direction": "asset_allocation"
         },
         {
-          "rank": 4,
+          "rank": 5,
+          "question": "帮我生成一份定制方案。",
+          "questions": 16,
+          "users": 15,
+          "direction": "unclear_expression"
+        },
+        {
+          "rank": 6,
           "question": "好的，谢谢",
           "questions": 16,
           "users": 14,
           "direction": "context_followup"
-        },
-        {
-          "rank": 5,
-          "question": "帮我诊断一下我的投资账户，重点看看资产配置、持仓结构和风险匹配情况。",
-          "questions": 14,
-          "users": 14,
-          "direction": "holding_diagnosis"
-        },
-        {
-          "rank": 6,
-          "question": "帮我生成一份定制方案。",
-          "questions": 14,
-          "users": 13,
-          "direction": "unclear_expression"
         },
         {
           "rank": 7,
@@ -120782,7 +122328,7 @@ window.QIANWEN_ACQUISITION_DATA = {
     }
   },
   "app_usage": {
-    "as_of": "2026-11-04T09:35:01+08:00",
+    "as_of": "2026-11-06T13:25:27+08:00",
     "state": "confirmed",
     "definition": "native_app_events_or_registered_native_device",
     "native_libs": [
@@ -120797,29 +122343,29 @@ window.QIANWEN_ACQUISITION_DATA = {
     ],
     "events_observed_from": "2026-07-27",
     "cohorts": {
-      "existing": {
-        "population_accounts": 1603,
-        "users": 1109,
-        "device_users": 1004,
-        "native_users": 604,
-        "both_users": 499,
-        "after_binding_users": 526
-      },
       "new": {
-        "population_accounts": 19100,
+        "population_accounts": 19117,
         "users": 224,
         "device_users": 183,
-        "native_users": 223,
-        "both_users": 182,
+        "native_users": 222,
+        "both_users": 181,
         "after_binding_users": 218
       },
+      "existing": {
+        "population_accounts": 1611,
+        "users": 1114,
+        "device_users": 1008,
+        "native_users": 606,
+        "both_users": 500,
+        "after_binding_users": 535
+      },
       "all": {
-        "population_accounts": 20703,
-        "users": 1333,
-        "device_users": 1187,
-        "native_users": 827,
+        "population_accounts": 20728,
+        "users": 1338,
+        "device_users": 1191,
+        "native_users": 828,
         "both_users": 681,
-        "after_binding_users": 744
+        "after_binding_users": 753
       }
     }
   }
