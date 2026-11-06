@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "reportId": "yingmi-platform-content-analysis-2026-11-06",
+  "confidentiality": "public",
+  "sourceScope": "official-public-sources-only",
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 17211,
+      "sha256": "ed1b6cb13e48a574e39a0f49ea1af68dade37cace4242d5a3867f019db2d7ae7"
+    },
+    {
+      "path": "yingmi-platform-content-analysis-2026-11-06.zip",
+      "bytes": 7624,
+      "sha256": "d0945f4b3390f4159b754881402f8bdf870c3844f2ae331470a8a361a71d5158"
+    }
+  ]
+}

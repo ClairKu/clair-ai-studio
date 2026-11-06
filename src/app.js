@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 171;
+const DATA_VERSION = 172;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -222,6 +222,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "yingmi-platform-content-analysis-2026-11-06",
+      groupId: "knowledge",
+      title: "盈米科技：平台与内容能力分析",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-platform-content-analysis-2026-11-06/",
+      preview: "yingmi-platform-content-analysis-2026-11-06.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-06T13:33:56+08:00",
+      source: "公开资料分析：以盈米官网披露的内容与AI产品为依据，梳理专业内容、共享平台、质量治理与业务采用的关系，并给出管理评价框架。公司级公开数字不归为单一部门业绩；不含内部OKR、客户管线、报价或未公开项目进度。",
+      access: "production",
+      workType: "reporting",
+      tags: ["盈米", "科技平台", "内容能力", "AI编辑部", "质量治理", "组织能力", "公开资料分析", "HTML"],
+    },
     {
       "id": "mcp-market-pricing-materials-2026-11-05",
       "groupId": "ai-platform",
