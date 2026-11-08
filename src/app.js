@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 173;
+const DATA_VERSION = 174;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -223,6 +223,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-advisor-studio-2026-11-08",
+      groupId: "advisor-workbench",
+      title: "且慢顾问工作台｜Qieman Advisor Studio",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-advisor-studio-2026-11-08/",
+      preview: "qieman-advisor-studio-2026-11-08.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-08T19:00:00+08:00",
+      source: "基于YingWork产品介绍、AI-Native投顾工作台V1.6/V2.0方案、V1.7概念原型、客户经营与投后报告工作流申报、V1.2体验评审及2026Q4财富管理AI竞品研究，形成可公开的目标态产品介绍。重点说明混合态产品型态、动态客户状态、Service Case、端到端Agent工作流、顾问责任边界与业务价值；概念原型和计划不等同于生产上线，未采用未经基线验证的提效数字。",
+      access: "production",
+      workType: "product-planning",
+      tags: ["且慢", "投顾工作台", "Qieman Advisor Studio", "YingWork", "AI Native", "Agent", "Service Case", "顾问服务", "产品规划", "HTML"],
+    },
+    {
       id: "yingmi-platform-content-analysis-2026-11-06",
       groupId: "knowledge",
       title: "盈米科技平台与内容部：商业化逻辑与经营分析",
@@ -237,18 +251,18 @@ const initialState = {
       tags: ["盈米", "TPC", "科技平台与内容部", "科技商业化", "能力产品化", "商务交付", "内容经营", "客户经营", "修订版", "公开资料分析", "HTML"],
     },
     {
-      "id": "mcp-market-pricing-materials-2026-11-05",
-      "groupId": "ai-platform",
-      "title": "MCP 市场报价与历史材料汇总｜最新公开价与比较口径",
-      "url": "https://clairku.github.io/clair-ai-studio/reports/mcp-market-pricing-materials-2026-11-05/",
-      "preview": "mcp-market-pricing-materials-2026-11-05.svg",
-      "pinned": false,
-      "position": 0,
-      "createdAt": "2026-11-05T12:46:29+08:00",
-      "source": "2026-11-05检索历史报价与对比材料，并核验iFinD、聚源、今日投资、Wind、Tushare等官方来源。完整原件本地交付；工作台仅发布公开资料、历史公开研究入口及计价口径。保留机构新商务报价未取得、终端/API/MCP授权不可混用等边界。",
-      "access": "production",
-      "workType": "reporting",
-      "tags": [
+      id: "mcp-market-pricing-materials-2026-11-05",
+      groupId: "ai-platform",
+      title: "MCP 市场报价与历史材料汇总｜最新公开价与比较口径",
+      url: "https://clairku.github.io/clair-ai-studio/reports/mcp-market-pricing-materials-2026-11-05/",
+      preview: "mcp-market-pricing-materials-2026-11-05.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-05T12:46:29+08:00",
+      source: "2026-11-05检索历史报价与对比材料，并核验iFinD、聚源、今日投资、Wind、Tushare等官方来源。完整原件本地交付；工作台仅发布公开资料、历史公开研究入口及计价口径。保留机构新商务报价未取得、终端/API/MCP授权不可混用等边界。",
+      access: "production",
+      workType: "reporting",
+      tags: [
         "MCP",
         "报价",
         "定价",
@@ -4567,6 +4581,11 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-advisor-studio-2026-11-08": "advisor-workbench",
+  "yingmi-platform-content-analysis-2026-11-06": "knowledge",
+  "mcp-market-pricing-materials-2026-11-05": "ai-platform",
+  "qieman-pension-111-guide-2026-11-05": "pension-planning",
+  "qieman-pension-ai-materials-2026-11-05": "pension-planning",
   "yingmi-doubao-advisor-cases-2026-11-05": "ai-platform",
   "yingmi-doubao-six-scenarios-2026-11-05": "ai-platform",
   "doubao-yingmi-holdings-communication-2026-11-05": "ai-platform",
@@ -9284,4 +9303,3 @@ function bindWorkbenchPersistence() {
     render();
   });
 }
-

@@ -1,0 +1,586 @@
+{
+  "meta": {
+    "title": "且慢顾问工作台",
+    "subtitle": "Qieman Advisor Studio\nPowered by YingWork",
+    "eyebrow": "QIEMAN · ADVISOR AI WORKSPACE / 2026.11.08",
+    "date": "2026-11-08",
+    "cutoff": "2026-11-08",
+    "owner": "且慢产品 · AI 产品方案",
+    "confidentiality": "产品蓝图 · 可公开介绍版",
+    "accent": "#7457E8",
+    "brand": "Qieman Advisor Studio",
+    "brandMark": "Q"
+  },
+  "hero": {
+    "conclusion": "它不是给 CRM 加一个聊天框，而是把“发现—判断—服务—复盘”变成由 Agent 持续推进、由顾问最终负责的客户服务操作系统。",
+    "thesis": "静态页面保留可核对的事实与状态，动态 AI 负责理解意图、编排流程和推动动作；YingWork 作为底座，连接模型、工具、记忆、权限、审计与企业系统。",
+    "badges": ["AI 原生作业平台", "混合态交互", "端到端工作流", "目标态蓝图"]
+  },
+  "closing": {
+    "mark": "QIEMAN · ADVISOR STUDIO",
+    "line1": "让 Agent 做准备，",
+    "line2": "让顾问把时间留给",
+    "accent": "判断与关系",
+    "lead": "Powered by YingWork，不是把更多 AI 功能堆进工作台，而是把客户状态、机构方法、业务动作与责任边界连接成一套持续运行、可复核、可进化的顾问工作系统。",
+    "metaPrimary": "且慢产品 · Qieman Advisor Studio · 2026.11.08",
+    "metaSecondary": "材料截止 2026.11.08 · 本页为目标态产品介绍，不代表全部能力已生产上线"
+  },
+  "agenda": {
+    "enabled": true,
+    "label": "PRODUCT STORY",
+    "title": "四条产品主线",
+    "groups": [
+      {
+        "index": "01",
+        "eyebrow": "FORM · 产品型态",
+        "title": "从软件界面到服务操作系统",
+        "summary": "定义 AI 原生工作台究竟长什么样",
+        "sections": ["工作单位", "产品蓝图", "动静协同"]
+      },
+      {
+        "index": "02",
+        "eyebrow": "INTELLIGENCE · AI 原生",
+        "title": "让 AI 持续理解并推动业务",
+        "summary": "从回答问题升级为维护状态与编排动作",
+        "sections": ["原生能力", "工作闭环", "产品现场"]
+      },
+      {
+        "index": "03",
+        "eyebrow": "WORKFLOW · 工作流",
+        "title": "把系统、方法与渠道连成一条链",
+        "summary": "YingWork 提供运行时与连接，且慢定义投顾方法",
+        "sections": ["服务时刻", "底座整合", "工作重塑"]
+      },
+      {
+        "index": "04",
+        "eyebrow": "VALUE · 业务价值",
+        "title": "用完整服务放大顾问产能",
+        "summary": "把效率、质量、经营与组织能力放进同一飞轮",
+        "sections": ["价值飞轮", "责任边界", "验证路径"]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "work-unit",
+      "navLabel": "工作单位",
+      "kicker": "01 · PRODUCT SHIFT",
+      "title": "重构的不是菜单，是工作单位",
+      "lead": "顾问真正需要完成的不是一次查询或一份报告，而是一次有起因、有判断、有动作、有结果的客户服务。",
+      "layout": "comparison",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "SYSTEM OF RECORD",
+          "title": "传统 CRM",
+          "body": "记录已经发生的客户、交易与沟通信息，下一步做什么仍靠顾问自己发现和记忆。",
+          "bullets": ["人找信息", "模块彼此割裂", "结果难回流"]
+        },
+        {
+          "index": "02",
+          "eyebrow": "COPILOT",
+          "title": "外挂式 AI",
+          "body": "可以回答、总结和生成内容，但答案常停留在对话里，没有进入任务、流程和客户状态。",
+          "bullets": ["人找 AI", "单次生成", "动作仍需搬运"]
+        },
+        {
+          "index": "03",
+          "eyebrow": "SERVICE CASE",
+          "title": "顾问服务事项",
+          "body": "以一次客户服务为主对象，统一触发事件、客户目标、事实证据、服务策略、执行动作、交付物、反馈和下次约定。",
+          "bullets": ["事找人", "上下文不断档", "结果成为下一次服务起点"],
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "核心判断",
+        "text": "Qieman Advisor Studio 的产品边界，不由有多少功能决定，而由一次服务能否从触发走到结果决定。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "blueprint",
+      "navLabel": "产品蓝图",
+      "kicker": "02 · PRODUCT FORM",
+      "title": "四层合成一个顾问作业系统",
+      "lead": "前台保持清楚、确定、可核对；后台持续运行、主动发现、受控执行。",
+      "layout": "architecture",
+      "tone": "dark",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "WORKSPACE",
+          "title": "混合态工作界面",
+          "body": "导航与历史、常驻 AI 助手、多页签工作区共同承载日常作业。"
+        },
+        {
+          "index": "02",
+          "eyebrow": "BUSINESS OBJECT",
+          "title": "服务事项与业务模块",
+          "body": "任务、客户、流程、产品投研、资料和经营看板围绕同一服务事项展开。"
+        },
+        {
+          "index": "03",
+          "eyebrow": "AGENT LAYER",
+          "title": "投顾 Agent 能力",
+          "body": "客户状态、工作流、Skill、确定性工具、权限策略与结果学习。"
+        },
+        {
+          "index": "04",
+          "eyebrow": "POWERED BY YINGWORK",
+          "title": "企业 AI 底座",
+          "body": "模型、工具、记忆、连接器、MCP、权限、审计与跨系统运行时。"
+        }
+      ],
+      "callout": {
+        "label": "分工",
+        "text": "YingWork 解决“AI 如何可靠地工作”，且慢工作台定义“顾问为谁、在何时、按什么方法完成哪一次服务”。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "hybrid-interaction",
+      "navLabel": "动静协同",
+      "kicker": "03 · HYBRID INTERACTION",
+      "title": "静态给确定性，动态给行动力",
+      "lead": "纯页面太机械，纯对话又容易让事实、状态和责任沉没；混合态让两者各司其职。",
+      "layout": "cards",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "STRUCTURED PAGES",
+          "title": "页面承载事实",
+          "body": "客户状态、持仓、任务阶段、适当性、报告版本和审计记录以结构化页面呈现。",
+          "bullets": ["可定位", "可对照", "可追溯"]
+        },
+        {
+          "index": "02",
+          "eyebrow": "CONVERSATIONAL ACTION",
+          "title": "对话承载意图",
+          "body": "顾问用自然语言查询、筛选、创建、修改和批量交办；右侧页面同步打开、预览和变化。",
+          "bullets": ["可以接着说", "改动先预览", "确认后写入"]
+        },
+        {
+          "index": "03",
+          "eyebrow": "AMBIENT AGENT",
+          "title": "Agent 承载持续运行",
+          "body": "无需顾问发起，Agent 按工作流监测客户变化，能处理的处理，需要判断的生成服务事项。",
+          "bullets": ["后台运行", "主动发现", "例外转人工"]
+        }
+      ],
+      "callout": {
+        "label": "交互原则",
+        "text": "AI 不藏在一个入口里：它在后台运行、在对话中行动，也在页面里持续解释事实与建议。",
+        "status": "target"
+      }
+    },
+    {
+      "id": "native-capabilities",
+      "navLabel": "原生能力",
+      "kicker": "04 · AI NATIVE",
+      "title": "AI 原生，不等于内容生成",
+      "lead": "真正的 AI 原生能力，是让系统持续理解客户、掌握上下文、调用工具并造成正确的业务状态变化。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "UNDERSTAND",
+          "title": "理解任务与上下文",
+          "body": "听懂顾问意图，结合当前客户、任务、文件和页面，把一句话转成查询或动作计划。"
+        },
+        {
+          "index": "02",
+          "eyebrow": "STATE",
+          "title": "维护动态客户状态",
+          "body": "持续组织目标、约束、用款计划、行为变化、顾问承诺与待确认推断，并保留来源。"
+        },
+        {
+          "index": "03",
+          "eyebrow": "ORCHESTRATE",
+          "title": "编排专业工作流",
+          "body": "选择 Skill 和确定性工具，跨系统取数、核对、计算、起草、质检与分流。"
+        },
+        {
+          "index": "04",
+          "eyebrow": "LEARN",
+          "title": "从结果持续改进",
+          "body": "记录顾问修改、客户反馈、实际动作和服务结果，反向优化工作流与权限。"
+        }
+      ]
+    },
+    {
+      "id": "closed-loop",
+      "navLabel": "工作闭环",
+      "kicker": "05 · AGENTIC WORKFLOW",
+      "title": "一条链路贯穿发现到结果",
+      "lead": "主动式与被动式服务共用同一条处理链，区别只在谁先发起，责任始终回到顾问。",
+      "layout": "process",
+      "tone": "dark",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "TRIGGER",
+          "title": "事件触发",
+          "body": "客户变化、市场事件、服务承诺、定时计划，或顾问一句话。"
+        },
+        {
+          "index": "02",
+          "eyebrow": "CONTEXT",
+          "title": "刷新状态",
+          "body": "聚合客户、账户、产品、沟通与市场证据，区分事实、推断和待确认。"
+        },
+        {
+          "index": "03",
+          "eyebrow": "RUN",
+          "title": "运行工作流",
+          "body": "调用 Skill、计算工具和连接器，生成策略、材料与下一步动作。"
+        },
+        {
+          "index": "04",
+          "eyebrow": "CASE",
+          "title": "生成服务事项",
+          "body": "把原因、证据、建议、话术、交付物和待确认问题放进同一上下文。"
+        },
+        {
+          "index": "05",
+          "eyebrow": "HUMAN DECISION",
+          "title": "顾问判断与沟通",
+          "body": "顾问核对、修改、拍板；对客动作、投资建议与承诺由顾问负责。"
+        },
+        {
+          "index": "06",
+          "eyebrow": "OUTCOME",
+          "title": "结果回流",
+          "body": "客户反馈、执行结果、下次约定写回客户状态，成为下一轮服务起点。"
+        }
+      ],
+      "callout": {
+        "label": "验收标准",
+        "text": "一次 AI 运行不只生成内容，还应带来正确、受控、可解释的业务状态变化。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "product-scene",
+      "navLabel": "产品现场",
+      "kicker": "06 · PRODUCT IN ACTION",
+      "title": "顾问看到的是工作，不是模型",
+      "lead": "V1.7 概念原型把导航、常驻助手、今日任务与业务页面放进同一工作空间，用来验证混合态工作方式。",
+      "layout": "evidence",
+      "tone": "soft",
+      "items": [
+        {
+          "title": "Qieman Advisor Studio 概念原型",
+          "body": "首页直接呈现今日优先服务事项、Agent 已处理工作和经营概览；中栏 AI 助手保留当前任务上下文，右侧页面承担可核对的事实与操作。画面中的姓名与数据均为演示内容。",
+          "source": "AI-Native 投顾工作台高保真 Demo V1.7 · 2026-10",
+          "image": "assets/advisor-studio-v17.png",
+          "alt": "且慢顾问工作台 V1.7 概念原型：首页、AI 助手、待处理任务和经营概览三栏布局",
+          "imagePriority": "high",
+          "status": "target"
+        },
+        {
+          "title": "证据边界",
+          "body": "该原型验证的是产品形态与业务闭环假设；真实数据连接、模型效果、对象级权限、生产安全和上线状态仍需工程与业务验收。",
+          "source": "V1.2 Demo 业务与产品体验评审 · 2026-10-28",
+          "status": "target"
+        }
+      ]
+    },
+    {
+      "id": "service-moment",
+      "navLabel": "服务时刻",
+      "kicker": "07 · SERVICE MOMENT",
+      "title": "一次回访，串起客户与市场",
+      "lead": "工作台不替顾问说话，而是在关键服务时刻把该知道、该判断、该准备的内容放到手边。",
+      "layout": "demo",
+      "tone": "dark",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "DISCOVER",
+          "title": "系统先发现",
+          "body": "客户出现资金异动、风险测评临期或市场波动影响，Agent 生成高优先服务事项。",
+          "meta": "事找人",
+          "status": "target",
+          "bullets": ["说明为什么现在处理", "列出证据与缺口"]
+        },
+        {
+          "index": "02",
+          "eyebrow": "PREPARE",
+          "title": "AI 先准备",
+          "body": "核对持仓、用款计划、风险约束和历史沟通，形成解释要点、待确认问题与可用材料。",
+          "meta": "多源上下文",
+          "status": "target",
+          "bullets": ["数字由工具计算", "结论附来源"]
+        },
+        {
+          "index": "03",
+          "eyebrow": "DECIDE",
+          "title": "顾问做判断",
+          "body": "顾问修改策略与措辞，决定是否联系、如何解释，以及哪些问题必须先问清楚。",
+          "meta": "专业责任",
+          "status": "target",
+          "bullets": ["对客前确认", "保留人工判断空间"]
+        },
+        {
+          "index": "04",
+          "eyebrow": "LEARN",
+          "title": "结果进系统",
+          "body": "沟通结果、客户原话、执行动作与下一次约定经确认后更新客户状态。",
+          "meta": "服务连续性",
+          "status": "target",
+          "bullets": ["不让经验只留在聊天里", "下一次服务承接本次结果"]
+        }
+      ]
+    },
+    {
+      "id": "platform-integration",
+      "navLabel": "底座整合",
+      "kicker": "08 · POWERED BY YINGWORK",
+      "title": "工作流打通，比接口打通更重要",
+      "lead": "连接数据只是第一步；真正的整合要定义什么时候调用、调用什么、允许做到哪一步、谁来审批、结果写回哪里。",
+      "layout": "architecture",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "CONTEXT SOURCES",
+          "title": "业务与客户上下文",
+          "body": "客户档案、账户与交易、适当性、App 行为、沟通记录、产品与投研资料。"
+        },
+        {
+          "index": "02",
+          "eyebrow": "YINGWORK RUNTIME",
+          "title": "企业 Agent 运行时",
+          "body": "模型调度、工具调用、记忆、MCP 与连接器、权限策略、审计和工作流运行。"
+        },
+        {
+          "index": "03",
+          "eyebrow": "QIEMAN METHOD",
+          "title": "投顾方法与 Skill",
+          "body": "客户状态模型、服务规则、规划与组合分析、适当性、投后陪伴、沟通与质检方法。"
+        },
+        {
+          "index": "04",
+          "eyebrow": "BUSINESS ACTIONS",
+          "title": "系统与渠道动作",
+          "body": "任务、报告、日历、资料、企业微信、腾讯会议及相关业务系统的受控读写。"
+        }
+      ],
+      "callout": {
+        "label": "平台关系",
+        "text": "MCP 解决如何连接，Skill 解决如何做一类工作，Agent Runtime 负责何时做、为谁做、做到哪一步、谁审批。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "work-reshape",
+      "navLabel": "工作重塑",
+      "kicker": "09 · NEW WAY OF WORK",
+      "title": "顾问从亲自做，转向判断与经营",
+      "lead": "效率提升不是少点几次鼠标，而是把有限的顾问时间从搬运、查找和起草，迁移到更高价值的专业判断与客户关系。",
+      "layout": "comparison",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "BEFORE",
+          "title": "人找事、靠记忆",
+          "body": "顾问跨系统找客户、查数据、做材料、记承诺；服务质量随个人时间和习惯波动。",
+          "bullets": ["准备成本高", "重点容易遗漏", "经验难复制"]
+        },
+        {
+          "index": "02",
+          "eyebrow": "WITH STUDIO",
+          "title": "事找人、带上下文",
+          "body": "Agent 持续发现并准备，顾问从服务事项进入，直接看到原因、证据、建议、材料和待确认问题。",
+          "bullets": ["优先级清楚", "准备前置", "动作可连续"],
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "AT SCALE",
+          "title": "方法变成组织资产",
+          "body": "优秀顾问的方法被写成可运行、可测试、可审计的工作流与 Skill，在团队复用并根据结果持续改进。",
+          "bullets": ["标准不僵化", "新人更快成长", "管理从结果追责转向过程改进"],
+          "status": "target"
+        }
+      ]
+    },
+    {
+      "id": "value-flywheel",
+      "navLabel": "价值飞轮",
+      "kicker": "10 · BUSINESS VALUE",
+      "title": "产能提升来自闭环复用",
+      "lead": "单点生成只能省时间；状态持续更新、方法可复用、结果能学习，才会放大服务半径与业务价值。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "ADVISOR",
+          "title": "顾问：扩大有效服务半径",
+          "body": "减少查找、核对和起草，把时间投入判断、沟通、关系与复杂例外处理。"
+        },
+        {
+          "index": "02",
+          "eyebrow": "CLIENT",
+          "title": "客户：获得连续陪伴",
+          "body": "服务由真实变化和目标偏离触发，每次沟通承接上次结论，而不是重复从头了解。"
+        },
+        {
+          "index": "03",
+          "eyebrow": "TEAM",
+          "title": "管理：看见过程与质量",
+          "body": "管理者能从经营指标下钻到服务事项，识别漏斗、例外、能力短板与可复制方法。"
+        },
+        {
+          "index": "04",
+          "eyebrow": "BUSINESS",
+          "title": "机构：形成复利型能力",
+          "body": "客户状态越完整、工作流越成熟、结果样本越多，服务质量与组织产能越能持续提升。"
+        }
+      ],
+      "callout": {
+        "label": "价值逻辑",
+        "text": "及时服务提升客户体验，标准方法提升质量，结果回流提升下一次判断；三者共同支撑留存、转化与长期信任。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "governance",
+      "navLabel": "责任边界",
+      "kicker": "11 · TRUST BY DESIGN",
+      "title": "把责任边界做进产品",
+      "lead": "在持牌投顾场景，AI 的自主性必须建立在事实、工具、权限、审批和留痕之上。",
+      "layout": "cards",
+      "tone": "dark",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "EVIDENCE",
+          "title": "事实有来源",
+          "body": "区分已确认事实、AI 推断和待核实信息；结论能回到客户原话、系统数据或材料依据。"
+        },
+        {
+          "index": "02",
+          "eyebrow": "DETERMINISM",
+          "title": "计算交给工具",
+          "body": "比例、风险与适当性等关键计算由确定性工具完成，AI 负责组织、解释与提出下一步。"
+        },
+        {
+          "index": "03",
+          "eyebrow": "APPROVAL",
+          "title": "动作分级授权",
+          "body": "查询、起草、写回、发送和建议分档管理；改动先预览，对客动作与专业承诺由顾问确认。"
+        },
+        {
+          "index": "04",
+          "eyebrow": "AUDIT",
+          "title": "过程全程留痕",
+          "body": "记录输入、工具调用、依据、生成、修改、审批、执行和结果，支持抽查与权限收紧。"
+        }
+      ],
+      "callout": {
+        "label": "底线",
+        "text": "AI 可以发现、整理、起草和在权限内执行；投资建议、客户沟通与对客承诺始终由顾问负责。",
+        "status": "target"
+      }
+    },
+    {
+      "id": "validation-path",
+      "navLabel": "验证路径",
+      "kicker": "12 · FROM DEMO TO VALUE",
+      "title": "先证真闭环，再扩功能广度",
+      "lead": "下一阶段的关键不是再增加菜单，而是用少数高价值服务事项证明工作方法、产能与业务结果真的改变。",
+      "layout": "actions",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "P0 · SERVICE CASE",
+          "title": "跑通三条穿透式链路",
+          "body": "优先验证资金异动与用款核实、适当性临期、定期检视与投后报告，确保都从触发走到结果回流。",
+          "meta": "责任：产品 × 顾问 × 研发 × 合规 · 时间待确认",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "eyebrow": "P0 · MEASUREMENT",
+          "title": "建立闭环产能基线",
+          "body": "测量从触发到服务完成时长、顾问采纳率、人工例外率、状态更新完整度与结果回收率。",
+          "meta": "责任：产品 × 业务运营 · 基线待补",
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "P1 · GOVERNANCE",
+          "title": "把方法变成可治理资产",
+          "body": "为每条工作流定义输入、输出、工具、禁止事项、测试集、版本、审批、发布范围和回滚机制。",
+          "meta": "责任：平台 × 业务专家 × 合规 · 标准待确认",
+          "status": "target"
+        },
+        {
+          "index": "04",
+          "eyebrow": "P1 · SCALE",
+          "title": "用结果决定是否放权",
+          "body": "根据原样通过率、抽查问题和客户结果逐步扩大自动化权限，不以 Demo 完整度替代生产成熟度。",
+          "meta": "责任：业务负责人 × 风控 · 门槛待定义",
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "成功标准",
+        "text": "顾问不只是更快地产出内容，而是更及时、更专业、更连续地完成一次客户服务。",
+        "status": "target"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "label": "YingWork 产品介绍页面",
+      "detail": "让数字化业务走向智能化工作 · 2026-11-06"
+    },
+    {
+      "label": "AI-Native 投顾工作台产品方案",
+      "detail": "汇报版 V1.6 · 2026-10-30"
+    },
+    {
+      "label": "且慢投顾工作台产品方案",
+      "detail": "文档 V2.0 / Demo V1.3 · 2026-09"
+    },
+    {
+      "label": "AI-Native 投顾工作台高保真 Demo",
+      "detail": "V1.7 · 2026-10"
+    },
+    {
+      "label": "客户经营任务自动生成 / 定期投后报告自动生成",
+      "detail": "L3 项目申报材料 · 2026-10-22"
+    },
+    {
+      "label": "V1.2 Demo 业务与产品体验评审",
+      "detail": "价值、完整性、创新与交互评审 · 2026-10-28"
+    },
+    {
+      "label": "美国财富管理平台 AI 竞品研究",
+      "detail": "Agentic AI / Skill / Runtime 产品讨论 · 2026 Q4"
+    }
+  ],
+  "openQuestions": [
+    {
+      "title": "上线边界",
+      "detail": "本页呈现目标态产品蓝图与概念原型，真实数据连接、模型效果、权限与生产上线状态需另行验收。"
+    },
+    {
+      "title": "业务基线",
+      "detail": "尚缺顾问当前工作耗时、服务覆盖、任务完成与客户结果的统一基线，公开版不使用未验证提效数字。"
+    },
+    {
+      "title": "责任定义",
+      "detail": "不同动作的自动化等级、审批人、异常兜底与对客责任仍需产品、业务、合规和技术共同确认。"
+    }
+  ]
+}

@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "qieman-advisor-studio-2026-11-08",
     "yingmi-platform-content-analysis-2026-11-06",
     "mcp-market-pricing-materials-2026-11-05",
     "qieman-pension-111-guide-2026-11-05",
