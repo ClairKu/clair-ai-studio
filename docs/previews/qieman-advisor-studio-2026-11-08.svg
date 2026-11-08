@@ -1,42 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750" role="img" aria-label="且慢顾问工作台 Qieman Advisor Studio 产品介绍预览">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#fcfbff"/>
-      <stop offset="0.56" stop-color="#f0edff"/>
-      <stop offset="1" stop-color="#e6dfff"/>
-    </linearGradient>
-    <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#5138b5"/>
-      <stop offset="1" stop-color="#8c75ef"/>
-    </linearGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f2f8fa"/><stop offset=".5" stop-color="#eaf4f7"/><stop offset="1" stop-color="#e9edf7"/></linearGradient>
+    <linearGradient id="dark" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#32356e"/><stop offset="1" stop-color="#4b4d8c"/></linearGradient>
   </defs>
   <rect width="1200" height="750" fill="url(#bg)"/>
-  <circle cx="1040" cy="138" r="190" fill="none" stroke="#7457e8" stroke-width="34" opacity="0.08"/>
-  <g font-family="PingFang SC,Microsoft YaHei,sans-serif" fill="#171a27">
-    <text x="66" y="85" font-size="16" letter-spacing="3" fill="#6c5bc7">QIEMAN · ADVISOR AI WORKSPACE / 2026.11.08</text>
-    <text x="66" y="180" font-size="62" font-weight="700">且慢顾问工作台</text>
-    <text x="66" y="248" font-size="42" font-family="Georgia,serif" fill="#5138b5">Qieman Advisor Studio</text>
-    <text x="66" y="297" font-size="32" font-family="Georgia,serif" fill="#7457e8">Powered by YingWork</text>
-    <text x="66" y="365" font-size="24" fill="#4f586d">让 Agent 做准备，让顾问把时间留给判断与关系</text>
-    <g transform="translate(66 430)">
-      <rect width="246" height="164" rx="20" fill="#ffffff" opacity="0.94"/>
-      <rect x="270" width="246" height="164" rx="20" fill="#141d35"/>
-      <rect x="540" width="246" height="164" rx="20" fill="#ffffff" opacity="0.94"/>
-      <rect x="810" width="246" height="164" rx="20" fill="#ffffff" opacity="0.94"/>
-      <text x="26" y="48" font-size="14" fill="#7457e8">01 · CONTEXT</text>
-      <text x="26" y="92" font-size="26" font-weight="650">理解客户状态</text>
-      <text x="26" y="126" font-size="17" fill="#687287">事实 · 推断 · 待确认</text>
-      <text x="296" y="48" font-size="14" fill="#b8a7ff">02 · WORKFLOW</text>
-      <text x="296" y="92" font-size="26" font-weight="650" fill="#ffffff">生成服务事项</text>
-      <text x="296" y="126" font-size="17" fill="#aeb8cd">证据 · 策略 · 动作</text>
-      <text x="566" y="48" font-size="14" fill="#7457e8">03 · ADVISOR</text>
-      <text x="566" y="92" font-size="26" font-weight="650">顾问判断沟通</text>
-      <text x="566" y="126" font-size="17" fill="#687287">核对 · 修改 · 拍板</text>
-      <text x="836" y="48" font-size="14" fill="#7457e8">04 · OUTCOME</text>
-      <text x="836" y="92" font-size="26" font-weight="650">结果持续回流</text>
-      <text x="836" y="126" font-size="17" fill="#687287">状态 · 约定 · 学习</text>
-      <path d="M246 82H270M516 82H540M786 82H810" stroke="url(#flow)" stroke-width="7"/>
+  <circle cx="1030" cy="140" r="130" fill="none" stroke="#626c9c" stroke-width="28" opacity=".09"/>
+  <g font-family="PingFang SC,Microsoft YaHei,sans-serif">
+    <rect x="60" y="46" width="62" height="62" rx="17" fill="#294b89"/><text x="91" y="87" text-anchor="middle" font-size="30" font-weight="800" fill="#fff">Q</text>
+    <text x="140" y="80" font-size="31" font-weight="750" fill="#234b8e">Qieman Advisor Studio</text>
+    <text x="140" y="103" font-size="11" font-weight="700" letter-spacing="3" fill="#586b84">且慢顾问工作台 · AI-NATIVE ADVISORY</text>
+    <rect x="918" y="53" width="220" height="42" rx="8" fill="none" stroke="#aebdd0"/><text x="1028" y="80" text-anchor="middle" font-size="14" font-weight="700" letter-spacing="2" fill="#3b3d7e">POWERED BY YINGWORK</text>
+    <line x1="60" y1="132" x2="1140" y2="132" stroke="#8399b9" stroke-width="2"/>
+    <text x="60" y="176" font-size="14" font-weight="800" letter-spacing="3" fill="#3b3d7e">从顾问作业现场出发</text>
+    <text x="60" y="252" font-size="56" font-weight="800" fill="#1d3f81">让顾问从处理任务，走向</text><text x="786" y="252" font-size="56" font-weight="800" fill="#6261a0">经营客户</text>
+    <text x="60" y="295" font-size="18" fill="#455a78">静态工作台、动态对话与常驻工作流，围绕同一个客户状态协同</text>
+    <line x1="60" y1="330" x2="1140" y2="330" stroke="#b5c6d9"/>
+    <text x="60" y="370" font-size="14" font-weight="800" letter-spacing="2" fill="#6e6ca0">01 / PRODUCT FORM</text>
+    <text x="276" y="371" font-size="27" font-weight="700" fill="#262e63">一种新的顾问工作形态</text>
+    <g transform="translate(60 398)">
+      <rect width="330" height="118" rx="14" fill="#fff" stroke="#b8c9dc"/><rect x="360" width="330" height="118" rx="14" fill="#dceaf3" stroke="#777caf"/><rect x="720" width="330" height="118" rx="14" fill="#fff" stroke="#b8c9dc"/>
+      <text x="24" y="40" font-size="21" font-weight="700" fill="#244783">01  静态工作台</text><text x="24" y="74" font-size="14" fill="#52627e">客户事实 · 组合状态 · 服务待办</text>
+      <text x="384" y="40" font-size="21" font-weight="700" fill="#244783">02  动态对话与操作</text><text x="384" y="74" font-size="14" fill="#52627e">理解意图 · 调用工具 · 形成行动</text>
+      <text x="744" y="40" font-size="21" font-weight="700" fill="#244783">03  常驻 Agent 工作流</text><text x="744" y="74" font-size="14" fill="#52627e">事件触发 · 状态刷新 · 结果回流</text>
     </g>
-    <text x="66" y="662" font-size="17" fill="#687287">混合态交互 · 动态客户状态 · Agent 工作流 · Service Case · 受控执行</text>
+    <rect x="60" y="542" width="1050" height="72" rx="12" fill="url(#dark)"/><text x="585" y="576" text-anchor="middle" font-size="24" font-weight="700" fill="#fff">服务案件 · Service Case</text><text x="585" y="600" text-anchor="middle" font-size="13" letter-spacing="3" fill="#dce5f7">发现 → 研判 → 沟通 → 行动 → 回流</text>
+    <rect x="60" y="626" width="1050" height="54" rx="10" fill="#edf2f7" stroke="#aebbd0"/><rect x="60" y="626" width="230" height="54" rx="10" fill="#30366e"/><text x="175" y="660" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">YingWork 智能底座</text><text x="700" y="659" text-anchor="middle" font-size="15" fill="#506082">模型 · Skills · 记忆 · MCP · 权限与审计</text>
+    <text x="60" y="720" font-size="15" fill="#536684">让 AI 从顾问作业现场开始工作。</text>
   </g>
 </svg>
