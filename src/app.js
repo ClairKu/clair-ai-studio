@@ -223,6 +223,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qiqi-wechat-stickers-2026-11-08",
+      groupId: "ai-workbench",
+      title: "奇奇有话说｜微信静态表情投稿包",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qiqi-wechat-stickers-2026-11-08/",
+      preview: "qiqi-wechat-stickers-2026-11-08.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-08T19:20:00+08:00",
+      source: "从最终定稿的奇奇婚礼圆贴延展为16个高频聊天表情，保留灰白长毛、蓝灰眼、粉鼻、额头倒V灰纹、白胸白爪、大尾巴与略傲娇的角色识别；公开页提供预览和已校验投稿包。微信商店正式上架仍需账号持有人完成实名认证、版权声明、重名校验与平台人工审核。",
+      access: "production",
+      workType: "ai-production",
+      tags: ["奇奇", "微信表情", "表情包", "角色设计", "贴纸", "静态表情", "AI 图像", "PNG", "生产物料"],
+    },
+    {
       id: "qieman-advisor-studio-2026-11-08",
       groupId: "advisor-workbench",
       title: "且慢顾问工作台｜Qieman Advisor Studio",
@@ -4581,6 +4595,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qiqi-wechat-stickers-2026-11-08": "ai-workbench",
   "qieman-advisor-studio-2026-11-08": "advisor-workbench",
   "yingmi-platform-content-analysis-2026-11-06": "knowledge",
   "mcp-market-pricing-materials-2026-11-05": "ai-platform",
