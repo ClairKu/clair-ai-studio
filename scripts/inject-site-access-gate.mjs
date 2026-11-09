@@ -16,6 +16,11 @@ const accessConfig = JSON.parse(readFileSync(accessConfigAsset, "utf8"));
 const encryptedReportEntries = new Set((accessConfig.immutableLockedEntries || [])
   .filter((entry) => entry.startsWith("reports/") && entry.endsWith("/"))
   .map((entry) => `${entry}index.html`));
+// A standalone report uses its own strong, locally entered encryption key.
+// Its strict CSP deliberately excludes the shared network-backed access gate.
+const standaloneEncryptedEntries = new Set([
+  "reports/qiming-h2-product-review-2026-11-09/index.html",
+]);
 
 const walkHtml = (directory, results = []) => {
   for (const entry of readdirSync(directory, { withFileTypes: true })) {
@@ -178,6 +183,17 @@ const encryptedReportShell = ({ html, gateScript, outputPath }) => {
 for (const htmlPath of walkHtml(outputRoot)) {
   let html = readFileSync(htmlPath, "utf8");
   const outputPath = relative(outputRoot, htmlPath).replaceAll("\\", "/");
+
+  if (standaloneEncryptedEntries.has(outputPath)) {
+    if (!html.includes('data-clair-private-envelope="v1"')
+      || !html.includes('data-gate="decrypt"')
+      || !html.includes("AES-GCM") || !html.includes("PBKDF2")
+      || !html.includes("connect-src 'none'")
+      || /<script\b[^>]*\bsrc\s*=/i.test(html)) {
+      throw new Error(`Invalid standalone encrypted report: ${outputPath}`);
+    }
+    continue;
+  }
 
   const relativeAsset = relative(dirname(htmlPath), gateAsset).replaceAll("\\", "/");
   const assetPath = relativeAsset.startsWith(".") ? relativeAsset : `./${relativeAsset}`;

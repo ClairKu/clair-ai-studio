@@ -223,6 +223,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qiming-h2-product-review-2026-11-09",
+      groupId: "reporting",
+      title: "启明下半年产品进展分析",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qiming-h2-product-review-2026-11-09/",
+      preview: "qiming-h2-product-review-2026-11-09.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-09T18:13:24+08:00",
+      source: "内部研究报告；正文和来源以密文保存，在当前浏览器本地解密。专用解锁码单独提供。公开目录仅保留题名、日期和加密说明。",
+      access: "production",
+      workType: "reporting",
+      tags: ["启明", "产品复盘", "2026下半年", "加密报告", "HTML"],
+    },
+    {
       id: "finance-101-20261109",
       groupId: "research",
       title: "钱的脾气，亲手试一试｜10个给小白的金融知识点",

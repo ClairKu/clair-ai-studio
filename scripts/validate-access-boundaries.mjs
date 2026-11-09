@@ -115,12 +115,28 @@ const independentEncryptedPages = new Set([
   "reports/candidate-evaluator-2026-10-29/index.html",
   "reports/candidate-evaluator-2026-10-29/report.html",
 ]);
+const standaloneEncryptedPages = new Set([
+  "reports/qiming-h2-product-review-2026-11-09/index.html",
+]);
 let reportPages = 0;
 let workspacePages = 0;
 for (const htmlPath of htmlPaths) {
   const html = readFileSync(htmlPath, "utf8");
   const outputPath = relative(join(root, "docs"), htmlPath).replaceAll("\\", "/");
   const gateCount = html.match(/data-clair-access-gate/g)?.length || 0;
+  if (standaloneEncryptedPages.has(outputPath)) {
+    ensure(gateCount === 0, `${outputPath} 不应加载共享网络访问门`);
+    ensure(html.includes('data-clair-private-envelope="v1"'), `${outputPath} 缺少独立加密封装标记`);
+    ensure(html.includes("AES-GCM") && html.includes("PBKDF2"), `${outputPath} 未保持正文加密`);
+    ensure(html.includes("connect-src 'none'"), `${outputPath} 必须禁止网络请求`);
+    ensure(!/<script\b[^>]*\bsrc\s*=/i.test(html), `${outputPath} 不得依赖外部脚本`);
+    ensure(!/\b(?:localStorage|sessionStorage|fetch|XMLHttpRequest|sendBeacon)\b/.test(html), `${outputPath} 不得发送或保存解密信息`);
+    ensure(/<form\b[^>]*data-gate=["']decrypt["']/.test(html), `${outputPath} 缺少独立解密表单`);
+    ensure((html.match(/<input\b[^>]*type=["']password["']/gi) || []).length === 1, `${outputPath} 必须只有一个专用解密口令框`);
+    ensure(!publicConfig.immutableLockedEntries.includes(outputPath.replace(/index\.html$/, "")), `${outputPath} 不应复用共享解密凭证`);
+    reportPages += 1;
+    continue;
+  }
   ensure(gateCount === 1, `${outputPath} 必须且只能有一个共享访问门，当前为 ${gateCount}`);
 
   const reportScope = outputPath.startsWith("reports/") || outputPath.startsWith("apps/");

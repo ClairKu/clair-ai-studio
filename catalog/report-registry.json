@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "qiming-h2-product-review-2026-11-09",
     "finance-101-20261109",
     "yingmi-ai-partner-kit-2026-11-09",
     "qiqi-wechat-stickers-2026-11-08",

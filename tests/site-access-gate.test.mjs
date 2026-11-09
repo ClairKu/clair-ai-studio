@@ -215,6 +215,18 @@ test("publishes policy-aware gate metadata on every HTML entry", () => {
   assert.ok(htmlPaths.length > 1);
   for (const htmlPath of htmlPaths) {
     const html = readFileSync(htmlPath, "utf8");
+    if (htmlPath === join(docsRoot, "reports", "qiming-h2-product-review-2026-11-09", "index.html")) {
+      assert.match(html, /data-clair-private-envelope="v1"/);
+      assert.match(html, /data-gate="decrypt"/);
+      assert.match(html, /PBKDF2/);
+      assert.match(html, /AES-GCM/);
+      assert.match(html, /connect-src 'none'/);
+      assert.match(html, /noindex,nofollow,noarchive/);
+      assert.doesNotMatch(html, /data-clair-access-gate/);
+      assert.doesNotMatch(html, /<script\b[^>]*\bsrc\s*=/i);
+      assert.doesNotMatch(html, /allow-same-origin/);
+      continue;
+    }
     if (selfProtectedPaths.has(htmlPath)) {
       assert.match(html, /data-clair-access-gate/);
       assert.match(html, /data-clair-access-scope=["']report["']/);
