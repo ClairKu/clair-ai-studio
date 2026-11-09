@@ -61,5 +61,16 @@ for (const entry of readdirSync(reportsRoot, { withFileTypes: true })) {
   }
 }
 
+// Preserve searchable content for results hosted in their own repositories.
+try {
+  const external = JSON.parse(readFileSync(join(root, "catalog", "external-search-content.json"), "utf8"));
+  for (const [id, value] of Object.entries(external)) {
+    if (typeof value !== "string") throw new Error(`Invalid external search content: ${id}`);
+    index[id] = value;
+  }
+} catch (error) {
+  if (error.code !== "ENOENT") throw error;
+}
+
 writeFileSync(outputPath, `${JSON.stringify(index)}\n`);
 console.log(`正文搜索索引已生成：${Object.keys(index).length} 份 HTML 成果。`);

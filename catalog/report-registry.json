@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "yingmi-ai-partner-kit-2026-11-09",
     "qiqi-wechat-stickers-2026-11-08",
     "qieman-advisor-studio-2026-11-08",
     "yingmi-platform-content-analysis-2026-11-06",
