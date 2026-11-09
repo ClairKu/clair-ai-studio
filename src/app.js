@@ -261,7 +261,7 @@ const initialState = {
       groupId: "ai-platform",
       title: "盈米 AI 能力与合作全景｜产品蓝图、客群方案与商务母版",
       url: "https://clairku.github.io/yingmi-ai-partner-kit/",
-      relatedLinks: [{ label: "最新聚焦交互方案", url: "https://clairku.github.io/yingmi-ai-partner-kit/directions/focus.html" }],
+      relatedLinks: [{ label: "最新融合完整效果", url: "https://clairku.github.io/yingmi-ai-partner-kit/directions/k.html" }, { label: "I / J 聚焦方案对照", url: "https://clairku.github.io/yingmi-ai-partner-kit/directions/focus.html" }],
       preview: "yingmi-ai-partner-kit-2026-11-09.jpg",
       pinned: false,
       position: 0,
@@ -269,7 +269,7 @@ const initialState = {
       source: "面向老板、外部C端业务条线、AI产品与科技平台、金融机构及顾问团队商户的长期商务母版。含总体产品蓝图、11项产品入口、18类客群方案表、13个带图场景、公开合作生态、竞品定位、商业模式、百炼公开价格、上手与合作指引。支持演示、筛选、用量估算、合作简报和表单维护导出；公开证据、模拟图与方案建议分别标注，内部项目和单客报价仅本地保留。",
       access: "production",
       workType: "reporting",
-      tags: ["盈米", "且慢", "AI能力体系", "产品蓝图", "产品全景", "商务合作", "客群方案", "合作模式", "价格", "MCP", "Skills", "Agents", "金融机构", "顾问团队", "C端", "竞品对比", "可维护母版", "聚焦交互", "模块舞台", "角色导航"],
+      tags: ["盈米", "且慢", "AI能力体系", "产品蓝图", "产品全景", "商务合作", "客群方案", "合作模式", "价格", "MCP", "Skills", "Agents", "金融机构", "顾问团队", "C端", "竞品对比", "可维护母版", "聚焦交互", "模块舞台", "角色导航", "融合完整稿", "能力引擎", "客群引导"],
     },
     {
       id: "qiqi-wechat-stickers-2026-11-08",
@@ -7257,7 +7257,7 @@ function relatedReportLinksMarkup(report) {
     const url = new URL(link.url);
     const isPublicReport = url.origin === "https://clairku.github.io" && url.pathname.startsWith("/clair-ai-studio/");
     const isInternalReport = url.origin === "https://ontology-dashboard.yingmi-inc.com" && /^\/r\/[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(url.pathname) && !url.username && !url.password && !url.search && !url.hash;
-    const isPartnerFocus = link.url === "https://clairku.github.io/yingmi-ai-partner-kit/directions/focus.html";
+    const isPartnerFocus = ["https://clairku.github.io/yingmi-ai-partner-kit/directions/focus.html", "https://clairku.github.io/yingmi-ai-partner-kit/directions/k.html"].includes(link.url);
     if (!isPublicReport && !isInternalReport && !isPartnerFocus) continue;
     links.push({ url: link.url, label: link.label || "关联报告" });
   }
