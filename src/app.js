@@ -608,14 +608,14 @@ const initialState = {
     },
     {
       id: "candidate-evaluator-2026-10-29",
-      groupId: "knowledge",
+      groupId: "ai-workbench",
       title: "Clair Select｜招聘工作台",
       url: "https://clairku.github.io/clair-ai-studio/reports/candidate-evaluator-2026-10-29/",
       preview: "candidate-evaluator-2026-10-29.svg",
-      pinned: false,
+      pinned: true,
       position: 0,
       createdAt: "2026-10-29T15:50:00+08:00",
-      source: "履历分析、面试复盘与岗位标准校准。候选档案保存在本机。",
+      source: "完整档案独立加密在线查看；上传、AI分析与编辑由本机服务执行。线上快照列明待同步状态。",
       access: "production",
       workType: "product-demo",
       tags: ["招聘", "候选人评价", "面试复盘", "AI", "加密报告", "HTML"],
@@ -4609,6 +4609,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "yingmi-ai-partner-kit-2026-11-09": "ai-platform",
   "qiqi-wechat-stickers-2026-11-08": "ai-workbench",
   "qieman-advisor-studio-2026-11-08": "advisor-workbench",
   "yingmi-platform-content-analysis-2026-11-06": "knowledge",
@@ -4633,7 +4634,7 @@ const TOPIC_BY_REPORT = {
   "qieman-ai-xiaogu-intro-2026-10-30": "xiaogu",
   "yingmi-tamp-content-study-2026-10-30": "research",
   "sidi-yingmi-deep-research-2026-10-29": "ai-platform",
-  "candidate-evaluator-2026-10-29": "knowledge",
+  "candidate-evaluator-2026-10-29": "ai-workbench",
   "ai-tools-yingmi-links-2026-10-28": "ai-workbench",
   "fund-risk-score-rules-2026-10-30": "ai-platform",
   "ai-wealth-interaction-deep-dive-2026-10-22": "xiaogu",
@@ -9332,3 +9333,4 @@ function bindWorkbenchPersistence() {
     render();
   });
 }
+

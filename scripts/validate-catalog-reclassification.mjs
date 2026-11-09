@@ -53,7 +53,7 @@ for (const name of requiredGroups) {
 }
 
 const featuredIds = [...DEFAULT_FEATURED_REPORT_IDS];
-if (featuredIds.length !== 9) fail(`精选数量异常：预期 9，实际 ${featuredIds.length}`);
+if (featuredIds.length !== 10) fail(`精选数量异常：预期 10，实际 ${featuredIds.length}`);
 const missingFeaturedReports = featuredIds.filter((id) => !reportIds.includes(id));
 if (missingFeaturedReports.length) fail(`精选成果不在目录中：${missingFeaturedReports.join("、")}`);
 

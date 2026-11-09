@@ -4,6 +4,13 @@ export const PERSONAL_VISITS_KEY = "clair-personal-home-recent-v1";
 
 export const PERSONAL_AREAS = Object.freeze([
   {
+    id: "clair-select", number: "07", title: "Clair Select", category: "招聘工作台",
+    description: "完整档案独立加密在线查看；上传、AI分析与编辑由本机服务执行。",
+    theme: "blue", icon: "panel", primary: { reportId: "candidate-evaluator-2026-10-29", label: "打开招聘工作台" },
+    meta: "线上加密档案 · 本机完整功能",
+    links: [], visual: ["履历分析", "面试复盘", "岗位标准"],
+  },
+  {
     id: "xiaogu", number: "01", title: "小顾介绍", category: "AI 投资助手",
     description: "从认识小顾开始，了解它如何回答问题、理解需求与陪伴投资。",
     theme: "lilac", icon: "spark", primary: { reportId: "seed-xiaogu", label: "打开介绍" },
@@ -91,8 +98,9 @@ export function personalLaunchpadMarkup({ reports, escapeHtml: e, storage }) {
   };
   const recent = recentPersonalVisits(storage).map((id) => active.get(id)).filter(Boolean).slice(0,3);
   return `<section class="studio-shortcuts" id="studio-shortcuts" aria-labelledby="studio-shortcuts-title">
-    <div class="studio-shortcuts-heading"><h1 id="studio-shortcuts-title">常用入口</h1><span>介绍材料与重点项目</span></div>
+    <div class="studio-shortcuts-heading"><h1 id="studio-shortcuts-title">常用入口</h1><span>常用工具、介绍材料与重点项目</span></div>
     <div class="studio-shortcuts-grid">${PERSONAL_AREAS.map(card).join("")}</div>
     ${recent.length ? `<div class="studio-shortcut-recent"><span>最近打开</span><div>${recent.map((report) => resource({reportId:report.id,label:report.title},e(report.title),"studio-recent-link")).join("")}</div></div>` : ""}
   </section>`;
 }
+

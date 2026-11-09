@@ -82,8 +82,40 @@ test('public entry opens a top-level local workspace and does not probe private 
   assert.equal(link.href, 'http://127.0.0.1:8768/');
   assert.equal(link.target, '_blank');
   assert.equal(link.rel, 'noopener noreferrer');
-  assert.match(h.element('connection-description').textContent, /加密历史快照/);
+  assert.match(h.element('connection-description').textContent, /完整加密档案快照/);
   assert.equal(await h.client.connectEngine(), false);
+  assert.equal(h.stats.fetches.length, 0);
+});
+
+test('an unlocked online snapshot identifies its date, record count and read-only boundary', () => {
+  const h = harness({ local: false });
+  h.context.data = { as_of: '2026-10-29', candidates: [{ id: 'synthetic-record' }] };
+  h.client.renderConnectionStatus();
+  assert.match(h.element('connection-description').textContent, /快照 2026-10-29 · 1 份 · 只读/);
+  assert.match(h.element('connection-description').textContent, /上传、编辑和最新档案请打开本机工作台/);
+  assert.equal(h.stats.fetches.length, 0);
+});
+
+test('an undated online snapshot does not invent a current date', () => {
+  const h = harness({ local: false });
+  h.context.data = { candidates: [{ id: 'synthetic-record' }] };
+  h.client.renderConnectionStatus();
+  assert.match(h.element('connection-description').textContent, /快照日期未记录 · 1 份 · 只读/);
+});
+
+test('a prepared summary uses its actual export date and preserves the pending correction notice', () => {
+  const h = harness({ local: false });
+  h.context.data = { snapshot: { prepared_at: '2026-11-09T15:27:53+08:00', known_score_repair_pending: true }, candidates: [{ id: 'synthetic-record' }] };
+  h.client.renderConnectionStatus();
+  assert.match(h.element('connection-description').textContent, /快照 2026-11-09 · 1 份 · 只读；部分分项修正待完成/);
+});
+
+test('a release copy keeps pending local and calendar sync visible', () => {
+  const h = harness({ local: false });
+  h.context.data = { snapshot: { prepared_at: '2026-11-09T15:27:53+08:00', local_app_sync_pending: true, calendar_sync: { status: 'partial' } }, candidates: [{ id: 'synthetic-record' }] };
+  h.client.renderConnectionStatus();
+  assert.match(h.element('connection-description').textContent, /本机待同步/);
+  assert.match(h.element('connection-description').textContent, /北森记录部分已核、仍待补齐/);
   assert.equal(h.stats.fetches.length, 0);
 });
 

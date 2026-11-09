@@ -1,6 +1,7 @@
 export const FEATURED_SELECTION_KEY = "clair-service-report-workbench-featured-v1";
 
 export const DEFAULT_FEATURED_REPORT_IDS = Object.freeze([
+  "candidate-evaluator-2026-10-29",
   "product-demand-pulse-2026-08-11",
   "qieman-four-money-redesign-2026-09-24",
   "qianwen-first-investor-cases-2026-09-17",
@@ -58,4 +59,5 @@ export function saveFeaturedReportIds(storage, reportsOrIds) {
   }));
   return ids;
 }
+
 
