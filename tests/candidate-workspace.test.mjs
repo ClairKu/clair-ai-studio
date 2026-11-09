@@ -6,12 +6,13 @@ import vm from 'node:vm';
 const source = readFileSync(new URL('../public/reports/candidate-evaluator-2026-10-29/index.html', import.meta.url), 'utf8');
 const production = readFileSync(new URL('../docs/reports/candidate-evaluator-2026-10-29/index.html', import.meta.url), 'utf8');
 const connection = source.split('// BEGIN WORKSPACE CONNECTION\n')[1].split('// END WORKSPACE CONNECTION')[0];
+const fullInformationSource = source.split('// BEGIN COMPLETE READ-ONLY CANDIDATE INFORMATION')[1].split('// END COMPLETE READ-ONLY CANDIDATE INFORMATION')[0];
 
 class Element {
   constructor(tag = 'div', cls = '', text = '') {
     this.tag = tag; this.className = cls; this.textContent = text;
     this.value = ''; this.children = []; this.dataset = {}; this.handlers = {};
-    this.classList = { toggle() {} };
+    this.classList = { toggle() {}, add: (...values) => { this.className = [this.className, ...values].filter(Boolean).join(' '); } };
   }
   append(...children) { this.children.push(...children); }
   replaceChildren(...children) { this.children = children; }
@@ -55,7 +56,7 @@ function harness({ local = true, fetch = async () => response() } = {}) {
     clearTimeout: (id) => timers.delete(id),
     toast: (...args) => stats.toasts.push(args),
   });
-  vm.runInContext(connection + `
+  vm.runInContext(fullInformationSource + '\n' + connection + `
     function renderAll(){renderConnectionStatus();}
     globalThis.client={connectEngine,refreshEngine,renderConnectionStatus,localWorkspaceLink,scheduleEnginePoll,nextEnginePollDelay,
       status:()=>({state:engineStatus,failures:engineFailures,inflight:!!engineRefreshPromise})};
@@ -722,7 +723,7 @@ test('empty feedback categories do not render and filled categories remain separ
   const panel=vm.runInContext('feedbackNotesPanel(candidate)',h.context);
   const text=elementText(panel);
   assert.match(text,/履历评价/);assert.match(text,/人力评价/);assert.doesNotMatch(text,/面试评价|其他补充/);
-  assert.equal(panel.children.length,2);assert.equal(panel.children[0].children[0].children[1].textContent,'编辑');
+  assert.equal(panel.children.filter(row=>row.className==='feedback-note').length,2);assert.equal(panel.children[0].children[0].children[1].textContent,'编辑');assert.equal(panel.children.at(-1).textContent,'查看全部评价与原文');
   assert.equal(vm.runInContext('feedbackNotesPanel({feedback_notes:{}})',h.context),null);
 });
 
@@ -839,7 +840,7 @@ test('current AI and attributed before-review populate resume evaluation without
   assert.match(projection.text,/current professional analysis/);assert.match(projection.text,/owner before-review/);
   assert.equal(projection.source_references.length,2);assert.equal(projection.source_references[0].kind,'ai_review');
   const text=elementText(vm.runInContext('feedbackNotesPanel(candidate)',h.context));
-  assert.match(text,/履历评价/);assert.match(text,/current professional analysis/);assert.match(text,/owner before-review/);assert.doesNotMatch(text,/AI履历分析|本人履历评价/);
+  assert.match(text,/履历评价/);assert.match(text,/current professional analysis/);assert.match(text,/owner before-review/);assert.match(text,/AI履历分析/);assert.match(text,/AI分析／整理，不能当作本人原话或招聘决定/);assert.equal(projection.entries[0].text.startsWith('AI履历分析'),false,'source labels stay outside the source wording');
   assert.equal(h.context.candidate.feedback_notes,undefined);
 });
 
@@ -911,15 +912,15 @@ test('rule summary is natural language and friendly version labels replace inter
   assert.doesNotMatch(elementText(h.context.designHost),/172|116/);
 });
 
-test('AI analytical text is shown in resume evaluation rather than repeated in the heading',()=>{
+test('the selected summary exposes concise fit and advice while full feedback retains source distinctions',()=>{
   const h=listHarness();h.context.engineConnected=true;
   Object.assign(h.context,{uploadActive:false,detailRenderSignature:'',clearResumeFrames(){},reviewJob:()=>({}),scoreMechanism:()=>({version:'current-v3'}),latestAI:c=>c.ai_reviews.at(-1).review,
     personSentence:()=>({text:'unique professional reasoning'}),interviewAdvice:()=>({label:'建议面试',reason:'unique professional reasoning',type:'blue'}),profileFacts:()=>null,radarPanel:()=>null,resumePanel:()=>new Element('section'),worksPanel:()=>null,append:(parent,...children)=>parent.append(...children),openFeedbackNotes(){},openMaterials(){},changeMetadata(){},retryReview(){},openFeedback(){}});
   h.context.candidate=currentAiCandidate();h.context.candidate.name='林示例';h.context.candidate.ai_reviews[0].review.three_point.match.text='unique professional reasoning';h.context.candidate.display_score={score:80,scale:100};h.context.candidate.communication_events=[{kind:'interview_scheduled',status:'scheduled',evidence_verified:true,quote:'evidence-only original scheduling record'}];
   vm.runInContext(sourceFunction('renderDetail')+'\nrenderDetail(candidate);',h.context);
   const host=h.element('candidate-detail');
-  assert.doesNotMatch(elementText(host.children[0]),/unique professional reasoning/);
-  assert.match(elementText(host.children[1]),/履历评价/);assert.match(elementText(host.children[1]),/unique professional reasoning/);assert.doesNotMatch(elementText(host.children[1]),/原始沟通记录|另存人工修订|evidence-only original scheduling record|AI履历分析/);
+  const summaryText=elementText(host.children[0]);assert.match(summaryText,/unique professional reasoning/);assert.ok((summaryText.match(/unique professional reasoning/g)||[]).length<=2,'the summary has only the concise fit sentence and advice reason');assert.doesNotMatch(summaryText,/原始沟通记录|evidence-only original scheduling record/);
+  const feedbackPanel=host.children.flatMap(row=>[row,...row.children]).find(row=>row.className==='feedback-notes-panel');assert.ok(feedbackPanel);assert.match(elementText(feedbackPanel),/履历评价/);assert.match(elementText(feedbackPanel),/unique professional reasoning/);assert.match(elementText(feedbackPanel),/AI履历分析/);assert.doesNotMatch(elementText(feedbackPanel),/原始沟通记录|另存人工修订|evidence-only original scheduling record/);
 });
 
 

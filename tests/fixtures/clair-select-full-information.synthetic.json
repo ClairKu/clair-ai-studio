@@ -1,0 +1,872 @@
+{
+  "schema_version": 1,
+  "fixture_notice": "全部内容、姓名、公司、学校、时间、分数、SHA和原文均为合成测试值，没有真人材料，不可导入正式档案。",
+  "snapshot": {
+    "kind": "synthetic_test_fixture_only",
+    "prepared_at": "2026-01-23T00:00:00+08:00",
+    "local_app_sync_pending": true,
+    "formal_app_written": false,
+    "beisen_evidence_sync_pending": true,
+    "calendar_sync_pending": true,
+    "calendar_sync": {
+      "status": "pending",
+      "source": "SYNTHETIC_FIXTURE",
+      "applied_to_local_app": false
+    },
+    "is_final_snapshot": false
+  },
+  "candidates": [
+    {
+      "id": "cand-synthetic-full-info-01",
+      "name": "合成候选人A（测试专用）",
+      "identity_status": "synthetic_fixture",
+      "role": "ai_product",
+      "application_role": "ai_product",
+      "application": {
+        "role": "ai_product",
+        "original_title": "全合成AI产品意向",
+        "note": "本fixture无真实投递"
+      },
+      "role_assignment": {
+        "role": "ai_product",
+        "source": "synthetic_fixture_only",
+        "reason": "全合成归类"
+      },
+      "first_received_month": null,
+      "documents": [
+        {
+          "id": "doc-synthetic-A",
+          "filename": "SYNTHETIC-合成履历版本A.txt",
+          "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "extraction_status": "text_extracted",
+          "extraction_complete": true,
+          "warnings": [
+            "全部为假SHA与合成原件"
+          ]
+        },
+        {
+          "id": "doc-synthetic-B",
+          "filename": "SYNTHETIC-合成履历版本B.txt",
+          "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "extraction_status": "seed_summary_only",
+          "extraction_complete": false,
+          "source_may_be_fragment": true,
+          "warnings": [
+            "SYNTHETIC_EXTRACTION_WARNING：版本B仅有合成摘要，不是完整OCR。"
+          ]
+        }
+      ],
+      "source_content": [
+        {
+          "document_id": "doc-synthetic-A",
+          "locator": "合成A 第1页第1段",
+          "text": "【全合成测试，不是真人材料】CONTINUOUS_QUOTE_START\n这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。\nCONTINUOUS_QUOTE_END",
+          "source_type": "synthetic_source_text"
+        },
+        {
+          "document_id": "doc-synthetic-A",
+          "locator": "合成A 第2页第2段",
+          "text": "DOC_A_PAGE2_ONLY：合成版本A的第二页。<img src=\"https://example.invalid/do-not-fetch-synthetic\">此内容必须只作为文字。",
+          "source_type": "synthetic_source_text"
+        },
+        {
+          "document_id": "doc-synthetic-B",
+          "locator": "合成B 第2页第3段",
+          "text": "DOC_B_PAGE2_ONLY：这段全合成正文只属于版本B。",
+          "source_type": "seed_fact_summary",
+          "confidence": 0.6
+        }
+      ],
+      "profile_facts": {
+        "age": null,
+        "current_location": null,
+        "employment_status": null,
+        "recent_company": "合成公司甲（非真实企业）",
+        "work_history": [
+          {
+            "company": "合成公司甲（非真实企业）",
+            "start": "2024-02",
+            "end": "2025-05",
+            "tenure_display": "约1年3个月",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "locator": "合成A 第1页第1段",
+            "quote": "【全合成测试，不是真人材料】CONTINUOUS_QUOTE_START\n这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。\nCONTINUOUS_QUOTE_END"
+          },
+          {
+            "company": "合成公司乙（非真实企业）",
+            "start": "2022-01",
+            "end": "2023-12",
+            "tenure_display": "约1年11个月",
+            "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "locator": "合成B 第2页第3段",
+            "quote": "DOC_B_PAGE2_ONLY：这段全合成正文只属于版本B。"
+          }
+        ],
+        "education": [
+          {
+            "school": "合成大学（非真实学校）",
+            "degree": "本科",
+            "major": "合成专业",
+            "mode": "合成：非全日制",
+            "status": "已毕业（合成）",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "locator": "合成A 第2页第2段",
+            "quote": "全合成学历资料，不进入评分。",
+            "school_tier": null
+          }
+        ],
+        "evidence": []
+      },
+      "resume_score_ai": {
+        "role": "ai_product",
+        "source": "AI",
+        "method": "synthetic_fixture_no_model_call",
+        "mechanism_version": "synthetic-current-v1",
+        "requirements_version": 1,
+        "dimensions": [
+          {
+            "id": "scenario",
+            "label": "合成场景判断",
+            "weight": 25,
+            "max_points": 25,
+            "status": "known",
+            "points": 20,
+            "basis": "BASIS_START：这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。BASIS_END",
+            "evidence": [
+              {
+                "source_type": "document",
+                "document_id": "doc-synthetic-A",
+                "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "locator": "合成A 第1页第1段",
+                "quote": "【全合成测试，不是真人材料】CONTINUOUS_QUOTE_START\n这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。\nCONTINUOUS_QUOTE_END"
+              }
+            ]
+          },
+          {
+            "id": "delivery",
+            "label": "合成交付",
+            "weight": 25,
+            "max_points": 25,
+            "status": "known",
+            "points": 17,
+            "basis": "全合成交付证据，尚未独立验真。",
+            "evidence": [
+              {
+                "source_type": "document",
+                "document_id": "doc-synthetic-B",
+                "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                "locator": "合成B 第2页第3段",
+                "quote": "DOC_B_PAGE2_ONLY：这段全合成正文只属于版本B。"
+              }
+            ]
+          },
+          {
+            "id": "quality",
+            "label": "合成质量评测",
+            "weight": 25,
+            "max_points": 25,
+            "status": "unknown",
+            "points": null,
+            "basis": "UNKNOWN_BASIS：未取得合成评测记录，未知不补0。",
+            "evidence": []
+          },
+          {
+            "id": "value",
+            "label": "合成业务价值",
+            "weight": 25,
+            "max_points": 25,
+            "status": "unknown",
+            "points": null,
+            "basis": "合成成果口径未知，不补造分数。",
+            "evidence": []
+          }
+        ],
+        "known_points": 37,
+        "assessed_max_points": 50,
+        "assessed_count": 2,
+        "score": null,
+        "review_id": "ai-synthetic-current",
+        "recorded_at": "2026-01-21T09:08:07+08:00",
+        "is_current_context": true,
+        "score_note": "全部合成测试；原始总分null，已评37/50，不把未知当0。"
+      },
+      "resume_score": {
+        "score": 81,
+        "source": "用户修订（合成）",
+        "role": "ai_product",
+        "recorded_at": "2026-01-21T11:11:11+08:00",
+        "mechanism_version": "synthetic-current-v1",
+        "requirements_version": 1
+      },
+      "post_interview_score": {
+        "score": 66,
+        "source": "人工面后评分（合成）",
+        "role": "ai_product",
+        "recorded_at": "2026-01-22T12:00:00+08:00"
+      },
+      "display_score": {
+        "score": 66,
+        "scale": 100,
+        "source_raw_score": 66,
+        "source_scale": 100,
+        "coverage": 1,
+        "is_partial": false,
+        "partial": false,
+        "stage": "post_interview",
+        "label": "面后综合分",
+        "source": "人工面后评分（合成）",
+        "role": "ai_product",
+        "origin": "manual",
+        "is_manual": true,
+        "is_automatic": false,
+        "is_policy_stale": false
+      },
+      "dimension_review": null,
+      "ai_reviews": [
+        {
+          "id": "ai-synthetic-old",
+          "version": 1,
+          "method": "synthetic_fixture",
+          "imported_at": "2026-01-11T02:03:04+08:00",
+          "is_current_context": false,
+          "review": {
+            "summary": "FULL_OLD_AI_SUMMARY：全合成旧标准摘要。",
+            "recommendation": "合成旧建议，仅保留历史。",
+            "evaluation_role": "advisory_pm",
+            "dimension_review": {
+              "role": "advisory_pm",
+              "source": "AI",
+              "mechanism_version": "synthetic-old-v0",
+              "requirements_version": 0,
+              "dimensions": [
+                {
+                  "id": "old_axis",
+                  "label": "合成旧标准",
+                  "weight": 50,
+                  "max_points": 50,
+                  "points": 29,
+                  "status": "known",
+                  "view": "OLD_DIMENSION_VIEW：旧判断不能冒充当前标准。",
+                  "comment": "全部为合成测试。",
+                  "evidence": [
+                    {
+                      "source_type": "document",
+                      "document_id": "doc-synthetic-A",
+                      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                      "locator": "合成A 第1页第1段",
+                      "quote": "【全合成测试，不是真人材料】CONTINUOUS_QUOTE_START\n这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。\nCONTINUOUS_QUOTE_END"
+                    }
+                  ]
+                }
+              ],
+              "known_points": 29,
+              "assessed_max_points": 50,
+              "assessed_count": 1,
+              "recorded_at": "2026-01-10T01:02:03+08:00",
+              "is_current_context": false,
+              "total_score": 29
+            },
+            "claims": [
+              {
+                "kind": "historical_human_outcome",
+                "statement": "OLD_AI_CLAIM：历史合成判断。",
+                "evidence": [
+                  {
+                    "source_type": "human_review",
+                    "review_id": "human-synthetic-owner-after",
+                    "quote": "OWNER_AFTER_ORIGINAL：这是全合成测试，本轮不推进。"
+                  },
+                  {
+                    "source_type": "candidate_self_report",
+                    "source_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "original_review_locator": "SYNTHETIC_LEGACY_REVIEW_LOCATOR",
+                    "quote": "SYNTHETIC_LEGACY_CONTINUOUS_QUOTE"
+                  }
+                ]
+              }
+            ],
+            "limitations": [
+              "OLD_AI_LIMITATION：旧标准不冒当前。"
+            ],
+            "questions": [
+              "AI_QUESTION_MUST_NOT_SHOW_OLD"
+            ]
+          }
+        },
+        {
+          "id": "ai-synthetic-current",
+          "version": 2,
+          "method": "synthetic_fixture",
+          "imported_at": "2026-01-21T10:20:30+08:00",
+          "is_current_context": true,
+          "review": {
+            "candidate_id": "cand-synthetic-full-info-01",
+            "reviewer": "合成AI来源（未运行模型）",
+            "summary": "FULL_CURRENT_AI_SUMMARY：完整合成摘要。",
+            "recommendation": "AI_RECOMMENDATION_NOT_OWNER_DECISION：合成AI建议面试，不能覆盖本人的不推进决定。",
+            "evaluation_role": "ai_product",
+            "three_point": {
+              "match": {
+                "label": "合成：部分匹配",
+                "text": "CURRENT_MATCH_REASON：合成场景及交付有材料，质量和价值未知。"
+              },
+              "interview": {
+                "label": "合成：先核验",
+                "text": "CURRENT_INTERVIEW_REASON：先核对合成口径，不凭折算分下判断。"
+              },
+              "precheck": [
+                "AI_QUESTION_MUST_NOT_SHOW_PRECHECK"
+              ]
+            },
+            "resume_score": {
+              "role": "ai_product",
+              "source": "AI",
+              "method": "synthetic_fixture_no_model_call",
+              "mechanism_version": "synthetic-current-v1",
+              "requirements_version": 1,
+              "dimensions": [
+                {
+                  "id": "scenario",
+                  "label": "合成场景判断",
+                  "weight": 25,
+                  "max_points": 25,
+                  "status": "known",
+                  "points": 20,
+                  "basis": "BASIS_START：这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。BASIS_END",
+                  "evidence": [
+                    {
+                      "source_type": "document",
+                      "document_id": "doc-synthetic-A",
+                      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                      "locator": "合成A 第1页第1段",
+                      "quote": "【全合成测试，不是真人材料】CONTINUOUS_QUOTE_START\n这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。\nCONTINUOUS_QUOTE_END"
+                    }
+                  ]
+                },
+                {
+                  "id": "delivery",
+                  "label": "合成交付",
+                  "weight": 25,
+                  "max_points": 25,
+                  "status": "known",
+                  "points": 17,
+                  "basis": "全合成交付证据，尚未独立验真。",
+                  "evidence": [
+                    {
+                      "source_type": "document",
+                      "document_id": "doc-synthetic-B",
+                      "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                      "locator": "合成B 第2页第3段",
+                      "quote": "DOC_B_PAGE2_ONLY：这段全合成正文只属于版本B。"
+                    }
+                  ]
+                },
+                {
+                  "id": "quality",
+                  "label": "合成质量评测",
+                  "weight": 25,
+                  "max_points": 25,
+                  "status": "unknown",
+                  "points": null,
+                  "basis": "UNKNOWN_BASIS：未取得合成评测记录，未知不补0。",
+                  "evidence": []
+                },
+                {
+                  "id": "value",
+                  "label": "合成业务价值",
+                  "weight": 25,
+                  "max_points": 25,
+                  "status": "unknown",
+                  "points": null,
+                  "basis": "合成成果口径未知，不补造分数。",
+                  "evidence": []
+                }
+              ],
+              "known_points": 37,
+              "assessed_max_points": 50,
+              "assessed_count": 2,
+              "score": null,
+              "review_id": "ai-synthetic-current",
+              "recorded_at": "2026-01-21T09:08:07+08:00",
+              "is_current_context": true,
+              "score_note": "全部合成测试；原始总分null，已评37/50，不把未知当0。"
+            },
+            "claims": [
+              {
+                "kind": "candidate_self_report",
+                "statement": "FULL_AI_CLAIM：全合成AI判断及完整连续引句。",
+                "evidence": [
+                  {
+                    "source_type": "document",
+                    "document_id": "doc-synthetic-A",
+                    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "locator": "合成A 第1页第1段",
+                    "quote": "【全合成测试，不是真人材料】CONTINUOUS_QUOTE_START\n这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。\nCONTINUOUS_QUOTE_END"
+                  },
+                  {
+                    "source_type": "document",
+                    "document_id": "doc-synthetic-B",
+                    "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                    "locator": "合成B 第2页第3段",
+                    "quote": "DOC_B_PAGE2_ONLY：这段全合成正文只属于版本B。"
+                  }
+                ]
+              }
+            ],
+            "material_coverage": {
+              "read_complete": false,
+              "limitations": [
+                "NESTED_MATERIAL_LIMITATION：全合成材料仍有缺失。"
+              ]
+            },
+            "limitations": [
+              "FULL_AI_LIMITATION：全合成结果未独立验真。"
+            ],
+            "human_constraint": [
+              "全合成本人已有不推进决定，AI不能覆盖。"
+            ],
+            "questions": [
+              "AI_QUESTION_MUST_NOT_SHOW_LIST"
+            ],
+            "quick_review_fingerprint": "synthetic-context",
+            "feedback_memory_version": 0,
+            "fit_verdict": "SYNTHETIC_OTHER_SAVED_FIT_VERDICT",
+            "dimension_review": {
+              "role": "ai_product",
+              "method": "synthetic_independent_observations",
+              "mechanism_version": "synthetic-current-v1",
+              "dimensions": [
+                {
+                  "id": "synthetic-independent-observation",
+                  "label": "独立维度观察",
+                  "points": null,
+                  "max_points": 25,
+                  "basis": "SYNTHETIC_SECOND_DIMENSION_OBSERVATION",
+                  "evidence": []
+                }
+              ],
+              "known_points": 0,
+              "assessed_max_points": 0,
+              "total_score": null
+            }
+          }
+        }
+      ],
+      "latest_ai_review_id": "ai-synthetic-current",
+      "latest_quick_review_id": "ai-synthetic-current",
+      "quick_review_job": {
+        "status": "completed",
+        "review_id": "ai-synthetic-current",
+        "fingerprint": "synthetic-context"
+      },
+      "feedback_memory_version": 0,
+      "review_role_stale": false,
+      "review_standard_stale": false,
+      "ai_review_standard_stale": false,
+      "review_feedback_stale": false,
+      "score_history": [
+        {
+          "field": "resume_score_ai",
+          "value": {
+            "role": "advisory_pm",
+            "source": "AI",
+            "mechanism_version": "synthetic-old-v0",
+            "requirements_version": 0,
+            "dimensions": [
+              {
+                "id": "old_axis",
+                "label": "合成旧标准",
+                "weight": 50,
+                "max_points": 50,
+                "points": 29,
+                "status": "known",
+                "view": "OLD_DIMENSION_VIEW：旧判断不能冒充当前标准。",
+                "comment": "全部为合成测试。",
+                "evidence": [
+                  {
+                    "source_type": "document",
+                    "document_id": "doc-synthetic-A",
+                    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "locator": "合成A 第1页第1段",
+                    "quote": "【全合成测试，不是真人材料】CONTINUOUS_QUOTE_START\n这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。\nCONTINUOUS_QUOTE_END"
+                  }
+                ]
+              }
+            ],
+            "known_points": 29,
+            "assessed_max_points": 50,
+            "assessed_count": 1,
+            "score": 29,
+            "recorded_at": "2026-01-10T01:02:03+08:00",
+            "is_current_context": false
+          },
+          "replaced_at": "2026-01-21T09:08:07+08:00",
+          "replacement_source": "合成版本替换",
+          "replacement_review_id": "ai-synthetic-current"
+        },
+        {
+          "field": "resume_score",
+          "value": {
+            "role": "ai_product",
+            "source": "AI",
+            "method": "synthetic_fixture_no_model_call",
+            "mechanism_version": "synthetic-current-v1",
+            "requirements_version": 1,
+            "dimensions": [
+              {
+                "id": "scenario",
+                "label": "合成场景判断",
+                "weight": 25,
+                "max_points": 25,
+                "status": "known",
+                "points": 20,
+                "basis": "BASIS_START：这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。这是全合成判断依据，必须保持完整。BASIS_END",
+                "evidence": [
+                  {
+                    "source_type": "document",
+                    "document_id": "doc-synthetic-A",
+                    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "locator": "合成A 第1页第1段",
+                    "quote": "【全合成测试，不是真人材料】CONTINUOUS_QUOTE_START\n这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。这是一段用于核验连续引句完整呈现的合成文字。\nCONTINUOUS_QUOTE_END"
+                  }
+                ]
+              },
+              {
+                "id": "delivery",
+                "label": "合成交付",
+                "weight": 25,
+                "max_points": 25,
+                "status": "known",
+                "points": 17,
+                "basis": "全合成交付证据，尚未独立验真。",
+                "evidence": [
+                  {
+                    "source_type": "document",
+                    "document_id": "doc-synthetic-B",
+                    "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                    "locator": "合成B 第2页第3段",
+                    "quote": "DOC_B_PAGE2_ONLY：这段全合成正文只属于版本B。"
+                  }
+                ]
+              },
+              {
+                "id": "quality",
+                "label": "合成质量评测",
+                "weight": 25,
+                "max_points": 25,
+                "status": "unknown",
+                "points": null,
+                "basis": "UNKNOWN_BASIS：未取得合成评测记录，未知不补0。",
+                "evidence": []
+              },
+              {
+                "id": "value",
+                "label": "合成业务价值",
+                "weight": 25,
+                "max_points": 25,
+                "status": "unknown",
+                "points": null,
+                "basis": "合成成果口径未知，不补造分数。",
+                "evidence": []
+              }
+            ],
+            "known_points": 37,
+            "assessed_max_points": 50,
+            "assessed_count": 2,
+            "score": null,
+            "review_id": "ai-synthetic-current",
+            "recorded_at": "2026-01-21T09:08:07+08:00",
+            "is_current_context": true,
+            "score_note": "全部合成测试；原始总分null，已评37/50，不把未知当0。"
+          },
+          "replaced_at": "2026-01-21T11:11:11+08:00",
+          "replacement_source": "合成用户修订"
+        }
+      ],
+      "human_reviews": [
+        {
+          "id": "human-synthetic-owner-before",
+          "stage": "before",
+          "author": "本人",
+          "sender_identity": "owner",
+          "text": "OWNER_BEFORE_FULL_TEXT_DISTINCT_FROM_QUOTE",
+          "source": "synthetic_fixture_only",
+          "evidence_completeness": "full",
+          "recorded_at": "2026-01-20T08:00:00+08:00",
+          "quotes": [
+            "OWNER_BEFORE_EXTRA_CONTINUOUS_QUOTE"
+          ],
+          "quote": "OWNER_BEFORE_ORIGINAL"
+        },
+        {
+          "id": "human-synthetic-owner-after",
+          "stage": "after",
+          "author": "本人",
+          "sender_identity": "owner",
+          "text": "OWNER_AFTER_ORIGINAL：这是全合成测试，本轮不推进。",
+          "outcome_quote": "OWNER_DECISION_STAYS：合成本人不推进决定。",
+          "source": "synthetic_fixture_only",
+          "evidence_completeness": "full",
+          "interview_occurred_at": "2026-01-19T14:00:00+08:00",
+          "feedback_sent_at": "2026-01-20T09:00:00+08:00",
+          "recorded_at": "2026-01-21T11:00:00+08:00"
+        },
+        {
+          "id": "human-synthetic-peer-after",
+          "stage": "after",
+          "author": "合成平台面试官",
+          "sender_identity": "interviewer",
+          "text": "PEER_PLATFORM_ORIGINAL：全合成平台面评，不是招聘本人决定。",
+          "source": "synthetic_fixture_only",
+          "source_type": "verified_platform_interview_record",
+          "evidence_completeness": "full",
+          "evidence_verified": true,
+          "interview_completed_explicit": true,
+          "scope": "historical_interview_round",
+          "recorded_at": "2026-01-18T12:00:00+08:00"
+        },
+        {
+          "id": "human-synthetic-hr",
+          "stage": "hr",
+          "category": "hr",
+          "author": "合成人力",
+          "sender_identity": "hr",
+          "text": "HR_ORIGINAL：全部合成的人力原话。",
+          "source": "synthetic_fixture_only",
+          "evidence_completeness": "full"
+        },
+        {
+          "id": "human-synthetic-unknown",
+          "stage": "unknown",
+          "author": "作者待核（合成）",
+          "text": "UNKNOWN_STAGE_ORIGINAL：全合成原文完整，但阶段未知，不应统一叫残缺片段。",
+          "source": "synthetic_fixture_only",
+          "evidence_completeness": "full"
+        },
+        {
+          "id": "synthetic-shared-wording",
+          "stage": "before",
+          "author": "合成来源甲",
+          "sender_identity": "owner",
+          "text": "SAME_WORDING_TWO_DISTINCT_SOURCES",
+          "source_id": "synthetic-human-source-A",
+          "outcome": "合成人工结论甲",
+          "evidence_completeness": "full"
+        },
+        {
+          "id": "synthetic-shared-wording",
+          "stage": "before",
+          "author": "合成来源乙",
+          "sender_identity": "hr",
+          "text": "SAME_WORDING_TWO_DISTINCT_SOURCES",
+          "source_id": "synthetic-human-source-B",
+          "outcome": "合成人工结论乙",
+          "evidence_completeness": "full"
+        }
+      ],
+      "partial_human_reviews": [
+        {
+          "id": "human-synthetic-fragment",
+          "stage": "unknown",
+          "author": "来源待核（合成）",
+          "quote": "PARTIAL_HUMAN_FRAGMENT：全合成未完句……",
+          "source": "synthetic_fixture_only",
+          "evidence_completeness": "partial_preview",
+          "attribution_status": "unverified"
+        }
+      ],
+      "recruitment_status": {
+        "value": "not_proceeding",
+        "source": "全合成本人原话",
+        "is_final_human_decision": true
+      },
+      "status": "真人结论：不推进（合成）",
+      "resume_recommendation": {
+        "status": "interview",
+        "label": "建议面试（合成AI）",
+        "reason": "SYNTHETIC_CANONICAL_REASON：这是AI建议，不能改变合成本人不推进决定。",
+        "rubric_version": "synthetic-current-v1",
+        "score_origin": "ai"
+      },
+      "communication_events": [
+        {
+          "id": "event-synthetic-scheduled",
+          "kind": "interview_scheduled",
+          "status": "scheduled",
+          "evidence_verified": true,
+          "quote": "SCHEDULED_NOT_COMPLETED：全合成已约一面，尚未发生。",
+          "interview_at": "2026-02-04T10:30:00+08:00",
+          "interview_at_precision": "minute",
+          "sent_at": "2026-01-26T16:00:00+08:00",
+          "sent_at_precision": "minute",
+          "source_id": "source-synthetic-calendar",
+          "locator": "合成日程第1条",
+          "source_label": "全合成北森格式fixture"
+        },
+        {
+          "id": "event-synthetic-approved",
+          "kind": "second_interview",
+          "status": "approved",
+          "evidence_verified": true,
+          "quote": "APPROVED_DATE_UNKNOWN：全合成复面获准，日期未知，不表示已复面。",
+          "interview_at": null,
+          "absolute_date_unknown": true,
+          "source_id": "source-synthetic-calendar",
+          "locator": "合成日程第2条"
+        }
+      ],
+      "interview_time_claims": [
+        {
+          "quote": "TIME_CLAIM_ORIGINAL：全合成记录只写周三，缺年月，保留未知。",
+          "raw_time": "合成：周三",
+          "interview_at": null,
+          "temporal_status": "absolute_date_unknown",
+          "source_id": "source-synthetic-calendar",
+          "locator": "合成核验第1段"
+        }
+      ],
+      "works": [
+        {
+          "title": "全合成作品链接（不自动打开）",
+          "kind": "synthetic_demo",
+          "url": "https://example.invalid/synthetic-work-do-not-auto-load"
+        }
+      ],
+      "recruitment_progress_history": [
+        {
+          "id": "synthetic-progress-01",
+          "stage": "first_interview",
+          "phase": "scheduled",
+          "reason": "SYNTHETIC_PROGRESS_HISTORY_REASON",
+          "source": "合成用户手工修订",
+          "recorded_at": "2026-01-22T02:00:00+08:00",
+          "occurred_at": null,
+          "manual_override": true
+        }
+      ],
+      "decision_history": [
+        {
+          "id": "synthetic-decision-01",
+          "status": "not_proceeding",
+          "source": "合成用户原话",
+          "quote": "SYNTHETIC_DECISION_HISTORY_ORIGINAL",
+          "source_id": "synthetic-history-source",
+          "recorded_at": "2026-01-22T03:00:00+08:00"
+        }
+      ]
+    }
+  ],
+  "resume_score_mechanisms": {
+    "ai_product": {
+      "version": "synthetic-current-v1",
+      "name": "全合成AI产品标准",
+      "role": "ai_product",
+      "dimensions": [
+        {
+          "id": "scenario",
+          "label": "合成场景判断",
+          "weight": 25,
+          "criteria": "全合成标准，不用于真人。"
+        },
+        {
+          "id": "delivery",
+          "label": "合成交付",
+          "weight": 25,
+          "criteria": "全合成标准，不用于真人。"
+        },
+        {
+          "id": "quality",
+          "label": "合成质量评测",
+          "weight": 25,
+          "criteria": "全合成标准，不用于真人。"
+        },
+        {
+          "id": "value",
+          "label": "合成业务价值",
+          "weight": 25,
+          "criteria": "全合成标准，不用于真人。"
+        }
+      ],
+      "decision_policy": {
+        "full_resume_threshold": 70,
+        "min_coverage": 0.6,
+        "critical_dimensions": [],
+        "manual_override_gates": false,
+        "basis": "synthetic_test_only",
+        "source_note": "合成测试默认，不是用户指定门槛"
+      }
+    }
+  },
+  "role_requirements": {
+    "roles": {
+      "ai_product": {
+        "name": "全合成AI产品标准",
+        "version": 1,
+        "current_focus": [
+          "全部为合成测试，不判断真人。"
+        ],
+        "resume_score_mechanism": {
+          "version": "synthetic-current-v1",
+          "name": "全合成AI产品标准",
+          "role": "ai_product",
+          "dimensions": [
+            {
+              "id": "scenario",
+              "label": "合成场景判断",
+              "weight": 25,
+              "criteria": "全合成标准，不用于真人。"
+            },
+            {
+              "id": "delivery",
+              "label": "合成交付",
+              "weight": 25,
+              "criteria": "全合成标准，不用于真人。"
+            },
+            {
+              "id": "quality",
+              "label": "合成质量评测",
+              "weight": 25,
+              "criteria": "全合成标准，不用于真人。"
+            },
+            {
+              "id": "value",
+              "label": "合成业务价值",
+              "weight": 25,
+              "criteria": "全合成标准，不用于真人。"
+            }
+          ],
+          "decision_policy": {
+            "full_resume_threshold": 70,
+            "min_coverage": 0.6,
+            "critical_dimensions": [],
+            "manual_override_gates": false,
+            "basis": "synthetic_test_only",
+            "source_note": "合成测试默认，不是用户指定门槛"
+          }
+        },
+        "rubric_versions": []
+      }
+    }
+  },
+  "communication_source_ledger": [
+    {
+      "id": "source-synthetic-calendar",
+      "label": "全合成日程来源（未实际读取北森）",
+      "type": "synthetic_fixture",
+      "messages_added": 0,
+      "events_added": 2,
+      "pending_count": 1
+    }
+  ],
+  "pending_communication_records": [
+    {
+      "contact": "未归属来源（全合成）",
+      "quote": "UNATTRIBUTED_ORIGINAL：全合成信息，不能自动归属候选人。",
+      "reasons": [
+        "all_synthetic_unattributed"
+      ]
+    }
+  ],
+  "unmatched_feedback": [],
+  "events": []
+}

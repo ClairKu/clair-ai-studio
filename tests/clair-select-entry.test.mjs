@@ -7,14 +7,16 @@ const selectId = "candidate-evaluator-2026-10-29";
 const storage = (seed = {}) => ({ getItem: (key) => seed[key] ?? null });
 const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]);
 
-test("Clair Select is available from the common launchpad with the online and local boundary", () => {
+test("the recruitment workspace is visibly named in the common launchpad", () => {
   const html = personalLaunchpadMarkup({
     reports: [{ id: selectId, title: "Clair Select｜招聘工作台" }],
     escapeHtml,
     storage: storage(),
   });
   assert.equal((html.match(new RegExp(`data-id="${selectId}"`, "g")) || []).length, 1);
-  assert.match(html, /线上加密档案 · 本机完整功能/);
+  assert.match(html, /studio-shortcut-title">招聘工作台 · Clair Select/);
+  assert.match(html, /完整履历 · 评价依据 · 历史版本/);
+  assert.match(html, /aria-label="查看完整招聘档案"/);
 });
 
 test("the launchpad respects a previously archived Clair Select record", () => {
