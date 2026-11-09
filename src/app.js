@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 174;
+const DATA_VERSION = 175;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -222,6 +222,26 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "finance-101-20261109",
+      groupId: "research",
+      title: "钱的脾气，亲手试一试｜10个给小白的金融知识点",
+      url: "https://clairku.github.io/clair-ai-studio/reports/finance-101-20261109/",
+      preview: "finance-101-20261109.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-09T17:00:00+08:00",
+      source: "原创投资者教育页面：用10个可操作的图解认识固收+、收益与风险、净值、利率、分散和流动性。交互数字均为教学假设，不代表产品历史业绩或收益预测。",
+      access: "production",
+      workType: "investment-research",
+      tags: [
+        "投资者教育",
+        "固收+",
+        "交互科普",
+        "金融基础",
+        "HTML"
+      ]
+    },
     {
       id: "yingmi-ai-partner-kit-2026-11-09",
       groupId: "ai-platform",
@@ -4467,6 +4487,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "finance-101-20261109": "investment-research",
   "yingmi-doubao-six-scenarios-2026-11-05": "product-demo",
   "doubao-yingmi-holdings-communication-2026-11-05": "product-planning",
   "yingmi-mcp-usage-evidence-2026-11-04": "data-analysis",
@@ -4610,6 +4631,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "finance-101-20261109": "research",
   "yingmi-ai-partner-kit-2026-11-09": "ai-platform",
   "qiqi-wechat-stickers-2026-11-08": "ai-workbench",
   "qieman-advisor-studio-2026-11-08": "advisor-workbench",
