@@ -68,7 +68,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 175;
+const DATA_VERSION = 176;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -223,6 +223,29 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "yingmi-ai-capability-catalog-2026-11-10",
+      groupId: "ai-platform",
+      title: "盈米AI开放能力清单｜MCP、Skills与Agent",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-capability-catalog-2026-11-10/",
+      preview: "yingmi-ai-capability-catalog-2026-11-10.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-10T12:23:52+08:00",
+      source: "按业务分类浏览盈米AI开放能力：71个当前授权MCP、10个现行云端Skills、6项有发布记录的Agent服务。包含中英文名称、用途、字段类型、必填、默认值、完整输入输出Schema、验证范围与来源；支持搜索、历史项筛选与CSV导出。目录核对日2026-11-10，业务调用未逐项验收。",
+      access: "production",
+      workType: "ai-research",
+      tags: [
+        "盈米AI",
+        "开放能力",
+        "MCP",
+        "Skills",
+        "Agent",
+        "接口清单",
+        "Schema",
+        "HTML"
+      ]
+    },
     {
       id: "qiming-h2-product-review-2026-11-09",
       groupId: "reporting",
@@ -4646,6 +4669,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "yingmi-ai-capability-catalog-2026-11-10": "ai-platform",
   "qiming-h2-product-review-2026-11-09": "reporting",
   "finance-101-20261109": "research",
   "yingmi-ai-partner-kit-2026-11-09": "ai-platform",
