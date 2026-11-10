@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "pension-fixed-income-plus-copy-classification-2026-11-10",
     "pension-y-catalog-qieman-2026-11-10",
     "yingmi-ai-capability-catalog-2026-11-10",
     "qiming-h2-product-review-2026-11-09",

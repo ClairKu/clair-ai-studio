@@ -68,7 +68,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 178;
+const DATA_VERSION = 179;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -223,6 +223,27 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "pension-fixed-income-plus-copy-classification-2026-11-10",
+      groupId: "pension-planning",
+      title: "固收＋文案与养老基金分类依据",
+      url: "https://clairku.github.io/clair-ai-studio/reports/pension-fixed-income-plus-copy-classification-2026-11-10/",
+      preview: "pension-fixed-income-plus-copy-classification-2026-11-10.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-10T17:00:00+08:00",
+      source: "按养老产品页面撰写固收＋介绍；核验政策原文、天天基金、招商银行、嘉实、汇添富及养老理财先例，区分法定类别、投资策略与平台分组，提供互斥归类和上线规则。",
+      access: "production",
+      workType: "product-planning",
+      tags: [
+        "个人养老金",
+        "固收+",
+        "文案",
+        "产品分类",
+        "政策依据",
+        "HTML"
+      ]
+    },
     {
       id: "pension-y-catalog-qieman-2026-11-10",
       groupId: "pension-planning",
@@ -4692,6 +4713,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "pension-fixed-income-plus-copy-classification-2026-11-10": "pension-planning",
   "pension-y-catalog-qieman-2026-11-10": "pension-planning",
   "yingmi-ai-capability-catalog-2026-11-10": "ai-platform",
   "qiming-h2-product-review-2026-11-09": "reporting",

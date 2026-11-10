@@ -1,0 +1,106 @@
+[
+  {
+    "id": "P1",
+    "kind": "政策原文",
+    "title": "全面实施个人养老金制度的通知",
+    "date": "2024-12-12",
+    "url": "https://www.csrc.gov.cn/csrc/c100028/c7524086/content.shtml",
+    "supports": "产品范围涵盖储蓄、理财、保险、公募基金等，并扩展国债；明确按风险等级分类展示。未规定截图所示四标签。"
+  },
+  {
+    "id": "P2",
+    "kind": "政策原文·协会法规库",
+    "title": "个人养老金投资公募基金业务管理暂行规定",
+    "date": "2022-11-04",
+    "url": "https://fg.amac.org.cn/governmentrules_3854/zcgz_gfxwj/gfxwj_gmjj/gfxwj_gmjj_qt/202211/t20221125_19276.html",
+    "supports": "第十条列养老目标基金，以及符合条件的股票、混合、债券、FOF等；准入以公布的名录为准。"
+  },
+  {
+    "id": "P3",
+    "kind": "政策原文",
+    "title": "养老目标证券投资基金指引（试行）",
+    "date": "2018-02-11",
+    "url": "https://www.csrc.gov.cn/csrc/c101877/c1029550/content.shtml",
+    "supports": "第四条明确目标日期、目标风险及认可的其他策略。固收＋并非其中一个并列的法定策略类别。"
+  },
+  {
+    "id": "P4",
+    "kind": "政府转载政策原文",
+    "title": "规范金融机构资产管理业务的指导意见",
+    "date": "2018-04-27",
+    "url": "https://jrj.beijing.gov.cn/2024zcwj/gjzcfg2024/202409/t20240905_3790940.html",
+    "supports": "投资性质分固定收益、权益、商品及金融衍生品、混合类；固定收益类不是固定回报，亦不等于固收＋。"
+  },
+  {
+    "id": "I1",
+    "kind": "销售机构官方网页",
+    "title": "天天基金帮助中心",
+    "date": "2026-11-10核验",
+    "url": "https://help.1234567.com.cn/list_338.html",
+    "supports": "导航中有固收＋及相关说明；养老账户是另一组。只能证明平台采用此称呼，不能证明养老金专区的四标签。"
+  },
+  {
+    "id": "I2",
+    "kind": "银行官方专题",
+    "title": "招商银行：稳中求进好选择",
+    "date": "2026-11-10核验",
+    "url": "https://market.cmbchina.com/MPage/online/250415141710256/index.html",
+    "supports": "官方固收＋专题，说明债券底仓加其他资产的策略。专题不是个人养老金专栏的直接证据。"
+  },
+  {
+    "id": "I3",
+    "kind": "基金公司官方投教",
+    "title": "嘉实：市场震荡怎么办？固收＋了解一下",
+    "date": "2025-09-25",
+    "url": "https://www.jsfund.cn/main/a/20250925/483979.shtml",
+    "supports": "明确称固收＋为产品设计思路或投资理念，介绍债券底仓及增强策略。"
+  },
+  {
+    "id": "I4",
+    "kind": "基金公司官方投教",
+    "title": "汇添富：市场持续震荡，如何实现稳健投资",
+    "date": "2023-02-24",
+    "url": "https://www.99fund.com/main/a/20230224/12781274.shtml",
+    "supports": "以固收与增强策略解释固收＋。该历史投教不能代替当前养老货架验证。"
+  },
+  {
+    "id": "I5",
+    "kind": "基金公司养老网页",
+    "title": "嘉实个人养老专区",
+    "date": "2026-11-10核验",
+    "url": "https://www.jsfund.cn/main/pensions/PensionTargetFund/index.shtml",
+    "supports": "页面按目标日期、目标风险解释养老目标基金。不是全部个人养老金可投基金的穷尽分类。"
+  },
+  {
+    "id": "I6",
+    "kind": "银行官方产品文件",
+    "title": "中银理财“福”固收增强养老理财产品",
+    "date": "2022年产品；2023年报告",
+    "url": "https://pic.bankofchina.com/bocappd/wealth/cs86/202305/P020230508637919225637.pdf",
+    "supports": "产品名使用固收增强，但产品类型明确为固定收益类。证明养老理财也用增强策略名称，不证明该产品可用个人养老金账户购买。"
+  },
+  {
+    "id": "M1",
+    "kind": "媒体转述监管通知",
+    "title": "新华财经：含权二级债基、偏债混合拟纳入名录",
+    "date": "2026-09-06",
+    "url": "https://www.cnfin.com/yw-lb/detail/20260906/4465726_1.html",
+    "supports": "报道通知使用含权二级债基、偏债混合（含偏债混合FOF）称谓。未取得公开通知原文，不能把媒体的固收＋概括当法定分类。"
+  },
+  {
+    "id": "M2",
+    "kind": "媒体报道",
+    "title": "经济参考报／新华网：26只固收＋Y份额上线",
+    "date": "2026-10-08",
+    "url": "https://www.xinhuanet.com/money/20261008/486cc4b6fa204c56a94b7c5242020580/c.html",
+    "supports": "证实市场将此批新产品概括为固收＋。首批26与当前业务分组30不是同一统计口径。"
+  },
+  {
+    "id": "D1",
+    "kind": "已核验同系列报告",
+    "title": "个人养老金Y份额名录与且慢可售覆盖",
+    "date": "2026-11-10",
+    "url": "https://clairku.github.io/clair-ai-studio/reports/pension-y-catalog-qieman-2026-11-10/",
+    "supports": "349只分为养老目标212、权益指数107、普通含权固收＋30；此为互斥业务分组。"
+  }
+]
