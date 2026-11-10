@@ -68,7 +68,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 176;
+const DATA_VERSION = 177;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -232,7 +232,7 @@ const initialState = {
       pinned: false,
       position: 0,
       createdAt: "2026-11-10T12:23:52+08:00",
-      source: "按业务分类浏览盈米AI开放能力：71个当前授权MCP、10个现行云端Skills、6项有发布记录的Agent服务。包含中英文名称、用途、字段类型、必填、默认值、完整输入输出Schema、验证范围与来源；支持搜索、历史项筛选与CSV导出。目录核对日2026-11-10，业务调用未逐项验收。",
+      source: "按10个关键业务场景查看官网92项MCP、10项Skills和AI小顾。包含官方中英文名称、用途与业务出入参，支持跨能力类型筛选、搜索和清单导出。",
       access: "production",
       workType: "ai-research",
       tags: [
@@ -241,8 +241,8 @@ const initialState = {
         "MCP",
         "Skills",
         "Agent",
+        "业务场景",
         "接口清单",
-        "Schema",
         "HTML"
       ]
     },
