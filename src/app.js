@@ -68,7 +68,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 177;
+const DATA_VERSION = 178;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -223,6 +223,29 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "pension-y-catalog-qieman-2026-11-10",
+      groupId: "pension-planning",
+      title: "个人养老金Y份额名录与且慢可售覆盖",
+      url: "https://clairku.github.io/clair-ai-studio/reports/pension-y-catalog-qieman-2026-11-10/",
+      preview: "pension-y-catalog-qieman-2026-11-10.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-10T15:40:16+08:00",
+      source: "证监会截至2026年9月30日的349只个人养老金基金名录，结合2026年11月10日逐份额核验的且慢公开交易接口。区分Y份额属性、投资策略、可申购及未代销，单列26只新纳入固收加与4只到期转型FOF。普通含权固收加采用明确业务口径，不等于所有低权益养老目标基金。",
+      access: "production",
+      workType: "data-analysis",
+      tags: [
+        "个人养老金",
+        "Y份额",
+        "且慢",
+        "固收+",
+        "基金名录",
+        "代销覆盖",
+        "数据分析",
+        "HTML"
+      ]
+    },
     {
       id: "yingmi-ai-capability-catalog-2026-11-10",
       groupId: "ai-platform",
@@ -4669,6 +4692,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "pension-y-catalog-qieman-2026-11-10": "pension-planning",
   "yingmi-ai-capability-catalog-2026-11-10": "ai-platform",
   "qiming-h2-product-review-2026-11-09": "reporting",
   "finance-101-20261109": "research",
