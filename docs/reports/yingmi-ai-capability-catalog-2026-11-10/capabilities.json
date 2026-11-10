@@ -1,6 +1,6 @@
 {
   "title": "盈米AI开放能力清单",
-  "version": 2,
+  "version": 3,
   "date": "2026-11-10",
   "counts": {
     "MCP": 92,
@@ -67,6 +67,13 @@
       "name": "私募产品研究",
       "shortDescription": "识别代销私募，查询产品、管理人、分类与区间业绩。",
       "icon": "private"
+    },
+    {
+      "id": "general-tools",
+      "name": "通用工具",
+      "shortDescription": "时间查询、图表渲染与文档导出。",
+      "icon": "tools",
+      "kind": "utility"
     }
   ],
   "items": [
@@ -10860,16 +10867,8 @@
       "official_name": "HTML转PDF",
       "description": "将HTML内容高质量渲染并导出为PDF文档",
       "scenes": [
-        "fund-research",
-        "portfolio-check",
-        "strategy-research",
-        "family-planning",
-        "allocation-plan",
-        "market-monitor",
-        "client-visit",
-        "content-studio",
-        "account-service",
-        "private-research"
+        "general-tools",
+        "content-studio"
       ],
       "fields": [
         {
@@ -11021,16 +11020,7 @@
       "official_name": "获取当前时间",
       "description": "获取系统当前时间及相关基准时间信息",
       "scenes": [
-        "fund-research",
-        "portfolio-check",
-        "strategy-research",
-        "family-planning",
-        "allocation-plan",
-        "market-monitor",
-        "client-visit",
-        "content-studio",
-        "account-service",
-        "private-research"
+        "general-tools"
       ],
       "fields": [],
       "out_fields": [
@@ -11080,16 +11070,8 @@
       "official_name": "ECharts图表渲染",
       "description": "将ECharts图表配置渲染为可展示图像",
       "scenes": [
-        "fund-research",
-        "portfolio-check",
-        "strategy-research",
-        "family-planning",
-        "allocation-plan",
-        "market-monitor",
-        "client-visit",
-        "content-studio",
-        "account-service",
-        "private-research"
+        "general-tools",
+        "content-studio"
       ],
       "fields": [
         {
