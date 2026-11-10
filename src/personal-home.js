@@ -5,9 +5,9 @@ export const PERSONAL_VISITS_KEY = "clair-personal-home-recent-v1";
 export const PERSONAL_AREAS = Object.freeze([
   {
     id: "clair-select", number: "07", title: "招聘工作台 · Clair Select", category: "招聘工作台",
-    description: "完整档案独立加密在线查看；上传、AI分析与编辑由本机服务执行。",
+    description: "云端保存全部履历与面试评价，随时打开、上传和补充反馈。",
     theme: "blue", icon: "panel", primary: { reportId: "candidate-evaluator-2026-10-29", label: "查看完整招聘档案" },
-    meta: "完整履历 · 评价依据 · 历史版本",
+    meta: "云端原件 · 面试评价 · 随时上传",
     links: [], visual: ["履历分析", "面试复盘", "岗位标准"],
   },
   {

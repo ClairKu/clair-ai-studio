@@ -1,3 +1,4 @@
+import reportRegistry from "../catalog/report-registry.json";
 import { personalLaunchpadMarkup, rememberPersonalVisit } from "./personal-home.js";
 import {
   bindTaskCenter,
@@ -645,12 +646,12 @@ const initialState = {
       id: "candidate-evaluator-2026-10-29",
       groupId: "ai-workbench",
       title: "Clair Select｜招聘工作台",
-      url: "https://clairku.github.io/clair-ai-studio/reports/candidate-evaluator-2026-10-29/",
+      url: "https://clair-select.pages.dev/",
       preview: "candidate-evaluator-2026-10-29.svg",
       pinned: true,
       position: 0,
       createdAt: "2026-10-29T15:50:00+08:00",
-      source: "完整档案独立加密在线查看；上传、AI分析与编辑由本机服务执行。线上快照列明待同步状态。",
+      source: "独立云端招聘工作台：查看完整履历原件、面试评价与历史，随时上传并在线保存新履历。新材料分析状态据实显示。",
       access: "production",
       workType: "product-demo",
       tags: ["招聘", "候选人评价", "面试复盘", "AI", "加密报告", "HTML"],
@@ -4645,6 +4646,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qiming-h2-product-review-2026-11-09": "reporting",
   "finance-101-20261109": "research",
   "yingmi-ai-partner-kit-2026-11-09": "ai-platform",
   "qiqi-wechat-stickers-2026-11-08": "ai-workbench",
@@ -7094,6 +7096,18 @@ async function downloadReportArchive(report) {
   }
 }
 
+function registeredHostedApplication(report) {
+  return Boolean(report && (reportRegistry.hostedApplications || []).some((entry) =>
+    entry.access === "owner-private" && entry.id === report.id && entry.url === report.url));
+}
+
+function openHostedApplication(report) {
+  if (!registeredHostedApplication(report)) return false;
+  rememberPersonalVisit(localStorage, report.id);
+  if (!openReportInBrowser(report)) showToast("请允许浏览器打开这份工作台。");
+  return true;
+}
+
 function openReportInBrowser(report) {
   const target = report.url || localHtmlUrl(report);
   if (!target) return false;
@@ -8527,6 +8541,7 @@ function bindApp() {
         scrollPageTop("smooth");
       } else if (action === "open") {
         if (itemId === suppressReportOpenId && Date.now() < suppressReportOpenUntil) return;
+        if (openHostedApplication(state.reports.find((report) => report.id === itemId))) return;
         catalogViewportSnapshot = captureViewportSnapshot(actionCard || reportElement(itemId));
         readerId = itemId;
         rememberPersonalVisit(localStorage, itemId);

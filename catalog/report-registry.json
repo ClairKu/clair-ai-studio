@@ -380,6 +380,11 @@
       "status": "alternate-visual",
       "ownerId": "yingmi-ai-capabilities-two-templates-2026-10-28",
       "reason": "保留首轮展示设计页面，归属于同一工作台成果；主入口已更新为第二轮设计。"
+    },
+    {
+      "slug": "candidate-evaluator-2026-10-29",
+      "ownerId": "candidate-evaluator-2026-10-29",
+      "reason": "Historical encrypted snapshot retained after the active catalog entry migrated to the owner-private cloud workspace."
     }
   ],
   "historyAudit": {
@@ -400,5 +405,13 @@
       "url": "https://clairku.github.io/clair-ai-studio/reports/ai-tools-yingmi-links-2026-10-28/",
       "preservesReportId": true
     }
-  }
+  },
+  "hostedApplications": [
+    {
+      "id": "candidate-evaluator-2026-10-29",
+      "url": "https://clair-select.pages.dev/",
+      "access": "owner-private",
+      "purpose": "Persistent cloud recruitment application with authenticated storage and uploads; encrypted GitHub archive retained."
+    }
+  ]
 }

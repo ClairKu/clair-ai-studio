@@ -145,11 +145,30 @@ for (const field of ["id", "url"]) {
   }
 }
 
+const hostedApplications = registry.hostedApplications || [];
+if (!Array.isArray(hostedApplications)) fail("独立应用登记必须为数组");
+const hostedIds = new Set(), hostedUrls = new Set();
+for (const entry of hostedApplications) {
+  let url;
+  try { url = new URL(entry.url); } catch { fail("独立应用登记的 URL 无效"); }
+  if (!entry.id || !currentIds.includes(entry.id) || entry.access !== "owner-private" ||
+      url.protocol !== "https:" || url.username || url.password ||
+      hostedIds.has(entry.id) || hostedUrls.has(entry.url)) fail("独立应用必须精确登记已有成果 ID、HTTPS URL 与 owner-private 权限，且不能重复");
+  hostedIds.add(entry.id); hostedUrls.add(entry.url);
+}
+const registeredHostedApplications = new Map(hostedApplications.map((entry) => [entry.id, entry]));
+function isChatGPTSiteUrl(value) {
+  try { return /(^|\.)chatgpt\.site$/i.test(new URL(value).hostname); } catch { return false; }
+}
 const inaccessibleSiteReports = reports
-  .filter((report) => /(^|\.)chatgpt\.site(?:\/|$)/i.test(report.url))
+  .filter((report) => isChatGPTSiteUrl(report.url))
+  .filter((report) => {
+    const declared = registeredHostedApplications.get(report.id);
+    return declared?.access !== "owner-private" || declared.url !== report.url;
+  })
   .map((report) => report.id);
 if (inaccessibleSiteReports.length) {
-  fail(`成果目录不得使用 ChatGPT Site：${inaccessibleSiteReports.join("、")}`);
+  fail(`成果目录不得使用未登记鉴权与持久存储的 ChatGPT Site：${inaccessibleSiteReports.join("、")}`);
 }
 
 const missingPreviews = reports
@@ -409,6 +428,7 @@ const passwordGatePattern = /type=["']password["']|id=["']password["']|id=["']pa
 // 报告本身照样全文公开可读，所以标了 data-gate="action" 的输入框排除在外。
 const actionGateInput = /<input\b[^>]*\bdata-gate=["']action["'][^>]*>/gi;
 const selfProtectedReportIds = new Set([
+  "qiming-h2-product-review-2026-11-09",
   "ai-strategy-cockpit-2026-10-27",
   "hiring-review-2026-10-27",
   "candidate-evaluator-2026-10-29",
