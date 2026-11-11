@@ -6,6 +6,7 @@ export const PERSONAL_AREAS = Object.freeze([
   {
     id: "yingmi-ai", title: "盈米 AI", theme: "blue", icon: "orbit",
     links: [
+      { reportId: "financial-advisor-100-questions-2026-11-11", label: "经典100问" },
       { url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-capability-catalog-2026-11-10/?v=public-20261111", label: "能力清单", accessibleLabel: "打开 AI 能力清单" },
       { reportId: "yingmi-ai-capabilities-2026-10-27", label: "企业介绍" },
       { reportId: "yingmi-ai-open-platform-intro-2026-10-22", label: "开放平台" },

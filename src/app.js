@@ -224,6 +224,34 @@ const initialState = {
   ],
   reports: [
     {
+      "id": "financial-advisor-100-questions-2026-11-11",
+      "groupId": "ai-platform",
+      "title": "金融投顾场景100个经典提问｜现有能力与服务交付",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/financial-advisor-100-questions-2026-11-11/",
+      "preview": "financial-advisor-100-questions-2026-11-11.svg",
+      "pinned": false,
+      "position": 0,
+      "createdAt": "2026-11-11T17:30:00+08:00",
+      "source": "基于盈米与且慢现有公开能力及场景流程整理：10类场景各10问，12题优先演示。每题含需要准备的资料、对应能力与预期交付，支持搜索、分类、复制和CSV导出。全部为合成问题情境，不代表真实客户案例或逐题运行验收。涵盖家庭规划、教育养老、持仓穿透、基金及私募研究、策略比较、资产配置、定投、回撤、新高卖出、交易到账及顾问沟通。",
+      "access": "production",
+      "workType": "interactive-tool",
+      "tags": [
+        "投顾场景",
+        "经典100问",
+        "盈米AI",
+        "且慢",
+        "客户提问",
+        "能力映射",
+        "顾问培训",
+        "案例演示",
+        "基金研究",
+        "资产配置",
+        "持有陪伴",
+        "HTML",
+        "生产"
+      ]
+    },
+    {
       id: "rebalance-threshold-replay-2026-11-11",
       groupId: "product-planning",
       title: "定制方案偏离阈值逐日回放｜策略与账户平均中位数",
