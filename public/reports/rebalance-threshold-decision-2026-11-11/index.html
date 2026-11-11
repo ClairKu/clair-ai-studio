@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f4f5f1">
-  <meta name="description" content="并排比较4%、5%、5.5%、6%的偏离阈值，分别查看策略与客户账户的平均、中位数及年度逐方案明细。内部结果需盈米企业登录。">
+  <meta name="description" content="从长周期逐年频次、调仓类型占比、候选阈值边际变化与配置偏离风险，评估定制方案的偏离阈值。真实统计需盈米企业登录。">
   <title>定制方案 · 调仓频次与偏离阈值决策</title>
   <style>
     :root{--paper:#f4f5f1;--ink:#172d2c;--muted:#647472;--line:#dce3dc;--teal:#176b5d;--mint:#dcebe1;--amber:#c58e42;--white:#fff;--radius:22px}
@@ -24,61 +24,61 @@
       <div>
         <div class="eyebrow">定制方案 · 决策看板</div>
         <h1 id="report-title"><span>定制方案</span><span>调仓频次与偏离阈值决策</span></h1>
-        <p class="intro">把4%、5%、5.5%、6%放在同一屏，分别看策略与客户账户的平均、中位数，再逐方案、逐年核对再平衡次数与总调仓占比。回放与实盘事实各有清楚标记。</p>
+        <p class="intro">把观察期拉长，聚焦方案策略。看清再平衡在各类调仓中的位置，区分历史事实、静态筛选与路径回放，让阈值调整有据可依。</p>
         <div class="actions">
           <a class="primary" href="https://ontology-dashboard.yingmi-inc.com/r/2b04c0d1-860c-47ed-9cd8-7533af6dd3b6" target="_blank" rel="noopener noreferrer">进入决策看板 <span aria-hidden="true">↗</span></a>
           <a class="secondary" href="https://ontology-dashboard.yingmi-inc.com/r/4b16ca76-ae25-40ee-a973-e103d83f3408" target="_blank" rel="noopener noreferrer">查看原看板 ↗</a>
         </div>
-        <p class="access-note">内部数据与阈值结论留在企业看板；具体覆盖、场景和执行限制以看板标记为准。</p>
+        <p class="access-note">真实统计需盈米企业登录；数据范围与更新时点以企业看板为准。</p>
       </div>
       <figure class="figure" aria-labelledby="relation-caption">
-        <div class="figure-top"><span class="figure-label">同口径比较四档阈值</span><span class="figure-note">分析关系示意</span></div>
-        <svg class="relation" viewBox="0 0 390 280" role="img" aria-label="从逐日持仓回放，分别统计策略和客户账户的平均与中位数，比较4%、5%、5.5%、6%，同时观察频次与配置偏离。">
+        <div class="figure-top"><span class="figure-label">一条完整的判断链</span><span class="figure-note">分析关系示意</span></div>
+        <svg class="relation" viewBox="0 0 390 280" role="img" aria-label="从长期调仓记录，区分调仓类型，比较候选阈值，最后同时评估频次与配置偏离风险。">
           <defs><marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M1 1l5 3-5 3" fill="none" stroke="#779281" stroke-width="1.2"/></marker></defs>
           <path d="M195 59v27M195 135v27M195 211v20M195 231H91v10M195 231h104v10" stroke="#8aa18c" stroke-width="1.2" fill="none" marker-end="url(#arrow)"/>
           <rect x="51" y="8" width="288" height="51" rx="12" fill="#f9fbf5" stroke="#c5d5c4"/>
-          <text x="195" y="29" text-anchor="middle" fill="#253e33" font-size="13" font-family="sans-serif">逐日持仓路径</text>
+          <text x="195" y="29" text-anchor="middle" fill="#253e33" font-size="13" font-family="sans-serif">长周期调仓记录</text>
           <text x="195" y="46" text-anchor="middle" fill="#6a806e" font-size="10" font-family="sans-serif">今年来 · 近两年 · 上线来</text>
           <rect x="51" y="86" width="288" height="49" rx="12" fill="#f9fbf5" stroke="#c5d5c4"/>
-          <text x="195" y="107" text-anchor="middle" fill="#253e33" font-size="13" font-family="sans-serif">策略 / 客户账户分别统计</text>
-          <text x="195" y="123" text-anchor="middle" fill="#6a806e" font-size="10" font-family="sans-serif">平均与中位数 · 同批含零样本</text>
+          <text x="195" y="107" text-anchor="middle" fill="#253e33" font-size="13" font-family="sans-serif">区分调仓类型</text>
+          <text x="195" y="123" text-anchor="middle" fill="#6a806e" font-size="10" font-family="sans-serif">策略变更与再平衡分别观察</text>
           <rect x="51" y="162" width="288" height="49" rx="12" fill="#224e40"/>
-          <text x="195" y="183" text-anchor="middle" fill="#fff" font-size="13" font-family="sans-serif">4% / 5% / 5.5% / 6%</text>
-          <text x="195" y="199" text-anchor="middle" fill="#c6ddcb" font-size="10" font-family="sans-serif">逐方案逐年 · 再平衡 / 总调仓 / 占比</text>
+          <text x="195" y="183" text-anchor="middle" fill="#fff" font-size="13" font-family="sans-serif">比较候选偏离阈值</text>
+          <text x="195" y="199" text-anchor="middle" fill="#c6ddcb" font-size="10" font-family="sans-serif">边际变化 · 证据强度 · 适用范围</text>
           <rect x="15" y="241" width="153" height="31" rx="15.5" fill="#e0eacb"/>
           <text x="91.5" y="261" text-anchor="middle" fill="#455d30" font-size="11" font-family="sans-serif">频次变化证据</text>
           <rect x="222" y="241" width="153" height="31" rx="15.5" fill="#eee4d1"/>
           <text x="298.5" y="261" text-anchor="middle" fill="#896839" font-size="11" font-family="sans-serif">配置偏离风险</text>
         </svg>
-        <figcaption class="figure-caption" id="relation-caption">年度明细、平均与中位数、配置偏离一起看；图示不含内部结果数字。</figcaption>
+        <figcaption class="figure-caption" id="relation-caption">频次与配置偏离一起看，才能判断调整是否值得。</figcaption>
       </figure>
     </section>
 
     <section class="scope" aria-label="看板范围与状态">
       <div class="scope-item"><div class="label">观察维度</div><div class="scope-periods"><span class="pill">今年来</span><span class="pill">近两年</span><span class="pill">上线来</span></div></div>
-      <div class="scope-item"><div class="label">当前状态</div><div class="scope-value">按场景呈现；事件口径与执行限制随结果标记</div></div>
-      <div class="scope-item"><div class="label">数据覆盖</div><div class="scope-value">窗口内次数与年化分开；覆盖及缺失见企业看板</div></div>
+      <div class="scope-item"><div class="label">当前状态</div><div class="scope-value">企业看板可查看；正式口径待平台审核</div></div>
+      <div class="scope-item"><div class="label">数据覆盖</div><div class="scope-value">可用记录自2024年起，具体范围见企业看板</div></div>
     </section>
 
     <section aria-labelledby="dimensions-title">
-      <div class="section-head"><h2 id="dimensions-title">决策需要看清的事</h2><p>策略本身的影响置于主屏；账户数据采用独立口径，避免互相替代。</p></div>
+      <div class="section-head"><h2 id="dimensions-title">决策需要看清的事</h2><p>围绕方案策略比较，先核对频次，再判断减少的调仓是否值得。</p></div>
       <div class="dimensions">
-        <article class="dimension"><div class="icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5v14h15M9 15v-4m5 4V7m5 8v-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div><h3>四档阈值并排比较</h3><p>4%、5%、5.5%、6%同屏，列出较4%的次数变化与占比变化，允许部分年份增加。</p></article>
-        <article class="dimension"><div class="icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4a8 8 0 1 0 8 8h-8V4Z" stroke="currentColor" stroke-width="1.4"/><path d="M15 3.6V9h5.4A8 8 0 0 0 15 3.6Z" stroke="currentColor" stroke-width="1.4"/></svg></div><h3>策略与账户分开</h3><p>分别展示平均与中位数，纳入同批零次样本；标准持仓结果不代替真实账户统计。</p></article>
-        <article class="dimension"><div class="icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 17h16M9 4v6m6 4v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div><h3>逐方案逐年明细</h3><p>每档列出再平衡、总调仓及占比，直接对照每年从几次到几次；零基线明确标记不适用。</p></article>
-        <article class="dimension"><div class="icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.2 3.3 7.4 7.5 9.5 4.2-2.1 7.5-5.3 7.5-9.5V6L12 3Z" stroke="currentColor" stroke-width="1.4"/><path d="m8.5 12 2.3 2.3 4.7-4.7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>偏离风险与执行边界</h3><p>频次与逐日偏离一起看；最小交易、确认等待等执行规则，以及未闭合项，随场景说明。</p></article>
+        <article class="dimension"><div class="icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5v14h15M9 15v-4m5 4V7m5 8v-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div><h3>逐年的调仓频次</h3><p>观察每个方案策略各年调仓次数与年化频次，区分完整年度和不完整观察期。</p></article>
+        <article class="dimension"><div class="icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4a8 8 0 1 0 8 8h-8V4Z" stroke="currentColor" stroke-width="1.4"/><path d="M15 3.6V9h5.4A8 8 0 0 0 15 3.6Z" stroke="currentColor" stroke-width="1.4"/></svg></div><h3>各类调仓的占比</h3><p>把再平衡与其他调仓分开，明确次数、分母和分类依据，识别主要来源。</p></article>
+        <article class="dimension"><div class="icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 17h16M9 4v6m6 4v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div><h3>候选阈值的边际变化</h3><p>比较阈值逐档变化的证据，明确哪些属于历史筛选、哪些已有路径回放支持。</p></article>
+        <article class="dimension"><div class="icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.2 3.3 7.4 7.5 9.5 4.2-2.1 7.5-5.3 7.5-9.5V6L12 3Z" stroke="currentColor" stroke-width="1.4"/><path d="m8.5 12 2.3 2.3 4.7-4.7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>配置偏离的风险</h3><p>同步核对偏离程度、持续时间与交易成本；尚未完成的验证项会单独注明。</p></article>
       </div>
     </section>
 
     <section class="evidence-section" aria-labelledby="evidence-title">
-      <div class="section-head"><h2 id="evidence-title">三种对象，分别标明</h2><p>标准持仓回放、客户实盘事实和期初实验各自独立；未完成的反事实不会标成已完成。</p></div>
+      <div class="section-head"><h2 id="evidence-title">不同证据，回答不同问题</h2><p>看板应清楚标注已发生的事实与阈值比较的推算方式。</p></div>
       <div class="evidence">
-        <article><h3><span class="dot" aria-hidden="true"></span>标准持仓回放</h3><p>每个方案一条独立持仓路径，观察<strong>阈值对策略本身的影响</strong>。计数究竟是交易意图还是执行事件，随场景标明，不能直接称为客户实盘次数。</p></article>
-        <article><h3><span class="dot amber" aria-hidden="true"></span>客户实盘事实</h3><p>依据真实账户的历史执行记录，回答<strong>过去发生了多少次</strong>。它与标准持仓分开，也不能直接证明换阈值后的客户反事实频次。</p></article>
-        <article><h3><span class="dot outline" aria-hidden="true"></span>期初持仓实验 · 独立样本</h3><p>从真实月末基金持仓起步，固定当前方案归属，随后<strong>不加入外部资金流</strong>。它只覆盖已核验样本，不代表全部客户历史反事实，也不能与实盘基线跨队列相减。</p></article>
+        <article><h3><span class="dot" aria-hidden="true"></span>历史事实</h3><p>来自实际调仓记录，回答<strong>过去发生了多少次</strong>。策略层事件与账户执行分别统计，避免重复计算。</p></article>
+        <article><h3><span class="dot amber" aria-hidden="true"></span>静态筛选</h3><p>对历史事件按候选阈值重新筛选，回答<strong>哪些事件可能被拦下</strong>。筛选结果不能直接当作调整后实际频次。</p></article>
+        <article><h3><span class="dot outline" aria-hidden="true"></span>路径回放</h3><p>每次触发后更新持仓，再继续计算后续偏离，回答<strong>换阈值后会怎样演变</strong>。数据不足时应明确标注尚未验证。</p></article>
       </div>
     </section>
   </main>
-  <footer class="footer"><span>定制方案 · 调仓频次与偏离阈值决策<br>内部结果、数据时点与阈值建议，请进入企业看板查看。</span><a href="https://clairku.github.io/clair-ai-studio/">返回 Clair’s Studio ↗</a></footer>
+  <footer class="footer"><span>定制方案 · 调仓频次与偏离阈值决策<br>真实统计、数据时点与结论，请进入企业看板查看。</span><a href="https://clairku.github.io/clair-ai-studio/">返回 Clair’s Studio ↗</a></footer>
 </body>
 </html>

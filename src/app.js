@@ -224,6 +224,33 @@ const initialState = {
   ],
   reports: [
     {
+      id: "rebalance-threshold-replay-2026-11-11",
+      groupId: "product-planning",
+      title: "定制方案偏离阈值逐日回放｜策略与账户平均中位数",
+      url: "https://clairku.github.io/clair-ai-studio/reports/rebalance-threshold-replay-2026-11-11/",
+      internalReportUrl: "https://ontology-dashboard.yingmi-inc.com/r/f7d026cb-ecd5-4959-a856-813fab64621b",
+      internalReportLabel: "企业逐日回放 · 需盈米登录 · 待平台审核",
+      preview: "rebalance-threshold-replay-2026-11-11.svg",
+      source: "独立逐日回放看板：4%/5%/5.5%/6%并排，策略与账户分别展示平均、中位数及年度逐方案明细；标准持仓、实际历史执行与真实期初持仓受控实验分开标记。上一版汇总看板保留；内部结果与边界以企业看板为准。",
+      createdAt: "2026-11-11T14:59:54+08:00",
+      access: "production",
+      workType: "data-analysis",
+      tags: [
+        "定制方案",
+        "偏离阈值",
+        "逐日回放",
+        "平均中位数",
+        "方案策略",
+        "客户账户",
+        "年度分析",
+        "再平衡",
+        "独立看板",
+        "企业登录"
+      ],
+      pinned: false,
+      position: 0
+    },
+    {
       id: "rebalance-threshold-decision-2026-11-11",
       groupId: "product-planning",
       title: "定制方案调仓频次与偏离阈值决策",
