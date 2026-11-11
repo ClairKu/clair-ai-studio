@@ -9069,8 +9069,12 @@ function bindApp() {
         if (Date.now() < suppressBucketNavigationUntil) return;
         const bucketKind = link.dataset.navBucketKind;
         const bucketId = link.dataset.navBucketId;
-        if (query) {
+        if (searchInputCommitTimer) window.clearTimeout(searchInputCommitTimer);
+        searchInputCommitTimer = 0;
+        const liveSearchInput = document.getElementById("search-input");
+        if (query || liveSearchInput?.value) {
           query = "";
+          if (liveSearchInput) liveSearchInput.value = "";
           renderSearchAtCurrentScroll();
           scheduleElementAlignment(() => bucketElement(bucketKind, bucketId));
           return;
