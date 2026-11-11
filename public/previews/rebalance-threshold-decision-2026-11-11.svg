@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">定制方案 · 调仓频次与偏离阈值决策</title><desc id="desc">从今年来、近两年和上线来观察频次，结合历史事实、静态筛选与路径回放评估候选阈值。真实统计需盈米企业登录。</desc>
+  <rect width="1200" height="720" fill="#f4f5f1"/>
+  <path d="M68 105h1064M68 653h1064" stroke="#dce3dc"/>
+  <rect x="68" y="53" width="29" height="29" rx="9" fill="#172d2c"/><circle cx="82.5" cy="67.5" r="7" fill="none" stroke="#cbe2ce" stroke-width="1.6"/>
+  <text x="110" y="75" fill="#172d2c" font-family="Arial,sans-serif" font-size="20" font-weight="600">Clair’s Studio</text>
+  <text x="1132" y="74" text-anchor="end" fill="#647472" font-family="sans-serif" font-size="15">盈米企业登录</text>
+  <text x="68" y="174" fill="#176b5d" font-family="sans-serif" font-size="17" letter-spacing="2">定制方案 · 决策看板</text>
+  <text x="66" y="253" fill="#172d2c" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="45" font-weight="600" letter-spacing="-1">调仓频次</text>
+  <text x="66" y="315" fill="#172d2c" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="45" font-weight="600" letter-spacing="-1">与偏离阈值决策</text>
+  <text x="68" y="366" fill="#647472" font-family="sans-serif" font-size="19">把频次看长，把调整的收益与代价一起看清。</text>
+  <g font-family="sans-serif" font-size="17" fill="#376250"><rect x="68" y="404" width="104" height="39" rx="19.5" fill="#edf2e9" stroke="#cbd8cc"/><text x="120" y="430" text-anchor="middle">今年来</text><rect x="184" y="404" width="104" height="39" rx="19.5" fill="#edf2e9" stroke="#cbd8cc"/><text x="236" y="430" text-anchor="middle">近两年</text><rect x="300" y="404" width="104" height="39" rx="19.5" fill="#edf2e9" stroke="#cbd8cc"/><text x="352" y="430" text-anchor="middle">上线来</text></g>
+  <rect x="673" y="155" width="459" height="334" rx="26" fill="#e6eee4" stroke="#ceddd0"/>
+  <text x="704" y="197" fill="#4f6a5f" font-family="sans-serif" font-size="15">完整的判断链</text>
+  <g font-family="sans-serif" font-size="19" fill="#253e33"><rect x="732" y="228" width="341" height="50" rx="12" fill="#f9fbf5" stroke="#c5d5c4"/><text x="902.5" y="260" text-anchor="middle">长期调仓记录</text><path d="M902.5 280v19m-5-5 5 5 5-5" fill="none" stroke="#779281" stroke-width="1.5"/><rect x="732" y="304" width="341" height="50" rx="12" fill="#f9fbf5" stroke="#c5d5c4"/><text x="902.5" y="336" text-anchor="middle">调仓类型与候选阈值</text><path d="M902.5 356v19m-5-5 5 5 5-5" fill="none" stroke="#779281" stroke-width="1.5"/><rect x="711" y="380" width="179" height="56" rx="12" fill="#224e40"/><text x="800.5" y="415" text-anchor="middle" fill="#fff">频次变化</text><rect x="906" y="380" width="179" height="56" rx="12" fill="#eee4d1"/><text x="995.5" y="415" text-anchor="middle" fill="#896839">配置偏离风险</text></g>
+  <g font-family="sans-serif"><rect x="68" y="527" width="1064" height="84" rx="17" fill="#fbfcf8" stroke="#dce3dc"/><circle cx="104" cy="570" r="5" fill="#176b5d"/><text x="122" y="576" fill="#172d2c" font-size="19">历史事实</text><path d="M405 548v42M766 548v42" stroke="#dce3dc"/><circle cx="446" cy="570" r="5" fill="#c58e42"/><text x="464" y="576" fill="#172d2c" font-size="19">静态筛选</text><circle cx="807" cy="570" r="5" fill="none" stroke="#176b5d" stroke-width="1.7"/><text x="825" y="576" fill="#172d2c" font-size="19">路径回放</text></g>
+  <text x="68" y="688" fill="#647472" font-family="sans-serif" font-size="14">真实统计需盈米企业登录</text><text x="1132" y="688" text-anchor="end" fill="#647472" font-family="sans-serif" font-size="14">方案策略 · 长周期观察</text>
+</svg>

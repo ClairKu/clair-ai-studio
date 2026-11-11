@@ -224,6 +224,33 @@ const initialState = {
   ],
   reports: [
     {
+      id: "rebalance-threshold-decision-2026-11-11",
+      groupId: "product-planning",
+      title: "定制方案调仓频次与偏离阈值决策",
+      url: "https://clairku.github.io/clair-ai-studio/reports/rebalance-threshold-decision-2026-11-11/",
+      internalReportUrl: "https://ontology-dashboard.yingmi-inc.com/r/2b04c0d1-860c-47ed-9cd8-7533af6dd3b6",
+      internalReportLabel: "企业看板 · 需盈米登录 · 尚待平台审核",
+      preview: "rebalance-threshold-decision-2026-11-11.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-11T12:07:27+08:00",
+      source: "年度模型调仓、CA实际执行与候选阈值静态筛选分层观察；真实统计与范围以盈米企业看板为准。企业报告正在核验，尚待平台审核；未完成路径回放验证。",
+      access: "production",
+      workType: "data-analysis",
+      tags: [
+        "定制方案",
+        "调仓频次",
+        "偏离阈值",
+        "再平衡",
+        "年度分析",
+        "静态筛选",
+        "模型调仓",
+        "账户执行",
+        "决策看板",
+        "企业登录"
+      ]
+    },
+    {
       id: "pension-fixed-income-plus-copy-classification-2026-11-10",
       groupId: "pension-planning",
       title: "固收＋文案与养老基金分类依据",
