@@ -1,0 +1,18 @@
+{
+  "material_status": "模拟案例／教学测试；非真实客户或工具返回",
+  "description": "独立情景MC01，权重和1。只供模型测算，不是配置建议；货币与权益不互相重复。",
+  "as_of": "2026-11-10",
+  "request": {
+    "weights": {
+      "cash": 0.1,
+      "fixedIncome": 0.4,
+      "equity": 0.3,
+      "commodity": 0.05,
+      "overseasEquity": 0.1,
+      "overseasFixedIncome": 0.05
+    },
+    "frequency": "YEAR",
+    "periodCount": 10,
+    "simulationCount": 10000
+  }
+}

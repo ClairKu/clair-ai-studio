@@ -68,7 +68,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 182;
+const DATA_VERSION = 183;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -223,6 +223,36 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      "id": "yingmi-108-tool-prompts-2026-11-11",
+      "groupId": "ai-platform",
+      "title": "盈米108项能力 · 324问与演示素材库",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/yingmi-108-tool-prompts-2026-11-11/",
+      "preview": "yingmi-108-tool-prompts-2026-11-11.svg",
+      "pinned": false,
+      "position": 0,
+      "createdAt": "2026-11-11T18:25:00+08:00",
+      "source": "覆盖92个MCP、10个Skills与6个Agent，每项3问共324问。含完整提问、参数准备、模拟案例附件、前置授权、预期交付、验收要点、官网与豆包工作/WorkBuddy/千问办公案例及竞品参考。支持搜索复制、Excel清单和完整离线素材包。提问设计稿，未逐题执行金融分析。",
+      "access": "production",
+      "workType": "interactive-tool",
+      "tags": [
+        "盈米AI",
+        "108工具",
+        "324问",
+        "MCP",
+        "Skills",
+        "Agent",
+        "豆包工作",
+        "WorkBuddy",
+        "千问办公",
+        "引导提问",
+        "场景案例",
+        "模拟素材",
+        "参数",
+        "Excel",
+        "HTML"
+      ]
+    },
     {
       id: "advisor-console-demo-2026-11-11",
       groupId: "advisor-workbench",

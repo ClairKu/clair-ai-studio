@@ -1,0 +1,17 @@
+{
+  "material_status": "模拟案例／教学测试；非真实客户或工具返回",
+  "description": "F01金额均为元；investmentAssets含基金100万、定期20万、养老金30万。monthlyEssentialExpense=19000按官网AnalyzeIncomeExpense公式：(日常84000+生活缴费12000+交通12000+房贷102000+车贷0+车位贷0+保险18000)/12；与M09月常规支出25000不同，后者另含教育和赡养。准备值须由真实AnalyzeIncomeExpense返回后复核，不冒充已调用结果。currentLiabilities=0时相关比率可能无定义，不能当风险为零；投资收入0不表示基金真实回报为0。",
+  "as_of": "2026-11-10",
+  "request": {
+    "totalAssets": 5300000,
+    "totalLiabilities": 1200000,
+    "liquidAssets": 300000,
+    "currentLiabilities": 0,
+    "investmentAssets": 1500000,
+    "investmentLiabilities": 0,
+    "annualIncome": 612000,
+    "annualExpense": 324000,
+    "annualInvestmentIncome": 0,
+    "monthlyEssentialExpense": 19000
+  }
+}
