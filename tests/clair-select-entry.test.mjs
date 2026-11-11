@@ -17,7 +17,7 @@ test("the recruitment workspace is visibly named in the common launchpad", () =>
   });
   assert.equal((html.match(new RegExp(`data-id="${selectId}"`, "g")) || []).length, 1);
   assert.match(html, /studio-shortcut-title">招聘工作台 · Clair Select/);
-  assert.match(html, /云端原件 · 面试评价 · 随时上传/);
+  assert.doesNotMatch(html, /云端原件 · 面试评价 · 随时上传/);
   assert.match(html, /aria-label="查看完整招聘档案"/);
 });
 
@@ -118,3 +118,4 @@ test("hosted-site validation parses the hostname and cannot be bypassed with a q
   context.value = "https://chatgpt.site.evil.invalid";
   assert.equal(vm.runInContext("isChatGPTSiteUrl(value)", context), false);
 });
+

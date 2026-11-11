@@ -4,64 +4,37 @@ export const PERSONAL_VISITS_KEY = "clair-personal-home-recent-v1";
 
 export const PERSONAL_AREAS = Object.freeze([
   {
-    id: "ai-capability-catalog", number: "08", title: "AI 能力清单", category: "108 项 · MCP / Skills / Agent",
-    description: "按业务领域查看全部 AI 能力，支持分类筛选、搜索与 Excel 导出。",
-    theme: "blue", icon: "nodes", primary: { url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-capability-catalog-2026-11-10/?v=public-20261111", label: "打开 AI 能力清单" },
-    meta: "92 MCP · 10 Skills · 6 Agent", links: [], visual: ["MCP", "Skills", "Agent"],
+    id: "yingmi-ai", title: "盈米 AI", theme: "blue", icon: "orbit",
+    links: [
+      { url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-capability-catalog-2026-11-10/?v=public-20261111", label: "能力清单", accessibleLabel: "打开 AI 能力清单" },
+      { reportId: "yingmi-ai-capabilities-2026-10-27", label: "企业介绍" },
+      { reportId: "yingmi-ai-open-platform-intro-2026-10-22", label: "开放平台" },
+      { reportId: "oap-journey-metrics-2026-08-02", label: "发展指标" },
+    ],
   },
   {
-    id: "clair-select", number: "07", title: "招聘工作台 · Clair Select", category: "招聘工作台",
-    description: "云端保存全部履历与面试评价，随时打开、上传和补充反馈。",
-    theme: "blue", icon: "panel", primary: { reportId: "candidate-evaluator-2026-10-29", label: "查看完整招聘档案" },
-    meta: "云端原件 · 面试评价 · 随时上传",
-    links: [], visual: ["履历分析", "面试复盘", "岗位标准"],
+    id: "clair-select", title: "招聘工作台 · Clair Select", theme: "blue", icon: "panel",
+    primary: { reportId: "candidate-evaluator-2026-10-29", label: "查看完整招聘档案" }, links: [],
   },
   {
-    id: "xiaogu", number: "01", title: "小顾介绍", category: "AI 投资助手",
-    description: "从认识小顾开始，了解它如何回答问题、理解需求与陪伴投资。",
-    theme: "lilac", icon: "spark", primary: { reportId: "seed-xiaogu", label: "打开介绍" },
-    meta: "介绍文案 · 2026.07.27",
-    links: [{ reportId: "xiaogu-3-investment-review-2026-09-04", label: "小顾 3.0 产品理念" }, { reportId: "ai-xiaogu-product-handbook-2026-10-13", label: "产品手册" }],
-    visual: ["理解需求", "专业解答", "持续陪伴"],
+    id: "xiaogu", title: "小顾介绍", theme: "lilac", icon: "spark",
+    primary: { reportId: "seed-xiaogu", label: "打开小顾介绍" },
+    links: [{ reportId: "xiaogu-3-investment-review-2026-09-04", label: "产品理念" }, { reportId: "ai-xiaogu-product-handbook-2026-10-13", label: "产品手册" }],
   },
   {
-    id: "qieman", number: "02", title: "且慢介绍", category: "买方投顾服务",
-    description: "认识且慢的服务理念，了解四笔钱与面向生活目标的财富安排。",
-    theme: "green", icon: "leaf", primary: { url: "https://qieman.com/", label: "访问且慢官网" },
-    meta: "官网介绍 · 功能研究",
-    links: [{ reportId: "qieman-app-map", label: "APP 功能全景" }],
-    visual: ["活钱", "稳钱", "长钱", "保险"],
+    id: "qieman", title: "且慢介绍", theme: "green", icon: "leaf",
+    primary: { url: "https://qieman.com/", label: "访问且慢官网" },
+    links: [{ reportId: "qieman-app-map", label: "APP 功能" }],
   },
   {
-    id: "yingmi-ai", number: "03", title: "盈米 AI 介绍", category: "企业 AI 能力全景",
-    description: "串起客户服务、投研、内容与工程场景，查看共用的技术能力与协作方式。",
-    theme: "blue", icon: "orbit", primary: { reportId: "yingmi-ai-capabilities-2026-10-27", label: "打开能力全景" },
-    meta: "全场景介绍 · 2026.10.27",
-    links: [], visual: ["客户服务", "业务协作", "技术底座"],
+    id: "advisor", title: "投顾工作台", theme: "green", icon: "panel",
+    primary: { reportId: "yingmi-advisor-workbench-2026-09-10", label: "打开投顾工作台交互演示" },
+    links: [{ reportId: "advisorflow-l3-application-2026-10-21", label: "L3 申报" }, { reportId: "qieman-advisor-l3-project-proposals-2026-10-20", label: "场景方案" }],
   },
   {
-    id: "open-platform", number: "04", title: "开放平台介绍", category: "专业金融能力开放",
-    description: "查看 MCP、Skills、Agents 的能力结构，以及面向外部平台的接入与合作方式。",
-    theme: "sand", icon: "nodes", primary: { reportId: "yingmi-ai-open-platform-intro-2026-10-22", label: "打开平台介绍" },
-    meta: "产品与合作介绍 · 2026.10.22",
-    links: [{ reportId: "oap-journey-metrics-2026-08-02", label: "平台发展与指标" }],
-    visual: ["MCP", "Skills", "Agents"],
-  },
-  {
-    id: "advisor", number: "05", title: "投顾工作台", category: "项目资料夹",
-    description: "围绕客户、任务和服务流程，把工作台演示、项目提报与落地方案放在一起。",
-    theme: "green", icon: "panel", primary: { reportId: "yingmi-advisor-workbench-2026-09-10", label: "打开交互演示" },
-    meta: "演示使用合成数据，未接生产接口", status: "方案与交互演示", project: true,
-    links: [{ reportId: "advisorflow-l3-application-2026-10-21", label: "AdvisorFlow · L3 申报" }, { reportId: "qieman-advisor-l3-project-proposals-2026-10-20", label: "12 个场景与项目建议书" }],
-    visual: ["客户", "机会", "任务", "服务"],
-  },
-  {
-    id: "qianwen-xiaogu", number: "06", title: "千问小顾智能运营转化项目", category: "项目资料夹",
-    description: "从资金安排与攒钱目标切入，推进千问到且慢的跨端续办与转化实验设计。",
-    theme: "lilac", icon: "path", primary: { reportId: "qianwen-xiaogu-l3-l4-conversion-2026-10-20", label: "打开转化方案" },
-    meta: "产品评审方案 · 2026.10.20 · 效果待实验验证", status: "方案与原型", project: true,
-    links: [{ reportId: "qianwen-user-acquisition-dashboard", label: "千问引流分析看板" }, { reportId: "qianwen-first-investor-cases-2026-09-17", label: "用户转化个例分析" }],
-    visual: ["识别需求", "形成计划", "跨端续办"],
+    id: "qianwen-xiaogu", title: "千问小顾转化", theme: "lilac", icon: "path",
+    primary: { reportId: "qianwen-xiaogu-l3-l4-conversion-2026-10-20", label: "打开千问小顾转化方案" },
+    links: [{ reportId: "qianwen-user-acquisition-dashboard", label: "引流看板" }, { reportId: "qianwen-first-investor-cases-2026-09-17", label: "转化个例" }],
   },
 ]);
 
@@ -87,26 +60,26 @@ export function rememberPersonalVisit(storage, id) {
   try { storage.setItem(PERSONAL_VISITS_KEY, JSON.stringify([id, ...recentPersonalVisits(storage).filter((value) => value !== id)].slice(0, 4))); } catch { /* Recent items are optional. */ }
 }
 
-export function personalLaunchpadMarkup({ reports, escapeHtml: e, storage }) {
+export function personalLaunchpadMarkup({ reports, escapeHtml: e }) {
   const active = new Map(reports.filter((report) => !report.archived).map((report) => [report.id, report]));
   const resource = (item, inner, className) => {
-    if (item.url) return `<a class="${className}" href="${e(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="${e(item.label)}">${inner}</a>`;
+    const label = e(item.accessibleLabel || item.label);
+    if (item.url) return `<a class="${className}" href="${e(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="${label}">${inner}</a>`;
     const report = active.get(item.reportId);
     if (!report) return "";
-    return `<button type="button" class="${className}" data-action="open" data-id="${e(report.id)}" title="${e(report.title)}" aria-label="${e(item.label)}">${inner}</button>`;
+    return `<button type="button" class="${className}" data-action="open" data-id="${e(report.id)}" title="${e(report.title)}" aria-label="${label}">${inner}</button>`;
   };
   const card = (area) => {
-    const content = `<span class="studio-shortcut-icon">${icon(area.icon)}</span><span class="studio-shortcut-copy"><span class="studio-shortcut-title">${e(area.title)}</span><span class="studio-shortcut-description">${e(area.project ? area.status : area.category)}</span></span>${arrow}`;
-    return `<article class="studio-shortcut studio-shortcut-${area.theme}" id="personal-${area.id}">
-      ${resource({...area.primary, label:area.id === "clair-select" ? area.primary.label : area.primary.url ? area.primary.label : `打开${area.title}`},content,"studio-shortcut-main") || `<button type="button" class="studio-shortcut-main" data-action="show-archive">${content}</button>`}
-      <div class="studio-shortcut-links">${area.links.map((link) => resource(link,e(link.label),"studio-shortcut-link")).join("") || `<span class="studio-shortcut-meta">${e(area.meta)}</span>`}</div>
-    </article>`;
+    const content = `<span class="studio-shortcut-icon">${icon(area.icon)}</span><span class="studio-shortcut-title">${e(area.title)}</span>`;
+    const links = area.links.map((link) => resource(link, e(link.label), "studio-shortcut-link")).join("");
+    const main = area.primary
+      ? resource(area.primary, content + arrow, "studio-shortcut-main") || `<button type="button" class="studio-shortcut-main" data-action="show-archive">${content}${arrow}</button>`
+      : `<div class="studio-shortcut-main studio-shortcut-label">${content}</div>`;
+    return `<article class="studio-shortcut studio-shortcut-${area.theme}" id="personal-${area.id}">${main}${links ? `<div class="studio-shortcut-links">${links}</div>` : ""}</article>`;
   };
-  const recent = recentPersonalVisits(storage).map((id) => active.get(id)).filter(Boolean).slice(0,3);
-  return `<section class="studio-shortcuts" id="studio-shortcuts" aria-labelledby="studio-shortcuts-title">
-    <div class="studio-shortcuts-heading"><h1 id="studio-shortcuts-title">常用入口</h1><span>常用工具、介绍材料与重点项目</span></div>
+  return `<section class="studio-shortcuts group-column topic-section bucket-shortcuts" id="studio-shortcuts"
+    data-bucket-kind="shortcuts" data-bucket-id="shortcuts" aria-labelledby="studio-shortcuts-title">
+    <header class="group-header"><div class="group-heading-copy"><div><h2 id="studio-shortcuts-title">常用入口</h2></div></div></header>
     <div class="studio-shortcuts-grid">${PERSONAL_AREAS.map(card).join("")}</div>
-    ${recent.length ? `<div class="studio-shortcut-recent"><span>最近打开</span><div>${recent.map((report) => resource({reportId:report.id,label:report.title},e(report.title),"studio-recent-link")).join("")}</div></div>` : ""}
   </section>`;
 }
-

@@ -1,5 +1,5 @@
 import reportRegistry from "../catalog/report-registry.json";
-import { personalLaunchpadMarkup, rememberPersonalVisit } from "./personal-home.js";
+import { PERSONAL_AREAS, personalLaunchpadMarkup, rememberPersonalVisit } from "./personal-home.js";
 import {
   bindTaskCenter,
   taskWorkspaceMarkup,
@@ -7772,7 +7772,7 @@ function studioTopbarMarkup(archiveCount) {
         <div class="brand-mark small">C</div>
         <div><strong>Clair's Studio</strong></div>
       </button>
-      ${archiveView ? '<button class="studio-header-back" type="button" data-action="show-catalog">← 返回工作台</button>' : '<span class="studio-header-caption">个人工作台</span>'}
+      ${archiveView ? '<button class="studio-header-back" type="button" data-action="show-catalog">← 返回工作台</button>' : ""}
       </div>
     </header>`;
 }
@@ -7901,7 +7901,6 @@ function workbenchMarkup() {
     <main class="app-shell unified-studio-shell">
       ${studioTopbarMarkup(archiveCount)}
       <section class="workspace">
-        ${personalLaunchpadMarkup({ reports:state.reports, escapeHtml, storage:localStorage })}
         ${taskWorkspaceMarkup(escapeHtml)}
         <div class="results-toolbar unified-results-toolbar">
           <h2 class="sr-only">Clair's Studio 成果库</h2>
@@ -7943,6 +7942,8 @@ function workbenchMarkup() {
                   <button class="studio-icon-button add-topic-icon" type="button" data-action="add-group"
                     aria-label="Add topic" title="Add topic">${UI_ICONS.plus}</button>
                 </div>
+                <a href="#studio-shortcuts" data-nav-bucket-kind="shortcuts" data-nav-bucket-id="shortcuts"
+                  data-bucket-reorderable="false" draggable="false">常用入口<span>${PERSONAL_AREAS.length}</span></a>
                 ${catalogView === "time" ? `
                   <div class="library-time-order" aria-label="时间排序">
                     <span>${reportTimeSort === "modified" ? "Modified" : "Created"}</span>
@@ -7972,6 +7973,7 @@ function workbenchMarkup() {
                 </button>
               </nav>
               <div class="board catalog-view-${catalogView}">
+              ${normalized ? "" : personalLaunchpadMarkup({ reports:state.reports, escapeHtml })}
               ${normalized ? `
                 <section class="search-results-panel">
                   <header class="search-results-header">
@@ -8157,7 +8159,7 @@ function bindReportDragging() {
     const hovered = document.elementFromPoint(session.x, session.y);
     if (hovered?.closest(".report-card-placeholder")) return session.target;
     const navItem = hovered?.closest(".topic-nav a[data-nav-bucket-id]");
-    if (navItem) {
+    if (navItem && navItem.dataset.navBucketKind !== "shortcuts") {
       return {
         bucketKind: navItem.dataset.navBucketKind,
         bucketId: navItem.dataset.navBucketId,
@@ -8188,7 +8190,7 @@ function bindReportDragging() {
         container: column.querySelector(".group-cards"),
       };
     }
-    if (targetColumn && targetColumn.dataset.bucketKind !== "time") {
+    if (targetColumn && !["time", "shortcuts"].includes(targetColumn.dataset.bucketKind)) {
       return {
         bucketKind: targetColumn.dataset.bucketKind || catalogView,
         bucketId: targetColumn.dataset.bucketId || "",
@@ -9160,7 +9162,7 @@ function bindApp() {
       const hovered = document.elementFromPoint(event.clientX, event.clientY);
       const navItem = hovered?.closest(".topic-nav a[data-nav-bucket-id]");
       clearReportDropTarget();
-      if (navItem) {
+      if (navItem && navItem.dataset.navBucketKind !== "shortcuts") {
         navItem.classList.add("is-nav-drop-target");
         dragDropTarget = {
           bucketKind: navItem.dataset.navBucketKind,
@@ -9189,7 +9191,7 @@ function bindApp() {
         };
         return;
       }
-      if (targetColumn && targetColumn.dataset.bucketKind !== "time") {
+      if (targetColumn && !["time", "shortcuts"].includes(targetColumn.dataset.bucketKind)) {
         targetColumn.classList.add("is-drop-ready");
         ensurePlaceholder(targetColumn.querySelector(".group-cards"), null, false);
         dragDropTarget = {
