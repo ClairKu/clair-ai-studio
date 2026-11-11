@@ -1,78 +1,54 @@
 {
   "title": "盈米AI开放能力清单",
-  "version": 5,
-  "date": "2026-11-10",
+  "version": 8,
+  "date": "2026-11-11",
   "counts": {
     "MCP": 92,
     "Skills": 10,
-    "Agent": 1
+    "Agent": 6
   },
   "scenes": [
     {
       "id": "fund-research",
-      "name": "基金筛选与尽调",
+      "name": "公募基金研究",
       "kind": "business",
       "icon": "search"
     },
     {
-      "id": "portfolio-check",
-      "name": "持仓诊断与优化",
-      "kind": "business",
-      "icon": "portfolio"
-    },
-    {
       "id": "strategy-research",
-      "name": "策略研究与跟踪",
+      "name": "投顾策略研究",
       "kind": "business",
       "icon": "strategy"
     },
     {
-      "id": "family-planning",
-      "name": "家庭规划与目标测算",
-      "kind": "business",
-      "icon": "family"
-    },
-    {
-      "id": "allocation-plan",
-      "name": "资产配置与方案落地",
+      "id": "investment-planning",
+      "name": "投资规划与组合管理",
       "kind": "business",
       "icon": "allocation"
     },
     {
-      "id": "market-monitor",
-      "name": "市场跟踪与解读",
+      "id": "market-information",
+      "name": "市场资讯与内容",
       "kind": "business",
       "icon": "market"
     },
     {
-      "id": "client-visit",
-      "name": "客户备访与产品沟通",
-      "kind": "business",
-      "icon": "customer"
-    },
-    {
-      "id": "content-studio",
-      "name": "内容策划与材料生成",
-      "kind": "business",
-      "icon": "content"
-    },
-    {
-      "id": "account-service",
-      "name": "交易规则与费用",
+      "id": "trade-service",
+      "name": "交易与业务办理",
       "kind": "business",
       "icon": "account"
     },
     {
       "id": "private-research",
-      "name": "私募产品研究",
+      "name": "私募研究",
       "kind": "business",
       "icon": "private"
     },
     {
       "id": "user-data",
       "name": "用户数据",
-      "kind": "data",
-      "icon": "account"
+      "kind": "user_data",
+      "icon": "database"
     },
     {
       "id": "general-tools",
@@ -84,35 +60,70 @@
   "nodes": [
     {
       "id": "fund-research",
-      "name": "基金筛选与尽调",
+      "name": "公募基金研究",
       "kind": "business",
       "icon": "search",
+      "item_uids": [
+        "skill-fund-analysis",
+        "skill-fund-screener",
+        "mcp-getFundCampisiIndicator",
+        "mcp-getFundBenchmarkInfo",
+        "mcp-getBondAllocationByFundCode",
+        "mcp-getFundTurnoverRate",
+        "mcp-getFundIndustryPreference",
+        "mcp-SearchFunds",
+        "mcp-getBondIndicator",
+        "mcp-getFundIndustryReturns",
+        "mcp-filterStockFundByStockTurnover",
+        "mcp-GetPopularFund",
+        "mcp-getMarketTimingIndicator",
+        "mcp-getFundDiveCount",
+        "mcp-GuessFundCode",
+        "mcp-fund-sector-preference",
+        "mcp-getFundIndustryConcentration",
+        "mcp-BatchGetFundsDividendRecord",
+        "mcp-BatchGetFundNavHistory",
+        "mcp-GetBatchFundPerformance",
+        "mcp-getStockAllocationAndMetricsByFundCode",
+        "mcp-getFundIndustryAllocation",
+        "mcp-GetFundDiagnosis",
+        "mcp-getBondFundCreditRatingLevel",
+        "mcp-getBondFundWithAlertRecord",
+        "mcp-filterBondFundByBondType",
+        "mcp-fund-equity-position",
+        "mcp-fund-recovery-ability",
+        "mcp-BatchGetFundsDetail",
+        "mcp-filterBondFundByCreditRating",
+        "mcp-getFundBrinsonIndicator",
+        "mcp-BatchGetFundsSplitHistory",
+        "mcp-getQdFundAreaAllocation",
+        "mcp-AnalyzeFundRisk",
+        "agent-ex_8o3gU8RoerOE"
+      ],
       "children": [
         {
-          "id": "fund-research--f3eb8c0c",
+          "id": "fund-research--3a0cfc18",
           "parent_id": "fund-research",
-          "name": "基金搜索与筛选",
+          "name": "业绩归因",
+          "source_kind": "stargate-route",
           "item_uids": [
-            "skill-fund-screener",
-            "mcp-SearchFunds",
-            "mcp-filterStockFundByStockTurnover",
-            "mcp-GetPopularFund",
-            "mcp-GuessFundCode",
-            "mcp-getBondFundWithAlertRecord",
-            "mcp-filterBondFundByBondType",
-            "mcp-filterBondFundByCreditRating"
+            "mcp-getFundCampisiIndicator",
+            "mcp-getFundIndustryReturns",
+            "mcp-getMarketTimingIndicator",
+            "mcp-getFundBrinsonIndicator"
           ],
           "counts": {
-            "all": 8,
-            "MCP": 7,
-            "Skills": 1,
+            "all": 4,
+            "MCP": 4,
+            "Skills": 0,
             "Agent": 0
           }
         },
         {
-          "id": "fund-research--73022ce8",
+          "id": "fund-research--86809fb0",
           "parent_id": "fund-research",
           "name": "基金基本信息",
+          "source_kind": "stargate-route",
           "item_uids": [
             "mcp-getFundBenchmarkInfo",
             "mcp-BatchGetFundsDetail"
@@ -125,43 +136,10 @@
           }
         },
         {
-          "id": "fund-research--01226c2e",
-          "parent_id": "fund-research",
-          "name": "基金诊断",
-          "item_uids": [
-            "skill-fund-analysis",
-            "mcp-GetFundDiagnosis"
-          ],
-          "counts": {
-            "all": 2,
-            "MCP": 1,
-            "Skills": 1,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "fund-research--22a60e78",
-          "parent_id": "fund-research",
-          "name": "业绩与风险",
-          "item_uids": [
-            "mcp-getBondIndicator",
-            "mcp-getFundDiveCount",
-            "mcp-BatchGetFundNavHistory",
-            "mcp-GetBatchFundPerformance",
-            "mcp-fund-recovery-ability",
-            "mcp-AnalyzeFundRisk"
-          ],
-          "counts": {
-            "all": 6,
-            "MCP": 6,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "fund-research--75b7e0cc",
+          "id": "fund-research--48f0f702",
           "parent_id": "fund-research",
           "name": "持仓与投资风格",
+          "source_kind": "stargate-route",
           "item_uids": [
             "mcp-getBondAllocationByFundCode",
             "mcp-getFundTurnoverRate",
@@ -182,26 +160,52 @@
           }
         },
         {
-          "id": "fund-research--d2bfd7ac",
+          "id": "fund-research--38f5ab2a",
           "parent_id": "fund-research",
-          "name": "业绩归因",
+          "name": "基金搜索与筛选",
+          "source_kind": "stargate-route",
           "item_uids": [
-            "mcp-getFundCampisiIndicator",
-            "mcp-getFundIndustryReturns",
-            "mcp-getMarketTimingIndicator",
-            "mcp-getFundBrinsonIndicator"
+            "skill-fund-screener",
+            "mcp-SearchFunds",
+            "mcp-filterStockFundByStockTurnover",
+            "mcp-GetPopularFund",
+            "mcp-GuessFundCode",
+            "mcp-getBondFundWithAlertRecord",
+            "mcp-filterBondFundByBondType",
+            "mcp-filterBondFundByCreditRating"
           ],
           "counts": {
-            "all": 4,
-            "MCP": 4,
+            "all": 8,
+            "MCP": 7,
+            "Skills": 1,
+            "Agent": 0
+          }
+        },
+        {
+          "id": "fund-research--f95a6171",
+          "parent_id": "fund-research",
+          "name": "业绩与风险",
+          "source_kind": "stargate-route",
+          "item_uids": [
+            "mcp-getBondIndicator",
+            "mcp-getFundDiveCount",
+            "mcp-BatchGetFundNavHistory",
+            "mcp-GetBatchFundPerformance",
+            "mcp-fund-recovery-ability",
+            "mcp-AnalyzeFundRisk"
+          ],
+          "counts": {
+            "all": 6,
+            "MCP": 6,
             "Skills": 0,
             "Agent": 0
           }
         },
         {
-          "id": "fund-research--663a1105",
+          "id": "fund-research--93b273aa",
           "parent_id": "fund-research",
           "name": "公告与产品事件",
+          "source_kind": "stargate-route",
           "item_uids": [
             "mcp-BatchGetFundsDividendRecord",
             "mcp-BatchGetFundsSplitHistory"
@@ -214,284 +218,69 @@
           }
         },
         {
-          "id": "fund-research--af26dee8",
+          "id": "fund-research--6e5a3cac",
           "parent_id": "fund-research",
-          "name": "交易规则与限额",
+          "name": "基金诊断",
+          "source_kind": "stargate-route",
           "item_uids": [
-            "mcp-BatchGetFundTradeLimit",
-            "mcp-BatchGetFundTradeRules",
-            "mcp-GetTxnDayRange"
+            "skill-fund-analysis",
+            "mcp-GetFundDiagnosis"
           ],
           "counts": {
-            "all": 3,
-            "MCP": 3,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "fund-research--ac2289a4",
-          "parent_id": "fund-research",
-          "name": "组合回测与情景模拟",
-          "item_uids": [
-            "mcp-GetFundsBackTest"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        }
-      ],
-      "item_uids": [
-        "skill-fund-analysis",
-        "skill-fund-screener",
-        "mcp-getFundCampisiIndicator",
-        "mcp-getFundBenchmarkInfo",
-        "mcp-getBondAllocationByFundCode",
-        "mcp-getFundTurnoverRate",
-        "mcp-getFundIndustryPreference",
-        "mcp-SearchFunds",
-        "mcp-getBondIndicator",
-        "mcp-getFundIndustryReturns",
-        "mcp-filterStockFundByStockTurnover",
-        "mcp-GetPopularFund",
-        "mcp-BatchGetFundTradeLimit",
-        "mcp-getMarketTimingIndicator",
-        "mcp-getFundDiveCount",
-        "mcp-GuessFundCode",
-        "mcp-fund-sector-preference",
-        "mcp-getFundIndustryConcentration",
-        "mcp-BatchGetFundsDividendRecord",
-        "mcp-BatchGetFundNavHistory",
-        "mcp-GetBatchFundPerformance",
-        "mcp-BatchGetFundTradeRules",
-        "mcp-getStockAllocationAndMetricsByFundCode",
-        "mcp-getFundIndustryAllocation",
-        "mcp-GetFundDiagnosis",
-        "mcp-getBondFundCreditRatingLevel",
-        "mcp-getBondFundWithAlertRecord",
-        "mcp-filterBondFundByBondType",
-        "mcp-fund-equity-position",
-        "mcp-fund-recovery-ability",
-        "mcp-BatchGetFundsDetail",
-        "mcp-filterBondFundByCreditRating",
-        "mcp-getFundBrinsonIndicator",
-        "mcp-BatchGetFundsSplitHistory",
-        "mcp-getQdFundAreaAllocation",
-        "mcp-AnalyzeFundRisk",
-        "mcp-GetFundsBackTest",
-        "mcp-GetTxnDayRange"
-      ],
-      "counts": {
-        "all": 38,
-        "MCP": 36,
-        "Skills": 2,
-        "Agent": 0
-      }
-    },
-    {
-      "id": "portfolio-check",
-      "name": "持仓诊断与优化",
-      "kind": "business",
-      "icon": "portfolio",
-      "children": [
-        {
-          "id": "portfolio-check--0f94d4df",
-          "parent_id": "portfolio-check",
-          "name": "组合诊断",
-          "item_uids": [
-            "skill-portfolio-analysis",
-            "mcp-DiagnoseFundPortfolio",
-            "agent-qieman-xiaogu"
-          ],
-          "counts": {
-            "all": 3,
+            "all": 2,
             "MCP": 1,
             "Skills": 1,
+            "Agent": 0
+          }
+        },
+        {
+          "id": "fund-research--47d6b96a",
+          "parent_id": "fund-research",
+          "name": "基金尽调",
+          "source_kind": "agent-task-mapping",
+          "item_uids": [
+            "agent-ex_8o3gU8RoerOE"
+          ],
+          "counts": {
+            "all": 1,
+            "MCP": 0,
+            "Skills": 0,
             "Agent": 1
-          }
-        },
-        {
-          "id": "portfolio-check--9824fdad",
-          "parent_id": "portfolio-check",
-          "name": "资产配置",
-          "item_uids": [
-            "mcp-GetAssetAllocation",
-            "mcp-GetFundAssetClassAnalysis"
-          ],
-          "counts": {
-            "all": 2,
-            "MCP": 2,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "portfolio-check--ba02590b",
-          "parent_id": "portfolio-check",
-          "name": "组合风险与相关性",
-          "item_uids": [
-            "mcp-AnalyzePortfolioRisk",
-            "mcp-GetFundsCorrelation"
-          ],
-          "counts": {
-            "all": 2,
-            "MCP": 2,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "portfolio-check--ac2289a4",
-          "parent_id": "portfolio-check",
-          "name": "组合回测与情景模拟",
-          "item_uids": [
-            "mcp-GetFundsBackTest",
-            "mcp-MonteCarloSimulate"
-          ],
-          "counts": {
-            "all": 2,
-            "MCP": 2,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "portfolio-check--04a8d8c8",
-          "parent_id": "portfolio-check",
-          "name": "持仓与资产配置",
-          "item_uids": [
-            "mcp-GetStrategyAssetClassAnalysis",
-            "mcp-BatchGetStrategiesComposition"
-          ],
-          "counts": {
-            "all": 2,
-            "MCP": 2,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "portfolio-check--73022ce8",
-          "parent_id": "portfolio-check",
-          "name": "基金基本信息",
-          "item_uids": [
-            "mcp-BatchGetFundsDetail"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "portfolio-check--f3eb8c0c",
-          "parent_id": "portfolio-check",
-          "name": "基金搜索与筛选",
-          "item_uids": [
-            "mcp-GuessFundCode"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "portfolio-check--22a60e78",
-          "parent_id": "portfolio-check",
-          "name": "业绩与风险",
-          "item_uids": [
-            "mcp-AnalyzeFundRisk"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
           }
         }
       ],
-      "item_uids": [
-        "skill-portfolio-analysis",
-        "mcp-GetStrategyAssetClassAnalysis",
-        "mcp-BatchGetStrategiesComposition",
-        "mcp-GuessFundCode",
-        "mcp-BatchGetFundsDetail",
-        "mcp-AnalyzeFundRisk",
-        "mcp-GetFundsBackTest",
-        "mcp-MonteCarloSimulate",
-        "mcp-AnalyzePortfolioRisk",
-        "mcp-GetAssetAllocation",
-        "mcp-GetFundAssetClassAnalysis",
-        "mcp-GetFundsCorrelation",
-        "mcp-DiagnoseFundPortfolio",
-        "agent-qieman-xiaogu"
-      ],
       "counts": {
-        "all": 14,
-        "MCP": 12,
-        "Skills": 1,
+        "all": 35,
+        "MCP": 32,
+        "Skills": 2,
         "Agent": 1
       }
     },
     {
       "id": "strategy-research",
-      "name": "策略研究与跟踪",
+      "name": "投顾策略研究",
       "kind": "business",
       "icon": "strategy",
+      "item_uids": [
+        "skill-strategy-analysis",
+        "mcp-GetStrategyAssetClassAnalysis",
+        "mcp-GetFundRelatedStrategies",
+        "mcp-BatchGetStrategiesComposition",
+        "mcp-BatchGetPoTradeComposition",
+        "mcp-GetStrategyBenchmark",
+        "mcp-GetStrategyDetails",
+        "mcp-GetPortfolioNavHistory",
+        "mcp-GetStrategyAdjustments",
+        "mcp-StrategySearchByKeyword",
+        "mcp-BatchGetStrategyRiskInfo",
+        "agent-ex_x32rUOxgJvma"
+      ],
       "children": [
         {
-          "id": "strategy-research--c93a0a47",
-          "parent_id": "strategy-research",
-          "name": "策略搜索与筛选",
-          "item_uids": [
-            "mcp-GetFundRelatedStrategies",
-            "mcp-StrategySearchByKeyword"
-          ],
-          "counts": {
-            "all": 2,
-            "MCP": 2,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "strategy-research--6cf87025",
-          "parent_id": "strategy-research",
-          "name": "策略基本信息",
-          "item_uids": [
-            "mcp-GetStrategyDetails"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "strategy-research--f2b69838",
-          "parent_id": "strategy-research",
-          "name": "策略综合分析",
-          "item_uids": [
-            "skill-strategy-analysis"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 0,
-            "Skills": 1,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "strategy-research--04a8d8c8",
+          "id": "strategy-research--5d9c5053",
           "parent_id": "strategy-research",
           "name": "持仓与资产配置",
+          "source_kind": "stargate-route",
           "item_uids": [
             "mcp-GetStrategyAssetClassAnalysis",
             "mcp-BatchGetStrategiesComposition",
@@ -505,25 +294,26 @@
           }
         },
         {
-          "id": "strategy-research--22a60e78",
+          "id": "strategy-research--32d2402d",
           "parent_id": "strategy-research",
-          "name": "业绩与风险",
+          "name": "策略搜索与筛选",
+          "source_kind": "stargate-route",
           "item_uids": [
-            "mcp-GetBatchFundPerformance",
-            "mcp-GetPortfolioNavHistory",
-            "mcp-BatchGetStrategyRiskInfo"
+            "mcp-GetFundRelatedStrategies",
+            "mcp-StrategySearchByKeyword"
           ],
           "counts": {
-            "all": 3,
-            "MCP": 3,
+            "all": 2,
+            "MCP": 2,
             "Skills": 0,
             "Agent": 0
           }
         },
         {
-          "id": "strategy-research--df924db0",
+          "id": "strategy-research--5a08b229",
           "parent_id": "strategy-research",
           "name": "策略比较与基准",
+          "source_kind": "stargate-route",
           "item_uids": [
             "mcp-GetStrategyBenchmark"
           ],
@@ -535,9 +325,42 @@
           }
         },
         {
-          "id": "strategy-research--710d0843",
+          "id": "strategy-research--3ab2749d",
+          "parent_id": "strategy-research",
+          "name": "策略基本信息",
+          "source_kind": "stargate-route",
+          "item_uids": [
+            "skill-strategy-analysis",
+            "mcp-GetStrategyDetails"
+          ],
+          "counts": {
+            "all": 2,
+            "MCP": 1,
+            "Skills": 1,
+            "Agent": 0
+          }
+        },
+        {
+          "id": "strategy-research--215fd737",
+          "parent_id": "strategy-research",
+          "name": "业绩与风险",
+          "source_kind": "stargate-route",
+          "item_uids": [
+            "mcp-GetPortfolioNavHistory",
+            "mcp-BatchGetStrategyRiskInfo"
+          ],
+          "counts": {
+            "all": 2,
+            "MCP": 2,
+            "Skills": 0,
+            "Agent": 0
+          }
+        },
+        {
+          "id": "strategy-research--9a895327",
           "parent_id": "strategy-research",
           "name": "调仓、发车与信号",
+          "source_kind": "stargate-route",
           "item_uids": [
             "mcp-GetStrategyAdjustments"
           ],
@@ -549,223 +372,62 @@
           }
         },
         {
-          "id": "strategy-research--edb97406",
+          "id": "strategy-research--89388979",
           "parent_id": "strategy-research",
-          "name": "费率与收费规则",
+          "name": "策略分析",
+          "source_kind": "agent-task-mapping",
           "item_uids": [
-            "mcp-GetAdvisorChargeFeeModel"
+            "agent-ex_x32rUOxgJvma"
           ],
           "counts": {
             "all": 1,
-            "MCP": 1,
+            "MCP": 0,
             "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "strategy-research--af26dee8",
-          "parent_id": "strategy-research",
-          "name": "交易规则与限额",
-          "item_uids": [
-            "mcp-GetPomodelTradeRule",
-            "mcp-GetTxnDayRange"
-          ],
-          "counts": {
-            "all": 2,
-            "MCP": 2,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "strategy-research--73022ce8",
-          "parent_id": "strategy-research",
-          "name": "基金基本信息",
-          "item_uids": [
-            "mcp-BatchGetFundsDetail"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "strategy-research--f346365c",
-          "parent_id": "strategy-research",
-          "name": "内容检索与发现",
-          "item_uids": [
-            "mcp-searchInvestAdvisorContent"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "strategy-research--3d2f915e",
-          "parent_id": "strategy-research",
-          "name": "市场行情与温度",
-          "item_uids": [
-            "mcp-GetLatestQuotations"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        }
-      ],
-      "item_uids": [
-        "skill-strategy-analysis",
-        "mcp-GetStrategyAssetClassAnalysis",
-        "mcp-GetFundRelatedStrategies",
-        "mcp-BatchGetStrategiesComposition",
-        "mcp-BatchGetPoTradeComposition",
-        "mcp-GetStrategyBenchmark",
-        "mcp-GetStrategyDetails",
-        "mcp-GetBatchFundPerformance",
-        "mcp-BatchGetFundsDetail",
-        "mcp-GetLatestQuotations",
-        "mcp-GetPortfolioNavHistory",
-        "mcp-GetAdvisorChargeFeeModel",
-        "mcp-GetPomodelTradeRule",
-        "mcp-GetStrategyAdjustments",
-        "mcp-StrategySearchByKeyword",
-        "mcp-BatchGetStrategyRiskInfo",
-        "mcp-GetTxnDayRange",
-        "mcp-searchInvestAdvisorContent"
-      ],
-      "counts": {
-        "all": 18,
-        "MCP": 17,
-        "Skills": 1,
-        "Agent": 0
-      }
-    },
-    {
-      "id": "family-planning",
-      "name": "家庭规划与目标测算",
-      "kind": "business",
-      "icon": "family",
-      "children": [
-        {
-          "id": "family-planning--f59fb7b1",
-          "parent_id": "family-planning",
-          "name": "家庭财务与现金流",
-          "item_uids": [
-            "skill-family-wealth-planning",
-            "mcp-AnalyzeIncomeExpense",
-            "mcp-AnalyzeFinancialIndicators",
-            "mcp-AnalyzeAssetLiability",
-            "mcp-AnalyzeFamilyMembers",
-            "mcp-AnalyzeCashFlow",
-            "agent-qieman-xiaogu"
-          ],
-          "counts": {
-            "all": 7,
-            "MCP": 5,
-            "Skills": 1,
             "Agent": 1
           }
-        },
-        {
-          "id": "family-planning--1c9ffc1f",
-          "parent_id": "family-planning",
-          "name": "投资方案生成与评估",
-          "item_uids": [
-            "mcp-GetAssetAllocationPlan",
-            "mcp-AnalyzeInvestmentPerformance"
-          ],
-          "counts": {
-            "all": 2,
-            "MCP": 2,
-            "Skills": 0,
-            "Agent": 0
-          }
         }
       ],
-      "item_uids": [
-        "skill-family-wealth-planning",
-        "mcp-GetAssetAllocationPlan",
-        "mcp-AnalyzeInvestmentPerformance",
-        "mcp-AnalyzeIncomeExpense",
-        "mcp-AnalyzeFinancialIndicators",
-        "mcp-AnalyzeAssetLiability",
-        "mcp-AnalyzeFamilyMembers",
-        "mcp-AnalyzeCashFlow",
-        "agent-qieman-xiaogu"
-      ],
       "counts": {
-        "all": 9,
-        "MCP": 7,
+        "all": 12,
+        "MCP": 10,
         "Skills": 1,
         "Agent": 1
       }
     },
     {
-      "id": "allocation-plan",
-      "name": "资产配置与方案落地",
+      "id": "investment-planning",
+      "name": "投资规划与组合管理",
       "kind": "business",
       "icon": "allocation",
+      "item_uids": [
+        "skill-advisor-allocation",
+        "skill-family-wealth-planning",
+        "skill-portfolio-analysis",
+        "mcp-GetFundsBackTest",
+        "mcp-MonteCarloSimulate",
+        "mcp-AnalyzePortfolioRisk",
+        "mcp-GetAssetAllocation",
+        "mcp-GetFundAssetClassAnalysis",
+        "mcp-GetFundsCorrelation",
+        "mcp-GetAssetAllocationPlan",
+        "mcp-AnalyzeInvestmentPerformance",
+        "mcp-AnalyzeIncomeExpense",
+        "mcp-DiagnoseFundPortfolio",
+        "mcp-AnalyzeFinancialIndicators",
+        "mcp-AnalyzeAssetLiability",
+        "mcp-AnalyzeFamilyMembers",
+        "mcp-AnalyzeCashFlow",
+        "mcp-GetCompositeModel",
+        "agent-qieman-xiaogu",
+        "agent-ex_TBeURroZ6YEa",
+        "agent-ex_nfkA8aT2T0q1"
+      ],
       "children": [
         {
-          "id": "allocation-plan--1c9ffc1f",
-          "parent_id": "allocation-plan",
-          "name": "投资方案生成与评估",
-          "item_uids": [
-            "skill-advisor-allocation",
-            "mcp-GetAssetAllocationPlan",
-            "mcp-AnalyzeInvestmentPerformance",
-            "mcp-GetCompositeModel",
-            "agent-qieman-xiaogu"
-          ],
-          "counts": {
-            "all": 5,
-            "MCP": 3,
-            "Skills": 1,
-            "Agent": 1
-          }
-        },
-        {
-          "id": "allocation-plan--9824fdad",
-          "parent_id": "allocation-plan",
-          "name": "资产配置",
-          "item_uids": [
-            "mcp-GetAssetAllocation",
-            "mcp-GetFundAssetClassAnalysis"
-          ],
-          "counts": {
-            "all": 2,
-            "MCP": 2,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "allocation-plan--ba02590b",
-          "parent_id": "allocation-plan",
-          "name": "组合风险与相关性",
-          "item_uids": [
-            "skill-portfolio-analysis",
-            "mcp-AnalyzePortfolioRisk",
-            "mcp-GetFundsCorrelation"
-          ],
-          "counts": {
-            "all": 3,
-            "MCP": 2,
-            "Skills": 1,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "allocation-plan--ac2289a4",
-          "parent_id": "allocation-plan",
+          "id": "investment-planning--11fa974d",
+          "parent_id": "investment-planning",
           "name": "组合回测与情景模拟",
+          "source_kind": "stargate-route",
           "item_uids": [
             "mcp-GetFundsBackTest",
             "mcp-MonteCarloSimulate"
@@ -778,42 +440,13 @@
           }
         },
         {
-          "id": "allocation-plan--f3eb8c0c",
-          "parent_id": "allocation-plan",
-          "name": "基金搜索与筛选",
+          "id": "investment-planning--8daafee4",
+          "parent_id": "investment-planning",
+          "name": "组合风险与相关性",
+          "source_kind": "stargate-route",
           "item_uids": [
-            "skill-fund-screener",
-            "mcp-SearchFunds",
-            "mcp-GuessFundCode"
-          ],
-          "counts": {
-            "all": 3,
-            "MCP": 2,
-            "Skills": 1,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "allocation-plan--73022ce8",
-          "parent_id": "allocation-plan",
-          "name": "基金基本信息",
-          "item_uids": [
-            "mcp-BatchGetFundsDetail"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "allocation-plan--22a60e78",
-          "parent_id": "allocation-plan",
-          "name": "业绩与风险",
-          "item_uids": [
-            "mcp-AnalyzeFundRisk",
-            "mcp-BatchGetStrategyRiskInfo"
+            "mcp-AnalyzePortfolioRisk",
+            "mcp-GetFundsCorrelation"
           ],
           "counts": {
             "all": 2,
@@ -823,107 +456,138 @@
           }
         },
         {
-          "id": "allocation-plan--04a8d8c8",
-          "parent_id": "allocation-plan",
-          "name": "持仓与资产配置",
+          "id": "investment-planning--5c403245",
+          "parent_id": "investment-planning",
+          "name": "资产配置",
+          "source_kind": "stargate-route",
           "item_uids": [
-            "mcp-GetStrategyAssetClassAnalysis"
+            "mcp-GetAssetAllocation",
+            "mcp-GetFundAssetClassAnalysis"
           ],
           "counts": {
-            "all": 1,
-            "MCP": 1,
+            "all": 2,
+            "MCP": 2,
             "Skills": 0,
             "Agent": 0
           }
         },
         {
-          "id": "allocation-plan--edb97406",
-          "parent_id": "allocation-plan",
-          "name": "费率与收费规则",
+          "id": "investment-planning--c39faa49",
+          "parent_id": "investment-planning",
+          "name": "投资方案生成与评估",
+          "source_kind": "stargate-route",
           "item_uids": [
-            "mcp-GetAdvisorChargeFeeModel"
+            "skill-advisor-allocation",
+            "mcp-GetAssetAllocationPlan",
+            "mcp-AnalyzeInvestmentPerformance",
+            "mcp-GetCompositeModel"
           ],
           "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
+            "all": 4,
+            "MCP": 3,
+            "Skills": 1,
             "Agent": 0
           }
         },
         {
-          "id": "allocation-plan--af26dee8",
-          "parent_id": "allocation-plan",
-          "name": "交易规则与限额",
+          "id": "investment-planning--eb09b352",
+          "parent_id": "investment-planning",
+          "name": "家庭财务与现金流",
+          "source_kind": "stargate-route",
           "item_uids": [
-            "mcp-BatchGetFundTradeLimit",
-            "mcp-BatchGetFundTradeRules",
-            "mcp-GetPomodelTradeRule"
+            "skill-family-wealth-planning",
+            "mcp-AnalyzeIncomeExpense",
+            "mcp-AnalyzeFinancialIndicators",
+            "mcp-AnalyzeAssetLiability",
+            "mcp-AnalyzeFamilyMembers",
+            "mcp-AnalyzeCashFlow"
+          ],
+          "counts": {
+            "all": 6,
+            "MCP": 5,
+            "Skills": 1,
+            "Agent": 0
+          }
+        },
+        {
+          "id": "investment-planning--b1b14ee1",
+          "parent_id": "investment-planning",
+          "name": "组合诊断",
+          "source_kind": "stargate-route",
+          "item_uids": [
+            "skill-portfolio-analysis",
+            "mcp-DiagnoseFundPortfolio",
+            "agent-ex_TBeURroZ6YEa"
           ],
           "counts": {
             "all": 3,
-            "MCP": 3,
-            "Skills": 0,
-            "Agent": 0
+            "MCP": 1,
+            "Skills": 1,
+            "Agent": 1
           }
         },
         {
-          "id": "allocation-plan--0f94d4df",
-          "parent_id": "allocation-plan",
-          "name": "组合诊断",
+          "id": "investment-planning--d4692a32",
+          "parent_id": "investment-planning",
+          "name": "投顾规划",
+          "source_kind": "agent-task-mapping",
           "item_uids": [
-            "mcp-DiagnoseFundPortfolio"
+            "agent-ex_nfkA8aT2T0q1"
           ],
           "counts": {
             "all": 1,
-            "MCP": 1,
+            "MCP": 0,
             "Skills": 0,
-            "Agent": 0
+            "Agent": 1
+          }
+        },
+        {
+          "id": "investment-planning--ce8f7a67",
+          "parent_id": "investment-planning",
+          "name": "投资陪伴",
+          "source_kind": "agent-task-mapping",
+          "item_uids": [
+            "agent-qieman-xiaogu"
+          ],
+          "counts": {
+            "all": 1,
+            "MCP": 0,
+            "Skills": 0,
+            "Agent": 1
           }
         }
       ],
-      "item_uids": [
-        "skill-advisor-allocation",
-        "skill-portfolio-analysis",
-        "skill-fund-screener",
-        "mcp-GetStrategyAssetClassAnalysis",
-        "mcp-SearchFunds",
-        "mcp-BatchGetFundTradeLimit",
-        "mcp-GuessFundCode",
-        "mcp-BatchGetFundTradeRules",
-        "mcp-BatchGetFundsDetail",
-        "mcp-AnalyzeFundRisk",
-        "mcp-GetFundsBackTest",
-        "mcp-MonteCarloSimulate",
-        "mcp-AnalyzePortfolioRisk",
-        "mcp-GetAssetAllocation",
-        "mcp-GetFundAssetClassAnalysis",
-        "mcp-GetFundsCorrelation",
-        "mcp-GetAssetAllocationPlan",
-        "mcp-AnalyzeInvestmentPerformance",
-        "mcp-DiagnoseFundPortfolio",
-        "mcp-GetAdvisorChargeFeeModel",
-        "mcp-GetPomodelTradeRule",
-        "mcp-BatchGetStrategyRiskInfo",
-        "mcp-GetCompositeModel",
-        "agent-qieman-xiaogu"
-      ],
       "counts": {
-        "all": 24,
-        "MCP": 20,
+        "all": 21,
+        "MCP": 15,
         "Skills": 3,
-        "Agent": 1
+        "Agent": 3
       }
     },
     {
-      "id": "market-monitor",
-      "name": "市场跟踪与解读",
+      "id": "market-information",
+      "name": "市场资讯与内容",
       "kind": "business",
       "icon": "market",
+      "item_uids": [
+        "skill-advisor-client-insights",
+        "skill-advisor-product-communication",
+        "skill-market-analysis",
+        "skill-advisor-content-studio",
+        "mcp-GetLatestQuotations",
+        "mcp-SearchHotTopic",
+        "mcp-SearchFinancialNews",
+        "mcp-searchRealtimeAiAnalysis",
+        "mcp-SearchManagerViewpoint",
+        "mcp-searchInvestAdvisorContent",
+        "agent-ex_9HZbeQgbdcnp"
+      ],
       "children": [
         {
-          "id": "market-monitor--3d2f915e",
-          "parent_id": "market-monitor",
+          "id": "market-information--fbc768d6",
+          "parent_id": "market-information",
           "name": "市场行情与温度",
+          "source_kind": "stargate-route",
           "item_uids": [
             "mcp-GetLatestQuotations"
           ],
@@ -935,9 +599,10 @@
           }
         },
         {
-          "id": "market-monitor--882be4e9",
-          "parent_id": "market-monitor",
+          "id": "market-information--d38a94c7",
+          "parent_id": "market-information",
           "name": "财经新闻与热点",
+          "source_kind": "stargate-route",
           "item_uids": [
             "mcp-SearchHotTopic",
             "mcp-SearchFinancialNews"
@@ -950,27 +615,61 @@
           }
         },
         {
-          "id": "market-monitor--ef3886d0",
-          "parent_id": "market-monitor",
+          "id": "market-information--799950b3",
+          "parent_id": "market-information",
           "name": "观点与实时解读",
+          "source_kind": "stargate-route",
           "item_uids": [
+            "skill-market-analysis",
             "mcp-searchRealtimeAiAnalysis",
             "mcp-SearchManagerViewpoint"
           ],
           "counts": {
-            "all": 2,
+            "all": 3,
             "MCP": 2,
+            "Skills": 1,
+            "Agent": 0
+          }
+        },
+        {
+          "id": "market-information--d6d9b50e",
+          "parent_id": "market-information",
+          "name": "内容检索与发现",
+          "source_kind": "stargate-route",
+          "item_uids": [
+            "mcp-searchInvestAdvisorContent"
+          ],
+          "counts": {
+            "all": 1,
+            "MCP": 1,
             "Skills": 0,
             "Agent": 0
           }
         },
         {
-          "id": "market-monitor--cb6bbf81",
-          "parent_id": "market-monitor",
-          "name": "市场综合解读",
+          "id": "market-information--7f7e6240",
+          "parent_id": "market-information",
+          "name": "顾问交付与运营",
+          "source_kind": "official-skill-tag",
           "item_uids": [
-            "skill-market-analysis",
-            "agent-qieman-xiaogu"
+            "skill-advisor-client-insights",
+            "skill-advisor-product-communication"
+          ],
+          "counts": {
+            "all": 2,
+            "MCP": 0,
+            "Skills": 2,
+            "Agent": 0
+          }
+        },
+        {
+          "id": "market-information--b15f8efa",
+          "parent_id": "market-information",
+          "name": "投顾内容",
+          "source_kind": "official-skill-tag",
+          "item_uids": [
+            "skill-advisor-content-studio",
+            "agent-ex_9HZbeQgbdcnp"
           ],
           "counts": {
             "all": 2,
@@ -978,538 +677,34 @@
             "Skills": 1,
             "Agent": 1
           }
-        },
-        {
-          "id": "market-monitor--8fa3afae",
-          "parent_id": "market-monitor",
-          "name": "市场观点与内容",
-          "item_uids": [
-            "skill-advisor-content-studio"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 0,
-            "Skills": 1,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "market-monitor--f3eb8c0c",
-          "parent_id": "market-monitor",
-          "name": "基金搜索与筛选",
-          "item_uids": [
-            "skill-fund-screener",
-            "mcp-GetPopularFund",
-            "mcp-getBondFundWithAlertRecord"
-          ],
-          "counts": {
-            "all": 3,
-            "MCP": 2,
-            "Skills": 1,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "market-monitor--22a60e78",
-          "parent_id": "market-monitor",
-          "name": "业绩与风险",
-          "item_uids": [
-            "mcp-getFundDiveCount",
-            "mcp-BatchGetFundNavHistory"
-          ],
-          "counts": {
-            "all": 2,
-            "MCP": 2,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "market-monitor--f346365c",
-          "parent_id": "market-monitor",
-          "name": "内容检索与发现",
-          "item_uids": [
-            "mcp-searchInvestAdvisorContent"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
         }
       ],
-      "item_uids": [
-        "skill-market-analysis",
-        "skill-advisor-content-studio",
-        "skill-fund-screener",
-        "mcp-GetPopularFund",
-        "mcp-getFundDiveCount",
-        "mcp-BatchGetFundNavHistory",
-        "mcp-getBondFundWithAlertRecord",
-        "mcp-GetLatestQuotations",
-        "mcp-SearchHotTopic",
-        "mcp-SearchFinancialNews",
-        "mcp-searchRealtimeAiAnalysis",
-        "mcp-SearchManagerViewpoint",
-        "mcp-searchInvestAdvisorContent",
-        "agent-qieman-xiaogu"
-      ],
       "counts": {
-        "all": 14,
-        "MCP": 10,
-        "Skills": 3,
+        "all": 11,
+        "MCP": 6,
+        "Skills": 4,
         "Agent": 1
       }
     },
     {
-      "id": "client-visit",
-      "name": "客户备访与产品沟通",
-      "kind": "business",
-      "icon": "customer",
-      "children": [
-        {
-          "id": "client-visit--0b95250f",
-          "parent_id": "client-visit",
-          "name": "客户洞察与备访",
-          "item_uids": [
-            "skill-advisor-client-insights"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 0,
-            "Skills": 1,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "client-visit--62656dd6",
-          "parent_id": "client-visit",
-          "name": "产品说明与客户沟通",
-          "item_uids": [
-            "skill-advisor-product-communication"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 0,
-            "Skills": 1,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "client-visit--807734e8",
-          "parent_id": "client-visit",
-          "name": "顾问沟通材料",
-          "item_uids": [
-            "skill-advisor-content-studio"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 0,
-            "Skills": 1,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "client-visit--73022ce8",
-          "parent_id": "client-visit",
-          "name": "基金基本信息",
-          "item_uids": [
-            "mcp-BatchGetFundsDetail"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "client-visit--01226c2e",
-          "parent_id": "client-visit",
-          "name": "基金诊断",
-          "item_uids": [
-            "mcp-GetFundDiagnosis"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "client-visit--6cf87025",
-          "parent_id": "client-visit",
-          "name": "策略基本信息",
-          "item_uids": [
-            "mcp-GetStrategyDetails"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "client-visit--df924db0",
-          "parent_id": "client-visit",
-          "name": "策略比较与基准",
-          "item_uids": [
-            "mcp-GetStrategyBenchmark"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "client-visit--22a60e78",
-          "parent_id": "client-visit",
-          "name": "业绩与风险",
-          "item_uids": [
-            "mcp-GetBatchFundPerformance",
-            "mcp-AnalyzeFundRisk",
-            "mcp-BatchGetStrategyRiskInfo"
-          ],
-          "counts": {
-            "all": 3,
-            "MCP": 3,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "client-visit--0f94d4df",
-          "parent_id": "client-visit",
-          "name": "组合诊断",
-          "item_uids": [
-            "mcp-DiagnoseFundPortfolio"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "client-visit--edb97406",
-          "parent_id": "client-visit",
-          "name": "费率与收费规则",
-          "item_uids": [
-            "mcp-GetAdvisorChargeFeeModel"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "client-visit--af26dee8",
-          "parent_id": "client-visit",
-          "name": "交易规则与限额",
-          "item_uids": [
-            "mcp-BatchGetFundTradeLimit",
-            "mcp-BatchGetFundTradeRules",
-            "mcp-GetPomodelTradeRule"
-          ],
-          "counts": {
-            "all": 3,
-            "MCP": 3,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "client-visit--f346365c",
-          "parent_id": "client-visit",
-          "name": "内容检索与发现",
-          "item_uids": [
-            "mcp-searchInvestAdvisorContent"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        }
-      ],
-      "item_uids": [
-        "skill-advisor-client-insights",
-        "skill-advisor-product-communication",
-        "skill-advisor-content-studio",
-        "mcp-BatchGetFundTradeLimit",
-        "mcp-GetStrategyBenchmark",
-        "mcp-GetStrategyDetails",
-        "mcp-GetBatchFundPerformance",
-        "mcp-BatchGetFundTradeRules",
-        "mcp-GetFundDiagnosis",
-        "mcp-BatchGetFundsDetail",
-        "mcp-AnalyzeFundRisk",
-        "mcp-DiagnoseFundPortfolio",
-        "mcp-GetAdvisorChargeFeeModel",
-        "mcp-GetPomodelTradeRule",
-        "mcp-BatchGetStrategyRiskInfo",
-        "mcp-searchInvestAdvisorContent"
-      ],
-      "counts": {
-        "all": 16,
-        "MCP": 13,
-        "Skills": 3,
-        "Agent": 0
-      }
-    },
-    {
-      "id": "content-studio",
-      "name": "内容策划与材料生成",
-      "kind": "business",
-      "icon": "content",
-      "children": [
-        {
-          "id": "content-studio--a6f5d0f2",
-          "parent_id": "content-studio",
-          "name": "内容策划与成稿",
-          "item_uids": [
-            "skill-advisor-content-studio"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 0,
-            "Skills": 1,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "content-studio--882be4e9",
-          "parent_id": "content-studio",
-          "name": "财经新闻与热点",
-          "item_uids": [
-            "skill-market-analysis",
-            "mcp-SearchHotTopic",
-            "mcp-SearchFinancialNews"
-          ],
-          "counts": {
-            "all": 3,
-            "MCP": 2,
-            "Skills": 1,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "content-studio--ef3886d0",
-          "parent_id": "content-studio",
-          "name": "观点与实时解读",
-          "item_uids": [
-            "mcp-searchRealtimeAiAnalysis",
-            "mcp-SearchManagerViewpoint"
-          ],
-          "counts": {
-            "all": 2,
-            "MCP": 2,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "content-studio--3d2f915e",
-          "parent_id": "content-studio",
-          "name": "市场行情与温度",
-          "item_uids": [
-            "mcp-GetLatestQuotations"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "content-studio--f346365c",
-          "parent_id": "content-studio",
-          "name": "内容检索与发现",
-          "item_uids": [
-            "mcp-searchInvestAdvisorContent"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "content-studio--62656dd6",
-          "parent_id": "content-studio",
-          "name": "产品说明与客户沟通",
-          "item_uids": [
-            "skill-advisor-product-communication"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 0,
-            "Skills": 1,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "content-studio--73022ce8",
-          "parent_id": "content-studio",
-          "name": "基金基本信息",
-          "item_uids": [
-            "mcp-BatchGetFundsDetail"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "content-studio--22a60e78",
-          "parent_id": "content-studio",
-          "name": "业绩与风险",
-          "item_uids": [
-            "mcp-BatchGetFundNavHistory",
-            "mcp-GetBatchFundPerformance"
-          ],
-          "counts": {
-            "all": 2,
-            "MCP": 2,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "content-studio--663a1105",
-          "parent_id": "content-studio",
-          "name": "公告与产品事件",
-          "item_uids": [
-            "mcp-BatchGetFundsDividendRecord"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "content-studio--6cf87025",
-          "parent_id": "content-studio",
-          "name": "策略基本信息",
-          "item_uids": [
-            "mcp-GetStrategyDetails"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "content-studio--df924db0",
-          "parent_id": "content-studio",
-          "name": "策略比较与基准",
-          "item_uids": [
-            "mcp-GetStrategyBenchmark"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "content-studio--710d0843",
-          "parent_id": "content-studio",
-          "name": "调仓、发车与信号",
-          "item_uids": [
-            "mcp-GetStrategyAdjustments"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "content-studio--edb97406",
-          "parent_id": "content-studio",
-          "name": "费率与收费规则",
-          "item_uids": [
-            "mcp-GetAdvisorChargeFeeModel"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "content-studio--af26dee8",
-          "parent_id": "content-studio",
-          "name": "交易规则与限额",
-          "item_uids": [
-            "mcp-GetPomodelTradeRule"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        }
-      ],
-      "item_uids": [
-        "skill-advisor-product-communication",
-        "skill-market-analysis",
-        "skill-advisor-content-studio",
-        "mcp-GetStrategyBenchmark",
-        "mcp-GetStrategyDetails",
-        "mcp-BatchGetFundsDividendRecord",
-        "mcp-BatchGetFundNavHistory",
-        "mcp-GetBatchFundPerformance",
-        "mcp-BatchGetFundsDetail",
-        "mcp-GetLatestQuotations",
-        "mcp-GetAdvisorChargeFeeModel",
-        "mcp-GetPomodelTradeRule",
-        "mcp-GetStrategyAdjustments",
-        "mcp-SearchHotTopic",
-        "mcp-SearchFinancialNews",
-        "mcp-searchRealtimeAiAnalysis",
-        "mcp-SearchManagerViewpoint",
-        "mcp-searchInvestAdvisorContent"
-      ],
-      "counts": {
-        "all": 18,
-        "MCP": 15,
-        "Skills": 3,
-        "Agent": 0
-      }
-    },
-    {
-      "id": "account-service",
-      "name": "交易规则与费用",
+      "id": "trade-service",
+      "name": "交易与业务办理",
       "kind": "business",
       "icon": "account",
+      "item_uids": [
+        "skill-advisor-product-communication",
+        "mcp-BatchGetFundTradeLimit",
+        "mcp-BatchGetFundTradeRules",
+        "mcp-GetAdvisorChargeFeeModel",
+        "mcp-GetPomodelTradeRule",
+        "mcp-GetTxnDayRange"
+      ],
       "children": [
         {
-          "id": "account-service--af26dee8",
-          "parent_id": "account-service",
+          "id": "trade-service--ed722f75",
+          "parent_id": "trade-service",
           "name": "交易规则与限额",
+          "source_kind": "stargate-route",
           "item_uids": [
             "skill-advisor-product-communication",
             "mcp-BatchGetFundTradeLimit",
@@ -1525,9 +720,10 @@
           }
         },
         {
-          "id": "account-service--edb97406",
-          "parent_id": "account-service",
+          "id": "trade-service--baedd28c",
+          "parent_id": "trade-service",
           "name": "费率与收费规则",
+          "source_kind": "stargate-route",
           "item_uids": [
             "mcp-GetAdvisorChargeFeeModel"
           ],
@@ -1537,97 +733,50 @@
             "Skills": 0,
             "Agent": 0
           }
-        },
-        {
-          "id": "account-service--663a1105",
-          "parent_id": "account-service",
-          "name": "公告与产品事件",
-          "item_uids": [
-            "mcp-BatchGetFundsDividendRecord",
-            "mcp-BatchGetFundsSplitHistory"
-          ],
-          "counts": {
-            "all": 2,
-            "MCP": 2,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "account-service--710d0843",
-          "parent_id": "account-service",
-          "name": "调仓、发车与信号",
-          "item_uids": [
-            "mcp-GetStrategyAdjustments"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "account-service--22a60e78",
-          "parent_id": "account-service",
-          "name": "业绩与风险",
-          "item_uids": [
-            "mcp-BatchGetFundNavHistory",
-            "mcp-GetPortfolioNavHistory"
-          ],
-          "counts": {
-            "all": 2,
-            "MCP": 2,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "account-service--1fff63fd",
-          "parent_id": "account-service",
-          "name": "持有期服务",
-          "item_uids": [
-            "agent-qieman-xiaogu"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 0,
-            "Skills": 0,
-            "Agent": 1
-          }
         }
       ],
-      "item_uids": [
-        "skill-advisor-product-communication",
-        "mcp-BatchGetFundTradeLimit",
-        "mcp-BatchGetFundsDividendRecord",
-        "mcp-BatchGetFundNavHistory",
-        "mcp-BatchGetFundTradeRules",
-        "mcp-BatchGetFundsSplitHistory",
-        "mcp-GetPortfolioNavHistory",
-        "mcp-GetAdvisorChargeFeeModel",
-        "mcp-GetPomodelTradeRule",
-        "mcp-GetStrategyAdjustments",
-        "mcp-GetTxnDayRange",
-        "agent-qieman-xiaogu"
-      ],
       "counts": {
-        "all": 12,
-        "MCP": 10,
+        "all": 6,
+        "MCP": 5,
         "Skills": 1,
-        "Agent": 1
+        "Agent": 0
       }
     },
     {
       "id": "private-research",
-      "name": "私募产品研究",
+      "name": "私募研究",
       "kind": "business",
       "icon": "private",
+      "item_uids": [
+        "mcp-GetPrivateFundOverview",
+        "mcp-GetPrivateFundResolve",
+        "mcp-GetPrivateFundSearch",
+        "mcp-GetPrivateFundManagerProfile",
+        "mcp-GetPrivateFundStrategyTree",
+        "mcp-GetPrivateFundMetrics"
+      ],
       "children": [
         {
-          "id": "private-research--11f9de23",
+          "id": "private-research--09f470f9",
+          "parent_id": "private-research",
+          "name": "私募基础信息",
+          "source_kind": "stargate-route",
+          "item_uids": [
+            "mcp-GetPrivateFundOverview",
+            "mcp-GetPrivateFundManagerProfile"
+          ],
+          "counts": {
+            "all": 2,
+            "MCP": 2,
+            "Skills": 0,
+            "Agent": 0
+          }
+        },
+        {
+          "id": "private-research--16fc61bb",
           "parent_id": "private-research",
           "name": "私募识别与检索",
+          "source_kind": "stargate-route",
           "item_uids": [
             "mcp-GetPrivateFundResolve",
             "mcp-GetPrivateFundSearch",
@@ -1641,24 +790,10 @@
           }
         },
         {
-          "id": "private-research--e65725a0",
-          "parent_id": "private-research",
-          "name": "私募基础信息",
-          "item_uids": [
-            "mcp-GetPrivateFundOverview",
-            "mcp-GetPrivateFundManagerProfile"
-          ],
-          "counts": {
-            "all": 2,
-            "MCP": 2,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "private-research--501a4267",
+          "id": "private-research--f7f1884e",
           "parent_id": "private-research",
           "name": "私募业绩与风险",
+          "source_kind": "stargate-route",
           "item_uids": [
             "mcp-GetPrivateFundMetrics"
           ],
@@ -1670,14 +805,6 @@
           }
         }
       ],
-      "item_uids": [
-        "mcp-GetPrivateFundOverview",
-        "mcp-GetPrivateFundResolve",
-        "mcp-GetPrivateFundSearch",
-        "mcp-GetPrivateFundManagerProfile",
-        "mcp-GetPrivateFundStrategyTree",
-        "mcp-GetPrivateFundMetrics"
-      ],
       "counts": {
         "all": 6,
         "MCP": 6,
@@ -1688,129 +815,8 @@
     {
       "id": "user-data",
       "name": "用户数据",
-      "kind": "data",
-      "icon": "account",
-      "children": [
-        {
-          "id": "user-data--2ffa6f37",
-          "parent_id": "user-data",
-          "name": "账户总览",
-          "item_uids": [
-            "mcp-GetUserAssetTree"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "user-data--5fa1d8ec",
-          "parent_id": "user-data",
-          "name": "用户持仓",
-          "item_uids": [
-            "mcp-GetUserM4FundDetail",
-            "mcp-GetUserAccountsAndProducts"
-          ],
-          "counts": {
-            "all": 2,
-            "MCP": 2,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "user-data--6fd3960c",
-          "parent_id": "user-data",
-          "name": "资产结构与分布",
-          "item_uids": [
-            "mcp-GetUserAssetAnalysis",
-            "mcp-GetUserM4ProdGroup"
-          ],
-          "counts": {
-            "all": 2,
-            "MCP": 2,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "user-data--bc16fecf",
-          "parent_id": "user-data",
-          "name": "收益与净值",
-          "item_uids": [
-            "mcp-GetUserProfitRateCurve",
-            "mcp-GetUserProfitCalendar",
-            "mcp-GetUserAssetCurve",
-            "mcp-GetUserNavCurve",
-            "mcp-GetUserAccountHierarchyProfit",
-            "mcp-GetUserProfitData"
-          ],
-          "counts": {
-            "all": 6,
-            "MCP": 6,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "user-data--2c1c380b",
-          "parent_id": "user-data",
-          "name": "风险与回撤",
-          "item_uids": [
-            "mcp-GetUserAccountHierarchyDrawdown"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "user-data--4ff00a0c",
-          "parent_id": "user-data",
-          "name": "账户诊断",
-          "item_uids": [
-            "mcp-GetUserAccountDiagnosis"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "user-data--ebdfefae",
-          "parent_id": "user-data",
-          "name": "账户报告",
-          "item_uids": [
-            "mcp-GetAssetAnalysisReports"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "user-data--f15c6d83",
-          "parent_id": "user-data",
-          "name": "关注与订阅",
-          "item_uids": [
-            "mcp-GetUserFollowProductCodes"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        }
-      ],
+      "kind": "user_data",
+      "icon": "database",
       "item_uids": [
         "mcp-GetUserProfitRateCurve",
         "mcp-GetUserProfitCalendar",
@@ -1828,6 +834,135 @@
         "mcp-GetUserAccountHierarchyProfit",
         "mcp-GetUserProfitData"
       ],
+      "children": [
+        {
+          "id": "user-data--0dcd7dee",
+          "parent_id": "user-data",
+          "name": "收益与净值",
+          "source_kind": "stargate-route",
+          "item_uids": [
+            "mcp-GetUserProfitRateCurve",
+            "mcp-GetUserProfitCalendar",
+            "mcp-GetUserAssetCurve",
+            "mcp-GetUserNavCurve",
+            "mcp-GetUserAccountHierarchyProfit",
+            "mcp-GetUserProfitData"
+          ],
+          "counts": {
+            "all": 6,
+            "MCP": 6,
+            "Skills": 0,
+            "Agent": 0
+          }
+        },
+        {
+          "id": "user-data--deea654c",
+          "parent_id": "user-data",
+          "name": "用户持仓",
+          "source_kind": "stargate-route",
+          "item_uids": [
+            "mcp-GetUserM4FundDetail",
+            "mcp-GetUserAccountsAndProducts"
+          ],
+          "counts": {
+            "all": 2,
+            "MCP": 2,
+            "Skills": 0,
+            "Agent": 0
+          }
+        },
+        {
+          "id": "user-data--18a62e47",
+          "parent_id": "user-data",
+          "name": "账户总览",
+          "source_kind": "stargate-route",
+          "item_uids": [
+            "mcp-GetUserAssetTree"
+          ],
+          "counts": {
+            "all": 1,
+            "MCP": 1,
+            "Skills": 0,
+            "Agent": 0
+          }
+        },
+        {
+          "id": "user-data--99d0bfdf",
+          "parent_id": "user-data",
+          "name": "资产结构与分布",
+          "source_kind": "stargate-route",
+          "item_uids": [
+            "mcp-GetUserAssetAnalysis",
+            "mcp-GetUserM4ProdGroup"
+          ],
+          "counts": {
+            "all": 2,
+            "MCP": 2,
+            "Skills": 0,
+            "Agent": 0
+          }
+        },
+        {
+          "id": "user-data--6643143b",
+          "parent_id": "user-data",
+          "name": "账户诊断",
+          "source_kind": "stargate-route",
+          "item_uids": [
+            "mcp-GetUserAccountDiagnosis"
+          ],
+          "counts": {
+            "all": 1,
+            "MCP": 1,
+            "Skills": 0,
+            "Agent": 0
+          }
+        },
+        {
+          "id": "user-data--a8f2b9b5",
+          "parent_id": "user-data",
+          "name": "关注与订阅",
+          "source_kind": "stargate-route",
+          "item_uids": [
+            "mcp-GetUserFollowProductCodes"
+          ],
+          "counts": {
+            "all": 1,
+            "MCP": 1,
+            "Skills": 0,
+            "Agent": 0
+          }
+        },
+        {
+          "id": "user-data--023f33c3",
+          "parent_id": "user-data",
+          "name": "风险与回撤",
+          "source_kind": "stargate-route",
+          "item_uids": [
+            "mcp-GetUserAccountHierarchyDrawdown"
+          ],
+          "counts": {
+            "all": 1,
+            "MCP": 1,
+            "Skills": 0,
+            "Agent": 0
+          }
+        },
+        {
+          "id": "user-data--d0f72be1",
+          "parent_id": "user-data",
+          "name": "账户报告",
+          "source_kind": "stargate-route",
+          "item_uids": [
+            "mcp-GetAssetAnalysisReports"
+          ],
+          "counts": {
+            "all": 1,
+            "MCP": 1,
+            "Skills": 0,
+            "Agent": 0
+          }
+        }
+      ],
       "counts": {
         "all": 15,
         "MCP": 15,
@@ -1840,25 +975,17 @@
       "name": "通用工具",
       "kind": "utility",
       "icon": "tools",
+      "item_uids": [
+        "mcp-RenderHtmlToPdf",
+        "mcp-GetCurrentTime",
+        "mcp-RenderEchart"
+      ],
       "children": [
         {
-          "id": "general-tools--3097d36f",
-          "parent_id": "general-tools",
-          "name": "时间与日历",
-          "item_uids": [
-            "mcp-GetCurrentTime"
-          ],
-          "counts": {
-            "all": 1,
-            "MCP": 1,
-            "Skills": 0,
-            "Agent": 0
-          }
-        },
-        {
-          "id": "general-tools--f6c1a9e7",
+          "id": "general-tools--dbb49715",
           "parent_id": "general-tools",
           "name": "图表与文档生成",
+          "source_kind": "stargate-route",
           "item_uids": [
             "mcp-RenderHtmlToPdf",
             "mcp-RenderEchart"
@@ -1869,12 +996,22 @@
             "Skills": 0,
             "Agent": 0
           }
+        },
+        {
+          "id": "general-tools--9af6e4c4",
+          "parent_id": "general-tools",
+          "name": "时间与日历",
+          "source_kind": "stargate-route",
+          "item_uids": [
+            "mcp-GetCurrentTime"
+          ],
+          "counts": {
+            "all": 1,
+            "MCP": 1,
+            "Skills": 0,
+            "Agent": 0
+          }
         }
-      ],
-      "item_uids": [
-        "mcp-RenderHtmlToPdf",
-        "mcp-GetCurrentTime",
-        "mcp-RenderEchart"
       ],
       "counts": {
         "all": 3,
@@ -1898,7 +1035,7 @@
       "official_name": "advisor-allocation",
       "description": "将已确认的客户目标、期限、流动性和风险约束转成可解释的资产配置方案。",
       "scenes": [
-        "allocation-plan"
+        "investment-planning"
       ],
       "fields": [],
       "out_fields": [],
@@ -1906,7 +1043,7 @@
       "output_summary": "资产配置比例和金额、配置理由，以及基金或策略实施参考。",
       "website_order": 0,
       "classification_paths": [
-        "资产配置与方案落地 / 投资方案生成与评估"
+        "投资规划与组合管理 / 投资方案生成与评估"
       ]
     },
     {
@@ -1922,7 +1059,7 @@
       "official_name": "advisor-client-insights",
       "description": "基于客户已授权资料，形成可溯源的单客洞察、备访简报或服务需求分群。",
       "scenes": [
-        "client-visit"
+        "market-information"
       ],
       "fields": [],
       "out_fields": [],
@@ -1930,7 +1067,7 @@
       "output_summary": "单客洞察、备访问题、服务需求分群与证据记录",
       "website_order": 1,
       "classification_paths": [
-        "客户备访与产品沟通 / 客户洞察与备访"
+        "市场资讯与内容 / 顾问交付与运营"
       ]
     },
     {
@@ -1946,9 +1083,8 @@
       "official_name": "advisor-product-communication",
       "description": "围绕已确定基金或投顾策略，生成事实核验后的产品说明、FAQ与客户沟通材料。",
       "scenes": [
-        "client-visit",
-        "content-studio",
-        "account-service"
+        "market-information",
+        "trade-service"
       ],
       "fields": [],
       "out_fields": [],
@@ -1956,9 +1092,8 @@
       "output_summary": "产品说明、费率规则表、常见问题，以及顾问沟通提纲或话术。",
       "website_order": 2,
       "classification_paths": [
-        "客户备访与产品沟通 / 产品说明与客户沟通",
-        "内容策划与材料生成 / 产品说明与客户沟通",
-        "交易规则与费用 / 交易规则与限额"
+        "市场资讯与内容 / 顾问交付与运营",
+        "交易与业务办理 / 交易规则与限额"
       ]
     },
     {
@@ -1974,7 +1109,7 @@
       "official_name": "family-wealth-planning",
       "description": "围绕家庭现金流和财富目标，梳理财务健康、目标可行性与四笔钱安排。",
       "scenes": [
-        "family-planning"
+        "investment-planning"
       ],
       "fields": [],
       "out_fields": [],
@@ -1982,7 +1117,7 @@
       "output_summary": "家庭财务体检、目标测算、四笔钱安排与长期现金流规划。",
       "website_order": 3,
       "classification_paths": [
-        "家庭规划与目标测算 / 家庭财务与现金流"
+        "投资规划与组合管理 / 家庭财务与现金流"
       ]
     },
     {
@@ -2006,7 +1141,7 @@
       "output_summary": "基金业绩风险、持仓风格、经理与归因结论，以及同口径比较。",
       "website_order": 4,
       "classification_paths": [
-        "基金筛选与尽调 / 基金诊断"
+        "公募基金研究 / 基金诊断"
       ]
     },
     {
@@ -2022,8 +1157,7 @@
       "official_name": "market-analysis",
       "description": "结合行情、新闻与具名观点，解释公开市场变化并生成简报或专题研究。",
       "scenes": [
-        "market-monitor",
-        "content-studio"
+        "market-information"
       ],
       "fields": [],
       "out_fields": [],
@@ -2031,8 +1165,7 @@
       "output_summary": "行情事实、重要事件、具名观点，以及市场简报或专题分析。",
       "website_order": 5,
       "classification_paths": [
-        "市场跟踪与解读 / 市场综合解读",
-        "内容策划与材料生成 / 财经新闻与热点"
+        "市场资讯与内容 / 观点与实时解读"
       ]
     },
     {
@@ -2048,8 +1181,7 @@
       "official_name": "portfolio-analysis",
       "description": "对明确的基金篮子或六大类资产组合做穿透、相关性、回测、风险和情景分析。",
       "scenes": [
-        "portfolio-check",
-        "allocation-plan"
+        "investment-planning"
       ],
       "fields": [],
       "out_fields": [],
@@ -2057,8 +1189,7 @@
       "output_summary": "组合穿透、集中度、相关性、回测、风险及情景比较结果。",
       "website_order": 6,
       "classification_paths": [
-        "持仓诊断与优化 / 组合诊断",
-        "资产配置与方案落地 / 组合风险与相关性"
+        "投资规划与组合管理 / 组合诊断"
       ]
     },
     {
@@ -2082,7 +1213,7 @@
       "output_summary": "策略定位、机制、业绩风险、底层持仓，以及策略比较结论。",
       "website_order": 7,
       "classification_paths": [
-        "策略研究与跟踪 / 策略综合分析"
+        "投顾策略研究 / 策略基本信息"
       ]
     },
     {
@@ -2098,9 +1229,7 @@
       "official_name": "advisor-content-studio",
       "description": "把已核验的研究事实组织为选题、投教内容和多渠道客户沟通成稿。",
       "scenes": [
-        "market-monitor",
-        "client-visit",
-        "content-studio"
+        "market-information"
       ],
       "fields": [],
       "out_fields": [],
@@ -2108,9 +1237,7 @@
       "output_summary": "选题、素材包、投教文章、多渠道成稿或图文报告等内容。",
       "website_order": 8,
       "classification_paths": [
-        "市场跟踪与解读 / 市场观点与内容",
-        "客户备访与产品沟通 / 顾问沟通材料",
-        "内容策划与材料生成 / 内容策划与成稿"
+        "市场资讯与内容 / 投顾内容"
       ]
     },
     {
@@ -2126,9 +1253,7 @@
       "official_name": "fund-screener",
       "description": "按公开条件筛基金、构建候选池，并支持热门发现、交易条件筛选与债基异动排查。",
       "scenes": [
-        "fund-research",
-        "allocation-plan",
-        "market-monitor"
+        "fund-research"
       ],
       "fields": [],
       "out_fields": [],
@@ -2136,9 +1261,7 @@
       "output_summary": "实际筛选条件、候选基金清单、比较结果及相关异动记录。",
       "website_order": 9,
       "classification_paths": [
-        "基金筛选与尽调 / 基金搜索与筛选",
-        "资产配置与方案落地 / 基金搜索与筛选",
-        "市场跟踪与解读 / 基金搜索与筛选"
+        "公募基金研究 / 基金搜索与筛选"
       ]
     },
     {
@@ -2234,7 +1357,7 @@
       "output_summary": "收入、国债、利差和券种选择效应，以及债基超额回报。",
       "website_order": 0,
       "classification_paths": [
-        "基金筛选与尽调 / 业绩归因"
+        "公募基金研究 / 业绩归因"
       ]
     },
     {
@@ -2250,9 +1373,7 @@
       "official_name": "策略大类资产分布",
       "description": "穿透投顾策略组合并分析底层大类资产结构",
       "scenes": [
-        "portfolio-check",
-        "strategy-research",
-        "allocation-plan"
+        "strategy-research"
       ],
       "fields": [
         {
@@ -2367,9 +1488,7 @@
       "output_summary": "策略底层股票、债券、现金等大类资产的金额与占比。",
       "website_order": 1,
       "classification_paths": [
-        "持仓诊断与优化 / 持仓与资产配置",
-        "策略研究与跟踪 / 持仓与资产配置",
-        "资产配置与方案落地 / 持仓与资产配置"
+        "投顾策略研究 / 持仓与资产配置"
       ]
     },
     {
@@ -2409,7 +1528,7 @@
       "output_summary": "基金合同约定的业绩比较基准文字及相关指数构成。",
       "website_order": 2,
       "classification_paths": [
-        "基金筛选与尽调 / 基金基本信息"
+        "公募基金研究 / 基金基本信息"
       ]
     },
     {
@@ -2589,7 +1708,7 @@
       "output_summary": "国债、金融债、信用债、可转债等各券种的配置比例。",
       "website_order": 3,
       "classification_paths": [
-        "基金筛选与尽调 / 持仓与投资风格"
+        "公募基金研究 / 持仓与投资风格"
       ]
     },
     {
@@ -2671,7 +1790,7 @@
       "output_summary": "基金在指定区间内的实际持仓换手率及对应分析期间。",
       "website_order": 4,
       "classification_paths": [
-        "基金筛选与尽调 / 持仓与投资风格"
+        "公募基金研究 / 持仓与投资风格"
       ]
     },
     {
@@ -2753,7 +1872,7 @@
       "output_summary": "各只基金偏好的行业方向，以及对应的分析时间范围。",
       "website_order": 5,
       "classification_paths": [
-        "基金筛选与尽调 / 持仓与投资风格"
+        "公募基金研究 / 持仓与投资风格"
       ]
     },
     {
@@ -2769,8 +1888,7 @@
       "official_name": "搜索基金",
       "description": "按多维条件搜索筛选目标基金产品清单",
       "scenes": [
-        "fund-research",
-        "allocation-plan"
+        "fund-research"
       ],
       "fields": [
         {
@@ -2892,8 +2010,7 @@
       "output_summary": "符合搜索条件的基金代码、名称、类型和相关业绩信息。",
       "website_order": 6,
       "classification_paths": [
-        "基金筛选与尽调 / 基金搜索与筛选",
-        "资产配置与方案落地 / 基金搜索与筛选"
+        "公募基金研究 / 基金搜索与筛选"
       ]
     },
     {
@@ -2982,7 +2099,7 @@
       "output_summary": "持有该基金的投顾策略代码、名称，以及对应持仓比例。",
       "website_order": 7,
       "classification_paths": [
-        "策略研究与跟踪 / 策略搜索与筛选"
+        "投顾策略研究 / 策略搜索与筛选"
       ]
     },
     {
@@ -3043,7 +2160,7 @@
       "output_summary": "债基杠杆水平、敏感性久期，以及主要债券持仓集中度。",
       "website_order": 8,
       "classification_paths": [
-        "基金筛选与尽调 / 业绩与风险"
+        "公募基金研究 / 业绩与风险"
       ]
     },
     {
@@ -3059,7 +2176,6 @@
       "official_name": "批量查询策略持仓",
       "description": "批量获取多个投顾策略的底层持仓组成明细",
       "scenes": [
-        "portfolio-check",
         "strategy-research"
       ],
       "fields": [
@@ -3076,8 +2192,7 @@
       "output_summary": "各策略的持仓基金、配置权重、分类，以及替代基金信息。",
       "website_order": 9,
       "classification_paths": [
-        "持仓诊断与优化 / 持仓与资产配置",
-        "策略研究与跟踪 / 持仓与资产配置"
+        "投顾策略研究 / 持仓与资产配置"
       ]
     },
     {
@@ -3201,7 +2316,7 @@
       "output_summary": "基金各行业的绝对收益、相对收益、收益率及相关得分。",
       "website_order": 10,
       "classification_paths": [
-        "基金筛选与尽调 / 业绩归因"
+        "公募基金研究 / 业绩归因"
       ]
     },
     {
@@ -3290,7 +2405,7 @@
       "output_summary": "满足换手率条件的基金代码、名称，以及对应指标数值。",
       "website_order": 11,
       "classification_paths": [
-        "基金筛选与尽调 / 基金搜索与筛选"
+        "公募基金研究 / 基金搜索与筛选"
       ]
     },
     {
@@ -3306,8 +2421,7 @@
       "official_name": "获取热门基金",
       "description": "按近几日基金详情页打开人数，返回当前热门基金",
       "scenes": [
-        "fund-research",
-        "market-monitor"
+        "fund-research"
       ],
       "fields": [
         {
@@ -3422,8 +2536,7 @@
       "output_summary": "统计日期、热门基金代码与名称，以及对应访问热度。",
       "website_order": 12,
       "classification_paths": [
-        "基金筛选与尽调 / 基金搜索与筛选",
-        "市场跟踪与解读 / 基金搜索与筛选"
+        "公募基金研究 / 基金搜索与筛选"
       ]
     },
     {
@@ -3455,7 +2568,7 @@
       "output_summary": "策略可交易的成分基金、买入权重，以及替代基金信息。",
       "website_order": 13,
       "classification_paths": [
-        "策略研究与跟踪 / 持仓与资产配置"
+        "投顾策略研究 / 持仓与资产配置"
       ]
     },
     {
@@ -3471,10 +2584,7 @@
       "official_name": "基金交易限制信息",
       "description": "批量查询基金交易状态限额及申赎限制信息",
       "scenes": [
-        "fund-research",
-        "allocation-plan",
-        "client-visit",
-        "account-service"
+        "trade-service"
       ],
       "fields": [
         {
@@ -3771,10 +2881,7 @@
       "output_summary": "基金申赎是否开放、起购金额、持仓上限及相关交易限制。",
       "website_order": 14,
       "classification_paths": [
-        "基金筛选与尽调 / 交易规则与限额",
-        "资产配置与方案落地 / 交易规则与限额",
-        "客户备访与产品沟通 / 交易规则与限额",
-        "交易规则与费用 / 交易规则与限额"
+        "交易与业务办理 / 交易规则与限额"
       ]
     },
     {
@@ -3790,9 +2897,7 @@
       "official_name": "查询策略业绩基准",
       "description": "查询投顾策略官方业绩基准及其指数权重构成",
       "scenes": [
-        "strategy-research",
-        "client-visit",
-        "content-studio"
+        "strategy-research"
       ],
       "fields": [
         {
@@ -3851,9 +2956,7 @@
       "output_summary": "策略业绩基准的说明、各构成指数名称，以及配置权重。",
       "website_order": 15,
       "classification_paths": [
-        "策略研究与跟踪 / 策略比较与基准",
-        "客户备访与产品沟通 / 策略比较与基准",
-        "内容策划与材料生成 / 策略比较与基准"
+        "投顾策略研究 / 策略比较与基准"
       ]
     },
     {
@@ -3869,9 +2972,7 @@
       "official_name": "策略详情查询",
       "description": "一站式查询投顾策略的全量详情与核心信息",
       "scenes": [
-        "strategy-research",
-        "client-visit",
-        "content-studio"
+        "strategy-research"
       ],
       "fields": [
         {
@@ -3930,9 +3031,7 @@
       "output_summary": "策略名称、简介、管理人、风险等级、净值与业绩指标。",
       "website_order": 16,
       "classification_paths": [
-        "策略研究与跟踪 / 策略基本信息",
-        "客户备访与产品沟通 / 策略基本信息",
-        "内容策划与材料生成 / 策略基本信息"
+        "投顾策略研究 / 策略基本信息"
       ]
     },
     {
@@ -3986,7 +3085,7 @@
       "output_summary": "基金权益仓位择时的总体胜率，以及平均仓位选择贡献。",
       "website_order": 17,
       "classification_paths": [
-        "基金筛选与尽调 / 业绩归因"
+        "公募基金研究 / 业绩归因"
       ]
     },
     {
@@ -4002,8 +3101,7 @@
       "official_name": "债基异动",
       "description": "统计基金在指定周期内的净值异常跳水次数",
       "scenes": [
-        "fund-research",
-        "market-monitor"
+        "fund-research"
       ],
       "fields": [
         {
@@ -4055,8 +3153,7 @@
       "output_summary": "各基金在指定区间内的净值跳水次数，以及其他异动次数。",
       "website_order": 18,
       "classification_paths": [
-        "基金筛选与尽调 / 业绩与风险",
-        "市场跟踪与解读 / 业绩与风险"
+        "公募基金研究 / 业绩与风险"
       ]
     },
     {
@@ -4072,9 +3169,7 @@
       "official_name": "基金代码模糊匹配",
       "description": "将模糊基金名称智能匹配为准确基金代码",
       "scenes": [
-        "fund-research",
-        "portfolio-check",
-        "allocation-plan"
+        "fund-research"
       ],
       "fields": [
         {
@@ -4105,9 +3200,7 @@
       "output_summary": "与输入说法匹配的标准基金代码，以及对应基金名称。",
       "website_order": 19,
       "classification_paths": [
-        "基金筛选与尽调 / 基金搜索与筛选",
-        "持仓诊断与优化 / 基金搜索与筛选",
-        "资产配置与方案落地 / 基金搜索与筛选"
+        "公募基金研究 / 基金搜索与筛选"
       ]
     },
     {
@@ -4161,7 +3254,7 @@
       "output_summary": "基金主要偏好的板块名称、板块编号，以及相关偏好说明。",
       "website_order": 20,
       "classification_paths": [
-        "基金筛选与尽调 / 持仓与投资风格"
+        "公募基金研究 / 持仓与投资风格"
       ]
     },
     {
@@ -4292,7 +3385,7 @@
       "output_summary": "前列行业的合计配置占比，以及主要行业的持仓明细。",
       "website_order": 21,
       "classification_paths": [
-        "基金筛选与尽调 / 持仓与投资风格"
+        "公募基金研究 / 持仓与投资风格"
       ]
     },
     {
@@ -4308,9 +3401,7 @@
       "official_name": "基金分红记录",
       "description": "批量获取基金历史分红记录及分红明细信息",
       "scenes": [
-        "fund-research",
-        "content-studio",
-        "account-service"
+        "fund-research"
       ],
       "fields": [
         {
@@ -4383,9 +3474,7 @@
       "output_summary": "权益登记日、红利发放日，以及每份基金对应的分红金额。",
       "website_order": 22,
       "classification_paths": [
-        "基金筛选与尽调 / 公告与产品事件",
-        "内容策划与材料生成 / 公告与产品事件",
-        "交易规则与费用 / 公告与产品事件"
+        "公募基金研究 / 公告与产品事件"
       ]
     },
     {
@@ -4401,10 +3490,7 @@
       "official_name": "基金净值历史",
       "description": "批量获取基金历史净值走势及区间表现数据",
       "scenes": [
-        "fund-research",
-        "market-monitor",
-        "content-studio",
-        "account-service"
+        "fund-research"
       ],
       "fields": [
         {
@@ -4533,10 +3619,7 @@
       "output_summary": "各只基金的历史净值、日期，以及对应的日涨跌信息。",
       "website_order": 23,
       "classification_paths": [
-        "基金筛选与尽调 / 业绩与风险",
-        "市场跟踪与解读 / 业绩与风险",
-        "内容策划与材料生成 / 业绩与风险",
-        "交易规则与费用 / 业绩与风险"
+        "公募基金研究 / 业绩与风险"
       ]
     },
     {
@@ -4552,10 +3635,7 @@
       "official_name": "批量获取基金业绩表现",
       "description": "批量对比基金业绩表现及收益风险指标情况",
       "scenes": [
-        "fund-research",
-        "strategy-research",
-        "client-visit",
-        "content-studio"
+        "fund-research"
       ],
       "fields": [
         {
@@ -4726,10 +3806,7 @@
       "output_summary": "基金阶段收益、同类表现，以及相关业绩分析指标。",
       "website_order": 24,
       "classification_paths": [
-        "基金筛选与尽调 / 业绩与风险",
-        "策略研究与跟踪 / 业绩与风险",
-        "客户备访与产品沟通 / 业绩与风险",
-        "内容策划与材料生成 / 业绩与风险"
+        "公募基金研究 / 业绩与风险"
       ]
     },
     {
@@ -4745,10 +3822,7 @@
       "official_name": "基金交易规则",
       "description": "查询基金申购赎回确认时间及费率交易规则",
       "scenes": [
-        "fund-research",
-        "allocation-plan",
-        "client-visit",
-        "account-service"
+        "trade-service"
       ],
       "fields": [
         {
@@ -5493,10 +4567,7 @@
       "output_summary": "交易金额门槛、预计确认日期，以及资金预计到账安排。",
       "website_order": 25,
       "classification_paths": [
-        "基金筛选与尽调 / 交易规则与限额",
-        "资产配置与方案落地 / 交易规则与限额",
-        "客户备访与产品沟通 / 交易规则与限额",
-        "交易规则与费用 / 交易规则与限额"
+        "交易与业务办理 / 交易规则与限额"
       ]
     },
     {
@@ -5795,7 +4866,7 @@
       "output_summary": "持仓股票的估值、盈利、股息等特征，以及抱团集中度。",
       "website_order": 26,
       "classification_paths": [
-        "基金筛选与尽调 / 持仓与投资风格"
+        "公募基金研究 / 持仓与投资风格"
       ]
     },
     {
@@ -5898,7 +4969,7 @@
       "output_summary": "基金在各行业的配置比例，以及对应的行业代码和名称。",
       "website_order": 27,
       "classification_paths": [
-        "基金筛选与尽调 / 持仓与投资风格"
+        "公募基金研究 / 持仓与投资风格"
       ]
     },
     {
@@ -5914,8 +4985,7 @@
       "official_name": "基金诊断",
       "description": "按基金代码给出风险、业绩、盈利概率和持仓配置诊断",
       "scenes": [
-        "fund-research",
-        "client-visit"
+        "fund-research"
       ],
       "fields": [
         {
@@ -6366,8 +5436,7 @@
       "output_summary": "基金概况、业绩、风险、持仓配置，以及相关诊断结论。",
       "website_order": 28,
       "classification_paths": [
-        "基金筛选与尽调 / 基金诊断",
-        "客户备访与产品沟通 / 基金诊断"
+        "公募基金研究 / 基金诊断"
       ]
     },
     {
@@ -6484,7 +5553,7 @@
       "output_summary": "基金持仓债券的信用评级分布，以及各评级的配置占比。",
       "website_order": 29,
       "classification_paths": [
-        "基金筛选与尽调 / 持仓与投资风格"
+        "公募基金研究 / 持仓与投资风格"
       ]
     },
     {
@@ -6500,8 +5569,7 @@
       "official_name": "查询发生净值异动的债基",
       "description": "检索近期触发净值跳水或异动告警的债基产品",
       "scenes": [
-        "fund-research",
-        "market-monitor"
+        "fund-research"
       ],
       "fields": [
         {
@@ -6574,8 +5642,7 @@
       "output_summary": "触发异动的债基代码、名称、记录日期与净值跳水幅度。",
       "website_order": 30,
       "classification_paths": [
-        "基金筛选与尽调 / 基金搜索与筛选",
-        "市场跟踪与解读 / 基金搜索与筛选"
+        "公募基金研究 / 基金搜索与筛选"
       ]
     },
     {
@@ -6678,7 +5745,7 @@
       "output_summary": "符合券种占比要求的债基代码、名称及对应指标数值。",
       "website_order": 31,
       "classification_paths": [
-        "基金筛选与尽调 / 基金搜索与筛选"
+        "公募基金研究 / 基金搜索与筛选"
       ]
     },
     {
@@ -6725,7 +5792,7 @@
       "output_summary": "基金长期权益仓位水平，以及高、中、低等仓位等级。",
       "website_order": 32,
       "classification_paths": [
-        "基金筛选与尽调 / 持仓与投资风格"
+        "公募基金研究 / 持仓与投资风格"
       ]
     },
     {
@@ -6772,7 +5839,7 @@
       "output_summary": "基金回撤修复能力的等级，以及在同类中的排名说明。",
       "website_order": 33,
       "classification_paths": [
-        "基金筛选与尽调 / 业绩与风险"
+        "公募基金研究 / 业绩与风险"
       ]
     },
     {
@@ -6788,12 +5855,7 @@
       "official_name": "批量获取基金详情",
       "description": "批量获取基金基础详情及产品属性信息",
       "scenes": [
-        "fund-research",
-        "portfolio-check",
-        "strategy-research",
-        "allocation-plan",
-        "client-visit",
-        "content-studio"
+        "fund-research"
       ],
       "fields": [
         {
@@ -7867,12 +6929,7 @@
       "output_summary": "基金概况、基金经理、持仓配置，以及相关交易信息。",
       "website_order": 34,
       "classification_paths": [
-        "基金筛选与尽调 / 基金基本信息",
-        "持仓诊断与优化 / 基金基本信息",
-        "策略研究与跟踪 / 基金基本信息",
-        "资产配置与方案落地 / 基金基本信息",
-        "客户备访与产品沟通 / 基金基本信息",
-        "内容策划与材料生成 / 基金基本信息"
+        "公募基金研究 / 基金基本信息"
       ]
     },
     {
@@ -7975,7 +7032,7 @@
       "output_summary": "符合信用评级占比条件的基金清单，以及对应指标数值。",
       "website_order": 35,
       "classification_paths": [
-        "基金筛选与尽调 / 基金搜索与筛选"
+        "公募基金研究 / 基金搜索与筛选"
       ]
     },
     {
@@ -8043,7 +7100,7 @@
       "output_summary": "行业配置收益、证券选择收益，以及基金总体超额收益。",
       "website_order": 36,
       "classification_paths": [
-        "基金筛选与尽调 / 业绩归因"
+        "公募基金研究 / 业绩归因"
       ]
     },
     {
@@ -8059,8 +7116,7 @@
       "official_name": "基金拆分记录",
       "description": "获取基金历史拆分折算记录及相关时间节点",
       "scenes": [
-        "fund-research",
-        "account-service"
+        "fund-research"
       ],
       "fields": [
         {
@@ -8126,8 +7182,7 @@
       "output_summary": "各只基金历史拆分或折算的发生日期，以及对应拆分比例。",
       "website_order": 37,
       "classification_paths": [
-        "基金筛选与尽调 / 公告与产品事件",
-        "交易规则与费用 / 公告与产品事件"
+        "公募基金研究 / 公告与产品事件"
       ]
     },
     {
@@ -8244,7 +7299,7 @@
       "output_summary": "基金在各地区的配置比例，以及对应地区名称和编号。",
       "website_order": 38,
       "classification_paths": [
-        "基金筛选与尽调 / 持仓与投资风格"
+        "公募基金研究 / 持仓与投资风格"
       ]
     },
     {
@@ -8260,10 +7315,7 @@
       "official_name": "基金风险分析",
       "description": "评估单只或多只基金的风险收益特征与暴露",
       "scenes": [
-        "fund-research",
-        "portfolio-check",
-        "allocation-plan",
-        "client-visit"
+        "fund-research"
       ],
       "fields": [
         {
@@ -8343,10 +7395,7 @@
       "output_summary": "基金风险评分、模型拟合与误差信息，以及风险解释。",
       "website_order": 39,
       "classification_paths": [
-        "基金筛选与尽调 / 业绩与风险",
-        "持仓诊断与优化 / 业绩与风险",
-        "资产配置与方案落地 / 业绩与风险",
-        "客户备访与产品沟通 / 业绩与风险"
+        "公募基金研究 / 业绩与风险"
       ]
     },
     {
@@ -8362,9 +7411,7 @@
       "official_name": "回测分析",
       "description": "回测基金或基金组合的历史表现与风险特征",
       "scenes": [
-        "fund-research",
-        "portfolio-check",
-        "allocation-plan"
+        "investment-planning"
       ],
       "fields": [
         {
@@ -8500,9 +7547,7 @@
       "output_summary": "组合历史年化收益、最大回撤、波动率及夏普等指标。",
       "website_order": 40,
       "classification_paths": [
-        "基金筛选与尽调 / 组合回测与情景模拟",
-        "持仓诊断与优化 / 组合回测与情景模拟",
-        "资产配置与方案落地 / 组合回测与情景模拟"
+        "投资规划与组合管理 / 组合回测与情景模拟"
       ]
     },
     {
@@ -8518,8 +7563,7 @@
       "official_name": "组合预期收益测算（蒙特卡洛）",
       "description": "模拟组合未来收益路径及概率分布区间表现",
       "scenes": [
-        "portfolio-check",
-        "allocation-plan"
+        "investment-planning"
       ],
       "fields": [
         {
@@ -8697,8 +7741,7 @@
       "output_summary": "组合模拟收益路径、情景分布、结果说明及相关图表。",
       "website_order": 41,
       "classification_paths": [
-        "持仓诊断与优化 / 组合回测与情景模拟",
-        "资产配置与方案落地 / 组合回测与情景模拟"
+        "投资规划与组合管理 / 组合回测与情景模拟"
       ]
     },
     {
@@ -8714,8 +7757,7 @@
       "official_name": "投后风险分析",
       "description": "评估基金组合整体风险水平及波动回撤特征",
       "scenes": [
-        "portfolio-check",
-        "allocation-plan"
+        "investment-planning"
       ],
       "fields": [
         {
@@ -8816,8 +7858,7 @@
       "output_summary": "组合整体风险评分、模型拟合与误差信息，以及解释。",
       "website_order": 42,
       "classification_paths": [
-        "持仓诊断与优化 / 组合风险与相关性",
-        "资产配置与方案落地 / 组合风险与相关性"
+        "投资规划与组合管理 / 组合风险与相关性"
       ]
     },
     {
@@ -8833,9 +7874,7 @@
       "official_name": "市场温度计",
       "description": "输出市场温度指标及核心宽基指数行情快照",
       "scenes": [
-        "strategy-research",
-        "market-monitor",
-        "content-studio"
+        "market-information"
       ],
       "fields": [
         {
@@ -9013,9 +8052,7 @@
       "output_summary": "主要宽基指数的市场温度、等级，以及分板块行情解读。",
       "website_order": 43,
       "classification_paths": [
-        "策略研究与跟踪 / 市场行情与温度",
-        "市场跟踪与解读 / 市场行情与温度",
-        "内容策划与材料生成 / 市场行情与温度"
+        "市场资讯与内容 / 市场行情与温度"
       ]
     },
     {
@@ -9031,8 +8068,7 @@
       "official_name": "资产配置分析",
       "description": "穿透基金组合底层并分析大类资产配置比例",
       "scenes": [
-        "portfolio-check",
-        "allocation-plan"
+        "investment-planning"
       ],
       "fields": [
         {
@@ -9105,8 +8141,7 @@
       "output_summary": "穿透后的股票、债券、现金等资产占比，以及配置饼图。",
       "website_order": 44,
       "classification_paths": [
-        "持仓诊断与优化 / 资产配置",
-        "资产配置与方案落地 / 资产配置"
+        "投资规划与组合管理 / 资产配置"
       ]
     },
     {
@@ -9122,8 +8157,7 @@
       "official_name": "资产大类分布",
       "description": "穿透基金组合表层并分析底层大类资产结构",
       "scenes": [
-        "portfolio-check",
-        "allocation-plan"
+        "investment-planning"
       ],
       "fields": [
         {
@@ -9259,8 +8293,7 @@
       "output_summary": "资产大类及细分层级的金额、配置占比与层级关系。",
       "website_order": 45,
       "classification_paths": [
-        "持仓诊断与优化 / 资产配置",
-        "资产配置与方案落地 / 资产配置"
+        "投资规划与组合管理 / 资产配置"
       ]
     },
     {
@@ -9276,8 +8309,7 @@
       "official_name": "基金相关性分析",
       "description": "计算多只基金之间的收益相关性与联动关系",
       "scenes": [
-        "portfolio-check",
-        "allocation-plan"
+        "investment-planning"
       ],
       "fields": [
         {
@@ -9329,8 +8361,7 @@
       "output_summary": "基金两两之间的收益相关系数，以及对应基金名称。",
       "website_order": 46,
       "classification_paths": [
-        "持仓诊断与优化 / 组合风险与相关性",
-        "资产配置与方案落地 / 组合风险与相关性"
+        "投资规划与组合管理 / 组合风险与相关性"
       ]
     },
     {
@@ -9346,8 +8377,7 @@
       "official_name": "获取资产配置方案",
       "description": "基于目标需求生成匹配的资产配置规划方案",
       "scenes": [
-        "family-planning",
-        "allocation-plan"
+        "investment-planning"
       ],
       "fields": [
         {
@@ -9455,8 +8485,7 @@
       "output_summary": "资产大类配置比例、投资参数调整，以及配置方案编号。",
       "website_order": 47,
       "classification_paths": [
-        "家庭规划与目标测算 / 投资方案生成与评估",
-        "资产配置与方案落地 / 投资方案生成与评估"
+        "投资规划与组合管理 / 投资方案生成与评估"
       ]
     },
     {
@@ -9472,8 +8501,7 @@
       "official_name": "投资方案表现分析",
       "description": "测算投资方案对目标收益或目标达成的可行性",
       "scenes": [
-        "family-planning",
-        "allocation-plan"
+        "investment-planning"
       ],
       "fields": [
         {
@@ -9630,8 +8658,7 @@
       "output_summary": "方案加权收益、配置权重分析，以及目标可行性结论。",
       "website_order": 48,
       "classification_paths": [
-        "家庭规划与目标测算 / 投资方案生成与评估",
-        "资产配置与方案落地 / 投资方案生成与评估"
+        "投资规划与组合管理 / 投资方案生成与评估"
       ]
     },
     {
@@ -9647,7 +8674,7 @@
       "official_name": "收入支出分析接口",
       "description": "分析家庭收入支出结构及结余变化情况",
       "scenes": [
-        "family-planning"
+        "investment-planning"
       ],
       "fields": [
         {
@@ -9909,7 +8936,7 @@
       "output_summary": "年收入、年支出、年度结余，以及各收支项目的占比。",
       "website_order": 49,
       "classification_paths": [
-        "家庭规划与目标测算 / 家庭财务与现金流"
+        "投资规划与组合管理 / 家庭财务与现金流"
       ]
     },
     {
@@ -9925,9 +8952,7 @@
       "official_name": "账户诊断",
       "description": "对基金组合进行穿透式综合诊断与风险评估",
       "scenes": [
-        "portfolio-check",
-        "allocation-plan",
-        "client-visit"
+        "investment-planning"
       ],
       "fields": [
         {
@@ -10462,9 +9487,7 @@
       "output_summary": "资产配置、基金相关性，以及组合历史回测的综合诊断。",
       "website_order": 50,
       "classification_paths": [
-        "持仓诊断与优化 / 组合诊断",
-        "资产配置与方案落地 / 组合诊断",
-        "客户备访与产品沟通 / 组合诊断"
+        "投资规划与组合管理 / 组合诊断"
       ]
     },
     {
@@ -10480,7 +9503,7 @@
       "official_name": "财务状况分析",
       "description": "计算家庭核心财务健康指标并形成诊断结果",
       "scenes": [
-        "family-planning"
+        "investment-planning"
       ],
       "fields": [
         {
@@ -10854,7 +9877,7 @@
       "output_summary": "七项财务健康指标、各项合理范围，以及对应状态判断。",
       "website_order": 51,
       "classification_paths": [
-        "家庭规划与目标测算 / 家庭财务与现金流"
+        "投资规划与组合管理 / 家庭财务与现金流"
       ]
     },
     {
@@ -10870,8 +9893,7 @@
       "official_name": "组合历史净值",
       "description": "获取投顾策略历史净值走势及收益变化轨迹",
       "scenes": [
-        "strategy-research",
-        "account-service"
+        "strategy-research"
       ],
       "fields": [
         {
@@ -10944,8 +9966,7 @@
       "output_summary": "组合各日期的历史净值，以及对应日期的日收益情况。",
       "website_order": 52,
       "classification_paths": [
-        "策略研究与跟踪 / 业绩与风险",
-        "交易规则与费用 / 业绩与风险"
+        "投顾策略研究 / 业绩与风险"
       ]
     },
     {
@@ -10961,7 +9982,7 @@
       "official_name": "资产负债分析",
       "description": "分析家庭资产负债结构及整体偿债压力水平",
       "scenes": [
-        "family-planning"
+        "investment-planning"
       ],
       "fields": [
         {
@@ -11349,7 +10370,7 @@
       "output_summary": "总资产、总负债、净资产、可投资产，以及分类结构。",
       "website_order": 53,
       "classification_paths": [
-        "家庭规划与目标测算 / 家庭财务与现金流"
+        "投资规划与组合管理 / 家庭财务与现金流"
       ]
     },
     {
@@ -11365,11 +10386,7 @@
       "official_name": "获取投顾费收费模式",
       "description": "查询投顾策略的收费类型、费率与阶梯收费规则。",
       "scenes": [
-        "strategy-research",
-        "allocation-plan",
-        "client-visit",
-        "content-studio",
-        "account-service"
+        "trade-service"
       ],
       "fields": [
         {
@@ -11582,11 +10599,7 @@
       "output_summary": "收费类型、固定或阶梯费率、折扣，以及相关收费说明。",
       "website_order": 54,
       "classification_paths": [
-        "策略研究与跟踪 / 费率与收费规则",
-        "资产配置与方案落地 / 费率与收费规则",
-        "客户备访与产品沟通 / 费率与收费规则",
-        "内容策划与材料生成 / 费率与收费规则",
-        "交易规则与费用 / 费率与收费规则"
+        "交易与业务办理 / 费率与收费规则"
       ]
     },
     {
@@ -11602,11 +10615,7 @@
       "official_name": "获取组合交易规则",
       "description": "查询组合的交易状态、限额、费率与确认时间。",
       "scenes": [
-        "strategy-research",
-        "allocation-plan",
-        "client-visit",
-        "content-studio",
-        "account-service"
+        "trade-service"
       ],
       "fields": [
         {
@@ -12099,11 +11108,7 @@
       "output_summary": "买入、赎回、定投是否开放，以及门槛、费率和确认安排。",
       "website_order": 55,
       "classification_paths": [
-        "策略研究与跟踪 / 交易规则与限额",
-        "资产配置与方案落地 / 交易规则与限额",
-        "客户备访与产品沟通 / 交易规则与限额",
-        "内容策划与材料生成 / 交易规则与限额",
-        "交易规则与费用 / 交易规则与限额"
+        "交易与业务办理 / 交易规则与限额"
       ]
     },
     {
@@ -12119,7 +11124,7 @@
       "official_name": "家庭结构分析",
       "description": "识别家庭成员结构及所处生命周期阶段特征",
       "scenes": [
-        "family-planning"
+        "investment-planning"
       ],
       "fields": [
         {
@@ -12283,7 +11288,7 @@
       "output_summary": "家庭成员和成年未成年人数，以及家庭生命周期阶段。",
       "website_order": 56,
       "classification_paths": [
-        "家庭规划与目标测算 / 家庭财务与现金流"
+        "投资规划与组合管理 / 家庭财务与现金流"
       ]
     },
     {
@@ -12299,7 +11304,7 @@
       "official_name": "现金流分析与财务规划",
       "description": "预测家庭未来跨周期现金流变化与资金缺口",
       "scenes": [
-        "family-planning"
+        "investment-planning"
       ],
       "fields": [
         {
@@ -12582,7 +11587,7 @@
       "output_summary": "逐年现金流、资产变化与资金缺口，以及汇总分析表。",
       "website_order": 57,
       "classification_paths": [
-        "家庭规划与目标测算 / 家庭财务与现金流"
+        "投资规划与组合管理 / 家庭财务与现金流"
       ]
     },
     {
@@ -12598,9 +11603,7 @@
       "official_name": "组合策略调仓记录查询",
       "description": "查询组合策略的历史调仓记录及基金权重变化。",
       "scenes": [
-        "strategy-research",
-        "content-studio",
-        "account-service"
+        "strategy-research"
       ],
       "fields": [
         {
@@ -12673,9 +11676,7 @@
       "output_summary": "策略历史调仓日期、说明、基金变动，以及权重变化。",
       "website_order": 58,
       "classification_paths": [
-        "策略研究与跟踪 / 调仓、发车与信号",
-        "内容策划与材料生成 / 调仓、发车与信号",
-        "交易规则与费用 / 调仓、发车与信号"
+        "投顾策略研究 / 调仓、发车与信号"
       ]
     },
     {
@@ -12750,7 +11751,7 @@
       "output_summary": "匹配的策略代码、名称、简介、成立时间与风险信息。",
       "website_order": 59,
       "classification_paths": [
-        "策略研究与跟踪 / 策略搜索与筛选"
+        "投顾策略研究 / 策略搜索与筛选"
       ]
     },
     {
@@ -12766,9 +11767,7 @@
       "official_name": "策略风险匹配",
       "description": "批量获取多个投顾策略的风险画像与持有建议",
       "scenes": [
-        "strategy-research",
-        "allocation-plan",
-        "client-visit"
+        "strategy-research"
       ],
       "fields": [
         {
@@ -12834,9 +11833,7 @@
       "output_summary": "各策略风险等级、风险评分，以及对应的建议持有期限。",
       "website_order": 60,
       "classification_paths": [
-        "策略研究与跟踪 / 业绩与风险",
-        "资产配置与方案落地 / 业绩与风险",
-        "客户备访与产品沟通 / 业绩与风险"
+        "投顾策略研究 / 业绩与风险"
       ]
     },
     {
@@ -12852,7 +11849,7 @@
       "official_name": "获取基金投资方案",
       "description": "按配置目标生成对应的底层基金组合方案",
       "scenes": [
-        "allocation-plan"
+        "investment-planning"
       ],
       "fields": [
         {
@@ -12946,7 +11943,7 @@
       "output_summary": "各资产大类对应的基金、配置比例，以及方案风险等级。",
       "website_order": 61,
       "classification_paths": [
-        "资产配置与方案落地 / 投资方案生成与评估"
+        "投资规划与组合管理 / 投资方案生成与评估"
       ]
     },
     {
@@ -13065,9 +12062,7 @@
       "official_name": "交易日查询",
       "description": "计算指定区间内的有效交易日",
       "scenes": [
-        "fund-research",
-        "strategy-research",
-        "account-service"
+        "trade-service"
       ],
       "fields": [
         {
@@ -13104,9 +12099,7 @@
       "output_summary": "交易日列表、中心时间、当前时间",
       "website_order": 63,
       "classification_paths": [
-        "基金筛选与尽调 / 交易规则与限额",
-        "策略研究与跟踪 / 交易规则与限额",
-        "交易规则与费用 / 交易规则与限额"
+        "交易与业务办理 / 交易规则与限额"
       ]
     },
     {
@@ -13250,8 +12243,7 @@
       "official_name": "热点财经话题榜单",
       "description": "聚合当前市场热点话题并提炼背后驱动逻辑",
       "scenes": [
-        "market-monitor",
-        "content-studio"
+        "market-information"
       ],
       "fields": [
         {
@@ -13443,8 +12435,7 @@
       "output_summary": "热门财经话题榜单、标题、摘要、标签及相关内容链接。",
       "website_order": 66,
       "classification_paths": [
-        "市场跟踪与解读 / 财经新闻与热点",
-        "内容策划与材料生成 / 财经新闻与热点"
+        "市场资讯与内容 / 财经新闻与热点"
       ]
     },
     {
@@ -13460,8 +12451,7 @@
       "official_name": "财经资讯",
       "description": "检索财经资讯内容并提取核心事件摘要信息",
       "scenes": [
-        "market-monitor",
-        "content-studio"
+        "market-information"
       ],
       "fields": [
         {
@@ -13597,8 +12587,7 @@
       "output_summary": "匹配资讯的标题、摘要、来源、原文链接和发布日期。",
       "website_order": 67,
       "classification_paths": [
-        "市场跟踪与解读 / 财经新闻与热点",
-        "内容策划与材料生成 / 财经新闻与热点"
+        "市场资讯与内容 / 财经新闻与热点"
       ]
     },
     {
@@ -13614,8 +12603,7 @@
       "official_name": "实时资讯AI解读",
       "description": "提炼实时财经资讯并生成结构化AI解读摘要",
       "scenes": [
-        "market-monitor",
-        "content-studio"
+        "market-information"
       ],
       "fields": [
         {
@@ -13659,8 +12647,7 @@
       "output_summary": "相关资讯的标题、正文、报告时间，以及对应的AI解读。",
       "website_order": 68,
       "classification_paths": [
-        "市场跟踪与解读 / 观点与实时解读",
-        "内容策划与材料生成 / 观点与实时解读"
+        "市场资讯与内容 / 观点与实时解读"
       ]
     },
     {
@@ -13676,8 +12663,7 @@
       "official_name": "基金经理观点",
       "description": "检索基金经理公开观点表态及市场看法内容",
       "scenes": [
-        "market-monitor",
-        "content-studio"
+        "market-information"
       ],
       "fields": [
         {
@@ -13862,8 +12848,7 @@
       "output_summary": "观点标题与内容、经理和公司、所属行业及相关基金。",
       "website_order": 69,
       "classification_paths": [
-        "市场跟踪与解读 / 观点与实时解读",
-        "内容策划与材料生成 / 观点与实时解读"
+        "市场资讯与内容 / 观点与实时解读"
       ]
     },
     {
@@ -13879,10 +12864,7 @@
       "official_name": "搜索投顾内容",
       "description": "检索投顾观点研报内容及相关策略解读信息",
       "scenes": [
-        "strategy-research",
-        "market-monitor",
-        "client-visit",
-        "content-studio"
+        "market-information"
       ],
       "fields": [
         {
@@ -14039,10 +13021,7 @@
       "output_summary": "投顾文章或观点的标题、作者、摘要、类型和内容链接。",
       "website_order": 70,
       "classification_paths": [
-        "策略研究与跟踪 / 内容检索与发现",
-        "市场跟踪与解读 / 内容检索与发现",
-        "客户备访与产品沟通 / 内容检索与发现",
-        "内容策划与材料生成 / 内容检索与发现"
+        "市场资讯与内容 / 内容检索与发现"
       ]
     },
     {
@@ -14234,7 +13213,7 @@
       "output_summary": "私募产品档案、净值、核心业绩，以及开放和费用要素。",
       "website_order": 78,
       "classification_paths": [
-        "私募产品研究 / 私募基础信息"
+        "私募研究 / 私募基础信息"
       ]
     },
     {
@@ -14354,7 +13333,7 @@
       "output_summary": "唯一匹配的标准产品代码，或多个候选产品及匹配分。",
       "website_order": 83,
       "classification_paths": [
-        "私募产品研究 / 私募识别与检索"
+        "私募研究 / 私募识别与检索"
       ]
     },
     {
@@ -14378,7 +13357,7 @@
       "output_summary": "符合条件的代销私募代码、名称、管理人、净值与业绩。",
       "website_order": 84,
       "classification_paths": [
-        "私募产品研究 / 私募识别与检索"
+        "私募研究 / 私募识别与检索"
       ]
     },
     {
@@ -14426,7 +13405,7 @@
       "output_summary": "管理人备案、规模、资本、核心人员，以及高管履历信息。",
       "website_order": 86,
       "classification_paths": [
-        "私募产品研究 / 私募基础信息"
+        "私募研究 / 私募基础信息"
       ]
     },
     {
@@ -14522,7 +13501,7 @@
       "output_summary": "私募一二三级策略名称、层级，以及可用于搜索的完整路径。",
       "website_order": 90,
       "classification_paths": [
-        "私募产品研究 / 私募识别与检索"
+        "私募研究 / 私募识别与检索"
       ]
     },
     {
@@ -14546,7 +13525,7 @@
       "output_summary": "相对基准的收益、回撤、波动、修复天数及相关评价指标。",
       "website_order": 91,
       "classification_paths": [
-        "私募产品研究 / 私募业绩与风险"
+        "私募研究 / 私募业绩与风险"
       ]
     },
     {
@@ -14564,27 +13543,736 @@
       "output_summary": "账户诊断、市场解读、资产规划",
       "source_url": "https://qieman.com/mcp/index#xiaogu-section",
       "scenes": [
-        "portfolio-check",
-        "family-planning",
-        "allocation-plan",
-        "market-monitor",
-        "account-service"
+        "investment-planning"
       ],
       "fields": [],
       "out_fields": [],
       "website_order": 0,
       "classification_paths": [
-        "持仓诊断与优化 / 组合诊断",
-        "家庭规划与目标测算 / 家庭财务与现金流",
-        "资产配置与方案落地 / 投资方案生成与评估",
-        "市场跟踪与解读 / 市场综合解读",
-        "交易规则与费用 / 持有期服务"
+        "投资规划与组合管理 / 投资陪伴"
+      ]
+    },
+    {
+      "uid": "agent-ex_9HZbeQgbdcnp",
+      "name": "基金内容顾问",
+      "english": "Fund Content Advisor",
+      "inputs": "内容主题、目标客户和发布渠道；已核验市场事实、研究结论或需查询的产品",
+      "outputs": "客户早报、波动陪伴信或多渠道沟通材料；数据来源与待观察事项",
+      "layer": "Agent",
+      "category": "WorkBuddy专家",
+      "subcategory": "业务专家",
+      "official_name": "基金内容顾问",
+      "description": "WorkBuddy 专家，将市场与投研数据转为客户早报、波动陪伴信和产品沟通材料。",
+      "input_summary": "内容主题、目标客户和发布渠道；已核验市场事实、研究结论或需查询的产品",
+      "output_summary": "客户早报、波动陪伴信或多渠道沟通材料；数据来源与待观察事项",
+      "fields": [],
+      "out_fields": [],
+      "source_url": "https://www.workbuddy.cn/app/experts?expertId=ex_9HZbeQgbdcnp",
+      "platform": "WorkBuddy",
+      "asset_id": "ex_9HZbeQgbdcnp",
+      "english_kind": "解释性英文译名 / 非官方调用名",
+      "source_as_of": "2026-11-04",
+      "source_basis": "WorkBuddy官方市场已发布快照；盈米产品介绍确认",
+      "website_order": 1,
+      "scenes": [
+        "market-information"
+      ],
+      "classification_paths": [
+        "市场资讯与内容 / 投顾内容"
+      ]
+    },
+    {
+      "uid": "agent-ex_TBeURroZ6YEa",
+      "name": "基金组合诊断师",
+      "english": "Fund Portfolio Diagnostician",
+      "inputs": "基金代码及持有金额或比例；诊断问题、区间与风险约束",
+      "outputs": "穿透配置、集中度、相关性及持仓重叠诊断；历史回测、模拟结果及优化方向（依任务）",
+      "layer": "Agent",
+      "category": "WorkBuddy专家",
+      "subcategory": "业务专家",
+      "official_name": "基金组合诊断师",
+      "description": "WorkBuddy 专家，穿透组合持仓，诊断集中度、相关性和重叠风险，提出优化方向。",
+      "input_summary": "基金代码及持有金额或比例；诊断问题、区间与风险约束",
+      "output_summary": "穿透配置、集中度、相关性及持仓重叠诊断；历史回测、模拟结果及优化方向（依任务）",
+      "fields": [],
+      "out_fields": [],
+      "source_url": "https://www.workbuddy.cn/app/experts?expertId=ex_TBeURroZ6YEa",
+      "platform": "WorkBuddy",
+      "asset_id": "ex_TBeURroZ6YEa",
+      "english_kind": "解释性英文译名 / 非官方调用名",
+      "source_as_of": "2026-11-04",
+      "source_basis": "WorkBuddy官方市场已发布快照；盈米产品介绍确认",
+      "website_order": 2,
+      "scenes": [
+        "investment-planning"
+      ],
+      "classification_paths": [
+        "投资规划与组合管理 / 组合诊断"
+      ]
+    },
+    {
+      "uid": "agent-ex_nfkA8aT2T0q1",
+      "name": "基金投顾专家团",
+      "english": "Fund Advisory Expert Team",
+      "inputs": "家庭画像、资产负债及收支；目标、投资期限、风险偏好与持仓",
+      "outputs": "多角色协作的规划、尽调、策略与组合分析；可追溯、可复核的投顾辅助报告",
+      "layer": "Agent",
+      "category": "WorkBuddy专家",
+      "subcategory": "专家团",
+      "official_name": "基金投顾专家团",
+      "description": "WorkBuddy 专家团，协同完成家庭规划、基金尽调、策略分析、组合诊断与资产配置，交付投顾辅助报告。",
+      "input_summary": "家庭画像、资产负债及收支；目标、投资期限、风险偏好与持仓",
+      "output_summary": "多角色协作的规划、尽调、策略与组合分析；可追溯、可复核的投顾辅助报告",
+      "fields": [],
+      "out_fields": [],
+      "source_url": "https://www.workbuddy.cn/app/experts?expertId=ex_nfkA8aT2T0q1",
+      "platform": "WorkBuddy",
+      "asset_id": "ex_nfkA8aT2T0q1",
+      "english_kind": "解释性英文译名 / 非官方调用名",
+      "source_as_of": "2026-11-04",
+      "source_basis": "WorkBuddy官方市场已发布快照；盈米产品介绍确认",
+      "website_order": 3,
+      "scenes": [
+        "investment-planning"
+      ],
+      "classification_paths": [
+        "投资规划与组合管理 / 投顾规划"
+      ]
+    },
+    {
+      "uid": "agent-ex_x32rUOxgJvma",
+      "name": "基金投顾策略分析师",
+      "english": "Fund Advisory Strategy Analyst",
+      "inputs": "投顾策略代码或名称；分析区间、对比策略及关注点",
+      "outputs": "策略规则、风险等级、业绩基准与底层持仓解构；策略比较或风险收益解释",
+      "layer": "Agent",
+      "category": "WorkBuddy专家",
+      "subcategory": "业务专家",
+      "official_name": "基金投顾策略分析师",
+      "description": "WorkBuddy 专家，解析投顾策略的运作规则、业绩风险、资产配置和底层持仓。",
+      "input_summary": "投顾策略代码或名称；分析区间、对比策略及关注点",
+      "output_summary": "策略规则、风险等级、业绩基准与底层持仓解构；策略比较或风险收益解释",
+      "fields": [],
+      "out_fields": [],
+      "source_url": "https://www.workbuddy.cn/app/experts?expertId=ex_x32rUOxgJvma",
+      "platform": "WorkBuddy",
+      "asset_id": "ex_x32rUOxgJvma",
+      "english_kind": "解释性英文译名 / 非官方调用名",
+      "source_as_of": "2026-11-04",
+      "source_basis": "WorkBuddy官方市场已发布快照；盈米产品介绍确认",
+      "website_order": 4,
+      "scenes": [
+        "strategy-research"
+      ],
+      "classification_paths": [
+        "投顾策略研究 / 策略分析"
+      ]
+    },
+    {
+      "uid": "agent-ex_8o3gU8RoerOE",
+      "name": "基金尽调分析师",
+      "english": "Fund Due Diligence Analyst",
+      "inputs": "单只或多只基金代码或名称；尽调关注维度与分析区间",
+      "outputs": "业绩风险、持仓、收益归因与经理研究；可溯源、可比较的尽调结论",
+      "layer": "Agent",
+      "category": "WorkBuddy专家",
+      "subcategory": "业务专家",
+      "official_name": "基金尽调分析师",
+      "description": "WorkBuddy 专家，从业绩风险、持仓、归因和基金经理四个维度完成基金尽调。",
+      "input_summary": "单只或多只基金代码或名称；尽调关注维度与分析区间",
+      "output_summary": "业绩风险、持仓、收益归因与经理研究；可溯源、可比较的尽调结论",
+      "fields": [],
+      "out_fields": [],
+      "source_url": "https://www.workbuddy.cn/app/experts?expertId=ex_8o3gU8RoerOE",
+      "platform": "WorkBuddy",
+      "asset_id": "ex_8o3gU8RoerOE",
+      "english_kind": "解释性英文译名 / 非官方调用名",
+      "source_as_of": "2026-11-04",
+      "source_basis": "WorkBuddy官方市场已发布快照；盈米产品介绍确认",
+      "website_order": 5,
+      "scenes": [
+        "fund-research"
+      ],
+      "classification_paths": [
+        "公募基金研究 / 基金尽调"
       ]
     }
   ],
   "sources": {
     "mcp": "https://qieman.com/mcp/mcp-market",
     "skills": "https://qieman.com/mcp/skill-market",
-    "agent": "https://qieman.com/mcp/index#xiaogu-section"
+    "agent": "https://qieman.com/mcp/index#xiaogu-section",
+    "workbuddy": "https://www.workbuddy.cn/app/experts"
+  },
+  "scope": "盈米官网 MCP、Skills、AI小顾，以及已确认发布的 WorkBuddy 盈米专家资产",
+  "legacy_routes": {
+    "roots": {
+      "fund-research": "fund-research",
+      "portfolio-check": "investment-planning",
+      "strategy-research": "strategy-research",
+      "family-planning": "investment-planning",
+      "allocation-plan": "investment-planning",
+      "market-monitor": "market-information",
+      "client-visit": "market-information",
+      "content-studio": "market-information",
+      "account-service": "trade-service",
+      "private-research": "private-research",
+      "user-data": "user-data",
+      "general-tools": "general-tools",
+      "investment-planning": "investment-planning",
+      "trade-service": "trade-service",
+      "market-information": "market-information",
+      "content-service": "market-information"
+    },
+    "children": {
+      "fund-research--f3eb8c0c": {
+        "category": "fund-research",
+        "child": "fund-research--38f5ab2a"
+      },
+      "fund-research--73022ce8": {
+        "category": "fund-research",
+        "child": "fund-research--86809fb0"
+      },
+      "fund-research--01226c2e": {
+        "category": "fund-research",
+        "child": "fund-research--6e5a3cac"
+      },
+      "fund-research--8a221ff8": {
+        "category": "fund-research",
+        "child": "fund-research--6e5a3cac"
+      },
+      "fund-research--22a60e78": {
+        "category": "fund-research",
+        "child": "fund-research--f95a6171"
+      },
+      "fund-research--75b7e0cc": {
+        "category": "fund-research",
+        "child": "fund-research--48f0f702"
+      },
+      "fund-research--d2bfd7ac": {
+        "category": "fund-research",
+        "child": "fund-research--3a0cfc18"
+      },
+      "fund-research--663a1105": {
+        "category": "fund-research",
+        "child": "fund-research--93b273aa"
+      },
+      "fund-research--af26dee8": {
+        "category": "trade-service",
+        "child": "trade-service--ed722f75"
+      },
+      "fund-research--ac2289a4": {
+        "category": "investment-planning",
+        "child": "investment-planning--11fa974d"
+      },
+      "portfolio-check--0f94d4df": {
+        "category": "investment-planning",
+        "child": "investment-planning--b1b14ee1"
+      },
+      "portfolio-check--9824fdad": {
+        "category": "investment-planning",
+        "child": "investment-planning--5c403245"
+      },
+      "portfolio-check--ba02590b": {
+        "category": "investment-planning",
+        "child": "investment-planning--8daafee4"
+      },
+      "portfolio-check--ac2289a4": {
+        "category": "investment-planning",
+        "child": "investment-planning--11fa974d"
+      },
+      "portfolio-check--04a8d8c8": {
+        "category": "strategy-research",
+        "child": "strategy-research--5d9c5053"
+      },
+      "portfolio-check--73022ce8": {
+        "category": "fund-research",
+        "child": "fund-research--86809fb0"
+      },
+      "portfolio-check--f3eb8c0c": {
+        "category": "fund-research",
+        "child": "fund-research--38f5ab2a"
+      },
+      "portfolio-check--22a60e78": {
+        "category": "fund-research",
+        "child": "fund-research--f95a6171"
+      },
+      "strategy-research--c93a0a47": {
+        "category": "strategy-research",
+        "child": "strategy-research--32d2402d"
+      },
+      "strategy-research--6cf87025": {
+        "category": "strategy-research",
+        "child": "strategy-research--3ab2749d"
+      },
+      "strategy-research--f2b69838": {
+        "category": "strategy-research",
+        "child": "strategy-research--3ab2749d"
+      },
+      "strategy-research--04a8d8c8": {
+        "category": "strategy-research",
+        "child": "strategy-research--5d9c5053"
+      },
+      "strategy-research--22a60e78": {
+        "category": "strategy-research",
+        "child": "strategy-research--215fd737"
+      },
+      "strategy-research--df924db0": {
+        "category": "strategy-research",
+        "child": "strategy-research--5a08b229"
+      },
+      "strategy-research--710d0843": {
+        "category": "strategy-research",
+        "child": "strategy-research--9a895327"
+      },
+      "strategy-research--edb97406": {
+        "category": "trade-service",
+        "child": "trade-service--baedd28c"
+      },
+      "strategy-research--af26dee8": {
+        "category": "trade-service",
+        "child": "trade-service--ed722f75"
+      },
+      "strategy-research--73022ce8": {
+        "category": "fund-research",
+        "child": "fund-research--86809fb0"
+      },
+      "strategy-research--f346365c": {
+        "category": "market-information",
+        "child": "market-information--d6d9b50e"
+      },
+      "strategy-research--3d2f915e": {
+        "category": "market-information",
+        "child": "market-information--fbc768d6"
+      },
+      "family-planning--f59fb7b1": {
+        "category": "investment-planning",
+        "child": "investment-planning--eb09b352"
+      },
+      "family-planning--1c9ffc1f": {
+        "category": "investment-planning",
+        "child": "investment-planning--c39faa49"
+      },
+      "allocation-plan--1c9ffc1f": {
+        "category": "investment-planning",
+        "child": "investment-planning--c39faa49"
+      },
+      "allocation-plan--9824fdad": {
+        "category": "investment-planning",
+        "child": "investment-planning--5c403245"
+      },
+      "allocation-plan--ba02590b": {
+        "category": "investment-planning",
+        "child": "investment-planning--8daafee4"
+      },
+      "allocation-plan--ac2289a4": {
+        "category": "investment-planning",
+        "child": "investment-planning--11fa974d"
+      },
+      "allocation-plan--f3eb8c0c": {
+        "category": "fund-research",
+        "child": "fund-research--38f5ab2a"
+      },
+      "allocation-plan--73022ce8": {
+        "category": "fund-research",
+        "child": "fund-research--86809fb0"
+      },
+      "allocation-plan--22a60e78": {
+        "category": "fund-research",
+        "child": "fund-research--f95a6171"
+      },
+      "allocation-plan--04a8d8c8": {
+        "category": "strategy-research",
+        "child": "strategy-research--5d9c5053"
+      },
+      "allocation-plan--edb97406": {
+        "category": "trade-service",
+        "child": "trade-service--baedd28c"
+      },
+      "allocation-plan--af26dee8": {
+        "category": "trade-service",
+        "child": "trade-service--ed722f75"
+      },
+      "allocation-plan--0f94d4df": {
+        "category": "investment-planning",
+        "child": "investment-planning--b1b14ee1"
+      },
+      "market-monitor--3d2f915e": {
+        "category": "market-information",
+        "child": "market-information--fbc768d6"
+      },
+      "market-monitor--882be4e9": {
+        "category": "market-information",
+        "child": "market-information--d38a94c7"
+      },
+      "market-monitor--ef3886d0": {
+        "category": "market-information",
+        "child": "market-information--799950b3"
+      },
+      "market-monitor--cb6bbf81": {
+        "category": "market-information",
+        "child": "market-information--799950b3"
+      },
+      "market-monitor--8fa3afae": {
+        "category": "market-information",
+        "child": "market-information--b15f8efa"
+      },
+      "market-monitor--f3eb8c0c": {
+        "category": "fund-research",
+        "child": "fund-research--38f5ab2a"
+      },
+      "market-monitor--22a60e78": {
+        "category": "fund-research",
+        "child": "fund-research--f95a6171"
+      },
+      "market-monitor--f346365c": {
+        "category": "market-information",
+        "child": "market-information--d6d9b50e"
+      },
+      "client-visit--0b95250f": {
+        "category": "market-information",
+        "child": "market-information--7f7e6240"
+      },
+      "client-visit--62656dd6": {
+        "category": "market-information",
+        "child": "market-information--7f7e6240"
+      },
+      "client-visit--807734e8": {
+        "category": "market-information",
+        "child": "market-information--b15f8efa"
+      },
+      "client-visit--73022ce8": {
+        "category": "fund-research",
+        "child": "fund-research--86809fb0"
+      },
+      "client-visit--01226c2e": {
+        "category": "fund-research",
+        "child": "fund-research--6e5a3cac"
+      },
+      "client-visit--6cf87025": {
+        "category": "strategy-research",
+        "child": "strategy-research--3ab2749d"
+      },
+      "client-visit--df924db0": {
+        "category": "strategy-research",
+        "child": "strategy-research--5a08b229"
+      },
+      "client-visit--22a60e78": {
+        "category": "fund-research",
+        "child": "fund-research--f95a6171"
+      },
+      "client-visit--0f94d4df": {
+        "category": "investment-planning",
+        "child": "investment-planning--b1b14ee1"
+      },
+      "client-visit--edb97406": {
+        "category": "trade-service",
+        "child": "trade-service--baedd28c"
+      },
+      "client-visit--af26dee8": {
+        "category": "trade-service",
+        "child": "trade-service--ed722f75"
+      },
+      "client-visit--f346365c": {
+        "category": "market-information",
+        "child": "market-information--d6d9b50e"
+      },
+      "content-studio--6b794d40": {
+        "category": "fund-research",
+        "child": "fund-research--6e5a3cac"
+      },
+      "content-studio--a6f5d0f2": {
+        "category": "market-information",
+        "child": "market-information--b15f8efa"
+      },
+      "content-studio--882be4e9": {
+        "category": "market-information",
+        "child": "market-information--d38a94c7"
+      },
+      "content-studio--ef3886d0": {
+        "category": "market-information",
+        "child": "market-information--799950b3"
+      },
+      "content-studio--3d2f915e": {
+        "category": "market-information",
+        "child": "market-information--fbc768d6"
+      },
+      "content-studio--f346365c": {
+        "category": "market-information",
+        "child": "market-information--d6d9b50e"
+      },
+      "content-studio--62656dd6": {
+        "category": "market-information",
+        "child": "market-information--7f7e6240"
+      },
+      "content-studio--73022ce8": {
+        "category": "fund-research",
+        "child": "fund-research--86809fb0"
+      },
+      "content-studio--22a60e78": {
+        "category": "fund-research",
+        "child": "fund-research--f95a6171"
+      },
+      "content-studio--663a1105": {
+        "category": "fund-research",
+        "child": "fund-research--93b273aa"
+      },
+      "content-studio--6cf87025": {
+        "category": "strategy-research",
+        "child": "strategy-research--3ab2749d"
+      },
+      "content-studio--df924db0": {
+        "category": "strategy-research",
+        "child": "strategy-research--5a08b229"
+      },
+      "content-studio--710d0843": {
+        "category": "strategy-research",
+        "child": "strategy-research--9a895327"
+      },
+      "content-studio--edb97406": {
+        "category": "trade-service",
+        "child": "trade-service--baedd28c"
+      },
+      "content-studio--af26dee8": {
+        "category": "trade-service",
+        "child": "trade-service--ed722f75"
+      },
+      "account-service--af26dee8": {
+        "category": "trade-service",
+        "child": "trade-service--ed722f75"
+      },
+      "account-service--edb97406": {
+        "category": "trade-service",
+        "child": "trade-service--baedd28c"
+      },
+      "account-service--663a1105": {
+        "category": "fund-research",
+        "child": "fund-research--93b273aa"
+      },
+      "account-service--710d0843": {
+        "category": "strategy-research",
+        "child": "strategy-research--9a895327"
+      },
+      "account-service--22a60e78": {
+        "category": "fund-research",
+        "child": "fund-research--f95a6171"
+      },
+      "account-service--1fff63fd": {
+        "category": "investment-planning",
+        "child": "investment-planning--b1b14ee1"
+      },
+      "private-research--11f9de23": {
+        "category": "private-research",
+        "child": "private-research--16fc61bb"
+      },
+      "private-research--e65725a0": {
+        "category": "private-research",
+        "child": "private-research--09f470f9"
+      },
+      "private-research--501a4267": {
+        "category": "private-research",
+        "child": "private-research--f7f1884e"
+      },
+      "user-data--2ffa6f37": {
+        "category": "user-data",
+        "child": "user-data--18a62e47"
+      },
+      "user-data--5fa1d8ec": {
+        "category": "user-data",
+        "child": "user-data--deea654c"
+      },
+      "user-data--6fd3960c": {
+        "category": "user-data",
+        "child": "user-data--99d0bfdf"
+      },
+      "user-data--bc16fecf": {
+        "category": "user-data",
+        "child": "user-data--0dcd7dee"
+      },
+      "user-data--2c1c380b": {
+        "category": "user-data",
+        "child": "user-data--023f33c3"
+      },
+      "user-data--4ff00a0c": {
+        "category": "user-data",
+        "child": "user-data--6643143b"
+      },
+      "user-data--ebdfefae": {
+        "category": "user-data",
+        "child": "user-data--d0f72be1"
+      },
+      "user-data--f15c6d83": {
+        "category": "user-data",
+        "child": "user-data--a8f2b9b5"
+      },
+      "general-tools--3097d36f": {
+        "category": "general-tools",
+        "child": "general-tools--9af6e4c4"
+      },
+      "general-tools--f6c1a9e7": {
+        "category": "general-tools",
+        "child": "general-tools--dbb49715"
+      },
+      "market-information--fbc768d6": {
+        "category": "market-information",
+        "child": "market-information--fbc768d6"
+      },
+      "market-information--d38a94c7": {
+        "category": "market-information",
+        "child": "market-information--d38a94c7"
+      },
+      "market-information--799950b3": {
+        "category": "market-information",
+        "child": "market-information--799950b3"
+      },
+      "content-service--8bfaddb6": {
+        "category": "market-information",
+        "child": "market-information--d6d9b50e"
+      },
+      "content-service--0311e721": {
+        "category": "market-information",
+        "child": "market-information--7f7e6240"
+      },
+      "content-service--86ead853": {
+        "category": "market-information",
+        "child": "market-information--b15f8efa"
+      },
+      "fund-research--3a0cfc18": {
+        "category": "fund-research",
+        "child": "fund-research--3a0cfc18"
+      },
+      "fund-research--86809fb0": {
+        "category": "fund-research",
+        "child": "fund-research--86809fb0"
+      },
+      "fund-research--48f0f702": {
+        "category": "fund-research",
+        "child": "fund-research--48f0f702"
+      },
+      "fund-research--38f5ab2a": {
+        "category": "fund-research",
+        "child": "fund-research--38f5ab2a"
+      },
+      "fund-research--f95a6171": {
+        "category": "fund-research",
+        "child": "fund-research--f95a6171"
+      },
+      "fund-research--93b273aa": {
+        "category": "fund-research",
+        "child": "fund-research--93b273aa"
+      },
+      "fund-research--6e5a3cac": {
+        "category": "fund-research",
+        "child": "fund-research--6e5a3cac"
+      },
+      "strategy-research--5d9c5053": {
+        "category": "strategy-research",
+        "child": "strategy-research--5d9c5053"
+      },
+      "strategy-research--32d2402d": {
+        "category": "strategy-research",
+        "child": "strategy-research--32d2402d"
+      },
+      "strategy-research--5a08b229": {
+        "category": "strategy-research",
+        "child": "strategy-research--5a08b229"
+      },
+      "strategy-research--3ab2749d": {
+        "category": "strategy-research",
+        "child": "strategy-research--3ab2749d"
+      },
+      "strategy-research--215fd737": {
+        "category": "strategy-research",
+        "child": "strategy-research--215fd737"
+      },
+      "strategy-research--9a895327": {
+        "category": "strategy-research",
+        "child": "strategy-research--9a895327"
+      },
+      "investment-planning--11fa974d": {
+        "category": "investment-planning",
+        "child": "investment-planning--11fa974d"
+      },
+      "investment-planning--8daafee4": {
+        "category": "investment-planning",
+        "child": "investment-planning--8daafee4"
+      },
+      "investment-planning--5c403245": {
+        "category": "investment-planning",
+        "child": "investment-planning--5c403245"
+      },
+      "investment-planning--c39faa49": {
+        "category": "investment-planning",
+        "child": "investment-planning--c39faa49"
+      },
+      "investment-planning--eb09b352": {
+        "category": "investment-planning",
+        "child": "investment-planning--eb09b352"
+      },
+      "investment-planning--b1b14ee1": {
+        "category": "investment-planning",
+        "child": "investment-planning--b1b14ee1"
+      },
+      "trade-service--ed722f75": {
+        "category": "trade-service",
+        "child": "trade-service--ed722f75"
+      },
+      "trade-service--baedd28c": {
+        "category": "trade-service",
+        "child": "trade-service--baedd28c"
+      },
+      "private-research--09f470f9": {
+        "category": "private-research",
+        "child": "private-research--09f470f9"
+      },
+      "private-research--16fc61bb": {
+        "category": "private-research",
+        "child": "private-research--16fc61bb"
+      },
+      "private-research--f7f1884e": {
+        "category": "private-research",
+        "child": "private-research--f7f1884e"
+      },
+      "user-data--0dcd7dee": {
+        "category": "user-data",
+        "child": "user-data--0dcd7dee"
+      },
+      "user-data--deea654c": {
+        "category": "user-data",
+        "child": "user-data--deea654c"
+      },
+      "user-data--18a62e47": {
+        "category": "user-data",
+        "child": "user-data--18a62e47"
+      },
+      "user-data--99d0bfdf": {
+        "category": "user-data",
+        "child": "user-data--99d0bfdf"
+      },
+      "user-data--6643143b": {
+        "category": "user-data",
+        "child": "user-data--6643143b"
+      },
+      "user-data--a8f2b9b5": {
+        "category": "user-data",
+        "child": "user-data--a8f2b9b5"
+      },
+      "user-data--023f33c3": {
+        "category": "user-data",
+        "child": "user-data--023f33c3"
+      },
+      "user-data--d0f72be1": {
+        "category": "user-data",
+        "child": "user-data--d0f72be1"
+      },
+      "general-tools--dbb49715": {
+        "category": "general-tools",
+        "child": "general-tools--dbb49715"
+      },
+      "general-tools--9af6e4c4": {
+        "category": "general-tools",
+        "child": "general-tools--9af6e4c4"
+      }
+    }
   }
 }
