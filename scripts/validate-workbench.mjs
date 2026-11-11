@@ -27,18 +27,18 @@ if (reportStart < 0 || reportEnd < 0) fail("未找到初始成果目录");
 
 const reportBlock = appSource.slice(reportStart, reportEnd);
 const groupBlock = appSource.slice(appSource.indexOf("  groups: ["), reportStart);
-if (/\bid:\s*"inbox"/.test(groupBlock) || /\bname:\s*"待整理"/.test(groupBlock)) {
+if (/\bid"?:\s*"inbox"/.test(groupBlock) || /\bname"?:\s*"待整理"/.test(groupBlock)) {
   fail("默认成果目录仍包含系统待整理分组");
 }
 const reportChunks = reportBlock
   .split(/\n\s{4}\},\n\s{4}\{/)
   .map((chunk) => chunk.replace(/^.*?reports:\s*\[/s, "").trim())
-  .filter((chunk) => /\bid:\s*"/.test(chunk));
+  .filter((chunk) => /\bid"?:\s*"/.test(chunk));
 const reports = reportChunks.map((chunk) => ({
-  id: chunk.match(/\bid:\s*"([^"]+)"/)?.[1] || "",
-  url: chunk.match(/\burl:\s*"([^"]+)"/)?.[1] || "",
-  preview: chunk.match(/\bpreview:\s*"([^"]+)"/)?.[1] || "",
-  access: chunk.match(/\baccess:\s*"([^"]+)"/)?.[1] || "",
+  id: chunk.match(/\bid"?:\s*"([^"]+)"/)?.[1] || "",
+  url: chunk.match(/\burl"?:\s*"([^"]+)"/)?.[1] || "",
+  preview: chunk.match(/\bpreview"?:\s*"([^"]+)"/)?.[1] || "",
+  access: chunk.match(/\baccess"?:\s*"([^"]+)"/)?.[1] || "",
 }));
 
 

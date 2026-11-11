@@ -35,8 +35,22 @@ function fixture(t, immutable = []) {
   };
 }
 
-test("the standalone-public allowlist contains only the explicitly authorized catalog", () => {
-  assert.deepEqual(publicConfig.entries, [publicPath]);
+test("the standalone-public allowlist contains only explicitly public deliverables", () => {
+  assert.deepEqual(publicConfig.entries, [
+    publicPath,
+    "reports/financial-advisor-100-questions-2026-11-11/index.html",
+    "reports/advisor-console-demo-2026-11-11/index.html",
+  ]);
+});
+
+test("the synthetic advisor console is public only at its exact entry", () => {
+  const entry = "reports/advisor-console-demo-2026-11-11/";
+  assert.equal(reportAccessStatus({ url: url(entry) }, { defaultLocked: true, lockedEntries: [entry] }).locked, false);
+  for (const path of [`${entry}details.html`, "reports/advisor-console-demo-2026-11-11-copy/"]) {
+    const state = reportAccessStatus({ url: url(path) }, { defaultLocked: true });
+    assert.equal(state.managed, true);
+    assert.equal(state.locked, true);
+  }
 });
 
 test("a stale live lock cannot present a password toggle for this unencrypted public deliverable", () => {

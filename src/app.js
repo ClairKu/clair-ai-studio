@@ -68,7 +68,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 181;
+const DATA_VERSION = 182;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -223,6 +223,19 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "advisor-console-demo-2026-11-11",
+      groupId: "advisor-workbench",
+      title: "且慢顾问工作台｜机会雷达与物料检查演示",
+      url: "https://clairku.github.io/clair-ai-studio/reports/advisor-console-demo-2026-11-11/",
+      preview: "advisor-console-demo-2026-11-11.jpg",
+      pinned: false,
+      createdAt: "2026-11-11T17:45:00+08:00",
+      source: "advisor-console 静态交互演示｜7 张机会卡覆盖策略状态、周期披露、客户行为、营销日历；支持筛选、行动剧本、复制任务指令、演示草稿编辑、红线词与风险提示初筛、人工演示复核及 TXT 导出。全部策略/公告/行为数据为虚构样本，未接真实监控、skill 执行或正式审批；不发送、不发布对客内容。",
+      access: "production",
+      workType: "product-demo",
+      tags: ["且慢", "顾问工作台", "运营陪伴", "机会雷达", "合规初筛", "交互演示", "模拟数据"],
+    },
     {
       "id": "financial-advisor-100-questions-2026-11-11",
       "groupId": "ai-platform",

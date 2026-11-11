@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "advisor-console-demo-2026-11-11",
     "financial-advisor-100-questions-2026-11-11",
     "rebalance-threshold-replay-2026-11-11",
     "rebalance-threshold-decision-2026-11-11",
