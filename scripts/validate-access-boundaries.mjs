@@ -18,6 +18,7 @@ const docsGate = read("docs/access-gate.js");
 const publicConfigSource = read("public/report-access.json");
 const docsConfigSource = read("docs/report-access.json");
 const publicConfig = JSON.parse(publicConfigSource);
+const standalonePublicEntries = new Set(JSON.parse(read("catalog/standalone-public-entries.json")).entries);
 const app = read("src/app.js");
 const settings = read("src/report-access-settings.js");
 const injector = read("scripts/inject-site-access-gate.mjs");
@@ -118,12 +119,24 @@ const independentEncryptedPages = new Set([
 const standaloneEncryptedPages = new Set([
   "reports/qiming-h2-product-review-2026-11-09/index.html",
 ]);
+for (const entry of standalonePublicEntries) {
+  ensure(/^reports\/[^/?#\\]+\/index\.html$/.test(entry) && !entry.includes(".."), `公开成果路径无效：${entry}`);
+  ensure(!publicConfig.immutableLockedEntries.includes(entry.replace(/index\.html$/, "")), `${entry} 不得公开不可解锁成果`);
+  ensure(!independentEncryptedPages.has(entry) && !standaloneEncryptedPages.has(entry), `${entry} 不得公开独立加密成果`);
+}
 let reportPages = 0;
 let workspacePages = 0;
 for (const htmlPath of htmlPaths) {
   const html = readFileSync(htmlPath, "utf8");
   const outputPath = relative(join(root, "docs"), htmlPath).replaceAll("\\", "/");
   const gateCount = html.match(/data-clair-access-gate/g)?.length || 0;
+  if (standalonePublicEntries.has(outputPath)) {
+    ensure(gateCount === 0, `${outputPath} 是公开成果，不应加载共享访问门`);
+    ensure(!/<input\b[^>]*type=["']password["']/i.test(html), `${outputPath} 不应包含密码框`);
+    ensure(!html.includes("data-clair-private-envelope") && !html.includes("AES-GCM"), `${outputPath} 不应包含加密正文`);
+    reportPages += 1;
+    continue;
+  }
   if (standaloneEncryptedPages.has(outputPath)) {
     ensure(gateCount === 0, `${outputPath} 不应加载共享网络访问门`);
     ensure(html.includes('data-clair-private-envelope="v1"'), `${outputPath} 缺少独立加密封装标记`);

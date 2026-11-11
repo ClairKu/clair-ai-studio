@@ -3,6 +3,9 @@ import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const projectRoot = fileURLToPath(new URL("../", import.meta.url));
+const standalonePublicEntries = new Set(JSON.parse(readFileSync(
+  join(projectRoot, "catalog/standalone-public-entries.json"), "utf8",
+)).entries);
 const outputRoot = resolve(projectRoot, process.argv[2] || "docs");
 const gateAsset = join(outputRoot, "access-gate.js");
 const accessConfigAsset = join(outputRoot, "report-access.json");
@@ -21,6 +24,14 @@ const encryptedReportEntries = new Set((accessConfig.immutableLockedEntries || [
 const standaloneEncryptedEntries = new Set([
   "reports/qiming-h2-product-review-2026-11-09/index.html",
 ]);
+for (const entry of standalonePublicEntries) {
+  if (!/^reports\/[^/?#\\]+\/index\.html$/.test(entry)
+    || entry.includes("..")
+    || encryptedReportEntries.has(entry)
+    || standaloneEncryptedEntries.has(entry)) {
+    throw new Error(`Invalid standalone public report entry: ${entry}`);
+  }
+}
 
 const walkHtml = (directory, results = []) => {
   for (const entry of readdirSync(directory, { withFileTypes: true })) {
@@ -34,6 +45,7 @@ const walkHtml = (directory, results = []) => {
 const robotsMeta = '<meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />';
 let injected = 0;
 let encryptedReports = 0;
+let publicReports = 0;
 
 const encryptedReportShell = ({ html, gateScript, outputPath }) => {
   const payload = html.match(/const\s+payload\s*=\s*(\{[^;]+\});/s)?.[1];
@@ -184,6 +196,18 @@ for (const htmlPath of walkHtml(outputRoot)) {
   let html = readFileSync(htmlPath, "utf8");
   const outputPath = relative(outputRoot, htmlPath).replaceAll("\\", "/");
 
+  if (standalonePublicEntries.has(outputPath)) {
+    if (html.includes("data-clair-private-envelope")
+      || html.includes("AES-GCM")
+      || /<input\b[^>]*type=["']password["']/i.test(html)) {
+      throw new Error(`Encrypted or password-protected public report: ${outputPath}`);
+    }
+    html = html.replace(/<script\b[^>]*\bdata-clair-access-gate\b[^>]*>[\s\S]*?<\/script>\s*/gi, "");
+    writeFileSync(htmlPath, html);
+    publicReports += 1;
+    continue;
+  }
+
   if (standaloneEncryptedEntries.has(outputPath)) {
     if (!html.includes('data-clair-private-envelope="v1"')
       || !html.includes('data-gate="decrypt"')
@@ -242,4 +266,4 @@ for (const htmlPath of walkHtml(outputRoot)) {
   injected += 1;
 }
 
-console.log(`Injected the selective site access gate into ${injected} HTML files, including ${encryptedReports} encrypted reports.`);
+console.log(`Injected the selective site access gate into ${injected} HTML files, including ${encryptedReports} encrypted reports; preserved ${publicReports} standalone public reports.`);

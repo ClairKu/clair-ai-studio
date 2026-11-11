@@ -68,7 +68,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 180;
+const DATA_VERSION = 181;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -329,7 +329,7 @@ const initialState = {
       preview: "yingmi-ai-capability-catalog-2026-11-10.jpg",
       pinned: false,
       position: 0,
-      modifiedAt: "2026-11-11T15:49:05+08:00",
+      modifiedAt: "2026-11-11T16:17:12+08:00",
       createdAt: "2026-11-10T12:23:52+08:00",
       source: "108项AI能力：92个MCP、10个Skills、6个Agent。按8类业务与44个子类交叉浏览，展示中英文名称、用途及IN/OUT，支持搜索和Excel导出。",
       access: "production",

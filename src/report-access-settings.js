@@ -1,3 +1,6 @@
+import standalonePublicConfig from "../catalog/standalone-public-entries.json" with { type: "json" };
+
+const STANDALONE_PUBLIC_ENTRIES = new Set(standalonePublicConfig.entries);
 const SITE_ORIGIN = "https://clairku.github.io";
 const SITE_ROOT_PATH = "/clair-ai-studio/";
 const ADMIN_TOKEN_KEY = "clair-ai-studio-access-admin-token-v1";
@@ -97,6 +100,11 @@ export function reportAccessStatus(report, config = accessState.config) {
   }
   const normalized = normalizeReportAccessConfig(config);
   const immutable = normalized.immutableLockedEntries.includes(entry);
+  // These explicit, unencrypted deliverables have no shared access gate.
+  // A stale live policy must not advertise a password toggle for them.
+  if (!immutable && STANDALONE_PUBLIC_ENTRIES.has(`${entry}index.html`)) {
+    return { entry, managed: false, locked: false, immutable: false, loaded: true };
+  }
   const explicitlyLocked = normalized.lockedEntries.includes(entry);
   const explicitlyUnlocked = normalized.unlockedEntries.includes(entry);
   return {

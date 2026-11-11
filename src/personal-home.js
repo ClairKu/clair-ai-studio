@@ -4,6 +4,12 @@ export const PERSONAL_VISITS_KEY = "clair-personal-home-recent-v1";
 
 export const PERSONAL_AREAS = Object.freeze([
   {
+    id: "ai-capability-catalog", number: "08", title: "AI 能力清单", category: "108 项 · MCP / Skills / Agent",
+    description: "按业务领域查看全部 AI 能力，支持分类筛选、搜索与 Excel 导出。",
+    theme: "blue", icon: "nodes", primary: { url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-capability-catalog-2026-11-10/?v=public-20261111", label: "打开 AI 能力清单" },
+    meta: "92 MCP · 10 Skills · 6 Agent", links: [], visual: ["MCP", "Skills", "Agent"],
+  },
+  {
     id: "clair-select", number: "07", title: "招聘工作台 · Clair Select", category: "招聘工作台",
     description: "云端保存全部履历与面试评价，随时打开、上传和补充反馈。",
     theme: "blue", icon: "panel", primary: { reportId: "candidate-evaluator-2026-10-29", label: "查看完整招聘档案" },
