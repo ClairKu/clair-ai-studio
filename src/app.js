@@ -68,7 +68,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 184;
+const DATA_VERSION = 185;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -232,10 +232,11 @@ const initialState = {
       pinned: false,
       position: 0,
       createdAt: "2026-11-12T09:50:00+08:00",
-      source: "且慢养老专区当前推荐25只Y份额及其25只关联A份额的公开基金数据。可切换全部、TDF目标日期、TRF目标风险、同风险等级、首页推荐与Y/A对应视图，统一比较业绩、年化波动率、最大回撤及修复，提供净值与回撤曲线、风险收益图和明细下载。保留实际净值时点、份额成立时间和分类差异，历史业绩不代表未来表现。",
+      modifiedAt: "2026-11-12T10:51:06+08:00",
+      source: "且慢养老专区25只线上推荐Y份额＋本次补充2只Y份额，合计27只Y及27只关联A，共54份额；新增仅为本报告补充，未更改线上推荐。国寿安保稳荣混合Y/A（029393/004279）、富达任远保守养老目标一年持有混合(FOF)Y/A（027153/025325）。分类、风险、来源、份额均支持多选及交叉筛选；默认27只Y，可查看TDF/TRF、同风险、线上25只、本次补充、Y/A对应和首页6只。统一比较收益、年化波动率、最大回撤与修复，提供净值、回撤、风险收益图及CSV/Excel下载；保留净值时点、份额成立时间和区间不足提示，历史业绩不代表未来表现。",
       access: "production",
       workType: "investment-research",
-      tags: ["养老", "个人养老金", "Y份额", "A份额", "基金研究", "业绩对比", "风险等级", "最大回撤", "TDF", "TRF", "HTML", "生产"],
+      tags: ["养老", "个人养老金", "Y份额", "A份额", "基金研究", "多选筛选", "TDF", "TRF", "风险等级", "最大回撤", "本次补充", "HTML", "生产"],
     },
     {
       "id": "yingmi-108-tool-prompts-2026-11-11",
