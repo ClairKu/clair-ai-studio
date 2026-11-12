@@ -68,7 +68,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 183;
+const DATA_VERSION = 184;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -223,6 +223,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "pension-y-a-fund-comparison-2026-11-12",
+      groupId: "pension-planning",
+      title: "且慢养老基金 Y/A 份额业绩与风险对比",
+      url: "https://clairku.github.io/clair-ai-studio/reports/pension-y-a-fund-comparison-2026-11-12/",
+      preview: "pension-y-a-fund-comparison-2026-11-12.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-12T09:50:00+08:00",
+      source: "且慢养老专区当前推荐25只Y份额及其25只关联A份额的公开基金数据。可切换全部、TDF目标日期、TRF目标风险、同风险等级、首页推荐与Y/A对应视图，统一比较业绩、年化波动率、最大回撤及修复，提供净值与回撤曲线、风险收益图和明细下载。保留实际净值时点、份额成立时间和分类差异，历史业绩不代表未来表现。",
+      access: "production",
+      workType: "investment-research",
+      tags: ["养老", "个人养老金", "Y份额", "A份额", "基金研究", "业绩对比", "风险等级", "最大回撤", "TDF", "TRF", "HTML", "生产"],
+    },
     {
       "id": "yingmi-108-tool-prompts-2026-11-11",
       "groupId": "ai-platform",
@@ -4695,6 +4709,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "pension-y-a-fund-comparison-2026-11-12": "investment-research",
   "finance-101-20261109": "investment-research",
   "yingmi-doubao-six-scenarios-2026-11-05": "product-demo",
   "doubao-yingmi-holdings-communication-2026-11-05": "product-planning",
@@ -4839,6 +4854,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "pension-y-a-fund-comparison-2026-11-12": "pension-planning",
   "pension-fixed-income-plus-copy-classification-2026-11-10": "pension-planning",
   "pension-y-catalog-qieman-2026-11-10": "pension-planning",
   "yingmi-ai-capability-catalog-2026-11-10": "ai-platform",
