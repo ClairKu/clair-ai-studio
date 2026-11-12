@@ -420,19 +420,7 @@
       try {
         if (await verifyPassword(password)) {
           input.value = "";
-          status.textContent = requestedScope === "workspace"
-            ? "验证成功，正在连接访问设置…"
-            : "验证成功，正在进入…";
-          if (requestedScope === "workspace") {
-            try {
-              await exchangeWorkspaceAdminSession(password);
-            } catch {
-              // Never take the whole workspace down with the optional state
-              // service. The lock button will explain if its session is absent.
-              clearWorkspaceSession();
-            }
-          }
-          unlock(password);
+          status.textContent = "验证成功，正在进入…"; /* Open after local verification; management authorization must not block browsing. */ unlock(password); if (requestedScope === "workspace") { void exchangeWorkspaceAdminSession(password).catch(() => { try { window.sessionStorage.removeItem(ADMIN_TOKEN_KEY); window.sessionStorage.removeItem(ADMIN_TOKEN_EXPIRES_KEY); } catch { /* Restricted storage. */ } }); }
           return;
         }
         status.dataset.state = "error";
