@@ -224,6 +224,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "holdings-report-advisor-training-2026-11-12",
+      groupId: "advisor-workbench",
+      title: "持仓分析报告 · 顾问使用培训文档",
+      url: "https://clairku.github.io/clair-ai-studio/reports/holdings-report-advisor-training-2026-11-12/",
+      preview: "holdings-report-advisor-training-2026-11-12.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-12T14:00:00+08:00",
+      source: "面向且慢投资顾问的持仓分析报告使用培训：一次性配好慧客通 skill，之后发一句话即可为客户生成持仓复盘报告；覆盖改结论、导出 PDF、常见问题排查与四个 Agent 工具差别。yingmi work 自带 skill 可跳过安装章。",
+      access: "production",
+      workType: "reporting",
+      tags: ["投顾工作台", "持仓分析", "培训指南", "慧客通", "HTML", "生产"],
+    },
+    {
       id: "pension-y-a-fund-comparison-2026-11-12",
       groupId: "pension-planning",
       title: "且慢养老基金 Y/A 份额业绩与风险对比",
@@ -4710,6 +4724,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "holdings-report-advisor-training-2026-11-12": "reporting",
   "pension-y-a-fund-comparison-2026-11-12": "investment-research",
   "finance-101-20261109": "investment-research",
   "yingmi-doubao-six-scenarios-2026-11-05": "product-demo",
@@ -4855,6 +4870,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "holdings-report-advisor-training-2026-11-12": "advisor-workbench",
   "pension-y-a-fund-comparison-2026-11-12": "pension-planning",
   "pension-fixed-income-plus-copy-classification-2026-11-10": "pension-planning",
   "pension-y-catalog-qieman-2026-11-10": "pension-planning",
