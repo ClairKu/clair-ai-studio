@@ -9,6 +9,11 @@ const POLICY_KEY = "studio:report-access:v1";
 const SESSION_PREFIX = "studio:admin-session:";
 const AUTH_RATE_PREFIX = "studio:auth-rate:";
 const WRITE_RATE_PREFIX = "studio:write-rate:";
+const SELECT_ENTRY_RATE_PREFIX = "studio:select-entry-rate:";
+const SELECT_ENTRY_RATE_MAX = 40;
+const SELECT_ENTRY_ISSUER = "https://clair-studio-access.pages.dev/v1";
+const SELECT_ENTRY_URL = "https://clair-select.pages.dev/studio-entry";
+const SELECT_ENTRY_TTL_SECONDS = 60;
 const SESSION_TTL_SECONDS = 12 * 60 * 60;
 const RATE_WINDOW_SECONDS = 60;
 const AUTH_RATE_MAX = 8;
@@ -185,6 +190,37 @@ async function authorizedSession(request, env) {
   return Boolean(session?.expiresAt && Number(session.expiresAt) > Date.now());
 }
 
+function base64url(bytes) {
+  let binary = "";
+  for (const byte of new Uint8Array(bytes)) binary += String.fromCharCode(byte);
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+}
+
+async function issueSelectEntry(env) {
+  const iat = Math.floor(Date.now() / 1000);
+  const payload = {
+    v: 1,
+    iss: SELECT_ENTRY_ISSUER,
+    aud: "clair-select",
+    sub: "portable-private-owner-clair",
+    iat,
+    exp: iat + SELECT_ENTRY_TTL_SECONDS,
+    jti: crypto.randomUUID(),
+  };
+  const encoder = new TextEncoder();
+  const encodedPayload = base64url(encoder.encode(JSON.stringify(payload)));
+  const key = await crypto.subtle.importKey(
+    "raw", encoder.encode(env.SELECT_SSO_SIGNING_KEY),
+    { name: "HMAC", hash: "SHA-256" }, false, ["sign"],
+  );
+  const signature = await crypto.subtle.sign("HMAC", key, encoder.encode(encodedPayload));
+  return {
+    ticket: `${encodedPayload}.${base64url(signature)}`,
+    expiresAt: payload.exp * 1000,
+    entryUrl: SELECT_ENTRY_URL,
+  };
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -218,6 +254,23 @@ export default {
         return json(request, env, { error: "bad_passcode" }, 403);
       }
       return json(request, env, await issueSession(env));
+    }
+
+    if (path === "/v1/apps/clair-select/entry" && request.method === "POST") {
+      if (!originAllowed(request, env)) return json(request, env, { error: "origin_not_allowed" }, 403);
+      if (!(await authorizedSession(request, env))) {
+        return json(request, env, { error: "admin_session_required", message: "工作台授权已过期，请刷新后重新登录。" }, 401);
+      }
+      if (typeof env.SELECT_SSO_SIGNING_KEY !== "string"
+        || env.SELECT_SSO_SIGNING_KEY.length < 32 || env.SELECT_SSO_SIGNING_KEY.length > 512) {
+        return json(request, env, { error: "app_entry_not_configured", message: "招聘工作台入口尚未完成配置。" }, 503);
+      }
+      if (await rateLimited(request, env, SELECT_ENTRY_RATE_PREFIX, SELECT_ENTRY_RATE_MAX)) {
+        return json(request, env, { error: "rate_limited", message: "打开过于频繁，请稍后再试。" }, 429);
+      }
+      // No caller-supplied app, target, identity or lifetime enters the assertion.
+      // The destination consumes jti once in its transactional D1 store.
+      return json(request, env, await issueSelectEntry(env));
     }
 
     if (path === "/v1/report-access" && request.method === "PUT") {

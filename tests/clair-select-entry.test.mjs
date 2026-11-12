@@ -52,21 +52,28 @@ const appFunction = (name) => {
   return appSource.slice(start, end + 2);
 };
 
-test("only an exactly registered owner-private hosted application opens outside the reader", () => {
-  const calls = [], visits = [];
+test("only an exactly registered owner-private hosted application opens outside the reader", async () => {
+  const calls = [], visits = [], navigations = [];
+  const nextWindow = { closed: false, opener: {}, location: { replace: (url) => navigations.push(url) }, close() { this.closed = true; } };
   const context = vm.createContext({
     reportRegistry: registry, URL, localStorage: {},
+    issueClairSelectEntry: async () => ({ ticket: "signed-fixture", entryUrl: "https://clair-select.pages.dev/studio-entry" }),
     rememberPersonalVisit: (_storage, id) => visits.push(id),
     showToast: () => {}, localHtmlUrl: () => "", window: {
       location: { href: "https://clairku.github.io/clair-ai-studio/" },
-      open: (...args) => { calls.push(args); return {}; },
+      open: (...args) => { calls.push(args); return nextWindow; },
     },
   });
-  vm.runInContext(["registeredHostedApplication", "openHostedApplication", "openReportInBrowser"].map(appFunction).join("\n"), context);
+  vm.runInContext(["registeredHostedApplication", "openHostedApplication", "isClairSelectHostedApplication", "openClairSelectFromStudio", "openReportInBrowser"].map(appFunction).join("\n"), context);
   const hosted = { id: selectId, url: hostedUrl };
   context.report = hosted;
   assert.equal(vm.runInContext("openHostedApplication(report)", context), true);
-  assert.deepEqual(calls, [[hosted.url, "_blank", "noopener,noreferrer"]]);
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0][0], "", "reserve a same-origin placeholder during the click");
+  assert.match(calls[0][1], /^clair-select-/);
+  assert.equal(nextWindow.opener, null);
+  await new Promise(setImmediate);
+  assert.deepEqual(navigations, ["https://clair-select.pages.dev/studio-entry#ticket=signed-fixture"]);
   assert.deepEqual(visits, [selectId]);
   for (const record of [
     { ...hosted, id: "unregistered-id" },
@@ -94,6 +101,45 @@ test("the shared open action hands hosted apps to the browser before creating an
   assert.match(action, /if \(openHostedApplication\(state\.reports\.find\(\(report\) => report\.id === itemId\)\)\) return;/);
   const markup = personalLaunchpadMarkup({ reports: [{ id: selectId, title: "Clair Select" }], escapeHtml, storage: storage() });
   assert.match(markup, /data-action="open" data-id="candidate-evaluator-2026-10-29"/);
+});
+
+test("recruitment entry failure closes the placeholder and offers the existing Studio login", async () => {
+  let requests = 0, closed = 0, reloads = 0;
+  const notices = [], navigations = [];
+  const context = vm.createContext({
+    reportRegistry: registry, URL, localStorage: {}, localHtmlUrl: () => "",
+    issueClairSelectEntry: async () => {
+      requests += 1;
+      const error = new Error("expired"); error.code = "studio_session_required"; throw error;
+    },
+    showToast: (...args) => notices.push(args),
+    window: {
+      location: { href: "https://clairku.github.io/clair-ai-studio/", reload: () => { reloads += 1; } },
+      open: () => ({ closed: false, opener: {}, location: { replace: (url) => navigations.push(url) }, close: () => { closed += 1; } }),
+    },
+  });
+  vm.runInContext(["registeredHostedApplication", "isClairSelectHostedApplication", "openClairSelectFromStudio", "openReportInBrowser"].map(appFunction).join("\n"), context);
+  context.report = { id: selectId, url: hostedUrl };
+  assert.equal(vm.runInContext("openReportInBrowser(report)", context), true);
+  await new Promise(setImmediate);
+  assert.equal(requests, 1);
+  assert.equal(closed, 1);
+  assert.deepEqual(navigations, []);
+  assert.equal(notices.length, 1);
+  assert.equal(notices[0][1].actionLabel, "重新进入工作台");
+  notices[0][1].onAction();
+  assert.equal(reloads, 1);
+});
+
+test("a blocked placeholder does not request or discard a signed entry", () => {
+  let requests = 0;
+  const context = vm.createContext({
+    issueClairSelectEntry: () => { requests += 1; },
+    window: { open: () => null },
+  });
+  vm.runInContext(appFunction("openClairSelectFromStudio"), context);
+  assert.equal(vm.runInContext("openClairSelectFromStudio()", context), false);
+  assert.equal(requests, 0);
 });
 
 test("the hosted-app search entry describes the cloud service without recruiting records", () => {

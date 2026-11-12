@@ -1,4 +1,5 @@
 import reportRegistry from "../catalog/report-registry.json";
+import { issueClairSelectEntry } from "./clair-select-access.js";
 import { PERSONAL_AREAS, personalLaunchpadMarkup, rememberPersonalVisit } from "./personal-home.js";
 import {
   bindTaskCenter,
@@ -7337,9 +7338,42 @@ function openHostedApplication(report) {
   return true;
 }
 
+function isClairSelectHostedApplication(report) {
+  return registeredHostedApplication(report)
+    && report.id === "candidate-evaluator-2026-10-29"
+    && report.url === "https://clair-select.pages.dev/";
+}
+
+function openClairSelectFromStudio() {
+  // Open synchronously during the click so the browser can allow this tab.
+  const name = "clair-select-" + (globalThis.crypto?.randomUUID?.()
+    || Date.now().toString(36) + "-" + Math.random().toString(36).slice(2));
+  const nextWindow = window.open("", name);
+  if (!nextWindow) return false;
+  nextWindow.opener = null;
+  void issueClairSelectEntry().then(({ ticket, entryUrl }) => {
+    if (nextWindow.closed) return;
+    nextWindow.opener = null;
+    nextWindow.location.replace(entryUrl + "#ticket=" + encodeURIComponent(ticket));
+  }).catch((error) => {
+    try { nextWindow.close(); } catch {}
+    if (error?.code === "studio_session_required") {
+      showToast("工作台登录已过期，请重新进入 Clair Studio。", {
+        duration: 6000,
+        actionLabel: "重新进入工作台",
+        onAction: () => window.location.reload(),
+      });
+      return;
+    }
+    showToast(error?.message || "暂时未能打开招聘工作台，请稍后重试。", { duration: 5200 });
+  });
+  return true;
+}
+
 function openReportInBrowser(report) {
   const target = report.url || localHtmlUrl(report);
   if (!target) return false;
+  if (isClairSelectHostedApplication(report)) return openClairSelectFromStudio();
   let studioReport = false;
   try {
     const targetUrl = new URL(target, window.location.href);
