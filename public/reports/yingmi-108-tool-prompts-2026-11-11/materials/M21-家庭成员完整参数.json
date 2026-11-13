@@ -1,0 +1,36 @@
+{
+  "material_status": "模拟案例／教学测试；非真实客户或工具返回",
+  "description": "全部为虚构别名、生日、职业及城市；仅补齐工具结构，不对应任何真实个人。年龄以2026-11-10计算。",
+  "as_of": "2026-11-10",
+  "request": {
+    "familyMembers": [
+      {
+        "role": "本人",
+        "name": "模拟成员甲",
+        "gender": "男",
+        "birthDate": "1986-06-15",
+        "ageDescription": "40岁",
+        "occupation": "受薪雇员",
+        "residenceCity": "广州"
+      },
+      {
+        "role": "配偶",
+        "name": "模拟成员乙",
+        "gender": "女",
+        "birthDate": "1988-08-20",
+        "ageDescription": "38岁",
+        "occupation": "受薪雇员",
+        "residenceCity": "广州"
+      },
+      {
+        "role": "儿子",
+        "name": "模拟成员丙",
+        "gender": "男",
+        "birthDate": "2018-09-01",
+        "ageDescription": "8岁",
+        "occupation": "学生",
+        "residenceCity": "广州"
+      }
+    ]
+  }
+}

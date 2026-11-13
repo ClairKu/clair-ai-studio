@@ -10,7 +10,7 @@ const outputRoot = resolve(projectRoot, process.argv[2] || "docs");
 const gateAsset = join(outputRoot, "access-gate.js");
 const accessConfigAsset = join(outputRoot, "report-access.json");
 const marker = "data-clair-access-gate";
-const gateRevision = "2026-10-10-live-state-v9";
+const gateRevision = "2026-11-12-fast-login-v11";
 const encryptedGateRevision = "2026-10-14-fast-open-v10";
 
 if (!existsSync(gateAsset)) throw new Error(`Missing access gate asset: ${gateAsset}`);
@@ -259,7 +259,7 @@ for (const htmlPath of walkHtml(outputRoot)) {
   } else if (/<head\b[^>]*>/i.test(html)) {
     html = html.replace(/<head\b[^>]*>/i, (head) => `${head}\n    ${headInsert}`);
   } else {
-    html = `${gateScript}\n${html}`;
+    html = `${robotsMeta}\n${gateScript}\n${html}`;
   }
 
   writeFileSync(htmlPath, html);

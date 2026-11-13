@@ -1,7 +1,7 @@
 {
   "schema": "clair-report-assets/v1",
   "report": "knowledge-report-hub",
-  "generatedAt": "2026-11-05T01:46:38.848Z",
+  "generatedAt": "2026-11-13T00:16:34.982Z",
   "files": [
     {
       "path": "app.js",
@@ -10,8 +10,8 @@
     },
     {
       "path": "data/ai-industry-authority.json",
-      "bytes": 245328,
-      "sha256": "c70ac84bc8a49ec23f571a892d141da5c618c8f0900b980f3df912963fa21331"
+      "bytes": 297227,
+      "sha256": "f4387fb46ea57f6f9688b8047fdfbd9d0715bae2affc9b0cfd93f8d883fb04d1"
     },
     {
       "path": "data/ai-institutions.json",
@@ -20,8 +20,8 @@
     },
     {
       "path": "data/latest.json",
-      "bytes": 287929,
-      "sha256": "f9d6e990058aa4102e4cd3078005ed91116be28fe2766cdce0f8a9b3b1ade160"
+      "bytes": 347364,
+      "sha256": "2ef616b64ce880d479519e7433f8300bfe0fe9cf3fac4fa50ac28eea23d699fa"
     },
     {
       "path": "extractor.js",

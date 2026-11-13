@@ -1,0 +1,43 @@
+{
+  "material_status": "模拟案例／教学测试；非真实客户或工具返回",
+  "description": "F01全部金额为元；资产5300000、负债1200000、净资产4100000。totalAssets和totalLiabilities是嵌套对象而非总额数字；所有必填子项齐全，未发生项目显式0。",
+  "as_of": "2026-11-10",
+  "request": {
+    "totalAssets": {
+      "personalUseAssets": {
+        "parkingSpace": 0,
+        "vehicle": 0,
+        "residentialProperty": 3500000
+      },
+      "investmentAssets": {
+        "other": 0,
+        "investmentProperty": 0,
+        "pension": 300000,
+        "savingsInsurance": 0,
+        "stock": 0,
+        "fund": 1000000,
+        "fixedDeposit": 200000,
+        "bankFinance": 0
+      },
+      "liquidAssets": {
+        "cash": 300000
+      }
+    },
+    "totalLiabilities": {
+      "personalUseLiabilities": {
+        "parkingSpaceLoan": 0,
+        "carLoan": 0,
+        "residentialPropertyLoan": 1200000
+      },
+      "investmentLiabilities": {
+        "investmentLoans": 0,
+        "investmentMortgage": 0
+      },
+      "currentLiabilities": {
+        "other": 0,
+        "personalLoan": 0,
+        "creditCard": 0
+      }
+    }
+  }
+}

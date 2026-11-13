@@ -1,0 +1,10 @@
+﻿data_status,case_id,flow_type,item,frequency,amount_cny,is_guaranteed,included_in_monthly_regular_expense
+模拟案例／教学测试；非真实客户、非真实交易或历史业绩,F01,INCOME,成员甲税后工资,MONTHLY,28000,False,False
+模拟案例／教学测试；非真实客户、非真实交易或历史业绩,F01,INCOME,成员乙税后工资,MONTHLY,18000,False,False
+模拟案例／教学测试；非真实客户、非真实交易或历史业绩,F01,INCOME,家庭年度奖金,YEARLY,60000,False,False
+模拟案例／教学测试；非真实客户、非真实交易或历史业绩,F01,EXPENSE,生活开支,MONTHLY,9000,True,True
+模拟案例／教学测试；非真实客户、非真实交易或历史业绩,F01,EXPENSE,住房月供,MONTHLY,8500,True,True
+模拟案例／教学测试；非真实客户、非真实交易或历史业绩,F01,EXPENSE,孩子教育,MONTHLY,4000,True,True
+模拟案例／教学测试；非真实客户、非真实交易或历史业绩,F01,EXPENSE,赡养支出,MONTHLY,2000,True,True
+模拟案例／教学测试；非真实客户、非真实交易或历史业绩,F01,EXPENSE,商业保险预算,MONTHLY,1500,True,True
+模拟案例／教学测试；非真实客户、非真实交易或历史业绩,F01,EXPENSE,年度旅行,YEARLY,24000,False,False

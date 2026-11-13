@@ -5,6 +5,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { gunzipSync } from "node:zlib";
+import publicConfig from "../catalog/standalone-public-entries.json" with { type: "json" };
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const docsRoot = join(root, "docs");
@@ -13,6 +14,9 @@ const accessConfigPath = join(docsRoot, "report-access.json");
 const accessConfig = JSON.parse(readFileSync(accessConfigPath, "utf8"));
 const selfProtectedPaths = new Set((accessConfig.immutableLockedEntries || []).map(
   (entry) => join(docsRoot, entry, "index.html"),
+));
+const standalonePublicPaths = new Set((publicConfig.entries || []).map(
+  (entry) => join(docsRoot, entry),
 ));
 
 const walkHtml = (directory, results = []) => {
@@ -225,6 +229,12 @@ test("publishes policy-aware gate metadata on every HTML entry", () => {
       assert.doesNotMatch(html, /data-clair-access-gate/);
       assert.doesNotMatch(html, /<script\b[^>]*\bsrc\s*=/i);
       assert.doesNotMatch(html, /allow-same-origin/);
+      continue;
+    }
+    if (standalonePublicPaths.has(htmlPath)) {
+      assert.doesNotMatch(html, /data-clair-access-gate/);
+      assert.doesNotMatch(html, /<input\b[^>]*type=["']password["']/i);
+      assert.doesNotMatch(html, /data-clair-private-envelope|AES-GCM/);
       continue;
     }
     if (selfProtectedPaths.has(htmlPath)) {

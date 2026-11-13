@@ -254,7 +254,7 @@ const initialState = {
       tags: ["养老", "个人养老金", "Y份额", "A份额", "基金研究", "多选筛选", "TDF", "TRF", "风险等级", "最大回撤", "本次补充", "HTML", "生产"],
     },
     {
-      "id": "yingmi-108-tool-prompts-2026-11-11",
+      id: "yingmi-108-tool-prompts-2026-11-11",
       "groupId": "ai-platform",
       "title": "盈米108项能力 · 324问与演示素材库",
       "url": "https://clairku.github.io/clair-ai-studio/reports/yingmi-108-tool-prompts-2026-11-11/",
@@ -264,7 +264,7 @@ const initialState = {
       "createdAt": "2026-11-11T18:25:00+08:00",
       "source": "覆盖92个MCP、10个Skills与6个Agent，每项3问共324问。含完整提问、参数准备、模拟案例附件、前置授权、预期交付、验收要点、官网与豆包工作/WorkBuddy/千问办公案例及竞品参考。支持搜索复制、Excel清单和完整离线素材包。提问设计稿，未逐题执行金融分析。",
       "access": "production",
-      "workType": "interactive-tool",
+      workType: "product-demo",
       "tags": [
         "盈米AI",
         "108工具",
@@ -297,7 +297,7 @@ const initialState = {
       tags: ["且慢", "顾问工作台", "运营陪伴", "机会雷达", "合规初筛", "交互演示", "模拟数据"],
     },
     {
-      "id": "financial-advisor-100-questions-2026-11-11",
+      id: "financial-advisor-100-questions-2026-11-11",
       "groupId": "ai-platform",
       "title": "金融投顾场景100个经典提问｜现有能力与服务交付",
       "url": "https://clairku.github.io/clair-ai-studio/reports/financial-advisor-100-questions-2026-11-11/",
@@ -307,7 +307,7 @@ const initialState = {
       "createdAt": "2026-11-11T17:30:00+08:00",
       "source": "基于盈米与且慢现有公开能力及场景流程整理：10类场景各10问，12题优先演示。每题含需要准备的资料、对应能力与预期交付，支持搜索、分类、复制和CSV导出。全部为合成问题情境，不代表真实客户案例或逐题运行验收。涵盖家庭规划、教育养老、持仓穿透、基金及私募研究、策略比较、资产配置、定投、回撤、新高卖出、交易到账及顾问沟通。",
       "access": "production",
-      "workType": "interactive-tool",
+      workType: "product-demo",
       "tags": [
         "投顾场景",
         "经典100问",
@@ -4727,6 +4727,8 @@ const initialState = {
 const WORK_TYPE_BY_REPORT = {
   "holdings-report-advisor-training-2026-11-12": "reporting",
   "pension-y-a-fund-comparison-2026-11-12": "investment-research",
+  "yingmi-108-tool-prompts-2026-11-11": "product-demo",
+  "financial-advisor-100-questions-2026-11-11": "product-demo",
   "finance-101-20261109": "investment-research",
   "yingmi-doubao-six-scenarios-2026-11-05": "product-demo",
   "doubao-yingmi-holdings-communication-2026-11-05": "product-planning",
@@ -4873,6 +4875,11 @@ const WORK_TYPE_BY_REPORT = {
 const TOPIC_BY_REPORT = {
   "holdings-report-advisor-training-2026-11-12": "advisor-workbench",
   "pension-y-a-fund-comparison-2026-11-12": "pension-planning",
+  "yingmi-108-tool-prompts-2026-11-11": "ai-platform",
+  "financial-advisor-100-questions-2026-11-11": "ai-platform",
+  "advisor-console-demo-2026-11-11": "advisor-workbench",
+  "rebalance-threshold-replay-2026-11-11": "product-planning",
+  "rebalance-threshold-decision-2026-11-11": "product-planning",
   "pension-fixed-income-plus-copy-classification-2026-11-10": "pension-planning",
   "pension-y-catalog-qieman-2026-11-10": "pension-planning",
   "yingmi-ai-capability-catalog-2026-11-10": "ai-platform",

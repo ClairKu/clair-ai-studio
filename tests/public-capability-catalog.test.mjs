@@ -40,6 +40,8 @@ test("the standalone-public allowlist contains only explicitly public deliverabl
     publicPath,
     "reports/financial-advisor-100-questions-2026-11-11/index.html",
     "reports/advisor-console-demo-2026-11-11/index.html",
+    "reports/yingmi-108-tool-prompts-2026-11-11/index.html",
+    "reports/pension-y-a-fund-comparison-2026-11-12/index.html",
   ]);
 });
 

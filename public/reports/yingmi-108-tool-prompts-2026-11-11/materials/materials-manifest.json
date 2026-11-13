@@ -1,0 +1,1921 @@
+{
+  "title": "108工具提问设计·模拟案例素材库",
+  "version": "2026-11-11.2",
+  "as_of": "2026-11-10",
+  "status": "synthetic_test_materials",
+  "privacy": "不含真实个人、账户、内部经营数据或密钥",
+  "global_rules": [
+    "材料是输入样本，不是工具执行结果；不得用作真实客户结论或投资推荐。",
+    "CSV使用UTF-8 BOM；基金代码按字符串导入，权重采用0—1小数；调用工具时按实际Schema转换字段。",
+    "不要把M02模拟账户P01、M04模拟组合P01-BACKTEST或M05基准B01当作服务端有效poCode/ID。",
+    "日期为材料时点，不保证实时工具支持历史as-of；不能支持时需标明实际取数日期。",
+    "收益率、通胀和养老金只在对应规划案例中作为假设；不得宣称为真实产品业绩。",
+    "允许把同一案例的文字与CSV交叉引用，禁止把不同独立案例账目混为真实完整历史。"
+  ],
+  "materials": [
+    {
+      "id": "M01",
+      "title": "基金研究任务单",
+      "file": "M01-基金研究任务单.md",
+      "format": "Markdown",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "基金基本信息",
+        "基金研究",
+        "基金费率规则",
+        "业绩风险",
+        "持仓穿透"
+      ],
+      "fields": [
+        {
+          "name": "fund_codes",
+          "unit": "6位字符串",
+          "meaning": "510300、510500、159915、511010、518880",
+          "required": true
+        },
+        {
+          "name": "start_date",
+          "unit": "日期",
+          "meaning": "2023-11-10",
+          "required": true
+        },
+        {
+          "name": "end_date",
+          "unit": "日期",
+          "meaning": "2026-11-10",
+          "required": true
+        }
+      ],
+      "notes": "",
+      "sha256": "8216276b8f3396442556eb27b26086262ebf7d5c602a651edaf3324a5483e6e1"
+    },
+    {
+      "id": "M02",
+      "title": "当前持仓明细",
+      "file": "M02-当前持仓明细.csv",
+      "format": "CSV UTF-8 BOM",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "组合诊断",
+        "资产分布",
+        "行业穿透",
+        "持仓重叠",
+        "风险评分",
+        "相关性",
+        "再平衡"
+      ],
+      "fields": [
+        {
+          "name": "data_status",
+          "unit": "文本",
+          "required": true,
+          "meaning": "每行均为模拟数据，不得当作真实账户或业绩"
+        },
+        {
+          "name": "case_id",
+          "unit": "文本",
+          "meaning": "模拟账户P01，非平台组合代码",
+          "required": true
+        },
+        {
+          "name": "as_of_date",
+          "unit": "YYYY-MM-DD",
+          "meaning": "人工设定的持仓时点",
+          "required": true
+        },
+        {
+          "name": "product_type",
+          "unit": "枚举文本",
+          "meaning": "教学字段FUND；调用时以实际工具枚举为准",
+          "required": true
+        },
+        {
+          "name": "fund_code",
+          "unit": "6位字符串",
+          "meaning": "真实存在的基金代码",
+          "required": true
+        },
+        {
+          "name": "market_value_cny",
+          "unit": "元",
+          "meaning": "人工设定的持仓市值，非市场报价",
+          "required": true
+        },
+        {
+          "name": "weight",
+          "unit": "0至1",
+          "meaning": "市值占总市值；本表合计1",
+          "required": true
+        },
+        {
+          "name": "cost_basis_cny",
+          "unit": "元",
+          "meaning": "模拟未兑现持仓成本，只用于场景，不与M06混用",
+          "required": true
+        },
+        {
+          "name": "account_goal",
+          "unit": "文本",
+          "meaning": "资金用途",
+          "required": true
+        },
+        {
+          "name": "liquidity_constraint",
+          "unit": "文本",
+          "meaning": "已知约束；未知不等于无风险",
+          "required": true
+        }
+      ],
+      "notes": "总市值1,000,000元；成本996,000元；账户账面损益为4,000元，仅为输入算术。未提供份额，不可据此反推基金净值。权重是单基份额权重，工具穿透后才可确认实际资产占比。",
+      "sha256": "13b3a183c0c403b89eeb8a1ecedfa1b700c5aa72f93b2ee6bcceb55c76161141"
+    },
+    {
+      "id": "M03",
+      "title": "目标配置对照",
+      "file": "M03-目标配置对照.csv",
+      "format": "CSV UTF-8 BOM",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "组合对比",
+        "再平衡",
+        "配置偏离",
+        "模拟回测"
+      ],
+      "fields": [
+        {
+          "name": "data_status",
+          "unit": "文本",
+          "required": true,
+          "meaning": "每行均为模拟数据，不得当作真实账户或业绩"
+        },
+        {
+          "name": "case_id",
+          "unit": "文本",
+          "meaning": "与M02匹配",
+          "required": true
+        },
+        {
+          "name": "scenario",
+          "unit": "文本",
+          "meaning": "模拟方案标签；不代表建议",
+          "required": true
+        },
+        {
+          "name": "fund_code",
+          "unit": "6位字符串",
+          "meaning": "实际产品代码",
+          "required": true
+        },
+        {
+          "name": "target_weight",
+          "unit": "0至1",
+          "meaning": "教学设定目标；合计1",
+          "required": true
+        },
+        {
+          "name": "current_weight",
+          "unit": "0至1",
+          "meaning": "M02当前权重",
+          "required": true
+        },
+        {
+          "name": "target_value_cny",
+          "unit": "元",
+          "meaning": "目标权重×1,000,000",
+          "required": true
+        },
+        {
+          "name": "scenario_capital_cny",
+          "unit": "元",
+          "meaning": "假设账户总资金",
+          "required": true
+        }
+      ],
+      "notes": "目标权重仅供测试，不是对客户适当性的判断；未计税费、价差、停牌、限购等限制。实际建议先核验风险承受力。",
+      "sha256": "8f7cecd5b21a5364ecb8bf7ae80ef70e178f313fa0732338451f0385f64b5198"
+    },
+    {
+      "id": "M04",
+      "title": "组合历史调仓记录",
+      "file": "M04-组合历史调仓记录.csv",
+      "format": "CSV UTF-8 BOM",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "组合净值拟合",
+        "历史回测",
+        "收益风险",
+        "收益分布",
+        "Brinson归因"
+      ],
+      "fields": [
+        {
+          "name": "data_status",
+          "unit": "文本",
+          "required": true,
+          "meaning": "每行均为模拟数据，不得当作真实账户或业绩"
+        },
+        {
+          "name": "case_id",
+          "unit": "文本",
+          "meaning": "模拟调仓组合；非平台poCode",
+          "required": true
+        },
+        {
+          "name": "adjustment_date",
+          "unit": "YYYY-MM-DD",
+          "meaning": "调仓日期；第一期作为初始配置",
+          "required": true
+        },
+        {
+          "name": "fund_code",
+          "unit": "6位字符串",
+          "meaning": "标的代码",
+          "required": true
+        },
+        {
+          "name": "post_adjustment_weight",
+          "unit": "0至1",
+          "meaning": "每次调仓后的完整权重，每日合计1",
+          "required": true
+        },
+        {
+          "name": "rebalance_mode",
+          "unit": "文本",
+          "meaning": "并非增减仓指令",
+          "required": true
+        },
+        {
+          "name": "fee_assumption",
+          "unit": "文本",
+          "meaning": "费用未指定，调用时需明确工具默认口径",
+          "required": true
+        }
+      ],
+      "notes": "仅模拟规则，未实际执行；查询窗口2024-01-02至2026-11-10。M02为独立时点样本，不声称其由本表交易轨迹自然形成。",
+      "sha256": "255d591bdfc33ea7a463dace6ca6af5860aa86a1dfe6fb1d63dc52244aa4efd8"
+    },
+    {
+      "id": "M05",
+      "title": "组合业绩基准权重",
+      "file": "M05-组合业绩基准权重.csv",
+      "format": "CSV UTF-8 BOM",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "基准净值",
+        "基准收益风险",
+        "组合对比",
+        "收益归因"
+      ],
+      "fields": [
+        {
+          "name": "data_status",
+          "unit": "文本",
+          "required": true,
+          "meaning": "每行均为模拟数据，不得当作真实账户或业绩"
+        },
+        {
+          "name": "benchmark_id",
+          "unit": "文本",
+          "meaning": "自定义基准标签，非服务端标识",
+          "required": true
+        },
+        {
+          "name": "index_query",
+          "unit": "中文名称",
+          "meaning": "必须先搜索匹配工具真实指数代码，不得猜编码",
+          "required": true
+        },
+        {
+          "name": "weight",
+          "unit": "0至1",
+          "meaning": "合计1",
+          "required": true
+        },
+        {
+          "name": "weight_unit",
+          "unit": "文本",
+          "meaning": "明确使用小数权重",
+          "required": true
+        },
+        {
+          "name": "start_date",
+          "unit": "YYYY-MM-DD",
+          "meaning": "分析起始日",
+          "required": true
+        },
+        {
+          "name": "end_date",
+          "unit": "YYYY-MM-DD",
+          "meaning": "分析截止日",
+          "required": true
+        }
+      ],
+      "notes": "基准组合为演示设定；服务端若要求指数代码，应先通过指标搜索得到返回标识。全价与财富/全收益口径不能混淆。",
+      "sha256": "7f946ce67d374895bff2a2362256ad83ccfea094321f2c02aea2b5bbba7d6282"
+    },
+    {
+      "id": "M06",
+      "title": "单基金模拟交易流水",
+      "file": "M06-单基金模拟交易流水.csv",
+      "format": "CSV UTF-8 BOM",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "持有成本单价",
+        "净投入",
+        "交易流水核算",
+        "现金分红处理"
+      ],
+      "fields": [
+        {
+          "name": "data_status",
+          "unit": "文本",
+          "required": true,
+          "meaning": "每行均为模拟数据，不得当作真实账户或业绩"
+        },
+        {
+          "name": "case_id",
+          "unit": "文本",
+          "meaning": "独立于P01的单基金算术案例",
+          "required": true
+        },
+        {
+          "name": "trade_date",
+          "unit": "YYYY-MM-DD",
+          "meaning": "模拟交易日",
+          "required": true
+        },
+        {
+          "name": "fund_code",
+          "unit": "6位字符串",
+          "meaning": "标的代码只作识别",
+          "required": true
+        },
+        {
+          "name": "transaction_type",
+          "unit": "BUY/SELL/CASH_DIVIDEND",
+          "meaning": "教学标准；调用时转换实际工具枚举",
+          "required": true
+        },
+        {
+          "name": "confirmed_amount_cny",
+          "unit": "元",
+          "meaning": "买入支出或卖出到账正数，方向由类型确定",
+          "required": true
+        },
+        {
+          "name": "confirmed_shares",
+          "unit": "份",
+          "meaning": "买入/卖出份额正数，现金分红为0",
+          "required": true
+        },
+        {
+          "name": "fee_cny",
+          "unit": "元",
+          "meaning": "本样本明确设定为0，只为算术可核验",
+          "required": true
+        },
+        {
+          "name": "cash_dividend_cny",
+          "unit": "元",
+          "meaning": "现金分红收入",
+          "required": true
+        },
+        {
+          "name": "transaction_note",
+          "unit": "文本",
+          "meaning": "模拟性质与用途",
+          "required": true
+        }
+      ],
+      "notes": "适用“摊薄成本单价”：(40000+21000−11500−300)/(10000+5000−2500)=3.936元/份。不是基金净值、投资收益率或服务端验收结果。不得据此宣称基金曾于给定日期分红。",
+      "sha256": "25b8756ec251d610fd8b963409e43b209c79149cda575262f34ab6327ae33a44"
+    },
+    {
+      "id": "M07",
+      "title": "家庭访谈完整案例",
+      "file": "M07-家庭访谈完整案例.md",
+      "format": "Markdown",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "客户洞察",
+        "家庭财务体检",
+        "财富规划",
+        "资产配置",
+        "目标匹配"
+      ],
+      "fields": [
+        {
+          "name": "household_id",
+          "unit": "文本",
+          "meaning": "F01",
+          "required": true
+        },
+        {
+          "name": "ages",
+          "unit": "岁",
+          "meaning": "40/38/8",
+          "required": true
+        },
+        {
+          "name": "monthly_income",
+          "unit": "元/月",
+          "meaning": "46000税后",
+          "required": true
+        },
+        {
+          "name": "monthly_expense",
+          "unit": "元/月",
+          "meaning": "25000含月供",
+          "required": true
+        },
+        {
+          "name": "bonus",
+          "unit": "元/年",
+          "meaning": "60000，不保证",
+          "required": true
+        },
+        {
+          "name": "risk_statement",
+          "unit": "文本",
+          "meaning": "自述15%回撤焦虑，未正式测评",
+          "required": true
+        }
+      ],
+      "notes": "",
+      "sha256": "f05bb67af91c9d3dcf220a82b0614ddb2096a1d7febc30d9d295a1ad08f5e693"
+    },
+    {
+      "id": "M08",
+      "title": "家庭资产负债表",
+      "file": "M08-家庭资产负债表.csv",
+      "format": "CSV UTF-8 BOM",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "资产负债",
+        "家庭体检",
+        "流动性",
+        "投资资金识别"
+      ],
+      "fields": [
+        {
+          "name": "data_status",
+          "unit": "文本",
+          "required": true,
+          "meaning": "每行均为模拟数据，不得当作真实账户或业绩"
+        },
+        {
+          "name": "case_id",
+          "unit": "文本",
+          "meaning": "F01",
+          "required": true
+        },
+        {
+          "name": "as_of_date",
+          "unit": "YYYY-MM-DD",
+          "meaning": "同一时点",
+          "required": true
+        },
+        {
+          "name": "item_type",
+          "unit": "ASSET/LIABILITY",
+          "meaning": "金额正数，按类型确定方向",
+          "required": true
+        },
+        {
+          "name": "item_name",
+          "unit": "文本",
+          "meaning": "资产或负债名称",
+          "required": true
+        },
+        {
+          "name": "amount_cny",
+          "unit": "元",
+          "meaning": "人工估值/余额",
+          "required": true
+        },
+        {
+          "name": "liquidity",
+          "unit": "文本",
+          "meaning": "流动性与缺失项",
+          "required": true
+        },
+        {
+          "name": "goal_tag",
+          "unit": "文本",
+          "meaning": "资金用途",
+          "required": true
+        },
+        {
+          "name": "include_in_investable_assets",
+          "unit": "布尔",
+          "meaning": "本案例可立即投入长期组合的范围",
+          "required": true
+        }
+      ],
+      "notes": "资产530万元、负债120万元、净资产410万元；可立即配置的长期普通投资账户仅100万元。无重复计入自住房价值与房贷净额。",
+      "sha256": "7bba4e689dd4ca9b1eede809511611c339db349f97cb20b45e29c65280796eb7"
+    },
+    {
+      "id": "M09",
+      "title": "家庭月度与年度现金流",
+      "file": "M09-家庭月度与年度现金流.csv",
+      "format": "CSV UTF-8 BOM",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "收入支出",
+        "家庭现金流",
+        "现金流模拟",
+        "目标储蓄能力"
+      ],
+      "fields": [
+        {
+          "name": "data_status",
+          "unit": "文本",
+          "required": true,
+          "meaning": "每行均为模拟数据，不得当作真实账户或业绩"
+        },
+        {
+          "name": "case_id",
+          "unit": "文本",
+          "meaning": "F01",
+          "required": true
+        },
+        {
+          "name": "flow_type",
+          "unit": "INCOME/EXPENSE",
+          "meaning": "金额正数",
+          "required": true
+        },
+        {
+          "name": "item",
+          "unit": "文本",
+          "meaning": "收支项目",
+          "required": true
+        },
+        {
+          "name": "frequency",
+          "unit": "MONTHLY/YEARLY",
+          "meaning": "禁止把月额与年额直接相加",
+          "required": true
+        },
+        {
+          "name": "amount_cny",
+          "unit": "元/对应频率",
+          "meaning": "固定为本案例假设",
+          "required": true
+        },
+        {
+          "name": "is_guaranteed",
+          "unit": "布尔",
+          "meaning": "模拟计划中的刚性/非刚性，不是法律保证",
+          "required": true
+        },
+        {
+          "name": "included_in_monthly_regular_expense",
+          "unit": "布尔",
+          "meaning": "是否计入25000元常规月支出",
+          "required": true
+        }
+      ],
+      "notes": "常规月收入46,000元、常规月支出25,000元、常规结余21,000元；含奖金及年度旅行的年度收入612,000元、支出324,000元、结余288,000元。房贷月供已在支出内，不再从结余二次扣减。",
+      "sha256": "2ac8a656f5c2bcbb584d66896120fa76e4dc1a77301a40210523e6bd3cf10798"
+    },
+    {
+      "id": "M10",
+      "title": "家庭目标与约束清单",
+      "file": "M10-家庭目标与约束清单.csv",
+      "format": "CSV UTF-8 BOM",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "目标测算",
+        "目标匹配",
+        "多目标冲突",
+        "家庭规划"
+      ],
+      "fields": [
+        {
+          "name": "data_status",
+          "unit": "文本",
+          "required": true,
+          "meaning": "每行均为模拟数据，不得当作真实账户或业绩"
+        },
+        {
+          "name": "case_id",
+          "unit": "文本",
+          "meaning": "F01",
+          "required": true
+        },
+        {
+          "name": "goal_id",
+          "unit": "文本",
+          "meaning": "目标标签",
+          "required": true
+        },
+        {
+          "name": "goal_name",
+          "unit": "文本",
+          "meaning": "目标名称",
+          "required": true
+        },
+        {
+          "name": "priority",
+          "unit": "整数",
+          "meaning": "1最高",
+          "required": true
+        },
+        {
+          "name": "years_to_start",
+          "unit": "年",
+          "meaning": "从2026-11-10相对计时",
+          "required": true
+        },
+        {
+          "name": "duration_years",
+          "unit": "年",
+          "meaning": "取用期或持续时间",
+          "required": true
+        },
+        {
+          "name": "amount_today_cny",
+          "unit": "元",
+          "meaning": "按amount_basis解释",
+          "required": true
+        },
+        {
+          "name": "amount_basis",
+          "unit": "文本",
+          "meaning": "当前购买力/名义值/年度",
+          "required": true
+        },
+        {
+          "name": "inflation_assumption",
+          "unit": "0至1/年",
+          "meaning": "情景假设而非预测",
+          "required": true
+        },
+        {
+          "name": "dedicated_starting_capital_cny",
+          "unit": "元",
+          "meaning": "已专用资金，不能再为其他目标重复使用",
+          "required": true
+        },
+        {
+          "name": "monthly_contribution_cap_cny",
+          "unit": "元/月",
+          "meaning": "拟投入上限，不代表可保证投入",
+          "required": true
+        },
+        {
+          "name": "can_defer",
+          "unit": "布尔",
+          "meaning": "是否可推迟",
+          "required": true
+        }
+      ],
+      "notes": "G02月投6000+G03月投10000=16000元，低于常规月结余21000元；没有同时重复分配应急金、定期和养老金。退休养老金收入另见M11，不在本表误当目标资产。",
+      "sha256": "3a720a7c84f7eecd9267b6ccb0a2a6886e6dcf51469b05599747e5eeef5c3be7"
+    },
+    {
+      "id": "M11",
+      "title": "退休规划测算输入",
+      "file": "M11-退休规划测算输入.md",
+      "format": "Markdown",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "退休规划",
+        "现金流测算",
+        "目标达成",
+        "敏感性分析"
+      ],
+      "fields": [
+        {
+          "name": "current_age",
+          "unit": "岁",
+          "meaning": "甲40；乙38",
+          "required": true
+        },
+        {
+          "name": "years_to_retirement",
+          "unit": "年",
+          "meaning": "20",
+          "required": true
+        },
+        {
+          "name": "retirement_years",
+          "unit": "年",
+          "meaning": "30",
+          "required": true
+        },
+        {
+          "name": "annual_expense_today",
+          "unit": "元/年",
+          "meaning": "180000",
+          "required": true
+        },
+        {
+          "name": "annual_pension_today",
+          "unit": "元/年",
+          "meaning": "96000，待核验假设",
+          "required": true
+        },
+        {
+          "name": "initial_capital",
+          "unit": "元",
+          "meaning": "300000",
+          "required": true
+        },
+        {
+          "name": "monthly_saving",
+          "unit": "元/月",
+          "meaning": "10000",
+          "required": true
+        },
+        {
+          "name": "inflation",
+          "unit": "0至1/年",
+          "meaning": "0.025",
+          "required": true
+        }
+      ],
+      "notes": "",
+      "sha256": "6987785504a9105761f35c3992e9aca0f916bdf03d20d492a36600c0529e09bc"
+    },
+    {
+      "id": "M12",
+      "title": "教育金生命周期输入",
+      "file": "M12-教育金生命周期输入.md",
+      "format": "Markdown",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "教育金",
+        "储蓄目标",
+        "生命周期现金流",
+        "敏感性分析"
+      ],
+      "fields": [
+        {
+          "name": "child_age",
+          "unit": "岁",
+          "meaning": "8",
+          "required": true
+        },
+        {
+          "name": "education_start_age",
+          "unit": "岁",
+          "meaning": "18",
+          "required": true
+        },
+        {
+          "name": "withdrawal_years",
+          "unit": "年",
+          "meaning": "4",
+          "required": true
+        },
+        {
+          "name": "annual_cost_today",
+          "unit": "元/年",
+          "meaning": "80000",
+          "required": true
+        },
+        {
+          "name": "cost_inflation",
+          "unit": "0至1/年",
+          "meaning": "0.03",
+          "required": true
+        },
+        {
+          "name": "initial_capital",
+          "unit": "元",
+          "meaning": "0",
+          "required": true
+        },
+        {
+          "name": "monthly_contribution",
+          "unit": "元/月",
+          "meaning": "6000",
+          "required": true
+        }
+      ],
+      "notes": "",
+      "sha256": "5d66e7cd8d7a6d3cb4cdd8f53d886c524b5559ea8ecd7ec01046868d2f344a9a"
+    },
+    {
+      "id": "M13",
+      "title": "金融营销合规待审稿",
+      "file": "M13-金融营销合规待审稿.md",
+      "format": "Markdown",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "内容合规",
+        "极限词审核",
+        "贬损比较审核",
+        "宣传改写"
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "unit": "原文",
+          "meaning": "模拟待审稿",
+          "required": true
+        },
+        {
+          "name": "channel",
+          "unit": "文本",
+          "meaning": "公众号/朋友圈/口播",
+          "required": true
+        },
+        {
+          "name": "audience",
+          "unit": "文本",
+          "meaning": "普通成年投资者，未测评",
+          "required": true
+        },
+        {
+          "name": "evidence",
+          "unit": "文件清单",
+          "meaning": "未提供相关凭证，应识别为缺口",
+          "required": true
+        }
+      ],
+      "notes": "这是测试用的含问题文本，必须保留明显模拟标签。合规结论须按工具真实可用规则与当前法规核验，不把AI检查当最终签发。",
+      "sha256": "bfe43b3c84152503f0714643c730cc305028125475298618dad05ca1251814a1"
+    },
+    {
+      "id": "M14",
+      "title": "投教内容创作简报",
+      "file": "M14-投教内容创作简报.md",
+      "format": "Markdown",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "投教内容",
+        "顾问话术",
+        "内容策划",
+        "去AI表达",
+        "图文素材"
+      ],
+      "fields": [
+        {
+          "name": "topic",
+          "unit": "文本",
+          "meaning": "净值与个人收益口径",
+          "required": true
+        },
+        {
+          "name": "audience",
+          "unit": "文本",
+          "meaning": "长期投资入门者",
+          "required": true
+        },
+        {
+          "name": "channels",
+          "unit": "文本列表",
+          "meaning": "公众号/私聊/60秒短视频",
+          "required": true
+        },
+        {
+          "name": "length_limits",
+          "unit": "字数",
+          "meaning": "1000/150/300上限",
+          "required": true
+        },
+        {
+          "name": "source_material",
+          "unit": "文件引用",
+          "meaning": "M06模拟流水",
+          "required": true
+        }
+      ],
+      "notes": "",
+      "sha256": "a394c0071fe7cceeaa0c422ca90d060bf55cf88a030e8dd80a92de210b74f1cc"
+    },
+    {
+      "id": "M15",
+      "title": "市场事件与投研检索简报",
+      "file": "M15-市场事件与投研检索简报.md",
+      "format": "Markdown",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "市场资讯",
+        "财经日历",
+        "热点事件",
+        "研报检索",
+        "投资影响解读"
+      ],
+      "fields": [
+        {
+          "name": "cutoff_date",
+          "unit": "日期",
+          "meaning": "2026-11-10",
+          "required": true
+        },
+        {
+          "name": "start_date",
+          "unit": "日期",
+          "meaning": "2026-11-04",
+          "required": true
+        },
+        {
+          "name": "keywords",
+          "unit": "字符串列表",
+          "meaning": "货币政策/利率/财政/黄金",
+          "required": true
+        },
+        {
+          "name": "markets",
+          "unit": "文本",
+          "meaning": "A股/人民币债券/黄金",
+          "required": true
+        },
+        {
+          "name": "source_preference",
+          "unit": "文本",
+          "meaning": "一手官方来源优先",
+          "required": true
+        }
+      ],
+      "notes": "",
+      "sha256": "965fa2ac3150a8fd4607e53e11ef07bb18090444fce0ab6ef99a9c6ed24b4218"
+    },
+    {
+      "id": "M16",
+      "title": "六大类资产权重",
+      "file": "M16-六大类资产权重.json",
+      "format": "json",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "蒙特卡洛",
+        "六大类配置"
+      ],
+      "fields": [
+        {
+          "name": "weights",
+          "unit": "元",
+          "required": true,
+          "meaning": "资产权重对象，包含六大类资产权重配置"
+        },
+        {
+          "name": "weights.cash",
+          "unit": "元",
+          "required": true,
+          "meaning": "货币现金资产的权重，比例值(0-1)"
+        },
+        {
+          "name": "weights.fixedIncome",
+          "unit": "元",
+          "required": true,
+          "meaning": "固定收益类资产的权重，比例值(0-1)"
+        },
+        {
+          "name": "weights.equity",
+          "unit": "元",
+          "required": true,
+          "meaning": "股票权益类资产的权重，比例值(0-1)"
+        },
+        {
+          "name": "weights.commodity",
+          "unit": "元",
+          "required": true,
+          "meaning": "大宗商品类资产的权重，比例值(0-1)"
+        },
+        {
+          "name": "weights.overseasEquity",
+          "unit": "元",
+          "required": true,
+          "meaning": "海外权益类资产的权重，比例值(0-1)"
+        },
+        {
+          "name": "weights.overseasFixedIncome",
+          "unit": "元",
+          "required": true,
+          "meaning": "海外固定收益类资产的权重，比例值(0-1)"
+        },
+        {
+          "name": "frequency",
+          "unit": "按官网字段定义",
+          "required": false,
+          "meaning": "模拟周期频率，可选值: YEAR(年度)、MONTH(月度)、WEEK(周度)、DAY(日度)"
+        },
+        {
+          "name": "periodCount",
+          "unit": "按官网字段定义",
+          "required": false,
+          "meaning": "周期长度（年），最小值: 1"
+        },
+        {
+          "name": "simulationCount",
+          "unit": "按官网字段定义",
+          "required": false,
+          "meaning": "模拟次数，最小值: 1000"
+        }
+      ],
+      "notes": "JSON的request才是API参数，外层为模拟标签。",
+      "sha256": "d9f372f7c94600e848e6c866c54e335947c68a43e09f4c0fde9ad4fa6cffa06f"
+    },
+    {
+      "id": "M17",
+      "title": "家庭完整年收支参数",
+      "file": "M17-家庭完整年收支参数.json",
+      "format": "json",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "收入支出分析"
+      ],
+      "fields": [
+        {
+          "name": "annualIncome",
+          "unit": "元",
+          "required": true,
+          "meaning": "年收入"
+        },
+        {
+          "name": "annualIncome.otherIncome",
+          "unit": "元",
+          "required": true,
+          "meaning": "其他收入"
+        },
+        {
+          "name": "annualIncome.businessIncome",
+          "unit": "元",
+          "required": true,
+          "meaning": "经营收入"
+        },
+        {
+          "name": "annualIncome.investmentIncome",
+          "unit": "元",
+          "required": true,
+          "meaning": "投资收入"
+        },
+        {
+          "name": "annualIncome.housingFundWithdrawal",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "公积金提取"
+        },
+        {
+          "name": "annualIncome.rentalIncome",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "收租"
+        },
+        {
+          "name": "annualIncome.bonus",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "奖金"
+        },
+        {
+          "name": "annualIncome.salary",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "工资"
+        },
+        {
+          "name": "annualExpense",
+          "unit": "元",
+          "required": true,
+          "meaning": "年支出"
+        },
+        {
+          "name": "annualExpense.otherExpenses",
+          "unit": "元",
+          "required": true,
+          "meaning": "其他支出"
+        },
+        {
+          "name": "annualExpense.travelExpenses",
+          "unit": "元",
+          "required": true,
+          "meaning": "旅行支出"
+        },
+        {
+          "name": "annualExpense.medicalExpenses",
+          "unit": "元",
+          "required": true,
+          "meaning": "医疗支出"
+        },
+        {
+          "name": "annualExpense.educationExpenses",
+          "unit": "元",
+          "required": true,
+          "meaning": "教育支出"
+        },
+        {
+          "name": "annualExpense.insurancePremium",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "保障型保费"
+        },
+        {
+          "name": "annualExpense.parkingLoanPayment",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "车位贷"
+        },
+        {
+          "name": "annualExpense.carLoanPayment",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "车贷"
+        },
+        {
+          "name": "annualExpense.mortgagePayment",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "房贷"
+        },
+        {
+          "name": "annualExpense.transportation",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "交通通勤"
+        },
+        {
+          "name": "annualExpense.utilityBills",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "生活缴费"
+        },
+        {
+          "name": "annualExpense.dailyExpenses",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "日常花销"
+        }
+      ],
+      "notes": "",
+      "sha256": "1bb2a499b1f2c86e8315a5d87cce4a3a32a8a7680120f4db109251041fa99570"
+    },
+    {
+      "id": "M18",
+      "title": "家庭完整资产负债参数",
+      "file": "M18-家庭完整资产负债参数.json",
+      "format": "json",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "资产负债分析"
+      ],
+      "fields": [
+        {
+          "name": "totalAssets",
+          "unit": "元",
+          "required": true,
+          "meaning": "总资产"
+        },
+        {
+          "name": "totalAssets.personalUseAssets",
+          "unit": "元",
+          "required": true,
+          "meaning": "自用性资产"
+        },
+        {
+          "name": "totalAssets.personalUseAssets.parkingSpace",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "车位"
+        },
+        {
+          "name": "totalAssets.personalUseAssets.vehicle",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "汽车"
+        },
+        {
+          "name": "totalAssets.personalUseAssets.residentialProperty",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "房屋（自用）"
+        },
+        {
+          "name": "totalAssets.investmentAssets",
+          "unit": "元",
+          "required": true,
+          "meaning": "投资性资产"
+        },
+        {
+          "name": "totalAssets.investmentAssets.other",
+          "unit": "元",
+          "required": true,
+          "meaning": "其他（股权、海外资产、贵金属、收藏品等）"
+        },
+        {
+          "name": "totalAssets.investmentAssets.investmentProperty",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "房屋（投资）"
+        },
+        {
+          "name": "totalAssets.investmentAssets.pension",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "个人养老金"
+        },
+        {
+          "name": "totalAssets.investmentAssets.savingsInsurance",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "储蓄型保险"
+        },
+        {
+          "name": "totalAssets.investmentAssets.stock",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "股票"
+        },
+        {
+          "name": "totalAssets.investmentAssets.fund",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "基金/策略"
+        },
+        {
+          "name": "totalAssets.investmentAssets.fixedDeposit",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "定期存款/大额存单"
+        },
+        {
+          "name": "totalAssets.investmentAssets.bankFinance",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "银行理财/债券"
+        },
+        {
+          "name": "totalAssets.liquidAssets",
+          "unit": "元",
+          "required": true,
+          "meaning": "流动性资产"
+        },
+        {
+          "name": "totalAssets.liquidAssets.cash",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "流动资金（现金、活期存款、盈米宝等）"
+        },
+        {
+          "name": "totalLiabilities",
+          "unit": "元",
+          "required": true,
+          "meaning": "总负债"
+        },
+        {
+          "name": "totalLiabilities.personalUseLiabilities",
+          "unit": "元",
+          "required": true,
+          "meaning": "自用性负债"
+        },
+        {
+          "name": "totalLiabilities.personalUseLiabilities.parkingSpaceLoan",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "车位贷"
+        },
+        {
+          "name": "totalLiabilities.personalUseLiabilities.carLoan",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "车贷"
+        },
+        {
+          "name": "totalLiabilities.personalUseLiabilities.residentialPropertyLoan",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "房屋（自用）贷款"
+        },
+        {
+          "name": "totalLiabilities.investmentLiabilities",
+          "unit": "元",
+          "required": true,
+          "meaning": "投资性负债"
+        },
+        {
+          "name": "totalLiabilities.investmentLiabilities.investmentLoans",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "投资性贷款"
+        },
+        {
+          "name": "totalLiabilities.investmentLiabilities.investmentMortgage",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "房屋（投资）贷款"
+        },
+        {
+          "name": "totalLiabilities.currentLiabilities",
+          "unit": "元",
+          "required": true,
+          "meaning": "流动性负债"
+        },
+        {
+          "name": "totalLiabilities.currentLiabilities.other",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "其他"
+        },
+        {
+          "name": "totalLiabilities.currentLiabilities.personalLoan",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "个人借贷（花呗、白条、网贷、个人借款等）"
+        },
+        {
+          "name": "totalLiabilities.currentLiabilities.creditCard",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "信用卡"
+        }
+      ],
+      "notes": "",
+      "sha256": "9a14bd323d30359fce454a87f0e95842e0a4042cb11d1db53611a200946dbdaf"
+    },
+    {
+      "id": "M19",
+      "title": "家庭十项财务指标参数",
+      "file": "M19-家庭十项财务指标参数.json",
+      "format": "json",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "财务状况分析"
+      ],
+      "fields": [
+        {
+          "name": "totalAssets",
+          "unit": "元",
+          "required": true,
+          "meaning": "总资产"
+        },
+        {
+          "name": "totalLiabilities",
+          "unit": "元",
+          "required": true,
+          "meaning": "总负债"
+        },
+        {
+          "name": "liquidAssets",
+          "unit": "元",
+          "required": true,
+          "meaning": "流动性资产"
+        },
+        {
+          "name": "currentLiabilities",
+          "unit": "元",
+          "required": true,
+          "meaning": "流动性负债"
+        },
+        {
+          "name": "investmentAssets",
+          "unit": "元",
+          "required": true,
+          "meaning": "投资性资产"
+        },
+        {
+          "name": "investmentLiabilities",
+          "unit": "元",
+          "required": true,
+          "meaning": "投资性负债"
+        },
+        {
+          "name": "annualIncome",
+          "unit": "元",
+          "required": true,
+          "meaning": "年收入"
+        },
+        {
+          "name": "annualExpense",
+          "unit": "元",
+          "required": true,
+          "meaning": "年支出"
+        },
+        {
+          "name": "annualInvestmentIncome",
+          "unit": "元",
+          "required": true,
+          "meaning": "年投资收入"
+        },
+        {
+          "name": "monthlyEssentialExpense",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "月必要性现金流出（由其他接口直接提供）"
+        }
+      ],
+      "notes": "monthlyEssentialExpense19000元按官网必需开支公式准备；与25000元月常规全部支出分开，真实调用后复核。",
+      "sha256": "d2cc1ca5c62d48d4716369007fee49c8fc05b41956be45f36cecf1d1739bd479"
+    },
+    {
+      "id": "M20",
+      "title": "七模块家庭现金流参数",
+      "file": "M20-七模块家庭现金流参数.json",
+      "format": "json",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "现金流分析"
+      ],
+      "fields": [
+        {
+          "name": "currentInvestableAssets",
+          "unit": "元",
+          "required": true,
+          "meaning": "当前可投资产"
+        },
+        {
+          "name": "returnRateConfig",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "报酬率配置"
+        },
+        {
+          "name": "returnRateConfig[].startAge",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "本人起始年龄"
+        },
+        {
+          "name": "returnRateConfig[].endAge",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "本人结束年龄"
+        },
+        {
+          "name": "returnRateConfig[].rate",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "报酬率（小数形式，如0.04表示4%）"
+        },
+        {
+          "name": "familyMembers",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "家庭成员信息"
+        },
+        {
+          "name": "familyMembers[].role",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "角色 (可选值: '本人', '配偶', '儿子', '女儿', '父亲', '母亲', '岳父', '公公', '岳母', '婆婆', '亲属')"
+        },
+        {
+          "name": "familyMembers[].name",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "成员名称"
+        },
+        {
+          "name": "familyMembers[].initialAge",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "初始年龄"
+        },
+        {
+          "name": "continuousIncome",
+          "unit": "元",
+          "required": true,
+          "meaning": "家庭持续性收入"
+        },
+        {
+          "name": "continuousIncome[].startAge",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "起始年龄（本人）"
+        },
+        {
+          "name": "continuousIncome[].endAge",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "终止年龄（本人）"
+        },
+        {
+          "name": "continuousIncome[].incomeType",
+          "unit": "元",
+          "required": true,
+          "meaning": "收入类型 (可选值: 'salary', 'bonus', 'rentalIncome', 'housingFundWithdrawal', 'investmentIncome', 'businessIncome', 'otherIncome')"
+        },
+        {
+          "name": "continuousIncome[].growthRate",
+          "unit": "元",
+          "required": false,
+          "meaning": "收入增长率，默认为0"
+        },
+        {
+          "name": "continuousIncome[].amount",
+          "unit": "元",
+          "required": true,
+          "meaning": "收入金额"
+        },
+        {
+          "name": "continuousExpenses",
+          "unit": "元",
+          "required": true,
+          "meaning": "家庭持续性支出"
+        },
+        {
+          "name": "continuousExpenses[].startAge",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "起始年龄（本人）"
+        },
+        {
+          "name": "continuousExpenses[].endAge",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "终止年龄（本人）"
+        },
+        {
+          "name": "continuousExpenses[].expenseType",
+          "unit": "元",
+          "required": true,
+          "meaning": "支出类型 (可选值: 'dailyExpenses', 'utilityBills', 'transportation', 'mortgagePayment', 'carLoanPayment', 'parkingLoanPayment', 'insurancePremium', 'educationExpenses', 'medicalExpenses', 'travelExpenses', 'otherExpenses')"
+        },
+        {
+          "name": "continuousExpenses[].inflationRate",
+          "unit": "元",
+          "required": false,
+          "meaning": "支出通胀率，有默认值"
+        },
+        {
+          "name": "continuousExpenses[].amount",
+          "unit": "元",
+          "required": true,
+          "meaning": "金额"
+        },
+        {
+          "name": "oneTimeIncome",
+          "unit": "元",
+          "required": true,
+          "meaning": "家庭一次性收入"
+        },
+        {
+          "name": "oneTimeIncome[].startAge",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "起始年龄（本人）"
+        },
+        {
+          "name": "oneTimeIncome[].endAge",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "终止年龄（本人）"
+        },
+        {
+          "name": "oneTimeIncome[].incomeType",
+          "unit": "元",
+          "required": true,
+          "meaning": "收入类型 (可选值: 'salary', 'bonus', 'rentalIncome', 'housingFundWithdrawal', 'investmentIncome', 'businessIncome', 'otherIncome')"
+        },
+        {
+          "name": "oneTimeIncome[].amount",
+          "unit": "元",
+          "required": true,
+          "meaning": "金额"
+        },
+        {
+          "name": "oneTimeExpenses",
+          "unit": "元",
+          "required": true,
+          "meaning": "家庭一次性支出"
+        },
+        {
+          "name": "oneTimeExpenses[].startAge",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "起始年龄（本人）"
+        },
+        {
+          "name": "oneTimeExpenses[].endAge",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "终止年龄（本人）"
+        },
+        {
+          "name": "oneTimeExpenses[].expenseType",
+          "unit": "元",
+          "required": true,
+          "meaning": "支出类型 (可选值: 'dailyExpenses', 'utilityBills', 'transportation', 'mortgagePayment', 'carLoanPayment', 'parkingLoanPayment', 'insurancePremium', 'educationExpenses', 'medicalExpenses', 'travelExpenses', 'otherExpenses')"
+        },
+        {
+          "name": "oneTimeExpenses[].amount",
+          "unit": "元",
+          "required": true,
+          "meaning": "金额"
+        }
+      ],
+      "notes": "金额字段频率与年龄端点需连接确认。退休dailyExpenses180000另加保险/赡养/旅行，是独立CF01假设，不能当M11的退休总开支。四笔大学支出为届时名义金额，不再额外叠加通胀。",
+      "sha256": "527f06edbdb4c0809c72d43d8262ebc8c915f024d6bcfd78aa4a9352d13b89d4"
+    },
+    {
+      "id": "M21",
+      "title": "家庭成员完整参数",
+      "file": "M21-家庭成员完整参数.json",
+      "format": "json",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "家庭结构分析"
+      ],
+      "fields": [
+        {
+          "name": "familyMembers",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "家庭成员列表"
+        },
+        {
+          "name": "familyMembers[].role",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "角色（与本人的关系） (可选值: '本人', '配偶', '儿子', '女儿', '父亲', '母亲', '岳父', '公公', '岳母', '婆婆', '亲属')"
+        },
+        {
+          "name": "familyMembers[].name",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "姓名"
+        },
+        {
+          "name": "familyMembers[].gender",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "性别 (可选值: '男', '女')"
+        },
+        {
+          "name": "familyMembers[].birthDate",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "出生日期 (ISO 日期字符串: YYYY-MM-DD)"
+        },
+        {
+          "name": "familyMembers[].ageDescription",
+          "unit": "按官网字段定义",
+          "required": false,
+          "meaning": "年龄描述（例如：\"15岁\"，\"8个月\"）"
+        },
+        {
+          "name": "familyMembers[].occupation",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "职业"
+        },
+        {
+          "name": "familyMembers[].residenceCity",
+          "unit": "按官网字段定义",
+          "required": true,
+          "meaning": "居住城市"
+        }
+      ],
+      "notes": "",
+      "sha256": "aa344a81f3b31056bbfe4bf66d3ac2c2aecd9e002d13aed6907c692cf95365c5"
+    },
+    {
+      "id": "M22",
+      "title": "单页家庭摘要HTML",
+      "file": "M22-单页家庭摘要HTML.html",
+      "format": "html",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "HTML转PDF"
+      ],
+      "fields": [],
+      "notes": "自包含，无外部图片字体脚本；建议A4、printBackground=true、四边20px。",
+      "sha256": "134ce304448631e3d2b5b77c9228958465208f77f6dd59edb7690540a0b4dba6"
+    },
+    {
+      "id": "M23",
+      "title": "多页投研摘要HTML",
+      "file": "M23-多页投研摘要HTML.html",
+      "format": "html",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "HTML转PDF"
+      ],
+      "fields": [],
+      "notes": "自包含；使用break-before分页，建议A4、20px边距。",
+      "sha256": "30b39cac3c84c66981f9253cd11d9d86ed0776e0287ec5b04cc5ea22f995f383"
+    },
+    {
+      "id": "M24",
+      "title": "横向组合对照HTML",
+      "file": "M24-横向组合对照HTML.html",
+      "format": "html",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "HTML转PDF"
+      ],
+      "fields": [],
+      "notes": "自包含横表，仍按官网options.format合法值调用；未公开landscape参数，不擅传。",
+      "sha256": "8c5679f89b40fde7a06bc213317f4b964b1a42a8189f2467785cef7a1f56ea84"
+    },
+    {
+      "id": "M25",
+      "title": "ECharts持仓图参数",
+      "file": "M25-ECharts持仓图参数.json",
+      "format": "json",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "图表渲染"
+      ],
+      "fields": [
+        {
+          "name": "option",
+          "unit": "按官网字段定义",
+          "required": null,
+          "meaning": "ECharts配置，支持JSON字符串或JavaScript代码"
+        },
+        {
+          "name": "width",
+          "unit": "按官网字段定义",
+          "required": null,
+          "meaning": "图表宽度，单位px，比如800表示800px"
+        },
+        {
+          "name": "height",
+          "unit": "按官网字段定义",
+          "required": null,
+          "meaning": "图表高度，单位px，比如600表示600px"
+        },
+        {
+          "name": "devicePixelRatio",
+          "unit": "按官网字段定义",
+          "required": null,
+          "meaning": "设备像素比"
+        }
+      ],
+      "notes": "",
+      "sha256": "fca19983b2f9bc4405c20a24b2ad9a79f1bd6f31e309b72afc7ea9460ca04832"
+    },
+    {
+      "id": "M26",
+      "title": "策略代码承接说明",
+      "file": "M26-策略代码承接说明.md",
+      "format": "md",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "策略研究",
+        "策略检索承接"
+      ],
+      "fields": [],
+      "notes": "无须登录个人资产授权的公开策略查询，仍需工具连接与有效搜索结果。",
+      "sha256": "92aa9dfe12effa1ffd1d9b42ad4d763b140e29860d2e46d8d0ad2bf3af893062"
+    },
+    {
+      "id": "M27",
+      "title": "图表演示数据",
+      "file": "M27-图表演示数据.json",
+      "format": "json",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "图表渲染",
+        "情景收支比较"
+      ],
+      "fields": [],
+      "notes": "三种结余来自M17算术准备；相关矩阵人为设定，不是真实相关性。",
+      "sha256": "996e4291a0d7c3eaa924cf7bc406bd32052314adca92576cbfed5daa8ae0a5b1"
+    },
+    {
+      "id": "M28",
+      "title": "QDII研究清单",
+      "file": "M28-QDII研究清单.csv",
+      "format": "csv",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "QDII地区配置",
+        "跨境基金研究"
+      ],
+      "fields": [
+        {
+          "name": "data_status",
+          "unit": "文本",
+          "required": true,
+          "meaning": "模拟研究标签"
+        },
+        {
+          "name": "as_of",
+          "unit": "文本",
+          "required": true,
+          "meaning": "资料日期，YYYY-MM-DD"
+        },
+        {
+          "name": "fund_code",
+          "unit": "文本",
+          "required": true,
+          "meaning": "6位基金代码字符串；保留前导零"
+        },
+        {
+          "name": "purpose",
+          "unit": "文本",
+          "required": true,
+          "meaning": "研究用途"
+        }
+      ],
+      "notes": "代码仅作待核验研究对象，不是客户持仓；地区分布以工具实际查询为准。",
+      "sha256": "8f6485a9e2e360786c467744adc7fb2d074903a5c2eca62b27ca7df4f5b5382c"
+    },
+    {
+      "id": "M29",
+      "title": "客户服务纪要",
+      "file": "M29-客户服务纪要.md",
+      "format": "md",
+      "status": "synthetic",
+      "as_of": "2026-11-10",
+      "tool_families": [
+        "客户洞察",
+        "顾问备访",
+        "收益沟通"
+      ],
+      "fields": [],
+      "notes": "包含F01/C02/C03模拟原话与证据状态；不是实际客户记录。",
+      "sha256": "b25d8012d22f0777f8eb6bc71b67549c3ec75fa5cbda44eeb4eb3e98fc724118"
+    },
+    {
+      "id": "M30",
+      "title": "私募查询准备单",
+      "file": "M30-私募查询准备单.md",
+      "format": "md",
+      "status": "blank_preparation",
+      "as_of": "2026-11-11",
+      "tool_families": [
+        "私募研究",
+        "私募身份识别",
+        "私募策略搜索"
+      ],
+      "fields": [],
+      "notes": "空白准备单；没有真实私募标的，必须从授权目录或用户资料确认后才能执行。",
+      "sha256": "1d661f46776ffd5fa916eb7b25abb58f040709135ba8df6c89ae781292902371"
+    }
+  ],
+  "public_identifier_sources": [
+    {
+      "fund_code": "510300",
+      "source": "上海证券交易所基金基本信息",
+      "url": "https://www.sse.com.cn/assortment/fund/list/etfinfo/basic/index.shtml?FUNDID=510300",
+      "verified": "code_exists_only"
+    },
+    {
+      "fund_code": "510500",
+      "source": "中证500ETF 2025年年度报告（上交所披露）",
+      "url": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2026-03-31/510500_20260331_Q394.pdf",
+      "verified": "code_exists_only"
+    },
+    {
+      "fund_code": "159915",
+      "source": "易方达创业板ETF 2026年第3季度报告（深交所披露）",
+      "url": "https://disc.static.szse.cn/download/disc/disk03/finalpage/2026-10-27/389cd524-d1e2-44e7-b44e-74a961aa94d1.PDF",
+      "verified": "code_exists_only"
+    },
+    {
+      "fund_code": "511010",
+      "source": "国泰上证5年期国债ETF基金资料（上交所披露）",
+      "url": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2026-03-19/511010_20260319_W8OE.pdf",
+      "verified": "code_exists_only"
+    },
+    {
+      "fund_code": "518880",
+      "source": "上交所融资融券标的证券2026年第三季度调整通知",
+      "url": "https://www.sse.com.cn/lawandrules/sselawsrules2025/trade/specific/margin/c/c_20261016_10834885.shtml",
+      "verified": "code_exists_only"
+    },
+    {
+      "fund_code": "005827",
+      "source": "易方达基金官方网上交易公开基金页（只核标的身份）",
+      "url": "https://e.efunds.com.cn/cart/subscriptions?f_cmpId=cs_gm_005827&f_p=index&f_s=www&form=&fundCode=005827",
+      "verified": "code_exists_only"
+    },
+    {
+      "fund_code": "110017",
+      "source": "易方达基金官方网上交易公开基金页（只核标的身份）",
+      "url": "https://e.efunds.com.cn/cart/subscriptions?f_cmpId=cs_gm_110017&f_p=index&f_s=www&form=&fundCode=110017",
+      "verified": "code_exists_only"
+    },
+    {
+      "fund_code": "000171",
+      "source": "易方达裕丰回报债券2024年年度报告（官方披露）",
+      "url": "https://cdn.efunds.com.cn/owch/data/bulletin/20250331/易方达裕丰回报债券型证券投资基金2024年年度报告.pdf?from=person",
+      "verified": "code_exists_only"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+﻿data_status,case_id,goal_id,goal_name,priority,years_to_start,duration_years,amount_today_cny,amount_basis,inflation_assumption,dedicated_starting_capital_cny,monthly_contribution_cap_cny,can_defer
+模拟案例／教学测试；非真实客户、非真实交易或历史业绩,F01,G01,应急储备,1,0,1,300000,一次性现值,0,300000,0,False
+模拟案例／教学测试；非真实客户、非真实交易或历史业绩,F01,G02,大学教育,2,10,4,80000,每年当前购买力,0.03,0,6000,False
+模拟案例／教学测试；非真实客户、非真实交易或历史业绩,F01,G03,退休生活,3,20,30,180000,每年当前购买力,0.025,300000,10000,True
+模拟案例／教学测试；非真实客户、非真实交易或历史业绩,F01,G04,家庭改善支出,4,3,1,200000,一次性名义目标,0,200000,0,True
