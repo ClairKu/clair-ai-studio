@@ -1,9 +1,89 @@
 {
   "schema": "clair-knowledge-hub-feed/v1",
   "scope": "external-ai-industry-only",
-  "generatedAt": "2026-11-16T01:29:48.090Z",
+  "generatedAt": "2026-11-17T00:30:04.289Z",
   "source": "Curated authoritative public AI industry reports",
   "reports": [
+    {
+      "id": "authority-google-gemini-4-hydrogen-2026",
+      "title": "Google《Gemini 4 Hydrogen》｜快速 Agent 模型开始按速度、成本与推理深度分层",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/",
+      "downloadUrl": "https://storage.googleapis.com/deepmind-media/Model-Cards/Gemini-4-Hydrogen-Model-Card.pdf",
+      "body": "【中文剖析】Google 于 2026 年 11 月 12 日发布、11 月 16 日更新 Gemini 4 Hydrogen，并同步公开 10 页模型卡与 78 页安全及安全性报告。Hydrogen 由 Gemini 4 Carbon 适配而来，面向快速编码、工具调用和多 Agent 执行，输入输出合计上下文最高 100 万 token；AI Studio 与 Gemini API 的公开价格为每百万输入 token 1.50 美元、输出 token 7.50 美元。Google 报告其在默认 high thinking 下相对 Gemini 3.8 Flash 完成速度约 2.5 倍，Terminal-Bench 4.1 为 57% 对 18.2%，虚构主张减少超过 5 倍；由 Carbon 与 Hydrogen 动态切换的 Orchestrator 在 Terminal-Bench 4.0 上接近 Carbon 的任务成功率，同时平均少用 24% 配额、快 19%。这说明前沿产品正从‘一个最强模型包办所有步骤’转向按任务难度分配规划者、执行者和验证者，以质量、时延与成本三维调度。安全资料也给出重要反面信息：相对 3.8 Flash，自动化图文安全评测提高 7.00 个百分点，但不合理拒绝增加 5.57 个百分点；Hydrogen 在 Google 的 Material Capability Change 评估中未显示相对 Argon 的实质能力跃升，因此没有重新跑完整的关键能力评测，只对生物和网络安全做了定向测试。结果未达到 CBRN 或网络安全 Critical Capability Level，但两者都触及预警阈值。行业含义不是‘更快模型已经同样安全’，而是模型路由必须同时纳入任务权限、失败回退、成本、拒绝率、提示注入和能力阈值监控。边界必须保留：性能与多数安全数字来自 Google 自评，不同基准、思考档位和产品护栏不可混用；早期合作方的 2—2.8 倍速度与 12%—23% token 节省不是公开可复现总体结果。模型卡没有单独披露 Hydrogen 的训练数据、计算量或参数规模，而是回指 Carbon；模型仍可能幻觉、超时或在高思考档使用更多 token，知识截止为 2026 年 3 月。",
+      "kind": "pdf",
+      "category": "模型与科学",
+      "tags": [
+        "Google",
+        "Gemini 4 Hydrogen",
+        "Agent",
+        "模型路由",
+        "推理成本",
+        "Terminal-Bench",
+        "模型安全",
+        "能力阈值"
+      ],
+      "source": "Google / Google DeepMind",
+      "authority": "Google 官方发布、Gemini 4 Hydrogen 模型卡与 78 页安全及安全性报告",
+      "methodology": "官方发布页汇总编码、知识工作、多模态和 Agent 基准；模型卡说明模型来源、上下文、分发、已知局限及与 3.8 Flash 的自动化安全评测；78 页安全报告主要在不含生产护栏、也不使用搜索 grounding 的基础模型条件下，与 Gemini 4 Carbon 和 3.8 Flash 比较内容安全、Agent 对齐、健康、幻觉、提示注入、CBRN 与网络安全能力。Google 先用 Material Capability Change 评估判断 Hydrogen 相对 Argon 未出现实质能力增加，再对触及风险信号的 CBRN 和网络安全领域做定向关键能力评测。",
+      "scopeNote": "这是模型供应商对自家模型和产品的原始披露，不是独立审计。57%、18.2%、2.5 倍、5 倍、24% 和 19% 来自不同任务、基线、思考档位或编排方式，不得合并成统一性能增益；合作方 2—2.8 倍速度和 12%—23% token 节省是早期观察。安全评测多为内部自动评分，部分未披露完整样本、重复次数与置信区间；+5.57 个百分点的不合理拒绝是明确回归。由于 MCC 未触发，完整关键能力套件没有重跑；CBRN 和网络安全虽未达到 CCL，却都达到预警阈值。模型卡把训练数据、硬件与架构细节回指 Carbon，透明度有限；100 万 token 是最大合计上下文，不等于每次请求都能稳定使用或保持相同质量。",
+      "publishedAt": "2026-11-12T00:00:00Z",
+      "ingestedAt": "2026-11-17T08:24:11+08:00",
+      "createdAt": "2026-11-12T00:00:00Z",
+      "updatedAt": "2026-11-16T00:00:00Z",
+      "featured": true,
+      "featuredRank": -13,
+      "archived": false,
+      "relatedReportIds": [
+        "authority-google-gemini-4-carbon-2026",
+        "authority-microsoft-idc-ai-value-2026",
+        "authority-openai-frontier-misalignment-monitoring-2026"
+      ],
+      "studioId": "",
+      "origin": "industry",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-google-alphagenome-2-2026",
+      "title": "Google DeepMind《AlphaGenome 2》｜1.07 亿细胞训练，把 DNA 变异定位到具体细胞状态",
+      "url": "https://deepmind.google/blog/alphagenome-2-deciphering-how-cells-read-dna-to-better-understand-disease/",
+      "downloadUrl": "https://storage.googleapis.com/deepmind-media/DeepMind.com/Blog/alphagenome-2-deciphering-how-cells-read-dna-to-better-understand-disease/alphagenome-2.pdf",
+      "body": "【中文剖析】Google DeepMind 于 2026 年 11 月 11 日发布 AlphaGenome 2 及技术预印本，把第一代主要面向组织平均值的 DNA 序列模型改造成按组织、细胞类型或细胞状态条件化的模型。AG2 每次接收 100 万碱基 DNA 序列、物种和目标条件，可预测基因表达、染色质可及性、组蛋白修饰、转录因子结合、剪接、接触图谱与 DNA 甲基化等读出。训练新增来自 36 项人类与小鼠研究的 3,977 条单细胞 RNA/ATAC pseudobulk 轨迹、185 个人类甲基化条件，并用超过 1.07 亿个人类单细胞 RNA 档案做后训练；八个 teacher 模型再蒸馏成一个 student。最具可比性的数字来自 TenK10K：在 28 类外周血免疫细胞、6,346 个因果 sc-eQTL 的评测上，当精确率固定为 90% 时，AG2 的因果变异召回率为 30%，微调版 AG1 为 16%；方向预测在 90% 准确率下的召回率为 43% 对 23%。论文还生成覆盖 640 个条件的增强子—基因链接，并为约 700 万常见或性状相关变异在 510 个条件下预计算分数。行业意义是，生命科学基础模型正在从‘给一个组织平均答案’转向可用新单细胞数据定义条件、且无需针对每个新数据集重新微调的预测引擎，可能缩短疾病变异筛选与实验优先级排序。但它不是疾病诊断器，也没有把计算预测变成临床或药物结果。作者明确承认：即使在高精确率下，模型仍只找回少数 fine-mapped eQTL 和候选因果 GWAS 变异；对不可及染色质、超远端元件、转录后机制、瞬时或疾病状态及细粒度神经细胞仍表现不足。条件嵌入来自观察性稳态数据，捕捉的是相关关系，不能证明基因敲除、过表达或动态转变中的因果响应。边界还包括这是一份 Google 团队预印本，尚非 AlphaGenome 2 的独立同行评议或临床验证；API 当前面向非商业研究，商业使用处于私有预览。",
+      "kind": "pdf",
+      "category": "模型与科学",
+      "tags": [
+        "Google DeepMind",
+        "AlphaGenome 2",
+        "生命科学AI",
+        "单细胞",
+        "基因组",
+        "DNA变异",
+        "药物发现",
+        "预印本"
+      ],
+      "source": "Google DeepMind",
+      "authority": "Google DeepMind 官方发布与完整技术预印本",
+      "methodology": "AG2 以 1-Mb 人类或小鼠 DNA 序列、物种和目标条件为输入，采用条件化 U-Net、Transformer 与多模态输出头。八个 teacher 模型在 bulk 与单细胞 pseudobulk 数据上预训练和条件精炼，再用随机突变序列蒸馏为一个 student，并通过单细胞表达自编码器对超过 1.07 亿个 scRNA-seq 档案后训练。评测使用留出基因组区间、实验轨迹或整个单细胞数据集的专用模型；TenK10K 比较 28 个细胞类型的 6,346 个因果 sc-eQTL，按 1:1 距离匹配负例报告 90% 精确率下召回，另在 IBDverse、GTEx、增强子—基因链接和复杂性状变异上评测。",
+      "scopeNote": "这是一份 Google DeepMind 团队技术预印本与第一方发布，不等于独立同行评议、前瞻性实验、临床诊断或药物研发成效。30% 对 16% 是 TenK10K 特定 sc-eQTL 因果任务在 90% 精确率阈值下的召回率；43% 对 23% 是方向预测在 90% 准确率下的召回率，不能写成总体正确率或疾病发现率。训练使用人类和小鼠的大规模公共/合作数据，但细胞状态覆盖不均，瞬时、刺激、疾病状态和细粒度神经亚群不足。作者明确说明高精确率下仍只召回少数候选变异，且观察性条件嵌入是相关而非因果。约 700 万预计算变异分数是模型预测资源，不是实验确认的致病变异；API 的非商业研究开放也不代表生产或监管批准。",
+      "publishedAt": "2026-11-11T00:00:00Z",
+      "ingestedAt": "2026-11-17T08:24:11+08:00",
+      "createdAt": "2026-11-11T00:00:00Z",
+      "updatedAt": "2026-11-11T00:00:00Z",
+      "featured": true,
+      "featuredRank": -12.5,
+      "archived": false,
+      "relatedReportIds": [
+        "authority-google-alphaproof-code-2026",
+        "authority-openai-scientific-discoveries-2026",
+        "authority-anthropic-scientific-discovery-2026"
+      ],
+      "studioId": "",
+      "origin": "industry",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
     {
       "id": "authority-microsoft-idc-ai-value-2026",
       "title": "Microsoft × IDC《The Real Business Value of AI》｜AI 价值已经出现，跨部门规模化仍是分水岭",
@@ -1349,7 +1429,7 @@
         "authority-anthropic-employment-2026",
         "authority-anthropic-cadences-2026",
         "authority-microsoft-wti-2026",
-        "authority-pwc-ai-jobs-2026"
+        "authority-pwc-jobs-2026"
       ],
       "studioId": "",
       "origin": "industry",
@@ -1390,7 +1470,7 @@
         "authority-anthropic-ai-expectations-gap-2026",
         "authority-anthropic-cadences-2026",
         "authority-microsoft-wti-2026",
-        "authority-pwc-ai-jobs-2026",
+        "authority-pwc-jobs-2026",
         "authority-stanford-human-ai-collaboration-2026"
       ],
       "studioId": "",
@@ -1551,7 +1631,7 @@
       "relatedReportIds": [
         "authority-stanford-human-ai-collaboration-2026",
         "authority-anthropic-unintended-actions-2026",
-        "authority-anthropic-self-replication-2026",
+        "authority-anthropic-self-replicating-ai-2026",
         "authority-international-ai-safety-2026"
       ],
       "studioId": "",
@@ -1726,6 +1806,247 @@
     }
   ],
   "cards": [
+    {
+      "id": "authority-card-google-hydrogen-01",
+      "reportId": "authority-google-gemini-4-hydrogen-2026",
+      "type": "metric",
+      "label": "价格与上下文",
+      "title": "100 万 token 合计上下文，输入 $1.50、输出 $7.50 / 百万 token",
+      "summary": "模型卡说明默认同步输出最高 64K token，后台长解码才可扩到更高；价格与窗口是产品上限，不代表所有任务都应使用最大上下文或能保持同等质量。",
+      "metric": "$1.50 / $7.50",
+      "quote": "up to 1M",
+      "translation": "最高 100 万 token。",
+      "anchor": "Gemini 4 Hydrogen model card pp.2–3 · Inputs / Outputs / Distribution",
+      "tags": [
+        "模型价格",
+        "上下文窗口",
+        "成本"
+      ],
+      "createdAt": "2026-11-12T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-google-hydrogen-02",
+        "authority-card-google-hydrogen-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-google-hydrogen-02",
+      "reportId": "authority-google-gemini-4-hydrogen-2026",
+      "type": "metric",
+      "label": "编码执行",
+      "title": "Terminal-Bench 4.1 为 57% 对 18.2%，默认 high 约快 2.5 倍",
+      "summary": "对照是 Gemini 3.8 Flash，Google 还报告虚构主张减少超过 5 倍。三项来自同一官方发布但不是统一分母，仍需在自家代码库、工具权限与重试策略下复测。",
+      "metric": "57% / 18.2%",
+      "quote": "finishing tasks 2.5 times faster",
+      "translation": "完成任务速度约为 2.5 倍。",
+      "anchor": "Google official launch · Scaling developer and enterprise workflows",
+      "tags": [
+        "Terminal-Bench",
+        "编码Agent",
+        "厂商评测"
+      ],
+      "createdAt": "2026-11-12T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-google-hydrogen-01",
+        "authority-card-google-hydrogen-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-google-hydrogen-03",
+      "reportId": "authority-google-gemini-4-hydrogen-2026",
+      "type": "insight",
+      "label": "模型编排",
+      "title": "Orchestrator 接近 Carbon 成功率，同时平均少用 24% 配额、快 19%",
+      "summary": "同一会话由系统在 Carbon 与 Hydrogen 间动态切换，展示‘规划者 + 执行者’分层的成本价值；发布未给接近成功率的精确值和完整运行分布，不能当作固定节省承诺。",
+      "metric": "-24% / +19%",
+      "quote": "dynamically switches between models",
+      "translation": "在模型之间动态切换。",
+      "anchor": "Google official launch · Unlocking efficiencies in multi-model workloads",
+      "tags": [
+        "模型路由",
+        "多Agent",
+        "推理经济学"
+      ],
+      "createdAt": "2026-11-12T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-google-hydrogen-01",
+        "authority-card-google-hydrogen-02",
+        "authority-card-google-hydrogen-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-google-hydrogen-04",
+      "reportId": "authority-google-gemini-4-hydrogen-2026",
+      "type": "metric",
+      "label": "安全取舍",
+      "title": "图文安全提高 7.00 个百分点，不合理拒绝也增加 5.57 个百分点",
+      "summary": "两项均为相对 3.8 Flash 的内部自动化评测。更强阻断与更高误拒同时出现，说明生产评估必须并列跟踪危险放行、正常任务完成与拒绝体验。",
+      "metric": "+7.00pp / +5.57pp",
+      "quote": "unjustified refusals are higher",
+      "translation": "不合理拒绝率更高。",
+      "anchor": "Gemini 4 Hydrogen model card pp.7–8 · Training and development evaluation results",
+      "tags": [
+        "内容安全",
+        "误拒",
+        "安全取舍"
+      ],
+      "createdAt": "2026-11-12T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-google-hydrogen-03",
+        "authority-card-google-hydrogen-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-google-hydrogen-05",
+      "reportId": "authority-google-gemini-4-hydrogen-2026",
+      "type": "action",
+      "label": "能力阈值",
+      "title": "CBRN 与网络安全未达到 CCL，但两者都触及预警阈值",
+      "summary": "Google 的 MCC 判断 Hydrogen 相对 Argon 没有实质能力跃升，因此未重跑完整关键能力套件，只做定向 CBRN 与网络安全测试。上线治理仍应按预警级别配置访问、监控与滥用缓解。",
+      "metric": "2 个预警阈值",
+      "quote": "reaches the CCL alert thresholds",
+      "translation": "达到 CCL 预警阈值。",
+      "anchor": "Gemini 4 Hydrogen Safety & Security Report pp.3, 9–18 · Frontier Safety",
+      "tags": [
+        "Frontier Safety",
+        "CBRN",
+        "网络安全"
+      ],
+      "createdAt": "2026-11-12T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-google-hydrogen-03",
+        "authority-card-google-hydrogen-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-google-alphagenome2-01",
+      "reportId": "authority-google-alphagenome-2-2026",
+      "type": "metric",
+      "label": "训练规模",
+      "title": "后训练覆盖 1.07 亿单细胞档案，新增 3,977 条单细胞轨迹",
+      "summary": "单细胞 RNA/ATAC pseudobulk 轨迹来自 36 项人类与小鼠研究，另加入 185 个人类甲基化条件。规模扩大不等于状态覆盖均衡，疾病、刺激和短暂状态仍不足。",
+      "metric": "107M / 3,977",
+      "quote": "over 100 million human scRNA-seq profiles",
+      "translation": "超过一亿个人类单细胞 RNA 测序档案。",
+      "anchor": "AlphaGenome 2 preprint pp.1–3 · Abstract / Condition-specific sequence modeling",
+      "tags": [
+        "单细胞",
+        "训练数据",
+        "多模态"
+      ],
+      "createdAt": "2026-11-11T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-google-alphagenome2-02",
+        "authority-card-google-alphagenome2-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-google-alphagenome2-02",
+      "reportId": "authority-google-alphagenome-2-2026",
+      "type": "metric",
+      "label": "因果变异召回",
+      "title": "90% 精确率下召回 30% 因果 sc-eQTL，AG1-sc 为 16%",
+      "summary": "TenK10K 评测含 28 类免疫细胞与 6,346 个因果 sc-eQTL；方向预测在 90% 准确率下召回 43%，AG1-sc 为 23%。这是阈值化基准表现，不是疾病判断正确率。",
+      "metric": "30% / 16%",
+      "quote": "doubling recall",
+      "translation": "召回率约翻倍。",
+      "anchor": "AlphaGenome 2 preprint pp.4–6 · Fig. 2e / cell-type QTL evaluation",
+      "tags": [
+        "TenK10K",
+        "变异预测",
+        "精确率"
+      ],
+      "createdAt": "2026-11-11T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-google-alphagenome2-01",
+        "authority-card-google-alphagenome2-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-google-alphagenome2-03",
+      "reportId": "authority-google-alphagenome-2-2026",
+      "type": "insight",
+      "label": "条件化架构",
+      "title": "100 万碱基序列 + 目标细胞状态，可对未见数据集免微调适配",
+      "summary": "细胞表达自编码器把新 scRNA-seq 样本映射进条件空间，模型据此预测新细胞状态的调控与变异效应。‘无需微调’指论文设置下的条件适配，不等于无需数据质量控制或实验复核。",
+      "metric": "1 Mb",
+      "quote": "without fine-tuning",
+      "translation": "无需针对新数据集再微调。",
+      "anchor": "AlphaGenome 2 preprint pp.1–3, 7 · Architecture / expression conditioning",
+      "tags": [
+        "条件模型",
+        "scRNA-seq",
+        "迁移"
+      ],
+      "createdAt": "2026-11-11T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-google-alphagenome2-01",
+        "authority-card-google-alphagenome2-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-google-alphagenome2-04",
+      "reportId": "authority-google-alphagenome-2-2026",
+      "type": "metric",
+      "label": "预测资源",
+      "title": "640 个条件的增强子—基因链接，约 700 万变异覆盖 510 个条件",
+      "summary": "这些是模型生成的全基因组资源，可用于缩小实验候选范围；论文披露 6,822,130 个分析变异中，134,813 个在选定阈值下至少被一个基因和条件调用，不能全部视为已证实因果。",
+      "metric": "640 / 510 / 7M",
+      "quote": "precomputed variant scores",
+      "translation": "预计算的变异分数。",
+      "anchor": "AlphaGenome 2 preprint Fig. 1f and Methods · Precomputed resources / threshold sweep",
+      "tags": [
+        "增强子",
+        "GWAS",
+        "研究资源"
+      ],
+      "createdAt": "2026-11-11T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-google-alphagenome2-03",
+        "authority-card-google-alphagenome2-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-google-alphagenome2-05",
+      "reportId": "authority-google-alphagenome-2-2026",
+      "type": "action",
+      "label": "使用边界",
+      "title": "高精确率下仍只召回少数变异；观察性条件不能替代因果实验",
+      "summary": "作者明确指出模型会漏掉不可及染色质、超远端或转录后机制的效应，瞬时、刺激和疾病状态也覆盖不足。用于药物发现时应把模型定位为候选排序器，而非临床或机制结论。",
+      "metric": "预测 ≠ 验证",
+      "quote": "correlational rather than causal",
+      "translation": "体现相关关系，而不是因果关系。",
+      "anchor": "AlphaGenome 2 preprint pp.16–17 · Discussion / limitations",
+      "tags": [
+        "局限",
+        "因果",
+        "实验验证"
+      ],
+      "createdAt": "2026-11-11T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-google-alphagenome2-02",
+        "authority-card-google-alphagenome2-04"
+      ],
+      "origin": "industry"
+    },
     {
       "id": "authority-card-microsoft-idc-value-01",
       "reportId": "authority-microsoft-idc-ai-value-2026",
