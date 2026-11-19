@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "yingmi-qieman-casebook-2026-11-19",
     "qieman-strategy-catalog-2026-11-19",
     "qieman-strategy-risk-2026-11-19",
     "qieman-strategy-conformance-2026-11-19",
