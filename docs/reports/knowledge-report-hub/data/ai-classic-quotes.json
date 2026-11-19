@@ -1,7 +1,7 @@
 {
   "schema": "clair-ai-classic-quotes/v1",
   "updatedAt": "2026-11-19",
-  "editorialNote": "只收录可追溯至作者、原论文、官方活动记录或出版社原文的短引文。英文为原文节选，中文为本站译文；论点、解读和观点关系均为编辑分析，不代表人物彼此回应、历史影响或已发生的辩论。日期区分发言、发表、修订和所引版本；不把历史判断冒充当前事实。人物身份采用发言或文章发表时的身份。",
+  "editorialNote": "仅收录可追溯的公开一手原话；原文为短摘引，完整语境请回到来源。中文原文配英文编辑译文，英文原文配中文编辑译文。核心论点、解读及关系由编辑整理，不代表原作者背书或双方曾直接辩论。经典/近年以2025年为当前分界，不是价值排名；核验日期不等于发言日期，近年不声称穷尽每人的最新言论。人物按主要归档身份计数，合著保留完整署名；机构与职位均尽量按发言时记录。",
   "quotes": [
     {
       "id": "turing-horizon-1950",
@@ -17,7 +17,11 @@
       "thesis": "对远期答案保持谦逊，同时推进眼前可检验的研究。",
       "interpretation": "这句话把不确定性与行动放在一起：看不清终点，不等于没有值得着手的科学问题。",
       "caveat": "这是研究方法上的开放与务实，不是 AGI 到来年份的预测，也不能据此说图灵否认机器智能。扫描件首页确认月份，未补具体日。",
-      "topics": ["研究方法", "智能本质", "历史经典"],
+      "topics": [
+        "研究方法",
+        "智能本质",
+        "历史经典"
+      ],
       "source": {
         "title": "Computing Machinery and Intelligence · Mind 59(236), 433–460",
         "url": "https://www.cs.toronto.edu/~frank/csc2501/Readings/R1_Turing/Turing-1950.pdf#page=29",
@@ -25,9 +29,34 @@
         "type": "原论文扫描件 · 学术机构存档"
       },
       "relations": [
-        { "targetId": "hassabis-science-tool-2026", "type": "complement", "reason": "从不确定中的研究行动，到借助 AI 推进知识边界；这是跨时代主题关联，不是已证实的思想影响链。" },
-        { "targetId": "mccarthy-definition-2007", "type": "complement", "reason": "一个强调研究态度，一个界定科学与工程的研究对象，共同帮助理解 AI 作为研究领域的定位。" }
-      ]
+        {
+          "targetId": "hassabis-science-tool-2026",
+          "type": "complement",
+          "reason": "从不确定中的研究行动，到借助 AI 推进知识边界；这是跨时代主题关联，不是已证实的思想影响链。"
+        },
+        {
+          "targetId": "mccarthy-definition-2007",
+          "type": "complement",
+          "reason": "一个强调研究态度，一个界定科学与工程的研究对象，共同帮助理解 AI 作为研究领域的定位。"
+        },
+        {
+          "targetId": "jassy-nonlinear-2026",
+          "type": "similar",
+          "reason": "图灵指出当前仍有许多研究任务；Jassy提醒技术投资不会按直线推进。"
+        },
+        {
+          "targetId": "turing-operational-question-1950",
+          "type": "complement",
+          "reason": "同一人物围绕「研究方法」的不同切面：一条讨论学习机器的研究方向与远期预测的边界，另一条讨论如何把机器智能问题转化为可讨论的问题；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "speakerId": "alan-turing",
+      "personName": "Alan Turing · 艾伦·图灵",
+      "organizationId": "manchester",
+      "organization": "曼彻斯特大学",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic"
     },
     {
       "id": "mccarthy-definition-2007",
@@ -43,7 +72,11 @@
       "thesis": "AI 既研究智能的机制，也把智能能力落实为机器和程序。",
       "interpretation": "不要只用“像不像人”来理解 AI；科学解释与工程构建都是这个领域的一部分。",
       "caveat": "这是概念定义，不是判断某个产品达到 AGI 的操作性测试。所列日期来自总页的修订记录，不表示这句话首次出现于当天。",
-      "topics": ["智能本质", "研究方法", "历史经典"],
+      "topics": [
+        "智能本质",
+        "研究方法",
+        "历史经典"
+      ],
       "source": {
         "title": "What Is Artificial Intelligence? · Basic Questions",
         "url": "https://www-formal.stanford.edu/jmc/whatisai/node1.html",
@@ -52,9 +85,34 @@
         "dateSourceUrl": "https://www-formal.stanford.edu/jmc/whatisai/whatisai.html"
       },
       "relations": [
-        { "targetId": "minsky-society-1988", "type": "complement", "reason": "麦卡锡界定 AI 的研究与工程范围，明斯基则提出解释心智如何组织的一种具体思路。" },
-        { "targetId": "turing-horizon-1950", "type": "complement", "reason": "概念定义与研究态度相互补充，并不意味着两位作者在这两段文字中直接互相回应。" }
-      ]
+        {
+          "targetId": "minsky-society-1988",
+          "type": "complement",
+          "reason": "麦卡锡界定 AI 的研究与工程范围，明斯基则提出解释心智如何组织的一种具体思路。"
+        },
+        {
+          "targetId": "turing-horizon-1950",
+          "type": "complement",
+          "reason": "概念定义与研究态度相互补充，并不意味着两位作者在这两段文字中直接互相回应。"
+        },
+        {
+          "targetId": "zhang-peng-research-engineering-2023",
+          "type": "similar",
+          "reason": "McCarthy给出领域定义；张鹏把研究与工程的平衡落实到组织实践。"
+        },
+        {
+          "targetId": "mccarthy-mechanisms-2007",
+          "type": "complement",
+          "reason": "同一人物围绕「智能本质」的不同切面：一条讨论人工智能的学科定义，另一条讨论智能是不是一种单一能力；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "speakerId": "john-mccarthy",
+      "personName": "John McCarthy · 约翰·麦卡锡",
+      "organizationId": "stanford",
+      "organization": "斯坦福大学",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic"
     },
     {
       "id": "minsky-society-1988",
@@ -70,7 +128,11 @@
       "thesis": "整体智能可能来自部件的组织结构，而不是一个无所不能的单独模块。",
       "interpretation": "今天的模块化、工具调用和多智能体设计可以借此获得启发：系统怎样组合，可能与单个部件有多强一样重要。",
       "caveat": "这是句中连续节选。书中的 mental agents 不等同于今天的 LLM Agent，不能据此证明现代多智能体系统更有效。日期只标所引版本，不宣称为原著首次出版或首次提出观点之日。",
-      "topics": ["智能本质", "Agent", "历史经典"],
+      "topics": [
+        "智能本质",
+        "Agent",
+        "历史经典"
+      ],
       "source": {
         "title": "The Society of Mind · Simon & Schuster 官方书籍节选",
         "url": "https://www.simonandschuster.com/books/Society-Of-Mind/Marvin-Minsky/9780671657130",
@@ -78,9 +140,34 @@
         "type": "出版社原书节选"
       },
       "relations": [
-        { "targetId": "mccarthy-definition-2007", "type": "complement", "reason": "一种心智组织解释与 AI 的学科定义可以相互补充，但前者并不是后者所要求的唯一实现路线。" },
-        { "targetId": "lecun-misra-common-sense-2021", "type": "complement", "reason": "一个关注智能部件如何组织，另一个关注系统需要学到什么背景知识，分别讨论结构与知识问题。" }
-      ]
+        {
+          "targetId": "mccarthy-definition-2007",
+          "type": "complement",
+          "reason": "一种心智组织解释与 AI 的学科定义可以相互补充，但前者并不是后者所要求的唯一实现路线。"
+        },
+        {
+          "targetId": "lecun-misra-common-sense-2021",
+          "type": "complement",
+          "reason": "一个关注智能部件如何组织，另一个关注系统需要学到什么背景知识，分别讨论结构与知识问题。"
+        },
+        {
+          "targetId": "mccarthy-mechanisms-2007",
+          "type": "complement",
+          "reason": "McCarthy提醒智能包含多种机制；Minsky强调无心智部件的组合。"
+        },
+        {
+          "targetId": "minsky-emergence-question-1988",
+          "type": "complement",
+          "reason": "同一人物围绕「智能本质」的不同切面：一条讨论心智的组织方式与整体智能的来源，另一条讨论组成部件与整体心智的关系；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "speakerId": "marvin-minsky",
+      "personName": "Marvin Minsky · 马文·明斯基",
+      "organizationId": "mit",
+      "organization": "MIT",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic"
     },
     {
       "id": "lecun-misra-common-sense-2021",
@@ -96,7 +183,11 @@
       "thesis": "通用智能需要对世界的常识性认识，自监督学习是形成此类背景知识的一条有前景路径。",
       "interpretation": "评价 AI 不只看训练任务上的成绩，还要看它能否迁移知识、预测变化，并处理陌生情境。",
       "caveat": "“暗物质”是比喻。文章没有声称自监督学习已经解决常识问题，结尾明确将其视为通向人类级智能的一步。此处保留两位作者署名，不改写成 LeCun 独立受访原话。",
-      "topics": ["智能本质", "世界模型", "学习机制"],
+      "topics": [
+        "智能本质",
+        "世界模型",
+        "学习机制"
+      ],
       "source": {
         "title": "Self-supervised learning: The dark matter of intelligence",
         "url": "https://ai.meta.com/blog/self-supervised-learning-the-dark-matter-of-intelligence/",
@@ -104,9 +195,37 @@
         "type": "作者联署研究文章"
       },
       "relations": [
-        { "targetId": "fei-fei-intelligence-beyond-language-2023", "type": "similar", "reason": "两条观点都强调语言或单项任务成绩之外的世界理解，提醒读者不要把局部能力当作智能的全部。" },
-        { "targetId": "altman-deep-learning-scale-2024", "type": "tension", "reason": "一个强调背景知识与学习机制，另一个强调规模化的进展路径；只是侧重点的张力，不能据此宣称二人直接对立。" },
-        { "targetId": "minsky-society-1988", "type": "complement", "reason": "背景知识与部件组织是不同层面的研究问题，这两段文字可用于比较智能系统的知识与结构。" }
+        {
+          "targetId": "fei-fei-intelligence-beyond-language-2023",
+          "type": "similar",
+          "reason": "两条观点都强调语言或单项任务成绩之外的世界理解，提醒读者不要把局部能力当作智能的全部。"
+        },
+        {
+          "targetId": "altman-deep-learning-scale-2024",
+          "type": "tension",
+          "reason": "一个强调背景知识与学习机制，另一个强调规模化的进展路径；只是侧重点的张力，不能据此宣称二人直接对立。"
+        },
+        {
+          "targetId": "minsky-society-1988",
+          "type": "complement",
+          "reason": "背景知识与部件组织是不同层面的研究问题，这两段文字可用于比较智能系统的知识与结构。"
+        },
+        {
+          "targetId": "lecun-learning-efficiency-2022",
+          "type": "complement",
+          "reason": "同一人物围绕「世界模型」的不同切面：一条讨论常识、世界知识与自监督学习，另一条讨论机器学习的数据效率与通用能力；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "speakerId": "yann-lecun",
+      "personName": "Yann LeCun · 杨立昆",
+      "organizationId": "meta-ai",
+      "organization": "Facebook AI（当时机构名）",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "authorIds": [
+        "yann-lecun",
+        "ishan-misra"
       ]
     },
     {
@@ -123,7 +242,11 @@
       "thesis": "语言能力不能代表智能的全部，还应评价视觉、行动和现实场景中的表现。",
       "interpretation": "这为理解多模态、空间智能和真实世界评估提供了一种框架：会说，不等于能看懂、能行动或能可靠完成任务。",
       "caveat": "这是原句中连续节选，不是否定语言模型的价值，也不能用它证明某种世界模型必然优于 LLM。证词明确说明为个人观点，不代表其所有所属组织。",
-      "topics": ["世界模型", "智能本质", "人本 AI"],
+      "topics": [
+        "世界模型",
+        "智能本质",
+        "人本 AI"
+      ],
       "source": {
         "title": "Fei-Fei Li · Governing AI Through Acquisition and Procurement",
         "url": "https://hai.stanford.edu/assets/files/2023-09/Fei-Fei-Li-Senate-Testimony.pdf#page=1",
@@ -131,10 +254,34 @@
         "type": "本人书面证词"
       },
       "relations": [
-        { "targetId": "lecun-misra-common-sense-2021", "type": "similar", "reason": "两条观点都把注意力扩展到单项任务之外的世界理解，但它们并未承诺同一种具体技术路线。" },
-        { "targetId": "altman-deep-learning-scale-2024", "type": "tension", "reason": "规模是发展维度，智能范围是评价维度；扩大规模是否足以覆盖全部能力，不能仅凭这些原话下结论。" },
-        { "targetId": "hassabis-science-tool-2026", "type": "complement", "reason": "一种观点扩大智能的评价范围，另一种把 AI 的用途延伸到科学发现，都超出了只评价语言交流的视角。" }
-      ]
+        {
+          "targetId": "lecun-misra-common-sense-2021",
+          "type": "similar",
+          "reason": "两条观点都把注意力扩展到单项任务之外的世界理解，但它们并未承诺同一种具体技术路线。"
+        },
+        {
+          "targetId": "altman-deep-learning-scale-2024",
+          "type": "tension",
+          "reason": "规模是发展维度，智能范围是评价维度；扩大规模是否足以覆盖全部能力，不能仅凭这些原话下结论。"
+        },
+        {
+          "targetId": "hassabis-science-tool-2026",
+          "type": "complement",
+          "reason": "一种观点扩大智能的评价范围，另一种把 AI 的用途延伸到科学发现，都超出了只评价语言交流的视角。"
+        },
+        {
+          "targetId": "fei-fei-spatial-scaffolding-2025",
+          "type": "complement",
+          "reason": "同一人物围绕「世界模型」的不同切面：一条讨论语言能力是否足以代表智能的范围，另一条讨论空间智能与语言模型的能力边界；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "speakerId": "fei-fei-li",
+      "personName": "Fei-Fei Li · 李飞飞",
+      "organizationId": "stanford-hai",
+      "organization": "Stanford HAI",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic"
     },
     {
       "id": "andrew-ng-limits-2017",
@@ -150,7 +297,11 @@
       "thesis": "经济影响广泛与技术仍不通用，可以同时成立。",
       "interpretation": "不要把“新电力”这一产业比喻读成系统已经具备人类的全部智能；应用价值与能力边界需要分开判断。",
       "caveat": "today 指 2017 年，中文译文显式译作“当时”，不能当作当前能力评价。官方视频说明确认演讲为 1 月 25 日，视频上传为 2 月 2 日；3 月 11 日是主办方报道日，不是演讲日。",
-      "topics": ["产业变革", "能力边界", "历史经典"],
+      "topics": [
+        "产业变革",
+        "能力边界",
+        "历史经典"
+      ],
       "source": {
         "title": "Andrew Ng: Why AI Is the New Electricity · Stanford GSB",
         "url": "https://www.gsb.stanford.edu/insights/Andrew-ng-why-ai-new-electricity",
@@ -160,9 +311,24 @@
         "eventSourceNote": "Stanford GSB 官方视频说明标出演讲日 2017-01-25；上传日为 2017-02-02。"
       },
       "relations": [
-        { "targetId": "altman-deep-learning-scale-2024", "type": "tension", "reason": "2017 年的能力局限与 2024 年的规模乐观可作时间对照；时代和技术条件不同，不构成同场或同期辩论。" },
-        { "targetId": "huang-industry-transformation-2024", "type": "complement", "reason": "产业机会与能力边界是可以同时成立的两个判断，不能用经济影响的愿景替代技术能力评估。" }
-      ]
+        {
+          "targetId": "altman-deep-learning-scale-2024",
+          "type": "tension",
+          "reason": "2017 年的能力局限与 2024 年的规模乐观可作时间对照；时代和技术条件不同，不构成同场或同期辩论。"
+        },
+        {
+          "targetId": "huang-industry-transformation-2024",
+          "type": "complement",
+          "reason": "产业机会与能力边界是可以同时成立的两个判断，不能用经济影响的愿景替代技术能力评估。"
+        }
+      ],
+      "speakerId": "andrew-ng",
+      "personName": "Andrew Ng · 吴恩达",
+      "organizationId": "baidu-ernie",
+      "organization": "百度 / Stanford（发言时）",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic"
     },
     {
       "id": "huang-industry-transformation-2024",
@@ -178,7 +344,11 @@
       "thesis": "AI 的价值不仅在单个应用，也涉及产业基础设施与生产方式的变化。",
       "interpretation": "观察 AI 行业，需要把模型能力、算力供给和行业部署连在一起，而不只跟踪聊天产品。",
       "caveat": "这是公司领导者在产品主题演讲中的产业判断，存在商业立场；不等于每个行业都已实现盈利或生产率提升。",
-      "topics": ["产业变革", "算力规模", "商业战略"],
+      "topics": [
+        "产业变革",
+        "算力规模",
+        "商业战略"
+      ],
       "source": {
         "title": "‘Accelerate Everything,’ NVIDIA CEO Says Ahead of COMPUTEX",
         "url": "https://blogs.nvidia.com/blog/computex-2024-jensen-huang/",
@@ -186,10 +356,34 @@
         "type": "公司官方演讲报道"
       },
       "relations": [
-        { "targetId": "altman-deep-learning-scale-2024", "type": "similar", "reason": "两条观点都把 AI 能力进展与产业转型联系起来，黄仁勋偏向部署与基础设施，Altman 偏向规模化技术路径。" },
-        { "targetId": "hinton-control-2024", "type": "tension", "reason": "产业机会与控制风险是观察同一技术的不同角度；不能把二者简单标签化为乐观派与悲观派的直接争论。" },
-        { "targetId": "andrew-ng-limits-2017", "type": "complement", "reason": "跨行业价值不等于已达到通用智能，历史能力边界与产业愿景适合并列而非互相替代。" }
-      ]
+        {
+          "targetId": "altman-deep-learning-scale-2024",
+          "type": "similar",
+          "reason": "两条观点都把 AI 能力进展与产业转型联系起来，黄仁勋偏向部署与基础设施，Altman 偏向规模化技术路径。"
+        },
+        {
+          "targetId": "hinton-control-2024",
+          "type": "tension",
+          "reason": "产业机会与控制风险是观察同一技术的不同角度；不能把二者简单标签化为乐观派与悲观派的直接争论。"
+        },
+        {
+          "targetId": "andrew-ng-limits-2017",
+          "type": "complement",
+          "reason": "跨行业价值不等于已达到通用智能，历史能力边界与产业愿景适合并列而非互相替代。"
+        },
+        {
+          "targetId": "huang-iphone-2023",
+          "type": "complement",
+          "reason": "同一人物围绕「产业变革」的不同切面：一条讨论生成式 AI 的大众化拐点，另一条讨论生成式 AI 对产业创新与增长的影响；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "speakerId": "jensen-huang",
+      "personName": "Jensen Huang · 黄仁勋",
+      "organizationId": "nvidia",
+      "organization": "NVIDIA",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic"
     },
     {
       "id": "altman-deep-learning-scale-2024",
@@ -205,7 +399,11 @@
       "thesis": "深度学习、规模扩张与资源投入共同推动能力进展。",
       "interpretation": "这是对技术发展轨迹和投资方向的概括，可与“常识、现实世界理解”等学习机制议题放在一起比较。",
       "caveat": "这是作者判断与愿景，不是对所有任务成立的无条件定律；文章中的超智能时间判断也不是已验证结果。引文为 In 15 words 之后的连续节选。",
-      "topics": ["算力规模", "学习机制", "商业战略"],
+      "topics": [
+        "算力规模",
+        "学习机制",
+        "商业战略"
+      ],
       "source": {
         "title": "The Intelligence Age",
         "url": "https://ia.samaltman.com/",
@@ -213,11 +411,44 @@
         "type": "作者本人文章"
       },
       "relations": [
-        { "targetId": "huang-industry-transformation-2024", "type": "similar", "reason": "两者都关注技术进步带来的产业机会，但产品部署视角与规模化技术解释并不完全等同。" },
-        { "targetId": "lecun-misra-common-sense-2021", "type": "tension", "reason": "规模扩张与背景知识形成是两个不同问题；这种侧重张力不足以证明两位作者的技术路线完全对立。" },
-        { "targetId": "fei-fei-intelligence-beyond-language-2023", "type": "tension", "reason": "规模是发展维度，智能范围是评价维度；更大的系统是否覆盖所有能力，需要额外证据。" },
-        { "targetId": "andrew-ng-limits-2017", "type": "tension", "reason": "能力局限与规模乐观属于不同年份的历史判断，可以观察论述变化，不能冒充同期交锋。" }
-      ]
+        {
+          "targetId": "huang-industry-transformation-2024",
+          "type": "similar",
+          "reason": "两者都关注技术进步带来的产业机会，但产品部署视角与规模化技术解释并不完全等同。"
+        },
+        {
+          "targetId": "lecun-misra-common-sense-2021",
+          "type": "tension",
+          "reason": "规模扩张与背景知识形成是两个不同问题；这种侧重张力不足以证明两位作者的技术路线完全对立。"
+        },
+        {
+          "targetId": "fei-fei-intelligence-beyond-language-2023",
+          "type": "tension",
+          "reason": "规模是发展维度，智能范围是评价维度；更大的系统是否覆盖所有能力，需要额外证据。"
+        },
+        {
+          "targetId": "andrew-ng-limits-2017",
+          "type": "tension",
+          "reason": "能力局限与规模乐观属于不同年份的历史判断，可以观察论述变化，不能冒充同期交锋。"
+        },
+        {
+          "targetId": "liang-wenfeng-investment-innovation-2024",
+          "type": "tension",
+          "reason": "Altman概括既定深度学习路线的规模收益；梁文锋提醒研究创新不能只由投入金额解释。"
+        },
+        {
+          "targetId": "yang-zhilin-algorithms-scaling-2024",
+          "type": "complement",
+          "reason": "两条都涉及规模与模型进步；结合阅读可区分资源扩展、算法优化与最终能力，不能把算法创新当成规模作用的简单否定。"
+        }
+      ],
+      "speakerId": "sam-altman",
+      "personName": "Sam Altman · 萨姆·奥尔特曼",
+      "organizationId": "openai",
+      "organization": "OpenAI",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic"
     },
     {
       "id": "amodei-hope-2024",
@@ -233,7 +464,11 @@
       "thesis": "风险治理需要知道要避免什么，也需要知道为了什么。",
       "interpretation": "重视灾难风险与重视社会收益可以同时成立；讨论不必被压缩成纯乐观或纯悲观两派。",
       "caveat": "全文包含许多条件化的未来情景，作者承认预测可能出错；不能当作医学或经济成果承诺。原文只标 2024 年 10 月，不补具体日期。",
-      "topics": ["安全治理", "科学发现", "人本 AI"],
+      "topics": [
+        "安全治理",
+        "科学发现",
+        "人本 AI"
+      ],
       "source": {
         "title": "Machines of Loving Grace · How AI Could Transform the World for the Better",
         "url": "https://darioamodei.com/essay/machines-of-loving-grace",
@@ -241,9 +476,29 @@
         "type": "作者本人文章"
       },
       "relations": [
-        { "targetId": "hinton-control-2024", "type": "complement", "reason": "Hinton 突出控制风险，Amodei 补充风险治理背后的正向目标；希望并不否定风险研究的必要性。" },
-        { "targetId": "hassabis-science-tool-2026", "type": "similar", "reason": "两者都用积极的社会或科学目标解释为什么值得发展 AI，同时都不应被读成已兑现的成果。" }
-      ]
+        {
+          "targetId": "hinton-control-2024",
+          "type": "complement",
+          "reason": "Hinton 突出控制风险，Amodei 补充风险治理背后的正向目标；希望并不否定风险研究的必要性。"
+        },
+        {
+          "targetId": "hassabis-science-tool-2026",
+          "type": "similar",
+          "reason": "两者都用积极的社会或科学目标解释为什么值得发展 AI，同时都不应被读成已兑现的成果。"
+        },
+        {
+          "targetId": "musk-optimism-2026",
+          "type": "similar",
+          "reason": "两条都认为对技术前景保持积极有意义；这种态度不替代各自提出的风险判断与具体证据。"
+        }
+      ],
+      "speakerId": "dario-amodei",
+      "personName": "Dario Amodei · 达里奥·阿莫代伊",
+      "organizationId": "anthropic",
+      "organization": "Anthropic",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic"
     },
     {
       "id": "hinton-control-2024",
@@ -259,7 +514,11 @@
       "thesis": "能力进步不会自动解决可控性，需要专门研究与治理。",
       "interpretation": "它提醒读者，不要从“系统更聪明”直接推出“系统会更安全”；能力、目标和控制关系需要分别评估。",
       "caveat": "这是风险警示，不是证明现有产品已产生接管意图。beings 为作者措辞，此处译为“智能体”不表示确认其有意识。官方视频说明逐字引述该句并确认演讲日；视频上传日为 2025-07-29，不能混作发言日。",
-      "topics": ["安全治理", "能力边界", "智能本质"],
+      "topics": [
+        "安全治理",
+        "能力边界",
+        "智能本质"
+      ],
       "source": {
         "title": "Geoffrey Hinton, Nobel Prize in Physics 2024: Banquet speech",
         "url": "https://www.youtube.com/watch?v=-f5WQAk3dYo",
@@ -269,9 +528,29 @@
         "publishedAt": "2025-07-29"
       },
       "relations": [
-        { "targetId": "amodei-hope-2024", "type": "complement", "reason": "风险控制与正向愿景是互补的治理动机，不能把谈希望误解成不重视安全。" },
-        { "targetId": "huang-industry-transformation-2024", "type": "tension", "reason": "控制风险与产业收益构成不同的评价维度，这种张力不代表双方在这些来源中发生过直接争论。" }
-      ]
+        {
+          "targetId": "amodei-hope-2024",
+          "type": "complement",
+          "reason": "风险控制与正向愿景是互补的治理动机，不能把谈希望误解成不重视安全。"
+        },
+        {
+          "targetId": "huang-industry-transformation-2024",
+          "type": "tension",
+          "reason": "控制风险与产业收益构成不同的评价维度，这种张力不代表双方在这些来源中发生过直接争论。"
+        },
+        {
+          "targetId": "hinton-share-planet-2026",
+          "type": "complement",
+          "reason": "2024年强调防止系统追求控制；2026年强调系统应成为人类愿意共处的存在。"
+        }
+      ],
+      "speakerId": "geoffrey-hinton",
+      "personName": "Geoffrey Hinton · 杰弗里·辛顿",
+      "organizationId": "vector-institute",
+      "organization": "Vector Institute / 多伦多大学",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic"
     },
     {
       "id": "hassabis-science-tool-2026",
@@ -287,7 +566,11 @@
       "thesis": "AI 的重要用途之一，是帮助人类探索尚未知晓的知识。",
       "interpretation": "评价 AI 可以从回答已有问题，进一步转向它能否辅助形成可检验的新知识。科学发现还需要实验与证据。",
       "caveat": "原话包含 potentially，表示潜力而非已实现事实。不能改写为 AI 已能解决全部科学问题。页面只给出 Winter/Spring 2026 刊期，没有披露访谈实际日期。",
-      "topics": ["科学发现", "研究方法", "人本 AI"],
+      "topics": [
+        "科学发现",
+        "研究方法",
+        "人本 AI"
+      ],
       "source": {
         "title": "AI as the Ultimate Tool for Science: A Conversation with Demis Hassabis",
         "url": "https://www.amacad.org/publication/daedalus/ai-ultimate-tool-science-conversation-demis-hassabis",
@@ -295,10 +578,4234 @@
         "type": "原始学术访谈"
       },
       "relations": [
-        { "targetId": "turing-horizon-1950", "type": "complement", "reason": "从承认研究前路的不确定，到把 AI 作为探索工具，两条观点提供跨时代的研究方法对照。" },
-        { "targetId": "amodei-hope-2024", "type": "similar", "reason": "两者都强调值得追求的正面科学或社会目标，但没有把这些未来愿景等同于当下成果。" },
-        { "targetId": "fei-fei-intelligence-beyond-language-2023", "type": "complement", "reason": "智能范围不止语言，AI 的价值也不只在语言交流；两条观点共同打开了真实世界与科研应用的视角。" }
+        {
+          "targetId": "turing-horizon-1950",
+          "type": "complement",
+          "reason": "从承认研究前路的不确定，到把 AI 作为探索工具，两条观点提供跨时代的研究方法对照。"
+        },
+        {
+          "targetId": "amodei-hope-2024",
+          "type": "similar",
+          "reason": "两者都强调值得追求的正面科学或社会目标，但没有把这些未来愿景等同于当下成果。"
+        },
+        {
+          "targetId": "fei-fei-intelligence-beyond-language-2023",
+          "type": "complement",
+          "reason": "智能范围不止语言，AI 的价值也不只在语言交流；两条观点共同打开了真实世界与科研应用的视角。"
+        },
+        {
+          "targetId": "liang-wenfeng-curiosity-2024",
+          "type": "similar",
+          "reason": "梁文锋谈创新的组织动力；Hassabis谈AI作为科学工具的潜力。"
+        }
+      ],
+      "speakerId": "demis-hassabis",
+      "personName": "Demis Hassabis · 德米斯·哈萨比斯",
+      "organizationId": "google-deepmind",
+      "organization": "Google DeepMind",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary"
+    },
+    {
+      "id": "turing-operational-question-1950",
+      "quoteEn": "Can machines think?",
+      "quoteZh": "机器能思考吗？",
+      "speaker": "Alan Turing · 艾伦·图灵",
+      "speakerRole": "数学家、计算机科学先驱；论文署名单位为曼彻斯特大学",
+      "date": "1950-10",
+      "dateLabel": "1950 年 10 月 · 期刊发表月份",
+      "occasion": "《Mind》论文《Computing Machinery and Intelligence》开篇",
+      "context": "论文先提出机器能否思考的问题，随后指出思考与机器的定义困难，并转向模仿游戏这一讨论方式。",
+      "target": "如何把机器智能问题转化为可讨论的问题",
+      "thesis": "图灵从一个定义含混的问题出发，随后转向模仿游戏这一可操作的讨论方式。",
+      "interpretation": "这是论文开头提出的问题，不是作者给出的肯定答案。阅读时应继续看其测试设计与局限，不能用一句问句替代整篇论证。",
+      "caveat": "问句本身不是图灵对问题的肯定回答；1950年10月是发表月份，非讲演日期。不能把测试设计当成意识或心智的完整定义。",
+      "topics": [
+        "研究方法",
+        "智能本质",
+        "历史经典"
+      ],
+      "source": {
+        "title": "Computing Machinery and Intelligence · Mind 59(236), 433–460",
+        "url": "https://www.cs.toronto.edu/~frank/csc2501/Readings/R1_Turing/Turing-1950.pdf#page=2",
+        "locator": "原论文第433页开篇；所链接PDF第2页",
+        "type": "原论文扫描件 · 学术机构存档"
+      },
+      "relations": [
+        {
+          "targetId": "zhang-peng-leaderboard-question-2023",
+          "type": "complement",
+          "reason": "图灵从定义问题引向可操作的讨论；张鹏质疑上榜与实际超越之间的跳跃。"
+        },
+        {
+          "targetId": "turing-horizon-1950",
+          "type": "complement",
+          "reason": "同一人物围绕「研究方法」的不同切面：一条讨论学习机器的研究方向与远期预测的边界，另一条讨论如何把机器智能问题转化为可讨论的问题；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "speakerId": "alan-turing",
+      "personName": "Alan Turing · 艾伦·图灵",
+      "organizationId": "manchester",
+      "organization": "曼彻斯特大学",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic"
+    },
+    {
+      "id": "mccarthy-mechanisms-2007",
+      "quoteEn": "Intelligence involves mechanisms",
+      "quoteZh": "智能涉及机制",
+      "speaker": "John McCarthy · 约翰·麦卡锡",
+      "speakerRole": "计算机科学家，Stanford 大学教授；人工智能领域先驱",
+      "date": "2007-11-12",
+      "dateLabel": "2007 年 11 月 12 日 · 页面修订日，并非首说日期",
+      "occasion": "作者本人 Stanford 网页《What Is Artificial Intelligence?》问答",
+      "context": "在面向读者的基础问答中回答“什么是人工智能”，并继续讨论智能的定义、机制与研究目标。",
+      "target": "智能是不是一种单一能力",
+      "thesis": "智能可以包含多种机制；不能因一个任务成功就推断拥有全部智能。",
+      "interpretation": "这段回答否定把智能视为单一总量。评价系统应说明具体能力与任务，而不是只给出聪明或不聪明的标签。",
+      "caveat": "这是概念定义，不是判断某个产品达到 AGI 的操作性测试。所列日期来自总页的修订记录，不表示这句话首次出现于当天。",
+      "topics": [
+        "智能本质",
+        "研究方法",
+        "历史经典"
+      ],
+      "source": {
+        "title": "What Is Artificial Intelligence? · Basic Questions",
+        "url": "https://www-formal.stanford.edu/jmc/whatisai/node1.html",
+        "locator": "Basic Questions → Is intelligence a single thing so that one can ask a yes or no question… 的回答",
+        "type": "作者本人学术主页",
+        "dateSourceUrl": "https://www-formal.stanford.edu/jmc/whatisai/whatisai.html"
+      },
+      "relations": [
+        {
+          "targetId": "minsky-society-1988",
+          "type": "complement",
+          "reason": "McCarthy提醒智能包含多种机制；Minsky强调无心智部件的组合。"
+        },
+        {
+          "targetId": "mccarthy-definition-2007",
+          "type": "complement",
+          "reason": "同一人物围绕「智能本质」的不同切面：一条讨论人工智能的学科定义，另一条讨论智能是不是一种单一能力；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "speakerId": "john-mccarthy",
+      "personName": "John McCarthy · 约翰·麦卡锡",
+      "organizationId": "stanford",
+      "organization": "斯坦福大学",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic"
+    },
+    {
+      "id": "minsky-emergence-question-1988",
+      "quoteEn": "How can intelligence emerge from nonintelligence?",
+      "quoteZh": "智能如何从非智能中涌现？",
+      "speaker": "Marvin Minsky · 马文·明斯基",
+      "speakerRole": "计算机科学家，MIT 人工智能实验室共同创立者",
+      "date": "1988-03-15",
+      "dateLabel": "1988 年 3 月 15 日 · 所核验出版社版本出版日",
+      "occasion": "《The Society of Mind》第 1 章 Prologue",
+      "context": "作者在序章提出用许多简单的心理过程及其连接来解释整体智能，而不是寻找一个独自完成全部认知的部件。",
+      "target": "组成部件与整体心智的关系",
+      "thesis": "通过研究部件的组合方式理解整体能力，而不假定每个部件都先具备智能。",
+      "interpretation": "这是一项解释任务：需要说明连接、协调与学习怎样产生功能，不能把涌现当作无需解释的神奇标签。",
+      "caveat": "这是句中连续节选。书中的 mental agents 不等同于今天的 LLM Agent，不能据此证明现代多智能体系统更有效。日期只标所引版本，不宣称为原著首次出版或首次提出观点之日。",
+      "topics": [
+        "智能本质",
+        "Agent",
+        "历史经典"
+      ],
+      "source": {
+        "title": "The Society of Mind · Simon & Schuster 官方书籍节选",
+        "url": "https://www.simonandschuster.com/books/Society-Of-Mind/Marvin-Minsky/9780671657130",
+        "locator": "出版商提供的书内节选 Chapter 1 → PROLOGUE 开篇",
+        "type": "出版社原书节选"
+      },
+      "relations": [
+        {
+          "targetId": "minsky-society-1988",
+          "type": "complement",
+          "reason": "同一人物围绕「智能本质」的不同切面：一条讨论心智的组织方式与整体智能的来源，另一条讨论组成部件与整体心智的关系；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "speakerId": "marvin-minsky",
+      "personName": "Marvin Minsky · 马文·明斯基",
+      "organizationId": "mit",
+      "organization": "MIT",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic"
+    },
+    {
+      "id": "zuckerberg-open-gap-2024",
+      "speakerId": "mark-zuckerberg",
+      "personName": "Mark Zuckerberg · 马克·扎克伯格",
+      "speaker": "Mark Zuckerberg · 马克·扎克伯格",
+      "speakerRole": "Meta 创始人兼 CEO（发文时）",
+      "organizationId": "meta-ai",
+      "organization": "Meta",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "quoteEn": "But open source is quickly closing the gap.",
+      "quoteZh": "但开源正在迅速缩小差距。",
+      "date": "2024-07-23",
+      "dateLabel": "2024-07-23 · 原始发表 / 活动日",
+      "occasion": "Open Source AI Is the Path Forward",
+      "context": "Llama 3.1 发布时，作者先承认过去闭源模型处于领先，再判断开源正在追近。",
+      "target": "开源与闭源模型能力差距的方向",
+      "thesis": "模型能力的领先位置可能变化，开放生态可成为追赶机制。",
+      "interpretation": "差距不是固定标签。应分别比较同一时期、相近规模和任务下的模型表现，再检验开放生态是否真的加快了追赶。",
+      "caveat": "历史判断，不代表所有任务和模型规模都已追平；与其他人的比较必须保留各自的评测范围。",
+      "topics": [
+        "开源与闭源",
+        "模型能力"
+      ],
+      "source": {
+        "title": "Open Source AI Is the Path Forward",
+        "url": "https://about.fb.com/news/2024/07/open-source-ai-is-the-path-forward/",
+        "type": "Meta 官网署名公开信",
+        "locator": "Why Open Source AI Is Good for the World 段落"
+      },
+      "relations": [
+        {
+          "targetId": "robin-li-open-model-gap-2024",
+          "type": "opposed",
+          "reason": "李彦宏判断开源会越来越落后；扎克伯格判断开源正在迅速缩小差距，方向相反。"
+        },
+        {
+          "targetId": "zuckerberg-open-safer-2024",
+          "type": "complement",
+          "reason": "同一人物围绕「开源与闭源」的不同切面：一条讨论开源与闭源模型能力差距的方向，另一条讨论开放模型的安全性；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
       ]
+    },
+    {
+      "id": "zuckerberg-open-safer-2024",
+      "speakerId": "mark-zuckerberg",
+      "personName": "Mark Zuckerberg · 马克·扎克伯格",
+      "speaker": "Mark Zuckerberg · 马克·扎克伯格",
+      "speakerRole": "Meta 创始人兼 CEO（发文时）",
+      "organizationId": "meta-ai",
+      "organization": "Meta",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "quoteEn": "my view is that open source AI will be safer than the alternatives.",
+      "quoteZh": "我的看法是，开源 AI 会比其他选择更安全。",
+      "date": "2024-07-23",
+      "dateLabel": "2024-07-23 · 原始发表 / 活动日",
+      "occasion": "Open Source AI Is the Path Forward",
+      "context": "在 Llama 3.1 发布背景下，公开信以透明审查、权力分散解释开放路线。",
+      "target": "开放模型的安全性",
+      "thesis": "安全也可以依靠广泛检查与生态，而不只依靠限制访问。",
+      "interpretation": "这里把“谁能发现和修复问题”放在安全中心。它与限制模型扩散的路线构成治理取舍，不能仅凭开放或闭源标签断言更安全。",
+      "caveat": "这是扎克伯格对开放模式的主张，不是所有模型已经更安全的实验结论；原文区分故意与无意伤害。",
+      "topics": [
+        "开源与闭源",
+        "安全与治理"
+      ],
+      "source": {
+        "title": "Open Source AI Is the Path Forward",
+        "url": "https://about.fb.com/news/2024/07/open-source-ai-is-the-path-forward/",
+        "type": "Meta 官网署名公开信",
+        "locator": "Why Open Source AI Is Good for the World 段落"
+      },
+      "relations": [
+        {
+          "targetId": "bengio-prove-safety-2026",
+          "type": "tension",
+          "reason": "Mark Zuckerberg · 马克·扎克伯格强调开放生态与分散权力，Yoshua Bengio要求开发者先向独立专家证明安全。"
+        },
+        {
+          "targetId": "zuckerberg-distribution-2026",
+          "type": "complement",
+          "reason": "2024年从开放审查讨论安全，2026年从能力分配讨论制衡；共同关注开放路线，但不把长期方向等同于每个模型应立即发布。"
+        },
+        {
+          "targetId": "hassabis-dual-use-2025",
+          "type": "tension",
+          "reason": "两条都关注技术可被恶意使用的问题；一条强调双重用途风险，另一条主张开放生态可改善安全，不将二者简化成风险存在与否之争。"
+        },
+        {
+          "targetId": "zuckerberg-open-gap-2024",
+          "type": "complement",
+          "reason": "同一人物围绕「开源与闭源」的不同切面：一条讨论开源与闭源模型能力差距的方向，另一条讨论开放模型的安全性；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ]
+    },
+    {
+      "id": "zuckerberg-personal-2025",
+      "speakerId": "mark-zuckerberg",
+      "personName": "Mark Zuckerberg · 马克·扎克伯格",
+      "speaker": "Mark Zuckerberg · 马克·扎克伯格",
+      "speakerRole": "Meta 创始人兼 CEO（发文时）",
+      "organizationId": "meta-ai",
+      "organization": "Meta",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "quoteEn": "Meta's vision is to bring personal superintelligence to everyone",
+      "quoteZh": "Meta 的愿景是让每个人都拥有个人超级智能。",
+      "date": "2025-07-30",
+      "dateLabel": "2025-07-30 · 原始发表 / 活动日",
+      "occasion": "Meta Q2 2025 Prepared Remarks",
+      "context": "Meta 调整研究组织、加大基础设施投入时，向投资者解释其产品方向。",
+      "target": "超级智能的分配方式",
+      "thesis": "把前沿能力转化为个人可支配的日常工具。",
+      "interpretation": "评价这一愿景，需要观察个人是否真正获得可控制、可负担的能力，而不只是一个能力更高的通用模型。",
+      "caveat": "这里表达产品愿景，不能当作超级智能已实现或已向所有人交付。",
+      "topics": [
+        "超级智能",
+        "产品与应用"
+      ],
+      "source": {
+        "title": "Meta Q2 2025 Prepared Remarks",
+        "url": "https://s21.q4cdn.com/399680738/files/doc_downloads/2025/META-Q2-2025-Prepared-Remarks.pdf#page=1",
+        "type": "公司投资者关系原始发言稿",
+        "locator": "第 1 页 Mark Zuckerberg 发言，个人超级智能愿景段"
+      },
+      "relations": [
+        {
+          "targetId": "altman-distribution-2025",
+          "type": "similar",
+          "reason": "Altman强调收益分配，扎克伯格强调个人能够使用的超级智能产品。"
+        }
+      ]
+    },
+    {
+      "id": "zuckerberg-distribution-2026",
+      "speakerId": "mark-zuckerberg",
+      "personName": "Mark Zuckerberg · 马克·扎克伯格",
+      "speaker": "Mark Zuckerberg · 马克·扎克伯格",
+      "speakerRole": "Meta 创始人兼 CEO（发文时）",
+      "organizationId": "meta-ai",
+      "organization": "Meta",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "quoteEn": "The long term answer isn’t to withhold capabilities",
+      "quoteZh": "长远的答案不是扣住能力不予开放",
+      "date": "2026-08-10",
+      "dateLabel": "2026-08-10 · 原始发表 / 活动日",
+      "occasion": "The Future is for Everyone",
+      "context": "公开信在网络、生命科学风险及权力分配背景下讨论安全制度。",
+      "target": "能力扩散与安全的关系",
+      "thesis": "通过分散能力和加强防御形成制衡，而不把能力永久集中。",
+      "interpretation": "主张的关键是长期权力分配。具体模型是否此刻适宜发布，仍需要独立的风险阈值与缓解措施。",
+      "caveat": "连续句中节选；原文也提出模型审查、基础设施加固和风险缓解，不等于无条件即时发布。",
+      "topics": [
+        "开源与闭源",
+        "安全与治理"
+      ],
+      "source": {
+        "title": "The Future is for Everyone",
+        "url": "https://about.fb.com/news/2026/08/the-future-is-for-everyone/",
+        "type": "Meta 官网署名公开信",
+        "locator": "安全讨论中 The long term answer 开头句；文末署名 Mark"
+      },
+      "relations": [
+        {
+          "targetId": "zuckerberg-open-safer-2024",
+          "type": "complement",
+          "reason": "2024年从开放审查讨论安全，2026年从能力分配讨论制衡；共同关注开放路线，但不把长期方向等同于每个模型应立即发布。"
+        }
+      ]
+    },
+    {
+      "id": "nadella-software-shift-2023",
+      "speakerId": "satya-nadella",
+      "personName": "Satya Nadella · 萨提亚·纳德拉",
+      "speaker": "Satya Nadella · 萨提亚·纳德拉",
+      "speakerRole": "Microsoft 董事长兼 CEO（发文时）",
+      "organizationId": "microsoft-ai",
+      "organization": "Microsoft",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "quoteEn": "This next generation of AI will reshape every software category and every business, including our own.",
+      "quoteZh": "下一代 AI 将重塑每一种软件品类和每一家企业，包括我们自己。",
+      "date": "2023-10-16",
+      "dateLabel": "2023-10-16 · 股东信署名日",
+      "occasion": "Microsoft 2023 Annual Report · Shareholder Letter",
+      "context": "生成式 AI 产品推出后的年度股东信，将 AI 定位为新的平台变迁。",
+      "target": "软件与商业模式的变化",
+      "thesis": "不把 AI 只看作单一功能，而是重新审视软件品类与工作方式。",
+      "interpretation": "业务重构不等于在旧软件里增加聊天框。更有意义的问题是工作流、收费单位和人与软件的分工有没有改变。",
+      "caveat": "前瞻性经营判断，不是所有行业已经完成转型的统计事实。",
+      "topics": [
+        "产品与应用",
+        "产业变革"
+      ],
+      "source": {
+        "title": "Microsoft 2023 Annual Report · Shareholder Letter",
+        "url": "https://www.microsoft.com/investor/reports/ar23/",
+        "type": "本人签署的年度股东信",
+        "locator": "股东信第二段；末尾署名及日期"
+      },
+      "relations": [
+        {
+          "targetId": "nadella-long-short-2025",
+          "type": "complement",
+          "reason": "同一人物围绕「产业变革」的不同切面：一条讨论软件与商业模式的变化，另一条讨论AI 转型中的投资与组织节奏；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ]
+    },
+    {
+      "id": "nadella-long-short-2025",
+      "speakerId": "satya-nadella",
+      "personName": "Satya Nadella · 萨提亚·纳德拉",
+      "speaker": "Satya Nadella · 萨提亚·纳德拉",
+      "speakerRole": "Microsoft 董事长兼 CEO（发文时）",
+      "organizationId": "microsoft-ai",
+      "organization": "Microsoft",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "quoteEn": "think in decades but execute in quarters",
+      "quoteZh": "以十年思考，以季度执行",
+      "date": "2025-10-15",
+      "dateLabel": "2025-10-15 · 股东信署名日",
+      "occasion": "Microsoft 2025 Annual Report · Shareholder Letter",
+      "context": "在第五十周年及 AI 平台转型背景下，股东信讨论当前业务与下一代技术的平衡。",
+      "target": "AI 转型中的投资与组织节奏",
+      "thesis": "长期能力建设需要短周期交付与验证，二者不是替代关系。",
+      "interpretation": "长期研究与季度执行对应不同时间尺度：既要给基础能力留下空间，也要用交付结果纠正路线，而不是用远景免除验证。",
+      "caveat": "连续短语节选；适用于其组织经营语境，不是通用投资收益保证。",
+      "topics": [
+        "组织与战略",
+        "产业变革"
+      ],
+      "source": {
+        "title": "Microsoft 2025 Annual Report · Shareholder Letter",
+        "url": "https://www.microsoft.com/investor/reports/ar25/",
+        "type": "本人签署的年度股东信",
+        "locator": "股东信开篇第三段；末尾署名及日期"
+      },
+      "relations": [
+        {
+          "targetId": "liang-wenfeng-curiosity-2024",
+          "type": "complement",
+          "reason": "Nadella强调双时间尺度；梁文锋强调商业之外的创新动机。"
+        },
+        {
+          "targetId": "nadella-software-shift-2023",
+          "type": "complement",
+          "reason": "同一人物围绕「产业变革」的不同切面：一条讨论软件与商业模式的变化，另一条讨论AI 转型中的投资与组织节奏；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ]
+    },
+    {
+      "id": "nadella-cost-outcome-2026",
+      "speakerId": "satya-nadella",
+      "personName": "Satya Nadella · 萨提亚·纳德拉",
+      "speaker": "Satya Nadella · 萨提亚·纳德拉",
+      "speakerRole": "Microsoft 董事长兼 CEO（发文时）",
+      "organizationId": "microsoft-ai",
+      "organization": "Microsoft",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "quoteEn": "customers will increasingly measure the cost of tokens against the outcomes they produce.",
+      "quoteZh": "客户将越来越多地用实际产出来衡量 token 成本。",
+      "date": "2026-10-14",
+      "dateLabel": "2026-10-14 · 股东信署名日",
+      "occasion": "Microsoft 2026 Annual Report · Shareholder Letter",
+      "context": "股东信讨论推理带来的边际成本，并提出 cost-to-outcome 的衡量方式。",
+      "target": "AI 的经济价值衡量",
+      "thesis": "比起单独比较 token 单价，更应比较完成有效任务的成本。",
+      "interpretation": "低价但经常失败的模型未必便宜。把成功率、返工、人工复核和延迟计入一次有效任务，才更接近客户的真实成本。",
+      "caveat": "客户价值导向的战略判断；不能从 token 消耗直接推断收入或生产率。",
+      "topics": [
+        "商业价值",
+        "算力与成本"
+      ],
+      "source": {
+        "title": "Microsoft 2026 Annual Report · Shareholder Letter",
+        "url": "https://www.microsoft.com/investor/reports/ar26/",
+        "type": "本人签署的年度股东信",
+        "locator": "Building the Frontier Ecosystem 开篇 cost-to-outcome 段"
+      },
+      "relations": [
+        {
+          "targetId": "huang-compute-revenue-2026",
+          "type": "tension",
+          "reason": "供应商把算力视为可销售产能；客户需要用实际结果验证每次调用的成本。"
+        },
+        {
+          "targetId": "yan-junjie-efficiency-mission-2026",
+          "type": "similar",
+          "reason": "MiniMax用使命表达效率目标；Nadella将客户产出作为成本的参照。"
+        }
+      ]
+    },
+    {
+      "id": "pichai-ai-first-2016",
+      "speakerId": "sundar-pichai",
+      "personName": "Sundar Pichai · 桑达尔·皮查伊",
+      "speaker": "Sundar Pichai · 桑达尔·皮查伊",
+      "speakerRole": "Google CEO（2016年发文时）",
+      "organizationId": "google-alphabet",
+      "organization": "Google / Alphabet",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "quoteEn": "We will move from mobile first to an AI first world.",
+      "quoteZh": "我们将从移动优先的世界走向 AI 优先的世界。",
+      "date": "2016-04-28",
+      "dateLabel": "2016-04-28 · 原始发表 / 活动日",
+      "occasion": "This year’s Founders’ Letter",
+      "context": "Google 的创始人信栏目由 Pichai 分享愿景，背景是移动计算之后的智能助理。",
+      "target": "计算平台的长期方向",
+      "thesis": "用智能服务而非设备形态组织下一代产品。",
+      "interpretation": "这是2016年提出的平台方向：从用户操作设备与应用，转向系统主动理解需求。不能将后来的产品表现倒推为当时已完成的事实。",
+      "caveat": "历史战略判断；此时为 Google CEO，不把之后的 Alphabet 职位回填至 2016 年。",
+      "topics": [
+        "产业变革",
+        "历史经典"
+      ],
+      "source": {
+        "title": "This year’s Founders’ Letter",
+        "url": "https://blog.google/alphabet/this-years-founders-letter/",
+        "type": "Google 官网本人署名信",
+        "locator": "Mobile 段末；Larry Page 引言之后的 Sundar 正文"
+      },
+      "relations": [
+        {
+          "targetId": "yan-junjie-platform-company-2026",
+          "type": "complement",
+          "reason": "Pichai预判计算范式；闫俊杰说明一家模型公司的业务演进方向。"
+        }
+      ]
+    },
+    {
+      "id": "pichai-agentic-search-2026",
+      "speakerId": "sundar-pichai",
+      "personName": "Sundar Pichai · 桑达尔·皮查伊",
+      "speaker": "Sundar Pichai · 桑达尔·皮查伊",
+      "speakerRole": "Alphabet 与 Google CEO（发言时）",
+      "organizationId": "google-alphabet",
+      "organization": "Google / Alphabet",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "quoteEn": "As we enter this agentic era, Search will be more helpful and powerful than ever.",
+      "quoteZh": "进入智能体时代后，搜索将比以往更有帮助、更强大。",
+      "date": "2026-05-19",
+      "dateLabel": "2026-05-19 · 原始发表 / 活动日",
+      "occasion": "Google I/O 2026 · Sundar Pichai opening keynote",
+      "context": "I/O 官方编辑稿在信息智能体、持续任务和用户控制的产品发布背景中阐述方向。",
+      "target": "搜索从信息检索走向行动",
+      "thesis": "搜索产品开始承接持续任务，而不只返回一次性答案。",
+      "interpretation": "从找答案走向代办任务后，产品评价要增加可控性、授权、持续运行和结果验收，而不只是回答质量。",
+      "caveat": "原文为经编辑的发布会文字稿，产品前景不等于全部用户已可用或效果已独立验证。",
+      "topics": [
+        "Agent",
+        "产品与应用"
+      ],
+      "source": {
+        "title": "Google I/O 2026 · Sundar Pichai opening keynote",
+        "url": "https://blog.google/innovation-and-ai/sundar-pichai-io-2026/",
+        "type": "Google 官方编辑版演讲稿",
+        "locator": "Search in the agentic era 段首"
+      },
+      "relations": [
+        {
+          "targetId": "bengio-scientist-ai-2025",
+          "type": "tension",
+          "reason": "Pichai强调任务型搜索的行动能力；Bengio提出非智能体式Scientist AI以降低目标追求风险。"
+        },
+        {
+          "targetId": "zhang-peng-interaction-shift-2024",
+          "type": "complement",
+          "reason": "一条关注模型推动交互方式变化，一条展示搜索向行动演进的产品方向；两者都需要进一步检验用户能否有效完成任务。"
+        }
+      ]
+    },
+    {
+      "id": "pichai-full-stack-2026",
+      "speakerId": "sundar-pichai",
+      "personName": "Sundar Pichai · 桑达尔·皮查伊",
+      "speaker": "Sundar Pichai · 桑达尔·皮查伊",
+      "speakerRole": "Alphabet 与 Google CEO（发言时）",
+      "organizationId": "google-alphabet",
+      "organization": "Google / Alphabet",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "quoteEn": "Our deep, full-stack approach is driving momentum across the business",
+      "quoteZh": "我们深入、全栈的布局正在推动各项业务发展",
+      "date": "2026-10-28",
+      "dateLabel": "2026-10-28 · 原始发表 / 活动日",
+      "occasion": "Q3 2026 earnings call: Remarks from our CEO",
+      "context": "第三季度财报发言将模型、基础设施、搜索和云业务放在同一战略下解释。",
+      "target": "AI 全栈协同",
+      "thesis": "研究、算力、分发与产品能够相互支撑。",
+      "interpretation": "全栈可能降低协作成本并形成分发优势，也可能带来资本投入和系统耦合。需要分别观察各业务的收益与成本。",
+      "caveat": "经营层自述，非独立因果研究；句中连续节选，不把所有增长都归因于 AI。",
+      "topics": [
+        "组织与战略",
+        "算力与成本"
+      ],
+      "source": {
+        "title": "Q3 2026 earnings call: Remarks from our CEO",
+        "url": "https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q3-2026/",
+        "type": "Google 官方编辑版财报电话会发言稿",
+        "locator": "正文第一段第二句"
+      },
+      "relations": [
+        {
+          "targetId": "jassy-three-layers-2024",
+          "type": "complement",
+          "reason": "一条强调全栈协同，一条拆分生成式AI产业层次；可共同帮助辨认基础设施、模型与应用各自的作用。"
+        }
+      ]
+    },
+    {
+      "id": "huang-iphone-2023",
+      "speakerId": "jensen-huang",
+      "personName": "Jensen Huang · 黄仁勋",
+      "speaker": "Jensen Huang · 黄仁勋",
+      "speakerRole": "NVIDIA 创始人兼 CEO（所引发言时）",
+      "organizationId": "nvidia",
+      "organization": "NVIDIA",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "quoteEn": "The generative AI era is upon us, the iPhone moment if you will",
+      "quoteZh": "生成式 AI 时代已经到来，可以说是它的 iPhone 时刻",
+      "date": "2023-08-08",
+      "dateLabel": "2023-08-08 · 原始发表 / 活动日",
+      "occasion": "SIGGRAPH Special Address: NVIDIA CEO Brings Generative AI to LA Show",
+      "context": "SIGGRAPH 特别演讲发布图形、仿真、加速计算与模型部署工具。",
+      "target": "生成式 AI 的大众化拐点",
+      "thesis": "技术突破与可用产品结合，可能触发更广泛采用。",
+      "interpretation": "类比强调技术变得大众可用的拐点。要判断拐点是否成立，还要看持续使用、开发者生态及付费，而不只看发布会热度。",
+      "caveat": "iPhone 时刻是历史类比，不是渗透率测量；供应商有产品推广立场。",
+      "topics": [
+        "产业变革",
+        "历史经典"
+      ],
+      "source": {
+        "title": "SIGGRAPH Special Address: NVIDIA CEO Brings Generative AI to LA Show",
+        "url": "https://blogs.nvidia.com/blog/siggraph-2023-special-address/",
+        "type": "NVIDIA 官方活动实录直接引语",
+        "locator": "正文第二段 Huang told an audience"
+      },
+      "relations": [
+        {
+          "targetId": "huang-industry-transformation-2024",
+          "type": "complement",
+          "reason": "同一人物围绕「产业变革」的不同切面：一条讨论生成式 AI 的大众化拐点，另一条讨论生成式 AI 对产业创新与增长的影响；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ]
+    },
+    {
+      "id": "huang-compute-revenue-2026",
+      "speakerId": "jensen-huang",
+      "personName": "Jensen Huang · 黄仁勋",
+      "speaker": "Jensen Huang · 黄仁勋",
+      "speakerRole": "NVIDIA 创始人兼 CEO（所引发言时）",
+      "organizationId": "nvidia",
+      "organization": "NVIDIA",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "quoteEn": "Now, compute is revenue.",
+      "quoteZh": "现在，算力就是收入。",
+      "date": "2026-08-26",
+      "dateLabel": "2026-08-26 · 原始发表 / 活动日",
+      "occasion": "NVIDIA Q2 Fiscal 2027 results",
+      "context": "财报公告中，黄仁勋把可生产、可盈利的 token 与基础设施需求联系起来。",
+      "target": "AI 算力的商业价值",
+      "thesis": "算力从研究成本转向可出售服务的产能。",
+      "interpretation": "供应侧将算力视为服务产能，但闲置产能不能自动变成收入。利用率、单次推理经济性和需求质量仍然是必要条件。",
+      "caveat": "这是管理层商业概括；不是买入任何硬件就能盈利，也不是用户侧 ROI 的已验证等式。",
+      "topics": [
+        "商业价值",
+        "算力与成本"
+      ],
+      "source": {
+        "title": "NVIDIA Q2 Fiscal 2027 results",
+        "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/default.aspx",
+        "type": "NVIDIA 官方财报新闻稿直接引语",
+        "locator": "Jensen Huang 引语第一段末句"
+      },
+      "relations": [
+        {
+          "targetId": "nadella-cost-outcome-2026",
+          "type": "tension",
+          "reason": "供应商把算力视为可销售产能；客户需要用实际结果验证每次调用的成本。"
+        }
+      ]
+    },
+    {
+      "id": "jassy-three-layers-2024",
+      "speakerId": "andy-jassy",
+      "personName": "Andy Jassy · 安迪·贾西",
+      "speaker": "Andy Jassy · 安迪·贾西",
+      "speakerRole": "Amazon CEO（发文时）",
+      "organizationId": "amazon-aws",
+      "organization": "Amazon / AWS",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "quoteEn": "there are three distinct layers in the GenAI stack",
+      "quoteZh": "生成式 AI 技术栈有三个不同层次",
+      "date": "2024-04-11",
+      "dateLabel": "2024-04-11 · 原始发表 / 活动日",
+      "occasion": "Andy Jassy’s 2023 Letter to Shareholders",
+      "context": "股东信分别讨论底层算力和建模工具、模型服务平台、上层应用。",
+      "target": "AI 产业链的分层",
+      "thesis": "产业机会不只在聊天应用；要分清自己服务的技术层。",
+      "interpretation": "分层有助于识别不同竞争要素：芯片与训练依赖资本和工程，模型平台依赖选择与集成，应用依赖场景和分发。",
+      "caveat": "句中连续节选；是 Amazon 的业务分析框架，不是唯一标准分类。",
+      "topics": [
+        "组织与战略",
+        "产品与应用"
+      ],
+      "source": {
+        "title": "Andy Jassy’s 2023 Letter to Shareholders",
+        "url": "https://www.aboutamazon.com/news/company-news/amazon-ceo-andy-jassy-2023-letter-to-shareholders",
+        "type": "Amazon 官网本人署名股东信",
+        "locator": "Generative AI 三层技术栈讨论首段"
+      },
+      "relations": [
+        {
+          "targetId": "pichai-full-stack-2026",
+          "type": "complement",
+          "reason": "一条强调全栈协同，一条拆分生成式AI产业层次；可共同帮助辨认基础设施、模型与应用各自的作用。"
+        },
+        {
+          "targetId": "eric-xu-no-universal-pretraining-2024",
+          "type": "complement",
+          "reason": "AI技术栈分层意味着企业可以在不同层次参与；选择采购、微调或自训应由任务和控制需求决定，而非一律从底层重建。"
+        },
+        {
+          "targetId": "jassy-multiplier-2026",
+          "type": "complement",
+          "reason": "同一人物围绕「组织与战略」的不同切面：一条讨论AI 产业链的分层，另一条讨论AI 与现有业务的结合；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ]
+    },
+    {
+      "id": "jassy-multiplier-2026",
+      "speakerId": "andy-jassy",
+      "personName": "Andy Jassy · 安迪·贾西",
+      "speaker": "Andy Jassy · 安迪·贾西",
+      "speakerRole": "Amazon CEO（发文时）",
+      "organizationId": "amazon-aws",
+      "organization": "Amazon / AWS",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "quoteEn": "AI is not a standalone initiative—it’s a multiplier.",
+      "quoteZh": "AI 不是一项孤立的计划，而是一个乘数。",
+      "date": "2026-04-09",
+      "dateLabel": "2026-04-09 · 原始发表 / 活动日",
+      "occasion": "Andy Jassy’s 2025 Letter to Shareholders",
+      "context": "年度股东信结尾把 AI 与物流、机器人、云和新业务一并讨论。",
+      "target": "AI 与现有业务的结合",
+      "thesis": "价值可能来自提升许多已有环节，而非单独成立一个 AI 项目。",
+      "interpretation": "AI价值也可藏在现有流程的小幅持续改进中。观察单位成本、处理速度和客户体验，比只统计AI项目数量更有意义。",
+      "caveat": "这是一种经营定位，不代表所有业务都有同样的增益；2025 年股东信发表于 2026 年。",
+      "topics": [
+        "商业价值",
+        "组织与战略"
+      ],
+      "source": {
+        "title": "Andy Jassy’s 2025 Letter to Shareholders",
+        "url": "https://www.aboutamazon.com/news/company-news/amazon-ceo-andy-jassy-2025-letter-to-shareholders",
+        "type": "Amazon 官网本人署名股东信",
+        "locator": "结尾 Across all of this 与 Progress will not be linear 两段"
+      },
+      "relations": [
+        {
+          "targetId": "mensch-deployment-2024",
+          "type": "complement",
+          "reason": "Jassy阐述跨业务增益；Mensch指出规模部署的实施障碍。"
+        },
+        {
+          "targetId": "jassy-three-layers-2024",
+          "type": "complement",
+          "reason": "同一人物围绕「组织与战略」的不同切面：一条讨论AI 产业链的分层，另一条讨论AI 与现有业务的结合；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        },
+        {
+          "targetId": "jassy-nonlinear-2026",
+          "type": "complement",
+          "reason": "同一人物围绕「组织与战略」的不同切面：一条讨论AI 与现有业务的结合，另一条讨论技术投资与试错；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ]
+    },
+    {
+      "id": "jassy-nonlinear-2026",
+      "speakerId": "andy-jassy",
+      "personName": "Andy Jassy · 安迪·贾西",
+      "speaker": "Andy Jassy · 安迪·贾西",
+      "speakerRole": "Amazon CEO（发文时）",
+      "organizationId": "amazon-aws",
+      "organization": "Amazon / AWS",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "quoteEn": "Progress will not be linear.",
+      "quoteZh": "进展不会是线性的。",
+      "date": "2026-04-09",
+      "dateLabel": "2026-04-09 · 原始发表 / 活动日",
+      "occasion": "Andy Jassy’s 2025 Letter to Shareholders",
+      "context": "同一股东信紧接 AI 倍增愿景，强调加速、调整和必要时撤回。",
+      "target": "技术投资与试错",
+      "thesis": "用阶段验证和可撤回投入处理技术不确定性。",
+      "interpretation": "非线性进展要求设置阶段性停止或调整条件。既不因短期停滞立即否定长期方向，也不把愿景当作无限投入的理由。",
+      "caveat": "不能把这句话解读为任何延误都合理；原文仍要求关注长期客户价值。",
+      "topics": [
+        "研究方法",
+        "组织与战略"
+      ],
+      "source": {
+        "title": "Andy Jassy’s 2025 Letter to Shareholders",
+        "url": "https://www.aboutamazon.com/news/company-news/amazon-ceo-andy-jassy-2025-letter-to-shareholders",
+        "type": "Amazon 官网本人署名股东信",
+        "locator": "结尾 Across all of this 与 Progress will not be linear 两段"
+      },
+      "relations": [
+        {
+          "targetId": "turing-horizon-1950",
+          "type": "similar",
+          "reason": "图灵指出当前仍有许多研究任务；Jassy提醒技术投资不会按直线推进。"
+        },
+        {
+          "targetId": "jassy-multiplier-2026",
+          "type": "complement",
+          "reason": "同一人物围绕「组织与战略」的不同切面：一条讨论AI 与现有业务的结合，另一条讨论技术投资与试错；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ]
+    },
+    {
+      "id": "su-ai-compute-2024",
+      "speakerId": "lisa-su",
+      "personName": "Lisa Su · 苏姿丰",
+      "speaker": "Lisa Su · 苏姿丰",
+      "speakerRole": "AMD 董事长兼 CEO（发言时）",
+      "organizationId": "amd",
+      "organization": "AMD",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "quoteEn": "the rapid and accelerating adoption of AI is driving increased demand for our high-performance computing platforms",
+      "quoteZh": "AI 快速且不断加速的采用，正在增加对我们高性能计算平台的需求",
+      "date": "2024-06-02",
+      "dateLabel": "2024-06-02 · 原始发表 / 活动日",
+      "occasion": "AMD Computex 2024 announcement",
+      "context": "Computex 公告发布 CPU、NPU、GPU 与端云产品路线。",
+      "target": "AI 采用与基础设施需求",
+      "thesis": "应用普及会沿产业链传导为不同类型的计算需求。",
+      "interpretation": "AI采用增加不意味着所有芯片同步受益。训练、推理、端侧和云端的工作负载差异，决定具体的资源需求。",
+      "caveat": "连续句中节选；公司自述需求，不构成整个市场的独立增长预测。",
+      "topics": [
+        "算力与成本",
+        "产业变革"
+      ],
+      "source": {
+        "title": "AMD Computex 2024 announcement",
+        "url": "https://ir.amd.com/news-events/press-releases/detail/1200/amd-extends-ai-and-high-performance-leadership-in-data-center-and-pcs-with-new-amd-instinct-ryzen-and-epyc-processors-at-computex-2024",
+        "type": "AMD 官方活动公告直接引语",
+        "locator": "Lisa Su 首段引语后半句"
+      },
+      "relations": [
+        {
+          "targetId": "eric-xu-experience-first-2024",
+          "type": "complement",
+          "reason": "硬件需求增长来自采用；面向用户设计时却不能只炫耀硬件指标。"
+        },
+        {
+          "targetId": "su-yotta-era-2026",
+          "type": "complement",
+          "reason": "同一人物围绕「算力与成本」的不同切面：一条讨论AI 采用与基础设施需求，另一条讨论训练与推理基础设施规模；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ]
+    },
+    {
+      "id": "su-yotta-era-2026",
+      "speakerId": "lisa-su",
+      "personName": "Lisa Su · 苏姿丰",
+      "speaker": "Lisa Su · 苏姿丰",
+      "speakerRole": "AMD 董事长兼 CEO（发言时）",
+      "organizationId": "amd",
+      "organization": "AMD",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "quoteEn": "we are entering the era of yotta-scale computing",
+      "quoteZh": "我们正在进入尧级计算时代",
+      "date": "2026-01-05",
+      "dateLabel": "2026-01-05 · 原始发表 / 活动日",
+      "occasion": "AMD and Partners: AI Everywhere, for Everyone at CES 2026",
+      "context": "CES 发布会将计算规模、开放平台及跨行业合作联系起来。",
+      "target": "训练与推理基础设施规模",
+      "thesis": "训练和推理共同推动系统级基础设施规划。",
+      "interpretation": "从单颗芯片转向系统规划，需要同时处理网络、内存、供电和软件利用率。规模数字本身不能代替有效吞吐。",
+      "caveat": "连续句中节选；规模愿景不等于已安装产能，也不代表每个企业都需要相同配置。",
+      "topics": [
+        "算力与成本",
+        "产业变革"
+      ],
+      "source": {
+        "title": "AMD and Partners: AI Everywhere, for Everyone at CES 2026",
+        "url": "https://ir.amd.com/news-events/press-releases/detail/1272/amd-and-its-partners-share-their-vision-for-ai-everywhere-for-everyone-at-ces-2026",
+        "type": "AMD 官方活动公告直接引语",
+        "locator": "Lisa Su 第二句引语"
+      },
+      "relations": [
+        {
+          "targetId": "su-ai-compute-2024",
+          "type": "complement",
+          "reason": "同一人物围绕「算力与成本」的不同切面：一条讨论AI 采用与基础设施需求，另一条讨论训练与推理基础设施规模；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        },
+        {
+          "targetId": "su-right-compute-2026",
+          "type": "complement",
+          "reason": "同一人物围绕「算力与成本」的不同切面：一条讨论训练与推理基础设施规模，另一条讨论任务与算力的匹配；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ]
+    },
+    {
+      "id": "su-right-compute-2026",
+      "speakerId": "lisa-su",
+      "personName": "Lisa Su · 苏姿丰",
+      "speaker": "Lisa Su · 苏姿丰",
+      "speakerRole": "AMD 董事长兼 CEO（发言时）",
+      "organizationId": "amd",
+      "organization": "AMD",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "quoteEn": "You don't need the same compute for every question.",
+      "quoteZh": "并非每个问题都需要相同的算力。",
+      "date": "2026-10-12",
+      "dateLabel": "2026-10-12 · 原始发表 / 活动日",
+      "occasion": "OCP 2026: Lisa Su Highlights Open Infrastructure",
+      "context": "OCP 主旨演讲在智能体机架、模型路由和异构系统背景下讨论资源分配。",
+      "target": "任务与算力的匹配",
+      "thesis": "把合适的模型与计算资源分配给相应任务，而非一律上最大配置。",
+      "interpretation": "先给任务分层，再选模型和算力：简单请求不必支付复杂推理的成本，困难任务也不应被统一压低资源预算。",
+      "caveat": "强调资源匹配，不是否定大型训练或高算力需求；来自硬件供应商的方案阐述。",
+      "topics": [
+        "算力与成本",
+        "Agent"
+      ],
+      "source": {
+        "title": "OCP 2026: Lisa Su Highlights Open Infrastructure",
+        "url": "https://newsroom.amd.com/news/ocp-2026-amd-ceo-lisa-su-keynote-takeaways/",
+        "type": "AMD 官方主旨演讲摘录",
+        "locator": "AMD Helion Scales Agentic AI as Demands Adjust → What Lisa Su Said"
+      },
+      "relations": [
+        {
+          "targetId": "musk-power-limit-2026",
+          "type": "complement",
+          "reason": "Musk关注电力能否承载芯片，Su关注不同请求如何匹配模型和算力。"
+        },
+        {
+          "targetId": "su-yotta-era-2026",
+          "type": "complement",
+          "reason": "同一人物围绕「算力与成本」的不同切面：一条讨论训练与推理基础设施规模，另一条讨论任务与算力的匹配；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ]
+    },
+    {
+      "id": "mensch-deployment-2024",
+      "speakerId": "arthur-mensch",
+      "personName": "Arthur Mensch · 阿瑟·门施",
+      "speaker": "Arthur Mensch · 阿瑟·门施",
+      "speakerRole": "Mistral AI 联合创始人兼 CEO（发文时）",
+      "organizationId": "mistral-ai",
+      "organization": "Mistral AI",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "quoteEn": "Deployment at scale is one of the biggest barriers to widespread adoption of generative AI",
+      "quoteZh": "规模化部署是生成式 AI 广泛采用的最大障碍之一",
+      "date": "2024-02-08",
+      "dateLabel": "2024-02-08 · 原始发表 / 活动日",
+      "occasion": "Capgemini partners with Mistral AI",
+      "context": "与 Capgemini 宣布合作，意在将模型集成到实际业务。",
+      "target": "模型能力到企业落地的距离",
+      "thesis": "交付、集成和运行成本会决定模型能否被真正使用。",
+      "interpretation": "模型成绩之后，还有权限、数据连接、评测和运营等交付环节。试用成功不等于系统能够稳定地进入组织流程。",
+      "caveat": "合作公告中的原话，存在商业推广目的；不是对所有采用障碍的量化排名。",
+      "topics": [
+        "产品与应用",
+        "商业价值"
+      ],
+      "source": {
+        "title": "Capgemini partners with Mistral AI",
+        "url": "https://www.capgemini.com/wp-content/uploads/2024/02/02_08_Capgemini-and-Mistral-AI_EN.pdf#page=1",
+        "type": "合作双方官方公告中的本人引语",
+        "locator": "第 1 页 Arthur Mensch 引语第二句"
+      },
+      "relations": [
+        {
+          "targetId": "jassy-multiplier-2026",
+          "type": "complement",
+          "reason": "Jassy阐述跨业务增益；Mensch指出规模部署的实施障碍。"
+        }
+      ]
+    },
+    {
+      "id": "mensch-autonomy-2026",
+      "speakerId": "arthur-mensch",
+      "personName": "Arthur Mensch · 阿瑟·门施",
+      "speaker": "Arthur Mensch · 阿瑟·门施",
+      "speakerRole": "Mistral AI 联合创始人兼 CEO（发文时）",
+      "organizationId": "mistral-ai",
+      "organization": "Mistral AI",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "quoteEn": "Controlling our AI and infrastructure is not optional",
+      "quoteZh": "掌控我们的 AI 和基础设施并不是可选项",
+      "date": "2026-04-07",
+      "dateLabel": "2026-04-07 · 原始发表 / 活动日",
+      "occasion": "European AI: a playbook to own it",
+      "context": "在欧洲政策白皮书的本人署名序言中，讨论人才、单一市场和自主基础设施。",
+      "target": "欧洲的技术自主性",
+      "thesis": "把模型与基础设施控制权视为产业战略的一部分。",
+      "interpretation": "这里的自主性是控制与选择能力，包括部署位置、供应商和基础设施。它不等同于每个国家都应独立重建整条技术栈。",
+      "caveat": "连续节选；“我们”指欧洲语境，属于政策倡议，不是中立经济定律。",
+      "topics": [
+        "开放与主权",
+        "组织与战略"
+      ],
+      "source": {
+        "title": "European AI: a playbook to own it",
+        "url": "https://europe.mistral.ai/",
+        "type": "Mistral 官网白皮书中 CEO 署名序言",
+        "locator": "A word from the CEO；署名 Arthur Mensch 之前"
+      },
+      "relations": [
+        {
+          "targetId": "eddie-wu-open-qwen-2025",
+          "type": "complement",
+          "reason": "Mensch从欧洲主权出发；吴泳铭表达模型开源路线。"
+        },
+        {
+          "targetId": "andrew-ng-platform-stability-2026",
+          "type": "complement",
+          "reason": "Ng关注平台规则和访问权的稳定性，Mensch关注组织掌控技术与基础设施的能力；可共同评估供应商依赖，不将两人的主权政策立场视为完全相同。"
+        },
+        {
+          "targetId": "mensch-compete-2026",
+          "type": "complement",
+          "reason": "同一人物围绕「开放与主权」的不同切面：一条讨论欧洲的技术自主性，另一条讨论欧洲 AI 竞争能力；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ]
+    },
+    {
+      "id": "mensch-compete-2026",
+      "speakerId": "arthur-mensch",
+      "personName": "Arthur Mensch · 阿瑟·门施",
+      "speaker": "Arthur Mensch · 阿瑟·门施",
+      "speakerRole": "Mistral AI 联合创始人兼 CEO（发文时）",
+      "organizationId": "mistral-ai",
+      "organization": "Mistral AI",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "quoteEn": "The question is not whether we can compete, but how we will rise to the occasion.",
+      "quoteZh": "问题不是我们能否竞争，而是如何迎接这一时刻。",
+      "date": "2026-04-07",
+      "dateLabel": "2026-04-07 · 原始发表 / 活动日",
+      "occasion": "European AI: a playbook to own it",
+      "context": "同一序言强调本地人才、产业基础及市场协调。",
+      "target": "欧洲 AI 竞争能力",
+      "thesis": "把抽象的领先或落后讨论转化为行动条件。",
+      "interpretation": "作者把焦点从抽象排名移到人才、市场和资本能否协同。验证这一判断应观察具体产出，而非把倡议信当成能力证据。",
+      "caveat": "属于作者对欧洲潜力的判断，不能据此宣称 Mistral 模型排名领先。",
+      "topics": [
+        "开放与主权",
+        "组织与战略"
+      ],
+      "source": {
+        "title": "European AI: a playbook to own it",
+        "url": "https://europe.mistral.ai/",
+        "type": "Mistral 官网白皮书中 CEO 署名序言",
+        "locator": "A word from the CEO；署名 Arthur Mensch 之前"
+      },
+      "relations": [
+        {
+          "targetId": "mensch-autonomy-2026",
+          "type": "complement",
+          "reason": "同一人物围绕「开放与主权」的不同切面：一条讨论欧洲的技术自主性，另一条讨论欧洲 AI 竞争能力；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ]
+    },
+    {
+      "id": "musk-truth-2024",
+      "speakerId": "elon-musk",
+      "personName": "Elon Musk · 埃隆·马斯克",
+      "speaker": "Elon Musk · 埃隆·马斯克",
+      "speakerRole": "xAI 创始人；Tesla、SpaceX 负责人（发言时）",
+      "organizationId": "spacexai-xai",
+      "organization": "xAI / Tesla / SpaceX",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "quoteEn": "Rigorous adherence to the truth is very important.",
+      "quoteZh": "严格遵循真实非常重要。",
+      "date": "2024-08-02",
+      "dateLabel": "2024-08-02 · 节目发布日",
+      "occasion": "Lex Fridman Podcast #438 · Original transcript",
+      "context": "原始访谈中讨论训练目标、偏差与不正确输出的风险。",
+      "target": "AI 目标与可靠性",
+      "thesis": "把诚实表达与纠错放到系统目标设计中。",
+      "interpretation": "真实不仅是一项价值口号，也可转化为承认不知道、指出证据不足和纠正错误等行为要求；这些仍需独立评测。",
+      "caveat": "这是受访者对 AI 设计的主张，不代表其产品已无偏差；不把访谈中对竞争者的举例当作独立验证事实。",
+      "topics": [
+        "安全与治理",
+        "可靠性"
+      ],
+      "source": {
+        "title": "Lex Fridman Podcast #438 · Original transcript",
+        "url": "https://lexfridman.com/elon-musk-and-neuralink-team-transcript/",
+        "type": "原采访主持人发布的完整逐字稿",
+        "locator": "Elon Musk 00:54:48；日期为节目发布日，不补录制日"
+      },
+      "relations": [
+        {
+          "targetId": "bengio-scientist-ai-2025",
+          "type": "complement",
+          "reason": "真实表达的目标可与可信的非自主研究系统一起思考，但两人的技术方案和治理主张不能据此视为相同。"
+        }
+      ]
+    },
+    {
+      "id": "musk-power-limit-2026",
+      "speakerId": "elon-musk",
+      "personName": "Elon Musk · 埃隆·马斯克",
+      "speaker": "Elon Musk · 埃隆·马斯克",
+      "speakerRole": "xAI 创始人；Tesla、SpaceX 负责人（发言时）",
+      "organizationId": "spacexai-xai",
+      "organization": "xAI / Tesla / SpaceX",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "quoteEn": "We’re very soon going to be producing more chips than we can turn on",
+      "quoteZh": "我们很快会生产出比电力能支撑运行的数量更多的芯片",
+      "date": "2026-01-22",
+      "dateLabel": "2026-01-22 · 发言日；官方报道发表于 2026-01-24",
+      "occasion": "Elon Musk at Davos 2026: technology and an abundant future",
+      "context": "达沃斯与 Larry Fink 的对谈，讨论机器人、太阳能及数据中心。",
+      "target": "AI 扩张的能源约束",
+      "thesis": "资源约束会从芯片供应转移到供电与配套设施。",
+      "interpretation": "芯片交付与可用计算不是同一件事。电网接入、供电时点和散热约束都可能改变数据中心扩张的实际速度。",
+      "caveat": "是当时的预测，不是本次核验确认的供需事实；发言 1 月 22 日，主办方报道 1 月 24 日。",
+      "topics": [
+        "算力与成本",
+        "能源"
+      ],
+      "source": {
+        "title": "Elon Musk at Davos 2026: technology and an abundant future",
+        "url": "https://www.weforum.org/stories/artificial-intelligence/elon-musk-technology-abundant-future-davos-2026",
+        "type": "活动主办方原始现场报道及直接引语",
+        "locator": "Energy needs 段与 The future of humanity 引语；活动 1 月 22 日，页面发表于 1 月 24 日"
+      },
+      "relations": [
+        {
+          "targetId": "su-right-compute-2026",
+          "type": "complement",
+          "reason": "Musk关注电力能否承载芯片，Su关注不同请求如何匹配模型和算力。"
+        },
+        {
+          "targetId": "yan-junjie-resource-limits-2026",
+          "type": "similar",
+          "reason": "MiniMax强调效率问题；Musk具体指向可供电的芯片数量。"
+        }
+      ]
+    },
+    {
+      "id": "musk-optimism-2026",
+      "speakerId": "elon-musk",
+      "personName": "Elon Musk · 埃隆·马斯克",
+      "speaker": "Elon Musk · 埃隆·马斯克",
+      "speakerRole": "xAI 创始人；Tesla、SpaceX 负责人（发言时）",
+      "organizationId": "spacexai-xai",
+      "organization": "xAI / Tesla / SpaceX",
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "quoteEn": "We are in the most interesting time in history.",
+      "quoteZh": "我们正处于历史上最有意思的时代。",
+      "date": "2026-01-22",
+      "dateLabel": "2026-01-22 · 发言日；官方报道发表于 2026-01-24",
+      "occasion": "Elon Musk at Davos 2026: technology and an abundant future",
+      "context": "同一场对谈既承认技术风险，也强调 AI 和机器人改善生活的潜力。",
+      "target": "面对 AI 风险与机遇的态度",
+      "thesis": "对未来保持积极，但仍要辨别愿景、约束与已实现结果。",
+      "interpretation": "积极态度与严谨风险判断并不冲突。阅读愿景类发言时，可将作者希望发生的未来与已经有证据的进展分开。",
+      "caveat": "是一种价值态度，不是模型能力评估；原话并没有证明风险不存在。",
+      "topics": [
+        "超级智能",
+        "产业变革"
+      ],
+      "source": {
+        "title": "Elon Musk at Davos 2026: technology and an abundant future",
+        "url": "https://www.weforum.org/stories/artificial-intelligence/elon-musk-technology-abundant-future-davos-2026",
+        "type": "活动主办方原始现场报道及直接引语",
+        "locator": "Energy needs 段与 The future of humanity 引语；活动 1 月 22 日，页面发表于 1 月 24 日"
+      },
+      "relations": [
+        {
+          "targetId": "amodei-hope-2024",
+          "type": "similar",
+          "reason": "两条都认为对技术前景保持积极有意义；这种态度不替代各自提出的风险判断与具体证据。"
+        }
+      ]
+    },
+    {
+      "id": "altman-distribution-2025",
+      "quoteEn": "Ensuring that the benefits of AGI are broadly distributed is critical.",
+      "quoteZh": "确保 AGI 的收益得到广泛分享，至关重要。",
+      "speaker": "Sam Altman",
+      "speakerId": "sam-altman",
+      "speakerRole": "OpenAI 联合创始人、CEO；以个人博客作者身份发文",
+      "organization": "OpenAI",
+      "organizationId": "openai",
+      "date": "2025-02-09",
+      "dateLabel": "2025年2月9日发表；原页 HTML 时间戳 1739135132 对应 UTC 日期",
+      "occasion": "个人博客《Three Observations》",
+      "context": "在讨论模型成本、规模与经济影响之后，转向收益分配和资本与劳动的关系。",
+      "target": "AGI 的社会收益分配",
+      "thesis": "技术进步不自动保证机会和收益平等。",
+      "interpretation": "读这句话要把生产力增长与谁能得到好处分开；分配制度是独立问题，不能只看模型能力。",
+      "caveat": "这是规范性主张，不是收益已公平分配的实证结论；作者同时是商业 AI 公司的负责人。",
+      "topics": [
+        "AGI",
+        "收益分配",
+        "治理"
+      ],
+      "source": {
+        "title": "Three Observations — Sam Altman",
+        "url": "https://blog.samaltman.com/three-observations",
+        "locator": "末段讨论收益分配，段首为所引句；日期见原页 post-date 的 data-unix-time=1739135132",
+        "type": "作者本人博客",
+        "dateEvidence": "原始 HTML post-date: data-unix-time=1739135132（2025-02-09T21:05:32Z）"
+      },
+      "relations": [
+        {
+          "targetId": "zuckerberg-personal-2025",
+          "type": "similar",
+          "reason": "Altman强调收益分配，扎克伯格强调个人能够使用的超级智能产品。"
+        },
+        {
+          "targetId": "altman-public-service-adoption-2026",
+          "type": "complement",
+          "reason": "2025年谈AGI收益广泛分配，2026年合作公告指向公务人员、公共服务和创业者；具体意向仍需实施结果检验。"
+        },
+        {
+          "targetId": "altman-gradual-change-2025",
+          "type": "complement",
+          "reason": "同一人物围绕「AGI」的不同切面：一条讨论AGI 的社会收益分配，另一条讨论AI 影响渗透社会的节奏；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Sam Altman · 萨姆·奥尔特曼"
+    },
+    {
+      "id": "altman-gradual-change-2025",
+      "quoteEn": "The world will not change all at once; it never does.",
+      "quoteZh": "世界不会一下子全变了；它从来都不是这样变化的。",
+      "speaker": "Sam Altman",
+      "speakerId": "sam-altman",
+      "speakerRole": "OpenAI 联合创始人、CEO；以个人博客作者身份发文",
+      "organization": "OpenAI",
+      "organizationId": "openai",
+      "date": "2025-02-09",
+      "dateLabel": "2025年2月9日发表；原页 HTML 时间戳对应 UTC 日期",
+      "occasion": "个人博客《Three Observations》",
+      "context": "作者将短期日常生活的延续，与长期经济和工作的巨大变化并置。",
+      "target": "AI 影响渗透社会的节奏",
+      "thesis": "长期剧变与短期渐变可以同时成立。",
+      "interpretation": "能力发布、组织采用和生活方式变化不是同一时钟；观察趋势应同时看长期方向与具体落地速度。",
+      "caveat": "这是当时对扩散节奏的判断，不是保证任何行业都不会突然受冲击，也不是对所有技术变革的定律。",
+      "topics": [
+        "技术扩散",
+        "工作变革",
+        "AGI"
+      ],
+      "source": {
+        "title": "Three Observations — Sam Altman",
+        "url": "https://blog.samaltman.com/three-observations",
+        "locator": "软件工程 Agent 与晶体管类比之后，讨论短期生活变化的段落首句",
+        "type": "作者本人博客",
+        "dateEvidence": "原始 HTML post-date: data-unix-time=1739135132（2025-02-09T21:05:32Z）"
+      },
+      "relations": [
+        {
+          "targetId": "altman-distribution-2025",
+          "type": "complement",
+          "reason": "同一人物围绕「AGI」的不同切面：一条讨论AGI 的社会收益分配，另一条讨论AI 影响渗透社会的节奏；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Sam Altman · 萨姆·奥尔特曼"
+    },
+    {
+      "id": "amodei-human-purpose-2026",
+      "quoteEn": "We simply need to break the link between the generation of economic value and self-worth and meaning.",
+      "quoteZh": "我们需要打破“创造经济价值”与“自我价值和人生意义”之间的绑定。",
+      "speaker": "Dario Amodei",
+      "speakerId": "dario-amodei",
+      "speakerRole": "Anthropic 联合创始人、CEO",
+      "organization": "Anthropic",
+      "organizationId": "anthropic",
+      "date": "2026-01",
+      "dateLabel": "2026年1月发表；作者原页只标示到月份",
+      "occasion": "个人长文《The Adolescence of Technology》",
+      "context": "在讨论强大 AI 的社会风险时，作者追问：当机器更能干，人从哪里获得意义？",
+      "target": "强大 AI 时代的人的价值与人生意义",
+      "thesis": "人的价值不应只由其经济产出定义。",
+      "interpretation": "这把就业与意义区分开来：收入保障要解决，但爱好、关系和长期项目也能承载人的目的。",
+      "caveat": "这是伦理立场和未来情境讨论，不代表就业替代已经发生，也不是给失业问题开出的完整政策方案。",
+      "topics": [
+        "人的价值",
+        "工作变革",
+        "AI 风险"
+      ],
+      "source": {
+        "title": "The Adolescence of Technology — Dario Amodei",
+        "url": "https://darioamodei.com/essay/the-adolescence-of-technology",
+        "locator": "讨论间接社会影响的 Human purpose 条目，结尾处",
+        "type": "作者本人长文"
+      },
+      "relations": [
+        {
+          "targetId": "fei-fei-augment-not-replace-2025",
+          "type": "complement",
+          "reason": "李飞飞提出增强人类能力的设计方向；Amodei讨论经济贡献与自我价值的关系。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Dario Amodei · 达里奥·阿莫代伊"
+    },
+    {
+      "id": "amodei-urgency-2026",
+      "quoteEn": "We have no time to lose.",
+      "quoteZh": "我们没有时间可以耽搁。",
+      "speaker": "Dario Amodei",
+      "speakerId": "dario-amodei",
+      "speakerRole": "Anthropic 联合创始人、CEO",
+      "organization": "Anthropic",
+      "organizationId": "anthropic",
+      "date": "2026-01",
+      "dateLabel": "2026年1月发表；作者原页只标示到月份",
+      "occasion": "《The Adolescence of Technology》结语",
+      "context": "长文结尾呼吁研究者、政策制定者、企业和公众共同处理强大 AI 的风险。",
+      "target": "AI 安全与治理行动的紧迫性",
+      "thesis": "对安全和治理的投入不应等到能力全面到来后才开始。",
+      "interpretation": "结合全篇，这不是鼓励无约束地加速研发，而是要求及时建设风险应对能力。",
+      "caveat": "紧迫感是作者判断，并非已验证的灾难倒计时；文章没有主张所有风险必然发生。",
+      "topics": [
+        "AI 安全",
+        "治理",
+        "风险准备"
+      ],
+      "source": {
+        "title": "The Adolescence of Technology — Dario Amodei",
+        "url": "https://darioamodei.com/essay/the-adolescence-of-technology",
+        "locator": "Humanity’s test 最后一段末句，致谢之前",
+        "type": "作者本人长文"
+      },
+      "relations": [
+        {
+          "targetId": "bengio-prove-safety-2026",
+          "type": "complement",
+          "reason": "Dario Amodei · 达里奥·阿莫代伊呼吁及时准备风险，Yoshua Bengio提出独立安全举证的制度要求；紧迫感需要落到可检验的行动。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Dario Amodei · 达里奥·阿莫代伊"
+    },
+    {
+      "id": "hassabis-disruption-opportunity-2025",
+      "quoteEn": "Any time there’s disruption and change, there’s also a huge opportunity.",
+      "quoteZh": "每逢颠覆与变化，也就有巨大的机会。",
+      "speaker": "Demis Hassabis",
+      "speakerId": "demis-hassabis",
+      "speakerRole": "Google DeepMind 联合创始人、CEO",
+      "organization": "Google DeepMind",
+      "organizationId": "google-deepmind",
+      "date": "2025-03",
+      "dateLabel": "2025年3月访谈（未给具体日）；学院文字稿2025年4月25日发布",
+      "occasion": "剑桥大学 Queens’ College 与 Alastair Beresford 的访谈",
+      "context": "回答学生如何应对科技行业职业变化，强调基础知识、持续学习和亲自尝试新技术。",
+      "target": "AI 变化中的职业准备",
+      "thesis": "技术变化也创造新的学习和创造机会。",
+      "interpretation": "这里的机会不是被动等来的收益，而依赖能否把专业基础与新工具结合起来。",
+      "caveat": "这是职业建议，不是对就业总量或每个人收入增长的保证；发言背景是给大学生的建议。",
+      "topics": [
+        "职业发展",
+        "持续学习",
+        "技术扩散"
+      ],
+      "source": {
+        "title": "The Future of AI and Scientific Discovery — An Interview with Sir Demis Hassabis",
+        "url": "https://www.queens.cam.ac.uk/about-us/news-events/the-future-of-ai-and-scientific-discovery-an-interview-with-sir-demis-hassabis-1994-honorary-fellow-fellow-benefactor/",
+        "locator": "Careers in a Changing World，Hassabis 回答第一段末句；导语说明访谈在3月举行",
+        "type": "访谈主办学院官方文字稿",
+        "publishedAt": "2025-04-25"
+      },
+      "relations": [
+        {
+          "targetId": "andrew-ng-software-demand-2026",
+          "type": "complement",
+          "reason": "一条讨论技术变化下的职业准备，一条讨论软件需求空间；机遇需要结合个人学习和具体需求判断，不构成就业保证。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Demis Hassabis · 德米斯·哈萨比斯"
+    },
+    {
+      "id": "hassabis-dual-use-2025",
+      "quoteEn": "The same technology can be repurposed by bad actors for harmful ends.",
+      "quoteZh": "同一种技术也可能被恶意行为者改用于有害目的。",
+      "speaker": "Demis Hassabis",
+      "speakerId": "demis-hassabis",
+      "speakerRole": "Google DeepMind 联合创始人、CEO",
+      "organization": "Google DeepMind",
+      "organizationId": "google-deepmind",
+      "date": "2025-03",
+      "dateLabel": "2025年3月访谈（未给具体日）；学院文字稿2025年4月25日发布",
+      "occasion": "剑桥大学 Queens’ College 与 Alastair Beresford 的访谈",
+      "context": "回答 AI 政策与社会问题时，作者把社会收益与双重用途风险并列。",
+      "target": "AI 能力的恶意使用风险",
+      "thesis": "有益能力与有害用途可能来自同一种技术。",
+      "interpretation": "评价 AI 不能仅看模型原本用途，还要看它在不同使用者、权限和场景下能做什么。",
+      "caveat": "这句针对恶意使用；同次访谈另谈系统自身的未来风险，二者不能混为一类。",
+      "topics": [
+        "双重用途",
+        "AI 安全",
+        "治理"
+      ],
+      "source": {
+        "title": "The Future of AI and Scientific Discovery — An Interview with Sir Demis Hassabis",
+        "url": "https://www.queens.cam.ac.uk/about-us/news-events/the-future-of-ai-and-scientific-discovery-an-interview-with-sir-demis-hassabis-1994-honorary-fellow-fellow-benefactor/",
+        "locator": "AI, Policy, and Society，Hassabis 回答第一段末句",
+        "type": "访谈主办学院官方文字稿",
+        "publishedAt": "2025-04-25"
+      },
+      "relations": [
+        {
+          "targetId": "zuckerberg-open-safer-2024",
+          "type": "tension",
+          "reason": "两条都关注技术可被恶意使用的问题；一条强调双重用途风险，另一条主张开放生态可改善安全，不将二者简化成风险存在与否之争。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Demis Hassabis · 德米斯·哈萨比斯"
+    },
+    {
+      "id": "lecun-learning-efficiency-2022",
+      "quoteEn": "How could machines learn as efficiently as humans and animals?",
+      "quoteZh": "怎样才能让机器像人和动物一样高效地学习？",
+      "speaker": "Yann LeCun",
+      "speakerId": "yann-lecun",
+      "speakerRole": "纽约大学教授、Meta 首席 AI 科学家；本文独立署名作者",
+      "organization": "Meta AI / New York University",
+      "organizationId": "meta-ai",
+      "date": "2022-06-27",
+      "dateLabel": "2022年6月27日，论文原稿版本0.9.2日期",
+      "occasion": "立场论文《A Path Towards Autonomous Machine Intelligence》",
+      "context": "论文摘要以学习效率、推理和规划三个问题开篇，提出世界模型与自监督架构路线。",
+      "target": "机器学习的数据效率与通用能力",
+      "thesis": "研究目标不只是在给定测试上得高分，还包括高效学习和推理。",
+      "interpretation": "这是一道研究问题：以人和动物的学习效率为参照，寻找更有效的表示与训练方法。",
+      "caveat": "原句是疑问而非成功宣言。作者明确说这是立场论文，不能当作架构已完成或通用智能已实现的证据。",
+      "topics": [
+        "自监督学习",
+        "世界模型",
+        "学习效率"
+      ],
+      "source": {
+        "title": "A Path Towards Autonomous Machine Intelligence, Version 0.9.2 — Yann LeCun",
+        "url": "https://openreview.net/pdf?id=BZ5a1r-kVsf",
+        "locator": "PDF 第1页，Abstract 第一问；封面标示 Version 0.9.2, 2022-06-27",
+        "type": "作者独立署名立场论文",
+        "accessNote": "原始论文搜索索引可核验摘要、作者和版本日期；直接访问本次触发 OpenReview 浏览器验证。"
+      },
+      "relations": [
+        {
+          "targetId": "lecun-misra-common-sense-2021",
+          "type": "complement",
+          "reason": "同一人物围绕「世界模型」的不同切面：一条讨论常识、世界知识与自监督学习，另一条讨论机器学习的数据效率与通用能力；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        },
+        {
+          "targetId": "lecun-grounded-vjepa-2024",
+          "type": "complement",
+          "reason": "同一人物围绕「自监督学习」的不同切面：一条讨论机器学习的数据效率与通用能力，另一条讨论V-JEPA 与世界模型研究路径；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "personName": "Yann LeCun · 杨立昆"
+    },
+    {
+      "id": "lecun-grounded-vjepa-2024",
+      "quoteEn": "V-JEPA is a step toward a more grounded understanding of the world so machines can achieve more generalized reasoning and planning",
+      "quoteZh": "V-JEPA 是迈向更扎根于现实的世界理解的一步，让机器能够开展更具通用性的推理和规划。",
+      "speaker": "Yann LeCun",
+      "speakerId": "yann-lecun",
+      "speakerRole": "Meta 副总裁、首席 AI 科学家",
+      "organization": "Meta AI",
+      "organizationId": "meta-ai",
+      "date": "2024-02-15",
+      "dateLabel": "2024年2月15日，Meta 官方发布文章日期；未另给引语采访日",
+      "occasion": "Meta 发布 V-JEPA 模型的官方文章",
+      "context": "官方文章直接引述 LeCun，对通过视频学习世界表示的研究进展作出评价。",
+      "target": "V-JEPA 与世界模型研究路径",
+      "thesis": "观察世界、学习表示，被视为通用推理和规划的基础。",
+      "interpretation": "重点在于向目标迈出一步：学到视频中的抽象关系，不等于已经具备完整的现实行动能力。",
+      "caveat": "这是研发负责人的路线评价，非独立评测结论；当时模型只处理视频的视觉内容。",
+      "topics": [
+        "世界模型",
+        "自监督学习",
+        "推理与规划"
+      ],
+      "source": {
+        "title": "V-JEPA: The next step toward Yann LeCun’s vision of advanced machine intelligence (AMI)",
+        "url": "https://ai.meta.com/blog/v-jepa-yann-lecun-ai-model-video-joint-embedding-predictive-architecture/",
+        "locator": "正文首段引号内完整引语，紧接 says Meta’s VP & Chief AI Scientist Yann LeCun",
+        "type": "本人所属机构发布的直接引语",
+        "accessNote": "官方页面搜索索引可核验日期及直接引语；本次直接抓取发生超时。"
+      },
+      "relations": [
+        {
+          "targetId": "fei-fei-spatial-scaffolding-2025",
+          "type": "similar",
+          "reason": "李飞飞从空间认知框架出发，LeCun用V-JEPA说明更有现实基础的推理和规划方向。"
+        },
+        {
+          "targetId": "lecun-learning-efficiency-2022",
+          "type": "complement",
+          "reason": "同一人物围绕「自监督学习」的不同切面：一条讨论机器学习的数据效率与通用能力，另一条讨论V-JEPA 与世界模型研究路径；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        },
+        {
+          "targetId": "lecun-world-model-planning-2026",
+          "type": "complement",
+          "reason": "同一人物围绕「世界模型」的不同切面：一条讨论V-JEPA 与世界模型研究路径，另一条讨论世界模型对推理与行动规划的作用；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "personName": "Yann LeCun · 杨立昆"
+    },
+    {
+      "id": "hinton-agent-subgoals-2025",
+      "quoteEn": "So they can create their own sub goals at least.",
+      "quoteZh": "至少，它们能够形成自己的子目标。",
+      "speaker": "Geoffrey Hinton",
+      "speakerId": "geoffrey-hinton",
+      "speakerRole": "Vector Institute 联合创始人、首席科学顾问；2024年诺贝尔物理学奖得主",
+      "organization": "Vector Institute",
+      "organizationId": "vector-institute",
+      "date": "2025-05-15",
+      "dateLabel": "2025年5月15日，诺贝尔官方播客发布日期；未公开录制日",
+      "occasion": "Nobel Prize Conversations，与 Adam Smith 对谈",
+      "context": "主持人谈到 AI 自己设定目标时，Hinton 将表述收窄为完成顶层任务所需的子目标。",
+      "target": "Agent 的目标分解与控制",
+      "thesis": "人指定顶层目标，不代表人逐一指定实现它的所有中间目标。",
+      "interpretation": "关键是手段选择的自主性：系统可能规划出人没有逐项批准的路径，需要检查权限和约束。",
+      "caveat": "原话不等于证明 AI 有意识或人类式欲望。播客文字稿由语音识别后人工复核，官方提示仍可能有误。",
+      "topics": [
+        "Agent",
+        "AI 安全",
+        "目标分解"
+      ],
+      "source": {
+        "title": "Geoffrey Hinton — Nobel Prize Conversations",
+        "url": "https://www.nobelprize.org/prizes/physics/2024/hinton/podcast/",
+        "locator": "文字稿中 Smith 提出 They can create their own goals 后，Hinton 回答首句",
+        "type": "采访主办方官方文字稿",
+        "accessNote": "官方页搜索索引提供完整相关问答与发布日期；直接访问本次返回错误。"
+      },
+      "relations": [
+        {
+          "targetId": "hinton-near-term-risks-2025",
+          "type": "complement",
+          "reason": "同一人物围绕「AI 安全」的不同切面：一条讨论Agent 的目标分解与控制，另一条讨论短期伤害与长期失控风险的关注分配；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Geoffrey Hinton · 杰弗里·辛顿"
+    },
+    {
+      "id": "hinton-near-term-risks-2025",
+      "quoteEn": "There’s many short-term dangers and it’s not that we shouldn’t think about those.",
+      "quoteZh": "短期危险有很多，并不是说我们不该考虑它们。",
+      "speaker": "Geoffrey Hinton",
+      "speakerId": "geoffrey-hinton",
+      "speakerRole": "Vector Institute 联合创始人、首席科学顾问；2024年诺贝尔物理学奖得主",
+      "organization": "Vector Institute",
+      "organizationId": "vector-institute",
+      "date": "2025-05-15",
+      "dateLabel": "2025年5月15日，诺贝尔官方播客发布日期；未公开录制日",
+      "occasion": "Nobel Prize Conversations，与 Adam Smith 对谈",
+      "context": "回应主持人关于长期生存风险是否挤占对当前失业、滥用等问题关注的追问。",
+      "target": "短期伤害与长期失控风险的关注分配",
+      "thesis": "关注长期风险，不等于忽视当前伤害。",
+      "interpretation": "治理可以分层开展：眼前的使用安全与长远的控制问题，并非只能二选一。",
+      "caveat": "这句话表达两者都值得关注，没有给出预算比例或量化比较；不能据此宣称风险之间同等严重。",
+      "topics": [
+        "AI 安全",
+        "短期风险",
+        "长期风险"
+      ],
+      "source": {
+        "title": "Geoffrey Hinton — Nobel Prize Conversations",
+        "url": "https://www.nobelprize.org/prizes/physics/2024/hinton/podcast/",
+        "locator": "Smith 追问 neglect the current problems 后，Hinton 以 I completely agree 开头的回答",
+        "type": "采访主办方官方文字稿",
+        "accessNote": "官方页搜索索引提供完整相关问答与发布日期；直接访问本次返回错误。"
+      },
+      "relations": [
+        {
+          "targetId": "hinton-agent-subgoals-2025",
+          "type": "complement",
+          "reason": "同一人物围绕「AI 安全」的不同切面：一条讨论Agent 的目标分解与控制，另一条讨论短期伤害与长期失控风险的关注分配；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Geoffrey Hinton · 杰弗里·辛顿"
+    },
+    {
+      "id": "fei-fei-spatial-scaffolding-2025",
+      "quoteEn": "Spatial Intelligence is the scaffolding upon which our cognition is built.",
+      "quoteZh": "空间智能，是支撑我们认知的骨架。",
+      "speaker": "Fei-Fei Li",
+      "speakerId": "fei-fei-li",
+      "speakerRole": "斯坦福大学教授、World Labs 联合创始人；以本人署名发文",
+      "organization": "World Labs / Stanford University",
+      "organizationId": "world-labs",
+      "date": "2025-11-10",
+      "dateLabel": "2025年11月10日，作者本人文章发布日期",
+      "occasion": "个人文章《From Words to Worlds》",
+      "context": "在说明视觉、空间、想象与行动的关系之后，概括空间智能在认知中的作用。",
+      "target": "空间智能与语言模型的能力边界",
+      "thesis": "理解世界需要超越文字描述的空间表示与交互能力。",
+      "interpretation": "它提醒读者区分会描述物体与能理解空间关系、预测交互后果；后者是世界模型的研究重点。",
+      "caveat": "这是作者的研究框架，不是所有智能的唯一定义；文中也承认多模态模型已有部分空间能力。",
+      "topics": [
+        "空间智能",
+        "世界模型",
+        "具身智能"
+      ],
+      "source": {
+        "title": "From Words to Worlds: Spatial Intelligence is AI’s Next Frontier — Fei-Fei Li",
+        "url": "https://drfeifei.substack.com/p/from-words-to-worlds-spatial-intelligence",
+        "locator": "Spatial Intelligence: The scaffolding of human cognition，小节中同名论断段首",
+        "type": "作者本人署名文章"
+      },
+      "relations": [
+        {
+          "targetId": "lecun-grounded-vjepa-2024",
+          "type": "similar",
+          "reason": "李飞飞从空间认知框架出发，LeCun用V-JEPA说明更有现实基础的推理和规划方向。"
+        },
+        {
+          "targetId": "fei-fei-hardware-efficiency-2026",
+          "type": "complement",
+          "reason": "2025年强调空间认知结构，2026年解释软硬件协作对效率的意义。"
+        },
+        {
+          "targetId": "fei-fei-intelligence-beyond-language-2023",
+          "type": "complement",
+          "reason": "同一人物围绕「世界模型」的不同切面：一条讨论语言能力是否足以代表智能的范围，另一条讨论空间智能与语言模型的能力边界；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Fei-Fei Li · 李飞飞"
+    },
+    {
+      "id": "fei-fei-augment-not-replace-2025",
+      "quoteEn": "AI must augment human capability, not replace it.",
+      "quoteZh": "AI 应当增强人的能力，而不是取代它。",
+      "speaker": "Fei-Fei Li",
+      "speakerId": "fei-fei-li",
+      "speakerRole": "斯坦福大学教授、World Labs 联合创始人；以本人署名发文",
+      "organization": "World Labs / Stanford University",
+      "organizationId": "world-labs",
+      "date": "2025-11-10",
+      "dateLabel": "2025年11月10日，作者本人文章发布日期",
+      "occasion": "《From Words to Worlds》结尾的人本 AI 论述",
+      "context": "解释发展空间智能的动机，并把人的主体性和尊严作为技术应用的要求。",
+      "target": "AI 产品与研发的价值取向",
+      "thesis": "以增强人的行动能力为设计目标。",
+      "interpretation": "评价系统时，除了看自动化了多少，还要看它是否使人更能理解、选择和创造。",
+      "caveat": "must 是价值主张，不能译成“AI 不会取代工作”的预测；作者亦在介绍自己创办公司的研究路线。",
+      "topics": [
+        "以人为本",
+        "人的主体性",
+        "产品设计"
+      ],
+      "source": {
+        "title": "From Words to Worlds: Spatial Intelligence is AI’s Next Frontier — Fei-Fei Li",
+        "url": "https://drfeifei.substack.com/p/from-words-to-worlds-spatial-intelligence",
+        "locator": "Using world models to build a better world for people，第一段中 my motivation has always been clear 后",
+        "type": "作者本人署名文章"
+      },
+      "relations": [
+        {
+          "targetId": "amodei-human-purpose-2026",
+          "type": "complement",
+          "reason": "李飞飞提出增强人类能力的设计方向；Amodei讨论经济贡献与自我价值的关系。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Fei-Fei Li · 李飞飞"
+    },
+    {
+      "id": "andrew-ng-agent-coding-2026",
+      "quoteEn": "I’ve stopped writing code by hand.",
+      "quoteZh": "我已经不再手写代码。",
+      "speaker": "Andrew Ng",
+      "speakerId": "andrew-ng",
+      "speakerRole": "DeepLearning.AI 创始人；The Batch 本人署名来信作者",
+      "organization": "DeepLearning.AI",
+      "organizationId": "deeplearning-ai",
+      "date": "2026-02-20",
+      "dateLabel": "2026年2月20日，The Batch 第341期发布日期",
+      "occasion": "The Batch 第341期 Dear friends 来信",
+      "context": "讨论 AI 会创造哪些新工作时，以自己使用编码 Agent 的方式为例。",
+      "target": "AI 辅助开发中的工作方式变化",
+      "thesis": "开发者可以把更多精力放到需求和更高层的构建工作。",
+      "interpretation": "这是工具使用习惯的第一人称记录，展示从逐行编写转向指挥工具的一种可能。",
+      "caveat": "个人实践不等于普遍最佳实践；他承认自己的做法属于少数，不能据此跳过安全关键代码的审核与测试。",
+      "topics": [
+        "Agent",
+        "软件开发",
+        "工作变革"
+      ],
+      "source": {
+        "title": "The Batch, Issue 341 — Andrew Ng’s letter on AI and jobs",
+        "url": "https://www.deeplearning.ai/the-batch/issue-341/",
+        "locator": "Dear friends 来信中以 The evolution of AI and software 开头的段落；署名 Keep building, Andrew 之前",
+        "type": "本人创办机构发布的署名来信",
+        "accessNote": "官方搜索索引核验完整来信与日期；本次直接访问返回403。"
+      },
+      "relations": [
+        {
+          "targetId": "andrew-ng-software-demand-2026",
+          "type": "complement",
+          "reason": "同一人物围绕「软件开发」的不同切面：一条讨论AI 辅助开发中的工作方式变化，另一条讨论开发效率提升与软件劳动需求；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Andrew Ng · 吴恩达"
+    },
+    {
+      "id": "andrew-ng-software-demand-2026",
+      "quoteEn": "the demand for custom software has no practical ceiling.",
+      "quoteZh": "定制软件的需求，实际上没有可见的上限。",
+      "speaker": "Andrew Ng",
+      "speakerId": "andrew-ng",
+      "speakerRole": "DeepLearning.AI 创始人；The Batch 本人署名来信作者",
+      "organization": "DeepLearning.AI",
+      "organizationId": "deeplearning-ai",
+      "date": "2026-02-20",
+      "dateLabel": "2026年2月20日，The Batch 第341期发布日期",
+      "occasion": "The Batch 第341期 Dear friends 来信",
+      "context": "反驳“开发效率提高，就会按相同比例减少开发者”的简单推算。",
+      "target": "开发效率提升与软件劳动需求",
+      "thesis": "供给效率提高，可能释放过去未被满足的软件需求。",
+      "interpretation": "他的逻辑不是现有岗位数量不变，而是软件变便宜后会出现更多使用场景和构建者。",
+      "caveat": "这是需求弹性的判断，不是就业总量实测；新需求也不保证每类开发者都同等受益。引文为原句后半句。",
+      "topics": [
+        "软件开发",
+        "就业",
+        "需求扩张"
+      ],
+      "source": {
+        "title": "The Batch, Issue 341 — Andrew Ng’s letter on AI and jobs",
+        "url": "https://www.deeplearning.ai/the-batch/issue-341/",
+        "locator": "Dear friends 来信，Either way, if every developer becomes 10x more productive 一段中的 because 后",
+        "type": "本人创办机构发布的署名来信",
+        "accessNote": "官方搜索索引核验完整来信与日期；本次直接访问返回403。"
+      },
+      "relations": [
+        {
+          "targetId": "eddie-wu-new-products-2026",
+          "type": "complement",
+          "reason": "Ng讨论定制软件需求，吴泳铭讨论机器智能时代尚未成熟的产品形态。"
+        },
+        {
+          "targetId": "hassabis-disruption-opportunity-2025",
+          "type": "complement",
+          "reason": "一条讨论技术变化下的职业准备，一条讨论软件需求空间；机遇需要结合个人学习和具体需求判断，不构成就业保证。"
+        },
+        {
+          "targetId": "andrew-ng-agent-coding-2026",
+          "type": "complement",
+          "reason": "同一人物围绕「软件开发」的不同切面：一条讨论AI 辅助开发中的工作方式变化，另一条讨论开发效率提升与软件劳动需求；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Andrew Ng · 吴恩达"
+    },
+    {
+      "id": "bengio-scientist-ai-2025",
+      "quoteEn": "LawZero’s research plan aims at developing a non-agentic and trustworthy AI, which I call the Scientist AI.",
+      "quoteZh": "LawZero 的研究计划旨在开发可信、非自主行动的 AI，我称之为“科学家 AI”。",
+      "speaker": "Yoshua Bengio",
+      "speakerId": "yoshua-bengio",
+      "speakerRole": "蒙特利尔大学教授；LawZero 发起人",
+      "organization": "LawZero / Université de Montréal",
+      "organizationId": "lawzero",
+      "date": "2025-06-03",
+      "dateLabel": "2025年6月3日，作者发布 LawZero 成立文章",
+      "occasion": "个人官网《Introducing LawZero》",
+      "context": "解释成立非营利安全研究组织的动机，并提出不同于模仿人类行动者的研究方向。",
+      "target": "AI 安全架构与自主能动性",
+      "thesis": "可以探索以理解和预测为中心、而非追求行动目标的 AI。",
+      "interpretation": "“科学家”是理想化的功能比喻：先评估行动是否可能造成伤害，再作为其他 Agent 的安全护栏。",
+      "caveat": "这是研究计划，不是已证明全面安全的产品；非能动 AI 与未来安全 Agent 的设计并不互斥。",
+      "topics": [
+        "AI 安全",
+        "Scientist AI",
+        "Agent"
+      ],
+      "source": {
+        "title": "Introducing LawZero — Yoshua Bengio",
+        "url": "https://yoshuabengio.org/en/blog/introducing-lawzero",
+        "locator": "追问是否仍应模仿人的能动性之后，首次命名 Scientist AI 的段落末句",
+        "type": "作者本人官网文章"
+      },
+      "relations": [
+        {
+          "targetId": "pichai-agentic-search-2026",
+          "type": "tension",
+          "reason": "Pichai强调任务型搜索的行动能力；Bengio提出非智能体式Scientist AI以降低目标追求风险。"
+        },
+        {
+          "targetId": "musk-truth-2024",
+          "type": "complement",
+          "reason": "真实表达的目标可与可信的非自主研究系统一起思考，但两人的技术方案和治理主张不能据此视为相同。"
+        },
+        {
+          "targetId": "bengio-correctable-trajectory-2026",
+          "type": "complement",
+          "reason": "同一人物围绕「Agent」的不同切面：一条讨论AI 安全架构与自主能动性，另一条讨论Agent 失配风险与开发路线；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Yoshua Bengio"
+    },
+    {
+      "id": "bengio-correctable-trajectory-2026",
+      "quoteEn": "This outcome is not inevitable, and it can be corrected with effective governance and a different training framework for AI.",
+      "quoteZh": "这种结果并非不可避免；有效的治理和不同的 AI 训练框架，可以纠正它。",
+      "speaker": "Yoshua Bengio",
+      "speakerId": "yoshua-bengio",
+      "speakerRole": "AI 研究者；LawZero 创始人、蒙特利尔大学教授",
+      "organization": "LawZero / Université de Montréal",
+      "organizationId": "lawzero",
+      "date": "2026-09-11",
+      "dateLabel": "2026年9月11日，作者官网发布日期",
+      "occasion": "个人官网《Why are AI agents lying, cheating and coordinating?》",
+      "context": "文章分析 Agent 不符合预期的行为，并强调开发者对训练路线选择负有责任。",
+      "target": "Agent 失配风险与开发路线",
+      "thesis": "风险不是宿命，训练机制与治理选择会影响结果。",
+      "interpretation": "作者同时提出技术与制度两条应对路径；不能只把问题视为部署外层的防护漏洞。",
+      "caveat": "这是机制解释和改进主张，不是已经验证的新训练框架效果；文中拟人化动词不代表主张 AI 有意识。",
+      "topics": [
+        "Agent",
+        "训练机制",
+        "治理"
+      ],
+      "source": {
+        "title": "Why are AI agents lying, cheating and coordinating? — Yoshua Bengio",
+        "url": "https://yoshuabengio.org/en/blog/why-are-ai-agents-lying-cheating-and-coordinating",
+        "locator": "引言末段，说明措辞不免除 AI 开发者责任之后；What shapes the behavior of these models 标题之前",
+        "type": "作者本人官网文章"
+      },
+      "relations": [
+        {
+          "targetId": "bengio-scientist-ai-2025",
+          "type": "complement",
+          "reason": "同一人物围绕「Agent」的不同切面：一条讨论AI 安全架构与自主能动性，另一条讨论Agent 失配风险与开发路线；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        },
+        {
+          "targetId": "bengio-prove-safety-2026",
+          "type": "complement",
+          "reason": "同一人物围绕「治理」的不同切面：一条讨论Agent 失配风险与开发路线，另一条讨论前沿 AI 的训练和部署准入；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Yoshua Bengio"
+    },
+    {
+      "id": "bengio-prove-safety-2026",
+      "quoteEn": "Developers must demonstrate to independent experts that a system is safe to train and safe to deploy.",
+      "quoteZh": "开发者必须向独立专家证明：一个系统可以被安全地训练和部署。",
+      "speaker": "Yoshua Bengio",
+      "speakerId": "yoshua-bengio",
+      "speakerRole": "AI 研究者；LawZero 创始人、蒙特利尔大学教授",
+      "organization": "LawZero / Université de Montréal",
+      "organizationId": "lawzero",
+      "date": "2026-09-23",
+      "dateLabel": "2026年9月23日，作者官网演讲稿发布日期；未另核实发言发生日",
+      "occasion": "作者官网刊载的联合国安全理事会演讲稿",
+      "context": "以灾难性滥用、权力集中和失去控制为背景，提出前沿 AI 的独立安全审查。",
+      "target": "前沿 AI 的训练和部署准入",
+      "thesis": "开发者应承担证明安全的责任，并接受独立审视。",
+      "interpretation": "这是一个事前门槛：不只在部署后处理事故，而是在训练和发布前解释风险为何可接受。",
+      "caveat": "政策主张不是已实施法律；原文针对可能造成大规模伤害的前沿系统，不能扩大为禁止所有开源或所有 AI。",
+      "topics": [
+        "前沿 AI",
+        "安全准入",
+        "治理"
+      ],
+      "source": {
+        "title": "Professor Yoshua Bengio’s speech at the UN Security Council",
+        "url": "https://yoshuabengio.org/en/blog/professor-yoshua-bengios-speech-un-security-council",
+        "locator": "列出三类全球威胁后第一段第二句；下一段接前沿 AI 许可与责任保险建议",
+        "type": "发言者本人官网演讲稿"
+      },
+      "relations": [
+        {
+          "targetId": "zuckerberg-open-safer-2024",
+          "type": "tension",
+          "reason": "Mark Zuckerberg · 马克·扎克伯格强调开放生态与分散权力，Yoshua Bengio要求开发者先向独立专家证明安全。"
+        },
+        {
+          "targetId": "amodei-urgency-2026",
+          "type": "complement",
+          "reason": "Dario Amodei · 达里奥·阿莫代伊呼吁及时准备风险，Yoshua Bengio提出独立安全举证的制度要求；紧迫感需要落到可检验的行动。"
+        },
+        {
+          "targetId": "bengio-correctable-trajectory-2026",
+          "type": "complement",
+          "reason": "同一人物围绕「治理」的不同切面：一条讨论Agent 失配风险与开发路线，另一条讨论前沿 AI 的训练和部署准入；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        },
+        {
+          "targetId": "bengio-safety-research-incentives-2026",
+          "type": "complement",
+          "reason": "同一人物围绕「治理」的不同切面：一条讨论前沿 AI 的训练和部署准入，另一条讨论安全研究者所在机构的激励与职业选择；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Yoshua Bengio"
+    },
+    {
+      "id": "yang-zhilin-users-benchmark-2024",
+      "speakerId": "yang-zhilin",
+      "organizationId": "moonshot",
+      "organization": "月之暗面／Moonshot AI",
+      "speaker": "杨植麟 · Yang Zhilin",
+      "speakerRole": "月之暗面创始人、首席执行官",
+      "quoteZh": "最好的榜就是用户，应该让用户投票。",
+      "quoteEn": "The best leaderboard is the users; let users cast their votes.",
+      "originalLanguage": "zh",
+      "date": "2024-03-01",
+      "dateLabel": "2024 年 3 月 1 日 · 原访谈发布",
+      "occasion": "张小珺／腾讯新闻《潜望》创业一年复盘专访",
+      "context": "回答为何其他模型公司公布能力排名，而月之暗面没有这样做。",
+      "target": "AI 产品评价",
+      "thesis": "用户选择是模型之外的重要产品检验。",
+      "interpretation": "编辑延伸：榜单可以测试能力，留存与任务成效还需另行验证。",
+      "caveat": "英文为本站译文。原采访明确为便于阅读做过文本优化；观点不等于否定全部基准测试。",
+      "topics": [
+        "评测边界",
+        "用户体验",
+        "历史经典"
+      ],
+      "source": {
+        "title": "月之暗面杨植麟复盘大模型创业这一年：向延绵而未知的雪山前进",
+        "url": "https://news.qq.com/rain/a/20240229A0990C00",
+        "locator": "“其他大模型公司会公布自己的模型能力和排名”问答；杨植麟回答第二句。页面发布日为 2024-03-01，不按 URL 日期推定。",
+        "type": "原采访机构完整访谈"
+      },
+      "relations": [
+        {
+          "targetId": "zhang-peng-leaderboard-question-2023",
+          "type": "similar",
+          "reason": "两人都要求超越单一榜单看模型价值：需要把真实用户体验与评测覆盖的能力边界同时纳入。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "personName": "杨植麟 · Yang Zhilin"
+    },
+    {
+      "id": "yang-zhilin-algorithms-scaling-2024",
+      "speakerId": "yang-zhilin",
+      "organizationId": "moonshot",
+      "organization": "月之暗面／Moonshot AI",
+      "speaker": "杨植麟 · Yang Zhilin",
+      "speakerRole": "月之暗面创始人、首席执行官",
+      "quoteZh": "新算法最大价值是让它怎么更好的scale。",
+      "quoteEn": "The greatest value of new algorithms is to enable better scaling.",
+      "originalLanguage": "zh",
+      "date": "2024-03-01",
+      "dateLabel": "2024 年 3 月 1 日 · 原访谈发布",
+      "occasion": "张小珺／腾讯新闻《潜望》创业一年复盘专访",
+      "context": "回顾在 Google 学到的研究思路，区别可扩展的结构与小数据集上的细节优化。",
+      "target": "模型研究方向",
+      "thesis": "算法创新应关注规模扩展能力。",
+      "interpretation": "该判断强调研究路径选择，并未把算法和规模对立起来。",
+      "caveat": "英文为本站译文；保留原中文夹英文用语。这是 2024 年研究判断，不是所有任务的定律。",
+      "topics": [
+        "Scaling",
+        "研究方法",
+        "算法创新"
+      ],
+      "source": {
+        "title": "月之暗面杨植麟复盘大模型创业这一年：向延绵而未知的雪山前进",
+        "url": "https://news.qq.com/rain/a/20240229A0990C00",
+        "locator": "“从这几位颇有名望的导师身上学到了什么”问答末段，“这是我在Google学到的思维”段。",
+        "type": "原采访机构完整访谈"
+      },
+      "relations": [
+        {
+          "targetId": "altman-deep-learning-scale-2024",
+          "type": "complement",
+          "reason": "两条都涉及规模与模型进步；结合阅读可区分资源扩展、算法优化与最终能力，不能把算法创新当成规模作用的简单否定。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "personName": "杨植麟 · Yang Zhilin"
+    },
+    {
+      "id": "yang-zhilin-closed-plan-2023",
+      "speakerId": "yang-zhilin",
+      "organizationId": "moonshot",
+      "organization": "月之暗面／Moonshot AI",
+      "speaker": "杨植麟 · Yang Zhilin",
+      "speakerRole": "月之暗面创始人、首席执行官",
+      "quoteZh": "我们暂时没有开源的计划。",
+      "quoteEn": "We have no plans to open-source for now.",
+      "originalLanguage": "zh",
+      "date": "2023-10-09",
+      "dateLabel": "2023 年 10 月 9 日 · 媒体沟通会；10 月 10 日发布实录",
+      "occasion": "月之暗面首次媒体沟通会，极客公园记者现场群访",
+      "context": "回答公司定位和开源计划，将当时面向消费者的超级应用目标与闭源路径联系起来。",
+      "target": "月之暗面当时的模型开放策略",
+      "thesis": "当时按产品和商业化目标选择闭源。",
+      "interpretation": "保留“暂时”的时间约束，可用于追踪技术公司路线演变。",
+      "caveat": "英文为本站译文。这是 2023 年历史策略，绝不表示月之暗面目前不开源，也不等于所有应用必须闭源。",
+      "topics": [
+        "开源与闭源",
+        "产品战略",
+        "观点演变"
+      ],
+      "source": {
+        "title": "对话 Moonshot AI 杨植麟：闭源是通往超级 APP 的唯一通路",
+        "url": "https://www.geekpark.net/news/325738",
+        "locator": "第 03 节“Moonshot还有没有开源的计划”问答；原采访方现场实录节选整理，首段注明采访发生于 10 月 9 日。",
+        "type": "原采访机构现场群访实录"
+      },
+      "relations": [
+        {
+          "targetId": "eddie-wu-open-qwen-2025",
+          "type": "tension",
+          "reason": "两条记录不同机构、不同阶段的模型开放策略；这是一组商业路线差异，不是同一时期对开源效果的直接争论。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "personName": "杨植麟 · Yang Zhilin"
+    },
+    {
+      "id": "robin-li-open-model-gap-2024",
+      "speakerId": "robin-li",
+      "organizationId": "baidu-ernie",
+      "organization": "百度",
+      "speaker": "李彦宏 · Robin Li",
+      "speakerRole": "百度创始人、董事长兼首席执行官",
+      "quoteZh": "所以开源模型会越来越落后。",
+      "quoteEn": "Therefore, open-source models will fall further and further behind.",
+      "originalLanguage": "zh",
+      "date": "2024-04-17",
+      "dateLabel": "2024 年 4 月 17 日 · 官方演讲实录刊载日期",
+      "occasion": "Create 2024 百度 AI 开发者大会《人人都是开发者》演讲",
+      "context": "比较从文心4.0裁剪的小模型与直接从开源模型调优的效果、速度和成本。",
+      "target": "开源与闭源模型的能力和效率差距走向",
+      "thesis": "当时判断开源模型的相对竞争位置会变差。",
+      "interpretation": "可与开源正在追近的判断对照，但需要统一模型尺寸、任务和成本口径。",
+      "caveat": "英文为本站译文。这是 2024 年供应商预测，非当前事实；对照卡不代表双方直接辩论。",
+      "topics": [
+        "开源与闭源",
+        "模型能力",
+        "观点分歧"
+      ],
+      "source": {
+        "title": "三大AI开发神器亮相！李彦宏：人人都是开发者",
+        "url": "https://cloud.baidu.com/news/news_b9b782d9-7f56-499a-8ea5-2983c58e31f1",
+        "locator": "官方主题演讲实录，ModelBuilder 段“这几个关于ModelBuilder的例子”起始段最后一句。",
+        "type": "公司官方演讲实录"
+      },
+      "relations": [
+        {
+          "targetId": "zuckerberg-open-gap-2024",
+          "type": "opposed",
+          "reason": "李彦宏判断开源会越来越落后；扎克伯格判断开源正在迅速缩小差距，方向相反。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "personName": "李彦宏 · Robin Li"
+    },
+    {
+      "id": "robin-li-application-value-2025",
+      "speakerId": "robin-li",
+      "organizationId": "baidu-ernie",
+      "organization": "百度",
+      "speaker": "李彦宏 · Robin Li",
+      "speakerRole": "百度创始人",
+      "quoteZh": "应用才能够产生价值。",
+      "quoteEn": "It is applications that create value.",
+      "originalLanguage": "zh",
+      "date": "2025-11-13",
+      "dateLabel": "2025 年 11 月 13 日 · 大会发言",
+      "occasion": "百度世界大会主题演讲《效果涌现》",
+      "context": "讨论芯片、模型与应用之间的产业价值分配。",
+      "target": "AI 产业价值链",
+      "thesis": "产业投入最终需要应用价值承接。",
+      "interpretation": "把能力转化为用户愿意采用的结果，是应用层的任务。",
+      "caveat": "英文为本站译文。这是产业判断，不表示基础设施没有价值。",
+      "topics": [
+        "应用价值",
+        "商业化",
+        "产业结构"
+      ],
+      "source": {
+        "title": "李彦宏：当AI能力被内化，智能不再是成本而是生产力",
+        "url": "https://home.baidu.com/home/index/news_detail/id/18045",
+        "locator": "产业结构从正金字塔转向倒金字塔段，李彦宏直接引语末句。",
+        "type": "公司官方大会报道·直接引述"
+      },
+      "relations": [
+        {
+          "targetId": "robin-li-reframe-problems-2025",
+          "type": "complement",
+          "reason": "同一人物围绕「应用价值」的不同切面：一条讨论AI 产业价值链，另一条讨论AI 任务设计；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "李彦宏 · Robin Li"
+    },
+    {
+      "id": "robin-li-reframe-problems-2025",
+      "speakerId": "robin-li",
+      "organizationId": "baidu-ernie",
+      "organization": "百度",
+      "speaker": "李彦宏 · Robin Li",
+      "speakerRole": "百度创始人",
+      "quoteZh": "把你要解决的问题，转化为AI能够解决的问题。",
+      "quoteEn": "Turn the problems you need to solve into problems AI can solve.",
+      "originalLanguage": "zh",
+      "date": "2025-11-13",
+      "dateLabel": "2025 年 11 月 13 日 · 大会发言",
+      "occasion": "百度世界大会主题演讲《效果涌现》",
+      "context": "演讲结尾呼吁使用者主动内化 AI 能力。",
+      "target": "AI 任务设计",
+      "thesis": "采用 AI 也需要重新定义问题。",
+      "interpretation": "编辑延伸：明确输入、约束与验收标准，比笼统要求智能化更可操作。",
+      "caveat": "英文为本站译文。不是所有问题都适合交给 AI。",
+      "topics": [
+        "应用价值",
+        "任务设计",
+        "组织转型"
+      ],
+      "source": {
+        "title": "李彦宏：当AI能力被内化，智能不再是成本而是生产力",
+        "url": "https://home.baidu.com/home/index/news_detail/id/18045",
+        "locator": "正文结尾以“当下，我们所有人都需要行动起来”开头的直接引语。",
+        "type": "公司官方大会报道·直接引述"
+      },
+      "relations": [
+        {
+          "targetId": "robin-li-application-value-2025",
+          "type": "complement",
+          "reason": "同一人物围绕「应用价值」的不同切面：一条讨论AI 产业价值链，另一条讨论AI 任务设计；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        },
+        {
+          "targetId": "robin-li-real-work-2026",
+          "type": "complement",
+          "reason": "同一人物围绕「应用价值」的不同切面：一条讨论AI 任务设计，另一条讨论AI 成效评价；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "李彦宏 · Robin Li"
+    },
+    {
+      "id": "robin-li-real-work-2026",
+      "speakerId": "robin-li",
+      "organizationId": "baidu-ernie",
+      "organization": "百度",
+      "speaker": "李彦宏 · Robin Li",
+      "speakerRole": "百度创始人",
+      "quoteZh": "AI不能只在实验室里“刷榜”，必须到工厂车间里“干活”。",
+      "quoteEn": "AI must do more than chase laboratory rankings; it must get to work on factory floors.",
+      "originalLanguage": "zh",
+      "date": "2026-07-15",
+      "dateLabel": "2026 年 7 月 15 日 · 署名文章发表",
+      "occasion": "《人民日报》署名文章《为智能经济打造科学评价体系》",
+      "context": "提出从资源消耗进一步观察智能体完成任务的价值。",
+      "target": "AI 成效评价",
+      "thesis": "评价不能停留在实验室指标。",
+      "interpretation": "编辑延伸：可靠交付、成本与真实业务结果应一起看。",
+      "caveat": "英文为本站译文。文中的 DAA 属提议指标，不是统一审计标准。",
+      "topics": [
+        "评测边界",
+        "应用价值",
+        "生产力"
+      ],
+      "source": {
+        "title": "《人民日报》发表李彦宏署名文章：为智能经济打造科学评价体系",
+        "url": "https://home.baidu.com/home/index/news_detail/id/18054",
+        "locator": "署名文章正文“AI不能只在实验室里”一句；页面注明《人民日报》2026年7月15日评论版05版。",
+        "type": "作者所属机构刊载署名文章全文"
+      },
+      "relations": [
+        {
+          "targetId": "pony-ma-use-creates-value-2021",
+          "type": "similar",
+          "reason": "李彦宏针对AI对比榜单与实际工作；马化腾较早提出一般性的产品使用价值原则。"
+        },
+        {
+          "targetId": "robin-li-reframe-problems-2025",
+          "type": "complement",
+          "reason": "同一人物围绕「应用价值」的不同切面：一条讨论AI 任务设计，另一条讨论AI 成效评价；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "李彦宏 · Robin Li"
+    },
+    {
+      "id": "eddie-wu-intelligence-commodity-2026",
+      "speakerId": "eddie-wu",
+      "organizationId": "alibaba-qwen",
+      "organization": "阿里巴巴",
+      "speaker": "吴泳铭 · Eddie Wu",
+      "speakerRole": "阿里巴巴集团首席执行官",
+      "quoteZh": "智能正在成为一种规模化的商品。",
+      "quoteEn": "Intelligence is becoming a commodity supplied at scale.",
+      "originalLanguage": "zh",
+      "date": "2026-09-22",
+      "dateLabel": "2026 年 9 月 22 日 · 云栖大会演讲",
+      "occasion": "2026 云栖大会全栈 AI 战略主题演讲",
+      "context": "借工业革命中动力的规模供给解释机器智能。",
+      "target": "智能供给方式",
+      "thesis": "智能可能成为可规模化供应的能力。",
+      "interpretation": "供给成本与可获得性，成为产品设计的重要变量。",
+      "caveat": "英文为本站译文。这是战略判断，不是统一商品标准。",
+      "topics": [
+        "智能经济",
+        "基础设施",
+        "成本效率"
+      ],
+      "source": {
+        "title": "阿里巴巴集团CEO吴泳铭在2026云栖大会上分享阿里巴巴全栈AI战略路线图",
+        "url": "https://www.alibabagroup.com/zh-CN/document-2039431633571938304",
+        "locator": "演讲开篇“机器正在成为思考的主力”段，智能规模化供给判断。",
+        "type": "公司官方演讲全文"
+      },
+      "relations": [
+        {
+          "targetId": "yan-junjie-efficiency-mission-2026",
+          "type": "complement",
+          "reason": "规模化智能供给需要有效率的技术和可负担的成本，能力普及与单位成本可以放在同一个供给框架下观察。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "吴泳铭 · Eddie Wu"
+    },
+    {
+      "id": "eddie-wu-new-products-2026",
+      "speakerId": "eddie-wu",
+      "organizationId": "alibaba-qwen",
+      "organization": "阿里巴巴",
+      "speaker": "吴泳铭 · Eddie Wu",
+      "speakerRole": "阿里巴巴集团首席执行官",
+      "quoteZh": "机器智能时代的代表性产品，还没有出现。",
+      "quoteEn": "The defining products of the machine-intelligence era have yet to emerge.",
+      "originalLanguage": "zh",
+      "date": "2026-09-22",
+      "dateLabel": "2026 年 9 月 22 日 · 云栖大会演讲",
+      "occasion": "2026 云栖大会全栈 AI 战略主题演讲",
+      "context": "演讲提出对未来智能产品形态的第二个判断。",
+      "target": "AI 原生产品",
+      "thesis": "未来产品未必沿用现有软件形态。",
+      "interpretation": "编辑延伸：可观察新的交互与任务闭环，而不只追加聊天入口。",
+      "caveat": "英文为本站译文。属于前瞻判断，不是已证实的产品史结论。",
+      "topics": [
+        "产品形态",
+        "AI 原生",
+        "行业判断"
+      ],
+      "source": {
+        "title": "阿里巴巴集团CEO吴泳铭在2026云栖大会上分享阿里巴巴全栈AI战略路线图",
+        "url": "https://www.alibabagroup.com/zh-CN/document-2039431633571938304",
+        "locator": "演讲第二个判断：“机器智能时代的代表性产品，还没有出现”。",
+        "type": "公司官方演讲全文"
+      },
+      "relations": [
+        {
+          "targetId": "andrew-ng-software-demand-2026",
+          "type": "complement",
+          "reason": "Ng讨论定制软件需求，吴泳铭讨论机器智能时代尚未成熟的产品形态。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "吴泳铭 · Eddie Wu"
+    },
+    {
+      "id": "eddie-wu-open-qwen-2025",
+      "speakerId": "eddie-wu",
+      "organizationId": "alibaba-qwen",
+      "organization": "阿里巴巴／阿里云智能",
+      "speaker": "吴泳铭 · Eddie Wu",
+      "speakerRole": "阿里云智能董事长兼首席执行官",
+      "quoteZh": "我們始終堅持開源Qwen模型",
+      "quoteEn": "We remain committed to open-sourcing Qwen models.",
+      "originalLanguage": "zh",
+      "date": "2025-09-29",
+      "dateLabel": "2025 年 9 月 29 日 · 官方报道发布日期，非核定发言日",
+      "occasion": "2025 云栖大会战略发言的官方报道",
+      "context": "讨论模型与设备融合、开发者生态及操作系统类比。",
+      "target": "Qwen 开源战略",
+      "thesis": "以开放模型支持开发者生态。",
+      "interpretation": "开放权重、许可条件与商业服务仍需分别核对。",
+      "caveat": "保留官方繁体原文；英文为本站译文。战略承诺不等于所有研发资产均公开。",
+      "topics": [
+        "开源生态",
+        "开发者",
+        "产品战略"
+      ],
+      "source": {
+        "title": "2025年雲棲大會：阿里雲發佈下一代AI創新策略路線圖",
+        "url": "https://www.alibabagroup.com/zh-HK/document-1911884625546838016",
+        "locator": "首段吴泳铭直接引语中“我們始終堅持開源Qwen模型”一节。",
+        "type": "公司官方大会报道·直接引述"
+      },
+      "relations": [
+        {
+          "targetId": "mensch-autonomy-2026",
+          "type": "complement",
+          "reason": "Mensch从欧洲主权出发；吴泳铭表达模型开源路线。"
+        },
+        {
+          "targetId": "yang-zhilin-closed-plan-2023",
+          "type": "tension",
+          "reason": "两条记录不同机构、不同阶段的模型开放策略；这是一组商业路线差异，不是同一时期对开源效果的直接争论。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "吴泳铭 · Eddie Wu"
+    },
+    {
+      "id": "eric-xu-no-universal-pretraining-2024",
+      "speakerId": "eric-xu",
+      "organizationId": "huawei",
+      "organization": "华为",
+      "speaker": "徐直军 · Eric Xu",
+      "speakerRole": "华为副董事长、轮值董事长",
+      "quoteZh": "不是每个企业都要训练自己的基础大模型。",
+      "quoteEn": "Not every enterprise needs to train its own foundation model.",
+      "originalLanguage": "zh",
+      "date": "2024-09-19",
+      "dateLabel": "2024 年 9 月 19 日 · 大会演讲",
+      "occasion": "华为全联接大会《拥抱全面智能化时代》",
+      "context": "从数据、训练与人才成本讨论企业技术选择。",
+      "target": "企业自训决策",
+      "thesis": "自训基础模型不是采用 AI 的前提。",
+      "interpretation": "编辑延伸：应比较自建、采购和微调的成本与控制需求。",
+      "caveat": "英文为本站译文。发言人亦代表云与算力供应商。",
+      "topics": [
+        "企业采用",
+        "模型选择",
+        "成本效率"
+      ],
+      "source": {
+        "title": "华为徐直军：拥抱全面智能化时代",
+        "url": "https://e.huawei.com/cn/events/branding/huawei-connect/2024/paving-the-way-for-all-intelligence",
+        "locator": "“二、华为云面向AI全栈升级”部分的第二点。",
+        "type": "公司官方演讲全文"
+      },
+      "relations": [
+        {
+          "targetId": "jassy-three-layers-2024",
+          "type": "complement",
+          "reason": "AI技术栈分层意味着企业可以在不同层次参与；选择采购、微调或自训应由任务和控制需求决定，而非一律从底层重建。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "personName": "徐直军 · Eric Xu"
+    },
+    {
+      "id": "eric-xu-experience-first-2024",
+      "speakerId": "eric-xu",
+      "organizationId": "huawei",
+      "organization": "华为",
+      "speaker": "徐直军 · Eric Xu",
+      "speakerRole": "华为副董事长、轮值董事长",
+      "quoteZh": "终端AI应以体验为中心，而不是以算力为中心。",
+      "quoteEn": "Device AI should center on user experience, not computing power.",
+      "originalLanguage": "zh",
+      "date": "2024-09-19",
+      "dateLabel": "2024 年 9 月 19 日 · 大会演讲",
+      "occasion": "华为全联接大会《拥抱全面智能化时代》",
+      "context": "讨论消费者如何理解 AI 手机与个人电脑。",
+      "target": "AI 终端评价",
+      "thesis": "硬件规格不能直接替代体验评价。",
+      "interpretation": "编辑延伸：应把速度、可靠性及任务效果转成可感知体验。",
+      "caveat": "英文为本站译文。不表示算力对体验不重要。",
+      "topics": [
+        "用户体验",
+        "AI 终端",
+        "评测边界"
+      ],
+      "source": {
+        "title": "华为徐直军：拥抱全面智能化时代",
+        "url": "https://e.huawei.com/cn/events/branding/huawei-connect/2024/paving-the-way-for-all-intelligence",
+        "locator": "“终端AI以体验为中心，而不是以算力为中心”小节末句倡议。",
+        "type": "公司官方演讲全文"
+      },
+      "relations": [
+        {
+          "targetId": "su-ai-compute-2024",
+          "type": "complement",
+          "reason": "硬件需求增长来自采用；面向用户设计时却不能只炫耀硬件指标。"
+        },
+        {
+          "targetId": "eric-xu-compute-foundation-2025",
+          "type": "complement",
+          "reason": "基础设施是供给条件，终端体验是面向用户的评价；同一人物的两条观点讨论层次不同，并不矛盾。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "personName": "徐直军 · Eric Xu"
+    },
+    {
+      "id": "eric-xu-compute-foundation-2025",
+      "speakerId": "eric-xu",
+      "organizationId": "huawei",
+      "organization": "华为",
+      "speaker": "徐直军 · Eric Xu",
+      "speakerRole": "华为副董事长、轮值董事长",
+      "quoteZh": "算力过去是，未来也将继续是人工智能的关键",
+      "quoteEn": "Computing power has been, and will remain, a key to artificial intelligence.",
+      "originalLanguage": "zh",
+      "date": "2025-09-18",
+      "dateLabel": "2025 年 9 月 18 日 · 大会演讲",
+      "occasion": "华为全联接大会《以开创的超节点互联技术，引领AI基础设施新范式》",
+      "context": "发布超节点与集群，讨论持续算力供给。",
+      "target": "AI 基础设施",
+      "thesis": "模型进步仍依赖计算基础。",
+      "interpretation": "这是供给侧视角，可与需求侧的体验、成本指标对读。",
+      "caveat": "英文为本站译文。属于供应商战略判断，不能替代性能及经济性实测。",
+      "topics": [
+        "算力",
+        "基础设施",
+        "产业战略"
+      ],
+      "source": {
+        "title": "华为发布全球最强算力超节点和集群",
+        "url": "https://www.huawei.com/cn/news/2025/9/hc-lingqu-ai-superpod",
+        "locator": "正文首个徐直军直接引语前半句；未采纳标题中的性能最高级作为客观结论。",
+        "type": "公司官方大会报道·直接引述"
+      },
+      "relations": [
+        {
+          "targetId": "eric-xu-experience-first-2024",
+          "type": "complement",
+          "reason": "基础设施是供给条件，终端体验是面向用户的评价；同一人物的两条观点讨论层次不同，并不矛盾。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "徐直军 · Eric Xu"
+    },
+    {
+      "id": "yan-junjie-resource-limits-2026",
+      "speakerId": "yan-junjie",
+      "organizationId": "minimax",
+      "organization": "MiniMax",
+      "speaker": "闫俊杰 · Yan Junjie",
+      "speakerRole": "MiniMax 联合创始人兼首席执行官",
+      "quoteEn": "Intelligence can scale almost without limit; energy and compute cannot.",
+      "quoteZh": "智能几乎可以无限扩展；能源与算力却不可以。",
+      "originalLanguage": "en",
+      "date": "2026-08-26",
+      "dateLabel": "2026 年 8 月 26 日 · 业绩新闻稿发布",
+      "occasion": "MiniMax 2026 年上半年业绩新闻稿管理层评论",
+      "context": "讨论智能扩展与资源约束之间的关系。",
+      "target": "AI 资源效率",
+      "thesis": "智能供给需要面对有限资源。",
+      "interpretation": "编辑延伸：不能只看能力上限，也要看交付成本。",
+      "caveat": "英文是官方稿中具名评论，中文为本站译文；不是核验过的口头英文录音。",
+      "topics": [
+        "成本效率",
+        "算力",
+        "能源"
+      ],
+      "source": {
+        "title": "MiniMax Announces First Half 2026 Financial Results",
+        "url": "https://www.minimax.io/news/minimax-announces-first-half-2026-financial-results-1787744160",
+        "locator": "Dr. Yan Junjie, Co-founder and CEO...commented 后第一句。",
+        "type": "公司官方业绩新闻稿·具名评论"
+      },
+      "relations": [
+        {
+          "targetId": "musk-power-limit-2026",
+          "type": "similar",
+          "reason": "MiniMax强调效率问题；Musk具体指向可供电的芯片数量。"
+        },
+        {
+          "targetId": "yan-junjie-efficiency-mission-2026",
+          "type": "complement",
+          "reason": "同一人物围绕「成本效率」的不同切面：一条讨论AI 资源效率，另一条讨论单位成本智能供给；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "闫俊杰 · Yan Junjie"
+    },
+    {
+      "id": "yan-junjie-efficiency-mission-2026",
+      "speakerId": "yan-junjie",
+      "organizationId": "minimax",
+      "organization": "MiniMax",
+      "speaker": "闫俊杰 · Yan Junjie",
+      "speakerRole": "MiniMax 联合创始人兼首席执行官",
+      "quoteEn": "Minimize the Cost, Maximize the Intelligence",
+      "quoteZh": "尽量降低成本，尽量提升智能。",
+      "originalLanguage": "en",
+      "date": "2026-08-26",
+      "dateLabel": "2026 年 8 月 26 日 · 业绩新闻稿发布",
+      "occasion": "MiniMax 2026 年上半年业绩新闻稿管理层评论",
+      "context": "用一句策略表述连接智能成本与普及目标。",
+      "target": "单位成本智能供给",
+      "thesis": "能力与成本应联合优化。",
+      "interpretation": "编辑延伸：比较模型时，最好统一任务和成功标准。",
+      "caveat": "中文为本站译文；这是官方管理层口号，不是成本领先的独立证据。",
+      "topics": [
+        "成本效率",
+        "普惠智能",
+        "商业化"
+      ],
+      "source": {
+        "title": "MiniMax Announces First Half 2026 Financial Results",
+        "url": "https://www.minimax.io/news/minimax-announces-first-half-2026-financial-results-1787744160",
+        "locator": "闫俊杰具名评论中带单引号的 Minimize the Cost 短语。",
+        "type": "公司官方业绩新闻稿·具名评论"
+      },
+      "relations": [
+        {
+          "targetId": "nadella-cost-outcome-2026",
+          "type": "similar",
+          "reason": "MiniMax用使命表达效率目标；Nadella将客户产出作为成本的参照。"
+        },
+        {
+          "targetId": "eddie-wu-intelligence-commodity-2026",
+          "type": "complement",
+          "reason": "规模化智能供给需要有效率的技术和可负担的成本，能力普及与单位成本可以放在同一个供给框架下观察。"
+        },
+        {
+          "targetId": "yan-junjie-resource-limits-2026",
+          "type": "complement",
+          "reason": "同一人物围绕「成本效率」的不同切面：一条讨论AI 资源效率，另一条讨论单位成本智能供给；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "闫俊杰 · Yan Junjie"
+    },
+    {
+      "id": "yan-junjie-platform-company-2026",
+      "speakerId": "yan-junjie",
+      "organizationId": "minimax",
+      "organization": "MiniMax",
+      "speaker": "闫俊杰 · Yan Junjie",
+      "speakerRole": "MiniMax 联合创始人兼首席执行官",
+      "quoteEn": "we will evolve from a large-model company into a platform company for the AI era.",
+      "quoteZh": "我们将从一家大模型公司，演进为 AI 时代的平台公司。",
+      "originalLanguage": "en",
+      "date": "2026-03-02",
+      "dateLabel": "2026 年 3 月 2 日 · 年度业绩新闻稿发布",
+      "occasion": "MiniMax 2025 全年业绩新闻稿管理层评论",
+      "context": "展望模型、产品和基础设施的协同发展。",
+      "target": "模型企业商业边界",
+      "thesis": "公司计划从单一模型延伸到平台。",
+      "interpretation": "这是战略意图；后续应观察产品整合及用户价值兑现。",
+      "caveat": "英文取自官方具名评论，中文为本站译文。计划不等于已完成转型。",
+      "topics": [
+        "平台战略",
+        "商业化",
+        "产品形态"
+      ],
+      "source": {
+        "title": "MiniMax Global Announces Full Year 2025 Financial Results",
+        "url": "https://www.minimax.io/news/minimax-global-announces-full-year-2025-financial-results",
+        "locator": "Dr. Yan Junjie 评论最后一段，Looking ahead 开头句的后半句。",
+        "type": "公司官方业绩新闻稿·具名评论"
+      },
+      "relations": [
+        {
+          "targetId": "pichai-ai-first-2016",
+          "type": "complement",
+          "reason": "Pichai预判计算范式；闫俊杰说明一家模型公司的业务演进方向。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "闫俊杰 · Yan Junjie"
+    },
+    {
+      "id": "pony-ma-use-creates-value-2021",
+      "speakerId": "pony-ma",
+      "organizationId": "tencent",
+      "organization": "腾讯",
+      "speaker": "马化腾 · Pony Ma",
+      "speakerRole": "腾讯主要创办人、董事会主席兼首席执行官",
+      "quoteZh": "产品被使用才有价值。",
+      "quoteEn": "A product has value when it is used.",
+      "originalLanguage": "zh",
+      "date": "2021-12-17",
+      "dateLabel": "2021 年 12 月 17 日 · 官方署名文章刊载",
+      "occasion": "集团年度特刊署名文章《用户、产业、社会（CBS）三位一体，科技向善》",
+      "context": "回顾互联网产品如何从应用场景出发。",
+      "target": "产品价值判断",
+      "thesis": "技术能力需要落到实际使用。",
+      "interpretation": "编辑关联：这可用于审视 AI 产品是否解决真实需求。",
+      "caveat": "英文为本站译文。原文谈互联网产品；对 AI 的延伸为编辑分析。",
+      "topics": [
+        "产品价值",
+        "用户体验",
+        "历史经典"
+      ],
+      "source": {
+        "title": "马化腾：用户、产业、社会（CBS）三位一体，科技向善",
+        "url": "https://www.tencent.com/zh-cn/pony-ma-consumer-business-and-society-the-cbs-trinity/",
+        "locator": "“三个价值”小节第一段末句。",
+        "type": "公司官方刊载本人署名文章"
+      },
+      "relations": [
+        {
+          "targetId": "robin-li-real-work-2026",
+          "type": "similar",
+          "reason": "李彦宏针对AI对比榜单与实际工作；马化腾较早提出一般性的产品使用价值原则。"
+        },
+        {
+          "targetId": "pony-ma-electricity-analogy-2023",
+          "type": "complement",
+          "reason": "同一人物围绕「历史经典」的不同切面：一条讨论产品价值判断，另一条讨论AI 影响尺度；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "personName": "马化腾 · Pony Ma"
+    },
+    {
+      "id": "pony-ma-electricity-analogy-2023",
+      "speakerId": "pony-ma",
+      "organizationId": "tencent",
+      "organization": "腾讯",
+      "speaker": "马化腾 · Pony Ma",
+      "speakerRole": "腾讯创始人、董事会主席兼首席执行官",
+      "quoteZh": "类似发明电的工业革命一样的机遇",
+      "quoteEn": "An opportunity like the industrial revolution brought by the invention of electricity.",
+      "originalLanguage": "zh",
+      "date": "2023-05",
+      "dateLabel": "2023 年 5 月 · 股东大会发言月份；官方文章于 10 月 19 日刊载",
+      "occasion": "腾讯股东大会发言，由腾讯官方署名文章引述",
+      "context": "认为 AI 的影响可能超过一次普通互联网产品周期。",
+      "target": "AI 影响尺度",
+      "thesis": "把 AI 视作广泛改变生产方式的技术。",
+      "interpretation": "类比帮助理解长期影响，但不能推导回报或时间表。",
+      "caveat": "英文为本站译文。保留原话中的电力类比；未补未经来源确认的发言日。",
+      "topics": [
+        "通用技术",
+        "行业判断",
+        "历史经典"
+      ],
+      "source": {
+        "title": "在生成式AI中寻求平衡：开源模型与专有模型之争",
+        "url": "https://www.tencent.com/zh-cn/%E5%9C%A8%E7%94%9F%E6%88%90%E5%BC%8Fai%E4%B8%AD%E5%AF%BB%E6%B1%82%E5%B9%B3%E8%A1%A1%EF%BC%9A%E5%BC%80%E6%BA%90%E6%A8%A1%E5%9E%8B%E4%B8%8E%E4%B8%93%E6%9C%89%E6%A8%A1%E5%9E%8B%E4%B9%8B%E4%BA%89/",
+        "locator": "“例如，今年五月”开头段，马化腾股东大会直接引语后半句。",
+        "type": "公司官方署名文章·董事长直接引语"
+      },
+      "relations": [
+        {
+          "targetId": "pony-ma-use-creates-value-2021",
+          "type": "complement",
+          "reason": "同一人物围绕「历史经典」的不同切面：一条讨论产品价值判断，另一条讨论AI 影响尺度；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "personName": "马化腾 · Pony Ma"
+    },
+    {
+      "id": "zhang-peng-research-engineering-2023",
+      "speakerId": "zhang-peng",
+      "organizationId": "zhipu",
+      "organization": "智谱 AI",
+      "speaker": "张鹏 · Zhang Peng",
+      "speakerRole": "智谱 AI 首席执行官",
+      "quoteZh": "我们会把研究和工程放在相对平等的位置上。",
+      "quoteEn": "We put research and engineering on a relatively equal footing.",
+      "originalLanguage": "zh",
+      "date": "2023-09-05",
+      "dateLabel": "2023 年 9 月 5 日 · 原始专访发布",
+      "occasion": "36 氪杨轩、周鑫雨对张鹏的原始问答专访",
+      "context": "回答如何同时开展研发、行业落地及企业服务。",
+      "target": "研发组织",
+      "thesis": "研究与工程需要互相支撑。",
+      "interpretation": "编辑延伸：技术探索和交付能力不宜被割裂评价。",
+      "caveat": "英文为本站译文。描述其团队选择，非通用组织定律。",
+      "topics": [
+        "研究工程",
+        "组织方式",
+        "历史经典"
+      ],
+      "source": {
+        "title": "对话智谱AI CEO张鹏：我们不做中国的ChatGPT｜36氪专访",
+        "url": "https://www.36kr.com/p/2417368812643329",
+        "locator": "“带着技术、团队、客户，直接入场”第一问答；张鹏回答原句。",
+        "type": "原采访机构完整访谈"
+      },
+      "relations": [
+        {
+          "targetId": "mccarthy-definition-2007",
+          "type": "similar",
+          "reason": "McCarthy给出领域定义；张鹏把研究与工程的平衡落实到组织实践。"
+        },
+        {
+          "targetId": "zhang-peng-leaderboard-question-2023",
+          "type": "complement",
+          "reason": "同一人物围绕「历史经典」的不同切面：一条讨论研发组织，另一条讨论排行榜叙事；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "personName": "张鹏 · Zhang Peng"
+    },
+    {
+      "id": "zhang-peng-leaderboard-question-2023",
+      "speakerId": "zhang-peng",
+      "organizationId": "zhipu",
+      "organization": "智谱 AI",
+      "speaker": "张鹏 · Zhang Peng",
+      "speakerRole": "智谱 AI 首席执行官",
+      "quoteZh": "上榜就意味着超越吗？",
+      "quoteEn": "Does appearing on a leaderboard mean surpassing the competition?",
+      "originalLanguage": "zh",
+      "date": "2023-09-05",
+      "dateLabel": "2023 年 9 月 5 日 · 原始专访发布",
+      "occasion": "36 氪杨轩、周鑫雨对张鹏的原始问答专访",
+      "context": "回答通往 AGI 的关键因素，追问超越 ChatGPT 的具体含义。",
+      "target": "排行榜叙事",
+      "thesis": "比较优势需要定义能力维度。",
+      "interpretation": "编辑延伸：榜单、可靠性与真实使用效果不是同一个指标。",
+      "caveat": "英文为本站译文。原句是反问，并非否认基准测试价值。",
+      "topics": [
+        "评测边界",
+        "研究方法",
+        "历史经典"
+      ],
+      "source": {
+        "title": "对话智谱AI CEO张鹏：我们不做中国的ChatGPT｜36氪专访",
+        "url": "https://www.36kr.com/p/2417368812643329",
+        "locator": "末尾“在通往AGI的路上”问答，张鹏解释“定义好目标”的段落。",
+        "type": "原采访机构完整访谈"
+      },
+      "relations": [
+        {
+          "targetId": "turing-operational-question-1950",
+          "type": "complement",
+          "reason": "图灵从定义问题引向可操作的讨论；张鹏质疑上榜与实际超越之间的跳跃。"
+        },
+        {
+          "targetId": "yang-zhilin-users-benchmark-2024",
+          "type": "similar",
+          "reason": "两人都要求超越单一榜单看模型价值：需要把真实用户体验与评测覆盖的能力边界同时纳入。"
+        },
+        {
+          "targetId": "zhang-peng-research-engineering-2023",
+          "type": "complement",
+          "reason": "同一人物围绕「历史经典」的不同切面：一条讨论研发组织，另一条讨论排行榜叙事；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "personName": "张鹏 · Zhang Peng"
+    },
+    {
+      "id": "zhang-peng-interaction-shift-2024",
+      "speakerId": "zhang-peng",
+      "organizationId": "zhipu",
+      "organization": "智谱",
+      "speaker": "张鹏 · Zhang Peng",
+      "speakerRole": "智谱首席执行官",
+      "quoteZh": "大模型技术发展催生AI服务交互范式迭代",
+      "quoteEn": "Advances in large-model technology are driving changes in how people interact with AI services.",
+      "originalLanguage": "zh",
+      "date": "2024-10-27",
+      "dateLabel": "2024 年 10 月 27 日 · 签约发言；官方 10 月 28 日报道“昨日”",
+      "occasion": "智谱与中国三星战略合作签约仪式",
+      "context": "讨论大模型进入消费终端后的交互体验。",
+      "target": "AI 服务交互",
+      "thesis": "模型发展会改变服务交互方式。",
+      "interpretation": "编辑延伸：关注用户怎样完成任务，而不仅是模型如何展示能力。",
+      "caveat": "英文为本站译文。这是合作愿景，不能作为产品效果已达成的证据。",
+      "topics": [
+        "用户体验",
+        "AI 终端",
+        "产品形态"
+      ],
+      "source": {
+        "title": "智谱与中国三星宣布战略合作",
+        "url": "https://www.zhipuai.cn/zh/news/4",
+        "locator": "张鹏在签约仪式上表示后的直接引语；页面发布日期 2024-10-28，首句写“昨日”。",
+        "type": "公司官方活动报道·直接引述"
+      },
+      "relations": [
+        {
+          "targetId": "pichai-agentic-search-2026",
+          "type": "complement",
+          "reason": "一条关注模型推动交互方式变化，一条展示搜索向行动演进的产品方向；两者都需要进一步检验用户能否有效完成任务。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "personName": "张鹏 · Zhang Peng"
+    },
+    {
+      "id": "liang-wenfeng-curiosity-2024",
+      "speakerId": "liang-wenfeng",
+      "organizationId": "deepseek",
+      "organization": "DeepSeek／深度求索",
+      "speaker": "梁文锋 · Liang Wenfeng",
+      "speakerRole": "DeepSeek 创始人",
+      "quoteZh": "创新不完全是商业驱动的，还需要好奇心和创造欲。",
+      "quoteEn": "Innovation is not driven entirely by business; it also needs curiosity and the desire to create.",
+      "originalLanguage": "zh",
+      "date": "2024-07-22",
+      "dateLabel": "2024 年 7 月 22 日 · 原始专访发布",
+      "occasion": "于丽丽／暗涌 Waves 对梁文锋的原始完整专访",
+      "context": "回答为何中国公司容易把快速商业化放在首位。",
+      "target": "原创研究动力",
+      "thesis": "商业激励不是创新的唯一来源。",
+      "interpretation": "编辑延伸：允许长期探索，与短期产品收入可以是不同考核。",
+      "caveat": "英文为本站译文。是 2024 年观点，不冒充其当前融资或产品策略。",
+      "topics": [
+        "原创创新",
+        "研究文化",
+        "历史经典"
+      ],
+      "source": {
+        "title": "揭秘DeepSeek：一个更极致的中国技术理想主义故事｜36氪独家",
+        "url": "https://www.36kr.com/p/2872793466982535",
+        "locator": "“为什么中国公司……把快速商业化当第一要义”问答，梁文锋回答第二句。",
+        "type": "原采访机构完整访谈"
+      },
+      "relations": [
+        {
+          "targetId": "hassabis-science-tool-2026",
+          "type": "similar",
+          "reason": "梁文锋谈创新的组织动力；Hassabis谈AI作为科学工具的潜力。"
+        },
+        {
+          "targetId": "nadella-long-short-2025",
+          "type": "complement",
+          "reason": "Nadella强调双时间尺度；梁文锋强调商业之外的创新动机。"
+        },
+        {
+          "targetId": "liang-wenfeng-agi-goal-2023",
+          "type": "complement",
+          "reason": "同一人物围绕「历史经典」的不同切面：一条讨论DeepSeek 创业目标，另一条讨论原创研究动力；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        },
+        {
+          "targetId": "liang-wenfeng-investment-innovation-2024",
+          "type": "complement",
+          "reason": "同一人物围绕「原创创新」的不同切面：一条讨论原创研究动力，另一条讨论资源与创新关系；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "personName": "梁文锋 · Liang Wenfeng"
+    },
+    {
+      "id": "liang-wenfeng-investment-innovation-2024",
+      "speakerId": "liang-wenfeng",
+      "organizationId": "deepseek",
+      "organization": "DeepSeek／深度求索",
+      "speaker": "梁文锋 · Liang Wenfeng",
+      "speakerRole": "DeepSeek 创始人",
+      "quoteZh": "更多的投入并不一定产生更多的创新。",
+      "quoteEn": "More investment does not necessarily produce more innovation.",
+      "originalLanguage": "zh",
+      "date": "2024-07-22",
+      "dateLabel": "2024 年 7 月 22 日 · 原始专访发布",
+      "occasion": "于丽丽／暗涌 Waves 对梁文锋的原始完整专访",
+      "context": "回答做 AGI 是否必须借联盟扩大投入。",
+      "target": "资源与创新关系",
+      "thesis": "投入规模不是创新产出的充分条件。",
+      "interpretation": "编辑延伸：人才密度、组织方式与研究方向同样需要考察。",
+      "caveat": "英文为本站译文。不等于不需要算力或资金。",
+      "topics": [
+        "原创创新",
+        "资源投入",
+        "组织方式"
+      ],
+      "source": {
+        "title": "揭秘DeepSeek：一个更极致的中国技术理想主义故事｜36氪独家",
+        "url": "https://www.36kr.com/p/2872793466982535",
+        "locator": "“做AGI和做量化是完全不同的两件事”问答，梁文锋回答首句。",
+        "type": "原采访机构完整访谈"
+      },
+      "relations": [
+        {
+          "targetId": "altman-deep-learning-scale-2024",
+          "type": "tension",
+          "reason": "Altman概括既定深度学习路线的规模收益；梁文锋提醒研究创新不能只由投入金额解释。"
+        },
+        {
+          "targetId": "liang-wenfeng-curiosity-2024",
+          "type": "complement",
+          "reason": "同一人物围绕「原创创新」的不同切面：一条讨论原创研究动力，另一条讨论资源与创新关系；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "personName": "梁文锋 · Liang Wenfeng"
+    },
+    {
+      "id": "liang-wenfeng-agi-goal-2023",
+      "speakerId": "liang-wenfeng",
+      "organizationId": "deepseek",
+      "organization": "幻方／新设深度求索",
+      "speaker": "梁文锋 · Liang Wenfeng",
+      "speakerRole": "幻方创始人、深度求索创办者",
+      "quoteZh": "我们要做的是通用人工智能，也就是AGI。",
+      "quoteEn": "What we want to build is artificial general intelligence—AGI.",
+      "originalLanguage": "zh",
+      "date": "2023-05-25",
+      "dateLabel": "2023 年 5 月 25 日 · 原始专访发布",
+      "occasion": "于丽丽／暗涌对梁文锋的首次公开专访",
+      "context": "回答要自训通用模型，还是做金融等垂直模型。",
+      "target": "DeepSeek 创业目标",
+      "thesis": "创立时选择通用智能而非单一行业目标。",
+      "interpretation": "这是研究方向声明，不是声称已经实现 AGI。",
+      "caveat": "英文为本站译文。保留成立初期的机构身份和历史时点。",
+      "topics": [
+        "AGI",
+        "研究方向",
+        "历史经典"
+      ],
+      "source": {
+        "title": "疯狂的幻方：一家隐形AI巨头的大模型之路",
+        "url": "https://www.36kr.com/p/2272896094586500",
+        "locator": "“要自训一个大模型，还是某个垂直行业”问答，梁文锋回答第一句。",
+        "type": "原采访机构完整访谈"
+      },
+      "relations": [
+        {
+          "targetId": "liang-wenfeng-curiosity-2024",
+          "type": "complement",
+          "reason": "同一人物围绕「历史经典」的不同切面：一条讨论DeepSeek 创业目标，另一条讨论原创研究动力；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "personName": "梁文锋 · Liang Wenfeng"
+    },
+    {
+      "id": "altman-public-service-adoption-2026",
+      "quoteEn": "I’m excited to work with Chile to help public servants use these tools, improve public services, and support entrepreneurs building new companies.",
+      "quoteZh": "我很期待与智利合作，帮助公务人员使用这些工具、改善公共服务，并支持创业者创办新公司。",
+      "speaker": "Sam Altman",
+      "speakerId": "sam-altman",
+      "speakerRole": "OpenAI 联合创始人、CEO",
+      "organization": "OpenAI",
+      "organizationId": "openai",
+      "date": "2026-11-17",
+      "dateLabel": "2026年11月17日官方发布；页面未单列该引语的口头发言时间",
+      "occasion": "OpenAI for Chile 合作备忘录官方公告",
+      "context": "OpenAI 宣布与智利政府合作，拟探索公共管理人员能力建设、公共服务与创业生态的 AI 应用。",
+      "target": "AI 在政府与创业生态中的实际采用",
+      "thesis": "AI 的社会价值需要通过具体使用者、公共服务和新企业落地。",
+      "interpretation": "这把宏观的 AI 普惠愿景转换为三个应用对象：公务人员、公共服务和创业者；评价合作时应分别检查培训、服务改善与创业支持是否兑现。",
+      "caveat": "这是合作意向和愿景，不能当作已实现的效率或经济成果。公告说明备忘录不构成采购或投资承诺，具体工作仍受资源及后续计划约束。",
+      "topics": [
+        "公共服务",
+        "AI采用",
+        "创业",
+        "普惠"
+      ],
+      "source": {
+        "title": "Introducing OpenAI for Chile — OpenAI",
+        "url": "https://openai.com/index/introducing-openai-for-chile/",
+        "locator": "正文 Sam Altman, CEO of OpenAI 署名引语的第二句；日期见页首 November 17, 2026",
+        "type": "所属机构官方公告中的本人直接引语"
+      },
+      "relations": [
+        {
+          "targetId": "altman-distribution-2025",
+          "type": "complement",
+          "reason": "2025年谈AGI收益广泛分配，2026年合作公告指向公务人员、公共服务和创业者；具体意向仍需实施结果检验。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Sam Altman · 萨姆·奥尔特曼"
+    },
+    {
+      "id": "amodei-pace-frontier-2026",
+      "quoteEn": "We must slow the pace at which we improve the capabilities of AI models.",
+      "quoteZh": "我们必须放慢提升 AI 模型能力的步伐。",
+      "speaker": "Dario Amodei",
+      "speakerId": "dario-amodei",
+      "speakerRole": "Anthropic 联合创始人、CEO；以本人文章作者身份发表",
+      "organization": "Anthropic",
+      "organizationId": "anthropic",
+      "date": "2026-09",
+      "dateLabel": "2026年9月；作者原页仅标注月份，不补造具体日期",
+      "occasion": "本人政策文章《We Must Pace the Frontier》",
+      "context": "作者认为能力进展已需要更审慎的节奏，以便风险防范跟上，提出嵌入式第三方评估、民主国家内部协调与全球协调。",
+      "target": "前沿 AI 能力提升速度与风险防范之间的时间差",
+      "thesis": "仅增加安全投入可能不够，还需要给安全研究与验证争取时间。",
+      "interpretation": "这里的政策变量是能力推进节奏，而不只是最终产品有没有安全声明。文中主动区分当年的暂停倡议和当前主张，也区分放慢能力跃迁与停止所有技术工作。",
+      "caveat": "作者明确说 pacing 不等于停止模型训练或技术进步。这是公开政策主张，不代表行业已经达成协议，也不能从一句话推断其公司已全面暂停训练。",
+      "topics": [
+        "前沿AI",
+        "安全",
+        "发展节奏",
+        "第三方评估"
+      ],
+      "source": {
+        "title": "We Must Pace the Frontier — Dario Amodei",
+        "url": "https://darioamodei.com/post/we-must-pace-the-frontier",
+        "locator": "正文开篇第三段，谈及 risk prevention has time to keep up 之后；页首 September 2026；Why Pace? 段说明并非停止训练",
+        "type": "作者本人网站文章"
+      },
+      "relations": [
+        {
+          "targetId": "hassabis-closed-loop-caution-2026",
+          "type": "similar",
+          "reason": "Amodei提出放慢前沿能力提升节奏；Hassabis特别警惕缺少人类审查的闭环递归改进。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Dario Amodei · 达里奥·阿莫代伊"
+    },
+    {
+      "id": "hinton-share-planet-2026",
+      "quoteEn": "The most important thing we need to do is make them the kinds of beings we would like to share the planet with.",
+      "quoteZh": "我们最重要的任务，是把它们塑造成我们愿意与之共同生活在这个星球上的存在。",
+      "speaker": "Geoffrey Hinton",
+      "speakerId": "geoffrey-hinton",
+      "speakerRole": "2024年诺贝尔物理学奖得主；前 Google 研究员",
+      "organization": "独立研究者（已离开 Google）",
+      "organizationId": "independent-research",
+      "date": "2026-11-13",
+      "dateLabel": "2026年11月13日 PBS 节目播出／页面发布日期；未单列录制日",
+      "occasion": "PBS《Firing Line》与 Margaret Hoover 的完整访谈",
+      "context": "主持人追问防止更强 AI 接管是否为时已晚。Hinton 先强调这是个人看法、专家间存在分歧，再把重点从单纯命令控制转向让系统的目标与人类共存相容。",
+      "target": "超人智能的对齐、控制与共存问题",
+      "thesis": "如果单靠人类控制并不可靠，就必须认真研究更强系统愿意如何对待人类。",
+      "interpretation": "这不是把模型变强就会自动友好的论证，而是把技术评价从智力分数扩大到目标、动机和行为。翻译保留其拟人化表达，同时把它与可验证事实分开。",
+      "caveat": "这是 Hinton 明确标注的个人风险判断，不是科学界一致结论；其中 beings 的措辞也不构成 AI 已具有意识或人格的证据。",
+      "topics": [
+        "超级智能",
+        "对齐",
+        "控制",
+        "人机共存"
+      ],
+      "source": {
+        "title": "Firing Line: Geoffrey Hinton — PBS",
+        "url": "https://www.pbs.org/video/geoffrey-hinton-biumi2/",
+        "locator": "Transcript 中主持人问 At what point will it be too late? 后的回答；紧接 My personal view 段；页首 11/13/2026",
+        "type": "采访节目原始完整文字稿"
+      },
+      "relations": [
+        {
+          "targetId": "hinton-control-2024",
+          "type": "complement",
+          "reason": "2024年强调防止系统追求控制；2026年强调系统应成为人类愿意共处的存在。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Geoffrey Hinton · 杰弗里·辛顿"
+    },
+    {
+      "id": "hassabis-closed-loop-caution-2026",
+      "quoteEn": "I think we should be very cautious as we get closer to that closed-loop form of RSI",
+      "quoteZh": "我认为，当我们越来越接近那种闭环递归自我改进时，应该非常谨慎。",
+      "speaker": "Demis Hassabis",
+      "speakerId": "demis-hassabis",
+      "speakerRole": "Google DeepMind 联合创始人、主席；Alphabet 首席科学家（按节目介绍）",
+      "organization": "Google DeepMind / Alphabet",
+      "organizationId": "google-deepmind",
+      "date": "2026-10",
+      "dateLabel": "2026年10月现场录制；节目和文字稿于2026年11月6日发布，原页未给具体录制日",
+      "occasion": "旧金山 Masters of Scale Summit，与 Reid Hoffman 的现场对谈",
+      "context": "在讨论递归自我改进时，区分仍由人审查的 AI 辅助研发和没有人类审查环节的闭环系统，担心后者更快但也更难理解和控制。",
+      "target": "缺少人类审查的闭环递归自我改进（RSI）",
+      "thesis": "研发加速的收益不取消对自主闭环能力的审慎要求。",
+      "interpretation": "这句话针对的是具体研发架构与人类审查是否保留，不是笼统要求停止 AI。比较不同人的安全立场时，应先对齐他们讨论的是辅助工具还是自主改进系统。",
+      "caveat": "本条截取原句前半句，后文继续讨论研究者共识与竞争压力。节目注明文字稿自动生成、未经完整校正；因此以已提供文字稿的这段措辞为证，不扩展成已达成行业共识的事实。",
+      "topics": [
+        "递归自我改进",
+        "人类监督",
+        "安全",
+        "AGI"
+      ],
+      "source": {
+        "title": "Demis Hassabis: Society is “not ready” for the AI future — Masters of Scale",
+        "url": "https://mastersofscale.com/demis-hassabis-society-is-not-ready-for-the-ai-future/",
+        "locator": "Transcript → How recursive self-improvement accelerates AI progress，小节中谈 closed-loop form of RSI 的句子前半；页首说明 October 2026 录制、November 6, 2026 发布",
+        "type": "活动主办方完整访谈文字稿",
+        "accessNote": "原页明示文字稿自动生成，未完整校正拼写、语法与格式。"
+      },
+      "relations": [
+        {
+          "targetId": "amodei-pace-frontier-2026",
+          "type": "similar",
+          "reason": "Amodei提出放慢前沿能力提升节奏；Hassabis特别警惕缺少人类审查的闭环递归改进。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Demis Hassabis · 德米斯·哈萨比斯"
+    },
+    {
+      "id": "fei-fei-hardware-efficiency-2026",
+      "quoteEn": "Without having a focused hardware effort, AI is hobbled in efficiency.",
+      "quoteZh": "如果没有专注的硬件研发，AI 的效率就会受到掣肘。",
+      "speaker": "Fei-Fei Li",
+      "speakerId": "fei-fei-li",
+      "speakerRole": "World Labs 联合创始人、CEO；宣布拟加入 AMD 的交易时以本人署名发文",
+      "organization": "World Labs",
+      "organizationId": "world-labs",
+      "date": "2026-09-28",
+      "dateLabel": "2026年9月28日本人文章发布日期；不将拟议交易视作当日已完成",
+      "occasion": "本人文章《To Seek a Newer World》，解释 World Labs 拟加入 AMD 的思考",
+      "context": "在回顾空间智能愿景后，说明为何需要更大规模和更接近硬件的协作，以改善效率并将智能从数字世界带向物理世界。",
+      "target": "空间／物理智能的软硬件协同",
+      "thesis": "算法和模型进步需要与硬件路径共同设计，而不只是单独扩大模型。",
+      "interpretation": "可把这句话理解为一种研发组织选择：让模型、训练和推理的设计与计算基础设施更紧密连接。它补充了空间智能的能力论点，而非替代对实际产品效果的检验。",
+      "caveat": "这是创始人解释交易的战略判断，包含商业利益立场，不是独立效率基准。公告时交易尚需监管批准等条件，不能把预期任职和整合成果提前写成事实。",
+      "topics": [
+        "空间智能",
+        "硬件",
+        "效率",
+        "软硬件协同"
+      ],
+      "source": {
+        "title": "To Seek a Newer World — Dr. Fei-Fei Li",
+        "url": "https://drfeifei.substack.com/p/worldlabs-joining-amd",
+        "locator": "正文 To do this requires scaling our efforts 开始的段落，第二句；页首 Sep 28, 2026",
+        "type": "作者本人署名文章"
+      },
+      "relations": [
+        {
+          "targetId": "fei-fei-spatial-scaffolding-2025",
+          "type": "complement",
+          "reason": "2025年强调空间认知结构，2026年解释软硬件协作对效率的意义。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Fei-Fei Li · 李飞飞"
+    },
+    {
+      "id": "bengio-safety-research-incentives-2026",
+      "quoteEn": "If you truly prioritize safety, it is time for you to leave frontier AI companies.",
+      "quoteZh": "如果你真正把安全放在首位，现在就是离开前沿 AI 公司的时候。",
+      "speaker": "Yoshua Bengio",
+      "speakerId": "yoshua-bengio",
+      "speakerRole": "LawZero 联合主席、蒙特利尔大学教授；本人署名评论作者",
+      "organization": "LawZero / Université de Montréal",
+      "organizationId": "lawzero",
+      "date": "2026-10-08",
+      "dateLabel": "2026年10月8日署名评论发表；本人网站同日链接该文",
+      "occasion": "Transformer 刊发本人署名评论；本人网站提供原文入口",
+      "context": "作者认为前沿公司的竞争激励会限制安全研究者能做出的改变，邀请研究者进入安全研究所和使命导向组织，并直接邀请加入 LawZero。",
+      "target": "安全研究者所在机构的激励与职业选择",
+      "thesis": "安全承诺必须接受组织激励和研究自主性的检验。",
+      "interpretation": "这是针对工作环境的强烈规范性呼吁。它把安全争论从个人善意转移到制度安排，同时也能与认为留在前沿实验室更能影响系统的人形成同题讨论。",
+      "caveat": "原文承认在公司内部推动改变存在理由；不能把该句解释为对所有内部研究者的道德定罪。作者也在为自己领导的机构招募人才，应同时展示这一利益背景。",
+      "topics": [
+        "安全研究",
+        "组织激励",
+        "治理",
+        "人才"
+      ],
+      "source": {
+        "title": "Bengio: ‘If you prioritize safety, leave frontier AI companies’ — by Yoshua Bengio",
+        "url": "https://www.transformernews.ai/p/yoshua-bengio-if-you-prioritize-safety-leave-frontier-ai-companies",
+        "locator": "正文末段 I urge you to make the courageous choice 后的句子；页首 By Yoshua Bengio / Oct 08, 2026",
+        "type": "本人署名原创评论（非记者转述）",
+        "dateEvidence": "本人网站亦于2026年10月8日链接此文：https://yoshuabengio.org/en/blog/bengio-if-you-prioritize-safety-leave-frontier-ai-companies"
+      },
+      "relations": [
+        {
+          "targetId": "bengio-prove-safety-2026",
+          "type": "complement",
+          "reason": "同一人物围绕「治理」的不同切面：一条讨论前沿 AI 的训练和部署准入，另一条讨论安全研究者所在机构的激励与职业选择；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Yoshua Bengio"
+    },
+    {
+      "id": "lecun-world-model-planning-2026",
+      "quoteEn": "More important, if you have a world model, you can do reasoning and planning.",
+      "quoteZh": "更重要的是，如果拥有世界模型，就可以进行推理与规划。",
+      "speaker": "Yann LeCun",
+      "speakerId": "yann-lecun",
+      "speakerRole": "纽约大学教授、2018年图灵奖得主；本文受访者（采访日未公开）",
+      "organization": "New York University",
+      "organizationId": "new-york-university",
+      "date": "2026",
+      "dateLabel": "Dædalus 2026年冬／春刊；页面未给确切发表日或采访日期，不将当前作者简介反推为采访时职务",
+      "occasion": "美国艺术与科学院 Dædalus 对谈《Learning Abstractions》，与 James Manyika",
+      "context": "在解释抽象表征如何忽略无关细节后，LeCun 讨论可预测世界模型如何通过优化行动序列来达成目标状态。",
+      "target": "世界模型对推理与行动规划的作用",
+      "thesis": "学习世界如何变化，应与为目标寻找行动序列结合。",
+      "interpretation": "世界模型不是把外界逐像素复刻，而是保留足以支持预测和决策的抽象结构。该句说明其研究路线的动机，不等于任何冠以世界模型名称的产品已具备可靠规划能力。",
+      "caveat": "这是受访者对研究方向的判断，不是与所有其他技术路线的受控比较。仅核验到2026年刊期，不能称作2026年11月的最新发言。",
+      "topics": [
+        "世界模型",
+        "规划",
+        "推理",
+        "抽象表征"
+      ],
+      "source": {
+        "title": "Learning Abstractions: A Conversation with Yann LeCun — Dædalus",
+        "url": "https://www.amacad.org/publication/daedalus/learning-abstractions-conversation-yann-lecun",
+        "locator": "LeCun 回答中以 More important, if you have a world model 开始的段落；页首 Winter/Spring 2026",
+        "type": "学术刊物原始访谈全文"
+      },
+      "relations": [
+        {
+          "targetId": "lecun-grounded-vjepa-2024",
+          "type": "complement",
+          "reason": "同一人物围绕「世界模型」的不同切面：一条讨论V-JEPA 与世界模型研究路径，另一条讨论世界模型对推理与行动规划的作用；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Yann LeCun · 杨立昆"
+    },
+    {
+      "id": "andrew-ng-platform-stability-2026",
+      "quoteEn": "Platforms succeed when they are viewed as stable, reliable partners that one can build on.",
+      "quoteZh": "平台之所以能成功，是因为人们把它们视为稳定、可靠、可以在其上构建产品的伙伴。",
+      "speaker": "Andrew Ng",
+      "speakerId": "andrew-ng",
+      "speakerRole": "DeepLearning.AI 创始人；The Batch 本人通讯作者",
+      "organization": "DeepLearning.AI",
+      "organizationId": "deeplearning-ai",
+      "date": "2026-06-19",
+      "dateLabel": "2026年6月19日本人通讯发布日期；不是11月新发言",
+      "occasion": "The Batch 本人通讯《Open Platforms Beat Power Plays》",
+      "context": "在讨论模型服务访问规则、出口限制和供应商自主控制权时，作者从开发者与国家的依赖风险切入，强调平台合作的可预期性。",
+      "target": "开发者生态与 AI 平台可靠性",
+      "thesis": "平台价值不仅由模型能力决定，也由规则和访问权是否稳定决定。",
+      "interpretation": "对基于外部模型构建业务的组织，不能只测试单次回答质量，还要考虑政策变化、数据保留、替代路径与持续访问的风险。",
+      "caveat": "这是作者对当时事件的评论，不能代替对相关政策或服务条款的逐项核验；他承认部分限制可能有合理安全依据，并非主张所有用途无条件开放。",
+      "topics": [
+        "开放生态",
+        "平台治理",
+        "供应商依赖",
+        "主权AI"
+      ],
+      "source": {
+        "title": "Open Platforms Beat Power Plays — Andrew Ng / The Batch",
+        "url": "https://www.deeplearning.ai/the-batch/open-platforms-beat-power-plays",
+        "locator": "Dear friends 本人信件，This move represents a raw demonstration of power 段的第三句；末尾署名 Andrew；页首 Jun 19, 2026",
+        "type": "本人署名机构通讯",
+        "accessNote": "2026-11-19 原页直连返回403；已通过原始域名搜索索引核验完整段落、本人署名和日期，非二手媒体转述。"
+      },
+      "relations": [
+        {
+          "targetId": "mensch-autonomy-2026",
+          "type": "complement",
+          "reason": "Ng关注平台规则和访问权的稳定性，Mensch关注组织掌控技术与基础设施的能力；可共同评估供应商依赖，不将两人的主权政策立场视为完全相同。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Andrew Ng · 吴恩达"
+    },
+    {
+      "id": "gomez-security-mission-critical-2025",
+      "quoteEn": "North is designed to meet the strictest security and privacy standards because we understand that this is mission-critical to companies.",
+      "quoteZh": "North 的设计目标是满足最严格的安全和隐私标准，因为我们理解，这对企业的关键业务至关重要。",
+      "speaker": "Aidan Gomez",
+      "speakerId": "aidan-gomez",
+      "speakerRole": "Cohere 联合创始人、CEO；本文署名作者",
+      "organization": "Cohere",
+      "organizationId": "cohere",
+      "date": "2025-01-09",
+      "dateLabel": "2025年1月9日本人署名发布文日期；保留为历史产品立场",
+      "occasion": "North 企业 AI 工作空间早期访问计划发布",
+      "context": "作者介绍将模型、搜索和智能体组合到工作空间的思路，并将私有部署、安全和隐私作为企业采用的前提。",
+      "target": "企业 AI 的安全、隐私与部署要求",
+      "thesis": "企业 AI 的设计需要把数据安全作为基础条件，而非附加选项。",
+      "interpretation": "这是企业产品路线与消费聊天产品路线的一个关键差异：即使模型能力相近，能否进入企业受控环境、连接敏感数据也会影响采用。",
+      "caveat": "strictest 是作者在产品发布中的宣传性表述，本条呈现其主张，并不认证该产品满足所有行业最严标准；具体安全、合规与性能仍需独立验证。",
+      "topics": [
+        "企业AI",
+        "隐私",
+        "安全",
+        "私有部署"
+      ],
+      "source": {
+        "title": "Introducing North: A secure AI workspace to get more done — Aidan Gomez",
+        "url": "https://cohere.com/blog/north-eap",
+        "locator": "正文第二段首句；页首 Jan 09, 2025，Written By Aidan Gomez Co-Founder & CEO",
+        "type": "本人署名产品发布文章",
+        "accessNote": "网页文本抓取仅展示框架，正文通过原始 cohere.com 域名的搜索索引核验；保留发布作者与原页日期。"
+      },
+      "relations": [
+        {
+          "targetId": "gomez-sovereign-control-2026",
+          "type": "complement",
+          "reason": "同一人物围绕「企业AI」的不同切面：一条讨论企业 AI 的安全、隐私与部署要求，另一条讨论主权 AI 与组织技术控制权；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Aidan Gomez"
+    },
+    {
+      "id": "gomez-sovereign-control-2026",
+      "quoteEn": "Organizations globally are demanding uncompromising control over their AI stack.",
+      "quoteZh": "全球各地的组织都在要求对自身 AI 技术栈拥有不妥协的控制权。",
+      "speaker": "Aidan Gomez",
+      "speakerId": "aidan-gomez",
+      "speakerRole": "Cohere 联合创始人、CEO",
+      "organization": "Cohere",
+      "organizationId": "cohere",
+      "date": "2026-04-24",
+      "dateLabel": "2026年4月24日官方公告发布日期；未单列该引语发生日",
+      "occasion": "Cohere 与 Aleph Alpha 拟联合发展的官方公告",
+      "context": "在加拿大—德国跨大西洋 AI 合作方案中，Gomez 将政府和企业对数据、基础设施与技术栈的控制需求作为合作理由。",
+      "target": "主权 AI 与组织技术控制权",
+      "thesis": "AI 竞争除能力之外，还包括谁能控制数据、系统和部署条件。",
+      "interpretation": "所谓主权不是一个单一标签，应拆成数据驻留、模型可控性、基础设施依赖和运营权限分别评价。该句揭示 Cohere 的市场定位，不提供各维度已经实现的证据。",
+      "caveat": "这是供应商 CEO 对客户需求的概括，不是全球代表性调查。该公告当时仍使用 planned deal 等措辞，不能从这段引语推断交易当日已完成。",
+      "topics": [
+        "主权AI",
+        "技术控制权",
+        "企业AI",
+        "基础设施"
+      ],
+      "source": {
+        "title": "Cohere and Aleph Alpha join forces to form global AI powerhouse as nations and enterprises demand control over their technology",
+        "url": "https://cohere.com/blog/cohere-alephalpha-join-forces",
+        "locator": "Our Co-Founder and CEO, Aidan Gomez comments 后的署名引语第二句；页首 Apr 24, 2026",
+        "type": "机构官方公告中的本人直接引语"
+      },
+      "relations": [
+        {
+          "targetId": "gomez-security-mission-critical-2025",
+          "type": "complement",
+          "reason": "同一人物围绕「企业AI」的不同切面：一条讨论企业 AI 的安全、隐私与部署要求，另一条讨论主权 AI 与组织技术控制权；需保留各自日期与场合，不能仅凭先后认定立场改变。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Aidan Gomez"
+    },
+    {
+      "id": "srinivas-answer-starts-journey-2024",
+      "quoteEn": "In my opinion, the journey begins after you get an answer.",
+      "quoteZh": "在我看来，获得答案之后，探索之旅才刚刚开始。",
+      "speaker": "Aravind Srinivas",
+      "speakerId": "aravind-srinivas",
+      "speakerRole": "Perplexity 联合创始人、CEO",
+      "organization": "Perplexity",
+      "organizationId": "perplexity",
+      "date": "2024-06-19",
+      "dateLabel": "2024年6月19日访谈节目发布日期；未确认具体录制日",
+      "occasion": "Lex Fridman Podcast 第434期完整访谈",
+      "context": "主持人追问 Perplexity 是搜索引擎还是答案引擎。Srinivas 将其定位为知识发现引擎，解释回答后继续推荐问题的产品设计。",
+      "target": "AI 搜索与持续知识发现",
+      "thesis": "答案的价值不仅是结束一次检索，还在于引出更深入的问题。",
+      "interpretation": "这支持把相关问题、出处和延伸阅读作为答案的一部分。评价知识产品时，应关心用户能否验证并继续探索，而不只是答案看起来是否完整。",
+      "caveat": "这是一种产品愿景与用户体验判断，不是证明该产品所有答案都可靠或必然促进学习的实验结果。文字稿由节目方制作，仍可能有转录误差。",
+      "topics": [
+        "AI搜索",
+        "知识发现",
+        "好奇心",
+        "产品设计"
+      ],
+      "source": {
+        "title": "Aravind Srinivas: Perplexity CEO on Future of AI, Search & the Internet — Lex Fridman Podcast #434",
+        "url": "https://lexfridman.com/aravind-srinivas-transcript/",
+        "locator": "How Perplexity works 小节，Aravind Srinivas 00:07:14 回答；该句紧跟 The journey doesn’t end once you get an answer",
+        "type": "采访者提供的原始完整文字稿",
+        "dateEvidence": "原节目发布页／视频为2024-06-19：https://www.youtube.com/watch?v=e-gwvmhyU7A"
+      },
+      "relations": [
+        {
+          "targetId": "srinivas-knowledge-prosperity-2026",
+          "type": "complement",
+          "reason": "2024年从搜索体验强调答案引出新问题，2026年从社会目标强调知识与繁荣；产品理念与价值目标相互补充，但不证明社会收益已经实现。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "classic",
+      "personName": "Aravind Srinivas"
+    },
+    {
+      "id": "srinivas-knowledge-prosperity-2026",
+      "quoteEn": "The purpose of AI is to accelerate human knowledge and prosperity.",
+      "quoteZh": "AI 的目的是加速人类知识的增长与繁荣。",
+      "speaker": "Aravind Srinivas",
+      "speakerId": "aravind-srinivas",
+      "speakerRole": "Perplexity 联合创始人、CEO",
+      "organization": "Perplexity",
+      "organizationId": "perplexity",
+      "date": "2026-10-03",
+      "dateLabel": "2026年10月3日在 Cambridge Union Society 演讲；原文导语明确给出讲话日",
+      "occasion": "Cambridge Union Society《The Knowledge Talk》演讲",
+      "context": "在讨论知识的变化、积累和实践之后，作者将 AI 的目的从单纯追求 AGI 或技术聪明程度，转向帮助人类更有知识、更富足。",
+      "target": "AI 的社会目标与知识工具定位",
+      "thesis": "评价 AI 应回到人的知识和福祉，而非仅以技术本身的能力为目标。",
+      "interpretation": "这为知识型 AI 提供一个结果导向的评价框架：不仅看生成了多少内容，还要看是否使人更能核验、理解并采取有益行动。",
+      "caveat": "这是规范性目的陈述，不是已经带来普遍繁荣的因果证明。演讲也介绍本人公司的产品；本条不采纳其中未经独立验证的广泛历史或经济推断。",
+      "topics": [
+        "知识",
+        "人本AI",
+        "社会价值",
+        "繁荣"
+      ],
+      "source": {
+        "title": "The Knowledge Talk — Aravind Srinivas / Perplexity",
+        "url": "https://www.perplexity.ai/en-GB/hub/blog/the-knowledge-talk",
+        "locator": "第3部分开头首句；导语明确 This talk was delivered ... on 3 October 2026；官方英国英语版本",
+        "type": "本人所属机构公开的完整演讲稿"
+      },
+      "relations": [
+        {
+          "targetId": "srinivas-answer-starts-journey-2024",
+          "type": "complement",
+          "reason": "2024年从搜索体验强调答案引出新问题，2026年从社会目标强调知识与繁荣；产品理念与价值目标相互补充，但不证明社会收益已经实现。"
+        }
+      ],
+      "originalLanguage": "en",
+      "verifiedAt": "2026-11-19",
+      "era": "contemporary",
+      "personName": "Aravind Srinivas"
     }
-  ]
+  ],
+  "comparisons": [
+    {
+      "id": "open-gap-directions",
+      "type": "opposed",
+      "title": "开源模型：差距在扩大，还是在缩小？",
+      "topic": "开源与闭源",
+      "leftId": "robin-li-open-model-gap-2024",
+      "rightId": "zuckerberg-open-gap-2024",
+      "commonGround": "两人都在2024年讨论开放模型相对闭源模型的竞争位置。",
+      "divide": "李彦宏判断开源会越来越落后；扎克伯格判断开源正在迅速缩小差距，方向相反。",
+      "readingGuide": "先对齐模型代际、尺寸、任务与成本，再检查各自判断是否成立。不要用今天的单一榜单替代当时的论证。",
+      "caveat": "李彦宏的论据聚焦文心裁剪模型与开源微调的效果/成本；扎克伯格谈更广的能力趋势。范围并不完全相同，属于有条件的历史观点分歧，不是同一实验的对立结果。",
+      "oppositionBasis": "同一核心命题是开放模型相对闭源模型的差距走向：一方预测扩大，另一方判断缩小。比较明确保留评价基准和日期差异，不暗示直接交锋。"
+    },
+    {
+      "id": "open-safety-governance",
+      "type": "tension",
+      "title": "安全来自开放审查，还是发布前举证？",
+      "topic": "安全与治理",
+      "leftId": "zuckerberg-open-safer-2024",
+      "rightId": "bengio-prove-safety-2026",
+      "commonGround": "两者都关心强大AI的社会风险与问责。",
+      "divide": "前者强调开放生态与分散权力，后者要求开发者先向独立专家证明安全。",
+      "readingGuide": "把开发、审查、发布和使用分别讨论：开放机制和审查门槛可能组合，而不是只能二选一。",
+      "caveat": "Bengio并未在所引句中否定开源；2024与2026的能力和治理背景不同。"
+    },
+    {
+      "id": "scale-and-innovation",
+      "type": "tension",
+      "title": "规模会改善能力，投入却不必然带来创新",
+      "topic": "研究方法",
+      "leftId": "altman-deep-learning-scale-2024",
+      "rightId": "liang-wenfeng-investment-innovation-2024",
+      "commonGround": "两人都讨论前沿AI进步与资源投入。",
+      "divide": "Altman概括既定深度学习路线的规模收益；梁文锋提醒研究创新不能只由投入金额解释。",
+      "readingGuide": "区分沿现有路径提升指标与发现新方法。二者可同时成立，关键是衡量对象。",
+      "caveat": "能力扩展与研究创新不是同一个因变量，不能据此宣称两人在缩放规律上直接对立。"
+    },
+    {
+      "id": "world-models",
+      "type": "similar",
+      "title": "真正理解世界，不止是理解语言",
+      "topic": "空间智能",
+      "leftId": "fei-fei-spatial-scaffolding-2025",
+      "rightId": "lecun-grounded-vjepa-2024",
+      "commonGround": "都把现实世界的表示和理解视为AI的重要能力。",
+      "divide": "李飞飞从空间认知框架出发，LeCun用V-JEPA说明更有现实基础的推理和规划方向。",
+      "readingGuide": "关注模型如何表征世界、预测变化和迁移到实际任务，不只比较语言回答。",
+      "caveat": "研究目标相近不代表架构相同，也不等于通用智能已经实现。"
+    },
+    {
+      "id": "agency-and-scientist",
+      "type": "tension",
+      "title": "更能行动的助手，还是不自主行动的科学家？",
+      "topic": "Agent",
+      "leftId": "pichai-agentic-search-2026",
+      "rightId": "bengio-scientist-ai-2025",
+      "commonGround": "双方都希望AI成为有用的系统。",
+      "divide": "Pichai强调任务型搜索的行动能力；Bengio提出非智能体式Scientist AI以降低目标追求风险。",
+      "readingGuide": "先问哪些任务需要自主性，再为其设置权限与验证；非自主模型也可为行动系统提供检查。",
+      "caveat": "一个是产品演进方向，一个是安全研究路线，并非对所有AI是否应行动的直接争论。"
+    },
+    {
+      "id": "compute-economics",
+      "type": "tension",
+      "title": "算力是收入，还是需要被产出证明的成本？",
+      "topic": "商业价值",
+      "leftId": "huang-compute-revenue-2026",
+      "rightId": "nadella-cost-outcome-2026",
+      "commonGround": "都把AI从技术能力连接到经济价值。",
+      "divide": "供应商把算力视为可销售产能；客户需要用实际结果验证每次调用的成本。",
+      "readingGuide": "同时看产能利用率与客户任务成功率。供应侧收入不能自动证明需求侧ROI。",
+      "caveat": "角色与经济口径不同，不是一个财务等式的正反两面。"
+    },
+    {
+      "id": "energy-efficiency",
+      "type": "complement",
+      "title": "扩张有能源上限，任务需要合适算力",
+      "topic": "算力与成本",
+      "leftId": "musk-power-limit-2026",
+      "rightId": "su-right-compute-2026",
+      "commonGround": "都涉及AI规模扩大后的资源约束。",
+      "divide": "Musk关注电力能否承载芯片，Su关注不同请求如何匹配模型和算力。",
+      "readingGuide": "供电规划解决总量，任务路由改善单位产出，两种办法可同时降低扩张压力。",
+      "caveat": "电力约束是预测；资源匹配是设计原则，不能把后者当作前者已被解决的证据。"
+    },
+    {
+      "id": "capability-access",
+      "type": "similar",
+      "title": "能力应走向更多人，而不只留在少数组织",
+      "topic": "超级智能",
+      "leftId": "altman-distribution-2025",
+      "rightId": "zuckerberg-personal-2025",
+      "commonGround": "都把前沿AI收益的广泛可得性作为愿景。",
+      "divide": "Altman强调收益分配，扎克伯格强调个人能够使用的超级智能产品。",
+      "readingGuide": "区分产品访问权、经济收益分配和用户实际控制权；三者并不相同。",
+      "caveat": "共同愿景不是已经兑现的普惠结果，商业模式也可能不同。"
+    },
+    {
+      "id": "human-meaning",
+      "type": "complement",
+      "title": "增强人的能力，也重新思考人的价值",
+      "topic": "人类与AI",
+      "leftId": "fei-fei-augment-not-replace-2025",
+      "rightId": "amodei-human-purpose-2026",
+      "commonGround": "都在追问技术进步如何服务人。",
+      "divide": "李飞飞提出增强人类能力的设计方向；Amodei讨论经济贡献与自我价值的关系。",
+      "readingGuide": "把产品层面的辅助能力，与就业、分配和意义层面的制度议题分开，再连接起来。",
+      "caveat": "规范性主张不等于劳动力市场预测；不能据此推断某类岗位必然安全或消失。"
+    },
+    {
+      "id": "real-value",
+      "type": "similar",
+      "title": "应用产生价值，不能只在实验室刷榜",
+      "topic": "产品与应用",
+      "leftId": "robin-li-real-work-2026",
+      "rightId": "pony-ma-use-creates-value-2021",
+      "commonGround": "都强调技术产品需要进入真实使用。",
+      "divide": "李彦宏针对AI对比榜单与实际工作；马化腾较早提出一般性的产品使用价值原则。",
+      "readingGuide": "把可靠性、任务效果、成本和持续使用纳入验收，避免只追一个指标。",
+      "caveat": "马化腾2021年这句并非专指生成式AI；这里是编辑将产品原则用于对读，不把它伪装成最新AI判断。"
+    },
+    {
+      "id": "deployment-multiplier",
+      "type": "complement",
+      "title": "AI要变成业务乘数，先走过部署这道关",
+      "topic": "商业价值",
+      "leftId": "jassy-multiplier-2026",
+      "rightId": "mensch-deployment-2024",
+      "commonGround": "都关注模型如何进入真实组织并产生价值。",
+      "divide": "Jassy阐述跨业务增益；Mensch指出规模部署的实施障碍。",
+      "readingGuide": "先连接数据、权限和流程，再用业务指标检验所谓乘数效应。",
+      "caveat": "不同公司、不同年份，不合并为同一样本的因果结论。"
+    },
+    {
+      "id": "compute-vs-experience",
+      "type": "complement",
+      "title": "算力是基础，体验才是用户接触到的结果",
+      "topic": "产品与应用",
+      "leftId": "eric-xu-experience-first-2024",
+      "rightId": "su-ai-compute-2024",
+      "commonGround": "两者分别观察AI基础设施与终端落地。",
+      "divide": "硬件需求增长来自采用；面向用户设计时却不能只炫耀硬件指标。",
+      "readingGuide": "从用户任务反推时延、可靠性和本地/云端需求，再配置算力。",
+      "caveat": "评价对象不同，体验优先并不否定算力的重要性。"
+    },
+    {
+      "id": "minimax-nadella-efficiency",
+      "type": "similar",
+      "title": "更高的智能，要对应可负担的有效结果",
+      "topic": "商业价值",
+      "leftId": "yan-junjie-efficiency-mission-2026",
+      "rightId": "nadella-cost-outcome-2026",
+      "commonGround": "都强调能力与成本需要放在一起评估。",
+      "divide": "MiniMax用使命表达效率目标；Nadella将客户产出作为成本的参照。",
+      "readingGuide": "不只看单位token价格，还要看相同任务成功所需的总成本。",
+      "caveat": "企业口号与经营判断不是可直接相加的性能指标。"
+    },
+    {
+      "id": "application-frontier",
+      "type": "complement",
+      "title": "软件需求没有尽头，代表性产品还未定型",
+      "topic": "产品与应用",
+      "leftId": "andrew-ng-software-demand-2026",
+      "rightId": "eddie-wu-new-products-2026",
+      "commonGround": "都看到应用层仍有很大的探索空间。",
+      "divide": "Ng讨论定制软件需求，吴泳铭讨论机器智能时代尚未成熟的产品形态。",
+      "readingGuide": "从具体未被满足的任务发现机会，不把模型调用数量当成产品创新。",
+      "caveat": "乐观判断不代表每个新产品都有市场，需求与付费仍需验证。"
+    },
+    {
+      "id": "research-engineering",
+      "type": "similar",
+      "title": "科学探索与工程落地，不是二选一",
+      "topic": "研究方法",
+      "leftId": "zhang-peng-research-engineering-2023",
+      "rightId": "mccarthy-definition-2007",
+      "commonGround": "都同时看重理解智能和构建系统。",
+      "divide": "McCarthy给出领域定义；张鹏把研究与工程的平衡落实到组织实践。",
+      "readingGuide": "分别设研究与交付目标，同时观察两者如何互相反馈。",
+      "caveat": "定义与经营方法处于不同层级，后者不是前者的实验证明。"
+    },
+    {
+      "id": "curiosity-science",
+      "type": "similar",
+      "title": "好奇心推动探索，AI扩展知识边界",
+      "topic": "科学发现",
+      "leftId": "liang-wenfeng-curiosity-2024",
+      "rightId": "hassabis-science-tool-2026",
+      "commonGround": "都把研究动机放在短期商业回报之外。",
+      "divide": "梁文锋谈创新的组织动力；Hassabis谈AI作为科学工具的潜力。",
+      "readingGuide": "可进一步关注研究成果是否形成可检验的新知识，而非只形成宏大叙事。",
+      "caveat": "价值方向相近，不表示两家采用相同的研发或商业策略。"
+    },
+    {
+      "id": "hope-and-risk",
+      "type": "complement",
+      "title": "需要希望，也需要研究控制风险",
+      "topic": "安全与治理",
+      "leftId": "amodei-hope-2024",
+      "rightId": "hinton-control-2024",
+      "commonGround": "都承认AI可能产生深远影响。",
+      "divide": "Amodei强调收益愿景也是行动动力；Hinton强调控制问题需要紧迫研究。",
+      "readingGuide": "对希望与风险分别要求证据和行动，不把人物简化成乐观派或悲观派。",
+      "caveat": "两条讨论的重点不同，没有互相否认对方的论点。"
+    },
+    {
+      "id": "historical-components",
+      "type": "complement",
+      "title": "智能不是单一量，整体也不等于部件之和",
+      "topic": "历史经典",
+      "leftId": "mccarthy-mechanisms-2007",
+      "rightId": "minsky-society-1988",
+      "commonGround": "都把心智能力拆成可研究的机制。",
+      "divide": "McCarthy提醒智能包含多种机制；Minsky强调无心智部件的组合。",
+      "readingGuide": "分析系统时同时问：有哪些能力，以及它们如何被组织起来。",
+      "caveat": "历史理论可提供思考框架，不能直接证明现代多智能体架构优于其他方案。"
+    },
+    {
+      "id": "horizon-nonlinear",
+      "type": "similar",
+      "title": "看不清远方，不等于眼前无事可做",
+      "topic": "研究方法",
+      "leftId": "turing-horizon-1950",
+      "rightId": "jassy-nonlinear-2026",
+      "commonGround": "都承认长期进展具有不确定性。",
+      "divide": "图灵指出当前仍有许多研究任务；Jassy提醒技术投资不会按直线推进。",
+      "readingGuide": "把长期目标拆成可验证的小步，并保留修正路线的空间。",
+      "caveat": "两段相隔多年、场合不同，只比较行动原则，不暗示历史传承关系。"
+    },
+    {
+      "id": "sovereignty-open",
+      "type": "complement",
+      "title": "可控基础设施与开放模型，可以怎样组合？",
+      "topic": "开源与闭源",
+      "leftId": "mensch-autonomy-2026",
+      "rightId": "eddie-wu-open-qwen-2025",
+      "commonGround": "都涉及组织获得AI能力时的选择与控制。",
+      "divide": "Mensch从欧洲主权出发；吴泳铭表达模型开源路线。",
+      "readingGuide": "核对许可、部署权、数据控制和供应商依赖，避免把开放标签等同于完全自主。",
+      "caveat": "地域政策与公司策略并不等价，也不证明双方存在合作。"
+    },
+    {
+      "id": "resource-multidimensional",
+      "type": "similar",
+      "title": "智能能力扩展，仍受能源与计算约束",
+      "topic": "算力与成本",
+      "leftId": "yan-junjie-resource-limits-2026",
+      "rightId": "musk-power-limit-2026",
+      "commonGround": "都提醒基础资源会限制AI扩张。",
+      "divide": "MiniMax强调效率问题；Musk具体指向可供电的芯片数量。",
+      "readingGuide": "在能力、成本与交付速度之间建立清晰约束，再判断投资与部署可行性。",
+      "caveat": "“几乎无限”是修辞，供电缺口是预测，不将两句话包装成已验证的资源统计。"
+    },
+    {
+      "id": "platform-sequences",
+      "type": "complement",
+      "title": "从AI优先的平台判断，到模型公司的平台化",
+      "topic": "组织与战略",
+      "leftId": "pichai-ai-first-2016",
+      "rightId": "yan-junjie-platform-company-2026",
+      "commonGround": "都把AI看作会改变产品组织方式的平台变量。",
+      "divide": "Pichai预判计算范式；闫俊杰说明一家模型公司的业务演进方向。",
+      "readingGuide": "检查平台是否真正形成开发、分发和复用能力，而不只是扩大产品数量。",
+      "caveat": "一个是历史愿景，一个是公司战略，不构成通用的发展时间表。"
+    },
+    {
+      "id": "long-short-innovation",
+      "type": "complement",
+      "title": "给好奇心长期空间，也要有短期执行",
+      "topic": "组织与战略",
+      "leftId": "nadella-long-short-2025",
+      "rightId": "liang-wenfeng-curiosity-2024",
+      "commonGround": "都涉及研究型组织如何安排目标和资源。",
+      "divide": "Nadella强调双时间尺度；梁文锋强调商业之外的创新动机。",
+      "readingGuide": "用不同评估周期管理探索与交付，避免要求基础研究立即产生商业回报。",
+      "caveat": "不能据此推导两家公司采用相同管理制度。"
+    },
+    {
+      "id": "definition-evaluation",
+      "type": "complement",
+      "title": "提出机器思考的问题，再问榜单究竟测到了什么",
+      "topic": "研究方法",
+      "leftId": "turing-operational-question-1950",
+      "rightId": "zhang-peng-leaderboard-question-2023",
+      "commonGround": "都要求审视我们如何判断机器能力。",
+      "divide": "图灵从定义问题引向可操作的讨论；张鹏质疑上榜与实际超越之间的跳跃。",
+      "readingGuide": "说明测试测量的能力、样本和边界，再讨论结果可以支持多大范围的结论。",
+      "caveat": "历史问句与产业访谈不是同一种实验，也不把图灵测试等同于现代榜单。"
+    },
+    {
+      "id": "pace-and-loop",
+      "type": "similar",
+      "title": "加速AI研发之前，先问安全能否跟上",
+      "topic": "安全与治理",
+      "leftId": "amodei-pace-frontier-2026",
+      "rightId": "hassabis-closed-loop-caution-2026",
+      "commonGround": "两人都对能力快速推进提出审慎要求。",
+      "divide": "Amodei提出放慢前沿能力提升节奏；Hassabis特别警惕缺少人类审查的闭环递归改进。",
+      "readingGuide": "先界定需要放慢的能力、保留的人类审核及可验证的安全标准，再讨论政策或架构。",
+      "caveat": "前者是本人政策文章，后者为主办方自动转写访谈；范围不同，不代表两人达成共同方案。"
+    },
+    {
+      "id": "hardware-for-worlds",
+      "type": "complement",
+      "title": "空间智能愿景，也需要匹配的硬件路径",
+      "topic": "空间智能",
+      "leftId": "fei-fei-spatial-scaffolding-2025",
+      "rightId": "fei-fei-hardware-efficiency-2026",
+      "commonGround": "同一人物从认知能力与工程实现两个层面讨论AI。",
+      "divide": "2025年强调空间认知结构，2026年解释软硬件协作对效率的意义。",
+      "readingGuide": "将能力目标、算法路线和基础设施约束连起来，仍用实际任务结果验证。",
+      "caveat": "2026年文章有交易背景；不把战略理由当作已完成交易或已实现效率提升。"
+    },
+    {
+      "id": "hinton-control-and-coexistence",
+      "type": "complement",
+      "title": "从研究控制风险，到研究如何共存",
+      "topic": "安全与治理",
+      "leftId": "hinton-control-2024",
+      "rightId": "hinton-share-planet-2026",
+      "commonGround": "两条均关心更强系统的目标与人类利益是否相容。",
+      "divide": "2024年强调防止系统追求控制；2026年强调系统应成为人类愿意共处的存在。",
+      "readingGuide": "这是关注点的延伸，不仅凭两句短引文断言Hinton改变了整个理论。",
+      "caveat": "拟人化措辞不等于系统已经具有意识；2026年访谈也明示专家并无一致判断。"
+    }
+  ],
+  "coverage": {
+    "checkedAt": "2026-11-19",
+    "organizations": [
+      {
+        "id": "openai",
+        "name": "OpenAI",
+        "representatives": [
+          "sam-altman"
+        ],
+        "status": "covered",
+        "note": "已核验 1 位代表人物的 4 条公开观点，含近年资料；不声称穷尽该机构所有观点。",
+        "sourceUrls": [
+          "https://ia.samaltman.com/",
+          "https://blog.samaltman.com/three-observations"
+        ]
+      },
+      {
+        "id": "anthropic",
+        "name": "Anthropic",
+        "representatives": [
+          "dario-amodei"
+        ],
+        "status": "covered",
+        "note": "已核验 1 位代表人物的 4 条公开观点，含近年资料；不声称穷尽该机构所有观点。",
+        "sourceUrls": [
+          "https://darioamodei.com/essay/machines-of-loving-grace",
+          "https://darioamodei.com/essay/the-adolescence-of-technology"
+        ]
+      },
+      {
+        "id": "google-deepmind",
+        "name": "Google DeepMind",
+        "representatives": [
+          "demis-hassabis"
+        ],
+        "status": "covered",
+        "note": "已核验 1 位代表人物的 4 条公开观点，含近年资料；不声称穷尽该机构所有观点。",
+        "sourceUrls": [
+          "https://www.amacad.org/publication/daedalus/ai-ultimate-tool-science-conversation-demis-hassabis",
+          "https://www.queens.cam.ac.uk/about-us/news-events/the-future-of-ai-and-scientific-discovery-an-interview-with-sir-demis-hassabis-1994-honorary-fellow-fellow-benefactor/"
+        ]
+      },
+      {
+        "id": "google-alphabet",
+        "name": "Google / Alphabet",
+        "representatives": [
+          "sundar-pichai"
+        ],
+        "status": "covered",
+        "note": "Pichai 的 Google / Alphabet 发言单列，不冒充 DeepMind 研究团队的意见；2016 年职位按当时记录。",
+        "sourceUrls": [
+          "https://blog.google/alphabet/this-years-founders-letter/",
+          "https://blog.google/innovation-and-ai/sundar-pichai-io-2026/"
+        ]
+      },
+      {
+        "id": "meta-ai",
+        "name": "Meta / FAIR",
+        "representatives": [
+          "yann-lecun",
+          "mark-zuckerberg"
+        ],
+        "status": "covered",
+        "note": "收录 Zuckerberg 与 LeCun 的不同路线；2021年合著保留 Ishan Misra 双署名，机构和角色按发表时记录。",
+        "sourceUrls": [
+          "https://ai.meta.com/blog/self-supervised-learning-the-dark-matter-of-intelligence/",
+          "https://about.fb.com/news/2024/07/open-source-ai-is-the-path-forward/"
+        ]
+      },
+      {
+        "id": "microsoft-ai",
+        "name": "Microsoft",
+        "representatives": [
+          "satya-nadella"
+        ],
+        "status": "covered",
+        "note": "已核验 1 位代表人物的 3 条公开观点，含近年资料；不声称穷尽该机构所有观点。",
+        "sourceUrls": [
+          "https://www.microsoft.com/investor/reports/ar23/",
+          "https://www.microsoft.com/investor/reports/ar25/"
+        ]
+      },
+      {
+        "id": "nvidia",
+        "name": "NVIDIA",
+        "representatives": [
+          "jensen-huang"
+        ],
+        "status": "covered",
+        "note": "已核验 1 位代表人物的 3 条公开观点，含近年资料；不声称穷尽该机构所有观点。",
+        "sourceUrls": [
+          "https://blogs.nvidia.com/blog/computex-2024-jensen-huang/",
+          "https://blogs.nvidia.com/blog/siggraph-2023-special-address/"
+        ]
+      },
+      {
+        "id": "amd",
+        "name": "AMD",
+        "representatives": [
+          "lisa-su"
+        ],
+        "status": "covered",
+        "note": "已核验 1 位代表人物的 3 条公开观点，含近年资料；不声称穷尽该机构所有观点。",
+        "sourceUrls": [
+          "https://ir.amd.com/news-events/press-releases/detail/1200/amd-extends-ai-and-high-performance-leadership-in-data-center-and-pcs-with-new-amd-instinct-ryzen-and-epyc-processors-at-computex-2024",
+          "https://ir.amd.com/news-events/press-releases/detail/1272/amd-and-its-partners-share-their-vision-for-ai-everywhere-for-everyone-at-ces-2026"
+        ]
+      },
+      {
+        "id": "amazon-aws",
+        "name": "Amazon / AWS",
+        "representatives": [
+          "andy-jassy"
+        ],
+        "status": "covered",
+        "note": "已核验 1 位代表人物的 3 条公开观点，含近年资料；不声称穷尽该机构所有观点。",
+        "sourceUrls": [
+          "https://www.aboutamazon.com/news/company-news/amazon-ceo-andy-jassy-2023-letter-to-shareholders",
+          "https://www.aboutamazon.com/news/company-news/amazon-ceo-andy-jassy-2025-letter-to-shareholders"
+        ]
+      },
+      {
+        "id": "mistral-ai",
+        "name": "Mistral AI",
+        "representatives": [
+          "arthur-mensch"
+        ],
+        "status": "covered",
+        "note": "已核验 1 位代表人物的 3 条公开观点，含近年资料；不声称穷尽该机构所有观点。",
+        "sourceUrls": [
+          "https://www.capgemini.com/wp-content/uploads/2024/02/02_08_Capgemini-and-Mistral-AI_EN.pdf#page=1",
+          "https://europe.mistral.ai/"
+        ]
+      },
+      {
+        "id": "spacexai-xai",
+        "name": "xAI / Tesla / SpaceX",
+        "representatives": [
+          "elon-musk"
+        ],
+        "status": "covered",
+        "note": "已核验 1 位代表人物的 3 条公开观点，含近年资料；不声称穷尽该机构所有观点。",
+        "sourceUrls": [
+          "https://lexfridman.com/elon-musk-and-neuralink-team-transcript/",
+          "https://www.weforum.org/stories/artificial-intelligence/elon-musk-technology-abundant-future-davos-2026"
+        ]
+      },
+      {
+        "id": "alibaba-qwen",
+        "name": "阿里巴巴 / Qwen",
+        "representatives": [
+          "eddie-wu"
+        ],
+        "status": "covered",
+        "note": "已核验 1 位代表人物的 3 条公开观点，含近年资料；不声称穷尽该机构所有观点。",
+        "sourceUrls": [
+          "https://www.alibabagroup.com/zh-CN/document-2039431633571938304",
+          "https://www.alibabagroup.com/zh-HK/document-1911884625546838016"
+        ]
+      },
+      {
+        "id": "baidu-ernie",
+        "name": "百度 / 文心",
+        "representatives": [
+          "andrew-ng",
+          "robin-li"
+        ],
+        "status": "covered",
+        "note": "李彦宏覆盖2024—2026；吴恩达2017发言按当时百度首席科学家身份归档，不把历史身份当成当前职位。",
+        "sourceUrls": [
+          "https://www.gsb.stanford.edu/insights/Andrew-ng-why-ai-new-electricity",
+          "https://cloud.baidu.com/news/news_b9b782d9-7f56-499a-8ea5-2983c58e31f1"
+        ]
+      },
+      {
+        "id": "huawei",
+        "name": "华为",
+        "representatives": [
+          "eric-xu"
+        ],
+        "status": "covered",
+        "note": "已核验 1 位代表人物的 3 条公开观点，含近年资料；不声称穷尽该机构所有观点。",
+        "sourceUrls": [
+          "https://e.huawei.com/cn/events/branding/huawei-connect/2024/paving-the-way-for-all-intelligence",
+          "https://www.huawei.com/cn/news/2025/9/hc-lingqu-ai-superpod"
+        ]
+      },
+      {
+        "id": "tencent",
+        "name": "腾讯",
+        "representatives": [
+          "pony-ma"
+        ],
+        "status": "partial",
+        "note": "马化腾已核验的历史产品与AI观点已收录；2026年候选业绩稿PDF本次无法完整读取，未作为可发布最新原话。",
+        "sourceUrls": [
+          "https://www.tencent.com/zh-cn/pony-ma-consumer-business-and-society-the-cbs-trinity/",
+          "https://www.tencent.com/zh-cn/%E5%9C%A8%E7%94%9F%E6%88%90%E5%BC%8Fai%E4%B8%AD%E5%AF%BB%E6%B1%82%E5%B9%B3%E8%A1%A1%EF%BC%9A%E5%BC%80%E6%BA%90%E6%A8%A1%E5%9E%8B%E4%B8%8E%E4%B8%93%E6%9C%89%E6%A8%A1%E5%9E%8B%E4%B9%8B%E4%BA%89/"
+        ]
+      },
+      {
+        "id": "minimax",
+        "name": "MiniMax",
+        "representatives": [
+          "yan-junjie"
+        ],
+        "status": "covered",
+        "note": "已核验 1 位代表人物的 3 条公开观点，含近年资料；不声称穷尽该机构所有观点。",
+        "sourceUrls": [
+          "https://www.minimax.io/news/minimax-announces-first-half-2026-financial-results-1787744160",
+          "https://www.minimax.io/news/minimax-global-announces-full-year-2025-financial-results"
+        ]
+      },
+      {
+        "id": "zhipu",
+        "name": "智谱",
+        "representatives": [
+          "zhang-peng"
+        ],
+        "status": "partial",
+        "note": "张鹏的原始访谈与官方发言已收录；近期可逐字核验的一手个人观点仍待补充。",
+        "sourceUrls": [
+          "https://www.36kr.com/p/2417368812643329",
+          "https://www.zhipuai.cn/zh/news/4"
+        ]
+      },
+      {
+        "id": "deepseek",
+        "name": "DeepSeek",
+        "representatives": [
+          "liang-wenfeng"
+        ],
+        "status": "partial",
+        "note": "梁文锋2023、2024年两次原始采访已收录；不将2025/2026重刊或团队发布冒充其最新个人发言。",
+        "sourceUrls": [
+          "https://www.36kr.com/p/2872793466982535",
+          "https://www.36kr.com/p/2272896094586500"
+        ]
+      },
+      {
+        "id": "world-labs",
+        "name": "World Labs",
+        "representatives": [
+          "fei-fei-li"
+        ],
+        "status": "covered",
+        "note": "已核验 1 位代表人物的 3 条公开观点，含近年资料；不声称穷尽该机构所有观点。",
+        "sourceUrls": [
+          "https://drfeifei.substack.com/p/from-words-to-worlds-spatial-intelligence",
+          "https://drfeifei.substack.com/p/worldlabs-joining-amd"
+        ]
+      },
+      {
+        "id": "stanford-hai",
+        "name": "Stanford HAI",
+        "representatives": [
+          "fei-fei-li"
+        ],
+        "status": "covered",
+        "note": "李飞飞2023年公开听证材料；后续World Labs本人署名观点单列，人物时间线可连读。",
+        "sourceUrls": [
+          "https://hai.stanford.edu/assets/files/2023-09/Fei-Fei-Li-Senate-Testimony.pdf#page=1"
+        ]
+      },
+      {
+        "id": "lawzero",
+        "name": "LawZero / 蒙特利尔研究群体",
+        "representatives": [
+          "yoshua-bengio"
+        ],
+        "status": "covered",
+        "note": "已核验 1 位代表人物的 4 条公开观点，含近年资料；不声称穷尽该机构所有观点。",
+        "sourceUrls": [
+          "https://yoshuabengio.org/en/blog/introducing-lawzero",
+          "https://yoshuabengio.org/en/blog/why-are-ai-agents-lying-cheating-and-coordinating"
+        ]
+      },
+      {
+        "id": "deeplearning-ai",
+        "name": "DeepLearning.AI",
+        "representatives": [
+          "andrew-ng"
+        ],
+        "status": "covered",
+        "note": "已核验 1 位代表人物的 3 条公开观点，含近年资料；不声称穷尽该机构所有观点。",
+        "sourceUrls": [
+          "https://www.deeplearning.ai/the-batch/issue-341/",
+          "https://www.deeplearning.ai/the-batch/open-platforms-beat-power-plays"
+        ]
+      },
+      {
+        "id": "vector-institute",
+        "name": "Vector Institute / 多伦多大学",
+        "representatives": [
+          "geoffrey-hinton"
+        ],
+        "status": "covered",
+        "note": "已核验 1 位代表人物的 3 条公开观点，含近年资料；不声称穷尽该机构所有观点。",
+        "sourceUrls": [
+          "https://www.youtube.com/watch?v=-f5WQAk3dYo",
+          "https://www.nobelprize.org/prizes/physics/2024/hinton/podcast/"
+        ]
+      },
+      {
+        "id": "manchester",
+        "name": "历史经典 · 曼彻斯特大学",
+        "representatives": [
+          "alan-turing"
+        ],
+        "status": "covered",
+        "note": "历史研究者，不存在当代更新；以论文原版记录日期。",
+        "sourceUrls": [
+          "https://www.cs.toronto.edu/~frank/csc2501/Readings/R1_Turing/Turing-1950.pdf#page=29",
+          "https://www.cs.toronto.edu/~frank/csc2501/Readings/R1_Turing/Turing-1950.pdf#page=2"
+        ]
+      },
+      {
+        "id": "stanford",
+        "name": "历史经典 · 斯坦福大学",
+        "representatives": [
+          "john-mccarthy"
+        ],
+        "status": "covered",
+        "note": "历史研究者；2007日期是作者网页更新日期，不虚构首次说出时间。",
+        "sourceUrls": [
+          "https://www-formal.stanford.edu/jmc/whatisai/node1.html"
+        ]
+      },
+      {
+        "id": "mit",
+        "name": "历史经典 · MIT",
+        "representatives": [
+          "marvin-minsky"
+        ],
+        "status": "covered",
+        "note": "历史研究者；按引用版本出版信息记录，非断言思想首次发表于1988年。",
+        "sourceUrls": [
+          "https://www.simonandschuster.com/books/Society-Of-Mind/Marvin-Minsky/9780671657130"
+        ]
+      },
+      {
+        "id": "moonshot",
+        "name": "月之暗面 / Kimi",
+        "representatives": [
+          "yang-zhilin"
+        ],
+        "status": "partial",
+        "note": "杨植麟的原始访谈观点已收录；近期逐句核验材料仍待补充，不将历史访谈重刊日期当成新发言。",
+        "sourceUrls": [
+          "https://news.qq.com/rain/a/20240229A0990C00",
+          "https://www.geekpark.net/news/325738"
+        ]
+      },
+      {
+        "id": "perplexity",
+        "name": "Perplexity",
+        "representatives": [
+          "aravind-srinivas"
+        ],
+        "status": "covered",
+        "note": "已核验 1 位代表人物的 2 条公开观点，含近年资料；不声称穷尽该机构所有观点。",
+        "sourceUrls": [
+          "https://lexfridman.com/aravind-srinivas-transcript/",
+          "https://www.perplexity.ai/en-GB/hub/blog/the-knowledge-talk"
+        ]
+      },
+      {
+        "id": "cohere",
+        "name": "Cohere",
+        "representatives": [
+          "aidan-gomez"
+        ],
+        "status": "covered",
+        "note": "已核验 1 位代表人物的 2 条公开观点，含近年资料；不声称穷尽该机构所有观点。",
+        "sourceUrls": [
+          "https://cohere.com/blog/north-eap",
+          "https://cohere.com/blog/cohere-alephalpha-join-forces"
+        ]
+      },
+      {
+        "id": "independent-research",
+        "name": "独立研究者",
+        "representatives": [
+          "geoffrey-hinton"
+        ],
+        "status": "covered",
+        "note": "已核验 1 位代表人物的 1 条公开观点，含近年资料；不声称穷尽该机构所有观点。",
+        "sourceUrls": [
+          "https://www.pbs.org/video/geoffrey-hinton-biumi2/"
+        ]
+      },
+      {
+        "id": "new-york-university",
+        "name": "纽约大学",
+        "representatives": [
+          "yann-lecun"
+        ],
+        "status": "covered",
+        "note": "已核验 1 位代表人物的 1 条公开观点，含近年资料；不声称穷尽该机构所有观点。",
+        "sourceUrls": [
+          "https://www.amacad.org/publication/daedalus/learning-abstractions-conversation-yann-lecun"
+        ]
+      },
+      {
+        "id": "bytedance-seed",
+        "name": "字节跳动 / Seed",
+        "representatives": [],
+        "status": "gap",
+        "note": "尚未完成两条可逐字追溯、具名的一手观点核验；不以匿名团队文章或二手金句填充，纳入后续每日检查。",
+        "sourceUrls": []
+      }
+    ]
+  },
+  "dailyUpdate": {
+    "status": "active",
+    "scheduleLabel": "每日 08:15（北京时间）",
+    "lastVerifiedAt": "2026-11-19",
+    "note": "已纳入现有每日情报更新任务；仅在来源核验和发布检查通过后新增。无新增不代表人物没有新观点，失败不冒充更新成功"
+  }
 }

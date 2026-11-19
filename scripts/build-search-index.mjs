@@ -65,7 +65,7 @@ for (const entry of readdirSync(reportsRoot, { withFileTypes: true })) {
 try {
   const quotes = JSON.parse(readFileSync(join(reportsRoot, "knowledge-report-hub/data/ai-classic-quotes.json"), "utf8"));
   if (quotes.schema !== "clair-ai-classic-quotes/v1") throw new Error("Invalid AI quotes schema");
-  index["knowledge-report-hub"] = `${index["knowledge-report-hub"] || "AI 行业情报站"} AI 经典语录 ${jsonStrings(quotes.quotes).join(" ")}`;
+  index["knowledge-report-hub"] = `${index["knowledge-report-hub"] || "AI 行业情报站"} AI 经典语录 人物语录 观点对照 相近相反观点 ${jsonStrings(quotes.quotes).join(" ")} ${jsonStrings(quotes.comparisons || []).join(" ")}`;
 } catch (error) {
   if (error.code !== "ENOENT") throw error;
 }

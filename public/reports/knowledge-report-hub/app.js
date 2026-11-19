@@ -1,3 +1,4 @@
+import { mountQuoteModule } from "./quotes/app.js";
 import {
   cardSearchText,
   createReportRecord,
@@ -54,6 +55,36 @@ let ui = {
 };
 
 let toastTimer;
+let quoteFeed = { quotes: [], comparisons: [] };
+let quoteFeedError = "";
+let quoteModule = null;
+const quoteModuleState = {};
+const viewNames = new Set(["overview", "institutions", "reports", "cards", "relations", "archive", "quotes", "comparisons"]);
+function isQuoteView() { return ui.view === "quotes" || ui.view === "comparisons"; }
+function routeView() {
+  const hash = location.hash.slice(1);
+  if (hash.startsWith("quote=")) return "quotes";
+  const view = hash.split("?")[0];
+  return viewNames.has(view) ? view : "overview";
+}
+function navigateView(view) {
+  if (!viewNames.has(view)) return;
+  ui.view = view; ui.category = "all"; ui.drawer = null;
+  history.pushState(null, "", `#${view}`);
+  render();
+}
+async function loadQuoteFeed() {
+  const controller = new AbortController();
+  const timer = window.setTimeout(() => controller.abort(), 10000);
+  try {
+    const response = await fetch("./data/ai-classic-quotes.json", { cache: "no-cache", signal: controller.signal });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const feed = await response.json();
+    if (!Array.isArray(feed.quotes)) throw new Error("语录数据格式不正确");
+    quoteFeed = feed; quoteFeedError = "";
+  } catch (error) { quoteFeedError = error.name === "AbortError" ? "语录数据请求超时" : error.message || "网络暂不可用"; }
+  finally { window.clearTimeout(timer); }
+}
 
 function escapeHtml(value = "") {
   return String(value)
@@ -265,6 +296,8 @@ function navMarkup() {
   const rows = [
     ["overview", "权威精选", state.reports.filter((report) => report.featured && !report.archived).length],
     ["institutions", "机构专题", institutionFeed.institutions.length],
+    ["quotes", "人物语录", quoteFeed.quotes.length],
+    ["comparisons", "观点对照", (quoteFeed.comparisons || []).length],
     ["reports", "全部报告", reports.length],
     ["cards", "信息图卡", state.cards.filter((card) => !reportById(card.reportId)?.archived).length],
     ["relations", "关联图谱", state.cards.filter((card) => card.relatedCardIds?.length).length],
@@ -273,7 +306,7 @@ function navMarkup() {
     <span class="category-name">${label}</span><span class="nav-count">${count}</span>
   </button>`).join("");
   return `<aside class="sidebar" aria-label="AI 行业情报导航">
-    <section class="sidebar-section"><p class="sidebar-label">Intelligence</p>${rows}<a class="nav-button" href="./quotes/"><span class="category-name">经典语录</span><span class="nav-count">中 / EN</span></a></section>
+    <section class="sidebar-section"><p class="sidebar-label">Intelligence</p>${rows}</section>
     <section class="sidebar-section"><p class="sidebar-label">Topics</p>${categoryRows}</section>
     <div class="privacy-note"><strong>公开情报流只收外部来源</strong>每日线上同步仅纳入政府、国际组织、学术机构和 AI 厂商公开发布的一手报告，不读取 Clair’s Studio 其他项目。</div>
   </aside>`;
@@ -623,6 +656,9 @@ function institutionContentMarkup() {
 }
 
 function contentMarkup() {
+  if (isQuoteView()) return quoteFeedError
+    ? `<section class="empty-state"><h2>人物观点暂未能载入</h2><p>${escapeHtml(quoteFeedError)}。报告与机构栏目仍可继续浏览。</p><button class="primary-button" data-retry-quotes>重新加载观点库</button></section>`
+    : '<div id="quote-module"></div>';
   if (ui.view === "institutions") return institutionContentMarkup();
   const cards = visibleCards();
   const reports = visibleReports();
@@ -636,7 +672,7 @@ function contentMarkup() {
   if (ui.view === "archive") { title = "已归档"; subtitle = "可恢复的资料，不会从知识库永久消失"; body = `<section class="report-list">${reports.map(reportMarkup).join("") || emptyMarkup("归档区是空的")}</section>`; }
   if (ui.view === "relations") { title = "关联图谱"; subtitle = "从共同主题进入相关关键卡与报告"; body = relationsMarkup(); }
   return `<section class="content-head"><div><h2>${escapeHtml(ui.category === "all" ? title : ui.category)}</h2><p>${escapeHtml(subtitle)}</p></div>
-    <nav class="view-tabs" aria-label="视图切换">${[["overview","精选图卡"],["reports","报告"],["cards","全部图卡"],["relations","关联"]].map(([view,label]) => `<button class="view-tab ${ui.view === view ? "is-active" : ""}" data-view="${view}">${label}</button>`).join("")}<a class="view-tab" href="./quotes/">经典语录</a></nav></section>
+    <nav class="view-tabs" aria-label="视图切换">${[["overview","精选图卡"],["reports","报告"],["cards","全部图卡"],["relations","关联"],["quotes","人物语录"],["comparisons","观点对照"]].map(([view,label]) => `<button class="view-tab ${ui.view === view ? "is-active" : ""}" data-view="${view}">${label}</button>`).join("")}</nav></section>
     ${ui.view !== "relations" ? toolbarMarkup() : ""}${body}`;
 }
 
@@ -737,14 +773,21 @@ function drawerMarkup() {
 function render({ preserveSearchFocus = false } = {}) {
   const search = document.getElementById("global-search");
   const selection = preserveSearchFocus && search ? [search.selectionStart, search.selectionEnd] : null;
+  quoteModule?.cleanup(); quoteModule = null;
   app.className = "shell";
   app.innerHTML = `<header class="topbar">
     <div class="brand"><span class="brand-mark">C</span><span class="brand-copy"><span class="brand-title">AI 行业情报站</span><span class="brand-subtitle">Authoritative reports · Evidence cards</span></span></div>
-    <label class="global-search"><span class="sr-only">搜索机构、报告、卡片与原文</span><input id="global-search" type="search" value="${escapeHtml(ui.query)}" placeholder="搜索机构、报告、关键卡、数字或原文…" /><span class="search-hint">⌘ K</span></label>
+    <label class="global-search"><span class="sr-only">搜索当前栏目中的机构、报告、语录与观点</span><input id="global-search" type="search" value="${escapeHtml(ui.query)}" placeholder="搜索当前栏目：机构、报告、语录或观点…" /><span class="search-hint">⌘ K</span></label>
     <div class="top-actions"><button class="ghost-button" type="button" data-export>导出备份</button><button class="ghost-button" type="button" data-import>导入备份</button><button class="soft-button" type="button" data-sync>同步最新</button><input id="backup-file" class="sr-only" type="file" accept="application/json,.json" /></div>
   </header>
-  <div class="layout">${navMarkup()}<main class="main">${heroMarkup()}${summaryMarkup()}${contentMarkup()}</main></div>${drawerMarkup()}`;
+  <div class="layout">${navMarkup()}<main class="main ${isQuoteView() ? "ideas-main" : ""}">${isQuoteView() ? "" : heroMarkup()+summaryMarkup()}${contentMarkup()}</main></div>${drawerMarkup()}`;
   bindEvents();
+  const quoteRoot = document.getElementById("quote-module");
+  if (quoteRoot) quoteModule = mountQuoteModule(quoteRoot, {
+    data: quoteFeed, view: ui.view, search: ui.query, state: quoteModuleState,
+    onNavigate: navigateView,
+    onSearch(value) { ui.query = value; const globalInput = document.getElementById("global-search"); if (globalInput) globalInput.value = value; },
+  });
   if (selection) {
     const next = document.getElementById("global-search");
     next?.focus({ preventScroll: true });
@@ -873,14 +916,12 @@ async function handleIngest(event) {
 
 function bindEvents() {
   document.querySelectorAll("[data-view]").forEach((button) => button.addEventListener("click", () => {
-    ui.view = button.dataset.view;
-    ui.category = "all";
-    ui.drawer = null;
-    render();
+    navigateView(button.dataset.view);
   }));
   document.querySelectorAll("[data-category]").forEach((button) => button.addEventListener("click", () => {
     ui.category = button.dataset.category;
     ui.view = "reports";
+    history.pushState(null, "", "#reports");
     ui.drawer = null;
     render();
   }));
@@ -909,6 +950,7 @@ function bindEvents() {
   document.getElementById("ingest-form")?.addEventListener("submit", handleIngest);
   document.getElementById("global-search")?.addEventListener("input", (event) => {
     ui.query = event.target.value;
+    if (quoteModule) { quoteModule.setSearch(ui.query); return; }
     render({ preserveSearchFocus: true });
   });
   document.getElementById("type-filter")?.addEventListener("change", (event) => { ui.type = event.target.value; render(); });
@@ -935,7 +977,8 @@ function bindEvents() {
     render();
   });
 
-  document.querySelector("[data-sync]")?.addEventListener("click", async () => { await syncDailyFeed(); render(); });
+  document.querySelector("[data-sync]")?.addEventListener("click", async () => { await Promise.all([syncDailyFeed(), loadQuoteFeed()]); render(); });
+  document.querySelector("[data-retry-quotes]")?.addEventListener("click", async () => { await loadQuoteFeed(); render(); });
   document.querySelector("[data-export]")?.addEventListener("click", () => exportState(state));
   document.querySelector("[data-import]")?.addEventListener("click", () => document.getElementById("backup-file")?.click());
   document.getElementById("backup-file")?.addEventListener("change", async (event) => {
@@ -1043,10 +1086,12 @@ async function init() {
   const saved = await loadState();
   if (saved?.reports && saved?.cards) state = { ...state, ...saved };
   purgeLegacyStudioContent();
-  await Promise.all([syncDailyFeed({ quiet: true }), loadInstitutionFeed()]);
+  await Promise.all([syncDailyFeed({ quiet: true }), loadInstitutionFeed(), loadQuoteFeed()]);
   ensureCategories();
+  ui.view = routeView();
   render();
-  window.setInterval(() => syncDailyFeed({ quiet: true }).then(() => render()), 60 * 60 * 1000);
+  window.addEventListener("hashchange", () => { ui.view = routeView(); ui.category = "all"; ui.drawer = null; render(); });
+  window.setInterval(() => Promise.all([syncDailyFeed({ quiet: true }), loadQuoteFeed()]).then(() => { if (!isQuoteView() && !ui.drawer) render(); }), 60 * 60 * 1000);
 }
 
 init().catch((error) => {

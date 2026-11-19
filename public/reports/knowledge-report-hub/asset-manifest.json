@@ -1,17 +1,17 @@
 {
   "schema": "clair-report-assets/v1",
   "report": "knowledge-report-hub",
-  "generatedAt": "2026-11-19T20:00:00+08:00",
+  "generatedAt": "2026-11-19T03:19:08.361Z",
   "files": [
     {
       "path": "app.js",
-      "bytes": 67473,
-      "sha256": "b132680d97cccb1a8bc9b839422551fd3b2df87f50885e88b0b8d414733fec5b"
+      "bytes": 70218,
+      "sha256": "8fa62d6b7f3a78e8a9aeab989fec7a72e5be50de7ba3892877dfa15558419217"
     },
     {
       "path": "data/ai-classic-quotes.json",
-      "bytes": 26010,
-      "sha256": "dfd5ab0cc2166e05075491b54e49c8e4d74ccd0f974064ee5c7817bb80268dbf"
+      "bytes": 251308,
+      "sha256": "901e4ac72d1fbcbcc32bf0ba7d42a21de379bf91e110b0485562ac7415bf9315"
     },
     {
       "path": "data/ai-industry-authority.json",
@@ -35,8 +35,8 @@
     },
     {
       "path": "index.html",
-      "bytes": 1787,
-      "sha256": "f377c54748a7ad1aa180f6fdf46b6f5a838814ff024b597e156f4f6409bb36ac"
+      "bytes": 1936,
+      "sha256": "b5e45215add54362cbe0ec599f65df4cd2d5b6599f9f1a6482acb9f8a2f5c5e1"
     },
     {
       "path": "preview.png",
@@ -45,18 +45,18 @@
     },
     {
       "path": "quotes/app.js",
-      "bytes": 17794,
-      "sha256": "74739863aefeee2e61db2510f825505333fb2d3427f837a505b3200b11b8fbac"
+      "bytes": 22570,
+      "sha256": "81dc6483623c3cba2a0002f057922864a5e06fb88b2e60a72491d415bd74118f"
     },
     {
       "path": "quotes/index.html",
-      "bytes": 1940,
-      "sha256": "da40594689e8b35713f592638f5b6e74efb5caf9f7e86bcdc3c6ecd1ce791434"
+      "bytes": 1006,
+      "sha256": "9039783c4e5f0d85a060c02dfd25ac793e12284b241bb22316c72b68d91e2ee0"
     },
     {
       "path": "quotes/styles.css",
-      "bytes": 14303,
-      "sha256": "7890c1473544c18fa227d5c3717a6c343108ee02a2deab3bc249e385d4857746"
+      "bytes": 15839,
+      "sha256": "14806a29bf49089ee5e26cf62aa46179aee14598292a23619cd59a40b12e3a4e"
     },
     {
       "path": "storage.js",
@@ -65,8 +65,8 @@
     },
     {
       "path": "styles.css",
-      "bytes": 43391,
-      "sha256": "081f8924f7a27ec19615b4fefeefb3467bbf0aa1fd49f7a1aaadaadbd28573a9"
+      "bytes": 43580,
+      "sha256": "2d178c9715f5752b08f17d4f6c89ee9fe362bae9ee3dd2481019c6221524a710"
     },
     {
       "path": "vendor/jszip.min.js",
