@@ -261,7 +261,7 @@ function navMarkup() {
     <span class="category-name">${label}</span><span class="nav-count">${count}</span>
   </button>`).join("");
   return `<aside class="sidebar" aria-label="AI 行业情报导航">
-    <section class="sidebar-section"><p class="sidebar-label">Intelligence</p>${rows}</section>
+    <section class="sidebar-section"><p class="sidebar-label">Intelligence</p>${rows}<a class="nav-button" href="./quotes/"><span class="category-name">经典语录</span><span class="nav-count">中 / EN</span></a></section>
     <section class="sidebar-section"><p class="sidebar-label">Topics</p>${categoryRows}</section>
     <div class="privacy-note"><strong>公开情报流只收外部来源</strong>每日线上同步仅纳入政府、国际组织、学术机构和 AI 厂商公开发布的一手报告，不读取 Clair’s Studio 其他项目。</div>
   </aside>`;
@@ -624,7 +624,7 @@ function contentMarkup() {
   if (ui.view === "archive") { title = "已归档"; subtitle = "可恢复的资料，不会从知识库永久消失"; body = `<section class="report-list">${reports.map(reportMarkup).join("") || emptyMarkup("归档区是空的")}</section>`; }
   if (ui.view === "relations") { title = "关联图谱"; subtitle = "从共同主题进入相关关键卡与报告"; body = relationsMarkup(); }
   return `<section class="content-head"><div><h2>${escapeHtml(ui.category === "all" ? title : ui.category)}</h2><p>${escapeHtml(subtitle)}</p></div>
-    <nav class="view-tabs" aria-label="视图切换">${[["overview","精选图卡"],["reports","报告"],["cards","全部图卡"],["relations","关联"]].map(([view,label]) => `<button class="view-tab ${ui.view === view ? "is-active" : ""}" data-view="${view}">${label}</button>`).join("")}</nav></section>
+    <nav class="view-tabs" aria-label="视图切换">${[["overview","精选图卡"],["reports","报告"],["cards","全部图卡"],["relations","关联"]].map(([view,label]) => `<button class="view-tab ${ui.view === view ? "is-active" : ""}" data-view="${view}">${label}</button>`).join("")}<a class="view-tab" href="./quotes/">经典语录</a></nav></section>
     ${ui.view !== "relations" ? toolbarMarkup() : ""}${body}`;
 }
 

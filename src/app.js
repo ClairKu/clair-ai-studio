@@ -224,7 +224,21 @@ const initialState = {
     },
   ],
   reports: [
-    {"id":"yingmi-qieman-casebook-2026-11-19","groupId":"advisor-workbench","title":"盈米×且慢案例库｜3个经典、5个优先应用","url":"https://clairku.github.io/clair-ai-studio/reports/yingmi-qieman-casebook-2026-11-19/","preview":"yingmi-qieman-casebook-2026-11-19.svg","pinned":false,"position":0,"createdAt":"2026-11-19","modifiedAt":"2026-11-19","source":"2026-11-19策划与资料复核。8类场景、16个投资人与顾问版本；3个经典主故事、5类优先应用。可按角色、场景/应用/工作台和平台切换，查看标准题设、复制演示指令、核对交付物与验收标准。优先级为产品判断；四平台适配为方案，非本轮上线或运行成效。","access":"production","workType":"product-planning","tags":["且慢","投顾工作台","案例库","投资人","理财顾问","豆包工作","千问办公","且慢实验室","产品规划","HTML"]},
+    {
+      id: "yingmi-qieman-casebook-2026-11-19",
+      groupId: "advisor-workbench",
+      title: "盈米×且慢案例库｜3个经典、5个优先应用",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-qieman-casebook-2026-11-19/",
+      preview: "yingmi-qieman-casebook-2026-11-19.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-19",
+      modifiedAt: "2026-11-19",
+      source: "2026-11-19策划与资料复核。8类场景、16个投资人与顾问版本；3个经典主故事、5类优先应用。可按角色、场景/应用/工作台和平台切换，查看标准题设、复制演示指令、核对交付物与验收标准。优先级为产品判断；四平台适配为方案，非本轮上线或运行成效。",
+      access: "production",
+      workType: "product-planning",
+      tags: ["且慢","投顾工作台","案例库","投资人","理财顾问","豆包工作","千问办公","且慢实验室","产品规划","HTML"],
+    },
     {
       id: "qieman-strategy-catalog-2026-11-19",
       groupId: "research",

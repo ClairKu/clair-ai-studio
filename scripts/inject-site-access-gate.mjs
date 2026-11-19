@@ -254,7 +254,9 @@ for (const htmlPath of walkHtml(outputRoot)) {
   if (html.includes(marker)) {
     html = html.replace(/<script\b[^>]*data-clair-access-gate[^>]*><\/script>/i, gateScript);
     if (!html.includes("data-clair-access-robots")) {
-      html = html.replace(/<head\b[^>]*>/i, (head) => `${head}\n    ${robotsMeta}`);
+      html = /<head\b[^>]*>/i.test(html)
+        ? html.replace(/<head\b[^>]*>/i, (head) => `${head}\n    ${robotsMeta}`)
+        : `${robotsMeta}\n${html}`;
     }
   } else if (/<head\b[^>]*>/i.test(html)) {
     html = html.replace(/<head\b[^>]*>/i, (head) => `${head}\n    ${headInsert}`);

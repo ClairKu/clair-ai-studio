@@ -5,8 +5,13 @@
   "files": [
     {
       "path": "app.js",
-      "bytes": 66215,
-      "sha256": "9b6ae4d7f65848a8a9c7b38fe978fb1ef5334d67985fe027b3af2751c644d663"
+      "bytes": 66397,
+      "sha256": "08ced6df13167424fdebbe457846903fcbd6193b532024c204c71a55536e4d7a"
+    },
+    {
+      "path": "data/ai-classic-quotes.json",
+      "bytes": 26010,
+      "sha256": "dfd5ab0cc2166e05075491b54e49c8e4d74ccd0f974064ee5c7817bb80268dbf"
     },
     {
       "path": "data/ai-industry-authority.json",
@@ -30,13 +35,28 @@
     },
     {
       "path": "index.html",
-      "bytes": 1609,
-      "sha256": "88320b7f9b2562e9ade7ffb2b0836d985f9e088e397cfb0881db5c1db4651c20"
+      "bytes": 1787,
+      "sha256": "f377c54748a7ad1aa180f6fdf46b6f5a838814ff024b597e156f4f6409bb36ac"
     },
     {
       "path": "preview.png",
       "bytes": 246103,
       "sha256": "fca6595a9813ed91c7758814fcfcee26eaf66ca5e9e6f2045392422214288ee8"
+    },
+    {
+      "path": "quotes/app.js",
+      "bytes": 17794,
+      "sha256": "74739863aefeee2e61db2510f825505333fb2d3427f837a505b3200b11b8fbac"
+    },
+    {
+      "path": "quotes/index.html",
+      "bytes": 1940,
+      "sha256": "da40594689e8b35713f592638f5b6e74efb5caf9f7e86bcdc3c6ecd1ce791434"
+    },
+    {
+      "path": "quotes/styles.css",
+      "bytes": 14303,
+      "sha256": "7890c1473544c18fa227d5c3717a6c343108ee02a2deab3bc249e385d4857746"
     },
     {
       "path": "storage.js",

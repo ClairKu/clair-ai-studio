@@ -1,0 +1,304 @@
+{
+  "schema": "clair-ai-classic-quotes/v1",
+  "updatedAt": "2026-11-19",
+  "editorialNote": "只收录可追溯至作者、原论文、官方活动记录或出版社原文的短引文。英文为原文节选，中文为本站译文；论点、解读和观点关系均为编辑分析，不代表人物彼此回应、历史影响或已发生的辩论。日期区分发言、发表、修订和所引版本；不把历史判断冒充当前事实。人物身份采用发言或文章发表时的身份。",
+  "quotes": [
+    {
+      "id": "turing-horizon-1950",
+      "quoteEn": "We can only see a short distance ahead, but we can see plenty there that needs to be done.",
+      "quoteZh": "我们只能看清前方不远的地方，但已经能看到那里有许多事情需要去做。",
+      "speaker": "Alan Turing · 艾伦·图灵",
+      "speakerRole": "数学家、计算机科学先驱；论文署名单位为曼彻斯特大学",
+      "date": "1950-10",
+      "dateLabel": "1950 年 10 月 · 期刊发表月份",
+      "occasion": "《Mind》论文《Computing Machinery and Intelligence》结尾",
+      "context": "论文讨论学习机器的研究路径；结尾比较了下棋与通过感官、语言像儿童一样学习这两种研究起点。",
+      "target": "学习机器的研究方向与远期预测的边界",
+      "thesis": "对远期答案保持谦逊，同时推进眼前可检验的研究。",
+      "interpretation": "这句话把不确定性与行动放在一起：看不清终点，不等于没有值得着手的科学问题。",
+      "caveat": "这是研究方法上的开放与务实，不是 AGI 到来年份的预测，也不能据此说图灵否认机器智能。扫描件首页确认月份，未补具体日。",
+      "topics": ["研究方法", "智能本质", "历史经典"],
+      "source": {
+        "title": "Computing Machinery and Intelligence · Mind 59(236), 433–460",
+        "url": "https://www.cs.toronto.edu/~frank/csc2501/Readings/R1_Turing/Turing-1950.pdf#page=29",
+        "locator": "印刷页 460，正文最后一句；PDF 第 29 页。首页列出 Oct., 1950。",
+        "type": "原论文扫描件 · 学术机构存档"
+      },
+      "relations": [
+        { "targetId": "hassabis-science-tool-2026", "type": "complement", "reason": "从不确定中的研究行动，到借助 AI 推进知识边界；这是跨时代主题关联，不是已证实的思想影响链。" },
+        { "targetId": "mccarthy-definition-2007", "type": "complement", "reason": "一个强调研究态度，一个界定科学与工程的研究对象，共同帮助理解 AI 作为研究领域的定位。" }
+      ]
+    },
+    {
+      "id": "mccarthy-definition-2007",
+      "quoteEn": "It is the science and engineering of making intelligent machines, especially intelligent computer programs.",
+      "quoteZh": "它是制造智能机器、尤其是智能计算机程序的科学与工程。",
+      "speaker": "John McCarthy · 约翰·麦卡锡",
+      "speakerRole": "计算机科学家，Stanford 大学教授；人工智能领域先驱",
+      "date": "2007-11-12",
+      "dateLabel": "2007 年 11 月 12 日 · 页面修订日，并非首说日期",
+      "occasion": "作者本人 Stanford 网页《What Is Artificial Intelligence?》问答",
+      "context": "在面向读者的基础问答中回答“什么是人工智能”，并继续讨论智能的定义、机制与研究目标。",
+      "target": "人工智能的学科定义",
+      "thesis": "AI 既研究智能的机制，也把智能能力落实为机器和程序。",
+      "interpretation": "不要只用“像不像人”来理解 AI；科学解释与工程构建都是这个领域的一部分。",
+      "caveat": "这是概念定义，不是判断某个产品达到 AGI 的操作性测试。所列日期来自总页的修订记录，不表示这句话首次出现于当天。",
+      "topics": ["智能本质", "研究方法", "历史经典"],
+      "source": {
+        "title": "What Is Artificial Intelligence? · Basic Questions",
+        "url": "https://www-formal.stanford.edu/jmc/whatisai/node1.html",
+        "locator": "Basic Questions 第一问“What is artificial intelligence?”的回答第一句。",
+        "type": "作者本人学术主页",
+        "dateSourceUrl": "https://www-formal.stanford.edu/jmc/whatisai/whatisai.html"
+      },
+      "relations": [
+        { "targetId": "minsky-society-1988", "type": "complement", "reason": "麦卡锡界定 AI 的研究与工程范围，明斯基则提出解释心智如何组织的一种具体思路。" },
+        { "targetId": "turing-horizon-1950", "type": "complement", "reason": "概念定义与研究态度相互补充，并不意味着两位作者在这两段文字中直接互相回应。" }
+      ]
+    },
+    {
+      "id": "minsky-society-1988",
+      "quoteEn": "you can build a mind from many little parts, each mindless by itself.",
+      "quoteZh": "你可以用许多小部件构建心智，而每个部件本身都没有心智。",
+      "speaker": "Marvin Minsky · 马文·明斯基",
+      "speakerRole": "计算机科学家，MIT 人工智能实验室共同创立者",
+      "date": "1988-03-15",
+      "dateLabel": "1988 年 3 月 15 日 · 所核验出版社版本出版日",
+      "occasion": "《The Society of Mind》第 1 章 Prologue",
+      "context": "作者在序章提出用许多简单的心理过程及其连接来解释整体智能，而不是寻找一个独自完成全部认知的部件。",
+      "target": "心智的组织方式与整体智能的来源",
+      "thesis": "整体智能可能来自部件的组织结构，而不是一个无所不能的单独模块。",
+      "interpretation": "今天的模块化、工具调用和多智能体设计可以借此获得启发：系统怎样组合，可能与单个部件有多强一样重要。",
+      "caveat": "这是句中连续节选。书中的 mental agents 不等同于今天的 LLM Agent，不能据此证明现代多智能体系统更有效。日期只标所引版本，不宣称为原著首次出版或首次提出观点之日。",
+      "topics": ["智能本质", "Agent", "历史经典"],
+      "source": {
+        "title": "The Society of Mind · Simon & Schuster 官方书籍节选",
+        "url": "https://www.simonandschuster.com/books/Society-Of-Mind/Marvin-Minsky/9780671657130",
+        "locator": "Excerpt → CHAPTER 1 / PROLOGUE，第一段最后一句的后半句；Product Details 给出所引版本出版日期。",
+        "type": "出版社原书节选"
+      },
+      "relations": [
+        { "targetId": "mccarthy-definition-2007", "type": "complement", "reason": "一种心智组织解释与 AI 的学科定义可以相互补充，但前者并不是后者所要求的唯一实现路线。" },
+        { "targetId": "lecun-misra-common-sense-2021", "type": "complement", "reason": "一个关注智能部件如何组织，另一个关注系统需要学到什么背景知识，分别讨论结构与知识问题。" }
+      ]
+    },
+    {
+      "id": "lecun-misra-common-sense-2021",
+      "quoteEn": "In a way, common sense is the dark matter of artificial intelligence.",
+      "quoteZh": "从某种意义上说，常识就是人工智能的暗物质。",
+      "speaker": "Yann LeCun、Ishan Misra（合著）",
+      "speakerRole": "当时分别为 Facebook AI 首席科学家与研究科学家",
+      "date": "2021-03-04",
+      "dateLabel": "2021 年 3 月 4 日 · 联署文章发表日",
+      "occasion": "Facebook AI（现 Meta AI）研究文章《Self-supervised learning: The dark matter of intelligence》",
+      "context": "文章讨论监督学习对标注数据的依赖，以及机器缺少人类和动物通过观察世界形成的背景知识。",
+      "target": "常识、世界知识与自监督学习",
+      "thesis": "通用智能需要对世界的常识性认识，自监督学习是形成此类背景知识的一条有前景路径。",
+      "interpretation": "评价 AI 不只看训练任务上的成绩，还要看它能否迁移知识、预测变化，并处理陌生情境。",
+      "caveat": "“暗物质”是比喻。文章没有声称自监督学习已经解决常识问题，结尾明确将其视为通向人类级智能的一步。此处保留两位作者署名，不改写成 LeCun 独立受访原话。",
+      "topics": ["智能本质", "世界模型", "学习机制"],
+      "source": {
+        "title": "Self-supervised learning: The dark matter of intelligence",
+        "url": "https://ai.meta.com/blog/self-supervised-learning-the-dark-matter-of-intelligence/",
+        "locator": "开篇以“A working hypothesis”起始的段落末句；文末 Written By 列出两位作者。",
+        "type": "作者联署研究文章"
+      },
+      "relations": [
+        { "targetId": "fei-fei-intelligence-beyond-language-2023", "type": "similar", "reason": "两条观点都强调语言或单项任务成绩之外的世界理解，提醒读者不要把局部能力当作智能的全部。" },
+        { "targetId": "altman-deep-learning-scale-2024", "type": "tension", "reason": "一个强调背景知识与学习机制，另一个强调规模化的进展路径；只是侧重点的张力，不能据此宣称二人直接对立。" },
+        { "targetId": "minsky-society-1988", "type": "complement", "reason": "背景知识与部件组织是不同层面的研究问题，这两段文字可用于比较智能系统的知识与结构。" }
+      ]
+    },
+    {
+      "id": "fei-fei-intelligence-beyond-language-2023",
+      "quoteEn": "the scope of intelligence is far broader than linguistic capability alone.",
+      "quoteZh": "智能的范围远不止语言能力。",
+      "speaker": "Fei-Fei Li · 李飞飞",
+      "speakerRole": "当时为 Stanford 计算机科学教授、HAI 联席主任；以个人身份提交证词",
+      "date": "2023-09-14",
+      "dateLabel": "2023 年 9 月 14 日 · 参议院证词日期",
+      "occasion": "美国参议院国土安全和政府事务委员会：Governing AI Through Acquisition and Procurement",
+      "context": "GPT-4 等生成式语言模型引发广泛关注时，李飞飞提醒政策讨论也应纳入计算机视觉和医疗等现实领域。",
+      "target": "语言能力是否足以代表智能的范围",
+      "thesis": "语言能力不能代表智能的全部，还应评价视觉、行动和现实场景中的表现。",
+      "interpretation": "这为理解多模态、空间智能和真实世界评估提供了一种框架：会说，不等于能看懂、能行动或能可靠完成任务。",
+      "caveat": "这是原句中连续节选，不是否定语言模型的价值，也不能用它证明某种世界模型必然优于 LLM。证词明确说明为个人观点，不代表其所有所属组织。",
+      "topics": ["世界模型", "智能本质", "人本 AI"],
+      "source": {
+        "title": "Fei-Fei Li · Governing AI Through Acquisition and Procurement",
+        "url": "https://hai.stanford.edu/assets/files/2023-09/Fei-Fei-Li-Senate-Testimony.pdf#page=1",
+        "locator": "第 1 页，II. Benefits of AI 第一段，介绍 GPT-4 后以 However 开始的句子。",
+        "type": "本人书面证词"
+      },
+      "relations": [
+        { "targetId": "lecun-misra-common-sense-2021", "type": "similar", "reason": "两条观点都把注意力扩展到单项任务之外的世界理解，但它们并未承诺同一种具体技术路线。" },
+        { "targetId": "altman-deep-learning-scale-2024", "type": "tension", "reason": "规模是发展维度，智能范围是评价维度；扩大规模是否足以覆盖全部能力，不能仅凭这些原话下结论。" },
+        { "targetId": "hassabis-science-tool-2026", "type": "complement", "reason": "一种观点扩大智能的评价范围，另一种把 AI 的用途延伸到科学发现，都超出了只评价语言交流的视角。" }
+      ]
+    },
+    {
+      "id": "andrew-ng-limits-2017",
+      "quoteEn": "Despite all the hype and excitement about AI, it’s still extremely limited today relative to what human intelligence is.",
+      "quoteZh": "尽管 AI 引发了种种热议与兴奋，但与人类智能相比，当时的 AI 仍然极其有限。",
+      "speaker": "Andrew Ng · 吴恩达",
+      "speakerRole": "当时为百度首席科学家、Coursera 联合创始人、Stanford 兼职教授",
+      "date": "2017-01-25",
+      "dateLabel": "2017 年 1 月 25 日 · 演讲；主办方报道发表于 3 月 11 日",
+      "occasion": "Stanford MSx Future Forum",
+      "context": "吴恩达用 AI 类似电力的跨行业影响说明应用潜力，同时提醒当时的系统能力依然存在显著局限。",
+      "target": "AI 的产业影响与当时的通用能力之间的差别",
+      "thesis": "经济影响广泛与技术仍不通用，可以同时成立。",
+      "interpretation": "不要把“新电力”这一产业比喻读成系统已经具备人类的全部智能；应用价值与能力边界需要分开判断。",
+      "caveat": "today 指 2017 年，中文译文显式译作“当时”，不能当作当前能力评价。官方视频说明确认演讲为 1 月 25 日，视频上传为 2 月 2 日；3 月 11 日是主办方报道日，不是演讲日。",
+      "topics": ["产业变革", "能力边界", "历史经典"],
+      "source": {
+        "title": "Andrew Ng: Why AI Is the New Electricity · Stanford GSB",
+        "url": "https://www.gsb.stanford.edu/insights/Andrew-ng-why-ai-new-electricity",
+        "locator": "主办方报道开篇第三段，Still, computer scientist and Coursera co-founder Andrew Ng…后的直接引语。",
+        "type": "活动主办方原始报道",
+        "eventSourceUrl": "https://www.youtube.com/watch?v=21EiKfQYZXc",
+        "eventSourceNote": "Stanford GSB 官方视频说明标出演讲日 2017-01-25；上传日为 2017-02-02。"
+      },
+      "relations": [
+        { "targetId": "altman-deep-learning-scale-2024", "type": "tension", "reason": "2017 年的能力局限与 2024 年的规模乐观可作时间对照；时代和技术条件不同，不构成同场或同期辩论。" },
+        { "targetId": "huang-industry-transformation-2024", "type": "complement", "reason": "产业机会与能力边界是可以同时成立的两个判断，不能用经济影响的愿景替代技术能力评估。" }
+      ]
+    },
+    {
+      "id": "huang-industry-transformation-2024",
+      "quoteEn": "Generative AI is reshaping industries and opening new opportunities for innovation and growth",
+      "quoteZh": "生成式 AI 正在重塑各行各业，并为创新与增长打开新的机会。",
+      "speaker": "Jensen Huang · 黄仁勋",
+      "speakerRole": "NVIDIA 创始人兼首席执行官",
+      "date": "2024-06-02",
+      "dateLabel": "2024 年 6 月 2 日 · COMPUTEX 前夕演讲与官方报道",
+      "occasion": "台北台湾大学体育馆，COMPUTEX 前夕主题演讲",
+      "context": "NVIDIA 在演讲中介绍加速计算、AI 工厂、全栈平台及其产品路线图。",
+      "target": "生成式 AI 对产业创新与增长的影响",
+      "thesis": "AI 的价值不仅在单个应用，也涉及产业基础设施与生产方式的变化。",
+      "interpretation": "观察 AI 行业，需要把模型能力、算力供给和行业部署连在一起，而不只跟踪聊天产品。",
+      "caveat": "这是公司领导者在产品主题演讲中的产业判断，存在商业立场；不等于每个行业都已实现盈利或生产率提升。",
+      "topics": ["产业变革", "算力规模", "商业战略"],
+      "source": {
+        "title": "‘Accelerate Everything,’ NVIDIA CEO Says Ahead of COMPUTEX",
+        "url": "https://blogs.nvidia.com/blog/computex-2024-jensen-huang/",
+        "locator": "正文第一段，直接署名 Jensen Huang 的开篇引语；页面日期为 June 2, 2024。",
+        "type": "公司官方演讲报道"
+      },
+      "relations": [
+        { "targetId": "altman-deep-learning-scale-2024", "type": "similar", "reason": "两条观点都把 AI 能力进展与产业转型联系起来，黄仁勋偏向部署与基础设施，Altman 偏向规模化技术路径。" },
+        { "targetId": "hinton-control-2024", "type": "tension", "reason": "产业机会与控制风险是观察同一技术的不同角度；不能把二者简单标签化为乐观派与悲观派的直接争论。" },
+        { "targetId": "andrew-ng-limits-2017", "type": "complement", "reason": "跨行业价值不等于已达到通用智能，历史能力边界与产业愿景适合并列而非互相替代。" }
+      ]
+    },
+    {
+      "id": "altman-deep-learning-scale-2024",
+      "quoteEn": "deep learning worked, got predictably better with scale, and we dedicated increasing resources to it.",
+      "quoteZh": "深度学习奏效了，随着规模扩大而可预测地变得更好，而我们也持续向它投入更多资源。",
+      "speaker": "Sam Altman · 萨姆·奥尔特曼",
+      "speakerRole": "OpenAI 首席执行官；此处为本人署名文章",
+      "date": "2024-09-23",
+      "dateLabel": "2024 年 9 月 23 日 · 文章发表日",
+      "occasion": "本人文章《The Intelligence Age》",
+      "context": "作者解释自己为何认为社会正迈向“智能时代”，并把深度学习进展与计算资源投入联系起来。",
+      "target": "深度学习、规模化与能力进展的关系",
+      "thesis": "深度学习、规模扩张与资源投入共同推动能力进展。",
+      "interpretation": "这是对技术发展轨迹和投资方向的概括，可与“常识、现实世界理解”等学习机制议题放在一起比较。",
+      "caveat": "这是作者判断与愿景，不是对所有任务成立的无条件定律；文章中的超智能时间判断也不是已验证结果。引文为 In 15 words 之后的连续节选。",
+      "topics": ["算力规模", "学习机制", "商业战略"],
+      "source": {
+        "title": "The Intelligence Age",
+        "url": "https://ia.samaltman.com/",
+        "locator": "以“In 15 words:”开头的段落，冒号后的完整 15 词表述。",
+        "type": "作者本人文章"
+      },
+      "relations": [
+        { "targetId": "huang-industry-transformation-2024", "type": "similar", "reason": "两者都关注技术进步带来的产业机会，但产品部署视角与规模化技术解释并不完全等同。" },
+        { "targetId": "lecun-misra-common-sense-2021", "type": "tension", "reason": "规模扩张与背景知识形成是两个不同问题；这种侧重张力不足以证明两位作者的技术路线完全对立。" },
+        { "targetId": "fei-fei-intelligence-beyond-language-2023", "type": "tension", "reason": "规模是发展维度，智能范围是评价维度；更大的系统是否覆盖所有能力，需要额外证据。" },
+        { "targetId": "andrew-ng-limits-2017", "type": "tension", "reason": "能力局限与规模乐观属于不同年份的历史判断，可以观察论述变化，不能冒充同期交锋。" }
+      ]
+    },
+    {
+      "id": "amodei-hope-2024",
+      "quoteEn": "Fear is one kind of motivator, but it’s not enough: we need hope as well.",
+      "quoteZh": "恐惧是一种动力，但它还不够：我们也需要希望。",
+      "speaker": "Dario Amodei · 达里奥·阿莫代伊",
+      "speakerRole": "Anthropic 联合创始人兼首席执行官；此处为本人署名文章",
+      "date": "2024-10",
+      "dateLabel": "2024 年 10 月 · 原文仅标月份",
+      "occasion": "本人长文《Machines of Loving Grace》",
+      "context": "经常讨论 AI 风险的作者解释，为何也需要具体讨论强大 AI 可能带来的积极社会未来。",
+      "target": "AI 风险治理的动机与正向目标",
+      "thesis": "风险治理需要知道要避免什么，也需要知道为了什么。",
+      "interpretation": "重视灾难风险与重视社会收益可以同时成立；讨论不必被压缩成纯乐观或纯悲观两派。",
+      "caveat": "全文包含许多条件化的未来情景，作者承认预测可能出错；不能当作医学或经济成果承诺。原文只标 2024 年 10 月，不补具体日期。",
+      "topics": ["安全治理", "科学发现", "人本 AI"],
+      "source": {
+        "title": "Machines of Loving Grace · How AI Could Transform the World for the Better",
+        "url": "https://darioamodei.com/essay/machines-of-loving-grace",
+        "locator": "导论中以“Many of the implications”起始的段落最后一句，位于五大应用领域列表之前。",
+        "type": "作者本人文章"
+      },
+      "relations": [
+        { "targetId": "hinton-control-2024", "type": "complement", "reason": "Hinton 突出控制风险，Amodei 补充风险治理背后的正向目标；希望并不否定风险研究的必要性。" },
+        { "targetId": "hassabis-science-tool-2026", "type": "similar", "reason": "两者都用积极的社会或科学目标解释为什么值得发展 AI，同时都不应被读成已兑现的成果。" }
+      ]
+    },
+    {
+      "id": "hinton-control-2024",
+      "quoteEn": "We urgently need research on how to prevent these new beings from wanting to take control.",
+      "quoteZh": "我们迫切需要研究，如何防止这些新出现的智能体产生接管控制权的意图。",
+      "speaker": "Geoffrey Hinton · 杰弗里·辛顿",
+      "speakerRole": "2024 年诺贝尔物理学奖得主、神经网络研究先驱",
+      "date": "2024-12-10",
+      "dateLabel": "2024 年 12 月 10 日 · 诺奖晚宴致辞；所引视频于 2025 年 7 月上传",
+      "occasion": "斯德哥尔摩市政厅，诺贝尔奖晚宴致辞",
+      "context": "致辞讨论未来可能比人类更聪明的数字系统，并担忧短期商业激励未必会把安全放在首位。",
+      "target": "更强 AI 的可控性、系统目标与安全研究",
+      "thesis": "能力进步不会自动解决可控性，需要专门研究与治理。",
+      "interpretation": "它提醒读者，不要从“系统更聪明”直接推出“系统会更安全”；能力、目标和控制关系需要分别评估。",
+      "caveat": "这是风险警示，不是证明现有产品已产生接管意图。beings 为作者措辞，此处译为“智能体”不表示确认其有意识。官方视频说明逐字引述该句并确认演讲日；视频上传日为 2025-07-29，不能混作发言日。",
+      "topics": ["安全治理", "能力边界", "智能本质"],
+      "source": {
+        "title": "Geoffrey Hinton, Nobel Prize in Physics 2024: Banquet speech",
+        "url": "https://www.youtube.com/watch?v=-f5WQAk3dYo",
+        "locator": "Nobel Prize 官方频道视频说明栏，致辞结尾的逐字引语；未核验秒级时间戳，不提供伪造定位。",
+        "type": "诺贝尔奖官方演讲视频",
+        "transcriptUrl": "https://www.nobelprize.org/prizes/physics/2024/hinton/speech/",
+        "publishedAt": "2025-07-29"
+      },
+      "relations": [
+        { "targetId": "amodei-hope-2024", "type": "complement", "reason": "风险控制与正向愿景是互补的治理动机，不能把谈希望误解成不重视安全。" },
+        { "targetId": "huang-industry-transformation-2024", "type": "tension", "reason": "控制风险与产业收益构成不同的评价维度，这种张力不代表双方在这些来源中发生过直接争论。" }
+      ]
+    },
+    {
+      "id": "hassabis-science-tool-2026",
+      "quoteEn": "I’ve always seen AI as potentially the ultimate tool to advance the frontier of knowledge.",
+      "quoteZh": "我一直认为，AI 有潜力成为推进知识边界的终极工具。",
+      "speaker": "Demis Hassabis · 德米斯·哈萨比斯",
+      "speakerRole": "Google DeepMind 与 Isomorphic Labs 联合创始人兼首席执行官；2024 年诺贝尔化学奖得主",
+      "date": "2026",
+      "dateLabel": "2026 年冬／春刊 · 访谈实际日期未披露",
+      "occasion": "美国艺术与科学院《Dædalus》：与 James Manyika 的正式访谈",
+      "context": "谈到现实、意识、时间、引力等尚未解决的科学问题，以及 AI 对数据处理和形成新猜想的潜在帮助。",
+      "target": "AI 在科学研究与知识创造中的角色",
+      "thesis": "AI 的重要用途之一，是帮助人类探索尚未知晓的知识。",
+      "interpretation": "评价 AI 可以从回答已有问题，进一步转向它能否辅助形成可检验的新知识。科学发现还需要实验与证据。",
+      "caveat": "原话包含 potentially，表示潜力而非已实现事实。不能改写为 AI 已能解决全部科学问题。页面只给出 Winter/Spring 2026 刊期，没有披露访谈实际日期。",
+      "topics": ["科学发现", "研究方法", "人本 AI"],
+      "source": {
+        "title": "AI as the Ultimate Tool for Science: A Conversation with Demis Hassabis",
+        "url": "https://www.amacad.org/publication/daedalus/ai-ultimate-tool-science-conversation-demis-hassabis",
+        "locator": "问题“What is on your list of the most important scientific problems that we haven’t solved yet?”之后，回答第二段第一句。",
+        "type": "原始学术访谈"
+      },
+      "relations": [
+        { "targetId": "turing-horizon-1950", "type": "complement", "reason": "从承认研究前路的不确定，到把 AI 作为探索工具，两条观点提供跨时代的研究方法对照。" },
+        { "targetId": "amodei-hope-2024", "type": "similar", "reason": "两者都强调值得追求的正面科学或社会目标，但没有把这些未来愿景等同于当下成果。" },
+        { "targetId": "fei-fei-intelligence-beyond-language-2023", "type": "complement", "reason": "智能范围不止语言，AI 的价值也不只在语言交流；两条观点共同打开了真实世界与科研应用的视角。" }
+      ]
+    }
+  ]
+}

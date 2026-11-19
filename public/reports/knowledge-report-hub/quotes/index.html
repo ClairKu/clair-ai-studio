@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f2efe7" />
+  <meta name="description" content="AI 经典语录：用中英文原话、人物、时间与一手出处理解 AI 思想。对照相近、互补与存在张力的观点，保留场合、背景与解释边界。" />
+  <meta property="og:title" content="AI 经典语录 · Clair’s Studio" />
+  <meta property="og:description" content="一句话的力量，来自它完整的语境。" />
+  <title>AI 经典语录 · AI 行业情报站</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#quote-library">跳到语录库</a>
+  <header class="site-header">
+    <a class="brand" href="../" aria-label="返回 AI 行业情报站"><span class="brand-mark" aria-hidden="true">C</span><span>Clair’s Studio<span class="brand-caption">AI 行业情报站</span></span></a>
+    <nav aria-label="主导航"><a href="../">报告与证据卡</a><a class="current" href="./" aria-current="page">经典语录</a></nav>
+  </header>
+  <main id="app" class="page">
+    <section class="page-intro"><p class="eyebrow">THE IDEAS BEHIND AI</p><h1>AI 经典语录</h1><p class="intro-copy">不止记住一句话。看见它的时代、语境，以及另一种答案。</p></section>
+    <div class="loading-state" role="status">正在核对语录与原始出处…</div>
+  </main>
+  <dialog id="quote-dialog" aria-labelledby="dialog-title"><div id="dialog-content"></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <noscript><p class="noscript">此模块需要 JavaScript 才能搜索、对照及查看语录。所有条目都区分原文、中文译文和编辑解读，并保留原始出处。</p></noscript>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

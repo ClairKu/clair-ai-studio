@@ -61,6 +61,15 @@ for (const entry of readdirSync(reportsRoot, { withFileTypes: true })) {
   }
 }
 
+// Keep the public bilingual quote collection discoverable through its existing hub entry.
+try {
+  const quotes = JSON.parse(readFileSync(join(reportsRoot, "knowledge-report-hub/data/ai-classic-quotes.json"), "utf8"));
+  if (quotes.schema !== "clair-ai-classic-quotes/v1") throw new Error("Invalid AI quotes schema");
+  index["knowledge-report-hub"] = `${index["knowledge-report-hub"] || "AI 行业情报站"} AI 经典语录 ${jsonStrings(quotes.quotes).join(" ")}`;
+} catch (error) {
+  if (error.code !== "ENOENT") throw error;
+}
+
 // Preserve searchable content for results hosted in their own repositories.
 try {
   const external = JSON.parse(readFileSync(join(root, "catalog", "external-search-content.json"), "utf8"));
