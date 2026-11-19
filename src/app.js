@@ -69,7 +69,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 185;
+const DATA_VERSION = 186;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -224,6 +224,7 @@ const initialState = {
     },
   ],
   reports: [
+    {"id":"yingmi-token-usage-2026-11-19","groupId":"ai-platform","title":"盈米 Token 用量｜多维交互报告","url":"https://clairku.github.io/clair-ai-studio/reports/yingmi-token-usage-2026-11-19/","preview":"yingmi-token-usage-2026-11-19.png","pinned":false,"position":0,"createdAt":"2026-11-19","modifiedAt":"2026-11-19","source":"2026-11-19发布；数据核查于2026-11-18。支持场景、BU、调用平台、模型与云端/本地筛选，日周月、图形切换、明细、导入去重、归属映射和导出。近三年为查询范围，当前仅核实7日逐日总量及独立30日应用汇总；历史回填与自动同步尚未接通。","access":"production","workType":"data-analysis","tags":["盈米AI","Token","用量统计","BU","场景分析","调用平台","模型","云端与本地","交互报告","数据分析","HTML"]},
     {"id":"qieman-money-planner-2026-11-19","groupId":"advisor-workbench","title":"且慢资金安排｜可计算、可保存的服务应用","url":"https://clairku.github.io/clair-ai-studio/apps/qieman-money-planner-2026-11-19/","preview":"qieman-money-planner-2026-11-19.svg","pinned":false,"position":0,"createdAt":"2026-11-19","modifiedAt":"2026-11-19","source":"可用手工录入服务：备用金与用款分隔、六类资产自填情景、教育养老目标年金测算、投资人/顾问双版、保存与重开、报告和备份导出。12项算法校验通过，本地浏览器验证计算、保存及重开。数据保存在本设备，未接账户、行情、交易或CRM。","access":"production","workType":"product-demo","tags":["且慢","可用应用","资金安排","目标规划","理财顾问","投资人","HTML"]},
     {"id":"yingmi-qieman-casebook-2026-11-19","groupId":"advisor-workbench","title":"盈米×且慢案例库｜3个经典、5个优先应用","url":"https://clairku.github.io/clair-ai-studio/reports/yingmi-qieman-casebook-2026-11-19/","preview":"yingmi-qieman-casebook-2026-11-19.svg","pinned":false,"position":0,"createdAt":"2026-11-19","modifiedAt":"2026-11-19","source":"2026-11-19策划与资料复核。8类场景、16个投资人与顾问版本；3个经典主故事、5类优先应用。可按角色、场景/应用/工作台和平台切换，查看标准题设、复制演示指令、核对交付物与验收标准。优先级为产品判断；四平台适配为方案，非本轮上线或运行成效。","access":"production","workType":"product-planning","tags":["且慢","投顾工作台","案例库","投资人","理财顾问","豆包工作","千问办公","且慢实验室","产品规划","HTML"]},
     {
@@ -4772,6 +4773,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "yingmi-token-usage-2026-11-19": "data-analysis",
   "qieman-money-planner-2026-11-19": "product-demo",
   "yingmi-qieman-casebook-2026-11-19": "product-planning",
   "qieman-strategy-catalog-2026-11-19": "investment-research",
@@ -4925,6 +4927,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "yingmi-token-usage-2026-11-19": "ai-platform",
   "qieman-money-planner-2026-11-19": "advisor-workbench",
   "yingmi-qieman-casebook-2026-11-19": "advisor-workbench",
   "qieman-strategy-catalog-2026-11-19": "research",

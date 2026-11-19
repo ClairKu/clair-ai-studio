@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "yingmi-token-usage-2026-11-19",
     "qieman-money-planner-2026-11-19",
     "yingmi-qieman-casebook-2026-11-19",
     "qieman-strategy-catalog-2026-11-19",
