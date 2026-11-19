@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<!-- saved from url=(0025)https://r9aihub.com/quant -->
+<html lang="zh-CN"><head><meta name="robots" content="noindex,nofollow,noarchive"><script data-clair-access-gate data-clair-access-scope="report" data-clair-access-entry="reports/r9-full-results-2026-11-19/" src="../../access-gate.js?rev=2026-11-12-fast-login-v11"></script><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script>window.__R9_USER__="123456";</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股中短周期量化模型 · R9</title>
+<style>
+  :root {
+    --paper: #F5F4F0; --ink: #1B1A17; --ink-2: #6B675E;
+    --accent: #3E7CB1; --line: #E3E0D8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--paper); color: var(--ink); font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; padding: 28px 20px 40px; }
+  .wrap { max-width: 960px; margin: 0 auto; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 14px; }
+
+  .head h1 { font-size: 22px; font-weight: 800; letter-spacing: .5px; }
+  .head p { margin-top: 6px; font-size: 12.5px; color: var(--ink-2); line-height: 1.7; }
+
+  .search-row { display: flex; gap: 10px; margin: 18px 0 8px; }
+  #code-input { flex: 1; max-width: 260px; padding: 12px 14px; font-size: 15px; border: 1px solid var(--line); border-radius: 10px; outline: none; background: #fff; letter-spacing: 1px; }
+  #code-input:focus { border-color: var(--accent); }
+  #calc-btn { padding: 12px 26px; font-size: 14px; font-weight: 600; color: #fff; background: var(--accent); border: none; border-radius: 10px; cursor: pointer; transition: opacity .15s; }
+  #calc-btn:hover { opacity: .88; }
+  #calc-btn:disabled { opacity: .5; cursor: not-allowed; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .chip { font-size: 12px; color: var(--ink-2); background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
+  .chip:hover { color: var(--accent); border-color: var(--accent); }
+
+  #status { font-size: 13px; color: var(--ink-2); padding: 6px 2px; min-height: 24px; }
+  #status.err { color: #C0392B; }
+
+  #result { display: none; }
+  .summary { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; padding: 22px 24px; margin-bottom: 18px; }
+  .score-big { text-align: center; min-width: 150px; }
+  .score-big .num { font-size: 46px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+  .score-big .grade { display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 700; padding: 3px 12px; border-radius: 999px; color: #fff; }
+  .meta { flex: 1; min-width: 240px; font-size: 13px; line-height: 2; color: var(--ink-2); }
+  .meta b { color: var(--ink); font-size: 16px; }
+  .meta .sig { display: inline-block; font-size: 11.5px; padding: 2px 10px; border-radius: 999px; margin-right: 6px; margin-top: 4px; background: rgba(62,124,177,.1); color: var(--accent); font-weight: 600; }
+  .meta .sig.warn { background: rgba(192,57,43,.08); color: #C0392B; }
+
+  .bars-card { padding: 22px 24px; margin-bottom: 18px; }
+  .bars-card h3, .table-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .bars-card .sub { font-size: 12px; color: var(--ink-2); margin-bottom: 16px; }
+  .bar-row { display: grid; grid-template-columns: 96px 1fr 120px; align-items: center; gap: 12px; padding: 7px 0; }
+  .bar-label { font-size: 13px; font-weight: 600; text-align: right; }
+  .bar-label .w { display: block; font-size: 11px; color: var(--ink-2); font-weight: 400; }
+  .bar-reason { grid-column: 2 / 4; font-size: 11px; color: var(--ink-2); margin-top: -3px; padding-bottom: 2px; }
+  .bar-track { height: 22px; background: #F0EEE8; border-radius: 5px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 5px; width: 0; transition: width .8s cubic-bezier(.22,1,.36,1); }
+  .bar-val { font-size: 12.5px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .bar-val b { font-size: 14px; }
+  .bar-val .contrib { color: var(--ink-2); font-size: 11.5px; }
+
+  .table-card { padding: 22px 24px; margin-bottom: 18px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  th, td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: left; }
+  th { background: #F8F7F4; font-weight: 600; white-space: nowrap; }
+  td.w, th.w { text-align: center; white-space: nowrap; }
+
+  .disclaimer { font-size: 11.5px; color: var(--ink-2); line-height: 1.8; padding: 0 2px; }
+  .spin { display: inline-block; width: 13px; height: 13px; border: 2px solid var(--accent); border-top-color: transparent; border-radius: 50%; animation: sp .7s linear infinite; vertical-align: -2px; margin-right: 6px; }
+  @keyframes sp { to { transform: rotate(360deg); } }
+  @media (max-width: 640px) {
+    .bar-row { grid-template-columns: 78px 1fr 100px; gap: 8px; }
+    .score-big .num { font-size: 38px; }
+  }
+</style>
+<script src="snapshot-runtime.js"></script></head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <h1>📈 A股中短周期量化模型</h1>
+    <p>八大因子加权打分 · 动量28% / 量价共振18% / 均线趋势15% / 相对强度12% / 波动率止损7% / 基本面8% / 舆情情绪7% / 资金流5%。输入6位A股代码，实时计算综合得分与因子分解。</p>
+  </div>
+
+  <div class="search-row">
+    <input id="code-input" maxlength="6" inputmode="numeric" placeholder="输入6位代码，如 600519">
+    <button id="calc-btn">开始计算</button>
+  </div>
+  <div class="chips" id="chips"><span class="chip">贵州茅台 600519</span><span class="chip">中信银行 601998</span><span class="chip">宁德时代 300750</span><span class="chip">五粮液 000858</span><span class="chip">中远海控 601919</span></div>
+  <div id="status"></div>
+
+  <div id="result">
+    <div class="card summary">
+      <div class="score-big">
+        <div class="num" id="score-num">--</div>
+        <div class="grade" id="score-grade">--</div>
+      </div>
+      <div class="meta" id="meta"></div>
+    </div>
+
+    <div class="card bars-card">
+      <h3>因子得分分解</h3>
+      <div class="sub">条形长度为因子得分（0~100），右列为得分与加权贡献；权重严格按《A股中短周期量化模型因子权重分布》。0分表示该因子信号极弱（如空头排列、波动爆表），并非无数据</div>
+      <div id="bars"></div>
+    </div>
+
+    <div class="card table-card">
+      <h3>因子逻辑说明</h3>
+      <table id="factor-table">
+        <thead><tr><th>因子</th><th class="w">权重</th><th>计算逻辑</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="disclaimer">数据源：东方财富日K线（前复权）与F10财务指标，经本站边缘函数实时计算，缓存5分钟。模型权重来自《A股中短周期量化模型因子权重分布》，动量类策略本质是追涨，震荡市易反复打脸，务必配合止损纪律。本结果仅为量化研究演示，不构成投资建议。</p>
+</div>
+
+<script>
+const EXAMPLES = [['600519','贵州茅台'],['601998','中信银行'],['300750','宁德时代'],['000858','五粮液'],['601919','中远海控']];
+const $ = id => document.getElementById(id);
+const input = $('code-input'), btn = $('calc-btn'), statusEl = $('status');
+
+EXAMPLES.forEach(([c, n]) => {
+  const chip = document.createElement('span');
+  chip.className = 'chip'; chip.textContent = `${n} ${c}`;
+  chip.onclick = () => { input.value = c; calc(); };
+  $('chips').appendChild(chip);
+});
+
+function setStatus(html, err) { statusEl.innerHTML = html || ''; statusEl.className = err ? 'err' : ''; }
+function syncHeight() {
+  try { window.parent.postMessage({ type: 'quant-height', h: document.body.scrollHeight + 30 }, '*'); } catch (e) {}
+}
+new ResizeObserver(syncHeight).observe(document.body);
+
+function gradeOf(s) {
+  if (s >= 75) return ['强信号', '#1E7A46'];
+  if (s >= 65) return ['偏强', '#3E7CB1'];
+  if (s >= 55) return ['中性偏强', '#8a8a80'];
+  if (s >= 45) return ['中性偏弱', '#B8860B'];
+  return ['弱信号', '#C0392B'];
+}
+
+async function calc() {
+  const code = input.value.trim();
+  if (!/^\d{6}$/.test(code)) { setStatus('请输入6位数字代码', true); return; }
+  btn.disabled = true;
+  setStatus('<span class="spin"></span>正在拉取行情并计算八大因子...');
+  $('result').style.display = 'none';
+  try {
+    const res = await fetch('/api/quant?code=' + code);
+    const d = await res.json();
+    if (!d.ok) throw new Error(d.error || '计算失败');
+    render(d);
+    setStatus('');
+  } catch (e) {
+    setStatus('⚠️ ' + e.message, true);
+  } finally {
+    btn.disabled = false;
+    syncHeight();
+  }
+}
+
+function render(d) {
+  const [g, color] = gradeOf(d.composite);
+  $('score-num').textContent = d.composite.toFixed(2);
+  $('score-num').style.color = color;
+  $('score-grade').textContent = g;
+  $('score-grade').style.background = color;
+
+  const s = d.signals || {};
+  const sigs = [];
+  if (s.newHigh) sigs.push('<span class="sig">创60日新高</span>');
+  if (s.bullAlign) sigs.push('<span class="sig">均线多头排列</span>');
+  if (s.streak >= 3) sigs.push(`<span class="sig">连涨${s.streak}天</span>`);
+  if (s.turnover > 20) sigs.push(`<span class="sig warn">换手率${s.turnover.toFixed(1)}%·过热</span>`);
+  if (s.dist20Low > 0.25) sigs.push('<span class="sig warn">偏离止损位>25%·追高风险</span>');
+  if (s.excess20 != null) sigs.push(`<span class="sig">20日超额${(s.excess20 * 100).toFixed(1)}%</span>`);
+  const fmt = v => (v == null || isNaN(v)) ? '--' : (+v).toFixed(1);
+  const finTxt = d.fin ? `ROE ${fmt(d.fin.roe)}% / 净利增长 ${fmt(d.fin.growth)}%（${d.fin.reportDate || '最新报告期'}）` : '财务数据暂缺，按中性50分计';
+
+  $('meta').innerHTML =
+    `<b>${d.name}</b>（${d.code}）　收盘 <b>${d.close}</b>　${d.date}<br>` +
+    `止损参考位（20日低点）${s.low20 ? s.low20.toFixed(2) : '--'}　ATR波动 ${s.atrPct ? (s.atrPct * 100).toFixed(2) + '%' : '--'}<br>` +
+    `${finTxt}<br>${sigs.join('')}`;
+
+  const barsEl = $('bars');
+  barsEl.innerHTML = '';
+  d.factors.forEach(f => {
+    const row = document.createElement('div');
+    row.className = 'bar-row';
+    row.innerHTML =
+      `<div class="bar-label">${f.name}<span class="w">权重 ${(f.weight * 100).toFixed(0)}%</span></div>` +
+      `<div class="bar-track"><div class="bar-fill" style="background:${f.color}"></div></div>` +
+      `<div class="bar-val"><b>${f.score.toFixed(1)}</b> <span class="contrib">贡献 ${f.contribution.toFixed(2)}</span></div>` +
+      (f.reason ? `<div class="bar-reason">${f.reason}</div>` : '');
+    barsEl.appendChild(row);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      row.querySelector('.bar-fill').style.width = f.score + '%';
+    }));
+  });
+
+  const tbody = document.querySelector('#factor-table tbody');
+  tbody.innerHTML = d.factors.map(f =>
+    `<tr><td style="white-space:nowrap;font-weight:600"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${f.color};margin-right:6px"></span>${f.name}</td><td class="w">${(f.weight * 100).toFixed(0)}%</td><td>${f.desc}</td></tr>`
+  ).join('');
+
+  $('result').style.display = 'block';
+}
+
+btn.addEventListener('click', calc);
+input.addEventListener('keydown', e => { if (e.key === 'Enter') calc(); });
+</script>
+<!-- r9wm u=123456 t=1795082011 s=65f3098c88e8226015d89f0c -->
+
+
+
+<script>document.addEventListener("DOMContentLoaded",function(){const a=document.getElementById("code-input"),b=document.getElementById("calc-btn");if(a&&b){a.value="600519";b.click();}});</script></body></html>

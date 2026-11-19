@@ -1,0 +1,140 @@
+{
+  "date": "2026-11-19",
+  "mainModules": 130,
+  "independentPages": [
+    "stars.html",
+    "dushu.html",
+    "quant.html",
+    "gushou-assist.html"
+  ],
+  "data": {
+    "modules": 130,
+    "requests": 164,
+    "success": 146,
+    "failed": [
+      {
+        "url": "/api/signal-track",
+        "status": 500,
+        "error": "离线数据格式异常：缺 backtest.indices 字段"
+      },
+      {
+        "url": "/api/fund-pool",
+        "status": 401,
+        "error": "invalid pb key"
+      },
+      {
+        "url": "/api/nav-divergence?code=110022",
+        "status": 0,
+        "error": "The operation was aborted due to timeout"
+      },
+      {
+        "url": "/api/fund-onepage?code=519702",
+        "status": 0,
+        "error": "The operation was aborted due to timeout"
+      },
+      {
+        "url": "/api/scale-overlap?mode=overlap&codes=110022,110011",
+        "status": 500,
+        "error": "数据获取或计算失败：The operation was aborted due to timeout"
+      },
+      {
+        "url": "/api/compare?codes=519702,000001",
+        "status": 0,
+        "error": "The operation was aborted due to timeout"
+      },
+      {
+        "url": "/api/fund-health?codes=110011,161725,012414",
+        "status": 0,
+        "error": "The operation was aborted due to timeout"
+      },
+      {
+        "url": "/api/product-watch?codes=110022,110011,161725",
+        "status": 0,
+        "error": "The operation was aborted due to timeout"
+      },
+      {
+        "url": "/api/talk-topics",
+        "status": 403,
+        "error": "该功能调用 AI 大模型，需输入独立密码"
+      },
+      {
+        "url": "/api/deng-index",
+        "status": 403,
+        "error": "该功能调用 AI 大模型，需输入独立密码"
+      },
+      {
+        "url": "/api/daily-commentary",
+        "status": 403,
+        "error": "该功能调用 AI 大模型，需输入独立密码"
+      },
+      {
+        "url": "/api/report-reader?code=600519",
+        "status": 403,
+        "error": "该功能调用 AI 大模型，需输入独立密码"
+      },
+      {
+        "url": "/api/hot-funds?type=hot",
+        "status": 400,
+        "error": "缺少参数：type=ytd|scale|new|holdings"
+      },
+      {
+        "url": "/api/sector-funds?sector=%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD",
+        "status": 400,
+        "error": "未知板块：人工智能（可选：ai / semiconductor / robot / telecom / innov-drug / healthcare / hk-tech / us-tech / sme / nev / solar / media / gold / baijiu / consumption / bank-div / metals / energy / agri / utilities / infra / defense / broker / asia）"
+      },
+      {
+        "url": "/api/nav-divergence?code=110011",
+        "status": 0,
+        "error": "The operation was aborted due to timeout"
+      },
+      {
+        "url": "/api/pb-holdings?codes=110022,110008",
+        "status": 0,
+        "error": "The operation was aborted due to timeout"
+      },
+      {
+        "url": "/api/fund-screen?codes=000198,511880,003547,217022,050011,110007,001316,000171,004814,000628&limit=10",
+        "status": 0,
+        "error": "The operation was aborted due to timeout"
+      },
+      {
+        "url": "/api/compare?codes=110022,110008",
+        "status": 0,
+        "error": "The operation was aborted due to timeout"
+      }
+    ]
+  },
+  "renderChecks": {
+    "modules": 130,
+    "calls": 230,
+    "errors": [],
+    "emptyModules": []
+  },
+  "verificationLimit": "最终浏览器复验时电脑已锁屏；已完成逐页 DOM、示例调用及脚本错误检查。",
+  "excludedRequests": [
+    {
+      "url": "/api/opc-map",
+      "method": "GET"
+    },
+    {
+      "url": "/api/track",
+      "method": "POST"
+    },
+    {
+      "url": "/api/client-watch",
+      "method": "GET"
+    },
+    {
+      "url": "/api/morning-cast?date=2026-11-19",
+      "method": "GET"
+    },
+    {
+      "url": "/api/morning-cast",
+      "method": "GET"
+    },
+    {
+      "url": "/api/morning-cast",
+      "method": "POST"
+    }
+  ]
+}

@@ -1,0 +1,1425 @@
+[
+  {
+    "id": "today-actions",
+    "title": "今日清单",
+    "group": "今日开局",
+    "solves": "",
+    "reads": [
+      "/api/crash-data",
+      "/api/sentiment",
+      "/api/today-actions"
+    ]
+  },
+  {
+    "id": "journeys",
+    "title": "你是谁，就给你哪条工作链",
+    "group": "今日开局",
+    "solves": "",
+    "reads": [
+      "/api/module-graph",
+      "/api/today-actions"
+    ]
+  },
+  {
+    "id": "classification",
+    "title": "十大客群分类",
+    "group": "跑客户7",
+    "solves": "把客户/自己归进十大客群，不同客群用不同沟通与配置打法",
+    "reads": []
+  },
+  {
+    "id": "sentiment",
+    "title": "9菜情绪温度",
+    "group": "看市场16",
+    "solves": "股民情绪温度：发帖量分位读数，过热过冷一眼可见",
+    "reads": [
+      "/api/sentiment"
+    ]
+  },
+  {
+    "id": "signal-card",
+    "title": "市场状态记分卡",
+    "group": "看市场16",
+    "solves": "",
+    "reads": [
+      "/api/bull-coordinate",
+      "/api/etf-flow",
+      "/api/industry-scorecard",
+      "/api/industry-valuation",
+      "/api/new-fund-heat",
+      "/api/sentiment"
+    ]
+  },
+  {
+    "id": "diagnosis",
+    "title": "基金分析",
+    "group": "选基金19",
+    "solves": "单基金深度分析：净值归因/回撤带/经理任期/基准对比，可出PDF",
+    "reads": [
+      "/api/diagnose",
+      "/api/index-kline（基准线 us/hk 扩展）"
+    ]
+  },
+  {
+    "id": "bond-plus",
+    "title": "固收+分析",
+    "group": "选基金19",
+    "solves": "固收+基金分析：收益拆解与风险暴露",
+    "reads": [
+      "/api/bond-plus"
+    ]
+  },
+  {
+    "id": "panorama",
+    "title": "指数面面观",
+    "group": "看市场16",
+    "solves": "主要宽基指数估值/涨幅全景表，快速定位贵贱",
+    "reads": [
+      "/api/index-panorama"
+    ]
+  },
+  {
+    "id": "deng-index",
+    "title": "登指数",
+    "group": "看市场16",
+    "solves": "登指数读数",
+    "reads": [
+      "/api/deng-index"
+    ]
+  },
+  {
+    "id": "industry",
+    "title": "行业指数分析",
+    "group": "看市场16",
+    "solves": "行业指数行情表：今日哪个行业领涨领跌",
+    "reads": [
+      "/api/industries",
+      "/api/industry-yearly"
+    ]
+  },
+  {
+    "id": "valuation",
+    "title": "行业估值热力图",
+    "group": "看市场16",
+    "solves": "行业估值热力图：哪些行业贵、哪些便宜",
+    "reads": [
+      "/api/industry-scorecard",
+      "/api/industry-valuation"
+    ]
+  },
+  {
+    "id": "industry-scorecard",
+    "title": "行业双维记分卡",
+    "group": "看市场16",
+    "solves": "行业双维记分卡：赔率×趋势四象限",
+    "reads": [
+      "/api/industry-scorecard"
+    ]
+  },
+  {
+    "id": "semi-cycle",
+    "title": "半导体景气周期",
+    "group": "看市场16",
+    "solves": "半导体景气位置读数（三腿合成）——只给周期位置，不给买卖信号",
+    "reads": [
+      "/api/industry-scorecard",
+      "/api/semi-cycle"
+    ]
+  },
+  {
+    "id": "ai-server-cycle",
+    "title": "AI算力景气周期",
+    "group": "看市场16",
+    "solves": "AI算力景气位置读数（台湾ODM月营收为核心腿）——与半导体并排看芯片vs整机裂口",
+    "reads": [
+      "/api/ai-server-cycle",
+      "/api/industry-scorecard"
+    ]
+  },
+  {
+    "id": "industry-3q",
+    "title": "行业三连问",
+    "group": "看市场16",
+    "solves": "行业三连问：把行业数据翻译成客户能懂的三句话",
+    "reads": [
+      "/api/industry-scorecard"
+    ]
+  },
+  {
+    "id": "etf-flow",
+    "title": "ETF 资金流向",
+    "group": "看市场16",
+    "solves": "ETF资金流向：大资金在买什么卖什么",
+    "reads": [
+      "/api/etf-flow",
+      "/api/qt"
+    ]
+  },
+  {
+    "id": "holder-structure",
+    "title": "ETF 持有人结构",
+    "group": "选基金19",
+    "solves": "持有人结构：机构/散户占比变化",
+    "reads": [
+      "/api/qt"
+    ]
+  },
+  {
+    "id": "giants",
+    "title": "中美7巨头",
+    "group": "看市场16",
+    "solves": "中美7巨头对垒：两个等权篮子的走势对比",
+    "reads": [
+      "/api/giants"
+    ]
+  },
+  {
+    "id": "gold-data",
+    "title": "黄金数据观（含黄金温度计）",
+    "group": "看市场16",
+    "solves": "黄金温度计：宏观顺风+趋势动量合成0-100，金价贵不贵单列",
+    "reads": [
+      "/api/data",
+      "/api/gold-data",
+      "/api/jsonp",
+      "/api/v11"
+    ]
+  },
+  {
+    "id": "index-replay",
+    "title": "指数复盘回放",
+    "group": "看市场16",
+    "solves": "指数复盘回放：历史行情逐日复盘",
+    "reads": [
+      "/api/index-intraday"
+    ]
+  },
+  {
+    "id": "reports",
+    "title": "研报中心",
+    "group": "看市场16",
+    "solves": "研报中心：个股/行业/基金/宏观/策略研报检索",
+    "reads": [
+      "/api/mp-articles",
+      "/api/reports",
+      "/api/suggest"
+    ]
+  },
+  {
+    "id": "daily-commentary",
+    "title": "每日市场财经热点点评",
+    "group": "跑客户7",
+    "solves": "每日市场点评长文：把今天的事讲成人话，可转客户群",
+    "reads": [
+      "/api/qt"
+    ]
+  },
+  {
+    "id": "mp-articles",
+    "title": "资产配置研习社",
+    "group": "跑客户7",
+    "solves": "",
+    "reads": []
+  },
+  {
+    "id": "talk-topics",
+    "title": "今天聊什么",
+    "group": "跑客户7",
+    "solves": "今天聊什么：给客户开口的由头与素材",
+    "reads": [
+      "/api/daily-commentary",
+      "/api/talk-topics"
+    ]
+  },
+  {
+    "id": "dca-calculator",
+    "title": "基金定投计算器",
+    "group": "配组合10",
+    "solves": "定投/单笔收益测算，基金与指数双口径",
+    "reads": [
+      "/api/dca"
+    ]
+  },
+  {
+    "id": "smile-curve",
+    "title": "定投微笑曲线",
+    "group": "配组合10",
+    "solves": "沪深300六轮牛熊定投实测：回本不需要涨回原点",
+    "reads": [
+      "/api/smile-curve"
+    ]
+  },
+  {
+    "id": "portfolio-calc",
+    "title": "基金组合测算",
+    "group": "配组合10",
+    "solves": "输入几只基金，测算组合的历史收益与回撤",
+    "reads": [
+      "/api/portfolio"
+    ]
+  },
+  {
+    "id": "rag-hub",
+    "title": "投顾RAG",
+    "group": "跑客户7",
+    "solves": "",
+    "reads": [
+      "/api/gushou-deep",
+      "/api/muse-ask",
+      "/api/muse-memory",
+      "/api/qdii-xray",
+      "/api/rag-ask",
+      "/api/rag-docs",
+      "/api/us-etf"
+    ]
+  },
+  {
+    "id": "call-review",
+    "title": "电访录音点评",
+    "group": "跑客户7",
+    "solves": "电访录音点评：AI复盘你的通话，含挂电话前三问",
+    "reads": [
+      "/api/call-review"
+    ]
+  },
+  {
+    "id": "sparring",
+    "title": "R9陪练",
+    "group": "跑客户7",
+    "solves": "R9陪练：见客户前和AI过一遍刁难问题",
+    "reads": [
+      "/api/qt",
+      "/api/sparring"
+    ]
+  },
+  {
+    "id": "holding",
+    "title": "持仓收益估算",
+    "group": "陪持有6",
+    "solves": "持仓收益估算：输入份额成本，看当前浮盈浮亏",
+    "reads": [
+      "/api/holding-deep",
+      "/api/holding-return"
+    ]
+  },
+  {
+    "id": "gushou-assist",
+    "title": "固收+辅助",
+    "group": "选基金19",
+    "solves": "固收+辅助工具",
+    "reads": []
+  },
+  {
+    "id": "portfolio-pk",
+    "title": "基金组合PK",
+    "group": "配组合10",
+    "solves": "两只组合/基金逐项PK，含平行宇宙回放",
+    "reads": [
+      "/api/portfolio-pk"
+    ]
+  },
+  {
+    "id": "correlation",
+    "title": "相关性分析（九大资产矩阵）",
+    "group": "配组合10",
+    "solves": "相关性分析：你的几只基金是不是穿一条裤子",
+    "reads": [
+      "/api/correlation",
+      "/api/gushou-deep",
+      "/api/index-kline",
+      "/api/jsonp"
+    ]
+  },
+  {
+    "id": "gushou-deep",
+    "title": "固收+市场深度",
+    "group": "选基金19",
+    "solves": "固收+市场深度：五类产品规模/回报/回撤的行业底数",
+    "reads": [
+      "/api/gushou-deep",
+      "/api/us-etf"
+    ]
+  },
+  {
+    "id": "us-etf",
+    "title": "美国精选ETF",
+    "group": "看市场16",
+    "solves": "73只美国ETF按主题分组的回报/波动/回撤与重仓穿透",
+    "reads": [
+      "/api/qdii-xray"
+    ]
+  },
+  {
+    "id": "qdii-xray",
+    "title": "QDII透视镜",
+    "group": "选基金19",
+    "solves": "QDII三层穿透：国别持仓/预估净值/折溢价/汇率拆账",
+    "reads": [
+      "/api/etf-minute",
+      "/api/index-temp",
+      "/api/qdii-xray"
+    ]
+  },
+  {
+    "id": "etf-minute",
+    "title": "宽基ETF分钟成交",
+    "group": "看市场16",
+    "solves": "宽基ETF分钟成交回放：看盘中资金节奏",
+    "reads": [
+      "/api/etf-minute"
+    ]
+  },
+  {
+    "id": "vol-monitor",
+    "title": "指数波动率双轴图",
+    "group": "看市场16",
+    "solves": "指数波动率：20日年化波动与历史分位",
+    "reads": [
+      "/api/index-kline"
+    ]
+  },
+  {
+    "id": "top5-concentration",
+    "title": "成交额TOP5%占比",
+    "group": "看市场16",
+    "solves": "成交TOP5%占比：市场集中度的月度序列",
+    "reads": [
+      "/api/index-kline",
+      "/api/index-temp",
+      "/api/top5-concentration"
+    ]
+  },
+  {
+    "id": "index-scorecard",
+    "title": "指数投资记分卡",
+    "group": "看市场16",
+    "solves": "指数投资记分卡：赔率/顺风/趋势/拥挤/波动五维读数雷达与组合判定",
+    "reads": [
+      "/api/gold-data",
+      "/api/index-kline",
+      "/api/index-temp"
+    ]
+  },
+  {
+    "id": "expect-gap",
+    "title": "预期错配仪",
+    "group": "看市场16",
+    "solves": "一眼看清当前价格计入的预期跑在基本面前面还是后面",
+    "reads": [
+      "/api/gold-data",
+      "/api/index-temp"
+    ]
+  },
+  {
+    "id": "index-temp",
+    "title": "指数温度计（5 宽基 + 8 申万行业）",
+    "group": "看市场16",
+    "solves": "指数温度计：五宽基+八行业0-100环境读数，赔率/顺风/趋势/情绪四维合成",
+    "reads": [
+      "/api/gold-data",
+      "/api/index-kline",
+      "/api/index-temp",
+      "scripts/update_index_temp.py → data/index-temp.json → /api/index-temp"
+    ]
+  },
+  {
+    "id": "hot-funds",
+    "title": "今年领涨",
+    "group": "选基金19",
+    "solves": "今年领涨基金榜",
+    "reads": [
+      "/api/hot-funds"
+    ]
+  },
+  {
+    "id": "scale-funds",
+    "title": "规模居前",
+    "group": "选基金19",
+    "solves": "规模居前基金榜",
+    "reads": []
+  },
+  {
+    "id": "new-funds",
+    "title": "新发绩优",
+    "group": "选基金19",
+    "solves": "新发绩优基金榜",
+    "reads": []
+  },
+  {
+    "id": "share-timing",
+    "title": "申赎节奏观察分析",
+    "group": "配组合10",
+    "solves": "申赎节奏观察：基民在买还是在卖，逆向参考",
+    "reads": [
+      "/api/share-timing"
+    ]
+  },
+  {
+    "id": "real-return",
+    "title": "投资者的真实收益",
+    "group": "陪持有6",
+    "solves": "真实收益：你的操作让收益比基金本身多还是少",
+    "reads": [
+      "/api/real-return"
+    ]
+  },
+  {
+    "id": "equity-fund-index",
+    "title": "偏股基金指数 · 相对强弱",
+    "group": "选基金19",
+    "solves": "偏股基金指数基准——你的基金跑赢同类平均了吗",
+    "reads": [
+      "/api/equity-fund-index"
+    ]
+  },
+  {
+    "id": "crowding",
+    "title": "公募抱团度",
+    "group": "选基金19",
+    "solves": "抱团度：成交拥挤程度读数，人多的地方小心",
+    "reads": [
+      "/api/crowding"
+    ]
+  },
+  {
+    "id": "bond-radar",
+    "title": "债市温度计",
+    "group": "看市场16",
+    "solves": "债市温度：10Y国债与期限利差，债基持有人的环境读数",
+    "reads": [
+      "/api/bond-radar",
+      "/api/data"
+    ]
+  },
+  {
+    "id": "price-signals",
+    "title": "价格读基本面",
+    "group": "看市场16",
+    "solves": "用五组价格（国债/螺纹/铜/油/美债）反推基本面与新经济裂口",
+    "reads": [
+      "/api/data",
+      "/api/jsonp",
+      "/api/price-signals"
+    ]
+  },
+  {
+    "id": "new-fund-heat",
+    "title": "新发热度",
+    "group": "选基金19",
+    "solves": "新发基金热度榜",
+    "reads": [
+      "/api/new-fund-heat"
+    ]
+  },
+  {
+    "id": "quant-model",
+    "title": "量化模型",
+    "group": "配组合10",
+    "solves": "量化模型读数",
+    "reads": []
+  },
+  {
+    "id": "fund-screen",
+    "title": "基金选品",
+    "group": "选基金19",
+    "solves": "多条件筛选基金，批量拉取规模/回撤/夏普等关键指标",
+    "reads": [
+      "/api/alpha-data",
+      "/api/fee-compare",
+      "/api/fund-screen",
+      "/api/hot-funds",
+      "/api/penalty-radar",
+      "/api/product-watch"
+    ]
+  },
+  {
+    "id": "sector-map",
+    "title": "板块地图 · 二十四宫格",
+    "group": "选基金19",
+    "solves": "24宫格板块地图→板块基金YTD，找赛道工具",
+    "reads": [
+      "/api/industry-scorecard",
+      "/api/sector-funds"
+    ]
+  },
+  {
+    "id": "style-blocks",
+    "title": "风格积木",
+    "group": "选基金19",
+    "solves": "风格积木：大小盘/价值成长风格指数的相对强弱",
+    "reads": [
+      "/api/hot-events-data",
+      "/api/hot-like",
+      "/api/market-hot",
+      "/api/style-blocks",
+      "/api/style-thermometer"
+    ]
+  },
+  {
+    "id": "style-thermometer",
+    "title": "红利·小盘温度计",
+    "group": "选基金19",
+    "solves": "红利·小盘温度计：两个风格六读数的环境位置",
+    "reads": [
+      "/api/bond-radar",
+      "/api/dividend-radar",
+      "/api/style-thermometer"
+    ]
+  },
+  {
+    "id": "dividend-radar",
+    "title": "红利三因子雷达",
+    "group": "选基金19",
+    "solves": "红利三因子雷达：股息率利差/分位/险资仓位",
+    "reads": [
+      "/api/bond-radar",
+      "/api/fund-pool",
+      "/api/industry-scorecard",
+      "/api/style-thermometer"
+    ]
+  },
+  {
+    "id": "fof-cockpit",
+    "title": "FOF驾驶舱",
+    "group": "选基金19",
+    "solves": "FOF驾驶舱：选风险等级自动出配置中枢+选基评分+复评台账",
+    "reads": [
+      "/api/bond-radar",
+      "/api/dividend-radar",
+      "/api/fund-pool",
+      "/api/fund-screen",
+      "/api/gold-data",
+      "/api/index-temp",
+      "/api/industry-scorecard",
+      "/api/style-thermometer"
+    ]
+  },
+  {
+    "id": "fund-pool",
+    "title": "基金池（核心池 / 观察池）",
+    "group": "选基金19",
+    "solves": "FOF基金池：核心池/观察池管理与复评台账",
+    "reads": [
+      "/api/fund-pool",
+      "/api/fund-quote",
+      "/api/scale-overlap"
+    ]
+  },
+  {
+    "id": "scale-overlap",
+    "title": "规模预警 · 持仓重叠",
+    "group": "选基金19",
+    "solves": "规模重叠预警：规模冲击与持仓重叠度",
+    "reads": [
+      "/api/rank-persistence",
+      "/api/scale-overlap"
+    ]
+  },
+  {
+    "id": "rank-persistence",
+    "title": "业绩持续性矩阵",
+    "group": "选基金19",
+    "solves": "业绩持续性矩阵：今年靠前的基金明年还在哪",
+    "reads": [
+      "/api/manager-profile",
+      "/api/rank-persistence"
+    ]
+  },
+  {
+    "id": "manager-profile",
+    "title": "基金经理画像",
+    "group": "选基金19",
+    "solves": "基金经理画像：任期/在管规模/生涯回报",
+    "reads": [
+      "/api/manager-profile",
+      "/api/perf-attribution"
+    ]
+  },
+  {
+    "id": "perf-attribution",
+    "title": "绩效归因（三因子 + α）",
+    "group": "选基金19",
+    "solves": "绩效归因：FF三因子拆出alpha与风格暴露",
+    "reads": [
+      "/api/holding-xray",
+      "/api/perf-attribution"
+    ]
+  },
+  {
+    "id": "holding-xray",
+    "title": "风格穿透与漂移",
+    "group": "选基金19",
+    "solves": "风格穿透：滚动52周RBSA四风格腿+重仓时序",
+    "reads": [
+      "/api/holding-xray"
+    ]
+  },
+  {
+    "id": "fund-company",
+    "title": "基金公司画像",
+    "group": "选基金19",
+    "solves": "基金公司画像：公司层面的产品与业绩结构",
+    "reads": [
+      "/api/company-scatter",
+      "/api/fund-company",
+      "/api/quant",
+      "/api/stock-profile"
+    ]
+  },
+  {
+    "id": "company-scatter",
+    "title": "公司体验坐标",
+    "group": "选基金19",
+    "solves": "公司体验坐标：新发赚钱概率×深亏概率四象限",
+    "reads": [
+      "/api/company-scatter"
+    ]
+  },
+  {
+    "id": "risk-quiz",
+    "title": "风险测评 · 你是哪类投资者",
+    "group": "配组合10",
+    "solves": "测出你能承受多大亏损——配置前先认清自己的风险等级",
+    "reads": [
+      "/api/asset-quilt"
+    ]
+  },
+  {
+    "id": "asset-quilt",
+    "title": "全球大类资产收益拼图",
+    "group": "配组合10",
+    "solves": "13类资产逐年收益拼图——没有永远的赢家，轮动是常态",
+    "reads": [
+      "/api/asset-quilt",
+      "/api/jsonp"
+    ]
+  },
+  {
+    "id": "asset-alloc",
+    "title": "资产配置中枢",
+    "group": "配组合10",
+    "solves": "资产配置中枢：按风险等级给出股债比例参考",
+    "reads": []
+  },
+  {
+    "id": "stress-test",
+    "title": "组合压力测试",
+    "group": "配组合10",
+    "solves": "压力测试：历史极端行情下组合会跌多少",
+    "reads": [
+      "/api/stress-test"
+    ]
+  },
+  {
+    "id": "client-report",
+    "title": "客户持仓月报",
+    "group": "陪持有6",
+    "solves": "持仓月报：给客户的一页式月度回顾",
+    "reads": [
+      "/api/daily-commentary",
+      "/api/holding-return"
+    ]
+  },
+  {
+    "id": "morning-brief",
+    "title": "晨会一页纸",
+    "group": "今日开局",
+    "solves": "晨会一页纸：温度+全球行情+分析矩阵，可生成长图",
+    "reads": [
+      "/api/client-watch",
+      "/api/daily-commentary",
+      "/api/gold-data",
+      "/api/index-panorama",
+      "/api/index-temp",
+      "/api/morning-analysis",
+      "/api/morning-cast",
+      "/api/morning-news"
+    ]
+  },
+  {
+    "id": "sa-news",
+    "title": "美股快讯",
+    "group": "今日开局",
+    "solves": "美股快讯：隔夜美股大事（Seeking Alpha）",
+    "reads": [
+      "/api/sa-news"
+    ]
+  },
+  {
+    "id": "polymarket-econ",
+    "title": "事件预期 · 海外宏观",
+    "group": "看市场16",
+    "solves": "海外宏观事件的市场隐含概率（美联储/衰退/通胀）",
+    "reads": [
+      "/api/polymarket"
+    ]
+  },
+  {
+    "id": "fund-health",
+    "title": "持仓体检 · 异动预警",
+    "group": "陪持有6",
+    "solves": "持仓体检：手上基金的健康度逐项过",
+    "reads": [
+      "/api/fund-health",
+      "/api/fund-monitor",
+      "/api/report-reader",
+      "/api/security"
+    ]
+  },
+  {
+    "id": "fund-monitor",
+    "title": "基金异动监测 · 跟涨抗跌",
+    "group": "选基金19",
+    "solves": "监控池基金每日自动体检：风格漂移 + 涨时跟上/跌时抗跌捕获率 + 六类异动预警",
+    "reads": [
+      "/api/fund-monitor",
+      "/api/fund-monitor-pool",
+      "/api/fund-nav-history",
+      "/api/index-kline",
+      "/api/report-reader"
+    ]
+  },
+  {
+    "id": "fund-onepage",
+    "title": "基金信息一页通",
+    "group": "选基金19",
+    "solves": "基金三海报：名片/风险控制/季报风格，一键存图",
+    "reads": [
+      "/api/fund-onepage",
+      "/api/outlook",
+      "/api/report-reader"
+    ]
+  },
+  {
+    "id": "report-reader",
+    "title": "一键读懂财报",
+    "group": "看市场16",
+    "solves": "",
+    "reads": [
+      "/api/channel-radar",
+      "/api/data",
+      "/api/qt",
+      "/api/report-reader"
+    ]
+  },
+  {
+    "id": "channel-radar",
+    "title": "渠道推售情报站",
+    "group": "跑客户7",
+    "solves": "渠道推售情报：新发/成立动向与爆款留存",
+    "reads": [
+      "/api/alpha-data",
+      "/api/bond-radar",
+      "/api/channel-radar",
+      "/api/diagnose",
+      "/api/fund-company",
+      "/api/gold-data",
+      "/api/index-temp",
+      "/api/issue-retention",
+      "/api/manager-profile"
+    ]
+  },
+  {
+    "id": "approval-radar",
+    "title": "批文雷达",
+    "group": "跑客户7",
+    "solves": "批文雷达：证监会公募注册排队进度，看供给",
+    "reads": [
+      "/api/alpha-data",
+      "/api/approval-radar",
+      "/api/channel-radar",
+      "/api/fund-screen",
+      "/api/product-watch"
+    ]
+  },
+  {
+    "id": "product-watch",
+    "title": "产品观察台",
+    "group": "跑客户7",
+    "solves": "产品观察台：存续产品的规模/回撤/夏普信号灯",
+    "reads": [
+      "/api/fee-compare",
+      "/api/fund-screen",
+      "/api/penalty-radar",
+      "/api/product-watch"
+    ]
+  },
+  {
+    "id": "signal-track",
+    "title": "信号胜率台账",
+    "group": "看市场16",
+    "solves": "信号胜率台账：历史信号的事后命中率",
+    "reads": [
+      "/api/alpha-data",
+      "/api/ipo-calendar",
+      "/api/margin-radar",
+      "/api/signal-track",
+      "/api/temp-backtest"
+    ]
+  },
+  {
+    "id": "margin-radar",
+    "title": "杠杆资金情绪",
+    "group": "看市场16",
+    "solves": "杠杆情绪：两融相关读数",
+    "reads": [
+      "/api/ipo-calendar",
+      "/api/margin-radar"
+    ]
+  },
+  {
+    "id": "ipo-calendar",
+    "title": "打新日历",
+    "group": "看市场16",
+    "solves": "事件日历：财报/解禁/宏观事件前瞻",
+    "reads": [
+      "/api/ipo-calendar",
+      "/api/margin-radar"
+    ]
+  },
+  {
+    "id": "shelf-view",
+    "title": "货架视图",
+    "group": "跑客户7",
+    "solves": "渠道货架视图：货架上缺什么产品",
+    "reads": [
+      "/api/alpha-data",
+      "/api/approval-radar",
+      "/api/fund-screen",
+      "/api/gold-data",
+      "/api/index-temp"
+    ]
+  },
+  {
+    "id": "penalty-radar",
+    "title": "管理人处罚红线",
+    "group": "跑客户7",
+    "solves": "处罚红线：基金公司/经理的处罚记录排查",
+    "reads": [
+      "/api/alpha-data",
+      "/api/penalty-radar"
+    ]
+  },
+  {
+    "id": "alpha-sheet",
+    "title": "研基底稿",
+    "group": "选基金19",
+    "solves": "Alpha底稿：基金超额收益的结构化拆解",
+    "reads": [
+      "/api/alpha-data",
+      "/api/opc-approvals-publish",
+      "/api/opc-tracker",
+      "/api/outlook"
+    ]
+  },
+  {
+    "id": "opc-tracker",
+    "title": "OPC 指令看板",
+    "group": "公司4",
+    "solves": "",
+    "reads": [
+      "/api/opc-approvals",
+      "/api/opc-approvals-publish",
+      "/api/opc-data",
+      "/api/opc-map",
+      "/api/opc-tracker",
+      "/api/opc-tracker-publish"
+    ]
+  },
+  {
+    "id": "opc-team",
+    "title": "OPC 团队",
+    "group": "公司4",
+    "solves": "",
+    "reads": [
+      "/api/opc-data",
+      "/api/opc-map"
+    ]
+  },
+  {
+    "id": "opc-memory",
+    "title": "OPC 记忆检索",
+    "group": "公司4",
+    "solves": "",
+    "reads": [
+      "/api/opc-data",
+      "/api/opc-map"
+    ]
+  },
+  {
+    "id": "opc-map",
+    "title": "OPC 治理图谱",
+    "group": "公司4",
+    "solves": "",
+    "reads": [
+      "/api/index-kline",
+      "/api/index-temp",
+      "/api/module-graph",
+      "/api/opc-approvals-publish",
+      "/api/opc-map",
+      "/api/opc-tracker",
+      "/api/pb-gate",
+      "/api/qdii-xray",
+      "/api/realtime",
+      "/api/top5-concentration"
+    ]
+  },
+  {
+    "id": "module-graph",
+    "title": "模块星系图",
+    "group": "公司4",
+    "solves": "",
+    "reads": [
+      "/api/module-graph",
+      "/api/pb-gate"
+    ]
+  },
+  {
+    "id": "goal-tracker",
+    "title": "目标进度追踪",
+    "group": "配组合10",
+    "solves": "定投/大额目标中途检查：达成率与月供缺口",
+    "reads": []
+  },
+  {
+    "id": "mortgage-compare",
+    "title": "还贷 vs 投资对比器",
+    "group": "配组合10",
+    "solves": "提前还贷vs拿去投资，确定复利对机会成本",
+    "reads": []
+  },
+  {
+    "id": "retire-sim",
+    "title": "退休支取模拟",
+    "group": "配组合10",
+    "solves": "退休支取模拟：用真实股债历史回放钱够不够花",
+    "reads": [
+      "/api/index-kline"
+    ]
+  },
+  {
+    "id": "fraud-shield",
+    "title": "养老钱防骗识别",
+    "group": "陪持有6",
+    "solves": "8条红线+自测题，识别养老钱骗局",
+    "reads": [
+      "/api/books",
+      "/api/pb-gate",
+      "/api/pension-y"
+    ]
+  },
+  {
+    "id": "book-club",
+    "title": "读书角",
+    "group": "跑客户7",
+    "solves": "读书角：书评+面谈钩子，哪本书配哪个场景",
+    "reads": [
+      "/api/books",
+      "/api/pension-y"
+    ]
+  },
+  {
+    "id": "pension-y",
+    "title": "养老金 Y 份额库",
+    "group": "选基金19",
+    "solves": "个人养老金Y份额库：351只产品业绩规模可排序",
+    "reads": [
+      "/api/pb-gate",
+      "/api/pension-y"
+    ]
+  },
+  {
+    "id": "pb-diagnosis",
+    "title": "客户组合诊断器",
+    "group": "私行专区6",
+    "solves": "组合诊断器：私行组合的结构化诊断（口令门）",
+    "reads": [
+      "/api/fund-quote"
+    ]
+  },
+  {
+    "id": "portfolio-monitor",
+    "title": "组合监控台",
+    "group": "私行专区6",
+    "solves": "组合监控台：我的组合每日盈亏与业绩指标一屏盯盘",
+    "reads": [
+      "/api/fund-quote",
+      "/api/index-intraday",
+      "/api/morning-news",
+      "/api/pb-nav",
+      "/api/reports"
+    ]
+  },
+  {
+    "id": "lineup-card",
+    "title": "组合攻守布阵卡",
+    "group": "私行专区6",
+    "solves": "组合攻守布阵卡：前锋/中场/后卫/守门员阵型",
+    "reads": [
+      "/api/style-thermometer"
+    ]
+  },
+  {
+    "id": "drawdown-debrief",
+    "title": "逆风归因卡",
+    "group": "私行专区6",
+    "solves": "逆风归因卡：回撤后的事实/归因/纪律三段式复盘文案",
+    "reads": [
+      "/api/fund-quote",
+      "/api/pb-holdings",
+      "/api/pb-nav"
+    ]
+  },
+  {
+    "id": "pb-segments",
+    "title": "难点客群经营策略",
+    "group": "私行专区6",
+    "solves": "",
+    "reads": []
+  },
+  {
+    "id": "client-files",
+    "title": "客户档案",
+    "group": "私行专区6",
+    "solves": "",
+    "reads": [
+      "/api/clients",
+      "/api/crash-data",
+      "/api/fund-quote",
+      "/api/holding-return",
+      "/api/index-kline",
+      "/api/portfolio-pk",
+      "/api/sentiment"
+    ]
+  },
+  {
+    "id": "battle-card",
+    "title": "面谈作战卡",
+    "group": "私行专区6",
+    "solves": "面谈作战卡：面谈七原则，可生成长图",
+    "reads": [
+      "/api/alpha-data",
+      "/api/bond-plus",
+      "/api/client-profit",
+      "/api/clients",
+      "/api/crash-data",
+      "/api/crowd-profit",
+      "/api/dca",
+      "/api/diagnose",
+      "/api/fund-health",
+      "/api/fund-quote",
+      "/api/holding-deep",
+      "/api/holding-return",
+      "/api/index-kline",
+      "/api/outlook",
+      "/api/portfolio-pk",
+      "/api/real-return",
+      "/api/sentiment",
+      "/api/share-timing",
+      "/api/talk-topics"
+    ]
+  },
+  {
+    "id": "redeem-tree",
+    "title": "赎回面谈决策树",
+    "group": "私行专区6",
+    "solves": "赎回面谈决策树：先诊断适配性，再谈留多少",
+    "reads": [
+      "/api/alpha-data",
+      "/api/bond-plus",
+      "/api/client-profit",
+      "/api/clients",
+      "/api/crash-data",
+      "/api/crowd-profit",
+      "/api/dca",
+      "/api/diagnose",
+      "/api/fund-health",
+      "/api/fund-quote",
+      "/api/holding-deep",
+      "/api/holding-return",
+      "/api/index-kline",
+      "/api/outlook",
+      "/api/portfolio-pk",
+      "/api/real-return",
+      "/api/sentiment",
+      "/api/share-timing",
+      "/api/talk-topics"
+    ]
+  },
+  {
+    "id": "client-profit",
+    "title": "基民盈利数据",
+    "group": "选基金19",
+    "solves": "基民盈利分布：买这只基金的人有多少真赚到了钱",
+    "reads": [
+      "/api/client-profit",
+      "/api/security"
+    ]
+  },
+  {
+    "id": "holder-sense",
+    "title": "持有人获得感",
+    "group": "陪持有6",
+    "solves": "持有获得感：持有体验拆解——赚没赚钱之外还看过程",
+    "reads": []
+  },
+  {
+    "id": "quick-plan",
+    "title": "三分钟配置",
+    "group": "配组合10",
+    "solves": "三分钟出一份股债配置方案——给客户的第一张草稿",
+    "reads": [
+      "/api/portfolio"
+    ]
+  },
+  {
+    "id": "mirror-zhuigao",
+    "title": "追高回放",
+    "group": "陪持有6",
+    "solves": "",
+    "reads": [
+      "/api/index-kline"
+    ]
+  },
+  {
+    "id": "mirror-huiben",
+    "title": "回本卖出回放",
+    "group": "陪持有6",
+    "solves": "",
+    "reads": [
+      "/api/index-kline"
+    ]
+  },
+  {
+    "id": "mirror-xiongdi",
+    "title": "熊底买入回放",
+    "group": "陪持有6",
+    "solves": "",
+    "reads": [
+      "/api/index-kline"
+    ]
+  },
+  {
+    "id": "mirror-event",
+    "title": "黑天鹅回放",
+    "group": "陪持有6",
+    "solves": "",
+    "reads": [
+      "/api/index-kline"
+    ]
+  },
+  {
+    "id": "mirror-takong",
+    "title": "踏空回放",
+    "group": "陪持有6",
+    "solves": "",
+    "reads": [
+      "/api/index-kline"
+    ]
+  },
+  {
+    "id": "mirror-niushi",
+    "title": "牛市后期回放",
+    "group": "陪持有6",
+    "solves": "",
+    "reads": [
+      "/api/index-kline"
+    ]
+  },
+  {
+    "id": "mirror-zhuti",
+    "title": "主题周期回放",
+    "group": "陪持有6",
+    "solves": "",
+    "reads": [
+      "/api/index-kline"
+    ]
+  },
+  {
+    "id": "mirror-crowd",
+    "title": "群体后视镜",
+    "group": "陪持有6",
+    "solves": "看基民群体在山顶/谷底的真实行为分布——别成为统计里的大多数人",
+    "reads": [
+      "/api/crowd-holders",
+      "/api/crowd-profit",
+      "/api/crowd-sentiment",
+      "/api/fund-flow",
+      "/api/fund-quote",
+      "/api/pb-nav",
+      "/api/share-timing"
+    ]
+  },
+  {
+    "id": "mirror-personal",
+    "title": "个人后视镜",
+    "group": "陪持有6",
+    "solves": "导入你的交易记录，回放个人买卖点与行为损益",
+    "reads": [
+      "/api/crowd-sentiment",
+      "/api/fund-nav-history",
+      "/api/index-kline",
+      "/api/trade-ocr"
+    ]
+  },
+  {
+    "id": "mirror-dingtou",
+    "title": "定投断供回放",
+    "group": "陪持有6",
+    "solves": "",
+    "reads": [
+      "/api/index-kline"
+    ]
+  },
+  {
+    "id": "mirror-buchong",
+    "title": "补仓回血回放",
+    "group": "陪持有6",
+    "solves": "",
+    "reads": [
+      "/api/index-kline"
+    ]
+  },
+  {
+    "id": "mirror-zhiying",
+    "title": "止盈卖飞回放",
+    "group": "陪持有6",
+    "solves": "",
+    "reads": [
+      "/api/index-kline"
+    ]
+  },
+  {
+    "id": "mirror-cuopei",
+    "title": "预期错配时间轴",
+    "group": "陪持有6",
+    "solves": "客户或自己「这次不一样」上头时，先看历史上同样的话后来怎样",
+    "reads": [
+      "/api/index-kline"
+    ]
+  },
+  {
+    "id": "mirror-life",
+    "title": "人生大额回放",
+    "group": "陪持有6",
+    "solves": "",
+    "reads": [
+      "/api/crash-publish",
+      "/api/index-kline",
+      "/api/index-kline（月线）"
+    ]
+  },
+  {
+    "id": "crash-radar",
+    "title": "大跌雷达",
+    "group": "陪持有6",
+    "solves": "大跌雷达：单日跌幅分档，黄红档当晚发客户群",
+    "reads": [
+      "/api/alpha-data",
+      "/api/crash-data",
+      "/api/crash-publish",
+      "/api/index-kline",
+      "/api/index-kline（「⚡ 最新数据」实时重算）",
+      "KV 每日快照"
+    ]
+  },
+  {
+    "id": "nav-divergence",
+    "title": "重仓变化探测",
+    "group": "选基金19",
+    "solves": "",
+    "reads": [
+      "/api/client-profit",
+      "/api/crash-data",
+      "/api/fund-flow",
+      "/api/fund-onepage",
+      "/api/holding-return",
+      "/api/index-kline",
+      "/api/nav-divergence",
+      "/api/outlook",
+      "/api/pb-nav",
+      "/api/track"
+    ]
+  },
+  {
+    "id": "forum",
+    "title": "使用者论坛",
+    "group": "交流1",
+    "solves": "",
+    "reads": [
+      "/api/forum"
+    ]
+  },
+  {
+    "id": "skill-zone",
+    "title": "R9 Skill 专区",
+    "group": "今日开局",
+    "solves": "R9 Skill专区：AI技能价值/用法/边界 + 10条投研流水线任务图DAG（二级口令）",
+    "reads": []
+  },
+  {
+    "id": "pic-talk",
+    "title": "用图说话",
+    "group": "看市场16",
+    "solves": "热点事件漫画长图，给客户讲事用",
+    "reads": [
+      "/api/alpha-data",
+      "/api/bond-plus",
+      "/api/bond-radar",
+      "/api/call-review",
+      "/api/change-password",
+      "/api/compare",
+      "/api/correlation",
+      "/api/crash-data",
+      "/api/crowding",
+      "/api/daily-commentary",
+      "/api/dca",
+      "/api/deng-index",
+      "/api/diagnose",
+      "/api/dividend-radar",
+      "/api/equity-fund-index",
+      "/api/etf-flow",
+      "/api/fund-pool",
+      "/api/fund-quote",
+      "/api/fund-screen",
+      "/api/giants",
+      "/api/gold-data",
+      "/api/gushou-deep",
+      "/api/holder-structure",
+      "/api/holding-deep",
+      "/api/holding-return",
+      "/api/holding-xray",
+      "/api/hot-events-data",
+      "/api/hot-funds",
+      "/api/hot-like",
+      "/api/index-kline",
+      "/api/index-panorama",
+      "/api/index-temp",
+      "/api/industries",
+      "/api/industry-scorecard",
+      "/api/industry-valuation",
+      "/api/industry-yearly",
+      "/api/logout",
+      "/api/manager-profile",
+      "/api/market-hot",
+      "/api/new-fund-heat",
+      "/api/opc-map",
+      "/api/outlook",
+      "/api/perf-attribution",
+      "/api/portfolio",
+      "/api/portfolio-pk",
+      "/api/price-signals",
+      "/api/rank-persistence",
+      "/api/real-return",
+      "/api/scale-overlap",
+      "/api/sentiment",
+      "/api/share-timing",
+      "/api/sparring",
+      "/api/style-blocks",
+      "/api/style-thermometer",
+      "/api/talk-topics",
+      "/api/today-actions",
+      "/api/us-etf"
+    ]
+  }
+]

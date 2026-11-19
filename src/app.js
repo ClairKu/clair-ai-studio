@@ -225,6 +225,30 @@ const initialState = {
   ],
   reports: [
     {
+      "id": "r9-full-results-2026-11-19",
+      "groupId": "advisor-workbench",
+      "title": "R9 AI Hub｜全站结果复刻",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/r9-full-results-2026-11-19/",
+      "preview": "r9-full-results-2026-11-19.svg",
+      "pinned": false,
+      "position": 0,
+      "createdAt": "2026-11-19",
+      "modifiedAt": "2026-11-19",
+      "source": "130个主模块、4个独立页面与146组成功数据请求。保留原站页面、图表、明细和任务图；打开模块即载入已保存示例。本地虚构客户示例、独立口令限制、接口超时与报错分别标注。",
+      "access": "production",
+      "workType": "product-demo",
+      "tags": [
+        "R9",
+        "全站复刻",
+        "投资顾问",
+        "产品研究",
+        "数据快照",
+        "基金分析",
+        "示例",
+        "HTML"
+      ]
+    },
+    {
       id: "product-team-pulse-2026-11-19",
       groupId: "ai-workbench",
       title: "产品团队管理 · PULSE",
@@ -4861,6 +4885,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "r9-full-results-2026-11-19": "product-demo",
   "product-team-pulse-2026-11-19": "product-demo",
   "yingmi-token-usage-2026-11-19": "data-analysis",
   "qieman-money-planner-2026-11-19": "product-demo",
@@ -5016,6 +5041,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "r9-full-results-2026-11-19": "advisor-workbench",
   "product-team-pulse-2026-11-19": "ai-workbench",
   "yingmi-token-usage-2026-11-19": "ai-platform",
   "qieman-money-planner-2026-11-19": "advisor-workbench",
@@ -9812,5 +9838,6 @@ function bindWorkbenchPersistence() {
     render();
   });
 }
+
 
 
