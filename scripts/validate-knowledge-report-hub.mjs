@@ -45,7 +45,8 @@ const checks = [
   [html, "vendor/xlsx.full.min.js", "Excel 解析器未接入"],
   [app, "extractKnowledgeCards", "关键卡抽取未接入"],
   [app, "linkKnowledgeGraph", "知识关联未接入"],
-  [app, "完整原文", "报告全文回溯入口缺失"],
+  [app, "嵌入官方原文", "官方原文嵌入入口缺失"],
+  [app, "中文剖析", "报告中文剖析入口缺失"],
   [app, "关联关键卡", "关联关键卡入口缺失"],
   [app, "关联报告", "关联报告入口缺失"],
   [app, "visualKnowledgeCardMarkup", "报告级信息图卡渲染缺失"],
@@ -84,6 +85,7 @@ if (feed.reports.some((report) => !report.id || !report.title || !report.url || 
 if (feed.cards.some((card) => !card.id || !card.reportId || !card.title || !card.quote || !card.anchor)) fail("每日数据源关键卡缺少证据字段");
 if (authorityFeed.schema !== "clair-ai-industry-authority/v1" || authorityFeed.reports.length < 10 || authorityFeed.cards.length < 50) fail("权威 AI 报告精选数据不足");
 if (authorityFeed.reports.some((report) => !report.authority || !report.methodology || !report.scopeNote || !report.publishedAt)) fail("权威报告缺少方法、口径或发布日期");
+if (authorityFeed.reports.some((report) => !/^https:\/\//.test(report.embedUrl || "") || !["pdf", "web"].includes(report.embedType))) fail("权威报告缺少可嵌入的 HTTPS 官方原文");
 if (authorityFeed.cards.some((card) => !card.translation || !card.anchor)) fail("权威关键卡缺少译文或证据锚点");
 if (institutionFeed.schema !== "clair-ai-institutions/v1" || institutionFeed.scope !== "external-public-ai-industry-only") fail("AI 机构专题 schema 或公开行业边界错误");
 if (!Array.isArray(institutionFeed.institutions) || institutionFeed.institutions.length < 12) fail("AI 机构专题覆盖不足");

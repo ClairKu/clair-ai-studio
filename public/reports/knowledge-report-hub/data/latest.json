@@ -1,9 +1,550 @@
 {
   "schema": "clair-knowledge-hub-feed/v1",
   "scope": "external-ai-industry-only",
-  "generatedAt": "2026-11-19T00:23:06.638Z",
+  "generatedAt": "2026-11-19T03:19:08.361Z",
   "source": "Curated authoritative public AI industry reports",
   "reports": [
+    {
+      "id": "authority-oecd-deso-2026",
+      "title": "OECD《数字经济与社会展望 2026》｜AI 普及加快，但企业规模与年龄鸿沟继续扩大",
+      "url": "https://www.oecd.org/en/publications/oecd-digital-economy-and-society-outlook-2026_022ed474-en.html",
+      "downloadUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2026/11/oecd-digital-economy-and-society-outlook-2026_457d074d/022ed474-en.pdf",
+      "embedUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2026/11/oecd-digital-economy-and-society-outlook-2026_457d074d/022ed474-en.pdf",
+      "embedType": "pdf",
+      "body": "【中文剖析】OECD 将企业采用、个人使用、资本投入与政策响应放在同一张数字经济地图中。2025 年 AI 使用企业约占 20%，大型企业达到 52%；生成式 AI 的年龄差距同样显著，16—24 岁使用率为 68%，55—74 岁仅 14%。AI 基础设施与托管相关风险投资从 2024 年 545 亿美元增至 2025 年 1,239 亿美元，已接近全部 AI 风投的一半。结论不是‘AI 已全面普及’，而是算力资本集中与使用能力分化正在同步加深。",
+      "category": "行业全景",
+      "tags": [
+        "OECD",
+        "AI采用",
+        "数字经济",
+        "代际鸿沟",
+        "算力投资"
+      ],
+      "source": "OECD",
+      "authority": "OECD 旗舰数字经济统计与政策综述",
+      "methodology": "汇集 OECD 成员与伙伴经济体官方统计、跨国可比指标、政策清单和专题研究，对企业、个人、基础设施、创新与治理进行综合分析。",
+      "scopeNote": "不同国家调查年度、企业规模阈值和 AI 定义并非完全一致；风险投资是交易数据库口径，不能与企业实际资本开支混用；个人使用率不等于高强度生产性使用。",
+      "publishedAt": "2026-11-05T00:00:00Z",
+      "relatedReportIds": [
+        "authority-bcg-ai-infrastructure-bill-2026",
+        "authority-bcg-ai-maturity-matrix-2026",
+        "authority-oecd-ai-privacy-control-2026"
+      ],
+      "kind": "url",
+      "ingestedAt": "2026-11-19T20:00:00+08:00",
+      "createdAt": "2026-11-05T00:00:00Z",
+      "updatedAt": "2026-11-05T00:00:00Z",
+      "featured": true,
+      "featuredRank": -40,
+      "archived": false,
+      "studioId": "",
+      "origin": "industry",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-metr-anthropic-rd-acceleration-2026",
+      "title": "METR《Anthropic AI 研发加速独立评估》｜内部证据支持约 2 倍加速，但审计仍受访问与删节限制",
+      "url": "https://metr.org/blog/2026-11-05-anthropic-ai-rd-acceleration-assessment/",
+      "downloadUrl": "https://metr.org/blog/2026-11-05-anthropic-ai-rd-acceleration-assessment/",
+      "embedUrl": "https://metr.org/blog/2026-11-05-anthropic-ai-rd-acceleration-assessment/",
+      "embedType": "web",
+      "body": "【中文剖析】METR 用约 11 周、2.5 个全职当量，对 Anthropic 的 AI 研发加速做高访问级别独立评估。其最强量化信号是：2025 年 10 月以来算法效率与能力指数 AECI 的增长速度约为此前的 1.9 倍，区间估计为 1.5—2.8 倍；员工证据也与‘约翻倍’相容，且更像广泛 AI 辅助而非完全自治研究。报告同时揭示独立评估的现实边界：未直接抽样非公开模型、部分数据请求被拒、Anthropic 有单方面删节权，算力配置核验被取消。",
+      "category": "模型与科学",
+      "tags": [
+        "METR",
+        "Anthropic",
+        "AI研发",
+        "独立评估",
+        "研发加速"
+      ],
+      "source": "METR",
+      "authority": "METR 对 Anthropic 的高访问级别独立评估",
+      "methodology": "约 11 周、2.5 FTE；分析内部基准与 AECI、训练算力、算法效率、人员、代码与 PR、推理支出和问卷，并访谈约 15 人。",
+      "scopeNote": "评估并非完整审计：没有独立抽样非公开模型，部分数据不可得或被拒绝，关键内容存在机构删节，算力配置核验未完成；结论只适用于 Anthropic 指定时期。",
+      "publishedAt": "2026-11-05T00:00:00Z",
+      "relatedReportIds": [
+        "authority-openai-research-acceleration-jagged-2026",
+        "authority-anthropic-judgment-calls-2026"
+      ],
+      "kind": "url",
+      "ingestedAt": "2026-11-19T20:00:00+08:00",
+      "createdAt": "2026-11-05T00:00:00Z",
+      "updatedAt": "2026-11-05T00:00:00Z",
+      "featured": true,
+      "featuredRank": -39,
+      "archived": false,
+      "studioId": "",
+      "origin": "industry",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-pwc-workforce-hopes-fears-2026",
+      "title": "PwC《全球员工希望与担忧调查 2026》｜AI 使用扩散，但高频使用与学习机会集中在少数人",
+      "url": "https://www.pwc.com/gx/en/1/issues/workforce/hopes-and-fears.html",
+      "downloadUrl": "https://www.pwc.com/gx/en/1/issues/workforce/hopes-and-fears.html",
+      "embedUrl": "https://www.pwc.com/gx/en/1/issues/workforce/hopes-and-fears.html",
+      "embedType": "web",
+      "body": "【中文剖析】PwC 对 48 个国家和地区、29 个行业的 49,364 名员工调查显示，过去一年 64% 在工作中使用过 AI，比上年高 10 个百分点；生成式 AI 每日使用率从 14% 升至 22%。但组织内部形成明显的高频使用鸿沟：前沿员工每日使用率 51%，核心大多数仅 11%。与此同时，认为自己能获得学习资源的比例从 59% 降至 51%。关键问题已不再是是否接触 AI，而是谁能把 AI 变成持续能力。",
+      "category": "就业与技能",
+      "tags": [
+        "PwC",
+        "员工",
+        "AI使用",
+        "技能",
+        "组织变革"
+      ],
+      "source": "PwC",
+      "authority": "PwC 全球员工大样本年度调查",
+      "methodology": "2026 年 5—6 月调查 49,364 名员工，覆盖 48 个国家和地区、29 个行业；按各地劳动人口年龄与性别加权。",
+      "scopeNote": "为横截面自报调查，不能证明 AI 使用导致信心、绩效或就业安全；‘使用过’与每日深度使用不同，跨市场文化和岗位结构会影响回答。",
+      "publishedAt": "2026-09-29T00:00:00Z",
+      "relatedReportIds": [
+        "authority-ilo-ai-developing-economies-2026",
+        "authority-anthropic-robot-work-2026",
+        "authority-worldbank-eca-ai-work-2026"
+      ],
+      "kind": "url",
+      "ingestedAt": "2026-11-19T20:00:00+08:00",
+      "createdAt": "2026-09-29T00:00:00Z",
+      "updatedAt": "2026-09-29T00:00:00Z",
+      "featured": true,
+      "featuredRank": -38,
+      "archived": false,
+      "studioId": "",
+      "origin": "industry",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-bcg-ai-infrastructure-bill-2026",
+      "title": "BCG《谁为 2.6 万亿美元 AI 基础设施买单？》｜2030 年回本需要企业成为最大终端付费方",
+      "url": "https://www.bcg.com/publications/2026/who-pays-for-ai-infrastructure",
+      "downloadUrl": "https://www.bcg.com/publications/2026/who-pays-for-ai-infrastructure",
+      "embedUrl": "https://www.bcg.com/publications/2026/who-pays-for-ai-infrastructure",
+      "embedType": "web",
+      "body": "【中文剖析】BCG 从数据中心、模型公司到终端付费方做自下而上的回本模型，估算 2030 年若要覆盖全球（不含中国）AI 基础设施与模型层经济性，终端年支出需达到约 2.6 万亿美元，其中企业 1.8 万亿美元、消费者 3,660 亿美元、超大规模云厂商内部使用 2,040 亿美元、新兴技术与实体 AI 2,000 亿美元。这个数字是‘需要达到的收入’，不是市场预测；真正的战略问题是企业能否把 AI 转化为愿意持续付费的流程价值。",
+      "category": "行业全景",
+      "tags": [
+        "BCG",
+        "AI基础设施",
+        "数据中心",
+        "商业化",
+        "企业支出"
+      ],
+      "source": "Boston Consulting Group",
+      "authority": "BCG 全球 AI 基础设施经济性模型",
+      "methodology": "自下而上连接数据中心容量与成本、模型公司收入需求和四类终端付费方；结合专家访谈、公开信息与多项第三方预测，情景推演至 2030 年。",
+      "scopeNote": "2.6 万亿美元是满足投资回报与假设利润率所需的年终端支出，不是已承诺资本开支或确定市场预测；模型不含中国，对成本、利用率、价格和利润率高度敏感。",
+      "publishedAt": "2026-10-29T00:00:00Z",
+      "relatedReportIds": [
+        "authority-oecd-deso-2026",
+        "authority-bcg-ai-maturity-matrix-2026"
+      ],
+      "kind": "url",
+      "ingestedAt": "2026-11-19T20:00:00+08:00",
+      "createdAt": "2026-10-29T00:00:00Z",
+      "updatedAt": "2026-10-29T00:00:00Z",
+      "featured": true,
+      "featuredRank": -37,
+      "archived": false,
+      "studioId": "",
+      "origin": "industry",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-anthropic-judgment-calls-2026",
+      "title": "Anthropic《AI Agent 如何塑造专家判断》｜偏好线索可高概率传导到分析过程和最终建议",
+      "url": "https://www.anthropic.com/research/agents-judgment-calls",
+      "downloadUrl": "https://www.anthropic.com/research/agents-judgment-calls",
+      "embedUrl": "https://www.anthropic.com/research/agents-judgment-calls",
+      "embedType": "web",
+      "body": "【中文剖析】Anthropic 以 61 名专业分析师做随机对照实验，向 Agent 暗中植入倾向性线索。四个分析决策上，Agent 与隐含倾向的一致率为 92%、82%、81%、90%，合并为 86%；最终是否建议上线的比例也随倾向从 36% 变为 54%。Agent 用户更快、严重错误更少，但样本小、无 AI 组仅 11 人且经验较弱。核心风险不是明显的错误答案，而是看似完整的推理链把微弱偏好放大为专业判断。",
+      "category": "安全与治理",
+      "tags": [
+        "Anthropic",
+        "AI Agent",
+        "判断",
+        "偏见",
+        "随机对照实验"
+      ],
+      "source": "Anthropic Research",
+      "authority": "Anthropic 专业分析师随机对照实验",
+      "methodology": "招募 61 名专业分析师，在一个虚构业务任务中随机分配使用或不使用 Claude Opus 4.8 高推理 Agent；在四个节点用隐藏抛硬币为 Agent 注入倾向并记录过程与最终建议。",
+      "scopeNote": "单一虚构任务、单一模型和小样本；无 AI 组仅 11 人且经验相对较弱。实验刻意放大偏好，不代表真实组织中的平均影响，也不能据此比较所有 Agent 与人类。",
+      "publishedAt": "2026-10-27T00:00:00Z",
+      "relatedReportIds": [
+        "authority-metr-anthropic-rd-acceleration-2026",
+        "authority-oecd-ai-privacy-control-2026"
+      ],
+      "kind": "url",
+      "ingestedAt": "2026-11-19T20:00:00+08:00",
+      "createdAt": "2026-10-27T00:00:00Z",
+      "updatedAt": "2026-10-27T00:00:00Z",
+      "featured": true,
+      "featuredRank": -36,
+      "archived": false,
+      "studioId": "",
+      "origin": "industry",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-anthropic-robot-work-2026",
+      "title": "Anthropic《机器人能做哪些工作？》｜物理任务能力暴露高，但短期成本竞争力仅 0.3%",
+      "url": "https://www.anthropic.com/research/what-work-can-robots-do",
+      "downloadUrl": "https://www.anthropic.com/research/what-work-can-robots-do",
+      "embedUrl": "https://www.anthropic.com/research/what-work-can-robots-do",
+      "embedType": "web",
+      "body": "【中文剖析】Anthropic 把 O*NET 约 900 个职业、1.9 万项任务与公开机器人演示匹配，再按任务时间和就业权重估算暴露。机器人在某些环境中可执行 74% 的物理任务，对应约 34% 工作时长；与 LLM 合并后，潜在暴露达到约 81% 的工作。但当前达到成本竞争力的工作仅 0.3%。‘技术能做’与‘企业会采用’之间仍隔着成本、可靠性、操控能力、监管和偏好。",
+      "category": "就业与技能",
+      "tags": [
+        "Anthropic",
+        "机器人",
+        "O*NET",
+        "自动化",
+        "成本"
+      ],
+      "source": "Anthropic Research",
+      "authority": "Anthropic 基于 O*NET 与公开机器人演示的任务暴露研究",
+      "methodology": "对 O*NET 约 900 个职业、约 19,000 项任务，使用 Claude 搜索并将公开演示评分为 E0—E3，再按任务时间和就业加权；用历史自动化做回测并建模价格下降。",
+      "scopeNote": "研究衡量技术暴露，不是现实采用或就业净变化；能力等级由模型辅助判定，公开演示可能偏向成功案例；仅覆盖美国 O*NET，成本曲线与未来可靠性有高度不确定性。",
+      "publishedAt": "2026-09-30T00:00:00Z",
+      "relatedReportIds": [
+        "authority-pwc-workforce-hopes-fears-2026",
+        "authority-ilo-ai-developing-economies-2026",
+        "authority-worldbank-eca-ai-work-2026"
+      ],
+      "kind": "url",
+      "ingestedAt": "2026-11-19T20:00:00+08:00",
+      "createdAt": "2026-09-30T00:00:00Z",
+      "updatedAt": "2026-09-30T00:00:00Z",
+      "featured": true,
+      "featuredRank": -35,
+      "archived": false,
+      "studioId": "",
+      "origin": "industry",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-oecd-agentic-competition-2026",
+      "title": "OECD《竞争与 Agentic AI》｜代理降低交易成本，也可能把平台控制力延伸到用户决策层",
+      "url": "https://www.oecd.org/en/publications/competition-and-agentic-ai_d1a3ee15-en.html",
+      "downloadUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2026/11/competition-and-agentic-ai_110ea3c9/d1a3ee15-en.pdf",
+      "embedUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2026/11/competition-and-agentic-ai_110ea3c9/d1a3ee15-en.pdf",
+      "embedType": "pdf",
+      "body": "【中文剖析】OECD 从竞争政策而非模型能力切入 Agentic AI：代理可以降低搜索、比较、议价与切换成本，增强消费者对供给侧的压力；也可能因为模型、云、数据、平台入口的纵向一体化而加深守门人优势。下游使用还可能增加算法协同行为、排他和价格歧视风险。报告最有价值的判断是：竞争影响取决于谁控制代理、代理能访问什么，以及代理的商业激励是否对用户透明。",
+      "category": "安全与治理",
+      "tags": [
+        "OECD",
+        "Agentic AI",
+        "竞争",
+        "平台",
+        "反垄断"
+      ],
+      "source": "OECD Competition Committee",
+      "authority": "OECD Competition Policy Roundtable Background Note No.339",
+      "methodology": "综合竞争经济学、数字平台与算法合谋文献、市场结构案例和政策框架，分析基础设施、模型、分发与下游使用四个层面。",
+      "scopeNote": "这是前瞻性政策与文献分析，不是对 Agent 市场份额、价格或损害的实证测量；许多风险取决于尚未稳定的商业模式与技术架构。",
+      "publishedAt": "2026-11-12T00:00:00Z",
+      "relatedReportIds": [
+        "authority-oecd-ai-privacy-control-2026",
+        "authority-bcg-ai-infrastructure-bill-2026"
+      ],
+      "kind": "url",
+      "ingestedAt": "2026-11-19T20:00:00+08:00",
+      "createdAt": "2026-11-12T00:00:00Z",
+      "updatedAt": "2026-11-12T00:00:00Z",
+      "featured": true,
+      "featuredRank": -34,
+      "archived": false,
+      "studioId": "",
+      "origin": "industry",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-ilo-ai-developing-economies-2026",
+      "title": "ILO《AI 与发展中经济体》｜最大的风险是“有冲击、无红利”",
+      "url": "https://www.ilo.org/publications/ai-and-developing-economies-promoting-decent-work-time-rapid-technological",
+      "downloadUrl": "https://www.ilo.org/sites/default/files/2026-11/Policy%20Brief_AI%20and%20developing%20economies.pdf",
+      "embedUrl": "https://www.ilo.org/sites/default/files/2026-11/Policy%20Brief_AI%20and%20developing%20economies.pdf",
+      "embedType": "pdf",
+      "body": "【中文剖析】ILO 反对把发展中经济体简单描述成低暴露地区。短期采用或许较慢，但外包、平台、内容审核与数据标注等环节仍可能先承受价格和劳动条件压力，却拿不到生产率与工资红利，形成‘有冲击、无红利’。AI 鸿沟也不只是网络接入，而是本地语言数据、算力、技能、企业吸收能力与劳动治理的综合鸿沟。政策重点应从追求模型规模转向适合本地产业和中小企业、能补充劳动的应用。",
+      "category": "就业与技能",
+      "tags": [
+        "ILO",
+        "发展中经济体",
+        "体面劳动",
+        "AI鸿沟",
+        "平台劳动"
+      ],
+      "source": "International Labour Organization",
+      "authority": "ILO 就业与发展政策简报",
+      "methodology": "综合现有跨国就业暴露、生产率、平台劳动、数字基础设施与发展政策证据，形成政策框架；未开展新的全球统一抽样调查。",
+      "scopeNote": "政策简报以证据综合和机制分析为主；不同发展中经济体产业、非正规就业、基础设施与治理差异巨大，不能用单一暴露率代表全部国家。",
+      "publishedAt": "2026-11-04T00:00:00Z",
+      "relatedReportIds": [
+        "authority-pwc-workforce-hopes-fears-2026",
+        "authority-anthropic-robot-work-2026",
+        "authority-worldbank-eap-ai-wave-2026"
+      ],
+      "kind": "url",
+      "ingestedAt": "2026-11-19T20:00:00+08:00",
+      "createdAt": "2026-11-04T00:00:00Z",
+      "updatedAt": "2026-11-04T00:00:00Z",
+      "featured": true,
+      "featuredRank": -33,
+      "archived": false,
+      "studioId": "",
+      "origin": "industry",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-bcg-ai-maturity-matrix-2026",
+      "title": "BCG《AI 成熟度矩阵 2026》｜国家竞争从“有没有战略”转向算力、模型与监管执行力",
+      "url": "https://www.bcg.com/publications/2026/countries-most-ready-for-ai",
+      "downloadUrl": "https://www.bcg.com/publications/2026/countries-most-ready-for-ai",
+      "embedUrl": "https://www.bcg.com/publications/2026/countries-most-ready-for-ai",
+      "embedType": "web",
+      "body": "【中文剖析】BCG 用 33 个指标评估 75 个以上经济体，覆盖愿景、技能、政策监管、投资、研究创新与生态，并在 2026 年强化算力、国产模型与监管指标。几乎每个经济体至少在一个维度进步，日本与韩国进入最高梯队。矩阵真正揭示的是竞争维度变化：国家准备度不再只是政策宣言，而是人才、资本、算力、模型、制度与产业采用能否形成闭环。",
+      "category": "行业全景",
+      "tags": [
+        "BCG",
+        "国家排名",
+        "AI准备度",
+        "算力",
+        "政策"
+      ],
+      "source": "Boston Consulting Group",
+      "authority": "BCG AI Maturity Matrix 2026",
+      "methodology": "覆盖 75 个以上经济体和 33 个指标，按 ASPIRE 六维框架评估愿景、技能、政策监管、投资、研究创新与生态，并加入算力、国产模型与监管成熟度。",
+      "scopeNote": "这是 BCG 自有指标体系与权重形成的比较工具，不是政府官方排名；指标时点和可得性不同，名次变化可能来自数据更新或方法调整，不等于短期因果改善。",
+      "publishedAt": "2026-10-20T00:00:00Z",
+      "relatedReportIds": [
+        "authority-oecd-deso-2026",
+        "authority-bcg-ai-infrastructure-bill-2026",
+        "authority-worldbank-eap-ai-wave-2026"
+      ],
+      "kind": "url",
+      "ingestedAt": "2026-11-19T20:00:00+08:00",
+      "createdAt": "2026-10-20T00:00:00Z",
+      "updatedAt": "2026-10-20T00:00:00Z",
+      "featured": true,
+      "featuredRank": -32,
+      "archived": false,
+      "studioId": "",
+      "origin": "industry",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-bis-central-bank-ai-readiness-2026",
+      "title": "BIS/IFC《央行 AI 准备度》｜项目进入生产，但战略、数据与人才仍未同步成熟",
+      "url": "https://www.bis.org/publications/ifc-report-19-ai-readiness-central-banks",
+      "downloadUrl": "https://www.bis.org/publications/ifc-report-19-ai-readiness-central-banks.pdf",
+      "embedUrl": "https://www.bis.org/publications/ifc-report-19-ai-readiness-central-banks.pdf",
+      "embedType": "pdf",
+      "body": "【中文剖析】BIS 国际金融统计委员会对 65 个辖区的央行与机构调查显示，超过三分之二已有 AI 项目进入生产，高于 2024 年约一半；但只有 38% 已建立组织级战略，21% 具备数据准备框架，且专门 AI 人才通常不到员工的 2.5%。这意味着央行正在从实验转向运行，却可能出现‘应用跑在治理前面’。数据、模型风险、采购、基础设施和人才必须从项目制升级为机构能力。",
+      "category": "企业与组织",
+      "tags": [
+        "BIS",
+        "中央银行",
+        "AI准备度",
+        "数据治理",
+        "生产应用"
+      ],
+      "source": "BIS Irving Fisher Committee",
+      "authority": "BIS/IFC 央行 AI 准备度跨辖区调查",
+      "methodology": "2026 年初调查 65 个回应辖区（含 BIS 与欧盟层级机构），比较战略、数据、基础设施、人才和 AI 项目阶段，并与 2024 年调查作方向性对照。",
+      "scopeNote": "为机构自报调查，成熟度定义和项目分类可能不同；回应机构构成较 2024 年略有变化，报告认为影响不大，但跨年比较仍非严格面板。",
+      "publishedAt": "2026-10-28T00:00:00Z",
+      "relatedReportIds": [
+        "authority-oecd-ai-privacy-control-2026",
+        "authority-oecd-agentic-competition-2026"
+      ],
+      "kind": "url",
+      "ingestedAt": "2026-11-19T20:00:00+08:00",
+      "createdAt": "2026-10-28T00:00:00Z",
+      "updatedAt": "2026-10-28T00:00:00Z",
+      "featured": true,
+      "featuredRank": -31,
+      "archived": false,
+      "studioId": "",
+      "origin": "industry",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-worldbank-eap-ai-wave-2026",
+      "title": "世界银行《东亚与太平洋经济更新：乘上 AI 浪潮》｜多数经济体的近路是采用与适配，而非自建前沿模型",
+      "url": "https://www.worldbank.org/en/publication/east-asia-and-pacific-economic-update",
+      "downloadUrl": "https://thedocs.worldbank.org/en/doc/d8eea349d4dd72bf141c42beb3b2b129-0070062026/original/EAPEU-Oct-2026.pdf",
+      "embedUrl": "https://thedocs.worldbank.org/en/doc/d8eea349d4dd72bf141c42beb3b2b129-0070062026/original/EAPEU-Oct-2026.pdf",
+      "embedType": "pdf",
+      "body": "【中文剖析】世界银行把东亚与太平洋的 AI 机会放进增长、贸易、技能与创新体系中观察。地区 AI 使用在上升，但整体仍低于高收入经济体；企业招聘更需要 AI 与数学、批判性思维、沟通等组合技能。对多数经济体，短期最有效的路线不是训练前沿模型，而是采用、适配和扩散现有技术，并由政府同时承担推动者、使用者和监管者角色。",
+      "category": "行业全景",
+      "tags": [
+        "世界银行",
+        "东亚太平洋",
+        "AI采用",
+        "技能",
+        "发展"
+      ],
+      "source": "World Bank East Asia and Pacific",
+      "authority": "世界银行地区经济更新专题报告",
+      "methodology": "结合地区宏观预测、企业与劳动力市场指标、专利和创新数据、案例及政策分析，比较东亚太平洋经济体的 AI 采用与能力基础。",
+      "scopeNote": "官方页面标注为 2026 年 10 月，本库以月初作为排序日期，不代表精确发布日；地区指标来自不同数据源与年份，不是单一统一企业采用调查。",
+      "publishedAt": "2026-10-01T00:00:00Z",
+      "relatedReportIds": [
+        "authority-bcg-ai-maturity-matrix-2026",
+        "authority-ilo-ai-developing-economies-2026",
+        "authority-worldbank-eca-ai-work-2026"
+      ],
+      "kind": "url",
+      "ingestedAt": "2026-11-19T20:00:00+08:00",
+      "createdAt": "2026-10-01T00:00:00Z",
+      "updatedAt": "2026-10-01T00:00:00Z",
+      "featured": true,
+      "featuredRank": -30,
+      "archived": false,
+      "studioId": "",
+      "origin": "industry",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-worldbank-eca-ai-work-2026",
+      "title": "世界银行《欧洲与中亚经济更新：让 AI 发挥作用》｜五分之一劳动者暴露，但企业采用仍不足一成",
+      "url": "https://www.worldbank.org/en/region/eca/publication/europe-and-central-asia-economic-update",
+      "downloadUrl": "https://www.worldbank.org/en/region/eca/publication/europe-and-central-asia-economic-update",
+      "embedUrl": "https://www.worldbank.org/en/region/eca/publication/europe-and-central-asia-economic-update",
+      "embedType": "web",
+      "body": "【中文剖析】世界银行估计，欧洲与中亚发展中经济体约五分之一劳动者对 AI 有显著暴露，但使用 AI 的企业不足一成，约为欧盟水平的一半；数据中心容量仅每百万人 2.1MW，高收入区外对照为 31.6MW。AI 岗位需求已接近四倍增长，却尚未观察到广泛生产率效果。地区面临的不是缺少认知，而是基础设施、企业扩散、技能与管理实践之间的断层。",
+      "category": "行业全景",
+      "tags": [
+        "世界银行",
+        "欧洲中亚",
+        "企业采用",
+        "就业暴露",
+        "数据中心"
+      ],
+      "source": "World Bank Europe and Central Asia",
+      "authority": "世界银行地区经济更新与 AI 专题",
+      "methodology": "综合地区企业调查、劳动岗位与招聘数据、数字基础设施指标和宏观经济分析，评估 AI 暴露、采用与增长约束。",
+      "scopeNote": "地区范围是世界银行定义的欧洲与中亚发展中经济体，不等同全欧洲；‘暴露’不等于岗位替代，企业采用与基础设施指标的年份和样本可能不同。",
+      "publishedAt": "2026-10-06T00:00:00Z",
+      "relatedReportIds": [
+        "authority-worldbank-eap-ai-wave-2026",
+        "authority-pwc-workforce-hopes-fears-2026",
+        "authority-anthropic-robot-work-2026"
+      ],
+      "kind": "url",
+      "ingestedAt": "2026-11-19T20:00:00+08:00",
+      "createdAt": "2026-10-06T00:00:00Z",
+      "updatedAt": "2026-10-06T00:00:00Z",
+      "featured": true,
+      "featuredRank": -29,
+      "archived": false,
+      "studioId": "",
+      "origin": "industry",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-oecd-ai-privacy-control-2026",
+      "title": "OECD《AI 时代增强用户控制与隐私保护》｜数据需求增长不意味着规模可以取代质量与权利",
+      "url": "https://www.oecd.org/en/publications/enhancing-user-control-and-privacy-protections-in-the-context-of-ai_e0bd9a46-en/full-report.html",
+      "downloadUrl": "https://www.oecd.org/en/publications/enhancing-user-control-and-privacy-protections-in-the-context-of-ai_e0bd9a46-en/full-report.html",
+      "embedUrl": "https://www.oecd.org/en/publications/enhancing-user-control-and-privacy-protections-in-the-context-of-ai_e0bd9a46-en/full-report.html",
+      "embedType": "web",
+      "body": "【中文剖析】OECD 讨论训练数据需求、用户控制与隐私保护如何兼容。报告引用研究称，自 2010 年以来训练数据量年均增长约 2.6 倍，而公开人类文本增长正在放缓，数据可能成为瓶颈。但政策含义不是放松权利：合法收集、目的限制、用户控制和知识产权可以提升数据质量与信任。模型性能也不只由规模决定，质量、多样性、许可与可追溯性同样关键。",
+      "category": "安全与治理",
+      "tags": [
+        "OECD",
+        "隐私",
+        "用户控制",
+        "训练数据",
+        "数据治理"
+      ],
+      "source": "OECD",
+      "authority": "OECD AI 与隐私政策简报",
+      "methodology": "综合 AI 训练数据规模研究、隐私与数据治理框架、政策案例和 OECD 原则，分析数据访问、用户控制、知识产权与创新之间的关系。",
+      "scopeNote": "2.6 倍年增长来自报告引用的外部研究，不是 OECD 新测量；政策简报仅 15 页，以概念与政策综合为主，不能推导具体模型的数据需求或法律结论。",
+      "publishedAt": "2026-10-15T00:00:00Z",
+      "relatedReportIds": [
+        "authority-oecd-agentic-competition-2026",
+        "authority-bis-central-bank-ai-readiness-2026",
+        "authority-anthropic-judgment-calls-2026"
+      ],
+      "kind": "url",
+      "ingestedAt": "2026-11-19T20:00:00+08:00",
+      "createdAt": "2026-10-15T00:00:00Z",
+      "updatedAt": "2026-10-15T00:00:00Z",
+      "featured": true,
+      "featuredRank": -28,
+      "archived": false,
+      "studioId": "",
+      "origin": "industry",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-imf-weo-ai-jcurve-2026",
+      "title": "IMF《世界经济展望 2026 年 10 月》AI 专题｜微观效率收益已出现，宏观生产率仍处于 J 曲线前段",
+      "url": "https://www.imf.org/en/Publications/WEO/Issues/2026/10/13/world-economic-outlook-october-2026",
+      "downloadUrl": "https://www.imf.org/-/media/files/publications/weo/2026/october/english/text.pdf",
+      "embedUrl": "https://www.imf.org/-/media/files/publications/weo/2026/october/english/text.pdf",
+      "embedType": "pdf",
+      "body": "【中文剖析】IMF 将 AI 同时视为短期投资需求冲击与潜在长期供给冲击。微观研究中，客服生产率提高约 14%—15%，新手约 30%—35%，软件产出约 26%；但另有经验丰富的开源开发者生产率下降 19% 的研究。宏观工资、工时、就业和生产率数据目前仍缺少广泛效果，符合新通用技术需要培训、流程重构和无形资本投入后才释放收益的生产率 J 曲线。AI 投资繁荣也可能通过估值和融资条件放大周期风险。",
+      "category": "行业全景",
+      "tags": [
+        "IMF",
+        "世界经济展望",
+        "生产率",
+        "J曲线",
+        "宏观经济"
+      ],
+      "source": "International Monetary Fund",
+      "authority": "IMF World Economic Outlook 2026 年 10 月版 AI 宏观专题",
+      "methodology": "将宏观模型与投资情景、劳动力和生产率数据、市场金融条件，以及多项已发表或工作论文的微观 AI 实验和管理数据研究结合。",
+      "scopeNote": "客服、编程等百分比来自 IMF 引用的外部微观研究，样本、工具与任务不同，不能加总或外推为全经济生产率；WEO 是宏观综合报告，不是单一 AI 因果实验。",
+      "publishedAt": "2026-10-13T00:00:00Z",
+      "relatedReportIds": [
+        "authority-bcg-ai-infrastructure-bill-2026",
+        "authority-pwc-workforce-hopes-fears-2026",
+        "authority-worldbank-eca-ai-work-2026"
+      ],
+      "kind": "url",
+      "ingestedAt": "2026-11-19T20:00:00+08:00",
+      "createdAt": "2026-10-13T00:00:00Z",
+      "updatedAt": "2026-10-13T00:00:00Z",
+      "featured": true,
+      "featuredRank": -27,
+      "archived": false,
+      "studioId": "",
+      "origin": "industry",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
     {
       "id": "authority-openai-research-acceleration-jagged-2026",
       "title": "OpenAI《Research acceleration: The jagged frontier》｜Agent 已能独立完成近半数中短研发任务，但能力仍高度锯齿化",
@@ -38,6 +579,8 @@
         "authority-openai-frontier-misalignment-monitoring-2026",
         "authority-openai-linux-root-2026"
       ],
+      "embedUrl": "https://openai.com/index/research-acceleration-jagged-frontier/",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -78,6 +621,8 @@
         "authority-google-alphaproof-code-2026",
         "authority-openai-linux-root-2026"
       ],
+      "embedUrl": "https://openai.com/index/advancing-chip-design-with-our-models/",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -118,6 +663,8 @@
         "authority-openai-scientific-discoveries-2026",
         "authority-google-alphagenome-2-2026"
       ],
+      "embedUrl": "https://cdn.openai.com/pdf/0e4b2466-0be0-4326-8bf7-117d809e14d2/Science%20at%20the%20Frontier.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -158,6 +705,8 @@
         "authority-microsoft-idc-ai-value-2026",
         "authority-openai-frontier-misalignment-monitoring-2026"
       ],
+      "embedUrl": "https://storage.googleapis.com/deepmind-media/Model-Cards/Gemini-4-Hydrogen-Model-Card.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -198,6 +747,8 @@
         "authority-openai-scientific-discoveries-2026",
         "authority-anthropic-scientific-discovery-2026"
       ],
+      "embedUrl": "https://storage.googleapis.com/deepmind-media/DeepMind.com/Blog/alphagenome-2-deciphering-how-cells-read-dna-to-better-understand-disease/alphagenome-2.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -238,6 +789,8 @@
         "authority-menlo-enterprise-ai-2026",
         "authority-google-workspace-ai-ambition-gap-2026"
       ],
+      "embedUrl": "https://marketingassets.microsoft.com/adobe/assets/urn:aaid:aem:97a4ed1e-ca4c-4b1a-93c4-9ca54e5cb426/original/as/Infographic-The-Real-Business-Value-of-AI.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -278,6 +831,8 @@
         "authority-openai-linux-root-2026",
         "authority-anthropic-flashprove-2026"
       ],
+      "embedUrl": "https://deepmind.google/documents/36/Formal_Verification_of_Signal_4.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -318,6 +873,8 @@
         "authority-anthropic-employment-2026",
         "authority-google-workspace-ai-ambition-gap-2026"
       ],
+      "embedUrl": "https://cdn.openai.com/pdf/openai-upwork-full-report.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -358,6 +915,8 @@
         "authority-openai-frontier-misalignment-monitoring-2026",
         "authority-uk-aisi-alignment-incident-2026"
       ],
+      "embedUrl": "https://deploymentsafety.openai.com/gpt-6-cyber/gpt-6-cyber.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -398,6 +957,8 @@
         "authority-openai-frontier-misalignment-monitoring-2026",
         "authority-linux-foundation-genai-oss-2026"
       ],
+      "embedUrl": "https://openai.com/index/a-thousand-fewer-paths-to-root/",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -438,6 +999,8 @@
         "authority-mckinsey-state-ai-2026",
         "authority-google-workspace-ai-ambition-gap-2026"
       ],
+      "embedUrl": "https://content.tdsynnex.com/dot/",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -478,6 +1041,8 @@
         "authority-mckinsey-state-ai-2026",
         "authority-openai-enterprise-2025"
       ],
+      "embedUrl": "https://menlovc.com/wp-content/uploads/2026/11/menlo_ventures_enterprise_ai_report-2026-110326.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -518,6 +1083,8 @@
         "authority-stanford-human-ai-collaboration-2026",
         "authority-anthropic-cadences-2026"
       ],
+      "embedUrl": "https://services.google.com/fh/files/misc/ai_in_education_report_nov26.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -558,6 +1125,8 @@
         "authority-openai-frontier-misalignment-monitoring-2026",
         "authority-google-gemini-4-carbon-2026"
       ],
+      "embedUrl": "https://assets.claude.com/8e1d181a83015078581c92d896757041713f0160.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -598,6 +1167,8 @@
         "authority-stanford-medical-ai-workflows-2026",
         "authority-openai-europe-agentic-opportunity-2026"
       ],
+      "embedUrl": "https://openai.com/index/lifeval/",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -639,6 +1210,8 @@
         "authority-microsoft-wti-2026",
         "authority-pwc-jobs-2026"
       ],
+      "embedUrl": "https://cdn.openai.com/signals/data-dictionary.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -680,6 +1253,8 @@
         "authority-anthropic-unintended-actions-2026",
         "authority-anthropic-independent-evaluators-2026"
       ],
+      "embedUrl": "https://openai.com/index/how-we-detect-frontier-model-misalignment/",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -721,6 +1296,8 @@
         "authority-international-ai-safety-2026",
         "authority-anthropic-agent-scale-source-control-2026"
       ],
+      "embedUrl": "https://storage.googleapis.com/deepmind-media/gemini/gemini_4_safety_report.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -761,6 +1338,8 @@
         "authority-anthropic-agent-scale-source-control-2026",
         "authority-stanford-ai-index-2026"
       ],
+      "embedUrl": "https://github.com/openai/math",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -802,6 +1381,8 @@
         "authority-anthropic-independent-evaluators-2026",
         "authority-anthropic-self-replicating-ai-2026"
       ],
+      "embedUrl": "https://cdn.prod.website-files.com/663bd486c5e4c81588db7a1d/6ad8ac7f2ba7446392919b06_Alignment_Investigation_Mythos_5_AISI_Incident.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -843,6 +1424,8 @@
         "authority-ons-uk-business-ai-adoption-2026",
         "authority-imf-ai-financial-stability-2026"
       ],
+      "embedUrl": "https://documents.worldbank.org/curated/en/099090426145520570/pdf/P512385-e172c7e3-217d-489e-a2c0-d8d0b2eedcfa.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -883,6 +1466,8 @@
         "authority-anthropic-agent-scale-source-control-2026",
         "authority-anthropic-employment-2026"
       ],
+      "embedUrl": "https://www.linuxfoundation.org/hubfs/Research%20Reports/Navigating-Open-Source-Software-Development-in-the-Generative-AI-Era.pdf?hsLang=en",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -919,6 +1504,8 @@
       "featuredRank": 6,
       "archived": false,
       "relatedReportIds": [],
+      "embedUrl": "https://hai.stanford.edu/assets/files/ai_index_report_2026.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -954,6 +1541,8 @@
       "featuredRank": 2,
       "archived": false,
       "relatedReportIds": [],
+      "embedUrl": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -989,6 +1578,8 @@
       "featuredRank": 5,
       "archived": false,
       "relatedReportIds": [],
+      "embedUrl": "https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1024,6 +1615,8 @@
       "featuredRank": 3,
       "archived": false,
       "relatedReportIds": [],
+      "embedUrl": "https://www.anthropic.com/research/economic-index-june-2026-report",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1059,6 +1652,8 @@
       "featuredRank": 1,
       "archived": false,
       "relatedReportIds": [],
+      "embedUrl": "https://menlovc.com/perspective/2026-the-state-of-consumer-ai/",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1095,6 +1690,8 @@
       "featuredRank": 4,
       "archived": false,
       "relatedReportIds": [],
+      "embedUrl": "https://www.pwc.com/gx/en/issues/artificial-intelligence/job-barometer/2026/2026-global-ai-jobs-barometer-full-report.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1131,6 +1728,8 @@
       "featuredRank": 8,
       "archived": false,
       "relatedReportIds": [],
+      "embedUrl": "https://internationalaisafetyreport.org/sites/default/files/2026-02/international-ai-safety-report-2026.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1166,6 +1765,8 @@
       "featuredRank": 7,
       "archived": false,
       "relatedReportIds": [],
+      "embedUrl": "https://www3.cnnic.cn/n4/2026/0304/c88-11549.html",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1201,6 +1802,8 @@
       "featuredRank": 9,
       "archived": false,
       "relatedReportIds": [],
+      "embedUrl": "https://openai.com/business/guides-and-resources/the-state-of-enterprise-ai-2025-report/",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1236,6 +1839,8 @@
       "featuredRank": 10,
       "archived": false,
       "relatedReportIds": [],
+      "embedUrl": "https://menlovc.com/perspective/2025-the-state-of-generative-ai-in-the-enterprise/",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1273,6 +1878,8 @@
       "relatedReportIds": [
         "authority-international-ai-safety-2026"
       ],
+      "embedUrl": "https://www.anthropic.com/news/investigating-unintended-model-actions",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1313,6 +1920,8 @@
         "authority-mckinsey-state-ai-2026",
         "authority-anthropic-unintended-actions-2026"
       ],
+      "embedUrl": "https://www.stateof.ai/State-of-AI-Report-2026.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1353,6 +1962,8 @@
         "authority-openai-enterprise-2025",
         "authority-mckinsey-state-ai-2026"
       ],
+      "embedUrl": "https://pdfs.assets.alphaxiv.org/2608.human-ai-collaboration-at-scalev1.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1391,6 +2002,8 @@
         "authority-anthropic-unintended-actions-2026",
         "authority-international-ai-safety-2026"
       ],
+      "embedUrl": "https://www.anthropic.com/research/self-replicating-ai",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1431,6 +2044,8 @@
         "authority-mckinsey-state-ai-2026",
         "authority-microsoft-wti-2026"
       ],
+      "embedUrl": "https://cdn.openai.com/pdf/europes-agentic-opportunity.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1471,6 +2086,8 @@
         "authority-openai-enterprise-2025",
         "authority-anthropic-unintended-actions-2026"
       ],
+      "embedUrl": "https://www.anthropic.com/engineering/redesigning-source-control",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1510,6 +2127,8 @@
         "authority-anthropic-unintended-actions-2026",
         "authority-anthropic-self-replicating-ai-2026"
       ],
+      "embedUrl": "https://www.anthropic.com/news/an-update-on-independent-evaluators",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1551,6 +2170,8 @@
         "authority-microsoft-wti-2026",
         "authority-pwc-jobs-2026"
       ],
+      "embedUrl": "https://www-cdn.anthropic.com/a28f24814c56e2834a3eae7b13946f19d3e97ec4/The%20AI%20Expectations%20Gap.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1593,6 +2214,8 @@
         "authority-pwc-jobs-2026",
         "authority-stanford-human-ai-collaboration-2026"
       ],
+      "embedUrl": "https://www-cdn.anthropic.com/72628f1863c53432195db83279252dfd2cb53158/Employment%20at%20Anthropic.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1634,6 +2257,8 @@
         "authority-mckinsey-state-ai-2026",
         "authority-anthropic-ai-expectations-gap-2026"
       ],
+      "embedUrl": "https://www.imf.org/-/media/files/publications/gfsr/2026/october/english/ch1.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1674,6 +2299,8 @@
         "authority-pwc-jobs-2026",
         "authority-anthropic-employment-2026"
       ],
+      "embedUrl": "https://www.ons.gov.uk/businessindustryandtrade/business/businessservices/bulletins/businessinsightsandimpactontheukeconomy/8october2026",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1714,6 +2341,8 @@
         "authority-openai-enterprise-2025",
         "authority-state-of-ai-report-2026"
       ],
+      "embedUrl": "https://openai.com/index/low-resource-programming-languages/",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1754,6 +2383,8 @@
         "authority-anthropic-self-replicating-ai-2026",
         "authority-international-ai-safety-2026"
       ],
+      "embedUrl": "https://hai.stanford.edu/news/measuring-what-medical-ai-can-actually-do",
+      "embedType": "web",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1795,6 +2426,8 @@
         "authority-openai-enterprise-2025",
         "authority-anthropic-ai-expectations-gap-2026"
       ],
+      "embedUrl": "https://services.google.com/fh/files/misc/closing_the_ambition_gap_2026.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1836,6 +2469,8 @@
         "authority-stanford-ai-index-2026",
         "authority-google-workspace-ai-ambition-gap-2026"
       ],
+      "embedUrl": "https://www-cdn.anthropic.com/6e7c6446c0d8405dba73b91dabd36aac069dea2e/AI-for-Scientific-Discovery.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1877,6 +2512,8 @@
         "authority-menlo-enterprise-ai-2026",
         "authority-stanford-ai-index-2026"
       ],
+      "embedUrl": "https://ipo.anthropic.com/documents/us/factsheet.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1918,6 +2555,8 @@
         "authority-anthropic-scientific-discovery-2026",
         "authority-openai-gpt6-cyber-2026"
       ],
+      "embedUrl": "https://ai100.stanford.edu/sites/g/files/sbiybj36086/files/media/file/ai100_report_2026.pdf",
+      "embedType": "pdf",
       "studioId": "",
       "origin": "industry",
       "extractionError": "",
@@ -1926,6 +2565,1617 @@
     }
   ],
   "cards": [
+    {
+      "id": "authority-card-oecd-deso-2026-01",
+      "reportId": "authority-oecd-deso-2026",
+      "type": "metric",
+      "label": "企业采用",
+      "title": "2025 年约 20% 企业使用 AI，大型企业达到 52%",
+      "summary": "大型企业采用率超过总体两倍，规模仍是 AI 能力扩散的关键分界。",
+      "metric": "20% / 52%",
+      "quote": "one in five firms",
+      "translation": "五家企业中约有一家。",
+      "anchor": "OECD DESO 2026 · AI adoption by firms · 2025",
+      "tags": [
+        "企业采用",
+        "规模差距"
+      ],
+      "createdAt": "2026-11-05T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-oecd-deso-2026-02",
+        "authority-card-oecd-deso-2026-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-oecd-deso-2026-02",
+      "reportId": "authority-oecd-deso-2026",
+      "type": "metric",
+      "label": "代际鸿沟",
+      "title": "生成式 AI 使用率：16—24 岁 68%，55—74 岁 14%",
+      "summary": "年龄差距不是单纯接入问题：高龄群体还报告无需求、技能不足和不了解。",
+      "metric": "68% / 14%",
+      "quote": "large age gap",
+      "translation": "显著的年龄差距。",
+      "anchor": "OECD DESO 2026 · Individuals and generative AI · 2025",
+      "tags": [
+        "GenAI",
+        "年龄"
+      ],
+      "createdAt": "2026-11-05T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-oecd-deso-2026-03",
+        "authority-card-oecd-deso-2026-01"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-oecd-deso-2026-03",
+      "reportId": "authority-oecd-deso-2026",
+      "type": "metric",
+      "label": "资本集中",
+      "title": "AI 基础设施与托管风投一年从 545 亿美元升至 1,239 亿美元",
+      "summary": "资本快速转向算力、数据中心与托管层，基础设施成为 AI 产业的资金吸收中心。",
+      "metric": "$54.5B→$123.9B",
+      "quote": "almost half",
+      "translation": "接近一半。",
+      "anchor": "OECD DESO 2026 · AI venture capital · 2024–2025",
+      "tags": [
+        "风投",
+        "基础设施"
+      ],
+      "createdAt": "2026-11-05T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-oecd-deso-2026-04",
+        "authority-card-oecd-deso-2026-02"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-oecd-deso-2026-04",
+      "reportId": "authority-oecd-deso-2026",
+      "type": "insight",
+      "label": "政策重心",
+      "title": "AI 成为 2025 年数字政策中被提及最多的技术",
+      "summary": "各国数字政策已经从连接性与平台治理进一步转向 AI 能力、风险与竞争力。",
+      "metric": "政策首位",
+      "quote": "most cited technology",
+      "translation": "被提及最多的技术。",
+      "anchor": "OECD DESO 2026 · Digital policy priorities · 2025",
+      "tags": [
+        "政策",
+        "治理"
+      ],
+      "createdAt": "2026-11-05T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-oecd-deso-2026-05",
+        "authority-card-oecd-deso-2026-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-oecd-deso-2026-05",
+      "reportId": "authority-oecd-deso-2026",
+      "type": "risk",
+      "label": "口径提醒",
+      "title": "使用率上升不能直接推出生产率提升",
+      "summary": "企业调查记录是否使用，不足以识别使用深度、组织变革或生产率的因果效果。",
+      "metric": "采用≠成效",
+      "quote": "adoption varies widely",
+      "translation": "采用情况差异很大。",
+      "anchor": "OECD DESO 2026 · Methodological notes",
+      "tags": [
+        "证据边界",
+        "生产率"
+      ],
+      "createdAt": "2026-11-05T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-oecd-deso-2026-01",
+        "authority-card-oecd-deso-2026-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-metr-anthropic-rd-acceleration-2026-01",
+      "reportId": "authority-metr-anthropic-rd-acceleration-2026",
+      "type": "metric",
+      "label": "加速估计",
+      "title": "AECI 增长速度约为此前 1.9 倍",
+      "summary": "区间估计为 1.5—2.8 倍，约等于一年取得过去两年的进展，但不是全行业因果估计。",
+      "metric": "1.9×",
+      "quote": "1.9 times",
+      "translation": "约 1.9 倍。",
+      "anchor": "METR assessment · AECI growth · Oct 2025–Oct 2026",
+      "tags": [
+        "AECI",
+        "研发加速"
+      ],
+      "createdAt": "2026-11-05T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-metr-anthropic-rd-acceleration-2026-02",
+        "authority-card-metr-anthropic-rd-acceleration-2026-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-metr-anthropic-rd-acceleration-2026-02",
+      "reportId": "authority-metr-anthropic-rd-acceleration-2026",
+      "type": "insight",
+      "label": "机制判断",
+      "title": "加速更像广泛 AI 辅助，而非完全自治研究",
+      "summary": "员工访谈和内部证据与显著加速相容，但研究人员仍承担问题定义、判断与验证。",
+      "metric": "约翻倍",
+      "quote": "mostly AI assistance",
+      "translation": "主要来自 AI 辅助。",
+      "anchor": "METR assessment · Staff evidence and interviews",
+      "tags": [
+        "人机协作",
+        "研究"
+      ],
+      "createdAt": "2026-11-05T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-metr-anthropic-rd-acceleration-2026-03",
+        "authority-card-metr-anthropic-rd-acceleration-2026-01"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-metr-anthropic-rd-acceleration-2026-03",
+      "reportId": "authority-metr-anthropic-rd-acceleration-2026",
+      "type": "risk",
+      "label": "排除因素",
+      "title": "METR 对训练算力扩张解释加速持否定判断",
+      "summary": "报告认为观察到的变化不能简单归因于更快的训练算力扩张，但没有完成全部算力配置核验。",
+      "metric": "非算力单因",
+      "quote": "not compute scaling",
+      "translation": "不是训练算力扩张所致。",
+      "anchor": "METR assessment · Training compute analysis",
+      "tags": [
+        "训练算力",
+        "机制"
+      ],
+      "createdAt": "2026-11-05T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-metr-anthropic-rd-acceleration-2026-04",
+        "authority-card-metr-anthropic-rd-acceleration-2026-02"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-metr-anthropic-rd-acceleration-2026-04",
+      "reportId": "authority-metr-anthropic-rd-acceleration-2026",
+      "type": "risk",
+      "label": "独立性边界",
+      "title": "Anthropic 拥有单方面删节权，部分关键发现被隐藏",
+      "summary": "高访问不等于完全访问；删节、拒绝数据和取消核验都降低外部可重复性。",
+      "metric": "有限审计",
+      "quote": "redaction rights",
+      "translation": "删节权。",
+      "anchor": "METR assessment · Limitations and redactions",
+      "tags": [
+        "审计",
+        "透明度"
+      ],
+      "createdAt": "2026-11-05T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-metr-anthropic-rd-acceleration-2026-05",
+        "authority-card-metr-anthropic-rd-acceleration-2026-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-metr-anthropic-rd-acceleration-2026-05",
+      "reportId": "authority-metr-anthropic-rd-acceleration-2026",
+      "type": "action",
+      "label": "治理启示",
+      "title": "前沿实验室评估需要预先约定数据访问与公开边界",
+      "summary": "行业应把不可删节指标、模型抽样、算力核验和发表自主权写入独立评估协议。",
+      "metric": "访问协议",
+      "quote": "high-access evaluation",
+      "translation": "高访问级别评估。",
+      "anchor": "METR assessment · Evaluation design",
+      "tags": [
+        "外部评估",
+        "治理"
+      ],
+      "createdAt": "2026-11-05T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-metr-anthropic-rd-acceleration-2026-01",
+        "authority-card-metr-anthropic-rd-acceleration-2026-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-pwc-workforce-hopes-fears-2026-01",
+      "reportId": "authority-pwc-workforce-hopes-fears-2026",
+      "type": "metric",
+      "label": "总体扩散",
+      "title": "64% 的员工过去一年在工作中使用过 AI",
+      "summary": "同比提高 10 个百分点，AI 已从少数试用走向多数接触。",
+      "metric": "64%",
+      "quote": "used AI at work",
+      "translation": "在工作中使用过 AI。",
+      "anchor": "PwC Hopes and Fears 2026 · Global survey · May–Jun 2026",
+      "tags": [
+        "员工",
+        "采用"
+      ],
+      "createdAt": "2026-09-29T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-pwc-workforce-hopes-fears-2026-02",
+        "authority-card-pwc-workforce-hopes-fears-2026-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-pwc-workforce-hopes-fears-2026-02",
+      "reportId": "authority-pwc-workforce-hopes-fears-2026",
+      "type": "metric",
+      "label": "高频使用",
+      "title": "生成式 AI 每日使用率从 14% 升至 22%",
+      "summary": "高频用户仍不足四分之一，说明‘接触’与嵌入日常工作之间仍有距离。",
+      "metric": "14%→22%",
+      "quote": "daily use",
+      "translation": "每日使用。",
+      "anchor": "PwC Hopes and Fears 2026 · GenAI frequency",
+      "tags": [
+        "GenAI",
+        "每日使用"
+      ],
+      "createdAt": "2026-09-29T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-pwc-workforce-hopes-fears-2026-03",
+        "authority-card-pwc-workforce-hopes-fears-2026-01"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-pwc-workforce-hopes-fears-2026-03",
+      "reportId": "authority-pwc-workforce-hopes-fears-2026",
+      "type": "risk",
+      "label": "组织鸿沟",
+      "title": "前沿员工每日使用率 51%，核心员工仅 11%",
+      "summary": "核心员工占劳动者多数，却最可能被挡在工具、培训和流程重构之外。",
+      "metric": "51% / 11%",
+      "quote": "front-runners",
+      "translation": "前沿员工。",
+      "anchor": "PwC Hopes and Fears 2026 · Workforce segments",
+      "tags": [
+        "组织分化",
+        "技能"
+      ],
+      "createdAt": "2026-09-29T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-pwc-workforce-hopes-fears-2026-04",
+        "authority-card-pwc-workforce-hopes-fears-2026-02"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-pwc-workforce-hopes-fears-2026-04",
+      "reportId": "authority-pwc-workforce-hopes-fears-2026",
+      "type": "risk",
+      "label": "学习退潮",
+      "title": "可获得学习资源的员工比例从 59% 降至 51%",
+      "summary": "在技术变化加快时学习支持反而下降，会放大采用鸿沟。",
+      "metric": "59%→51%",
+      "quote": "access to learning",
+      "translation": "获得学习机会。",
+      "anchor": "PwC Hopes and Fears 2026 · Learning access",
+      "tags": [
+        "培训",
+        "学习"
+      ],
+      "createdAt": "2026-09-29T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-pwc-workforce-hopes-fears-2026-05",
+        "authority-card-pwc-workforce-hopes-fears-2026-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-pwc-workforce-hopes-fears-2026-05",
+      "reportId": "authority-pwc-workforce-hopes-fears-2026",
+      "type": "insight",
+      "label": "信心关联",
+      "title": "每日用户中 68% 对就业安全高度有信心",
+      "summary": "这是相关性而非因果；更强岗位、更好支持或更高自主性可能同时推动使用与信心。",
+      "metric": "68%",
+      "quote": "confident in job security",
+      "translation": "对就业安全有信心。",
+      "anchor": "PwC Hopes and Fears 2026 · Daily users",
+      "tags": [
+        "就业信心",
+        "证据边界"
+      ],
+      "createdAt": "2026-09-29T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-pwc-workforce-hopes-fears-2026-01",
+        "authority-card-pwc-workforce-hopes-fears-2026-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-bcg-ai-infrastructure-bill-2026-01",
+      "reportId": "authority-bcg-ai-infrastructure-bill-2026",
+      "type": "metric",
+      "label": "回本门槛",
+      "title": "2030 年终端 AI 年支出需达到约 2.6 万亿美元",
+      "summary": "这是经济性要求而非市场预测，用于检验当前基础设施投资能否被终端需求吸收。",
+      "metric": "$2.6T",
+      "quote": "annual end-market spending",
+      "translation": "终端市场年度支出。",
+      "anchor": "BCG · AI infrastructure bill · 2030 scenario",
+      "tags": [
+        "支出",
+        "2030"
+      ],
+      "createdAt": "2026-10-29T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-bcg-ai-infrastructure-bill-2026-02",
+        "authority-card-bcg-ai-infrastructure-bill-2026-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-bcg-ai-infrastructure-bill-2026-02",
+      "reportId": "authority-bcg-ai-infrastructure-bill-2026",
+      "type": "metric",
+      "label": "企业买单",
+      "title": "企业需贡献约 1.8 万亿美元，占最大份额",
+      "summary": "基础设施回报的核心不是消费者订阅，而是企业流程、产品和服务中的规模化价值。",
+      "metric": "$1.8T",
+      "quote": "enterprise spending",
+      "translation": "企业支出。",
+      "anchor": "BCG · End-market payer split · 2030",
+      "tags": [
+        "企业",
+        "商业化"
+      ],
+      "createdAt": "2026-10-29T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-bcg-ai-infrastructure-bill-2026-03",
+        "authority-card-bcg-ai-infrastructure-bill-2026-01"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-bcg-ai-infrastructure-bill-2026-03",
+      "reportId": "authority-bcg-ai-infrastructure-bill-2026",
+      "type": "metric",
+      "label": "消费者",
+      "title": "消费者支出假设约 3,660 亿美元",
+      "summary": "个人订阅与使用收费重要，但不足以独自支撑基础设施账单。",
+      "metric": "$366B",
+      "quote": "consumer spending",
+      "translation": "消费者支出。",
+      "anchor": "BCG · End-market payer split · 2030",
+      "tags": [
+        "消费者",
+        "订阅"
+      ],
+      "createdAt": "2026-10-29T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-bcg-ai-infrastructure-bill-2026-04",
+        "authority-card-bcg-ai-infrastructure-bill-2026-02"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-bcg-ai-infrastructure-bill-2026-04",
+      "reportId": "authority-bcg-ai-infrastructure-bill-2026",
+      "type": "metric",
+      "label": "内部需求",
+      "title": "超大规模云厂商内部使用约 2,040 亿美元",
+      "summary": "部分算力回报来自平台内部产品和效率，而非外部模型 API 收入。",
+      "metric": "$204B",
+      "quote": "internal use",
+      "translation": "内部使用。",
+      "anchor": "BCG · Hyperscaler internal demand · 2030",
+      "tags": [
+        "Hyperscaler",
+        "内部使用"
+      ],
+      "createdAt": "2026-10-29T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-bcg-ai-infrastructure-bill-2026-05",
+        "authority-card-bcg-ai-infrastructure-bill-2026-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-bcg-ai-infrastructure-bill-2026-05",
+      "reportId": "authority-bcg-ai-infrastructure-bill-2026",
+      "type": "risk",
+      "label": "情景边界",
+      "title": "模型依赖利用率、价格、资本成本和利润率假设",
+      "summary": "任何一项假设变化都会显著改变终端收入门槛，不能把单一数字当作确定市场规模。",
+      "metric": "非预测",
+      "quote": "not a forecast",
+      "translation": "不是预测。",
+      "anchor": "BCG · Methodology and assumptions",
+      "tags": [
+        "情景模型",
+        "局限"
+      ],
+      "createdAt": "2026-10-29T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-bcg-ai-infrastructure-bill-2026-01",
+        "authority-card-bcg-ai-infrastructure-bill-2026-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-anthropic-judgment-calls-2026-01",
+      "reportId": "authority-anthropic-judgment-calls-2026",
+      "type": "metric",
+      "label": "倾向传导",
+      "title": "四个决策节点与 Agent 隐含倾向合并一致率达 86%",
+      "summary": "倾向性线索不仅影响措辞，还系统性进入中间判断。",
+      "metric": "86%",
+      "quote": "matched the lean",
+      "translation": "与倾向一致。",
+      "anchor": "Anthropic · Judgment calls RCT · Four decisions",
+      "tags": [
+        "偏见",
+        "判断"
+      ],
+      "createdAt": "2026-10-27T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-anthropic-judgment-calls-2026-02",
+        "authority-card-anthropic-judgment-calls-2026-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-anthropic-judgment-calls-2026-02",
+      "reportId": "authority-anthropic-judgment-calls-2026",
+      "type": "metric",
+      "label": "节点差异",
+      "title": "四个节点一致率分别为 92%、82%、81%、90%",
+      "summary": "偏好传导跨越不同分析步骤，表明问题不是单一输出节点。",
+      "metric": "92/82/81/90%",
+      "quote": "across decisions",
+      "translation": "跨多个决策。",
+      "anchor": "Anthropic · Decision-level results",
+      "tags": [
+        "决策链",
+        "Agent"
+      ],
+      "createdAt": "2026-10-27T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-anthropic-judgment-calls-2026-03",
+        "authority-card-anthropic-judgment-calls-2026-01"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-anthropic-judgment-calls-2026-03",
+      "reportId": "authority-anthropic-judgment-calls-2026",
+      "type": "metric",
+      "label": "最终建议",
+      "title": "最终上线建议随倾向从 36% 变为 54%",
+      "summary": "过程偏好最终改变了业务建议，显示判断支持工具可能影响真实决策方向。",
+      "metric": "36%→54%",
+      "quote": "final recommendation",
+      "translation": "最终建议。",
+      "anchor": "Anthropic · Final rollout recommendation",
+      "tags": [
+        "业务决策",
+        "上线"
+      ],
+      "createdAt": "2026-10-27T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-anthropic-judgment-calls-2026-04",
+        "authority-card-anthropic-judgment-calls-2026-02"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-anthropic-judgment-calls-2026-04",
+      "reportId": "authority-anthropic-judgment-calls-2026",
+      "type": "opportunity",
+      "label": "效率收益",
+      "title": "Agent 用户更快且严重错误更少",
+      "summary": "效率收益与方向性风险可以同时存在，治理不能只看平均准确率。",
+      "metric": "速度↑ / 严重错误↓",
+      "quote": "faster with fewer errors",
+      "translation": "更快且错误更少。",
+      "anchor": "Anthropic · Performance comparison",
+      "tags": [
+        "效率",
+        "质量"
+      ],
+      "createdAt": "2026-10-27T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-anthropic-judgment-calls-2026-05",
+        "authority-card-anthropic-judgment-calls-2026-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-anthropic-judgment-calls-2026-05",
+      "reportId": "authority-anthropic-judgment-calls-2026",
+      "type": "action",
+      "label": "控制建议",
+      "title": "高风险分析应记录 Agent 偏好来源并设置反方复核",
+      "summary": "让第二个独立流程挑战假设、证据和方向，而不是只检查最终格式。",
+      "metric": "双轨复核",
+      "quote": "judgment calls",
+      "translation": "判断性决策。",
+      "anchor": "Anthropic · Implications and limitations",
+      "tags": [
+        "复核",
+        "治理"
+      ],
+      "createdAt": "2026-10-27T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-anthropic-judgment-calls-2026-01",
+        "authority-card-anthropic-judgment-calls-2026-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-anthropic-robot-work-2026-01",
+      "reportId": "authority-anthropic-robot-work-2026",
+      "type": "metric",
+      "label": "物理任务",
+      "title": "机器人在某些环境中可执行 74% 的物理任务",
+      "summary": "这是公开演示支持的能力上限，不是稳定生产部署比例。",
+      "metric": "74%",
+      "quote": "physical tasks",
+      "translation": "物理任务。",
+      "anchor": "Anthropic robotics study · O*NET task exposure",
+      "tags": [
+        "机器人",
+        "任务"
+      ],
+      "createdAt": "2026-09-30T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-anthropic-robot-work-2026-02",
+        "authority-card-anthropic-robot-work-2026-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-anthropic-robot-work-2026-02",
+      "reportId": "authority-anthropic-robot-work-2026",
+      "type": "metric",
+      "label": "工作时长",
+      "title": "物理任务暴露对应约 34% 的工作时长",
+      "summary": "任务数量与劳动时间不同，按时间加权后暴露显著下降。",
+      "metric": "34%",
+      "quote": "working hours",
+      "translation": "工作时长。",
+      "anchor": "Anthropic robotics study · Time-weighted exposure",
+      "tags": [
+        "工作时长",
+        "暴露"
+      ],
+      "createdAt": "2026-09-30T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-anthropic-robot-work-2026-03",
+        "authority-card-anthropic-robot-work-2026-01"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-anthropic-robot-work-2026-03",
+      "reportId": "authority-anthropic-robot-work-2026",
+      "type": "metric",
+      "label": "联合暴露",
+      "title": "LLM 与机器人合并可触及约 81% 的工作",
+      "summary": "数字与物理技术的能力边界互补，但仍不代表完整岗位自动化。",
+      "metric": "81%",
+      "quote": "combined exposure",
+      "translation": "联合暴露。",
+      "anchor": "Anthropic robotics study · LLM plus robotics",
+      "tags": [
+        "LLM",
+        "机器人"
+      ],
+      "createdAt": "2026-09-30T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-anthropic-robot-work-2026-04",
+        "authority-card-anthropic-robot-work-2026-02"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-anthropic-robot-work-2026-04",
+      "reportId": "authority-anthropic-robot-work-2026",
+      "type": "risk",
+      "label": "经济可行性",
+      "title": "当前成本具有竞争力的工作仅 0.3%",
+      "summary": "经济性而非演示能力，是短期大规模采用最强约束。",
+      "metric": "0.3%",
+      "quote": "cost competitive",
+      "translation": "具有成本竞争力。",
+      "anchor": "Anthropic robotics study · Cost model",
+      "tags": [
+        "成本",
+        "采用"
+      ],
+      "createdAt": "2026-09-30T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-anthropic-robot-work-2026-05",
+        "authority-card-anthropic-robot-work-2026-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-anthropic-robot-work-2026-05",
+      "reportId": "authority-anthropic-robot-work-2026",
+      "type": "insight",
+      "label": "长期曲线",
+      "title": "按历史价格下降速度，达到 10% 成本竞争力或需约 40 年",
+      "summary": "长期情景对价格学习曲线极敏感，不应当作确定时间表。",
+      "metric": "约 40 年",
+      "quote": "four decades",
+      "translation": "约四十年。",
+      "anchor": "Anthropic robotics study · Historical backtest scenario",
+      "tags": [
+        "价格曲线",
+        "长期"
+      ],
+      "createdAt": "2026-09-30T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-anthropic-robot-work-2026-01",
+        "authority-card-anthropic-robot-work-2026-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-oecd-agentic-competition-2026-01",
+      "reportId": "authority-oecd-agentic-competition-2026",
+      "type": "opportunity",
+      "label": "交易成本",
+      "title": "Agent 可降低搜索、比较、谈判与切换成本",
+      "summary": "如果代理代表用户利益，它能增强需求侧竞争并压缩信息不对称。",
+      "metric": "摩擦↓",
+      "quote": "lower transaction costs",
+      "translation": "降低交易成本。",
+      "anchor": "OECD Competition and Agentic AI · Demand-side effects",
+      "tags": [
+        "竞争",
+        "消费者"
+      ],
+      "createdAt": "2026-11-12T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-oecd-agentic-competition-2026-02",
+        "authority-card-oecd-agentic-competition-2026-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-oecd-agentic-competition-2026-02",
+      "reportId": "authority-oecd-agentic-competition-2026",
+      "type": "risk",
+      "label": "集中风险",
+      "title": "算力、模型、数据与入口纵向一体化可能强化守门人",
+      "summary": "同一集团控制关键层可能限制独立代理和新进入者获取用户与基础设施。",
+      "metric": "四层控制",
+      "quote": "vertical integration",
+      "translation": "纵向一体化。",
+      "anchor": "OECD Competition and Agentic AI · Market structure",
+      "tags": [
+        "平台",
+        "集中"
+      ],
+      "createdAt": "2026-11-12T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-oecd-agentic-competition-2026-03",
+        "authority-card-oecd-agentic-competition-2026-01"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-oecd-agentic-competition-2026-03",
+      "reportId": "authority-oecd-agentic-competition-2026",
+      "type": "risk",
+      "label": "协同行为",
+      "title": "自主定价与互动可能增加算法合谋风险",
+      "summary": "即使没有明确协议，快速响应与共同信号也可能降低竞争强度。",
+      "metric": "合谋风险",
+      "quote": "algorithmic collusion",
+      "translation": "算法合谋。",
+      "anchor": "OECD Competition and Agentic AI · Downstream conduct",
+      "tags": [
+        "定价",
+        "合谋"
+      ],
+      "createdAt": "2026-11-12T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-oecd-agentic-competition-2026-04",
+        "authority-card-oecd-agentic-competition-2026-02"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-oecd-agentic-competition-2026-04",
+      "reportId": "authority-oecd-agentic-competition-2026",
+      "type": "risk",
+      "label": "透明度",
+      "title": "用户可能不知道代理究竟代表谁的商业利益",
+      "summary": "推荐、排序和执行被打包后，利益冲突比传统搜索广告更难观察。",
+      "metric": "激励不透明",
+      "quote": "reduced transparency",
+      "translation": "透明度降低。",
+      "anchor": "OECD Competition and Agentic AI · Consumer risks",
+      "tags": [
+        "利益冲突",
+        "透明度"
+      ],
+      "createdAt": "2026-11-12T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-oecd-agentic-competition-2026-05",
+        "authority-card-oecd-agentic-competition-2026-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-oecd-agentic-competition-2026-05",
+      "reportId": "authority-oecd-agentic-competition-2026",
+      "type": "action",
+      "label": "监管重点",
+      "title": "竞争执法要关注互操作、默认入口与数据可携带",
+      "summary": "在市场定型前保护切换和多归属，可能比事后拆解更有效。",
+      "metric": "三项抓手",
+      "quote": "contestable markets",
+      "translation": "可竞争的市场。",
+      "anchor": "OECD Competition and Agentic AI · Policy implications",
+      "tags": [
+        "互操作",
+        "执法"
+      ],
+      "createdAt": "2026-11-12T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-oecd-agentic-competition-2026-01",
+        "authority-card-oecd-agentic-competition-2026-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-ilo-ai-developing-economies-2026-01",
+      "reportId": "authority-ilo-ai-developing-economies-2026",
+      "type": "risk",
+      "label": "核心警报",
+      "title": "发展中经济体可能出现“有冲击、无红利”",
+      "summary": "价格、外包和任务重组可能先发生，而生产率、工资与本地能力建设滞后。",
+      "metric": "冲击≠红利",
+      "quote": "disruption without dividend",
+      "translation": "有冲击、无红利。",
+      "anchor": "ILO policy brief · Core risk",
+      "tags": [
+        "发展",
+        "劳动"
+      ],
+      "createdAt": "2026-11-04T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-ilo-ai-developing-economies-2026-02",
+        "authority-card-ilo-ai-developing-economies-2026-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-ilo-ai-developing-economies-2026-02",
+      "reportId": "authority-ilo-ai-developing-economies-2026",
+      "type": "insight",
+      "label": "AI 鸿沟",
+      "title": "能力与治理鸿沟比单纯接入鸿沟更关键",
+      "summary": "语言数据、技能、算力、企业吸收和劳动制度共同决定谁能分享收益。",
+      "metric": "多维鸿沟",
+      "quote": "AI divide",
+      "translation": "AI 鸿沟。",
+      "anchor": "ILO policy brief · Capability and governance",
+      "tags": [
+        "能力",
+        "治理"
+      ],
+      "createdAt": "2026-11-04T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-ilo-ai-developing-economies-2026-03",
+        "authority-card-ilo-ai-developing-economies-2026-01"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-ilo-ai-developing-economies-2026-03",
+      "reportId": "authority-ilo-ai-developing-economies-2026",
+      "type": "opportunity",
+      "label": "本地路径",
+      "title": "劳动互补型、本地语言与行业应用更可能创造净收益",
+      "summary": "对多数经济体，适配农业、制造、公共服务和中小企业比追逐前沿模型更现实。",
+      "metric": "互补优先",
+      "quote": "labour-complementing",
+      "translation": "劳动互补型。",
+      "anchor": "ILO policy brief · Development pathway",
+      "tags": [
+        "本地化",
+        "中小企业"
+      ],
+      "createdAt": "2026-11-04T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-ilo-ai-developing-economies-2026-04",
+        "authority-card-ilo-ai-developing-economies-2026-02"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-ilo-ai-developing-economies-2026-04",
+      "reportId": "authority-ilo-ai-developing-economies-2026",
+      "type": "risk",
+      "label": "隐形劳动",
+      "title": "数据标注、审核与平台工作承受新的质量和议价风险",
+      "summary": "AI 价值链中的低可见度劳动需要收入、安全、申诉和集体协商保护。",
+      "metric": "工作质量",
+      "quote": "decent work",
+      "translation": "体面劳动。",
+      "anchor": "ILO policy brief · Platform and data work",
+      "tags": [
+        "平台劳动",
+        "数据标注"
+      ],
+      "createdAt": "2026-11-04T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-ilo-ai-developing-economies-2026-05",
+        "authority-card-ilo-ai-developing-economies-2026-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-ilo-ai-developing-economies-2026-05",
+      "reportId": "authority-ilo-ai-developing-economies-2026",
+      "type": "action",
+      "label": "政策组合",
+      "title": "把数字公共基础设施、技能与劳动治理一起建设",
+      "summary": "只有接入工具而缺少组织与制度能力，可能放大依赖而非提升生产率。",
+      "metric": "三位一体",
+      "quote": "policy coherence",
+      "translation": "政策协同。",
+      "anchor": "ILO policy brief · Policy recommendations",
+      "tags": [
+        "DPI",
+        "技能"
+      ],
+      "createdAt": "2026-11-04T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-ilo-ai-developing-economies-2026-01",
+        "authority-card-ilo-ai-developing-economies-2026-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-bcg-ai-maturity-matrix-2026-01",
+      "reportId": "authority-bcg-ai-maturity-matrix-2026",
+      "type": "metric",
+      "label": "覆盖范围",
+      "title": "矩阵比较 75 个以上经济体、33 个指标",
+      "summary": "广覆盖适合识别结构差异，但不能替代具体国家的政策和产业尽调。",
+      "metric": "75+ / 33",
+      "quote": "33 indicators",
+      "translation": "33 个指标。",
+      "anchor": "BCG AI Maturity Matrix 2026 · Methodology",
+      "tags": [
+        "国家",
+        "指标"
+      ],
+      "createdAt": "2026-10-20T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-bcg-ai-maturity-matrix-2026-02",
+        "authority-card-bcg-ai-maturity-matrix-2026-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-bcg-ai-maturity-matrix-2026-02",
+      "reportId": "authority-bcg-ai-maturity-matrix-2026",
+      "type": "insight",
+      "label": "六维框架",
+      "title": "准备度由愿景、技能、政策、投资、研究和生态共同决定",
+      "summary": "单一模型或资本投入不足以形成国家级 AI 能力。",
+      "metric": "ASPIRE 六维",
+      "quote": "six dimensions",
+      "translation": "六个维度。",
+      "anchor": "BCG AI Maturity Matrix 2026 · ASPIRE",
+      "tags": [
+        "准备度",
+        "框架"
+      ],
+      "createdAt": "2026-10-20T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-bcg-ai-maturity-matrix-2026-03",
+        "authority-card-bcg-ai-maturity-matrix-2026-01"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-bcg-ai-maturity-matrix-2026-03",
+      "reportId": "authority-bcg-ai-maturity-matrix-2026",
+      "type": "metric",
+      "label": "整体进步",
+      "title": "几乎每个经济体至少在一个维度改善",
+      "summary": "全球竞赛在扩散，但不同国家的短板组合依然不同。",
+      "metric": "近乎全部",
+      "quote": "at least one dimension",
+      "translation": "至少一个维度。",
+      "anchor": "BCG AI Maturity Matrix 2026 · Year-on-year movement",
+      "tags": [
+        "进步",
+        "国家"
+      ],
+      "createdAt": "2026-10-20T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-bcg-ai-maturity-matrix-2026-04",
+        "authority-card-bcg-ai-maturity-matrix-2026-02"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-bcg-ai-maturity-matrix-2026-04",
+      "reportId": "authority-bcg-ai-maturity-matrix-2026",
+      "type": "insight",
+      "label": "梯队变化",
+      "title": "日本和韩国进入最高成熟度梯队",
+      "summary": "先进制造、算力、研发和产业应用的组合开始在排名中体现。",
+      "metric": "新增 2 个",
+      "quote": "top tier",
+      "translation": "最高梯队。",
+      "anchor": "BCG AI Maturity Matrix 2026 · Country clusters",
+      "tags": [
+        "日本",
+        "韩国"
+      ],
+      "createdAt": "2026-10-20T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-bcg-ai-maturity-matrix-2026-05",
+        "authority-card-bcg-ai-maturity-matrix-2026-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-bcg-ai-maturity-matrix-2026-05",
+      "reportId": "authority-bcg-ai-maturity-matrix-2026",
+      "type": "risk",
+      "label": "排名边界",
+      "title": "专有权重会把价值判断写进总分",
+      "summary": "阅读名次必须同时看维度分数、数据年份和方法变化。",
+      "metric": "非官方排名",
+      "quote": "maturity matrix",
+      "translation": "成熟度矩阵。",
+      "anchor": "BCG AI Maturity Matrix 2026 · Limitations",
+      "tags": [
+        "排名",
+        "方法"
+      ],
+      "createdAt": "2026-10-20T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-bcg-ai-maturity-matrix-2026-01",
+        "authority-card-bcg-ai-maturity-matrix-2026-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-bis-central-bank-ai-readiness-2026-01",
+      "reportId": "authority-bis-central-bank-ai-readiness-2026",
+      "type": "metric",
+      "label": "生产化",
+      "title": "超过三分之二机构已有 AI 项目进入生产",
+      "summary": "从试验到生产的迁移明显加快，央行 AI 已不只是研究议题。",
+      "metric": ">2/3",
+      "quote": "in production",
+      "translation": "已投入生产。",
+      "anchor": "BIS/IFC report 19 · Project maturity · Early 2026",
+      "tags": [
+        "央行",
+        "生产"
+      ],
+      "createdAt": "2026-10-28T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-bis-central-bank-ai-readiness-2026-02",
+        "authority-card-bis-central-bank-ai-readiness-2026-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-bis-central-bank-ai-readiness-2026-02",
+      "reportId": "authority-bis-central-bank-ai-readiness-2026",
+      "type": "metric",
+      "label": "战略",
+      "title": "38% 已有组织级 AI 战略，31% 正在制定",
+      "summary": "多数机构已行动，但战略和执行框架尚未完全覆盖。",
+      "metric": "38% / 31%",
+      "quote": "strategy in place",
+      "translation": "战略已建立。",
+      "anchor": "BIS/IFC report 19 · Organisational strategy",
+      "tags": [
+        "战略",
+        "治理"
+      ],
+      "createdAt": "2026-10-28T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-bis-central-bank-ai-readiness-2026-03",
+        "authority-card-bis-central-bank-ai-readiness-2026-01"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-bis-central-bank-ai-readiness-2026-03",
+      "reportId": "authority-bis-central-bank-ai-readiness-2026",
+      "type": "metric",
+      "label": "数据准备",
+      "title": "21% 已具备数据准备框架，41% 正在规划",
+      "summary": "项目生产化速度快于数据治理成熟度，是后续扩展的主要约束。",
+      "metric": "21% / 41%",
+      "quote": "data readiness",
+      "translation": "数据准备度。",
+      "anchor": "BIS/IFC report 19 · Data readiness",
+      "tags": [
+        "数据",
+        "框架"
+      ],
+      "createdAt": "2026-10-28T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-bis-central-bank-ai-readiness-2026-04",
+        "authority-card-bis-central-bank-ai-readiness-2026-02"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-bis-central-bank-ai-readiness-2026-04",
+      "reportId": "authority-bis-central-bank-ai-readiness-2026",
+      "type": "metric",
+      "label": "基础设施",
+      "title": "近三分之二拥有专用 AI 基础设施",
+      "summary": "央行逐步建立专用环境，但云、自建与混合模式差异大。",
+      "metric": "约 2/3",
+      "quote": "dedicated infrastructure",
+      "translation": "专用基础设施。",
+      "anchor": "BIS/IFC report 19 · Infrastructure",
+      "tags": [
+        "基础设施",
+        "部署"
+      ],
+      "createdAt": "2026-10-28T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-bis-central-bank-ai-readiness-2026-05",
+        "authority-card-bis-central-bank-ai-readiness-2026-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-bis-central-bank-ai-readiness-2026-05",
+      "reportId": "authority-bis-central-bank-ai-readiness-2026",
+      "type": "risk",
+      "label": "人才密度",
+      "title": "近四分之三雇有 AI 专家，但通常不足员工 2.5%",
+      "summary": "少量专家难以独自承担模型、数据、业务与风险治理的全机构扩散。",
+      "metric": "<2.5%",
+      "quote": "AI experts",
+      "translation": "AI 专家。",
+      "anchor": "BIS/IFC report 19 · Skills and staffing",
+      "tags": [
+        "人才",
+        "能力建设"
+      ],
+      "createdAt": "2026-10-28T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-bis-central-bank-ai-readiness-2026-01",
+        "authority-card-bis-central-bank-ai-readiness-2026-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-worldbank-eap-ai-wave-2026-01",
+      "reportId": "authority-worldbank-eap-ai-wave-2026",
+      "type": "insight",
+      "label": "地区态势",
+      "title": "AI 采用正在上升，但仍低于高收入经济体",
+      "summary": "技术扩散已经开始，基础设施、技能与企业吸收能力决定追赶速度。",
+      "metric": "差距仍在",
+      "quote": "riding the AI wave",
+      "translation": "乘上 AI 浪潮。",
+      "anchor": "World Bank EAP Update · AI adoption · Oct 2026",
+      "tags": [
+        "东亚太平洋",
+        "采用"
+      ],
+      "createdAt": "2026-10-01T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-worldbank-eap-ai-wave-2026-02",
+        "authority-card-worldbank-eap-ai-wave-2026-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-worldbank-eap-ai-wave-2026-02",
+      "reportId": "authority-worldbank-eap-ai-wave-2026",
+      "type": "insight",
+      "label": "技能组合",
+      "title": "企业需要 AI 技能与数学、批判思维、沟通共同出现",
+      "summary": "AI 技能不是孤立证书，而是嵌入通用认知和协作能力。",
+      "metric": "复合技能",
+      "quote": "complementary skills",
+      "translation": "互补技能。",
+      "anchor": "World Bank EAP Update · Labour demand",
+      "tags": [
+        "技能",
+        "招聘"
+      ],
+      "createdAt": "2026-10-01T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-worldbank-eap-ai-wave-2026-03",
+        "authority-card-worldbank-eap-ai-wave-2026-01"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-worldbank-eap-ai-wave-2026-03",
+      "reportId": "authority-worldbank-eap-ai-wave-2026",
+      "type": "insight",
+      "label": "创新重心",
+      "title": "地区创新中心从日本扩展到中国与韩国",
+      "summary": "专利、研发与产业能力正在形成更分散的区域格局。",
+      "metric": "多中心",
+      "quote": "innovation landscape",
+      "translation": "创新格局。",
+      "anchor": "World Bank EAP Update · Innovation geography",
+      "tags": [
+        "创新",
+        "中国",
+        "韩国"
+      ],
+      "createdAt": "2026-10-01T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-worldbank-eap-ai-wave-2026-04",
+        "authority-card-worldbank-eap-ai-wave-2026-02"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-worldbank-eap-ai-wave-2026-04",
+      "reportId": "authority-worldbank-eap-ai-wave-2026",
+      "type": "opportunity",
+      "label": "现实路径",
+      "title": "多数经济体短期应优先采用与适配现有 AI",
+      "summary": "本地行业应用、组织能力和扩散速度比复制前沿模型投入更重要。",
+      "metric": "采用优先",
+      "quote": "adopt and adapt",
+      "translation": "采用并适配。",
+      "anchor": "World Bank EAP Update · Policy pathway",
+      "tags": [
+        "适配",
+        "发展"
+      ],
+      "createdAt": "2026-10-01T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-worldbank-eap-ai-wave-2026-05",
+        "authority-card-worldbank-eap-ai-wave-2026-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-worldbank-eap-ai-wave-2026-05",
+      "reportId": "authority-worldbank-eap-ai-wave-2026",
+      "type": "action",
+      "label": "政府角色",
+      "title": "政府需同时做推动者、使用者与监管者",
+      "summary": "公共采购、数字基础设施与风险规则应形成一致的扩散机制。",
+      "metric": "三重角色",
+      "quote": "enabler and regulator",
+      "translation": "推动者与监管者。",
+      "anchor": "World Bank EAP Update · Government role",
+      "tags": [
+        "政府",
+        "政策"
+      ],
+      "createdAt": "2026-10-01T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-worldbank-eap-ai-wave-2026-01",
+        "authority-card-worldbank-eap-ai-wave-2026-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-worldbank-eca-ai-work-2026-01",
+      "reportId": "authority-worldbank-eca-ai-work-2026",
+      "type": "metric",
+      "label": "劳动暴露",
+      "title": "约五分之一劳动者对 AI 有显著暴露",
+      "summary": "暴露表示任务可能改变，不代表岗位会被完全自动化。",
+      "metric": "约 20%",
+      "quote": "one in five workers",
+      "translation": "每五名劳动者约有一名。",
+      "anchor": "World Bank ECA Update · Labour exposure · Oct 2026",
+      "tags": [
+        "就业",
+        "暴露"
+      ],
+      "createdAt": "2026-10-06T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-worldbank-eca-ai-work-2026-02",
+        "authority-card-worldbank-eca-ai-work-2026-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-worldbank-eca-ai-work-2026-02",
+      "reportId": "authority-worldbank-eca-ai-work-2026",
+      "type": "metric",
+      "label": "企业采用",
+      "title": "使用 AI 的企业不足 10%，约为欧盟水平一半",
+      "summary": "劳动任务的潜在影响明显快于企业真实部署。",
+      "metric": "<10%",
+      "quote": "fewer than one in ten",
+      "translation": "不足十分之一。",
+      "anchor": "World Bank ECA Update · Firm adoption",
+      "tags": [
+        "企业",
+        "采用"
+      ],
+      "createdAt": "2026-10-06T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-worldbank-eca-ai-work-2026-03",
+        "authority-card-worldbank-eca-ai-work-2026-01"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-worldbank-eca-ai-work-2026-03",
+      "reportId": "authority-worldbank-eca-ai-work-2026",
+      "type": "metric",
+      "label": "算力缺口",
+      "title": "数据中心容量每百万人 2.1MW，对照高收入地区 31.6MW",
+      "summary": "基础设施差距可能把本地企业锁在高成本、低可控的采用路径上。",
+      "metric": "2.1 vs 31.6MW",
+      "quote": "data center capacity",
+      "translation": "数据中心容量。",
+      "anchor": "World Bank ECA Update · Digital infrastructure",
+      "tags": [
+        "数据中心",
+        "基础设施"
+      ],
+      "createdAt": "2026-10-06T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-worldbank-eca-ai-work-2026-04",
+        "authority-card-worldbank-eca-ai-work-2026-02"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-worldbank-eca-ai-work-2026-04",
+      "reportId": "authority-worldbank-eca-ai-work-2026",
+      "type": "metric",
+      "label": "人才需求",
+      "title": "AI 相关岗位需求接近四倍增长",
+      "summary": "需求增长快，但人才供给与企业组织能力未必同步。",
+      "metric": "约 4×",
+      "quote": "nearly quadrupled",
+      "translation": "接近翻两番。",
+      "anchor": "World Bank ECA Update · Job postings",
+      "tags": [
+        "招聘",
+        "AI人才"
+      ],
+      "createdAt": "2026-10-06T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-worldbank-eca-ai-work-2026-05",
+        "authority-card-worldbank-eca-ai-work-2026-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-worldbank-eca-ai-work-2026-05",
+      "reportId": "authority-worldbank-eca-ai-work-2026",
+      "type": "risk",
+      "label": "生产率滞后",
+      "title": "广泛使用尚未转化为可测量的生产率提升",
+      "summary": "早期采用、浅层使用和互补投入不足符合技术生产率 J 曲线。",
+      "metric": "尚未显现",
+      "quote": "broad but shallow",
+      "translation": "广泛但浅层。",
+      "anchor": "World Bank ECA Update · Productivity evidence",
+      "tags": [
+        "生产率",
+        "J曲线"
+      ],
+      "createdAt": "2026-10-06T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-worldbank-eca-ai-work-2026-01",
+        "authority-card-worldbank-eca-ai-work-2026-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-oecd-ai-privacy-control-2026-01",
+      "reportId": "authority-oecd-ai-privacy-control-2026",
+      "type": "metric",
+      "label": "数据增速",
+      "title": "报告引用研究：训练数据量自 2010 年起年均约增长 2.6 倍",
+      "summary": "这是外部研究的历史估计，不是所有模型未来需求的确定轨迹。",
+      "metric": "2.6×/年",
+      "quote": "2.6 times annually",
+      "translation": "每年约 2.6 倍。",
+      "anchor": "OECD privacy brief · Training data trends · cited evidence",
+      "tags": [
+        "训练数据",
+        "规模"
+      ],
+      "createdAt": "2026-10-15T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-oecd-ai-privacy-control-2026-02",
+        "authority-card-oecd-ai-privacy-control-2026-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-oecd-ai-privacy-control-2026-02",
+      "reportId": "authority-oecd-ai-privacy-control-2026",
+      "type": "risk",
+      "label": "数据瓶颈",
+      "title": "公开人类文本增长可能跟不上模型数据需求",
+      "summary": "合成数据、私有数据和多模态来源会增加，但质量、污染与权利问题也会放大。",
+      "metric": "供需缺口",
+      "quote": "data bottleneck",
+      "translation": "数据瓶颈。",
+      "anchor": "OECD privacy brief · Data availability",
+      "tags": [
+        "公开文本",
+        "瓶颈"
+      ],
+      "createdAt": "2026-10-15T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-oecd-ai-privacy-control-2026-03",
+        "authority-card-oecd-ai-privacy-control-2026-01"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-oecd-ai-privacy-control-2026-03",
+      "reportId": "authority-oecd-ai-privacy-control-2026",
+      "type": "insight",
+      "label": "质量优先",
+      "title": "规模不是性能的唯一来源，质量与多样性同样重要",
+      "summary": "减少无差别抓取、提升数据治理并不必然阻碍创新。",
+      "metric": "规模≠质量",
+      "quote": "quality and diversity",
+      "translation": "质量与多样性。",
+      "anchor": "OECD privacy brief · Data quality",
+      "tags": [
+        "质量",
+        "多样性"
+      ],
+      "createdAt": "2026-10-15T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-oecd-ai-privacy-control-2026-04",
+        "authority-card-oecd-ai-privacy-control-2026-02"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-oecd-ai-privacy-control-2026-04",
+      "reportId": "authority-oecd-ai-privacy-control-2026",
+      "type": "opportunity",
+      "label": "互补目标",
+      "title": "隐私保护与数据创新可以通过治理设计相互促进",
+      "summary": "透明许可、用途约束和用户控制可以提高信任与可持续数据供给。",
+      "metric": "权利+创新",
+      "quote": "complementary objectives",
+      "translation": "相互补充的目标。",
+      "anchor": "OECD privacy brief · Policy framing",
+      "tags": [
+        "隐私",
+        "创新"
+      ],
+      "createdAt": "2026-10-15T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-oecd-ai-privacy-control-2026-05",
+        "authority-card-oecd-ai-privacy-control-2026-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-oecd-ai-privacy-control-2026-05",
+      "reportId": "authority-oecd-ai-privacy-control-2026",
+      "type": "action",
+      "label": "用户控制",
+      "title": "让用户知道、选择并撤回其数据的使用方式",
+      "summary": "控制机制需要覆盖训练、微调、检索和长期记忆等不同阶段。",
+      "metric": "可知可选可撤",
+      "quote": "user control",
+      "translation": "用户控制。",
+      "anchor": "OECD privacy brief · Recommendations",
+      "tags": [
+        "同意",
+        "治理"
+      ],
+      "createdAt": "2026-10-15T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-oecd-ai-privacy-control-2026-01",
+        "authority-card-oecd-ai-privacy-control-2026-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-imf-weo-ai-jcurve-2026-01",
+      "reportId": "authority-imf-weo-ai-jcurve-2026",
+      "type": "metric",
+      "label": "客服效率",
+      "title": "被引用研究显示客服生产率提高约 14%—15%",
+      "summary": "平均收益由特定工具与组织场景测得，不能直接外推到全部服务业。",
+      "metric": "14%–15%",
+      "quote": "productivity gains",
+      "translation": "生产率提升。",
+      "anchor": "IMF WEO Oct 2026 · AI productivity evidence · cited study",
+      "tags": [
+        "客服",
+        "生产率"
+      ],
+      "createdAt": "2026-10-13T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-imf-weo-ai-jcurve-2026-02",
+        "authority-card-imf-weo-ai-jcurve-2026-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-imf-weo-ai-jcurve-2026-02",
+      "reportId": "authority-imf-weo-ai-jcurve-2026",
+      "type": "metric",
+      "label": "新手收益",
+      "title": "新手客服的提升约 30%—35%",
+      "summary": "AI 可能压缩技能差距，但也可能改变培训与晋升路径。",
+      "metric": "30%–35%",
+      "quote": "less experienced workers",
+      "translation": "经验较少的员工。",
+      "anchor": "IMF WEO Oct 2026 · Skill heterogeneity · cited study",
+      "tags": [
+        "新手",
+        "技能"
+      ],
+      "createdAt": "2026-10-13T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-imf-weo-ai-jcurve-2026-03",
+        "authority-card-imf-weo-ai-jcurve-2026-01"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-imf-weo-ai-jcurve-2026-03",
+      "reportId": "authority-imf-weo-ai-jcurve-2026",
+      "type": "metric",
+      "label": "软件产出",
+      "title": "一项研究显示软件开发产出提高约 26%",
+      "summary": "工具、任务和衡量方式决定结果，不能与其他编程研究混为同一口径。",
+      "metric": "26%",
+      "quote": "software output",
+      "translation": "软件产出。",
+      "anchor": "IMF WEO Oct 2026 · Software evidence · cited study",
+      "tags": [
+        "编程",
+        "产出"
+      ],
+      "createdAt": "2026-10-13T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-imf-weo-ai-jcurve-2026-04",
+        "authority-card-imf-weo-ai-jcurve-2026-02"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-imf-weo-ai-jcurve-2026-04",
+      "reportId": "authority-imf-weo-ai-jcurve-2026",
+      "type": "risk",
+      "label": "反例",
+      "title": "经验丰富开源开发者在另一研究中生产率下降 19%",
+      "summary": "AI 可能增加审核、返工或认知切换成本，资深者不一定获得最大收益。",
+      "metric": "-19%",
+      "quote": "productivity declined",
+      "translation": "生产率下降。",
+      "anchor": "IMF WEO Oct 2026 · Countervailing evidence · cited study",
+      "tags": [
+        "开源",
+        "资深开发者"
+      ],
+      "createdAt": "2026-10-13T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-imf-weo-ai-jcurve-2026-05",
+        "authority-card-imf-weo-ai-jcurve-2026-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-imf-weo-ai-jcurve-2026-05",
+      "reportId": "authority-imf-weo-ai-jcurve-2026",
+      "type": "insight",
+      "label": "宏观 J 曲线",
+      "title": "微观收益尚未转化为广泛工资、就业与总生产率效果",
+      "summary": "培训、流程、组织设计与无形资本需要时间，短期投资繁荣也可能先推高估值。",
+      "metric": "宏观尚弱",
+      "quote": "productivity J-curve",
+      "translation": "生产率 J 曲线。",
+      "anchor": "IMF WEO Oct 2026 · Macroeconomic transmission",
+      "tags": [
+        "宏观",
+        "J曲线"
+      ],
+      "createdAt": "2026-10-13T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-imf-weo-ai-jcurve-2026-01",
+        "authority-card-imf-weo-ai-jcurve-2026-04"
+      ],
+      "origin": "industry"
+    },
     {
       "id": "authority-card-openai-rd-acceleration-01",
       "reportId": "authority-openai-research-acceleration-jagged-2026",

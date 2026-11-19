@@ -73,6 +73,18 @@ function safeUrl(value = "") {
   }
 }
 
+function originalEmbedMarkup(report) {
+  const embedUrl = safeUrl(report.embedUrl || report.downloadUrl || report.url);
+  if (!embedUrl) return "";
+  const embedType = report.embedType || (/\.pdf(?:$|[?#])/i.test(embedUrl) ? "pdf" : "web");
+  const typeLabel = embedType === "pdf" ? "官方 PDF" : "官方网页";
+  return `<section class="drawer-section original-source-section">
+    <div class="section-title-row"><div><h3>嵌入官方原文</h3><p>${escapeHtml(typeLabel)} · 保持发布机构原始内容与口径</p></div><a class="soft-button" href="${escapeHtml(embedUrl)}" target="_blank" rel="noreferrer">在官方站点打开 ↗</a></div>
+    <div class="original-frame-shell"><iframe class="original-embed" src="${escapeHtml(embedUrl)}" title="${escapeHtml(report.title)}官方原文" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <p class="original-frame-note">若发布机构禁止站内加载，或移动端未显示 PDF，请使用右上角按钮打开官方原文。</p>
+  </section>`;
+}
+
 function formatDate(value, includeTime = false) {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "时间未知";
@@ -636,15 +648,16 @@ function reportDrawerMarkup(report) {
   const linkedReports = (report.relatedReportIds || []).map(reportById).filter(Boolean);
   const cards = state.cards.filter((card) => card.reportId === report.id);
   const originalButton = report.fileName ? `<button type="button" class="soft-button" data-open-original="${escapeHtml(report.id)}">打开原始档案</button>` : "";
-  const sourceButton = safeUrl(report.url) ? `<a class="soft-button" href="${escapeHtml(safeUrl(report.url))}" target="_blank" rel="noreferrer">打开来源网址</a>` : "";
+  const sourceButton = safeUrl(report.url) ? `<a class="soft-button" href="${escapeHtml(safeUrl(report.url))}" target="_blank" rel="noreferrer">打开官方原文</a>` : "";
   return `<div class="drawer-backdrop" data-close-drawer><aside class="drawer" role="dialog" aria-modal="true" aria-label="报告详情">
     <header class="drawer-head"><div><span class="card-type"><span class="type-dot"></span>${escapeHtml(report.category || "报告")}</span><h2>${escapeHtml(report.title)}</h2></div><button class="drawer-close" type="button" data-close-drawer aria-label="关闭">×</button></header>
     <div class="drawer-body">
       <section class="drawer-section"><h3>报告信息</h3><div class="report-meta"><span>发布 ${formatDate(reportDate(report))}</span><span>${escapeHtml(report.source || "手动导入")}</span>${report.authority ? `<span class="authority-badge">${escapeHtml(report.authority)}</span>` : ""}<span>${cardCount(report.id)} 张关键卡</span>${report.fileSize ? `<span>${formatBytes(report.fileSize)}</span>` : ""}</div><div class="editor-actions">${sourceButton}${originalButton}</div></section>
       ${report.methodology ? `<section class="drawer-section"><h3>研究方法与适用范围</h3><div class="source-quote"><strong>方法</strong>　${escapeHtml(report.methodology)}${report.scopeNote ? `<div class="source-anchor"><strong>口径提醒</strong>　${escapeHtml(report.scopeNote)}</div>` : ""}</div></section>` : ""}
+      ${originalEmbedMarkup(report)}
       ${report.extractionError ? `<section class="drawer-section"><h3>解析提示</h3><div class="source-quote">${escapeHtml(report.extractionError)}</div></section>` : ""}
       <section class="drawer-section"><h3>关键卡</h3><div class="linked-list">${cards.map((card) => `<button class="linked-item" type="button" data-open-card="${escapeHtml(card.id)}"><span>${escapeHtml(card.title)}</span><small>${escapeHtml(card.label || TYPE_LABELS[card.type])}</small></button>`).join("") || "暂无关键卡"}</div></section>
-      <section class="drawer-section"><h3>完整原文</h3><div class="full-text">${escapeHtml(report.body || "当前没有可读取正文。可在下方编辑区补贴全文或字幕，再重新抽取。")}</div></section>
+      <section class="drawer-section"><h3>中文剖析</h3><div class="full-text">${escapeHtml(report.body || "当前没有可读取的中文剖析。请从上方嵌入区回到官方原文核对。")}</div></section>
       <section class="drawer-section"><h3>关联报告</h3><div class="linked-list">${linkedReports.map((item) => `<button class="linked-item" type="button" data-open-report="${escapeHtml(item.id)}"><span>${escapeHtml(item.title)}</span><small>${escapeHtml(item.category)}</small></button>`).join("") || "尚未发现跨报告关联"}</div></section>
       ${reportEditorMarkup(report)}
     </div>

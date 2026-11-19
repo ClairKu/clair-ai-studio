@@ -1,12 +1,12 @@
 {
   "schema": "clair-report-assets/v1",
   "report": "knowledge-report-hub",
-  "generatedAt": "2026-11-19T00:23:06.638Z",
+  "generatedAt": "2026-11-19T20:00:00+08:00",
   "files": [
     {
       "path": "app.js",
-      "bytes": 66397,
-      "sha256": "08ced6df13167424fdebbe457846903fcbd6193b532024c204c71a55536e4d7a"
+      "bytes": 67473,
+      "sha256": "b132680d97cccb1a8bc9b839422551fd3b2df87f50885e88b0b8d414733fec5b"
     },
     {
       "path": "data/ai-classic-quotes.json",
@@ -15,8 +15,8 @@
     },
     {
       "path": "data/ai-industry-authority.json",
-      "bytes": 361780,
-      "sha256": "eb747deb69014fb55a478de1aed22f3600cb890dfd11842b079613522efe4611"
+      "bytes": 499211,
+      "sha256": "0a7a637861bb61b09304fdbb3d6c59006ef66f751b5391551824b84854938d4d"
     },
     {
       "path": "data/ai-institutions.json",
@@ -25,8 +25,8 @@
     },
     {
       "path": "data/latest.json",
-      "bytes": 417647,
-      "sha256": "c2a4a473a6781980fe100ea8f85f8a1b9c79101fa251a61a561e6990b1518bc6"
+      "bytes": 515682,
+      "sha256": "c03c6b4b16201e969cecffeeebf28dc4fe600ff1be60e3bec61bb73dba65444f"
     },
     {
       "path": "extractor.js",
@@ -65,8 +65,8 @@
     },
     {
       "path": "styles.css",
-      "bytes": 42589,
-      "sha256": "fbf6bb1d2a6dbdc602a64efea98494b16d6a4f20f97776ff56c53b27e7d22120"
+      "bytes": 43391,
+      "sha256": "081f8924f7a27ec19615b4fefeefb3467bbf0aa1fd49f7a1aaadaadbd28573a9"
     },
     {
       "path": "vendor/jszip.min.js",
