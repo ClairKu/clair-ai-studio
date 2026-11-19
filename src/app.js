@@ -225,6 +225,51 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-strategy-catalog-2026-11-19",
+      groupId: "research",
+      title: "且慢策略清单与公开持仓｜248只策略",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-strategy-catalog-2026-11-19/",
+      preview: "qieman-strategy-catalog-2026-11-19.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-19",
+      modifiedAt: "2026-11-19",
+      source: "2026-11-19复核；持仓快照2026-11-18。官网搜索发现248个唯一策略代码，主货架28只，241只公开单基金明细，230只比例完整；4,472条基金行＋1条现金行。可搜索、筛选、展开持仓、追溯来源并导出CSV。搜索可见范围不等于当前上架可售全集。",
+      access: "production",
+      workType: "investment-research",
+      tags: ["且慢","策略清单","公开持仓","基金研究","官网搜索","248只","HTML"],
+    },
+    {
+      id: "qieman-strategy-risk-2026-11-19",
+      groupId: "research",
+      title: "且慢策略风控复核｜集中度与换手",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-strategy-risk-2026-11-19/",
+      preview: "qieman-strategy-risk-2026-11-19.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-19",
+      modifiedAt: "2026-11-19",
+      source: "2026-11-19复核；持仓快照2026-11-18。230只配置完整，20只触发非货币Top1/Top3观察线，5只主题基金配置超过50%。天马进取互联网基金配置按完整名称补正为88.16%。二八轮动近12个月模型单边幅度和129.57%，G2为61.22%；模型幅度不等于实际成交换手，观察线不代表监管或公司现行限额。",
+      access: "production",
+      workType: "investment-research",
+      tags: ["且慢","风险复核","集中度","换手率","主题配置","再平衡","HTML"],
+    },
+    {
+      id: "qieman-strategy-conformance-2026-11-19",
+      groupId: "research",
+      title: "且慢策略一致性核查｜持仓、调仓与投顾要求",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-strategy-conformance-2026-11-19/",
+      preview: "qieman-strategy-conformance-2026-11-19.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-19",
+      modifiedAt: "2026-11-19",
+      source: "2026-11-19复核；持仓快照2026-11-18。确认1处公开协议交叉引用缺项，列出G2变更授权、点睛投资范围2项取证任务。31项超过20%的公开基金仓位均有货币或指数属性证据；不能直接定为违规。逐策略生效说明书0/248，现行内部制度与客户执行台账未取得；0项已证实策略违规代表尚未证实，不代表全部通过。",
+      access: "production",
+      workType: "governance-review",
+      tags: ["且慢","一致性核查","策略说明书","投顾要求","合规","待取证","HTML"],
+    },
+    {
       id: "holdings-report-advisor-training-2026-11-12",
       groupId: "advisor-workbench",
       title: "持仓分析报告 · 顾问使用培训文档",
@@ -4725,6 +4770,9 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-strategy-catalog-2026-11-19": "investment-research",
+  "qieman-strategy-risk-2026-11-19": "investment-research",
+  "qieman-strategy-conformance-2026-11-19": "governance-review",
   "holdings-report-advisor-training-2026-11-12": "reporting",
   "pension-y-a-fund-comparison-2026-11-12": "investment-research",
   "yingmi-108-tool-prompts-2026-11-11": "product-demo",
@@ -4873,6 +4921,9 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-strategy-catalog-2026-11-19": "research",
+  "qieman-strategy-risk-2026-11-19": "research",
+  "qieman-strategy-conformance-2026-11-19": "research",
   "holdings-report-advisor-training-2026-11-12": "advisor-workbench",
   "pension-y-a-fund-comparison-2026-11-12": "pension-planning",
   "yingmi-108-tool-prompts-2026-11-11": "ai-platform",
@@ -9662,4 +9713,3 @@ function bindWorkbenchPersistence() {
     render();
   });
 }
-

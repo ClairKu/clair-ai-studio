@@ -2,6 +2,9 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "qieman-strategy-catalog-2026-11-19",
+    "qieman-strategy-risk-2026-11-19",
+    "qieman-strategy-conformance-2026-11-19",
     "holdings-report-advisor-training-2026-11-12",
     "pension-y-a-fund-comparison-2026-11-12",
     "yingmi-108-tool-prompts-2026-11-11",

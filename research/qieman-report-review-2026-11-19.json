@@ -1,0 +1,44 @@
+{
+  "reviewedAt": "2026-11-19",
+  "snapshotDate": "2026-11-18",
+  "reports": [
+    {
+      "id": "qieman-strategy-catalog-2026-11-19",
+      "title": "且慢策略清单与公开持仓｜248只策略",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-strategy-catalog-2026-11-19/"
+    },
+    {
+      "id": "qieman-strategy-risk-2026-11-19",
+      "title": "且慢策略风控复核｜集中度与换手",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-strategy-risk-2026-11-19/"
+    },
+    {
+      "id": "qieman-strategy-conformance-2026-11-19",
+      "title": "且慢策略一致性核查｜持仓、调仓与投顾要求",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-strategy-conformance-2026-11-19/"
+    }
+  ],
+  "coverage": {
+    "strategies": 248,
+    "rawHoldingRows": 4473,
+    "completeWeights": 230,
+    "concentrationWatchStrategies": 20,
+    "formalStrategySpecificationsObtained": 0,
+    "confirmedStrategyViolations": 0,
+    "publicTextReferenceGaps": 1,
+    "strategyEvidenceTasks": 2
+  },
+  "corrections": [
+    "Tianma internet fund allocation identified as 88.16% after confirming 006327/006328 identities; underlying snapshot weights unchanged."
+  ],
+  "validation": {
+    "crossReportRawWeights": "identical",
+    "filters": "passed",
+    "csvExports": "passed",
+    "registry": "passed",
+    "cachedWorkspaceMigration": "passed",
+    "accessGateMarkup": "passed",
+    "visualBrowserQA": "unavailable in this session"
+  },
+  "standingInstruction": "All completed reports publish to the existing workbench by default."
+}
