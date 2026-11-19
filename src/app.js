@@ -225,6 +225,30 @@ const initialState = {
   ],
   reports: [
     {
+      "id": "r9-site-study-2026-11-19",
+      "groupId": "ai-workbench",
+      "title": "R9 AI Hub｜全站研读与交互复刻",
+      "url": "https://r9-study-clair.clairku.chatgpt.site",
+      "preview": "r9-site-study-2026-11-19.svg",
+      "pinned": false,
+      "position": 0,
+      "createdAt": "2026-11-19",
+      "modifiedAt": "2026-11-19",
+      "source": "已归档130个主要功能区、126个接口契约、120项技能及全部360个仓库文件；含可搜索研究报告、原站前端复刻及83条正常HTTP响应。原始后台、模型密钥与独立智能体未取得，快照与实时服务明确区分。仅本人可访问。",
+      "access": "production",
+      "workType": "competitive-research",
+      "tags": [
+        "R9 AI Hub",
+        "竞品研究",
+        "投顾工作台",
+        "Skills",
+        "Agents",
+        "数据接口",
+        "前端复刻",
+        "产品设计"
+      ]
+    },
+    {
       "id": "r9-full-results-2026-11-19",
       "groupId": "advisor-workbench",
       "title": "R9 AI Hub｜全站结果复刻",
@@ -4885,6 +4909,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "r9-site-study-2026-11-19": "competitive-research",
   "r9-full-results-2026-11-19": "product-demo",
   "product-team-pulse-2026-11-19": "product-demo",
   "yingmi-token-usage-2026-11-19": "data-analysis",
@@ -5041,6 +5066,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "r9-site-study-2026-11-19": "ai-workbench",
   "r9-full-results-2026-11-19": "advisor-workbench",
   "product-team-pulse-2026-11-19": "ai-workbench",
   "yingmi-token-usage-2026-11-19": "ai-platform",

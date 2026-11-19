@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "r9-site-study-2026-11-19",
     "r9-full-results-2026-11-19",
     "product-team-pulse-2026-11-19",
     "yingmi-token-usage-2026-11-19",
@@ -436,7 +437,12 @@
       "url": "https://clair-product-team.clairku.chatgpt.site",
       "access": "owner-private",
       "purpose": "Authenticated product-team weekly reporting, project milestones, risk tracking and BU digests with shared cloud storage. Registered as a workbench entry; site access remains private."
+    },
+    {
+      "id": "r9-site-study-2026-11-19",
+      "url": "https://r9-study-clair.clairku.chatgpt.site",
+      "access": "owner-private",
+      "purpose": "Owner-private R9 research archive, preserved frontend interactions and captured data; original backend, model secrets and separately gated agent were not obtained."
     }
   ]
 }
-
