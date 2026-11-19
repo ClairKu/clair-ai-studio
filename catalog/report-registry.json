@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "product-team-pulse-2026-11-19",
     "yingmi-token-usage-2026-11-19",
     "qieman-money-planner-2026-11-19",
     "yingmi-qieman-casebook-2026-11-19",
@@ -428,6 +429,12 @@
       "url": "https://clair-select.pages.dev/",
       "access": "owner-private",
       "purpose": "Persistent cloud recruitment application with authenticated storage and uploads; encrypted GitHub archive retained."
+    },
+    {
+      "id": "product-team-pulse-2026-11-19",
+      "url": "https://clair-product-team.clairku.chatgpt.site",
+      "access": "owner-private",
+      "purpose": "Authenticated product-team weekly reporting, project milestones, risk tracking and BU digests with shared cloud storage. Registered as a workbench entry; site access remains private."
     }
   ]
 }

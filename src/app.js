@@ -225,6 +225,21 @@ const initialState = {
   ],
   reports: [
     {
+      id: "product-team-pulse-2026-11-19",
+      groupId: "ai-workbench",
+      title: "产品团队管理 · PULSE",
+      url: "https://clair-product-team.clairku.chatgpt.site",
+      preview: "product-team-pulse-2026-11-19.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-19",
+      modifiedAt: "2026-11-19",
+      source: "每周填报、成员进展、项目状态、里程碑、风险问题与 BU 周报汇总。正式团队数据云端保存；示例空间与正式空间分离。当前为负责人私有应用，成员加入需登记登录邮箱并授予访问权限。线上部署已完成，自动浏览器验收受到访问拦截限制。",
+      access: "production",
+      workType: "product-demo",
+      tags: ["产品团队","团队工作台","每周进展","项目管理","里程碑","风险跟进","BU周报","云端协作"],
+    },
+    {
       id: "yingmi-token-usage-2026-11-19",
       groupId: "ai-platform",
       title: "盈米 Token 用量｜多维交互报告",
@@ -4846,6 +4861,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "product-team-pulse-2026-11-19": "product-demo",
   "yingmi-token-usage-2026-11-19": "data-analysis",
   "qieman-money-planner-2026-11-19": "product-demo",
   "yingmi-qieman-casebook-2026-11-19": "product-planning",
@@ -5000,6 +5016,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "product-team-pulse-2026-11-19": "ai-workbench",
   "yingmi-token-usage-2026-11-19": "ai-platform",
   "qieman-money-planner-2026-11-19": "advisor-workbench",
   "yingmi-qieman-casebook-2026-11-19": "advisor-workbench",
@@ -9795,4 +9812,5 @@ function bindWorkbenchPersistence() {
     render();
   });
 }
+
 

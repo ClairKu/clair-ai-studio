@@ -14,6 +14,14 @@ export const PERSONAL_AREAS = Object.freeze([
     ],
   },
   {
+    id: "product-team",
+    title: "产品团队 · PULSE",
+    theme: "blue",
+    icon: "panel",
+    primary: {"reportId":"product-team-pulse-2026-11-19","label":"打开产品团队管理工作台"},
+    links: [{"url":"https://clair-product-team.clairku.chatgpt.site#weekly","label":"团队周报"},{"url":"https://clair-product-team.clairku.chatgpt.site#projects","label":"项目进展"},{"url":"https://clair-product-team.clairku.chatgpt.site#bu","label":"BU 汇总"}],
+  },
+  {
     id: "clair-select", title: "招聘工作台 · Clair Select", theme: "blue", icon: "panel",
     primary: { reportId: "candidate-evaluator-2026-10-29", label: "查看完整招聘档案" }, links: [],
   },
@@ -84,3 +92,4 @@ export function personalLaunchpadMarkup({ reports, escapeHtml: e }) {
     <div class="studio-shortcuts-grid">${PERSONAL_AREAS.map(card).join("")}</div>
   </section>`;
 }
+
