@@ -1,9 +1,129 @@
 {
   "schema": "clair-knowledge-hub-feed/v1",
   "scope": "external-ai-industry-only",
-  "generatedAt": "2026-11-17T00:30:04.289Z",
+  "generatedAt": "2026-11-19T00:23:06.638Z",
   "source": "Curated authoritative public AI industry reports",
   "reports": [
+    {
+      "id": "authority-openai-research-acceleration-jagged-2026",
+      "title": "OpenAI《Research acceleration: The jagged frontier》｜Agent 已能独立完成近半数中短研发任务，但能力仍高度锯齿化",
+      "url": "https://openai.com/index/research-acceleration-jagged-frontier/",
+      "downloadUrl": "https://openai.com/index/research-acceleration-jagged-frontier/",
+      "body": "【中文剖析】OpenAI 于 2026 年 11 月 18 日发布内部 AI 研发加速更新，把 Agent 使用强度、任务自主完成率、研究人员时间分配与研发产出放进同一框架。按其更新后的轨迹分类方法，预计需要人类 2—4 小时的内部研究任务，无人工干预成功率从 3 月的 23% 升至 10 月的 46%；4—8 小时任务从 13% 升至 35%。但能力不是线性上升：8 月 1 日至 10 月 18 日，监控训练运行的估计成功率为 79%，启动训练为 35%，编写推理与服务栈代码只有 25%。使用规模同样激增：按 API 标价计算，10 月研究人员日使用中位值约 2,400 美元，90 分位约 23,000 美元；以连续运行 8 小时定义一个 Agent 工作日，人均每天从 0.5 个升至 5.7 个，超过三分之二的纳入研究者日峰值至少并发 4 个 Agent，超过 10% 至少并发 16 个。资源口径必须拆开看：9 月 Agent API 等价价值约为研究人员非股权薪酬的 2 倍，但内部部署只占总研究算力的 2%，且研究者股权通常占目标薪酬 70%—80%，因此不能把 2 倍写成人工被替代或实际现金成本。过程与结果也未形成因果闭环：截至 10 月 18 日的四周，单个活跃实验者记录实验数为 2025 基线的 1.68 倍；OpenAI 自建能力指数 OECI 的前沿趋势自 2025 年 8 月起为每年 16.4 分，但该指数混合公开与内部基准、对 OpenAI 模型更有利。安全与对齐记录工作周从 1 月到 9 月增加 77%，说明加速的同时组织也在追加控制资源。行业含义是，AI 研发正在从单个助手转向并行 Agent 产能池，管理重点将变成任务分解、并发编排、验证、实验资源与安全治理；但当前证据来自单一实验室的内部遥测、分类器、问卷和访谈，任务选择随能力变化，不能识别 AI 导致研发产出或模型能力加速的因果效应。",
+      "kind": "url",
+      "category": "模型与科学",
+      "tags": [
+        "OpenAI",
+        "AI研发",
+        "Coding Agent",
+        "递归自我改进",
+        "研发生产率",
+        "Agent并发",
+        "安全与对齐",
+        "内部遥测"
+      ],
+      "source": "OpenAI Economic Research / OpenAI Research",
+      "authority": "OpenAI 官方 AI 研发加速报告、内部遥测、任务轨迹分类、问卷与访谈",
+      "methodology": "报告组合多类内部证据：按更新方法对研究 Agent 轨迹估计任务时长、任务类别和零人工干预成功率；按 API 公开标价计算 Agent 使用等价值，以连续运行 8 小时定义一个 Agent 工作日，并统计研究者并发峰值；从公开于公司的 Slack、拉取请求和内部文档识别研究项目并按研究者—周分配工作量；对 101 名研究人员开展 Agent 价值问卷，另访谈 10 名研究人员；以代码变更、记录实验数和混合公开/内部基准的 OpenAI ECI 描述输出。任务类别采用 Epoch AI 的 O*NET AI R&D taxonomy，部分指标使用分类器、内部价格和不断变化的任务选择。",
+      "scopeNote": "这是 OpenAI 对自身研发组织的第一方测量，不是跨公司样本、独立审计或因果研究。23%→46% 与 13%→35% 反映特定内部任务轨迹的估计零干预成功率；研究者会随模型能力改变委派任务，桶内任务不固定。2,400/23,000 美元是按 API 标价折算的日使用价值，不是边际成本或对外账单；2 倍只与不含股权的薪酬比较，而股权占目标薪酬 70%—80%。5.7 个 Agent 工作日按运行时长计，不代表完成 5.7 个等质量人类工作日。101 人问卷抽样临时且为假设性自报；1.68 倍实验数和代码行是活动指标，不证明科研质量或能力因果提升。OECI 含 OpenAI 内部基准，报告承认其相对竞争者更偏向 OpenAI 模型。",
+      "publishedAt": "2026-11-18T00:00:00Z",
+      "ingestedAt": "2026-11-19T08:17:17+08:00",
+      "createdAt": "2026-11-18T00:00:00Z",
+      "updatedAt": "2026-11-18T00:00:00Z",
+      "featured": true,
+      "featuredRank": -16,
+      "archived": false,
+      "relatedReportIds": [
+        "authority-openai-chip-design-2026",
+        "authority-openai-frontier-misalignment-monitoring-2026",
+        "authority-openai-linux-root-2026"
+      ],
+      "studioId": "",
+      "origin": "industry",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-openai-chip-design-2026",
+      "title": "OpenAI《Advancing chip design with OpenAI models》｜AI 设计已进入流片与生产文件，开放评测仍显示巨大工程边界",
+      "url": "https://openai.com/index/advancing-chip-design-with-our-models/",
+      "downloadUrl": "https://openai.com/index/advancing-chip-design-with-our-models/",
+      "body": "【中文剖析】OpenAI 于 2026 年 11 月 18 日披露前沿模型参与自研推理芯片 Jalapeño、AMD 旗舰 GPU/CPU IP 和两个开源 RISC-V 内核的结果。在 Jalapeño 中，团队估计模型提出的更改让向量单元标准单元面积减少约 13%、矩阵单元约 10%；其中一个乘法器综合面积减少约 15%，延迟从两个时钟周期降为一个，相关优化已在芯片 bring-up 中验证。AMD 合作给出更强的生产信号：相对已经高度优化的旗舰 GPU IP，模型改写 SystemVerilog RTL 带来最高 14% 的功耗、性能、面积综合改进，官方称把约一年的进展压缩到不到五个月；部分更改已进入近期送厂设计，另一些进入未来版本生产文件。AMD 还在下一代旗舰 CPU 关键模块验证了个位数百分比的 PPA 增益。为观察代际能力，OpenAI 在 PicoRV32 与 OpenTitan Ibex 两个 32 位 RISC-V 内核上设计优化现有 RTL 和从文字规格生成内核两类任务，共完成 9,881 次计分运行；约 112,000 token 的可比预算下，GPT-6.2 Astra 在两类内核平均分最高，PicoRV32 优化分数约为 GPT-6 Astra 的两倍。评测把仿真失败或面积超过原始设计 16 倍的方案记零，再以隐藏工作负载 IPC 几何均值乘 Yosys 估计最高频率计算吞吐。最重要的反面信息是，从规格生成得分更高可能部分因为模型省略了性能计数器和附加指令；评测没有要求完整功能等价，也没有在布局布线后的物理综合上验证时序，16 倍面积上限也远宽于量产约束。因此，行业含义不是“模型已经能独立设计芯片”，而是 AI 正在专家、仿真、形式/逻辑验证和 EDA 工具围栏内，承担 RTL 搜索与局部微架构优化。生产案例具有高价值，但数字来自 OpenAI 与合作方披露，缺少完整基线、分布、成本与独立复现，不能把局部 PPA 改善外推为整颗芯片收益。",
+      "kind": "url",
+      "category": "模型与科学",
+      "tags": [
+        "OpenAI",
+        "芯片设计",
+        "Jalapeño",
+        "AMD",
+        "RISC-V",
+        "RTL",
+        "PPA",
+        "EDA"
+      ],
+      "source": "OpenAI / AMD / Synopsys",
+      "authority": "OpenAI 官方研究发布，包含自研流片、AMD 生产验证和 9,881 次开源 RISC-V 计分运行",
+      "methodology": "生产案例由模型在专家工作流中重写 Jalapeño 与 AMD 的 SystemVerilog RTL，使用 Synopsys 工具验证行为并评估功耗、性能和面积，Jalapeño 结果经芯片 bring-up，AMD 对部分改进做生产设计验证。开放评测覆盖 PicoRV32 与 OpenTitan Ibex 两个 32 位 RISC-V 内核、优化现有 RTL 与从文字规格生成内核两类任务、五代模型和多个 token 预算，共 9,881 个计分运行。仿真失败或面积超过原始内核 16 倍记零；通过者在隐藏工作负载上测 IPC 几何均值，再乘 Yosys 估计最大频率，按每个内核同约束下观察到的最佳吞吐归一化为 1.0。",
+      "scopeNote": "Jalapeño 和 AMD 数字来自 OpenAI 与合作方一手披露，但页面没有公开完整设计、基线、样本分布、统计区间、模型成本或第三方复现实验。13%、10%、15% 与最高 14% 分别针对不同单元、设计与 PPA 口径，不能相加或外推整颗芯片。‘一年进展不到五个月’是合作方对项目节奏的估计，不是受控生产率实验。RISC-V 评测用 Yosys 估计频率而非布局布线后时序，面积限制可到原设计 16 倍；从规格生成允许省略原内核功能，因此高分不等于可替换的量产 CPU。9,881 是全部任务、内核、模型与预算的总运行数，不是 9,881 个独立芯片。",
+      "publishedAt": "2026-11-18T00:00:00Z",
+      "ingestedAt": "2026-11-19T08:17:17+08:00",
+      "createdAt": "2026-11-18T00:00:00Z",
+      "updatedAt": "2026-11-18T00:00:00Z",
+      "featured": true,
+      "featuredRank": -15.5,
+      "archived": false,
+      "relatedReportIds": [
+        "authority-openai-research-acceleration-jagged-2026",
+        "authority-google-alphaproof-code-2026",
+        "authority-openai-linux-root-2026"
+      ],
+      "studioId": "",
+      "origin": "industry",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-openai-science-at-frontier-2026",
+      "title": "OpenAI《Science at the Frontier》｜58 万条科研消息显示 AI 已深入阅读、写作与分析，但完整科研自动化仍只占 0.4%",
+      "url": "https://openai.com/index/science-at-the-frontier/",
+      "downloadUrl": "https://cdn.openai.com/pdf/0e4b2466-0be0-4326-8bf7-117d809e14d2/Science%20at%20the%20Frontier.pdf",
+      "body": "【中文剖析】OpenAI 于 2026 年 11 月 16 日发布 76 页《Science at the Frontier》，研究 ChatGPT for Academic Researchers 夏季计划中学术科研人员的真实使用与自报预期。使用样本覆盖 2026 年 8 月 20 日至 9 月 22 日：1,819 名至少发送过一条科研消息、且最迟 9 月 2 日开始使用的科学家共发出 1,262,893 条消息，其中 580,186 条被分类为科研或学术消息；研究者不查看底层消息，由 GPT-5.6 Terra 等隐私保护分类器映射到 10 个工作流、40 个任务。问卷于 9 月 30 日至 10 月 7 日进行，270 份有效完成中 251 人同意纳入。真实行为显示采用高度集中：平均科学家 85% 的科研消息落在阅读与知识获取、科学分析、软件开发、写作四类，阅读与写作合计超过一半；42.7% 的科学家每周平均发送超过两条创意/假设消息，11% 超过十条。人并未退出回路：初始请求后约 32% 会继续澄清、检查或修订，越需要专业知识的任务通常越常跟进。约 15% 的科学家至少尝试过一次端到端自主研究请求，但它只占平均科学家科研消息的 0.4%，且周度回访率低。问卷中的同质量时间比按八个工作流等权平均约 1.9 倍，各工作流从行政工作的 1.35 倍到研究软件开发的 2.83 倍；但这是自报，且八个工作流均值之间 0.96 的相关性只有八个点，不能写成实测生产率。预期也不等于结果：250 名回答者中 97.6% 预计 AI 会加速一个原本需十年的发现，21.6% 预计可提前七到十年；与此同时，51.8% 仍受时间或人员限制、43.8% 受资金限制，71% 至少选择两者之一。行业含义是，AI 已在科研知识工作中形成稳定助手角色，却尚未突破实验、资金、数据收集、评审与组织资源等互补瓶颈。样本来自主动申请扩展 AI 权限的一家产品用户，时间窗仅 34 天，使用分类与问卷都可能有选择和测量误差；报告不能证明 AI 已提高科学质量、发现速度或因果生产率。",
+      "kind": "pdf",
+      "category": "模型与科学",
+      "tags": [
+        "OpenAI",
+        "ChatGPT",
+        "科学研究",
+        "AI for Science",
+        "科研生产率",
+        "真实使用",
+        "科研自动化",
+        "互补瓶颈"
+      ],
+      "source": "OpenAI Economic Research",
+      "authority": "OpenAI 官方 76 页研究报告、隐私保护使用数据与科研人员问卷",
+      "methodology": "使用数据来自 ChatGPT for Academic Researchers 计划，观察 2026 年 8 月 20 日至 9 月 22 日发送科研消息且最迟 9 月 2 日开始使用的 1,819 名科学家。总计 1,262,893 条消息，其中 580,186 条经请求状态与科研分类器识别为科研或学术消息；研究团队只使用隐私保护分类器输出，不查看消息或模型回复。GPT-5.6 Terra 等分类器将消息映射到 10 个科研工作流、40 个任务，并估计跟进类型、创意角色、人工时长和所需专业度。问卷于 9 月 30 日至 10 月 7 日开展，270 份有效完成、251 人同意纳入；按工作流询问 AI 使用时间、自报同质量耗时、发现时间预期与研究瓶颈。",
+      "scopeNote": "样本是主动申请免费扩展 AI 权限、且在短期内实际发送科研消息的学术研究人员，不代表全球科学家、全部学科或其他 AI 产品。58 万是分类为科研的用户消息数，不是研究项目、论文或发现数；85%、42.7%、32%、15% 和 0.4% 使用不同分母与行为定义。1.9 倍和 1.35—2.83 倍来自 249—251 人自报的反事实时间，不是日志测得生产率；0.96 相关只基于八个工作流均值且不识别因果。97.6% 和 21.6% 是对假设发现时间的预期，不是已实现结果。分类器有误差，34 天窗口不能观察长期质量、技能变化、发表、复现或实验产出。",
+      "publishedAt": "2026-11-16T00:00:00Z",
+      "ingestedAt": "2026-11-19T08:17:17+08:00",
+      "createdAt": "2026-11-16T00:00:00Z",
+      "updatedAt": "2026-11-16T00:00:00Z",
+      "featured": true,
+      "featuredRank": -15,
+      "archived": false,
+      "relatedReportIds": [
+        "authority-anthropic-scientific-discovery-2026",
+        "authority-openai-scientific-discoveries-2026",
+        "authority-google-alphagenome-2-2026"
+      ],
+      "studioId": "",
+      "origin": "industry",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
     {
       "id": "authority-google-gemini-4-hydrogen-2026",
       "title": "Google《Gemini 4 Hydrogen》｜快速 Agent 模型开始按速度、成本与推理深度分层",
@@ -1806,6 +1926,366 @@
     }
   ],
   "cards": [
+    {
+      "id": "authority-card-openai-rd-acceleration-01",
+      "reportId": "authority-openai-research-acceleration-jagged-2026",
+      "type": "metric",
+      "label": "零干预完成率",
+      "title": "2—4 小时任务从 23% 升至 46%，4—8 小时任务从 13% 升至 35%",
+      "summary": "比较 2026 年 3 月与 10 月的内部 Agent 轨迹；任务所需人工时长和是否零干预成功均由更新后的分类方法估计。研究者会随模型能力改变委派内容，因此提升同时包含能力与任务选择变化。",
+      "metric": "23%→46%；13%→35%",
+      "quote": "nearly half",
+      "translation": "接近一半。",
+      "anchor": "OpenAI report · Biggest takeaways / Tasks delegated to models · 18 Nov 2026",
+      "tags": [
+        "AI研发",
+        "零干预",
+        "任务时长"
+      ],
+      "createdAt": "2026-11-18T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-openai-rd-acceleration-02",
+        "authority-card-openai-rd-acceleration-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-openai-rd-acceleration-02",
+      "reportId": "authority-openai-research-acceleration-jagged-2026",
+      "type": "risk",
+      "label": "锯齿化能力",
+      "title": "监控训练运行 79%，启动训练 35%，推理与服务栈代码只有 25%",
+      "summary": "同一时期和组织内，任务类别的零人工干预成功率差异巨大。整体成功率上升不代表研发链路可端到端自动化，最低能力环节仍会成为系统瓶颈。",
+      "metric": "79% / 35% / 25%",
+      "quote": "the kind of work matters",
+      "translation": "任务类型至关重要。",
+      "anchor": "OpenAI report · Process / Measures of research activity · 1 Aug–18 Oct 2026",
+      "tags": [
+        "能力边界",
+        "训练运行",
+        "服务栈"
+      ],
+      "createdAt": "2026-11-18T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-openai-rd-acceleration-01",
+        "authority-card-openai-rd-acceleration-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-openai-rd-acceleration-03",
+      "reportId": "authority-openai-research-acceleration-jagged-2026",
+      "type": "metric",
+      "label": "并行 Agent 产能",
+      "title": "人均 Agent 工作日从 0.5 升至 5.7；超过三分之二日峰值至少并发 4 个",
+      "summary": "每连续运行 8 小时定义一个 Agent 工作日；超过 10% 的纳入研究者日峰值至少并发 16 个。它衡量运行时间和并发，不等于完成同等质量的人类工作日。",
+      "metric": "0.5→5.7；≥4 / ≥16",
+      "quote": "an elevenfold increase",
+      "translation": "增长了十一倍。",
+      "anchor": "OpenAI report · Inputs / Agent workdays and concurrent agent use",
+      "tags": [
+        "Agent并发",
+        "运行时长",
+        "产能池"
+      ],
+      "createdAt": "2026-11-18T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-openai-rd-acceleration-01",
+        "authority-card-openai-rd-acceleration-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-openai-rd-acceleration-04",
+      "reportId": "authority-openai-research-acceleration-jagged-2026",
+      "type": "metric",
+      "label": "资源投入口径",
+      "title": "日使用中位值 $2,400、90 分位 $23,000；等价价值约为非股权薪酬 2 倍",
+      "summary": "数字按 API 公开标价折算，不是内部边际成本；比较分母排除了通常占目标薪酬 70%—80% 的股权。内部 Agent 部署同时只占总研究算力 2%，三种口径不能互换。",
+      "metric": "$2.4K / $23K；2× / 2%",
+      "quote": "only 2% of total research compute",
+      "translation": "仅占总研究算力的 2%。",
+      "anchor": "OpenAI report · Inputs / Internal agent usage relative to human labor costs",
+      "tags": [
+        "API标价",
+        "研发薪酬",
+        "研究算力"
+      ],
+      "createdAt": "2026-11-18T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-openai-rd-acceleration-03",
+        "authority-card-openai-rd-acceleration-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-openai-rd-acceleration-05",
+      "reportId": "authority-openai-research-acceleration-jagged-2026",
+      "type": "action",
+      "label": "人类与安全仍在扩容",
+      "title": "安全与对齐工作周增加 77%；高使用并没有让研究品味和治理自动化",
+      "summary": "101 人假设问卷的中位回答愿以 40% 团队人数或 30% 团队算力换回前沿 Agent，但访谈仍指出研究品味、数据质量和无效循环需要人类把关。企业应同时扩充实验验证、监控和安全能力。",
+      "metric": "+77%；40% / 30%",
+      "quote": "humans remain a core part",
+      "translation": "人类仍是核心环节。",
+      "anchor": "OpenAI report · Where researchers allocate time / Researchers’ perspectives",
+      "tags": [
+        "安全与对齐",
+        "研究品味",
+        "人类监督"
+      ],
+      "createdAt": "2026-11-18T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-openai-rd-acceleration-02",
+        "authority-card-openai-rd-acceleration-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-openai-chip-design-01",
+      "reportId": "authority-openai-chip-design-2026",
+      "type": "metric",
+      "label": "自研芯片验证",
+      "title": "Jalapeño 向量单元面积约减 13%，矩阵单元约减 10%",
+      "summary": "一个乘法器重设计在综合中面积约减 15%，延迟从两个周期降至一个；相关优化已在芯片 bring-up 中验证。不同模块数字不能相加或外推整颗芯片。",
+      "metric": "-13% / -10% / -15%",
+      "quote": "silicon proven",
+      "translation": "已在硅片上验证。",
+      "anchor": "OpenAI publication · Improving Jalapeño’s compute blocks · 18 Nov 2026",
+      "tags": [
+        "Jalapeño",
+        "标准单元面积",
+        "流片验证"
+      ],
+      "createdAt": "2026-11-18T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-openai-chip-design-02",
+        "authority-card-openai-chip-design-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-openai-chip-design-02",
+      "reportId": "authority-openai-chip-design-2026",
+      "type": "metric",
+      "label": "生产级合作",
+      "title": "AMD 旗舰 GPU IP 最高改善 14% PPA，约一年进展压缩到不到五个月",
+      "summary": "AMD 已把部分模型提出的更改放入近期送厂设计，另一些进入未来生产文件，并在下一代旗舰 CPU 关键模块验证个位数 PPA 增益。14% 是局部最优结果，不是整颗 GPU 增益。",
+      "metric": "最高 14%；<5 个月",
+      "quote": "included some of these changes",
+      "translation": "已采用其中部分更改。",
+      "anchor": "OpenAI publication · Our collaboration with AMD",
+      "tags": [
+        "AMD",
+        "PPA",
+        "生产设计"
+      ],
+      "createdAt": "2026-11-18T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-openai-chip-design-01",
+        "authority-card-openai-chip-design-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-openai-chip-design-03",
+      "reportId": "authority-openai-chip-design-2026",
+      "type": "metric",
+      "label": "开放 RISC-V 评测",
+      "title": "两类任务、两个内核和多档预算共 9,881 次运行，可比预算约 112K token",
+      "summary": "PicoRV32 与 Ibex 分别做现有 RTL 优化和从规格生成；仿真失败或面积超过原设计 16 倍记零，通过者按隐藏工作负载 IPC × Yosys 估计频率计分。",
+      "metric": "9,881 / 112K",
+      "quote": "full evaluation included 9,881",
+      "translation": "完整评测包含 9,881 次计分运行。",
+      "anchor": "OpenAI publication · Optimizing RISC-V cores / Designing from a specification",
+      "tags": [
+        "RISC-V",
+        "PicoRV32",
+        "Ibex"
+      ],
+      "createdAt": "2026-11-18T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-openai-chip-design-04",
+        "authority-card-openai-chip-design-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-openai-chip-design-04",
+      "reportId": "authority-openai-chip-design-2026",
+      "type": "risk",
+      "label": "高分的功能代价",
+      "title": "从规格生成得分更高，部分原因可能是省略性能计数器和附加指令",
+      "summary": "评测没有要求完整保留原内核功能，也未用布局布线后的物理综合检查时序，面积上限还允许到原设计 16 倍。开放评测排名不等于量产 CPU 的功能、面积和时序合格。",
+      "metric": "16× 面积上限",
+      "quote": "omit features found in the original",
+      "translation": "省略原始内核中的功能。",
+      "anchor": "OpenAI publication · Designing a RISC-V core from a specification · Limitations",
+      "tags": [
+        "功能等价",
+        "物理综合",
+        "评测边界"
+      ],
+      "createdAt": "2026-11-18T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-openai-chip-design-02",
+        "authority-card-openai-chip-design-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-openai-chip-design-05",
+      "reportId": "authority-openai-chip-design-2026",
+      "type": "action",
+      "label": "工具围栏",
+      "title": "AI 负责 RTL 搜索，专家与 EDA 工具负责功能验证、PPA 权衡和生产验收",
+      "summary": "OpenAI 把生产案例建立在 Synopsys 工具验证、专家评审和合作方生产流程上，并宣布与 Synopsys 训练专用模型。落地芯片 Agent 时应把验证闭环和物理约束设计成系统，而不是只让模型生成 RTL。",
+      "metric": "生成→验证→综合→流片",
+      "quote": "trusted evaluators",
+      "translation": "可信的评估与验证工具。",
+      "anchor": "OpenAI publication · What’s next / Synopsys partnership",
+      "tags": [
+        "Synopsys",
+        "EDA",
+        "人机协作"
+      ],
+      "createdAt": "2026-11-18T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-openai-chip-design-01",
+        "authority-card-openai-chip-design-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-openai-science-frontier-01",
+      "reportId": "authority-openai-science-at-frontier-2026",
+      "type": "metric",
+      "label": "真实科研使用样本",
+      "title": "1,819 名科学家、580,186 条科研消息，另有 251 人问卷",
+      "summary": "34 天内总计 1,262,893 条消息，其中 580,186 条由隐私保护分类器识别为科研或学术内容；问卷 270 份有效完成中 251 人同意纳入。研究团队不查看原始消息或回复。",
+      "metric": "1,819 / 580,186 / 251",
+      "quote": "over half a million",
+      "translation": "超过五十万条。",
+      "anchor": "Full report pp.1–4 · Abstract / Data and measurement",
+      "tags": [
+        "科研使用",
+        "隐私分类",
+        "样本口径"
+      ],
+      "createdAt": "2026-11-16T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-openai-science-frontier-02",
+        "authority-card-openai-science-frontier-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-openai-science-frontier-02",
+      "reportId": "authority-openai-science-at-frontier-2026",
+      "type": "insight",
+      "label": "采用集中",
+      "title": "85% 科研消息集中在四类工作；42.7% 科学家每周有两条以上创意消息",
+      "summary": "阅读、科学分析、软件开发、写作占平均科学家科研消息的 85%，前两类合计超过一半；创意使用虽存在，但 42.7% 的门槛只是每周超过两条消息，不代表形成新发现。",
+      "metric": "85%；42.7%",
+      "quote": "reading and writing",
+      "translation": "阅读与写作。",
+      "anchor": "Full report p.3 and pp.14–15 · Main findings / Figure 5",
+      "tags": [
+        "工作流分布",
+        "创意生成",
+        "采用强度"
+      ],
+      "createdAt": "2026-11-16T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-openai-science-frontier-01",
+        "authority-card-openai-science-frontier-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-openai-science-frontier-03",
+      "reportId": "authority-openai-science-at-frontier-2026",
+      "type": "risk",
+      "label": "自动化边界",
+      "title": "约 15% 尝试过端到端自主研究，但只占平均科研消息的 0.4%",
+      "summary": "初始请求后约 32% 会继续澄清、检查或修订；端到端请求周度回访率低。使用证据更像‘助手深化’，尚不是稳定的无人科研流水线。",
+      "metric": "15% / 0.4% / 32%",
+      "quote": "limited sustained use",
+      "translation": "持续使用仍然有限。",
+      "anchor": "Full report pp.24–27 · Scientist involvement / End-to-end autonomous research",
+      "tags": [
+        "端到端科研",
+        "人工跟进",
+        "自动化边界"
+      ],
+      "createdAt": "2026-11-16T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-openai-science-frontier-02",
+        "authority-card-openai-science-frontier-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-openai-science-frontier-04",
+      "reportId": "authority-openai-science-at-frontier-2026",
+      "type": "metric",
+      "label": "自报生产率",
+      "title": "同质量工作平均自报 1.9 倍；八类工作流从 1.35 倍到 2.83 倍",
+      "summary": "249—251 人回忆没有 AI 时完成同量同质工作的耗时，八个工作流等权平均；0.96 的使用—生产率相关只基于八个工作流均值。它不是日志测量、随机实验或实际科研产出。",
+      "metric": "1.9×；1.35–2.83×",
+      "quote": "self-reported productivity gains",
+      "translation": "自报的生产率提升。",
+      "anchor": "Full report pp.29–31 · Figure 15 / Self-reported productivity gains",
+      "tags": [
+        "自报生产率",
+        "相关性",
+        "不可因果化"
+      ],
+      "createdAt": "2026-11-16T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-openai-science-frontier-01",
+        "authority-card-openai-science-frontier-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-openai-science-frontier-05",
+      "reportId": "authority-openai-science-at-frontier-2026",
+      "type": "action",
+      "label": "模型外瓶颈",
+      "title": "97.6% 预期发现加速；但 71% 仍受人员、时间或资金至少一项约束",
+      "summary": "21.6% 预计原需十年的发现会提前七到十年；这是 250 人对假设情景的预期。51.8% 选时间/人员、43.8% 选资金，说明模型升级要与实验能力、团队和资助同步投入。",
+      "metric": "97.6% / 21.6% / 71%",
+      "quote": "complementary investment in science",
+      "translation": "对科学体系进行配套投资。",
+      "anchor": "Full report pp.27–32 · Figures 13, 16 / Conclusion",
+      "tags": [
+        "发现预期",
+        "资金瓶颈",
+        "配套投资"
+      ],
+      "createdAt": "2026-11-16T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-openai-science-frontier-03",
+        "authority-card-openai-science-frontier-04"
+      ],
+      "origin": "industry"
+    },
     {
       "id": "authority-card-google-hydrogen-01",
       "reportId": "authority-google-gemini-4-hydrogen-2026",
