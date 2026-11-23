@@ -69,7 +69,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 186;
+const DATA_VERSION = 187;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -224,6 +224,30 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      "id": "qieman-companionship-wealth-memory-2026-11-23",
+      "groupId": "product-planning",
+      "title": "且慢陪伴写作｜一封信、财富档案与财富记忆",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-companionship-wealth-memory-2026-11-23/",
+      "preview": "qieman-companionship-wealth-memory-2026-11-23.svg",
+      "pinned": false,
+      "position": 0,
+      "createdAt": "2026-11-23T18:30:00+08:00",
+      "source": "公开署名作品与可见读者回应研究；提炼林杰才、Iris、E大、郭志强与且慢团队的方法，附三组虚构客户的信、档案、记忆及可复用Skill。真实客户批量交付尚未接入。预览为文字封面。",
+      "access": "production",
+      "workType": "product-planning",
+      "tags": [
+        "且慢",
+        "财富档案",
+        "财富记忆",
+        "陪伴",
+        "客户体验",
+        "Skills",
+        "内容写作",
+        "产品规划",
+        "HTML"
+      ]
+    },
     {
       "id": "r9-site-study-2026-11-19",
       "groupId": "ai-workbench",
@@ -4909,6 +4933,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-companionship-wealth-memory-2026-11-23": "product-planning",
   "r9-site-study-2026-11-19": "competitive-research",
   "r9-full-results-2026-11-19": "product-demo",
   "product-team-pulse-2026-11-19": "product-demo",
@@ -5066,6 +5091,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-companionship-wealth-memory-2026-11-23": "product-planning",
   "r9-site-study-2026-11-19": "ai-workbench",
   "r9-full-results-2026-11-19": "advisor-workbench",
   "product-team-pulse-2026-11-19": "ai-workbench",
