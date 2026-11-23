@@ -4,15 +4,15 @@ window.DOUBAO_ACQUISITION_DATA = {
     "title": "豆包・盈米AI服务 用户数据看板",
     "window_start_at": "2026-08-28T00:00:00+08:00",
     "launch_at": "2026-08-28T00:00:00+08:00",
-    "generated_at": "2026-11-20T14:14:50+08:00",
-    "data_cutoff": "2026-11-20T14:14:50+08:00",
+    "generated_at": "2026-11-23T09:19:18+08:00",
+    "data_cutoff": "2026-11-23T09:19:18+08:00",
     "timezone": "Asia/Shanghai",
     "source": "盈米本体 · 生产数据库",
     "evidence_state": "confirmed",
     "privacy": "只公开统计结果；2026-08-24 起按业务方要求，小分组不再合并或隐藏；页面不含用户身份标识与原始对话",
     "privacy_policy": "audience-full-disclosure-v2",
     "latest_day_is_partial": true,
-    "asset_as_of": "2026-11-19"
+    "asset_as_of": "2026-11-20"
   },
   "privacy": {
     "public_grain": "aggregate_only",
@@ -27,9 +27,9 @@ window.DOUBAO_ACQUISITION_DATA = {
     "multi_dimension_cross_tabs_public": false
   },
   "metrics": {
-    "bound_accounts": 5659,
-    "existing_accounts": 1221,
-    "new_accounts": 4438,
+    "bound_accounts": 5735,
+    "existing_accounts": 1237,
+    "new_accounts": 4498,
     "missing_registration_time": 0,
     "duplicate_bindings": 0,
     "unmatched_accounts": 0
@@ -577,14 +577,14 @@ window.DOUBAO_ACQUISITION_DATA = {
     },
     {
       "date": "2026-10-12",
-      "new_accounts_today": 81,
+      "new_accounts_today": 80,
       "existing_accounts_today": 20,
       "unclassified_accounts_today": 0,
-      "bound_accounts_today": 101,
-      "cumulative_new_accounts": 2173,
+      "bound_accounts_today": 100,
+      "cumulative_new_accounts": 2172,
       "cumulative_existing_accounts": 721,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 2894,
+      "cumulative_bound_accounts": 2893,
       "partial": false
     },
     {
@@ -593,10 +593,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 15,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 96,
-      "cumulative_new_accounts": 2254,
+      "cumulative_new_accounts": 2253,
       "cumulative_existing_accounts": 736,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 2990,
+      "cumulative_bound_accounts": 2989,
       "partial": false
     },
     {
@@ -605,10 +605,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 9,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 80,
-      "cumulative_new_accounts": 2325,
+      "cumulative_new_accounts": 2324,
       "cumulative_existing_accounts": 745,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 3070,
+      "cumulative_bound_accounts": 3069,
       "partial": false
     },
     {
@@ -617,10 +617,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 20,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 95,
-      "cumulative_new_accounts": 2400,
+      "cumulative_new_accounts": 2399,
       "cumulative_existing_accounts": 765,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 3165,
+      "cumulative_bound_accounts": 3164,
       "partial": false
     },
     {
@@ -629,10 +629,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 18,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 79,
-      "cumulative_new_accounts": 2461,
+      "cumulative_new_accounts": 2460,
       "cumulative_existing_accounts": 783,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 3244,
+      "cumulative_bound_accounts": 3243,
       "partial": false
     },
     {
@@ -641,10 +641,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 12,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 77,
-      "cumulative_new_accounts": 2526,
+      "cumulative_new_accounts": 2525,
       "cumulative_existing_accounts": 795,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 3321,
+      "cumulative_bound_accounts": 3320,
       "partial": false
     },
     {
@@ -653,10 +653,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 9,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 58,
-      "cumulative_new_accounts": 2575,
+      "cumulative_new_accounts": 2574,
       "cumulative_existing_accounts": 804,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 3379,
+      "cumulative_bound_accounts": 3378,
       "partial": false
     },
     {
@@ -665,22 +665,22 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 10,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 81,
-      "cumulative_new_accounts": 2646,
+      "cumulative_new_accounts": 2645,
       "cumulative_existing_accounts": 814,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 3460,
+      "cumulative_bound_accounts": 3459,
       "partial": false
     },
     {
       "date": "2026-10-20",
-      "new_accounts_today": 61,
+      "new_accounts_today": 60,
       "existing_accounts_today": 8,
       "unclassified_accounts_today": 0,
-      "bound_accounts_today": 69,
-      "cumulative_new_accounts": 2707,
+      "bound_accounts_today": 68,
+      "cumulative_new_accounts": 2705,
       "cumulative_existing_accounts": 822,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 3529,
+      "cumulative_bound_accounts": 3527,
       "partial": false
     },
     {
@@ -689,10 +689,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 17,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 71,
-      "cumulative_new_accounts": 2761,
+      "cumulative_new_accounts": 2759,
       "cumulative_existing_accounts": 839,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 3600,
+      "cumulative_bound_accounts": 3598,
       "partial": false
     },
     {
@@ -701,10 +701,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 9,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 65,
-      "cumulative_new_accounts": 2817,
+      "cumulative_new_accounts": 2815,
       "cumulative_existing_accounts": 848,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 3665,
+      "cumulative_bound_accounts": 3663,
       "partial": false
     },
     {
@@ -713,10 +713,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 14,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 83,
-      "cumulative_new_accounts": 2886,
+      "cumulative_new_accounts": 2884,
       "cumulative_existing_accounts": 862,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 3748,
+      "cumulative_bound_accounts": 3746,
       "partial": false
     },
     {
@@ -725,10 +725,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 13,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 49,
-      "cumulative_new_accounts": 2922,
+      "cumulative_new_accounts": 2920,
       "cumulative_existing_accounts": 875,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 3797,
+      "cumulative_bound_accounts": 3795,
       "partial": false
     },
     {
@@ -737,10 +737,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 10,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 52,
-      "cumulative_new_accounts": 2964,
+      "cumulative_new_accounts": 2962,
       "cumulative_existing_accounts": 885,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 3849,
+      "cumulative_bound_accounts": 3847,
       "partial": false
     },
     {
@@ -749,10 +749,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 11,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 65,
-      "cumulative_new_accounts": 3018,
+      "cumulative_new_accounts": 3016,
       "cumulative_existing_accounts": 896,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 3914,
+      "cumulative_bound_accounts": 3912,
       "partial": false
     },
     {
@@ -761,10 +761,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 9,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 64,
-      "cumulative_new_accounts": 3073,
+      "cumulative_new_accounts": 3071,
       "cumulative_existing_accounts": 905,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 3978,
+      "cumulative_bound_accounts": 3976,
       "partial": false
     },
     {
@@ -773,10 +773,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 9,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 67,
-      "cumulative_new_accounts": 3131,
+      "cumulative_new_accounts": 3129,
       "cumulative_existing_accounts": 914,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 4045,
+      "cumulative_bound_accounts": 4043,
       "partial": false
     },
     {
@@ -785,10 +785,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 11,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 73,
-      "cumulative_new_accounts": 3193,
+      "cumulative_new_accounts": 3191,
       "cumulative_existing_accounts": 925,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 4118,
+      "cumulative_bound_accounts": 4116,
       "partial": false
     },
     {
@@ -797,10 +797,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 6,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 60,
-      "cumulative_new_accounts": 3247,
+      "cumulative_new_accounts": 3245,
       "cumulative_existing_accounts": 931,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 4178,
+      "cumulative_bound_accounts": 4176,
       "partial": false
     },
     {
@@ -809,10 +809,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 12,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 37,
-      "cumulative_new_accounts": 3272,
+      "cumulative_new_accounts": 3270,
       "cumulative_existing_accounts": 943,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 4215,
+      "cumulative_bound_accounts": 4213,
       "partial": false
     },
     {
@@ -821,10 +821,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 9,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 46,
-      "cumulative_new_accounts": 3309,
+      "cumulative_new_accounts": 3307,
       "cumulative_existing_accounts": 952,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 4261,
+      "cumulative_bound_accounts": 4259,
       "partial": false
     },
     {
@@ -833,10 +833,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 12,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 42,
-      "cumulative_new_accounts": 3339,
+      "cumulative_new_accounts": 3337,
       "cumulative_existing_accounts": 964,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 4303,
+      "cumulative_bound_accounts": 4301,
       "partial": false
     },
     {
@@ -845,10 +845,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 7,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 49,
-      "cumulative_new_accounts": 3381,
+      "cumulative_new_accounts": 3379,
       "cumulative_existing_accounts": 971,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 4352,
+      "cumulative_bound_accounts": 4350,
       "partial": false
     },
     {
@@ -857,10 +857,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 16,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 61,
-      "cumulative_new_accounts": 3426,
+      "cumulative_new_accounts": 3424,
       "cumulative_existing_accounts": 987,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 4413,
+      "cumulative_bound_accounts": 4411,
       "partial": false
     },
     {
@@ -869,10 +869,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 16,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 61,
-      "cumulative_new_accounts": 3471,
+      "cumulative_new_accounts": 3469,
       "cumulative_existing_accounts": 1003,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 4474,
+      "cumulative_bound_accounts": 4472,
       "partial": false
     },
     {
@@ -881,10 +881,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 5,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 46,
-      "cumulative_new_accounts": 3512,
+      "cumulative_new_accounts": 3510,
       "cumulative_existing_accounts": 1008,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 4520,
+      "cumulative_bound_accounts": 4518,
       "partial": false
     },
     {
@@ -893,10 +893,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 11,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 59,
-      "cumulative_new_accounts": 3560,
+      "cumulative_new_accounts": 3558,
       "cumulative_existing_accounts": 1019,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 4579,
+      "cumulative_bound_accounts": 4577,
       "partial": false
     },
     {
@@ -905,10 +905,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 11,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 42,
-      "cumulative_new_accounts": 3591,
+      "cumulative_new_accounts": 3589,
       "cumulative_existing_accounts": 1030,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 4621,
+      "cumulative_bound_accounts": 4619,
       "partial": false
     },
     {
@@ -917,10 +917,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 15,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 50,
-      "cumulative_new_accounts": 3626,
+      "cumulative_new_accounts": 3624,
       "cumulative_existing_accounts": 1045,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 4671,
+      "cumulative_bound_accounts": 4669,
       "partial": false
     },
     {
@@ -929,10 +929,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 11,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 63,
-      "cumulative_new_accounts": 3678,
+      "cumulative_new_accounts": 3676,
       "cumulative_existing_accounts": 1056,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 4734,
+      "cumulative_bound_accounts": 4732,
       "partial": false
     },
     {
@@ -941,10 +941,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 22,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 145,
-      "cumulative_new_accounts": 3801,
+      "cumulative_new_accounts": 3799,
       "cumulative_existing_accounts": 1078,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 4879,
+      "cumulative_bound_accounts": 4877,
       "partial": false
     },
     {
@@ -953,10 +953,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 21,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 158,
-      "cumulative_new_accounts": 3938,
+      "cumulative_new_accounts": 3936,
       "cumulative_existing_accounts": 1099,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 5037,
+      "cumulative_bound_accounts": 5035,
       "partial": false
     },
     {
@@ -965,10 +965,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 22,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 150,
-      "cumulative_new_accounts": 4066,
+      "cumulative_new_accounts": 4064,
       "cumulative_existing_accounts": 1121,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 5187,
+      "cumulative_bound_accounts": 5185,
       "partial": false
     },
     {
@@ -977,10 +977,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 29,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 117,
-      "cumulative_new_accounts": 4154,
+      "cumulative_new_accounts": 4152,
       "cumulative_existing_accounts": 1150,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 5304,
+      "cumulative_bound_accounts": 5302,
       "partial": false
     },
     {
@@ -989,10 +989,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 21,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 119,
-      "cumulative_new_accounts": 4252,
+      "cumulative_new_accounts": 4250,
       "cumulative_existing_accounts": 1171,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 5423,
+      "cumulative_bound_accounts": 5421,
       "partial": false
     },
     {
@@ -1001,10 +1001,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 14,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 59,
-      "cumulative_new_accounts": 4297,
+      "cumulative_new_accounts": 4295,
       "cumulative_existing_accounts": 1185,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 5482,
+      "cumulative_bound_accounts": 5480,
       "partial": false
     },
     {
@@ -1013,10 +1013,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 11,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 56,
-      "cumulative_new_accounts": 4342,
+      "cumulative_new_accounts": 4340,
       "cumulative_existing_accounts": 1196,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 5538,
+      "cumulative_bound_accounts": 5536,
       "partial": false
     },
     {
@@ -1025,10 +1025,10 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 11,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 53,
-      "cumulative_new_accounts": 4384,
+      "cumulative_new_accounts": 4382,
       "cumulative_existing_accounts": 1207,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 5591,
+      "cumulative_bound_accounts": 5589,
       "partial": false
     },
     {
@@ -1037,48 +1037,84 @@ window.DOUBAO_ACQUISITION_DATA = {
       "existing_accounts_today": 9,
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 41,
-      "cumulative_new_accounts": 4416,
+      "cumulative_new_accounts": 4414,
       "cumulative_existing_accounts": 1216,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 5632,
+      "cumulative_bound_accounts": 5630,
       "partial": false
     },
     {
       "date": "2026-11-20",
-      "new_accounts_today": 22,
-      "existing_accounts_today": 5,
+      "new_accounts_today": 48,
+      "existing_accounts_today": 11,
       "unclassified_accounts_today": 0,
-      "bound_accounts_today": 27,
-      "cumulative_new_accounts": 4438,
-      "cumulative_existing_accounts": 1221,
+      "bound_accounts_today": 59,
+      "cumulative_new_accounts": 4462,
+      "cumulative_existing_accounts": 1227,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 5659,
+      "cumulative_bound_accounts": 5689,
+      "partial": false
+    },
+    {
+      "date": "2026-11-21",
+      "new_accounts_today": 11,
+      "existing_accounts_today": 3,
+      "unclassified_accounts_today": 0,
+      "bound_accounts_today": 14,
+      "cumulative_new_accounts": 4473,
+      "cumulative_existing_accounts": 1230,
+      "cumulative_unclassified_accounts": 0,
+      "cumulative_bound_accounts": 5703,
+      "partial": false
+    },
+    {
+      "date": "2026-11-22",
+      "new_accounts_today": 20,
+      "existing_accounts_today": 6,
+      "unclassified_accounts_today": 0,
+      "bound_accounts_today": 26,
+      "cumulative_new_accounts": 4493,
+      "cumulative_existing_accounts": 1236,
+      "cumulative_unclassified_accounts": 0,
+      "cumulative_bound_accounts": 5729,
+      "partial": false
+    },
+    {
+      "date": "2026-11-23",
+      "new_accounts_today": 5,
+      "existing_accounts_today": 1,
+      "unclassified_accounts_today": 0,
+      "bound_accounts_today": 6,
+      "cumulative_new_accounts": 4498,
+      "cumulative_existing_accounts": 1237,
+      "cumulative_unclassified_accounts": 0,
+      "cumulative_bound_accounts": 5735,
       "partial": true
     }
   ],
   "profile": {
     "cohorts": {
       "all": {
-        "population_accounts": 5659,
+        "population_accounts": 5735,
         "dimensions": [
           {
             "id": "asset_holding_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-19",
+            "data_as_of": "2026-11-20",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "has_assets",
-                "accounts": 414
+                "accounts": 420
               },
               {
                 "id": "no_assets",
-                "accounts": 236
+                "accounts": 238
               },
               {
                 "id": "unknown",
-                "accounts": 5009
+                "accounts": 5077
               }
             ]
           },
@@ -1086,20 +1122,20 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "asset_bucket",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-19",
+            "data_as_of": "2026-11-20",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "no_assets",
-                "accounts": 236
+                "accounts": 238
               },
               {
                 "id": "lt_10k",
-                "accounts": 134
+                "accounts": 139
               },
               {
                 "id": "10k_100k",
-                "accounts": 122
+                "accounts": 123
               },
               {
                 "id": "100k_1m",
@@ -1113,7 +1149,7 @@ window.DOUBAO_ACQUISITION_DATA = {
               },
               {
                 "id": "unknown",
-                "accounts": 5009
+                "accounts": 5077
               }
             ]
           },
@@ -1121,18 +1157,18 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "asset_at_bind_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "zero_at_bind",
                 "label": "绑定时零资产（含未开户）",
-                "accounts": 5249
+                "accounts": 5318
               },
               {
                 "id": "has_assets_at_bind",
                 "label": "绑定时已有资产",
-                "accounts": 410
+                "accounts": 417
               }
             ]
           },
@@ -1140,13 +1176,13 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "holding_lifecycle_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "no_first_investment",
                 "label": "无首投（从未入金）",
-                "accounts": 5181
+                "accounts": 5249
               },
               {
                 "id": "churned",
@@ -1156,7 +1192,7 @@ window.DOUBAO_ACQUISITION_DATA = {
               {
                 "id": "under_management",
                 "label": "在管（当前有资产）",
-                "accounts": 397
+                "accounts": 405
               }
             ]
           },
@@ -1164,16 +1200,16 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "lifetime_investment_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "invested",
-                "accounts": 478
+                "accounts": 486
               },
               {
                 "id": "not_invested",
-                "accounts": 5181
+                "accounts": 5249
               }
             ]
           },
@@ -1181,28 +1217,28 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "age_bucket",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "lte_25",
                 "label": "25 岁及以下",
-                "accounts": 62
+                "accounts": 63
               },
               {
                 "id": "26_35",
                 "label": "26—35 岁",
-                "accounts": 231
+                "accounts": 233
               },
               {
                 "id": "36_45",
                 "label": "36—45 岁",
-                "accounts": 258
+                "accounts": 262
               },
               {
                 "id": "46_55",
                 "label": "46—55 岁",
-                "accounts": 82
+                "accounts": 83
               },
               {
                 "id": "56_65",
@@ -1216,7 +1252,7 @@ window.DOUBAO_ACQUISITION_DATA = {
               },
               {
                 "id": "unknown",
-                "accounts": 5011
+                "accounts": 5079
               }
             ]
           },
@@ -1224,12 +1260,12 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "gender",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "male",
-                "accounts": 524
+                "accounts": 532
               },
               {
                 "id": "female",
@@ -1237,7 +1273,7 @@ window.DOUBAO_ACQUISITION_DATA = {
               },
               {
                 "id": "unknown",
-                "accounts": 5010
+                "accounts": 5078
               }
             ]
           },
@@ -1245,12 +1281,12 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "residence_province",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "unknown",
-                "accounts": 5573
+                "accounts": 5649
               },
               {
                 "id": "广东",
@@ -1283,6 +1319,11 @@ window.DOUBAO_ACQUISITION_DATA = {
                 "accounts": 4
               },
               {
+                "id": "四川",
+                "label": "四川",
+                "accounts": 3
+              },
+              {
                 "id": "河南",
                 "label": "河南",
                 "accounts": 3
@@ -1293,23 +1334,18 @@ window.DOUBAO_ACQUISITION_DATA = {
                 "accounts": 3
               },
               {
-                "id": "四川",
-                "label": "四川",
-                "accounts": 3
+                "id": "福建",
+                "label": "福建",
+                "accounts": 2
+              },
+              {
+                "id": "安徽",
+                "label": "安徽",
+                "accounts": 2
               },
               {
                 "id": "云南",
                 "label": "云南",
-                "accounts": 2
-              },
-              {
-                "id": "湖北",
-                "label": "湖北",
-                "accounts": 2
-              },
-              {
-                "id": "江西",
-                "label": "江西",
                 "accounts": 2
               },
               {
@@ -1323,8 +1359,8 @@ window.DOUBAO_ACQUISITION_DATA = {
                 "accounts": 2
               },
               {
-                "id": "安徽",
-                "label": "安徽",
+                "id": "江西",
+                "label": "江西",
                 "accounts": 2
               },
               {
@@ -1333,8 +1369,8 @@ window.DOUBAO_ACQUISITION_DATA = {
                 "accounts": 2
               },
               {
-                "id": "福建",
-                "label": "福建",
+                "id": "湖北",
+                "label": "湖北",
                 "accounts": 2
               },
               {
@@ -1353,16 +1389,16 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "app_usage_status",
             "definition_version": "native-app-evidence-v1",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "app_used",
-                "accounts": 794
+                "accounts": 804
               },
               {
                 "id": "app_no_record",
-                "accounts": 4865
+                "accounts": 4931
               }
             ]
           },
@@ -1370,16 +1406,16 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "wechat_mp_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "mp_bound",
-                "accounts": 1005
+                "accounts": 1027
               },
               {
                 "id": "mp_not_bound",
-                "accounts": 4654
+                "accounts": 4708
               }
             ]
           },
@@ -1387,16 +1423,16 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "bank_card_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "card_bound",
-                "accounts": 639
+                "accounts": 647
               },
               {
                 "id": "card_not_bound",
-                "accounts": 5020
+                "accounts": 5088
               }
             ]
           },
@@ -1404,29 +1440,29 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "risk_assessment_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "assessed",
-                "accounts": 253
+                "accounts": 259
               },
               {
                 "id": "not_assessed",
-                "accounts": 5406
+                "accounts": 5476
               }
             ]
           }
         ]
       },
       "new": {
-        "population_accounts": 4438,
+        "population_accounts": 4498,
         "dimensions": [
           {
             "id": "asset_holding_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-19",
+            "data_as_of": "2026-11-20",
             "state": "confirmed",
             "buckets": [
               {
@@ -1435,11 +1471,11 @@ window.DOUBAO_ACQUISITION_DATA = {
               },
               {
                 "id": "no_assets",
-                "accounts": 11
+                "accounts": 12
               },
               {
                 "id": "unknown",
-                "accounts": 4424
+                "accounts": 4483
               }
             ]
           },
@@ -1447,12 +1483,12 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "asset_bucket",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-19",
+            "data_as_of": "2026-11-20",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "no_assets",
-                "accounts": 11
+                "accounts": 12
               },
               {
                 "id": "lt_10k",
@@ -1474,7 +1510,7 @@ window.DOUBAO_ACQUISITION_DATA = {
               },
               {
                 "id": "unknown",
-                "accounts": 4424
+                "accounts": 4483
               }
             ]
           },
@@ -1482,13 +1518,13 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "asset_at_bind_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "zero_at_bind",
                 "label": "绑定时零资产（含未开户）",
-                "accounts": 4438
+                "accounts": 4498
               },
               {
                 "id": "has_assets_at_bind",
@@ -1501,13 +1537,13 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "holding_lifecycle_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "no_first_investment",
                 "label": "无首投（从未入金）",
-                "accounts": 4435
+                "accounts": 4495
               },
               {
                 "id": "churned",
@@ -1525,7 +1561,7 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "lifetime_investment_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
@@ -1534,7 +1570,7 @@ window.DOUBAO_ACQUISITION_DATA = {
               },
               {
                 "id": "not_invested",
-                "accounts": 4435
+                "accounts": 4495
               }
             ]
           },
@@ -1542,7 +1578,7 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "age_bucket",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
@@ -1558,7 +1594,7 @@ window.DOUBAO_ACQUISITION_DATA = {
               {
                 "id": "36_45",
                 "label": "36—45 岁",
-                "accounts": 4
+                "accounts": 5
               },
               {
                 "id": "46_55",
@@ -1577,7 +1613,7 @@ window.DOUBAO_ACQUISITION_DATA = {
               },
               {
                 "id": "unknown",
-                "accounts": 4424
+                "accounts": 4483
               }
             ]
           },
@@ -1585,12 +1621,12 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "gender",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "male",
-                "accounts": 11
+                "accounts": 12
               },
               {
                 "id": "female",
@@ -1598,7 +1634,7 @@ window.DOUBAO_ACQUISITION_DATA = {
               },
               {
                 "id": "unknown",
-                "accounts": 4424
+                "accounts": 4483
               }
             ]
           },
@@ -1606,12 +1642,12 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "residence_province",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "unknown",
-                "accounts": 4438
+                "accounts": 4498
               }
             ]
           },
@@ -1619,16 +1655,16 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "app_usage_status",
             "definition_version": "native-app-evidence-v1",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "app_used",
-                "accounts": 29
+                "accounts": 30
               },
               {
                 "id": "app_no_record",
-                "accounts": 4409
+                "accounts": 4468
               }
             ]
           },
@@ -1636,16 +1672,16 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "wechat_mp_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "mp_bound",
-                "accounts": 224
+                "accounts": 235
               },
               {
                 "id": "mp_not_bound",
-                "accounts": 4214
+                "accounts": 4263
               }
             ]
           },
@@ -1653,16 +1689,16 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "bank_card_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "card_bound",
-                "accounts": 9
+                "accounts": 10
               },
               {
                 "id": "card_not_bound",
-                "accounts": 4429
+                "accounts": 4488
               }
             ]
           },
@@ -1670,42 +1706,42 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "risk_assessment_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "assessed",
-                "accounts": 14
+                "accounts": 15
               },
               {
                 "id": "not_assessed",
-                "accounts": 4424
+                "accounts": 4483
               }
             ]
           }
         ]
       },
       "existing": {
-        "population_accounts": 1221,
+        "population_accounts": 1237,
         "dimensions": [
           {
             "id": "asset_holding_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-19",
+            "data_as_of": "2026-11-20",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "has_assets",
-                "accounts": 411
+                "accounts": 417
               },
               {
                 "id": "no_assets",
-                "accounts": 225
+                "accounts": 226
               },
               {
                 "id": "unknown",
-                "accounts": 585
+                "accounts": 594
               }
             ]
           },
@@ -1713,20 +1749,20 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "asset_bucket",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-19",
+            "data_as_of": "2026-11-20",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "no_assets",
-                "accounts": 225
+                "accounts": 226
               },
               {
                 "id": "lt_10k",
-                "accounts": 131
+                "accounts": 136
               },
               {
                 "id": "10k_100k",
-                "accounts": 122
+                "accounts": 123
               },
               {
                 "id": "100k_1m",
@@ -1740,7 +1776,7 @@ window.DOUBAO_ACQUISITION_DATA = {
               },
               {
                 "id": "unknown",
-                "accounts": 585
+                "accounts": 594
               }
             ]
           },
@@ -1748,18 +1784,18 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "asset_at_bind_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "zero_at_bind",
                 "label": "绑定时零资产（含未开户）",
-                "accounts": 811
+                "accounts": 820
               },
               {
                 "id": "has_assets_at_bind",
                 "label": "绑定时已有资产",
-                "accounts": 410
+                "accounts": 417
               }
             ]
           },
@@ -1767,13 +1803,13 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "holding_lifecycle_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "no_first_investment",
                 "label": "无首投（从未入金）",
-                "accounts": 746
+                "accounts": 754
               },
               {
                 "id": "churned",
@@ -1783,7 +1819,7 @@ window.DOUBAO_ACQUISITION_DATA = {
               {
                 "id": "under_management",
                 "label": "在管（当前有资产）",
-                "accounts": 394
+                "accounts": 402
               }
             ]
           },
@@ -1791,16 +1827,16 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "lifetime_investment_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "invested",
-                "accounts": 475
+                "accounts": 483
               },
               {
                 "id": "not_invested",
-                "accounts": 746
+                "accounts": 754
               }
             ]
           },
@@ -1808,28 +1844,28 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "age_bucket",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "lte_25",
                 "label": "25 岁及以下",
-                "accounts": 59
+                "accounts": 60
               },
               {
                 "id": "26_35",
                 "label": "26—35 岁",
-                "accounts": 227
+                "accounts": 229
               },
               {
                 "id": "36_45",
                 "label": "36—45 岁",
-                "accounts": 254
+                "accounts": 257
               },
               {
                 "id": "46_55",
                 "label": "46—55 岁",
-                "accounts": 79
+                "accounts": 80
               },
               {
                 "id": "56_65",
@@ -1843,7 +1879,7 @@ window.DOUBAO_ACQUISITION_DATA = {
               },
               {
                 "id": "unknown",
-                "accounts": 587
+                "accounts": 596
               }
             ]
           },
@@ -1851,12 +1887,12 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "gender",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "male",
-                "accounts": 513
+                "accounts": 520
               },
               {
                 "id": "female",
@@ -1864,7 +1900,7 @@ window.DOUBAO_ACQUISITION_DATA = {
               },
               {
                 "id": "unknown",
-                "accounts": 586
+                "accounts": 595
               }
             ]
           },
@@ -1872,12 +1908,12 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "residence_province",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "unknown",
-                "accounts": 1135
+                "accounts": 1151
               },
               {
                 "id": "广东",
@@ -1910,6 +1946,11 @@ window.DOUBAO_ACQUISITION_DATA = {
                 "accounts": 4
               },
               {
+                "id": "四川",
+                "label": "四川",
+                "accounts": 3
+              },
+              {
                 "id": "河南",
                 "label": "河南",
                 "accounts": 3
@@ -1920,23 +1961,18 @@ window.DOUBAO_ACQUISITION_DATA = {
                 "accounts": 3
               },
               {
-                "id": "四川",
-                "label": "四川",
-                "accounts": 3
+                "id": "福建",
+                "label": "福建",
+                "accounts": 2
+              },
+              {
+                "id": "安徽",
+                "label": "安徽",
+                "accounts": 2
               },
               {
                 "id": "云南",
                 "label": "云南",
-                "accounts": 2
-              },
-              {
-                "id": "湖北",
-                "label": "湖北",
-                "accounts": 2
-              },
-              {
-                "id": "江西",
-                "label": "江西",
                 "accounts": 2
               },
               {
@@ -1950,8 +1986,8 @@ window.DOUBAO_ACQUISITION_DATA = {
                 "accounts": 2
               },
               {
-                "id": "安徽",
-                "label": "安徽",
+                "id": "江西",
+                "label": "江西",
                 "accounts": 2
               },
               {
@@ -1960,8 +1996,8 @@ window.DOUBAO_ACQUISITION_DATA = {
                 "accounts": 2
               },
               {
-                "id": "福建",
-                "label": "福建",
+                "id": "湖北",
+                "label": "湖北",
                 "accounts": 2
               },
               {
@@ -1980,16 +2016,16 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "app_usage_status",
             "definition_version": "native-app-evidence-v1",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "app_used",
-                "accounts": 765
+                "accounts": 774
               },
               {
                 "id": "app_no_record",
-                "accounts": 456
+                "accounts": 463
               }
             ]
           },
@@ -1997,16 +2033,16 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "wechat_mp_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "mp_bound",
-                "accounts": 781
+                "accounts": 792
               },
               {
                 "id": "mp_not_bound",
-                "accounts": 440
+                "accounts": 445
               }
             ]
           },
@@ -2014,16 +2050,16 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "bank_card_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "card_bound",
-                "accounts": 630
+                "accounts": 637
               },
               {
                 "id": "card_not_bound",
-                "accounts": 591
+                "accounts": 600
               }
             ]
           },
@@ -2031,16 +2067,16 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "risk_assessment_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20",
+            "data_as_of": "2026-11-23",
             "state": "confirmed",
             "buckets": [
               {
                 "id": "assessed",
-                "accounts": 239
+                "accounts": 244
               },
               {
                 "id": "not_assessed",
-                "accounts": 982
+                "accounts": 993
               }
             ]
           }
@@ -2050,318 +2086,318 @@ window.DOUBAO_ACQUISITION_DATA = {
   },
   "behavior": {
     "window_start_at": "2026-08-28T00:00:00+08:00",
-    "window_end_at": "2026-11-20T14:14:50+08:00",
+    "window_end_at": "2026-11-23T09:19:18+08:00",
     "anchor": "first_bound_at",
     "cohorts": {
       "all": {
-        "population_accounts": 5659,
+        "population_accounts": 5735,
         "metrics": [
           {
             "id": "funded_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 5659,
-            "eligible_accounts": 5659,
+            "population_accounts": 5735,
+            "eligible_accounts": 5735,
             "excluded_accounts": 0,
-            "reached_accounts": 221,
-            "not_reached_accounts": 5438,
+            "reached_accounts": 226,
+            "not_reached_accounts": 5509,
             "unknown_accounts": 0
           },
           {
             "id": "first_investment_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 5659,
-            "eligible_accounts": 5659,
+            "population_accounts": 5735,
+            "eligible_accounts": 5735,
             "excluded_accounts": 0,
             "reached_accounts": 4,
-            "not_reached_accounts": 5655,
+            "not_reached_accounts": 5731,
             "unknown_accounts": 0
           },
           {
             "id": "investment_activity_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 5659,
-            "eligible_accounts": 5659,
+            "population_accounts": 5735,
+            "eligible_accounts": 5735,
             "excluded_accounts": 0,
-            "reached_accounts": 221,
-            "not_reached_accounts": 5438,
+            "reached_accounts": 226,
+            "not_reached_accounts": 5509,
             "unknown_accounts": 0
           },
           {
             "id": "redemption_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 5659,
-            "eligible_accounts": 639,
-            "excluded_accounts": 5020,
-            "reached_accounts": 312,
-            "not_reached_accounts": 327,
+            "population_accounts": 5735,
+            "eligible_accounts": 647,
+            "excluded_accounts": 5088,
+            "reached_accounts": 318,
+            "not_reached_accounts": 329,
             "unknown_accounts": 0
           },
           {
             "id": "xiaogu_used_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 5659,
-            "eligible_accounts": 5659,
+            "population_accounts": 5735,
+            "eligible_accounts": 5735,
             "excluded_accounts": 0,
-            "reached_accounts": 5483,
-            "not_reached_accounts": 176,
+            "reached_accounts": 5558,
+            "not_reached_accounts": 177,
             "unknown_accounts": 0
           },
           {
             "id": "account_opened_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 5659,
-            "eligible_accounts": 5659,
+            "population_accounts": 5735,
+            "eligible_accounts": 5735,
             "excluded_accounts": 0,
-            "reached_accounts": 19,
-            "not_reached_accounts": 5640,
+            "reached_accounts": 20,
+            "not_reached_accounts": 5715,
             "unknown_accounts": 0
           },
           {
             "id": "risk_assessed_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 5659,
-            "eligible_accounts": 5659,
+            "population_accounts": 5735,
+            "eligible_accounts": 5735,
             "excluded_accounts": 0,
-            "reached_accounts": 66,
-            "not_reached_accounts": 5593,
+            "reached_accounts": 68,
+            "not_reached_accounts": 5667,
             "unknown_accounts": 0
           },
           {
             "id": "first_funding_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 5659,
-            "eligible_accounts": 5659,
+            "population_accounts": 5735,
+            "eligible_accounts": 5735,
             "excluded_accounts": 0,
             "reached_accounts": 4,
-            "not_reached_accounts": 5655,
+            "not_reached_accounts": 5731,
             "unknown_accounts": 0
           },
           {
             "id": "repeat_investment_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 5659,
-            "eligible_accounts": 5659,
+            "population_accounts": 5735,
+            "eligible_accounts": 5735,
             "excluded_accounts": 0,
-            "reached_accounts": 173,
-            "not_reached_accounts": 5486,
+            "reached_accounts": 176,
+            "not_reached_accounts": 5559,
             "unknown_accounts": 0
           }
         ]
       },
       "new": {
-        "population_accounts": 4438,
+        "population_accounts": 4498,
         "metrics": [
           {
             "id": "funded_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 4438,
-            "eligible_accounts": 4438,
+            "population_accounts": 4498,
+            "eligible_accounts": 4498,
             "excluded_accounts": 0,
             "reached_accounts": 3,
-            "not_reached_accounts": 4435,
+            "not_reached_accounts": 4495,
             "unknown_accounts": 0
           },
           {
             "id": "first_investment_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 4438,
-            "eligible_accounts": 4438,
+            "population_accounts": 4498,
+            "eligible_accounts": 4498,
             "excluded_accounts": 0,
             "reached_accounts": 3,
-            "not_reached_accounts": 4435,
+            "not_reached_accounts": 4495,
             "unknown_accounts": 0
           },
           {
             "id": "investment_activity_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 4438,
-            "eligible_accounts": 4438,
+            "population_accounts": 4498,
+            "eligible_accounts": 4498,
             "excluded_accounts": 0,
             "reached_accounts": 3,
-            "not_reached_accounts": 4435,
+            "not_reached_accounts": 4495,
             "unknown_accounts": 0
           },
           {
             "id": "redemption_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 4438,
-            "eligible_accounts": 9,
-            "excluded_accounts": 4429,
+            "population_accounts": 4498,
+            "eligible_accounts": 10,
+            "excluded_accounts": 4488,
             "reached_accounts": 2,
-            "not_reached_accounts": 7,
+            "not_reached_accounts": 8,
             "unknown_accounts": 0
           },
           {
             "id": "xiaogu_used_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 4438,
-            "eligible_accounts": 4438,
+            "population_accounts": 4498,
+            "eligible_accounts": 4498,
             "excluded_accounts": 0,
-            "reached_accounts": 4294,
-            "not_reached_accounts": 144,
+            "reached_accounts": 4353,
+            "not_reached_accounts": 145,
             "unknown_accounts": 0
           },
           {
             "id": "account_opened_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 4438,
-            "eligible_accounts": 4438,
+            "population_accounts": 4498,
+            "eligible_accounts": 4498,
             "excluded_accounts": 0,
-            "reached_accounts": 11,
-            "not_reached_accounts": 4427,
+            "reached_accounts": 12,
+            "not_reached_accounts": 4486,
             "unknown_accounts": 0
           },
           {
             "id": "risk_assessed_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 4438,
-            "eligible_accounts": 4438,
+            "population_accounts": 4498,
+            "eligible_accounts": 4498,
             "excluded_accounts": 0,
-            "reached_accounts": 11,
-            "not_reached_accounts": 4427,
+            "reached_accounts": 12,
+            "not_reached_accounts": 4486,
             "unknown_accounts": 0
           },
           {
             "id": "first_funding_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 4438,
-            "eligible_accounts": 4438,
+            "population_accounts": 4498,
+            "eligible_accounts": 4498,
             "excluded_accounts": 0,
             "reached_accounts": 3,
-            "not_reached_accounts": 4435,
+            "not_reached_accounts": 4495,
             "unknown_accounts": 0
           },
           {
             "id": "repeat_investment_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 4438,
-            "eligible_accounts": 4438,
+            "population_accounts": 4498,
+            "eligible_accounts": 4498,
             "excluded_accounts": 0,
             "reached_accounts": 3,
-            "not_reached_accounts": 4435,
+            "not_reached_accounts": 4495,
             "unknown_accounts": 0
           }
         ]
       },
       "existing": {
-        "population_accounts": 1221,
+        "population_accounts": 1237,
         "metrics": [
           {
             "id": "funded_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 1221,
-            "eligible_accounts": 1221,
+            "population_accounts": 1237,
+            "eligible_accounts": 1237,
             "excluded_accounts": 0,
-            "reached_accounts": 218,
-            "not_reached_accounts": 1003,
+            "reached_accounts": 223,
+            "not_reached_accounts": 1014,
             "unknown_accounts": 0
           },
           {
             "id": "first_investment_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 1221,
-            "eligible_accounts": 1221,
+            "population_accounts": 1237,
+            "eligible_accounts": 1237,
             "excluded_accounts": 0,
             "reached_accounts": 1,
-            "not_reached_accounts": 1220,
+            "not_reached_accounts": 1236,
             "unknown_accounts": 0
           },
           {
             "id": "investment_activity_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 1221,
-            "eligible_accounts": 1221,
+            "population_accounts": 1237,
+            "eligible_accounts": 1237,
             "excluded_accounts": 0,
-            "reached_accounts": 218,
-            "not_reached_accounts": 1003,
+            "reached_accounts": 223,
+            "not_reached_accounts": 1014,
             "unknown_accounts": 0
           },
           {
             "id": "redemption_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 1221,
-            "eligible_accounts": 630,
-            "excluded_accounts": 591,
-            "reached_accounts": 310,
-            "not_reached_accounts": 320,
+            "population_accounts": 1237,
+            "eligible_accounts": 637,
+            "excluded_accounts": 600,
+            "reached_accounts": 316,
+            "not_reached_accounts": 321,
             "unknown_accounts": 0
           },
           {
             "id": "xiaogu_used_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 1221,
-            "eligible_accounts": 1221,
+            "population_accounts": 1237,
+            "eligible_accounts": 1237,
             "excluded_accounts": 0,
-            "reached_accounts": 1189,
+            "reached_accounts": 1205,
             "not_reached_accounts": 32,
             "unknown_accounts": 0
           },
@@ -2369,52 +2405,52 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "account_opened_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 1221,
-            "eligible_accounts": 1221,
+            "population_accounts": 1237,
+            "eligible_accounts": 1237,
             "excluded_accounts": 0,
             "reached_accounts": 8,
-            "not_reached_accounts": 1213,
+            "not_reached_accounts": 1229,
             "unknown_accounts": 0
           },
           {
             "id": "risk_assessed_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 1221,
-            "eligible_accounts": 1221,
+            "population_accounts": 1237,
+            "eligible_accounts": 1237,
             "excluded_accounts": 0,
-            "reached_accounts": 55,
-            "not_reached_accounts": 1166,
+            "reached_accounts": 56,
+            "not_reached_accounts": 1181,
             "unknown_accounts": 0
           },
           {
             "id": "first_funding_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 1221,
-            "eligible_accounts": 1221,
+            "population_accounts": 1237,
+            "eligible_accounts": 1237,
             "excluded_accounts": 0,
             "reached_accounts": 1,
-            "not_reached_accounts": 1220,
+            "not_reached_accounts": 1236,
             "unknown_accounts": 0
           },
           {
             "id": "repeat_investment_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "population_accounts": 1221,
-            "eligible_accounts": 1221,
+            "population_accounts": 1237,
+            "eligible_accounts": 1237,
             "excluded_accounts": 0,
-            "reached_accounts": 170,
-            "not_reached_accounts": 1051,
+            "reached_accounts": 173,
+            "not_reached_accounts": 1064,
             "unknown_accounts": 0
           }
         ]
@@ -2423,77 +2459,77 @@ window.DOUBAO_ACQUISITION_DATA = {
   },
   "business": {
     "window_start_at": "2026-08-28T00:00:00+08:00",
-    "window_end_at": "2026-11-20T14:14:50+08:00",
+    "window_end_at": "2026-11-23T09:19:18+08:00",
     "anchor": "first_bound_at",
     "cohorts": {
       "all": {
-        "population_accounts": 5659,
+        "population_accounts": 5735,
         "stats": [
           {
             "id": "holding_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-19",
+            "data_as_of": "2026-11-20",
             "state": "confirmed",
-            "accounts": 414,
-            "amount_wan": 11097.02,
-            "per_capita_wan": 26.8044
+            "accounts": 420,
+            "amount_wan": 11162.53,
+            "per_capita_wan": 26.5775
           },
           {
             "id": "inflow_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "accounts": 221,
-            "amount_wan": 939.7418
+            "accounts": 226,
+            "amount_wan": 945.8699
           },
           {
             "id": "inflow_transactions",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "accounts": 221,
-            "event_count": 1982
+            "accounts": 226,
+            "event_count": 2023
           },
           {
             "id": "buy_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "accounts": 246,
-            "amount_wan": 752.893
+            "accounts": 250,
+            "amount_wan": 755.8923
           },
           {
             "id": "zero_asset_inflow_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "accounts": 7,
-            "amount_wan": 3.2694
+            "accounts": 8,
+            "amount_wan": 3.2849
           },
           {
             "id": "sell_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "accounts": 130,
-            "amount_wan": 1077.4586
+            "accounts": 191,
+            "amount_wan": 1152.5894
           }
         ]
       },
       "new": {
-        "population_accounts": 4438,
+        "population_accounts": 4498,
         "stats": [
           {
             "id": "holding_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-19",
+            "data_as_of": "2026-11-20",
             "state": "confirmed",
             "accounts": 3,
             "amount_wan": 0.43,
@@ -2503,7 +2539,7 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "inflow_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
             "accounts": 3,
             "amount_wan": 0.4502
@@ -2512,7 +2548,7 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "inflow_transactions",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
             "accounts": 3,
             "event_count": 13
@@ -2521,7 +2557,7 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "buy_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
             "accounts": 2,
             "amount_wan": 0.3502
@@ -2530,7 +2566,7 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "zero_asset_inflow_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
             "accounts": 3,
             "amount_wan": 0.4502
@@ -2539,7 +2575,7 @@ window.DOUBAO_ACQUISITION_DATA = {
             "id": "sell_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
             "accounts": 1,
             "amount_wan": 0.0086
@@ -2547,62 +2583,62 @@ window.DOUBAO_ACQUISITION_DATA = {
         ]
       },
       "existing": {
-        "population_accounts": 1221,
+        "population_accounts": 1237,
         "stats": [
           {
             "id": "holding_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-19",
+            "data_as_of": "2026-11-20",
             "state": "confirmed",
-            "accounts": 411,
-            "amount_wan": 11096.59,
-            "per_capita_wan": 26.999
+            "accounts": 417,
+            "amount_wan": 11162.1,
+            "per_capita_wan": 26.7676
           },
           {
             "id": "inflow_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "accounts": 218,
-            "amount_wan": 939.2916
+            "accounts": 223,
+            "amount_wan": 945.4197
           },
           {
             "id": "inflow_transactions",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "accounts": 218,
-            "event_count": 1969
+            "accounts": 223,
+            "event_count": 2010
           },
           {
             "id": "buy_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "accounts": 244,
-            "amount_wan": 752.5428
+            "accounts": 248,
+            "amount_wan": 755.5421
           },
           {
             "id": "zero_asset_inflow_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "accounts": 4,
-            "amount_wan": 2.8192
+            "accounts": 5,
+            "amount_wan": 2.8347
           },
           {
             "id": "sell_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-11-20T14:14:50+08:00",
+            "data_as_of": "2026-11-23T09:19:18+08:00",
             "state": "confirmed",
-            "accounts": 129,
-            "amount_wan": 1077.45
+            "accounts": 190,
+            "amount_wan": 1152.5808
           }
         ]
       }
@@ -2610,25 +2646,25 @@ window.DOUBAO_ACQUISITION_DATA = {
   },
   "usage_question_signals": {
     "schema_version": "doubao-question-signals-v1",
-    "data_as_of": "2026-11-20T14:14:50+08:00",
+    "data_as_of": "2026-11-23T09:19:18+08:00",
     "evidence_level": "oauth_session_proxy_only",
     "cohorts": [
       {
         "id": "all",
-        "population_accounts": 5659,
-        "proxy_active_accounts": 5483,
-        "not_observed_accounts": 176
+        "population_accounts": 5735,
+        "proxy_active_accounts": 5558,
+        "not_observed_accounts": 177
       },
       {
         "id": "new",
-        "population_accounts": 4438,
-        "proxy_active_accounts": 4294,
-        "not_observed_accounts": 144
+        "population_accounts": 4498,
+        "proxy_active_accounts": 4353,
+        "not_observed_accounts": 145
       },
       {
         "id": "existing",
-        "population_accounts": 1221,
-        "proxy_active_accounts": 1189,
+        "population_accounts": 1237,
+        "proxy_active_accounts": 1205,
         "not_observed_accounts": 32
       }
     ],
@@ -2636,33 +2672,33 @@ window.DOUBAO_ACQUISITION_DATA = {
       "active_day_buckets": [
         {
           "id": "one_day",
-          "all_accounts": 1422,
-          "new_accounts": 1149,
-          "existing_accounts": 273
+          "all_accounts": 1413,
+          "new_accounts": 1138,
+          "existing_accounts": 275
         },
         {
           "id": "two_to_seven_days",
-          "all_accounts": 1175,
-          "new_accounts": 914,
-          "existing_accounts": 261
+          "all_accounts": 980,
+          "new_accounts": 765,
+          "existing_accounts": 215
         },
         {
           "id": "eight_to_thirty_days",
-          "all_accounts": 1836,
-          "new_accounts": 1480,
-          "existing_accounts": 356
+          "all_accounts": 2015,
+          "new_accounts": 1621,
+          "existing_accounts": 394
         },
         {
           "id": "gte_thirty_one_days",
-          "all_accounts": 1050,
-          "new_accounts": 751,
-          "existing_accounts": 299
+          "all_accounts": 1150,
+          "new_accounts": 829,
+          "existing_accounts": 321
         }
       ],
       "first_proxy_lag_buckets": [
         {
           "id": "lte_5m",
-          "accounts": 5470
+          "accounts": 5545
         },
         {
           "id": "five_to_thirty_minutes",
@@ -2679,52 +2715,52 @@ window.DOUBAO_ACQUISITION_DATA = {
       ],
       "daily_proxy_active": [
         {
-          "date": "2026-11-14",
-          "new_accounts": 2160,
-          "existing_accounts": 623,
-          "all_accounts": 2783,
-          "partial": false
-        },
-        {
-          "date": "2026-11-15",
-          "new_accounts": 2256,
-          "existing_accounts": 643,
-          "all_accounts": 2899,
-          "partial": false
-        },
-        {
-          "date": "2026-11-16",
-          "new_accounts": 2298,
-          "existing_accounts": 655,
-          "all_accounts": 2953,
-          "partial": false
-        },
-        {
           "date": "2026-11-17",
-          "new_accounts": 2338,
+          "new_accounts": 2336,
           "existing_accounts": 665,
-          "all_accounts": 3003,
+          "all_accounts": 3001,
           "partial": false
         },
         {
           "date": "2026-11-18",
-          "new_accounts": 2378,
+          "new_accounts": 2376,
           "existing_accounts": 675,
-          "all_accounts": 3053,
+          "all_accounts": 3051,
           "partial": false
         },
         {
           "date": "2026-11-19",
-          "new_accounts": 2405,
+          "new_accounts": 2403,
           "existing_accounts": 684,
-          "all_accounts": 3089,
+          "all_accounts": 3087,
           "partial": false
         },
         {
           "date": "2026-11-20",
-          "new_accounts": 2426,
-          "existing_accounts": 690,
-          "all_accounts": 3116,
+          "new_accounts": 2450,
+          "existing_accounts": 696,
+          "all_accounts": 3146,
+          "partial": false
+        },
+        {
+          "date": "2026-11-21",
+          "new_accounts": 2456,
+          "existing_accounts": 696,
+          "all_accounts": 3152,
+          "partial": false
+        },
+        {
+          "date": "2026-11-22",
+          "new_accounts": 2476,
+          "existing_accounts": 700,
+          "all_accounts": 3176,
+          "partial": false
+        },
+        {
+          "date": "2026-11-23",
+          "new_accounts": 2477,
+          "existing_accounts": 701,
+          "all_accounts": 3178,
           "partial": true
         }
       ]
@@ -2744,52 +2780,52 @@ window.DOUBAO_ACQUISITION_DATA = {
   },
   "segments": {
     "anchor": "first_bound_at",
-    "window_end_at": "2026-11-20T14:14:50+08:00",
+    "window_end_at": "2026-11-23T09:19:18+08:00",
     "items": [
       {
         "id": "all",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-11-20T14:14:50+08:00",
-        "asset_as_of": "2026-11-19",
-        "population_accounts": 5659,
-        "new_accounts": 4438,
-        "existing_accounts": 1221,
-        "card_bound_accounts": 639,
-        "opened_after_binding_accounts": 19,
-        "risk_assessed_accounts": 253,
-        "risk_after_binding_accounts": 66,
-        "inflow_accounts": 221,
-        "inflow_transactions": 1982,
+        "data_as_of": "2026-11-23T09:19:18+08:00",
+        "asset_as_of": "2026-11-20",
+        "population_accounts": 5735,
+        "new_accounts": 4498,
+        "existing_accounts": 1237,
+        "card_bound_accounts": 647,
+        "opened_after_binding_accounts": 20,
+        "risk_assessed_accounts": 259,
+        "risk_after_binding_accounts": 68,
+        "inflow_accounts": 226,
+        "inflow_transactions": 2023,
         "holders_gte_100k_accounts": 158,
         "holders_gte_1m_accounts": 20,
-        "reinvested_accounts": 221,
+        "reinvested_accounts": 226,
         "first_investor_accounts": 4,
-        "inflow_amount_wan": 939.7418,
-        "holder_accounts": 414,
-        "total_asset_wan": 11097.02,
-        "per_capita_asset_wan": 26.8044
+        "inflow_amount_wan": 945.8699,
+        "holder_accounts": 420,
+        "total_asset_wan": 11162.53,
+        "per_capita_asset_wan": 26.5775
       },
       {
         "id": "new_inv",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-11-20T14:14:50+08:00",
-        "asset_as_of": "2026-11-19",
-        "population_accounts": 7,
+        "data_as_of": "2026-11-23T09:19:18+08:00",
+        "asset_as_of": "2026-11-20",
+        "population_accounts": 8,
         "new_accounts": 3,
-        "existing_accounts": 4,
-        "card_bound_accounts": 7,
+        "existing_accounts": 5,
+        "card_bound_accounts": 8,
         "opened_after_binding_accounts": 3,
         "risk_assessed_accounts": 6,
         "risk_after_binding_accounts": 5,
-        "inflow_accounts": 7,
-        "inflow_transactions": 35,
+        "inflow_accounts": 8,
+        "inflow_transactions": 38,
         "holders_gte_100k_accounts": 0,
         "holders_gte_1m_accounts": 0,
-        "reinvested_accounts": 7,
+        "reinvested_accounts": 8,
         "first_investor_accounts": 4,
-        "inflow_amount_wan": 3.2694,
+        "inflow_amount_wan": 3.2849,
         "holder_accounts": 7,
         "total_asset_wan": 1.57,
         "per_capita_asset_wan": 0.2243
@@ -2798,8 +2834,8 @@ window.DOUBAO_ACQUISITION_DATA = {
         "id": "first_inv",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-11-20T14:14:50+08:00",
-        "asset_as_of": "2026-11-19",
+        "data_as_of": "2026-11-23T09:19:18+08:00",
+        "asset_as_of": "2026-11-20",
         "population_accounts": 4,
         "new_accounts": 3,
         "existing_accounts": 1,
@@ -2808,12 +2844,12 @@ window.DOUBAO_ACQUISITION_DATA = {
         "risk_assessed_accounts": 4,
         "risk_after_binding_accounts": 3,
         "inflow_accounts": 4,
-        "inflow_transactions": 20,
+        "inflow_transactions": 22,
         "holders_gte_100k_accounts": 0,
         "holders_gte_1m_accounts": 0,
         "reinvested_accounts": 4,
         "first_investor_accounts": 4,
-        "inflow_amount_wan": 0.5054,
+        "inflow_amount_wan": 0.5084,
         "holder_accounts": 4,
         "total_asset_wan": 0.48,
         "per_capita_asset_wan": 0.12
@@ -2822,39 +2858,39 @@ window.DOUBAO_ACQUISITION_DATA = {
         "id": "reinvested",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-11-20T14:14:50+08:00",
-        "asset_as_of": "2026-11-19",
-        "population_accounts": 221,
+        "data_as_of": "2026-11-23T09:19:18+08:00",
+        "asset_as_of": "2026-11-20",
+        "population_accounts": 226,
         "new_accounts": 3,
-        "existing_accounts": 218,
-        "card_bound_accounts": 221,
+        "existing_accounts": 223,
+        "card_bound_accounts": 226,
         "opened_after_binding_accounts": 4,
-        "risk_assessed_accounts": 131,
-        "risk_after_binding_accounts": 34,
-        "inflow_accounts": 221,
-        "inflow_transactions": 1982,
-        "holders_gte_100k_accounts": 107,
+        "risk_assessed_accounts": 135,
+        "risk_after_binding_accounts": 35,
+        "inflow_accounts": 226,
+        "inflow_transactions": 2023,
+        "holders_gte_100k_accounts": 108,
         "holders_gte_1m_accounts": 17,
-        "reinvested_accounts": 221,
+        "reinvested_accounts": 226,
         "first_investor_accounts": 4,
-        "inflow_amount_wan": 939.7418,
-        "holder_accounts": 219,
-        "total_asset_wan": 8496.24,
-        "per_capita_asset_wan": 38.7956
+        "inflow_amount_wan": 945.8699,
+        "holder_accounts": 223,
+        "total_asset_wan": 8588.33,
+        "per_capita_asset_wan": 38.5127
       },
       {
         "id": "new",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-11-20T14:14:50+08:00",
-        "asset_as_of": "2026-11-19",
-        "population_accounts": 4438,
-        "new_accounts": 4438,
+        "data_as_of": "2026-11-23T09:19:18+08:00",
+        "asset_as_of": "2026-11-20",
+        "population_accounts": 4498,
+        "new_accounts": 4498,
         "existing_accounts": 0,
-        "card_bound_accounts": 9,
-        "opened_after_binding_accounts": 11,
-        "risk_assessed_accounts": 14,
-        "risk_after_binding_accounts": 11,
+        "card_bound_accounts": 10,
+        "opened_after_binding_accounts": 12,
+        "risk_assessed_accounts": 15,
+        "risk_after_binding_accounts": 12,
         "inflow_accounts": 3,
         "inflow_transactions": 13,
         "holders_gte_100k_accounts": 0,
@@ -2870,8 +2906,8 @@ window.DOUBAO_ACQUISITION_DATA = {
         "id": "new_first_inv",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-11-20T14:14:50+08:00",
-        "asset_as_of": "2026-11-19",
+        "data_as_of": "2026-11-23T09:19:18+08:00",
+        "asset_as_of": "2026-11-20",
         "population_accounts": 3,
         "new_accounts": 3,
         "existing_accounts": 0,
@@ -2894,56 +2930,56 @@ window.DOUBAO_ACQUISITION_DATA = {
         "id": "existing",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-11-20T14:14:50+08:00",
-        "asset_as_of": "2026-11-19",
-        "population_accounts": 1221,
+        "data_as_of": "2026-11-23T09:19:18+08:00",
+        "asset_as_of": "2026-11-20",
+        "population_accounts": 1237,
         "new_accounts": 0,
-        "existing_accounts": 1221,
-        "card_bound_accounts": 630,
+        "existing_accounts": 1237,
+        "card_bound_accounts": 637,
         "opened_after_binding_accounts": 8,
-        "risk_assessed_accounts": 239,
-        "risk_after_binding_accounts": 55,
-        "inflow_accounts": 218,
-        "inflow_transactions": 1969,
+        "risk_assessed_accounts": 244,
+        "risk_after_binding_accounts": 56,
+        "inflow_accounts": 223,
+        "inflow_transactions": 2010,
         "holders_gte_100k_accounts": 158,
         "holders_gte_1m_accounts": 20,
-        "reinvested_accounts": 218,
+        "reinvested_accounts": 223,
         "first_investor_accounts": 1,
-        "inflow_amount_wan": 939.2916,
-        "holder_accounts": 411,
-        "total_asset_wan": 11096.59,
-        "per_capita_asset_wan": 26.999
+        "inflow_amount_wan": 945.4197,
+        "holder_accounts": 417,
+        "total_asset_wan": 11162.1,
+        "per_capita_asset_wan": 26.7676
       },
       {
         "id": "existing_reactivated",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-11-20T14:14:50+08:00",
-        "asset_as_of": "2026-11-19",
-        "population_accounts": 4,
+        "data_as_of": "2026-11-23T09:19:18+08:00",
+        "asset_as_of": "2026-11-20",
+        "population_accounts": 5,
         "new_accounts": 0,
-        "existing_accounts": 4,
-        "card_bound_accounts": 4,
+        "existing_accounts": 5,
+        "card_bound_accounts": 5,
         "opened_after_binding_accounts": 1,
         "risk_assessed_accounts": 3,
         "risk_after_binding_accounts": 3,
-        "inflow_accounts": 4,
-        "inflow_transactions": 22,
+        "inflow_accounts": 5,
+        "inflow_transactions": 25,
         "holders_gte_100k_accounts": 0,
         "holders_gte_1m_accounts": 0,
-        "reinvested_accounts": 4,
+        "reinvested_accounts": 5,
         "first_investor_accounts": 1,
-        "inflow_amount_wan": 2.8192,
+        "inflow_amount_wan": 2.8347,
         "holder_accounts": 4,
-        "total_asset_wan": 1.14,
-        "per_capita_asset_wan": 0.285
+        "total_asset_wan": 1.13,
+        "per_capita_asset_wan": 0.2825
       },
       {
         "id": "existing_first_inv",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-11-20T14:14:50+08:00",
-        "asset_as_of": "2026-11-19",
+        "data_as_of": "2026-11-23T09:19:18+08:00",
+        "asset_as_of": "2026-11-20",
         "population_accounts": 1,
         "new_accounts": 0,
         "existing_accounts": 1,
@@ -2952,12 +2988,12 @@ window.DOUBAO_ACQUISITION_DATA = {
         "risk_assessed_accounts": 1,
         "risk_after_binding_accounts": 1,
         "inflow_accounts": 1,
-        "inflow_transactions": 7,
+        "inflow_transactions": 9,
         "holders_gte_100k_accounts": 0,
         "holders_gte_1m_accounts": 0,
         "reinvested_accounts": 1,
         "first_investor_accounts": 1,
-        "inflow_amount_wan": 0.0552,
+        "inflow_amount_wan": 0.0582,
         "holder_accounts": 1,
         "total_asset_wan": 0.05,
         "per_capita_asset_wan": 0.05
@@ -2965,7 +3001,7 @@ window.DOUBAO_ACQUISITION_DATA = {
     ]
   },
   "app_usage": {
-    "as_of": "2026-11-20T14:14:50+08:00",
+    "as_of": "2026-11-23T09:19:18+08:00",
     "state": "confirmed",
     "definition": "native_app_events_or_registered_native_device",
     "native_libs": [
@@ -2980,29 +3016,29 @@ window.DOUBAO_ACQUISITION_DATA = {
     ],
     "events_observed_from": "2026-07-27",
     "cohorts": {
-      "existing": {
-        "population_accounts": 1221,
-        "users": 765,
-        "device_users": 690,
-        "native_users": 450,
-        "both_users": 375,
-        "after_binding_users": 374
-      },
       "new": {
-        "population_accounts": 4438,
-        "users": 29,
-        "device_users": 24,
-        "native_users": 29,
-        "both_users": 24,
-        "after_binding_users": 29
+        "population_accounts": 4498,
+        "users": 30,
+        "device_users": 25,
+        "native_users": 30,
+        "both_users": 25,
+        "after_binding_users": 30
+      },
+      "existing": {
+        "population_accounts": 1237,
+        "users": 774,
+        "device_users": 700,
+        "native_users": 453,
+        "both_users": 379,
+        "after_binding_users": 379
       },
       "all": {
-        "population_accounts": 5659,
-        "users": 794,
-        "device_users": 714,
-        "native_users": 479,
-        "both_users": 399,
-        "after_binding_users": 403
+        "population_accounts": 5735,
+        "users": 804,
+        "device_users": 725,
+        "native_users": 483,
+        "both_users": 404,
+        "after_binding_users": 409
       }
     }
   }

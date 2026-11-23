@@ -72,6 +72,83 @@ bundled = replaceOnce(bundled, '<script src="./data/fallback-data.js"></script>'
 bundled = replaceOnce(bundled, '<script src="./app.js" type="module"></script>',
                       `<script type="module">\n${safeInline(js)}\n</script>`);
 
+// BEGIN USER-AUTHORIZED DAILY QUESTION PRIVATE INPUT
+// The content key is injected only into the plaintext held in memory before
+// the existing outer report encryption. It is never a public source asset.
+let dailyQuestionRestoreFiles = null;
+if (html.includes('id="daily-questions"')) {
+  const privateBundlePath = process.env.QW_DAILY_PRIVATE_BUNDLE;
+  const cutoff = JSON.parse(dataRaw).meta.data_cutoff.replace("T", " ").slice(0, 19);
+  const publicIndex = JSON.parse(await readFile(join(SRC, "data", "daily-questions", "index.json"), "utf8"));
+  if (publicIndex.schema_version !== "qianwen-daily-questions-index-v1"
+      || publicIndex.cutoff !== cutoff || publicIndex.timezone !== "Asia/Shanghai"
+      || !Array.isArray(publicIndex.days)) throw new Error("每日提问索引格式异常");
+  const sealed = publicIndex.sealed_content_key;
+  if (sealed?.schema_version !== "qianwen-daily-key-envelope-v1"
+      || sealed.cutoff !== cutoff || sealed.iterations !== 250000) {
+    throw new Error("每日提问缺少合法密封构建输入");
+  }
+  const contentKey = new Uint8Array(await webcrypto.subtle.decrypt({
+    name: "AES-GCM", iv: fromBase64(sealed.iv),
+    additionalData: encoder.encode("qianwen-daily-key-v1|" + cutoff),
+  }, await deriveKey(fromBase64(sealed.salt)), fromBase64(sealed.data)));
+  let daily;
+  if (privateBundlePath) {
+    daily = JSON.parse(await readFile(privateBundlePath, "utf8"));
+  } else {
+    daily = { schema_version: "qianwen-daily-questions-private-bundle-v1", cutoff,
+      key: toBase64(contentKey), index: publicIndex,
+      index_sha256: createHash("sha256").update(JSON.stringify(publicIndex) + "\n").digest("hex") };
+  }
+  const indexBytes = Buffer.from(JSON.stringify(daily.index) + "\n");
+  if (daily.schema_version !== "qianwen-daily-questions-private-bundle-v1"
+      || daily.cutoff !== cutoff || daily.index?.cutoff !== cutoff
+      || daily.index?.schema_version !== "qianwen-daily-questions-index-v1"
+      || Buffer.from(daily.key || "", "base64").length !== 32
+      || daily.key !== toBase64(contentKey)
+      || JSON.stringify(daily.index) !== JSON.stringify(publicIndex)
+      || daily.index_sha256 !== createHash("sha256").update(indexBytes).digest("hex")) {
+    throw new Error("每日提问私有输入与当前看板不一致");
+  }
+  const restoreFiles = [{ name: "index.json", bytes: indexBytes }];
+  const seenDays = new Set();
+  let lastDay = "";
+  for (const day of publicIndex.days) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(day.date) || day.date <= lastDay
+        || day.date < publicIndex.min_date || day.date > publicIndex.max_date
+        || seenDays.has(day.date) || !Number.isSafeInteger(day.questions)
+        || !Number.isSafeInteger(day.users) || day.questions < 0 || day.users < 0) {
+      throw new Error("每日提问日期或计数异常");
+    }
+    lastDay = day.date;
+    seenDays.add(day.date);
+    if (day.questions === 0) {
+      if (day.file !== null || day.sha256 !== null || day.users !== 0) throw new Error("空日索引异常");
+      continue;
+    }
+    if (!/^[a-f0-9]{64}$/.test(day.sha256)) throw new Error("每日提问文件校验值异常");
+    const name = day.date + "-" + day.sha256.slice(0, 12) + ".enc.json";
+    if (day.file !== "./data/daily-questions/" + name) throw new Error("每日提问文件路径异常");
+    const bytes = await readFile(join(SRC, "data", "daily-questions", name));
+    const value = JSON.parse(bytes);
+    if (createHash("sha256").update(bytes).digest("hex") !== day.sha256
+        || value.schema_version !== "qianwen-daily-questions-envelope-v1"
+        || value.cutoff !== cutoff || value.date !== day.date || value.compression !== "gzip") {
+      throw new Error("每日提问密文与索引不一致");
+    }
+    restoreFiles.push({ name, bytes });
+  }
+  dailyQuestionRestoreFiles = restoreFiles;
+  const dailyConfig = JSON.stringify({ key: daily.key, index: daily.index })
+    .replaceAll("<", "\\u003c").replaceAll("\u2028", "\\u2028").replaceAll("\u2029", "\\u2029");
+  const bodyEnd = bundled.lastIndexOf("</body>");
+  if (bodyEnd < 0) throw new Error("每日提问脚本缺少正文注入位置");
+  bundled = bundled.slice(0, bodyEnd)
+    + `<script>window.QIANWEN_DAILY_QUESTIONS=${dailyConfig};</script>\n`
+    + bundled.slice(bodyEnd);
+}
+// END USER-AUTHORIZED DAILY QUESTION PRIVATE INPUT
+
 const salt = randomBytes(16);
 const iv = randomBytes(12);
 const key = await deriveKey(salt);
@@ -254,4 +331,17 @@ await Promise.all([
 // 提问模块恢复直接浏览，仅按需加载压缩后的去标识提问，不再二次解密。
 await buildReadableQuestionCorpus(join(SRC, "data"), join(OUT, "data"));
 await buildReadableQuestionCorpus(join(SRC, "data"), join(SRC, "data"));
+// BEGIN USER-AUTHORIZED DAILY QUESTION CIPHERTEXT RESTORE
+// Preserve the original plaintext cleanup above. Restore only the authenticated
+// snapshot's explicitly validated date ciphertext and aggregate sealed-key index.
+if (dailyQuestionRestoreFiles) {
+  const directory = join(OUT, "data", "daily-questions");
+  await mkdir(directory, { recursive: true });
+  for (const item of dailyQuestionRestoreFiles) {
+    const target = join(directory, item.name);
+    await writeFile(target, item.bytes);
+    if (!item.bytes.equals(await readFile(target))) throw new Error("每日提问发布密文恢复失败");
+  }
+}
+// END USER-AUTHORIZED DAILY QUESTION CIPHERTEXT RESTORE
 console.log(`千问看板已加密：${OUT}/index.html（${(shell.length/1024).toFixed(0)} KB），docs 下明文已清除。`);

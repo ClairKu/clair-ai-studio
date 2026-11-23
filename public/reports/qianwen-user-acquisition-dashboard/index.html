@@ -22,6 +22,9 @@
         <div class="refresh-status" id="refresh-status" role="status" aria-live="polite"></div>
         <h1 id="hero-title">千问·且慢AI小顾<br /><span>用户引流成效看板</span></h1>
         <p class="hero-lead"><span id="hero-lead">正在读取最新数据。</span><a class="lead-link" href="../qianwen-first-investor-cases-2026-09-17/" title="打开千问用户转化分析（个例）">用户转化分析<i aria-hidden="true">›</i></a></p>
+        <!-- BEGIN USER-AUTHORIZED DAILY QUESTIONS SHORTCUT -->
+        <p class="daily-question-jump"><a href="#daily-questions">每日提问</a></p>
+        <!-- END USER-AUTHORIZED DAILY QUESTIONS SHORTCUT -->
       </div>
 
       <h2 id="kpi-title" class="sr-only">关键数据</h2>
@@ -490,6 +493,24 @@
       </section>
 
     </section>
+    <!-- BEGIN USER-AUTHORIZED DAILY QUESTIONS MODULE -->
+    <section class="daily-question-browser question-chapter shell" id="daily-questions" aria-labelledby="daily-question-title">
+      <div class="daily-question-heading">
+        <div><p class="eyebrow">DAILY QUESTION BROWSER</p><h2 id="daily-question-title">每日提问</h2><p>选一天，快速查看千问小顾的用户提问。</p></div>
+        <p id="daily-question-snapshot"></p>
+      </div>
+      <div class="daily-question-tools">
+        <div class="daily-date-controls"><button type="button" id="daily-question-day-prev" aria-label="查看前一天">前一天</button><label><span>提问日期</span><input type="date" id="daily-question-date" /></label><button type="button" id="daily-question-day-next" aria-label="查看后一天">后一天</button></div>
+        <label class="daily-question-search"><span>查找当天提问</span><input type="search" id="daily-question-search" placeholder="输入关键词或匿名用户" autocomplete="off" /></label>
+        <label><span>排列</span><select id="daily-question-order"><option value="asc">时间正序</option><option value="desc">时间倒序</option></select></label>
+      </div>
+      <div class="daily-question-result"><p id="daily-question-count" role="status" aria-live="polite">正在准备日期…</p><p id="daily-question-loading"></p><button type="button" id="daily-question-retry" hidden>重新加载</button></div>
+      <div class="daily-question-table-wrap" role="region" tabindex="0" aria-labelledby="daily-question-title">
+        <table class="daily-question-table"><colgroup><col class="daily-time-col" /><col class="daily-user-col" /><col /></colgroup><thead><tr><th scope="col">时间</th><th scope="col">用户</th><th scope="col">提问</th></tr></thead><tbody id="daily-question-rows"></tbody></table>
+      </div>
+      <div class="daily-question-pages"><button type="button" id="daily-question-page-prev">上一页</button><span id="daily-question-page">—</span><button type="button" id="daily-question-page-next">下一页</button></div>
+    </section>
+    <!-- END USER-AUTHORIZED DAILY QUESTIONS MODULE -->
   </main>
 
   <script src="./data/fallback-data.js"></script>

@@ -2251,6 +2251,9 @@ function render(data) {
   document.documentElement.dataset.dataMode = "published";
   renderHeroLead();
   renderView();
+  // BEGIN USER-AUTHORIZED DAILY QUESTIONS INIT
+  startDailyQuestions();
+  // END USER-AUTHORIZED DAILY QUESTIONS INIT
 }
 
 function bindInteractions() {
@@ -2538,5 +2541,129 @@ async function init() {
     setNotice("数据读取失败，请稍后重新打开页面。");
   }
 }
+
+// BEGIN USER-AUTHORIZED DAILY QUESTIONS MODULE
+const DAILY_QUESTION_PAGE_SIZE = 50;
+let dailyQuestionStarted = false;
+let dailyQuestionRows = [];
+let dailyQuestionPage = 1;
+let dailyQuestionSequence = 0;
+const dailyQuestionCache = new Map();
+let dailyQuestionIndex = null;
+let dailyQuestionKey = null;
+
+function dailyQuestionDateOffset(day, amount) {
+  return new Date(Date.parse(`${day}T00:00:00Z`) + amount * 86400000).toISOString().slice(0, 10);
+}
+
+function renderDailyQuestionRows() {
+  if (!dailyQuestionIndex) return;
+  const date = $("#daily-question-date").value;
+  const item = dailyQuestionIndex.days.find(row => row.date === date);
+  const query = $("#daily-question-search").value.trim().toLocaleLowerCase("zh-CN");
+  let rows = dailyQuestionRows.filter(row => !query || row.q.toLocaleLowerCase("zh-CN").includes(query) || row.u.toLocaleLowerCase("zh-CN").includes(query));
+  if ($("#daily-question-order").value === "desc") rows = [...rows].reverse();
+  const totalPages = Math.max(1, Math.ceil(rows.length / DAILY_QUESTION_PAGE_SIZE));
+  dailyQuestionPage = Math.max(1, Math.min(dailyQuestionPage, totalPages));
+  const shown = rows.slice((dailyQuestionPage - 1) * DAILY_QUESTION_PAGE_SIZE, dailyQuestionPage * DAILY_QUESTION_PAGE_SIZE);
+  $("#daily-question-count").textContent = query
+    ? `找到 ${number.format(rows.length)} 条 · 当日共 ${number.format(item?.questions || 0)} 条提问，${number.format(item?.users || 0)} 位用户`
+    : `${date} · ${number.format(item?.questions || 0)} 条提问 · ${number.format(item?.users || 0)} 位用户`;
+  $("#daily-question-rows").innerHTML = shown.length
+    ? shown.map(row => `<tr><td>${escapeHtml(row.t.slice(11))}</td><td>${escapeHtml(row.u)}</td><td>${escapeHtml(row.q)}</td></tr>`).join("")
+    : `<tr><td class="daily-question-empty" colspan="3">${query ? "当天没有匹配的提问，试试其他关键词。" : "当天暂无提问。"}</td></tr>`;
+  $("#daily-question-page").textContent = `${dailyQuestionPage} / ${totalPages}`;
+  $("#daily-question-page-prev").disabled = dailyQuestionPage <= 1;
+  $("#daily-question-page-next").disabled = dailyQuestionPage >= totalPages;
+  $("#daily-question-day-prev").disabled = date <= dailyQuestionIndex.min_date;
+  $("#daily-question-day-next").disabled = date >= dailyQuestionIndex.max_date;
+}
+
+async function readDailyQuestionDay(item) {
+  const controller = new AbortController();
+  const timer = window.setTimeout(() => controller.abort(), 20000);
+  try {
+    const response = await fetch(new URL(item.file, document.baseURI), {signal: controller.signal});
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const buffer = await response.arrayBuffer();
+    const digest = [...new Uint8Array(await crypto.subtle.digest("SHA-256", buffer))].map(x => x.toString(16).padStart(2, "0")).join("");
+    if (digest !== item.sha256) throw new Error("daily_cipher_mismatch");
+    const envelope = JSON.parse(new TextDecoder().decode(buffer));
+    if (envelope.schema_version !== "qianwen-daily-questions-envelope-v1" || envelope.date !== item.date || envelope.cutoff !== dailyQuestionIndex.cutoff || envelope.compression !== "gzip") throw new Error("daily_snapshot_mismatch");
+    const bytes = value => Uint8Array.from(atob(value), char => char.charCodeAt(0));
+    const plain = await crypto.subtle.decrypt({name: "AES-GCM", iv: bytes(envelope.iv), additionalData: new TextEncoder().encode(`${dailyQuestionIndex.cutoff}|${item.date}`)}, dailyQuestionKey, bytes(envelope.data));
+    const stream = new Blob([plain]).stream().pipeThrough(new DecompressionStream("gzip"));
+    const day = JSON.parse(await new Response(stream).text());
+    if (day.schema_version !== "qianwen-daily-questions-day-v1" || day.date !== item.date || day.cutoff !== dailyQuestionIndex.cutoff || !Array.isArray(day.rows) || day.rows.length !== item.questions) throw new Error("daily_rows_mismatch");
+    let last = "";
+    for (const row of day.rows) {
+      if (Object.keys(row).sort().join(",") !== "q,t,u" || typeof row.q !== "string" || !/^用户 [A-F0-9]{10}$/.test(row.u) || !/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(row.t) || row.t.slice(0, 10) !== item.date || row.t < last) throw new Error("daily_row_invalid");
+      last = row.t;
+    }
+    if (new Set(day.rows.map(row => row.u)).size !== item.users) throw new Error("daily_users_mismatch");
+    return day.rows;
+  } finally { window.clearTimeout(timer); }
+}
+
+async function loadDailyQuestionDate({retry = false} = {}) {
+  const sequence = ++dailyQuestionSequence;
+  const date = $("#daily-question-date").value;
+  const item = dailyQuestionIndex?.days.find(row => row.date === date);
+  dailyQuestionPage = 1;dailyQuestionRows = [];
+  $("#daily-question-retry").hidden = true;
+  if (!item) {
+    $("#daily-question-count").textContent = "请选择可用范围内的日期。";
+    $("#daily-question-loading").textContent = "";
+    $("#daily-question-rows").innerHTML = "";
+    $("#daily-question-day-prev").disabled = true;$("#daily-question-day-next").disabled = true;
+    return;
+  }
+  if (!item.questions) {$("#daily-question-loading").textContent = "";renderDailyQuestionRows();return;}
+  $("#daily-question-count").textContent = `${date} · ${number.format(item.questions)} 条提问 · ${number.format(item.users)} 位用户`;
+  $("#daily-question-loading").textContent = "正在加载当天提问…";
+  $("#daily-question-rows").innerHTML = "";
+  try {
+    if (retry) dailyQuestionCache.delete(date);
+    if (!dailyQuestionCache.has(date)) dailyQuestionCache.set(date, readDailyQuestionDay(item));
+    const rows = await dailyQuestionCache.get(date);
+    if (sequence !== dailyQuestionSequence) return;
+    dailyQuestionRows = rows;$("#daily-question-loading").textContent = "";renderDailyQuestionRows();
+  } catch (error) {
+    dailyQuestionCache.delete(date);
+    if (sequence !== dailyQuestionSequence) return;
+    $("#daily-question-loading").textContent = error.name === "AbortError" ? "加载超时，请重试。" : "当天提问暂未加载成功，请重试。";
+    $("#daily-question-retry").hidden = false;
+  }
+}
+
+function startDailyQuestions() {
+  if (dailyQuestionStarted) return;
+  dailyQuestionStarted = true;
+  const config = window.QIANWEN_DAILY_QUESTIONS;
+  if (!config) {$("#daily-question-count").textContent = "请从看板正式入口查看每日提问。";return;}
+  const index = config.index;
+  if (index?.schema_version !== "qianwen-daily-questions-index-v1" || index.cutoff !== currentData.meta.data_cutoff.replace("T", " ").slice(0, 19) || !Array.isArray(index.days) || !index.days.some(x => x.date === index.latest_date && x.questions > 0)) {
+    $("#daily-question-count").textContent = "每日提问与当前数据版本不一致，请重新打开看板。";return;
+  }
+  dailyQuestionIndex = index;
+  const input = $("#daily-question-date");input.min = index.min_date;input.max = index.max_date;input.value = index.latest_date;
+  $("#daily-question-snapshot").textContent = `全部千问用户 · 截至 ${index.cutoff.slice(5, 16)}`;
+  $("#daily-question-count").textContent = `${index.latest_date} · ${number.format(index.days.find(x => x.date === index.latest_date).questions)} 条提问`;
+  $("#daily-question-day-prev").addEventListener("click", () => {input.value = dailyQuestionDateOffset(input.value, -1);void loadDailyQuestionDate();});
+  $("#daily-question-day-next").addEventListener("click", () => {input.value = dailyQuestionDateOffset(input.value, 1);void loadDailyQuestionDate();});
+  input.addEventListener("change", () => void loadDailyQuestionDate());
+  $("#daily-question-search").addEventListener("input", () => {dailyQuestionPage = 1;renderDailyQuestionRows();});
+  $("#daily-question-order").addEventListener("change", () => {dailyQuestionPage = 1;renderDailyQuestionRows();});
+  $("#daily-question-page-prev").addEventListener("click", () => {dailyQuestionPage--;renderDailyQuestionRows();});
+  $("#daily-question-page-next").addEventListener("click", () => {dailyQuestionPage++;renderDailyQuestionRows();});
+  $("#daily-question-retry").addEventListener("click", () => void loadDailyQuestionDate({retry:true}));
+  const begin = async () => {
+    try {dailyQuestionKey = await crypto.subtle.importKey("raw", Uint8Array.from(atob(config.key), char => char.charCodeAt(0)), {name:"AES-GCM"}, false, ["decrypt"]);void loadDailyQuestionDate();}
+    catch {$("#daily-question-loading").textContent = "当前浏览器无法读取每日提问，请升级浏览器后重试。";}
+  };
+  if (!("IntersectionObserver" in window)) {void begin();return;}
+  const observer = new IntersectionObserver(entries => {if (!entries.some(x => x.isIntersecting)) return;observer.disconnect();void begin();},{rootMargin:"160px 0px"});observer.observe($("#daily-questions"));
+}
+// END USER-AUTHORIZED DAILY QUESTIONS MODULE
 
 init();
