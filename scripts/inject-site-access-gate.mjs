@@ -23,6 +23,7 @@ const encryptedReportEntries = new Set((accessConfig.immutableLockedEntries || [
 // Its strict CSP deliberately excludes the shared network-backed access gate.
 const standaloneEncryptedEntries = new Set([
   "reports/qiming-h2-product-review-2026-11-09/index.html",
+  "reports/private-wealth-memory-2026-11-24/index.html",
 ]);
 for (const entry of standalonePublicEntries) {
   if (!/^reports\/[^/?#\\]+\/index\.html$/.test(entry)

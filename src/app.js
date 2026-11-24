@@ -69,7 +69,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 187;
+const DATA_VERSION = 188;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -224,6 +224,28 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      "id": "private-wealth-memory-2026-11-24",
+      "groupId": "product-planning",
+      "title": "且慢财富记忆｜真实账户私密版",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/private-wealth-memory-2026-11-24/",
+      "preview": "private-wealth-memory-2026-11-24.svg",
+      "pinned": false,
+      "position": 0,
+      "createdAt": "2026-11-24T12:00:00+08:00",
+      "modifiedAt": "2026-11-24T12:00:00+08:00",
+      "source": "真实账户的私人阶段稿：动态时间轴、三段已核对记忆、财富摘要和一封私人来信。正文独立加密；目录与预览不含客户信息，凭专属访问钥匙打开。完整流水与历史估值尚待补齐。",
+      "access": "production",
+      "workType": "product-planning",
+      "tags": [
+        "且慢",
+        "财富档案",
+        "财富记忆",
+        "客户体验",
+        "私人来信",
+        "HTML"
+      ]
+    },
     {
       "id": "qieman-companionship-wealth-memory-2026-11-23",
       "groupId": "product-planning",
@@ -4933,6 +4955,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "private-wealth-memory-2026-11-24": "product-planning",
   "qieman-companionship-wealth-memory-2026-11-23": "product-planning",
   "r9-site-study-2026-11-19": "competitive-research",
   "r9-full-results-2026-11-19": "product-demo",
@@ -5091,6 +5114,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "private-wealth-memory-2026-11-24": "product-planning",
   "qieman-companionship-wealth-memory-2026-11-23": "product-planning",
   "r9-site-study-2026-11-19": "ai-workbench",
   "r9-full-results-2026-11-19": "advisor-workbench",

@@ -118,6 +118,7 @@ const independentEncryptedPages = new Set([
 ]);
 const standaloneEncryptedPages = new Set([
   "reports/qiming-h2-product-review-2026-11-09/index.html",
+  "reports/private-wealth-memory-2026-11-24/index.html",
 ]);
 for (const entry of standalonePublicEntries) {
   ensure(/^reports\/[^/?#\\]+\/index\.html$/.test(entry) && !entry.includes(".."), `公开成果路径无效：${entry}`);
