@@ -2,6 +2,34 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "recent-reports-2026-11-24",
+    "pm-ecology-2026-11-24",
+    "qieman-2027-product-strategy-2026-11-23",
+    "qieman-2027-advisory-ai-plan-2026-11-23",
+    "qieman-wealth-dossier-proposal-2026-11-23",
+    "qieman-2026-code-investment-review-2026-11-23",
+    "qieman-2026-product-review-2026-11-23",
+    "qieman-2026-review-2027-development-2026-11-23",
+    "qieman-2027-product-execution-plan-2026-11-23",
+    "clair-2027-product-team-plan-2026-11-20",
+    "qieman-team-capability-memo-2026-11-20",
+    "qieman-2027-team-work-plan-2026-11-20",
+    "yingmi-ai-capability-standalone-2026-11-20",
+    "dong-dezhi-investment-notes-2026-11-19",
+    "r9aihub-product-review-2026-11-19",
+    "recent-task-closeout-snapshot-2026-11-19",
+    "yingmi-ai-build-report-2026-11-19",
+    "advisor-qualifications-exams-2026-11-19",
+    "qwen-app-deep-research-2026-11-18",
+    "huatai-ai-research-2026-11-17",
+    "strategy-dossier-2026-11-24",
+    "strategy-api-history-audit-2026-11-18",
+    "qwen-first-investor-personas-2026-11-18",
+    "qieman-xiaogu-qwen-a2a-deck-2026-11-18",
+    "oap-strategy-groups-audit-2026-11-18",
+    "qwen-cooperation-six-questions-2026-11-18",
+    "private-fund-single-page-series-2026-11-17",
+    "private-fund-product-pages-2026-11-17",
     "pm-ai-transformation-2026-11-24",
     "private-wealth-memory-2026-11-24",
     "qieman-companionship-wealth-memory-2026-11-23",
@@ -446,6 +474,144 @@
       "url": "https://r9-study-clair.clairku.chatgpt.site",
       "access": "owner-private",
       "purpose": "Owner-private R9 research archive, preserved frontend interactions and captured data; original backend, model secrets and separately gated agent were not obtained."
+    },
+    {
+      "id": "pm-ecology-2026-11-24",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-8a0156751f288191a3f65ca8ed0139ef_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "qieman-2027-product-strategy-2026-11-23",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-29ae8560bf1c8191820f2ea696359235_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "qieman-2027-advisory-ai-plan-2026-11-23",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-89f00a37359881918be22cd91c8b20c1_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "qieman-wealth-dossier-proposal-2026-11-23",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-8135769508ac81918d005f670eb3050d_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "qieman-2026-code-investment-review-2026-11-23",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-ae0a4d9533888191946f6cc52c7971b8_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "qieman-2026-product-review-2026-11-23",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-eb2c1cd0235081918364f321d740d682_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "qieman-2026-review-2027-development-2026-11-23",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-9eb9c2eeba508191b51d14691a6620d3_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "qieman-2027-product-execution-plan-2026-11-23",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-b57febc3d2488191aa604477ad29b1f4_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "clair-2027-product-team-plan-2026-11-20",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-6b2bd0594dec8191ae0c14a0a52c7714_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "qieman-team-capability-memo-2026-11-20",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-f852c8b1700c81918b122571df3e0db3_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "qieman-2027-team-work-plan-2026-11-20",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-edfb9aeb106c81918f337684600109e1_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "yingmi-ai-capability-standalone-2026-11-20",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-7d0f6dd462c08191bd3eb24ffb703629_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "r9aihub-product-review-2026-11-19",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-1074104ee4988191a23aeaf37ebc4eb5_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "recent-task-closeout-snapshot-2026-11-19",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-cde8af5cc44c819191e3e71efada4c9b_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "yingmi-ai-build-report-2026-11-19",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-c81d006dd4488191b573386f32b96ebb_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "strategy-dossier-2026-11-24",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-1533b88df66c81919a28c41d86860183_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "strategy-api-history-audit-2026-11-18",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-048cc2f06c088191936e270977975662_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "qwen-first-investor-personas-2026-11-18",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-8b5a2f7c79208191a9cd599f558a5597_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "qieman-xiaogu-qwen-a2a-deck-2026-11-18",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-87a533a0d2d88191bec15156e16fdf33_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "oap-strategy-groups-audit-2026-11-18",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-721f8de05b108191b7166f3c4e8e5b22_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "qwen-cooperation-six-questions-2026-11-18",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-d3d94acdd30c81918cef1fec64d278c4_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "private-fund-single-page-series-2026-11-17",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-869f119587948191b85e86d80f2c10ed_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
+    },
+    {
+      "id": "private-fund-product-pages-2026-11-17",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-5a96b31c02a88191b95027d2edd9f6b5_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
     }
   ]
 }

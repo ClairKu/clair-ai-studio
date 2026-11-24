@@ -44,3 +44,10 @@ Standing user instruction confirmed on 2026-11-19: all completed reports and rep
 - Publish reviewed files against a fresh branch head using a base tree, commit, and non-forced reference update with an expected head. Preserve unrelated and concurrent work.
 - Verify actual content writing, branch update, and deployed workbench/report URLs separately. An app installation or a successful read alone does not establish successful publication.
 - Keep tokens and authorization codes out of code, reports, logs, and user replies. Never disable the existing report access gate to make verification pass.
+
+## Confirmed recent-report catalog scope (2026-11-24)
+
+- After reviewing the pending 23-report publication list, the owner explicitly confirmed publication of the catalog titles, short descriptions, text covers, and authenticated original-file links in this public repository, including preservation of existing catalog records.
+- This approval concerns the recent-report entries collected under recent-reports-2026-11-24. Keep internal report bodies and financial, customer, authorization, and private-product details under their original account permissions.
+- Public-source research can use repository-hosted report pages. Restricted originals open as top-level owner-authenticated destinations registered in hostedApplications.
+- Do not request the same metadata-publication approval again for this confirmed batch. Preserve authentication and encryption; do not infer permission to publish internal report bodies.

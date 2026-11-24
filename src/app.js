@@ -69,7 +69,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 189;
+const DATA_VERSION = 190;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -224,6 +224,541 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      "id": "recent-reports-2026-11-24",
+      "groupId": "reporting",
+      "title": "最近报告汇总｜11月17—24日 · 35项材料",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/recent-reports-2026-11-24/",
+      "preview": "recent-reports-2026-11-24.svg",
+      "pinned": false,
+      "position": 0,
+      "createdAt": "2026-11-24T10:21:42.916Z",
+      "modifiedAt": "2026-11-24T10:21:42.916Z",
+      "source": "近期材料统一入口：4份新增在线研究、23项受控原件和8项已有线上版本；同题文稿、PDF及Excel附件归并，保留原有较新版本与访问权限。",
+      "access": "production",
+      "workType": "reporting",
+      "tags": [
+        "近期报告",
+        "年度规划",
+        "产品转型",
+        "复盘",
+        "AI",
+        "汇总"
+      ]
+    },
+    {
+      "id": "pm-ecology-2026-11-24",
+      "groupId": "product-planning",
+      "title": "产品经理，下一站｜AI生态位与且慢转型",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-8a0156751f288191a3f65ca8ed0139ef_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "pm-ecology-2026-11-24.svg",
+      "pinned": false,
+      "position": 1,
+      "createdAt": "2026-11-24T08:29:42.413969+00:00",
+      "modifiedAt": "2026-11-24T08:29:42.413969+00:00",
+      "source": "产品经理转型观点、分类框架与且慢转型策略。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "reporting",
+      "tags": [
+        "且慢产品与客户体验",
+        "受控原件",
+        "近期报告"
+      ]
+    },
+    {
+      "id": "qieman-2027-product-strategy-2026-11-23",
+      "groupId": "product-planning",
+      "title": "且慢2027产品规划｜客户、顾问、AI与增长",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-29ae8560bf1c8191820f2ea696359235_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "qieman-2027-product-strategy-2026-11-23.svg",
+      "pinned": false,
+      "position": 2,
+      "createdAt": "2026-11-23T10:12:04.328993+00:00",
+      "modifiedAt": "2026-11-23T10:16:59.595783+00:00",
+      "source": "客户端、顾问端、AI与增长的年度规划原稿。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "product-planning",
+      "tags": [
+        "且慢产品与客户体验",
+        "受控原件",
+        "2027"
+      ]
+    },
+    {
+      "id": "qieman-2027-advisory-ai-plan-2026-11-23",
+      "groupId": "product-planning",
+      "title": "2027投顾业务与AI产品｜可视化规划",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-89f00a37359881918be22cd91c8b20c1_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "qieman-2027-advisory-ai-plan-2026-11-23.svg",
+      "pinned": false,
+      "position": 3,
+      "createdAt": "2026-11-23T06:39:32.979220+00:00",
+      "modifiedAt": "2026-11-23T07:51:21.614235+00:00",
+      "source": "投顾业务与AI产品形态的可视化规划原稿。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "product-planning",
+      "tags": [
+        "且慢产品与客户体验",
+        "受控原件",
+        "2027"
+      ]
+    },
+    {
+      "id": "qieman-wealth-dossier-proposal-2026-11-23",
+      "groupId": "product-planning",
+      "title": "且慢财富档案｜年终礼物与持续服务提案",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-8135769508ac81918d005f670eb3050d_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "qieman-wealth-dossier-proposal-2026-11-23.svg",
+      "pinned": false,
+      "position": 4,
+      "createdAt": "2026-11-23T07:46:19.832658+00:00",
+      "modifiedAt": "2026-11-23T07:46:19.832658+00:00",
+      "source": "个人财富档案、年终交付与持续服务产品提案。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "product-planning",
+      "tags": [
+        "且慢产品与客户体验",
+        "受控原件",
+        "近期报告"
+      ]
+    },
+    {
+      "id": "qieman-2026-code-investment-review-2026-11-23",
+      "groupId": "reporting",
+      "title": "2026项目与代码投入复盘",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-ae0a4d9533888191946f6cc52c7971b8_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "qieman-2026-code-investment-review-2026-11-23.svg",
+      "pinned": false,
+      "position": 5,
+      "createdAt": "2026-11-23T06:34:12.911388+00:00",
+      "modifiedAt": "2026-11-23T06:34:12.911388+00:00",
+      "source": "年度项目与代码投入的内部复盘原稿。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "data-analysis",
+      "tags": [
+        "战略经营与项目复盘",
+        "受控原件",
+        "近期报告"
+      ]
+    },
+    {
+      "id": "qieman-2026-product-review-2026-11-23",
+      "groupId": "reporting",
+      "title": "2026产品投入与变化复盘",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-eb2c1cd0235081918364f321d740d682_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "qieman-2026-product-review-2026-11-23.svg",
+      "pinned": false,
+      "position": 6,
+      "createdAt": "2026-11-23T06:06:18.564970+00:00",
+      "modifiedAt": "2026-11-23T06:06:18.564970+00:00",
+      "source": "年度产品投入、变化与调整方案的内部复盘原稿。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "reporting",
+      "tags": [
+        "战略经营与项目复盘",
+        "受控原件",
+        "近期报告"
+      ]
+    },
+    {
+      "id": "qieman-2026-review-2027-development-2026-11-23",
+      "groupId": "reporting",
+      "title": "产品团队2026复盘与2027发展报告",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-9eb9c2eeba508191b51d14691a6620d3_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "qieman-2026-review-2027-development-2026-11-23.svg",
+      "pinned": false,
+      "position": 7,
+      "createdAt": "2026-11-23T05:34:06.997640+00:00",
+      "modifiedAt": "2026-11-23T05:34:06.997640+00:00",
+      "source": "年度复盘、AI发展与组织建设的管理汇报材料。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "reporting",
+      "tags": [
+        "战略经营与项目复盘",
+        "受控原件",
+        "2027"
+      ]
+    },
+    {
+      "id": "qieman-2027-product-execution-plan-2026-11-23",
+      "groupId": "product-planning",
+      "title": "产品团队2027规划与执行方案",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-b57febc3d2488191aa604477ad29b1f4_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "qieman-2027-product-execution-plan-2026-11-23.svg",
+      "pinned": false,
+      "position": 8,
+      "createdAt": "2026-11-23T04:48:38.236860+00:00",
+      "modifiedAt": "2026-11-23T04:48:38.236860+00:00",
+      "source": "产品规划、团队效率、执行机制与客户体验方案。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "product-planning",
+      "tags": [
+        "且慢产品与客户体验",
+        "受控原件",
+        "2027"
+      ]
+    },
+    {
+      "id": "clair-2027-product-team-plan-2026-11-20",
+      "groupId": "reporting",
+      "title": "Clair｜2027产品团队工作计划",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-6b2bd0594dec8191ae0c14a0a52c7714_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "clair-2027-product-team-plan-2026-11-20.svg",
+      "pinned": false,
+      "position": 9,
+      "createdAt": "2026-11-20T10:18:23.313425+00:00",
+      "modifiedAt": "2026-11-20T10:18:23.313425+00:00",
+      "source": "Clair的产品团队年度计划原稿。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "product-planning",
+      "tags": [
+        "战略经营与项目复盘",
+        "受控原件",
+        "2027"
+      ]
+    },
+    {
+      "id": "qieman-team-capability-memo-2026-11-20",
+      "groupId": "knowledge",
+      "title": "2027产品团队组织能力改善备忘",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-f852c8b1700c81918b122571df3e0db3_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "qieman-team-capability-memo-2026-11-20.svg",
+      "pinned": false,
+      "position": 10,
+      "createdAt": "2026-11-20T09:54:26.616854+00:00",
+      "modifiedAt": "2026-11-20T09:54:26.616854+00:00",
+      "source": "组织责任、关键岗位备份、培养与改善备忘文稿。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "reporting",
+      "tags": [
+        "组织能力与知识治理",
+        "受控原件",
+        "2027"
+      ]
+    },
+    {
+      "id": "qieman-2027-team-work-plan-2026-11-20",
+      "groupId": "product-planning",
+      "title": "且慢产品团队2027年工作计划｜11月20日版",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-edfb9aeb106c81918f337684600109e1_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "qieman-2027-team-work-plan-2026-11-20.svg",
+      "pinned": false,
+      "position": 11,
+      "createdAt": "2026-11-20T09:54:25.020615+00:00",
+      "modifiedAt": "2026-11-20T09:54:25.020615+00:00",
+      "source": "11月20日年度计划讨论版，供不同版本对照。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "product-planning",
+      "tags": [
+        "且慢产品与客户体验",
+        "受控原件",
+        "2027"
+      ]
+    },
+    {
+      "id": "yingmi-ai-capability-standalone-2026-11-20",
+      "groupId": "ai-platform",
+      "title": "盈米AI能力清单｜独立快照版",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-7d0f6dd462c08191bd3eb24ffb703629_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "yingmi-ai-capability-standalone-2026-11-20.svg",
+      "pinned": false,
+      "position": 12,
+      "createdAt": "2026-11-20T07:47:56.390764+00:00",
+      "modifiedAt": "2026-11-20T07:47:56.390764+00:00",
+      "source": "独立HTML能力目录快照，与持续维护的在线目录并存。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "product-demo",
+      "tags": [
+        "AI 开放平台与生态",
+        "受控原件",
+        "近期报告"
+      ]
+    },
+    {
+      "id": "dong-dezhi-investment-notes-2026-11-19",
+      "groupId": "research",
+      "title": "董德志投资交易笔记｜可视化阅读",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/dong-dezhi-investment-notes-2026-11-19/",
+      "preview": "dong-dezhi-investment-notes-2026-11-19.svg",
+      "pinned": false,
+      "position": 13,
+      "createdAt": "2026-11-19T07:41:15.644573+00:00",
+      "modifiedAt": "2026-11-19T07:41:15.644573+00:00",
+      "source": "投资交易笔记的可视化原创导读与交互阅读；原稿不含原书全文。 公开资料研究在线版，保留原稿时点与证据边界。",
+      "access": "production",
+      "workType": "investment-research",
+      "tags": [
+        "投研与资产配置",
+        "HTML",
+        "近期报告"
+      ]
+    },
+    {
+      "id": "r9aihub-product-review-2026-11-19",
+      "groupId": "ai-workbench",
+      "title": "R9 AI Hub｜产品研究与功能测评",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-1074104ee4988191a23aeaf37ebc4eb5_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "r9aihub-product-review-2026-11-19.svg",
+      "pinned": false,
+      "position": 14,
+      "createdAt": "2026-11-19T06:59:36.357636+00:00",
+      "modifiedAt": "2026-11-19T06:59:36.357636+00:00",
+      "source": "R9产品研究、功能测评与证据索引原稿。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "competitive-research",
+      "tags": [
+        "AI 生产力与工作台",
+        "受控原件",
+        "近期报告"
+      ]
+    },
+    {
+      "id": "recent-task-closeout-snapshot-2026-11-19",
+      "groupId": "reporting",
+      "title": "近期任务收尾清单｜11月19日历史快照",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-cde8af5cc44c819191e3e71efada4c9b_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "recent-task-closeout-snapshot-2026-11-19.svg",
+      "pinned": false,
+      "position": 15,
+      "createdAt": "2026-11-19T05:39:27.067244+00:00",
+      "modifiedAt": "2026-11-19T05:39:27.067244+00:00",
+      "source": "11月19日任务状态历史快照。发布连接已于11月24日恢复，其余状态未在本轮重查。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "reporting",
+      "tags": [
+        "战略经营与项目复盘",
+        "受控原件",
+        "近期报告"
+      ]
+    },
+    {
+      "id": "yingmi-ai-build-report-2026-11-19",
+      "groupId": "ai-platform",
+      "title": "盈米AI建设报告｜规模、深度与业务落地",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-c81d006dd4488191b573386f32b96ebb_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "yingmi-ai-build-report-2026-11-19.svg",
+      "pinned": false,
+      "position": 16,
+      "createdAt": "2026-11-19T03:12:14.434417+00:00",
+      "modifiedAt": "2026-11-19T03:12:14.434417+00:00",
+      "source": "盈米AI建设、业务应用与证据索引的完整报告。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "reporting",
+      "tags": [
+        "AI 开放平台与生态",
+        "受控原件",
+        "近期报告"
+      ]
+    },
+    {
+      "id": "advisor-qualifications-exams-2026-11-19",
+      "groupId": "advisor-workbench",
+      "title": "财富顾问证照与考试全景梳理",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/advisor-qualifications-exams-2026-11-19/",
+      "preview": "advisor-qualifications-exams-2026-11-19.svg",
+      "pinned": false,
+      "position": 17,
+      "createdAt": "2026-11-19T01:43:53.205237+00:00",
+      "modifiedAt": "2026-11-19T01:59:15.332992+00:00",
+      "source": "财富顾问考试、证照、岗位适用性与取证路径研究。 公开资料研究在线版，保留原稿时点与证据边界。",
+      "access": "production",
+      "workType": "investment-research",
+      "tags": [
+        "投顾工作台",
+        "HTML",
+        "近期报告"
+      ]
+    },
+    {
+      "id": "qwen-app-deep-research-2026-11-18",
+      "groupId": "ai-platform",
+      "title": "千问App产品深度剖析与五份外部分析",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/qwen-app-deep-research-2026-11-18/",
+      "preview": "qwen-app-deep-research-2026-11-18.svg",
+      "pinned": false,
+      "position": 18,
+      "createdAt": "2026-11-18T01:39:38.924549+00:00",
+      "modifiedAt": "2026-11-18T01:39:38.924549+00:00",
+      "source": "千问App定位、产品路线、生态与外部分析精读。 公开资料研究在线版，保留原稿时点与证据边界。",
+      "access": "production",
+      "workType": "competitive-research",
+      "tags": [
+        "AI 开放平台与生态",
+        "HTML",
+        "近期报告"
+      ]
+    },
+    {
+      "id": "huatai-ai-research-2026-11-17",
+      "groupId": "ai-platform",
+      "title": "华泰证券AI能力全景调研",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/huatai-ai-research-2026-11-17/",
+      "preview": "huatai-ai-research-2026-11-17.svg",
+      "pinned": false,
+      "position": 19,
+      "createdAt": "2026-11-17T09:05:36.427068+00:00",
+      "modifiedAt": "2026-11-17T09:05:36.427068+00:00",
+      "source": "华泰证券AI能力、产品与开放生态研究。 公开资料研究在线版，保留原稿时点与证据边界。",
+      "access": "production",
+      "workType": "competitive-research",
+      "tags": [
+        "AI 开放平台与生态",
+        "HTML",
+        "近期报告"
+      ]
+    },
+    {
+      "id": "strategy-dossier-2026-11-24",
+      "groupId": "research",
+      "title": "策略全档案｜模型持仓与全部调仓",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-1533b88df66c81919a28c41d86860183_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "strategy-dossier-2026-11-24.svg",
+      "pinned": false,
+      "position": 20,
+      "createdAt": "2026-11-24T05:29:46.590866+00:00",
+      "modifiedAt": "2026-11-24T05:29:46.590866+00:00",
+      "source": "策略模型持仓、全部调仓与换手率口径的完整档案。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "investment-research",
+      "tags": [
+        "投研与资产配置",
+        "受控原件",
+        "近期报告"
+      ]
+    },
+    {
+      "id": "strategy-api-history-audit-2026-11-18",
+      "groupId": "ai-platform",
+      "title": "策略接口上线与渠道隔离溯源",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-048cc2f06c088191936e270977975662_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "strategy-api-history-audit-2026-11-18.svg",
+      "pinned": false,
+      "position": 21,
+      "createdAt": "2026-11-18T02:16:08.191904+00:00",
+      "modifiedAt": "2026-11-18T18:21:49.963641+00:00",
+      "source": "策略接口上线、渠道隔离、变更过程与原始证据索引。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "governance-review",
+      "tags": [
+        "AI 开放平台与生态",
+        "受控原件",
+        "近期报告"
+      ]
+    },
+    {
+      "id": "qwen-first-investor-personas-2026-11-18",
+      "groupId": "growth-insights",
+      "title": "千问新投用户三大画像｜深蓝汇报单页",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-8b5a2f7c79208191a9cd599f558a5597_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "qwen-first-investor-personas-2026-11-18.svg",
+      "pinned": false,
+      "position": 22,
+      "createdAt": "2026-11-18T06:41:44.569742+00:00",
+      "modifiedAt": "2026-11-18T06:41:44.569742+00:00",
+      "source": "千问新投用户画像与转化分析的深蓝汇报单页。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "data-analysis",
+      "tags": [
+        "用户增长与数据洞察",
+        "受控原件",
+        "近期报告"
+      ]
+    },
+    {
+      "id": "qieman-xiaogu-qwen-a2a-deck-2026-11-18",
+      "groupId": "xiaogu",
+      "title": "且慢AI小顾与千问A2A合作｜深蓝版PPT",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-87a533a0d2d88191bec15156e16fdf33_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "qieman-xiaogu-qwen-a2a-deck-2026-11-18.svg",
+      "pinned": false,
+      "position": 23,
+      "createdAt": "2026-11-18T05:55:14.143638+00:00",
+      "modifiedAt": "2026-11-18T05:55:14.143638+00:00",
+      "source": "且慢AI小顾、能力输出与千问A2A合作的演示原稿。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "reporting",
+      "tags": [
+        "AI 产品与顾问服务",
+        "受控原件",
+        "近期报告"
+      ]
+    },
+    {
+      "id": "oap-strategy-groups-audit-2026-11-18",
+      "groupId": "ai-platform",
+      "title": "OAP策略分组授权核查｜网页重制版",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-721f8de05b108191b7166f3c4e8e5b22_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "oap-strategy-groups-audit-2026-11-18.svg",
+      "pinned": false,
+      "position": 24,
+      "createdAt": "2026-11-18T01:44:38.386852+00:00",
+      "modifiedAt": "2026-11-18T01:44:38.386852+00:00",
+      "source": "OAP策略分组授权配置核查的网页重制稿。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "governance-review",
+      "tags": [
+        "AI 开放平台与生态",
+        "受控原件",
+        "近期报告"
+      ]
+    },
+    {
+      "id": "qwen-cooperation-six-questions-2026-11-18",
+      "groupId": "growth-insights",
+      "title": "千问合作六问｜生产核查答复",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-d3d94acdd30c81918cef1fec64d278c4_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "qwen-cooperation-six-questions-2026-11-18.svg",
+      "pinned": false,
+      "position": 25,
+      "createdAt": "2026-11-18T01:24:12.047874+00:00",
+      "modifiedAt": "2026-11-18T01:24:12.047874+00:00",
+      "source": "千问合作六问的生产核查答复原稿。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "data-analysis",
+      "tags": [
+        "用户增长与数据洞察",
+        "受控原件",
+        "近期报告"
+      ]
+    },
+    {
+      "id": "private-fund-single-page-series-2026-11-17",
+      "groupId": "advisor-workbench",
+      "title": "私募产品一页通｜财务规划同版系列",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-869f119587948191b85e86d80f2c10ed_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "private-fund-single-page-series-2026-11-17.svg",
+      "pinned": false,
+      "position": 26,
+      "createdAt": "2026-11-17T11:32:32.634058+00:00",
+      "modifiedAt": "2026-11-17T11:32:32.634058+00:00",
+      "source": "财务规划同版私募产品一页通，附PDF系列与设计总览。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "product-demo",
+      "tags": [
+        "投顾工作台",
+        "受控原件",
+        "近期报告"
+      ]
+    },
+    {
+      "id": "private-fund-product-pages-2026-11-17",
+      "groupId": "advisor-workbench",
+      "title": "私募产品页面｜九页主页面与完整信息",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-5a96b31c02a88191b95027d2edd9f6b5_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "private-fund-product-pages-2026-11-17.svg",
+      "pinned": false,
+      "position": 27,
+      "createdAt": "2026-11-17T11:14:13.059596+00:00",
+      "modifiedAt": "2026-11-17T11:14:13.059596+00:00",
+      "source": "私募产品交互预览，附九页主页面、完整信息及原稿对照。 原件按现有账号权限打开，正文未复制到公开仓库。",
+      "access": "account",
+      "workType": "product-demo",
+      "tags": [
+        "投顾工作台",
+        "受控原件",
+        "近期报告"
+      ]
+    },
     {
       "id": "pm-ai-transformation-2026-11-24",
       "groupId": "product-planning",
@@ -4979,6 +5514,34 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "recent-reports-2026-11-24": "reporting",
+  "pm-ecology-2026-11-24": "reporting",
+  "qieman-2027-product-strategy-2026-11-23": "product-planning",
+  "qieman-2027-advisory-ai-plan-2026-11-23": "product-planning",
+  "qieman-wealth-dossier-proposal-2026-11-23": "product-planning",
+  "qieman-2026-code-investment-review-2026-11-23": "data-analysis",
+  "qieman-2026-product-review-2026-11-23": "reporting",
+  "qieman-2026-review-2027-development-2026-11-23": "reporting",
+  "qieman-2027-product-execution-plan-2026-11-23": "product-planning",
+  "clair-2027-product-team-plan-2026-11-20": "product-planning",
+  "qieman-team-capability-memo-2026-11-20": "reporting",
+  "qieman-2027-team-work-plan-2026-11-20": "product-planning",
+  "yingmi-ai-capability-standalone-2026-11-20": "product-demo",
+  "dong-dezhi-investment-notes-2026-11-19": "investment-research",
+  "r9aihub-product-review-2026-11-19": "competitive-research",
+  "recent-task-closeout-snapshot-2026-11-19": "reporting",
+  "yingmi-ai-build-report-2026-11-19": "reporting",
+  "advisor-qualifications-exams-2026-11-19": "investment-research",
+  "qwen-app-deep-research-2026-11-18": "competitive-research",
+  "huatai-ai-research-2026-11-17": "competitive-research",
+  "strategy-dossier-2026-11-24": "investment-research",
+  "strategy-api-history-audit-2026-11-18": "governance-review",
+  "qwen-first-investor-personas-2026-11-18": "data-analysis",
+  "qieman-xiaogu-qwen-a2a-deck-2026-11-18": "reporting",
+  "oap-strategy-groups-audit-2026-11-18": "governance-review",
+  "qwen-cooperation-six-questions-2026-11-18": "data-analysis",
+  "private-fund-single-page-series-2026-11-17": "product-demo",
+  "private-fund-product-pages-2026-11-17": "product-demo",
   "pm-ai-transformation-2026-11-24": "reporting",
   "private-wealth-memory-2026-11-24": "product-planning",
   "qieman-companionship-wealth-memory-2026-11-23": "product-planning",
@@ -5139,6 +5702,34 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "recent-reports-2026-11-24": "reporting",
+  "pm-ecology-2026-11-24": "product-planning",
+  "qieman-2027-product-strategy-2026-11-23": "product-planning",
+  "qieman-2027-advisory-ai-plan-2026-11-23": "product-planning",
+  "qieman-wealth-dossier-proposal-2026-11-23": "product-planning",
+  "qieman-2026-code-investment-review-2026-11-23": "reporting",
+  "qieman-2026-product-review-2026-11-23": "reporting",
+  "qieman-2026-review-2027-development-2026-11-23": "reporting",
+  "qieman-2027-product-execution-plan-2026-11-23": "product-planning",
+  "clair-2027-product-team-plan-2026-11-20": "reporting",
+  "qieman-team-capability-memo-2026-11-20": "knowledge",
+  "qieman-2027-team-work-plan-2026-11-20": "product-planning",
+  "yingmi-ai-capability-standalone-2026-11-20": "ai-platform",
+  "dong-dezhi-investment-notes-2026-11-19": "research",
+  "r9aihub-product-review-2026-11-19": "ai-workbench",
+  "recent-task-closeout-snapshot-2026-11-19": "reporting",
+  "yingmi-ai-build-report-2026-11-19": "ai-platform",
+  "advisor-qualifications-exams-2026-11-19": "advisor-workbench",
+  "qwen-app-deep-research-2026-11-18": "ai-platform",
+  "huatai-ai-research-2026-11-17": "ai-platform",
+  "strategy-dossier-2026-11-24": "research",
+  "strategy-api-history-audit-2026-11-18": "ai-platform",
+  "qwen-first-investor-personas-2026-11-18": "growth-insights",
+  "qieman-xiaogu-qwen-a2a-deck-2026-11-18": "xiaogu",
+  "oap-strategy-groups-audit-2026-11-18": "ai-platform",
+  "qwen-cooperation-six-questions-2026-11-18": "growth-insights",
+  "private-fund-single-page-series-2026-11-17": "advisor-workbench",
+  "private-fund-product-pages-2026-11-17": "advisor-workbench",
   "pm-ai-transformation-2026-11-24": "product-planning",
   "private-wealth-memory-2026-11-24": "product-planning",
   "qieman-companionship-wealth-memory-2026-11-23": "product-planning",
