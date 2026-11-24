@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "pm-ai-transformation-2026-11-24",
     "private-wealth-memory-2026-11-24",
     "qieman-companionship-wealth-memory-2026-11-23",
     "r9-site-study-2026-11-19",

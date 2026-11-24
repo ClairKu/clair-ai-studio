@@ -69,7 +69,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 188;
+const DATA_VERSION = 189;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -224,6 +224,30 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      "id": "pm-ai-transformation-2026-11-24",
+      "groupId": "product-planning",
+      "title": "AI时代产品团队的战略价值｜前沿研究与转型招聘策略",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/pm-ai-transformation-2026-11-24/",
+      "preview": "pm-ai-transformation-2026-11-24.svg",
+      "pinned": false,
+      "position": 0,
+      "createdAt": "2026-11-24T15:56:30+08:00",
+      "modifiedAt": "2026-11-24T15:56:30+08:00",
+      "source": "19项公开资料、15个前沿方向、15组带口径数据；含六项稀缺责任、盈米且慢三条主线、90天路径、分阶段招聘提案、投入演算及12页汇报提纲。观点、统计与建议区分，预览为文字封面。",
+      "access": "production",
+      "workType": "reporting",
+      "tags": [
+        "产品规划",
+        "经营汇报",
+        "AI",
+        "产品经理",
+        "组织能力",
+        "招聘",
+        "且慢",
+        "HTML"
+      ]
+    },
     {
       "id": "private-wealth-memory-2026-11-24",
       "groupId": "product-planning",
@@ -4955,6 +4979,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "pm-ai-transformation-2026-11-24": "reporting",
   "private-wealth-memory-2026-11-24": "product-planning",
   "qieman-companionship-wealth-memory-2026-11-23": "product-planning",
   "r9-site-study-2026-11-19": "competitive-research",
@@ -5114,6 +5139,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "pm-ai-transformation-2026-11-24": "product-planning",
   "private-wealth-memory-2026-11-24": "product-planning",
   "qieman-companionship-wealth-memory-2026-11-23": "product-planning",
   "r9-site-study-2026-11-19": "ai-workbench",

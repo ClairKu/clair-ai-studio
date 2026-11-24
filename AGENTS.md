@@ -35,3 +35,12 @@ Standing user instruction confirmed on 2026-11-19: all completed reports and rep
 - Never print or commit authentication tokens, credentials, or authorization headers.
 - If access truly requires user sign-in, preserve the finished report and prepared changes, identify the exact blocked action, and state that publication remains pending.
 
+
+## Verified GitHub publication connection (2026-11-24)
+
+- The owner approved installation of the official ChatGPT Codex Connector for the selected repository ClairKu/clair-ai-studio. Do not expand repository access without the owner's explicit approval.
+- Prefer the connected GitHub write tools for workbench publication when the local executor cannot reach GitHub. The native GitHub CLI login and the connected app are separate authentication paths.
+- Repository metadata such as permissions.push or permissions.admin describes the user's permissions, not the app installation's write access. On an integration-level 403, inspect the app installations and verify that this repository is included before changing credentials.
+- Publish reviewed files against a fresh branch head using a base tree, commit, and non-forced reference update with an expected head. Preserve unrelated and concurrent work.
+- Verify actual content writing, branch update, and deployed workbench/report URLs separately. An app installation or a successful read alone does not establish successful publication.
+- Keep tokens and authorization codes out of code, reports, logs, and user replies. Never disable the existing report access gate to make verification pass.
