@@ -226,6 +226,27 @@ const initialState = {
   ],
   reports: [
     {
+      "id": "global-tamp-business-model-landscape-2026-11-25",
+      "groupId": "advisor-workbench",
+      "title": "海外 TAMP 全景分析｜商业模式、费率机制与竞争格局（平行研究）",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/global-tamp-business-model-landscape-2026-11-25/",
+      "preview": "global-tamp-business-model-landscape-2026-11-25.svg",
+      "pinned": false,
+      "position": -4,
+      "createdAt": "2026-11-25T06:40:50Z",
+      "modifiedAt": "2026-11-25T06:40:50Z",
+      "source": "公开资料研究｜美国 TAMP 五阵营格局、外包模式与费率经济学、并购时间线、六大趋势与国内启示；与同主题 26 平台全景研究互为补充。",
+      "access": "production",
+      "workType": "competitive-research",
+      "tags": [
+        "调研",
+        "投顾工作台",
+        "TAMP",
+        "商业模式",
+        "HTML"
+      ]
+    },
+    
       "id": "presentation-archive-2026-11-25",
       "groupId": "reporting",
       "title": "近年汇报与原始档案｜2020—2026",
@@ -5580,6 +5601,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "global-tamp-business-model-landscape-2026-11-25": "competitive-research",
   "presentation-archive-2026-11-25": "reporting",
   "global-tamp-advisor-workspace-2026-11-25": "competitive-research",
   "investment-planning-agent-prd-2026-11-25": "requirement-review",
@@ -5771,6 +5793,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "global-tamp-business-model-landscape-2026-11-25": "advisor-workbench",
   "presentation-archive-2026-11-25": "reporting",
   "global-tamp-advisor-workspace-2026-11-25": "advisor-workbench",
   "investment-planning-agent-prd-2026-11-25": "advisor-workbench",
