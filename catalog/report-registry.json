@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "qas-advisor-workbench-90s-film-script-2026-11-25",
     "vip-advisor-two-scenarios-2026-11-25",
     "global-tamp-business-model-landscape-2026-11-25",
     "presentation-archive-2026-11-25",

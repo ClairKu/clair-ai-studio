@@ -225,6 +225,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qas-advisor-workbench-90s-film-script-2026-11-25",
+      groupId: "advisor-workbench",
+      title: "且慢顾问工作台 QAS｜90秒产品短片《把时间还给客户》分镜脚本（五幕13镜 · 旁白稿 · 录屏清单 · 视觉合规规范）",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qas-advisor-workbench-90s-film-script-2026-11-25/",
+      preview: "qas-advisor-workbench-90s-film-script-2026-11-25.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-11-25T16:50:00+08:00",
+      source: "依据飞书文档《且慢顾问工作台 Demo 内容》重组为 90 秒短片拍摄脚本：五幕结构（痛点共鸣 22s / 产品登场 13s / 新客承接 22s / 老客跟进 22s / 升华收束 11s）共 13 个分镜，每镜含时间码、画面类型、屏幕大字、旁白与音效；完整旁白约 420 字可一键复制；附包装动画与 QAS 脱敏录屏素材清单、浅蓝云视觉包装规范与全程合规条要求，配 4 张 AI 关键帧概念图；页面内产品界面均为示意线框，客户与数据均为虚拟演示",
+      access: "production",
+      workType: "product-demo",
+      tags: ["且慢", "投顾工作台", "QAS", "短片脚本", "分镜", "旁白", "产品Demo", "AI-Native", "新客承接", "老客跟进", "客户360", "合规", "HTML", "生产"],
+    },
 {
   "id": "vip-advisor-two-scenarios-2026-11-25",
   "groupId": "advisor-workbench",
@@ -5818,6 +5832,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qas-advisor-workbench-90s-film-script-2026-11-25": "advisor-workbench",
   "vip-advisor-two-scenarios-2026-11-25": "advisor-workbench",
   "global-tamp-business-model-landscape-2026-11-25": "advisor-workbench",
   "presentation-archive-2026-11-25": "reporting",
