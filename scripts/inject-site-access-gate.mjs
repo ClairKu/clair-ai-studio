@@ -6,6 +6,7 @@ const projectRoot = fileURLToPath(new URL("../", import.meta.url));
 const standalonePublicEntries = new Set(JSON.parse(readFileSync(
   join(projectRoot, "catalog/standalone-public-entries.json"), "utf8",
 )).entries);
+const publicSnapshotEntries = new Set(JSON.parse(readFileSync(join(projectRoot, "catalog/direct-report-snapshots.json"), "utf8")).entries.map(item => item.entry));
 const outputRoot = resolve(projectRoot, process.argv[2] || "docs");
 const gateAsset = join(outputRoot, "access-gate.js");
 const accessConfigAsset = join(outputRoot, "report-access.json");
@@ -24,8 +25,6 @@ const encryptedReportEntries = new Set((accessConfig.immutableLockedEntries || [
 const standaloneEncryptedEntries = new Set([
   ...JSON.parse(readFileSync(join(projectRoot, "catalog/private-html-reports.json"), "utf8")).entries,
   "reports/qiming-h2-product-review-2026-11-09/index.html",
-  "reports/private-wealth-memory-2026-11-24/index.html",
-  "reports/pm-ecology-2026-11-24/index.html",
 ]);
 for (const entry of standalonePublicEntries) {
   if (!/^reports\/[^/?#\\]+\/index\.html$/.test(entry)
@@ -201,7 +200,7 @@ for (const htmlPath of walkHtml(outputRoot)) {
 
   if (standalonePublicEntries.has(outputPath)) {
     if (html.includes("data-clair-private-envelope")
-      || html.includes("AES-GCM")
+      || (!publicSnapshotEntries.has(outputPath) && html.includes("AES-GCM"))
       || /<input\b[^>]*type=["']password["']/i.test(html)) {
       throw new Error(`Encrypted or password-protected public report: ${outputPath}`);
     }
@@ -272,4 +271,5 @@ for (const htmlPath of walkHtml(outputRoot)) {
 }
 
 console.log(`Injected the selective site access gate into ${injected} HTML files, including ${encryptedReports} encrypted reports; preserved ${publicReports} standalone public reports.`);
+
 

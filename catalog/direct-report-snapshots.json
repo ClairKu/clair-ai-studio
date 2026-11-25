@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Public, automatic rendering of the 44 released report snapshots; no login, password, session or access-key file is required. Downloads contain the complete standalone HTML.",
+  "entries": [
+    {
+      "entry": "reports/pm-ecology-2026-11-24/index.html",
+      "snapshot": "report-data/recent-20261125/pm-ecology-2026-11-24-25a392706e2f.snapshot",
+      "sourceBlob": "25a392706e2f67b024334c078d2f24bb17696819",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/pm-ai-transformation-2026-11-24/index.html",
+      "snapshot": "report-data/recent-20261125/pm-ai-transformation-2026-11-24-61825e430155.snapshot",
+      "sourceBlob": "61825e430155ea1c52f8df3b95cde171b804afe2",
+      "encoding": "html"
+    },
+    {
+      "entry": "reports/strategy-dossier-2026-11-24/index.html",
+      "snapshot": "report-data/recent-20261125/strategy-dossier-2026-11-24-4cfc63bd399b.snapshot",
+      "sourceBlob": "4cfc63bd399bd7a9095a76d141f8ae8b97bd6778",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/qieman-companionship-wealth-memory-2026-11-23/index.html",
+      "snapshot": "report-data/recent-20261125/qieman-companionship-wealth-memory-2026-11-23-7d1a911b7e9a.snapshot",
+      "sourceBlob": "7d1a911b7e9aacbc22d4a9a100f186b0282fe13b",
+      "encoding": "html"
+    },
+    {
+      "entry": "reports/qieman-2027-product-strategy-2026-11-23/index.html",
+      "snapshot": "report-data/recent-20261125/qieman-2027-product-strategy-2026-11-23-6214349de496.snapshot",
+      "sourceBlob": "6214349de496fb6c2a2ccc63ee1aa4d4fe2b1614",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/qieman-2027-advisory-ai-plan-2026-11-23/index.html",
+      "snapshot": "report-data/recent-20261125/qieman-2027-advisory-ai-plan-2026-11-23-920cee1f49de.snapshot",
+      "sourceBlob": "920cee1f49de81ac134c0853dedaa1d5a4c4ea06",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/qieman-wealth-dossier-proposal-2026-11-23/index.html",
+      "snapshot": "report-data/recent-20261125/qieman-wealth-dossier-proposal-2026-11-23-1c72ef50fcd7.snapshot",
+      "sourceBlob": "1c72ef50fcd776c0da0b58dfd53fb4fefa82e757",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/qieman-2026-code-investment-review-2026-11-23/index.html",
+      "snapshot": "report-data/recent-20261125/qieman-2026-code-investment-review-2026-11-23-49acb6c39aa4.snapshot",
+      "sourceBlob": "49acb6c39aa4661979268f45f5c597f0ac5809ab",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/qieman-2026-product-review-2026-11-23/index.html",
+      "snapshot": "report-data/recent-20261125/qieman-2026-product-review-2026-11-23-0860cb030ef4.snapshot",
+      "sourceBlob": "0860cb030ef492f1119e34eac58508d659421de5",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/qieman-2026-review-2027-development-2026-11-23/index.html",
+      "snapshot": "report-data/recent-20261125/qieman-2026-review-2027-development-2026-11-23-975d4260aba4.snapshot",
+      "sourceBlob": "975d4260aba4bd7e9fb6f411dfb45e70d67b8e9a",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/qieman-2027-product-execution-plan-2026-11-23/index.html",
+      "snapshot": "report-data/recent-20261125/qieman-2027-product-execution-plan-2026-11-23-4218ffa4e9e4.snapshot",
+      "sourceBlob": "4218ffa4e9e450b31ee7b8cd5c5de945ba355a70",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/clair-2027-product-team-plan-2026-11-20/index.html",
+      "snapshot": "report-data/recent-20261125/clair-2027-product-team-plan-2026-11-20-175a9c158e25.snapshot",
+      "sourceBlob": "175a9c158e255c89c0928185a2196e0d28d3eb8a",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/qieman-team-capability-memo-2026-11-20/index.html",
+      "snapshot": "report-data/recent-20261125/qieman-team-capability-memo-2026-11-20-33c772443bcc.snapshot",
+      "sourceBlob": "33c772443bccd403ef74e60262084d50435f5aa6",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/qieman-2027-team-work-plan-2026-11-20/index.html",
+      "snapshot": "report-data/recent-20261125/qieman-2027-team-work-plan-2026-11-20-634346142e83.snapshot",
+      "sourceBlob": "634346142e8334ab3344d3b985dde718b8899488",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/yingmi-ai-capability-standalone-2026-11-20/index.html",
+      "snapshot": "report-data/recent-20261125/yingmi-ai-capability-standalone-2026-11-20-ef5282a239cb.snapshot",
+      "sourceBlob": "ef5282a239cb63ae70d6e8d94d561dcf2a4e7524",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/dong-dezhi-investment-notes-2026-11-19/index.html",
+      "snapshot": "report-data/recent-20261125/dong-dezhi-investment-notes-2026-11-19-7c494719c8b7.snapshot",
+      "sourceBlob": "7c494719c8b75cf6934fbc11fb2d53f1a9cb949c",
+      "encoding": "html"
+    },
+    {
+      "entry": "reports/r9aihub-product-review-2026-11-19/index.html",
+      "snapshot": "report-data/recent-20261125/r9aihub-product-review-2026-11-19-c22b0085f7db.snapshot",
+      "sourceBlob": "c22b0085f7db318b28d8bac866c31714de1d1113",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/recent-task-closeout-snapshot-2026-11-19/index.html",
+      "snapshot": "report-data/recent-20261125/recent-task-closeout-snapshot-2026-11-19-7c3d5a15b786.snapshot",
+      "sourceBlob": "7c3d5a15b786649f5d58ce1cf7d828086a3d593f",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/yingmi-qieman-casebook-2026-11-19/index.html",
+      "snapshot": "report-data/recent-20261125/yingmi-qieman-casebook-2026-11-19-ac8ae96761b4.snapshot",
+      "sourceBlob": "ac8ae96761b4f52989cc8bec27331c3f1cdef94d",
+      "encoding": "html"
+    },
+    {
+      "entry": "reports/yingmi-ai-build-report-2026-11-19/index.html",
+      "snapshot": "report-data/recent-20261125/yingmi-ai-build-report-2026-11-19-5f7e714c88be.snapshot",
+      "sourceBlob": "5f7e714c88be563579ac59bfc0422fddf93836c8",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/yingmi-token-usage-2026-11-19/index.html",
+      "snapshot": "report-data/recent-20261125/yingmi-token-usage-2026-11-19-507ed2378ce8.snapshot",
+      "sourceBlob": "507ed2378ce8dea812f8454588d23164dacad736",
+      "encoding": "html"
+    },
+    {
+      "entry": "reports/qieman-strategy-risk-2026-11-19/index.html",
+      "snapshot": "report-data/recent-20261125/qieman-strategy-risk-2026-11-19-07a0b936b782.snapshot",
+      "sourceBlob": "07a0b936b7828c0662d6bb6b94417ed6a2199c5e",
+      "encoding": "html"
+    },
+    {
+      "entry": "reports/advisor-qualifications-exams-2026-11-19/index.html",
+      "snapshot": "report-data/recent-20261125/advisor-qualifications-exams-2026-11-19-8da553086e15.snapshot",
+      "sourceBlob": "8da553086e15bf3b8ed5b9e315e00fe564a02370",
+      "encoding": "html"
+    },
+    {
+      "entry": "reports/strategy-api-history-audit-2026-11-18/index.html",
+      "snapshot": "report-data/recent-20261125/strategy-api-history-audit-2026-11-18-4fd52994bde7.snapshot",
+      "sourceBlob": "4fd52994bde72d4a98aea8b5bf8dbe51d23d227a",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/qieman-strategy-conformance-2026-11-19/index.html",
+      "snapshot": "report-data/recent-20261125/qieman-strategy-conformance-2026-11-19-a6fde0e04762.snapshot",
+      "sourceBlob": "a6fde0e047627dd5facfea3679ff5d08b46f8f78",
+      "encoding": "html"
+    },
+    {
+      "entry": "reports/qieman-strategy-catalog-2026-11-19/index.html",
+      "snapshot": "report-data/recent-20261125/qieman-strategy-catalog-2026-11-19-2bd97e1b345b.snapshot",
+      "sourceBlob": "2bd97e1b345bf2694badfd7a8a7cc95e1a7e2b12",
+      "encoding": "html"
+    },
+    {
+      "entry": "reports/qwen-first-investor-personas-2026-11-18/index.html",
+      "snapshot": "report-data/recent-20261125/qwen-first-investor-personas-2026-11-18-2a2ae82693bc.snapshot",
+      "sourceBlob": "2a2ae82693bc7d53cd4ba83cca7f29cb4f342816",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/qieman-xiaogu-qwen-a2a-deck-2026-11-18/index.html",
+      "snapshot": "report-data/recent-20261125/qieman-xiaogu-qwen-a2a-deck-2026-11-18-7600cd00d349.snapshot",
+      "sourceBlob": "7600cd00d349027cbd816da04429ea0c5a18cf84",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/oap-strategy-groups-audit-2026-11-18/index.html",
+      "snapshot": "report-data/recent-20261125/oap-strategy-groups-audit-2026-11-18-1f24eea3aaeb.snapshot",
+      "sourceBlob": "1f24eea3aaeb268b93ea6e33170a7cdcbab5334b",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/qwen-app-deep-research-2026-11-18/index.html",
+      "snapshot": "report-data/recent-20261125/qwen-app-deep-research-2026-11-18-337efed1a7a7.snapshot",
+      "sourceBlob": "337efed1a7a74c1be51c2e9b29aed30729463e4a",
+      "encoding": "html"
+    },
+    {
+      "entry": "reports/qwen-cooperation-six-questions-2026-11-18/index.html",
+      "snapshot": "report-data/recent-20261125/qwen-cooperation-six-questions-2026-11-18-025713cfc0fb.snapshot",
+      "sourceBlob": "025713cfc0fba697816c880f80a2bebe2be05435",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/private-fund-single-page-series-2026-11-17/index.html",
+      "snapshot": "report-data/recent-20261125/private-fund-single-page-series-2026-11-17-43cbd6609408.snapshot",
+      "sourceBlob": "43cbd6609408b5b673cf6127433e4e1ff414a394",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/private-fund-product-pages-2026-11-17/index.html",
+      "snapshot": "report-data/recent-20261125/private-fund-product-pages-2026-11-17-5b2d8eb391ba.snapshot",
+      "sourceBlob": "5b2d8eb391bacbcc9215661ecdbca8aa4303b6fe",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/huatai-ai-research-2026-11-17/index.html",
+      "snapshot": "report-data/recent-20261125/huatai-ai-research-2026-11-17-273ed1c9af9d.snapshot",
+      "sourceBlob": "273ed1c9af9d59cde91c6bce9575b364739d8956",
+      "encoding": "html"
+    },
+    {
+      "entry": "reports/recent-report-attachment-01-2026-11-25/index.html",
+      "snapshot": "report-data/recent-20261125/recent-report-attachment-01-2026-11-25-41736f8742e8.snapshot",
+      "sourceBlob": "41736f8742e8864030ffc1b40383b1f3d7615ef5",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/recent-report-attachment-02-2026-11-25/index.html",
+      "snapshot": "report-data/recent-20261125/recent-report-attachment-02-2026-11-25-2a15b72e0a58.snapshot",
+      "sourceBlob": "2a15b72e0a589f7a057cbc66188c971df94f3035",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/recent-report-attachment-03-2026-11-25/index.html",
+      "snapshot": "report-data/recent-20261125/recent-report-attachment-03-2026-11-25-9e821c457fea.snapshot",
+      "sourceBlob": "9e821c457feab119075d1518bc6f4826122dd597",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/recent-report-attachment-04-2026-11-25/index.html",
+      "snapshot": "report-data/recent-20261125/recent-report-attachment-04-2026-11-25-5aedee3f6b88.snapshot",
+      "sourceBlob": "5aedee3f6b882b8ccfdee3ce5e314246250cd98a",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/recent-report-attachment-05-2026-11-25/index.html",
+      "snapshot": "report-data/recent-20261125/recent-report-attachment-05-2026-11-25-3162b58a2f0f.snapshot",
+      "sourceBlob": "3162b58a2f0f526b7850bfdda5f316f0174119ff",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/recent-report-attachment-06-2026-11-25/index.html",
+      "snapshot": "report-data/recent-20261125/recent-report-attachment-06-2026-11-25-1f34583df637.snapshot",
+      "sourceBlob": "1f34583df637c61065cb4cd9e53905a875d6d01d",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/recent-report-attachment-07-2026-11-25/index.html",
+      "snapshot": "report-data/recent-20261125/recent-report-attachment-07-2026-11-25-135884755c87.snapshot",
+      "sourceBlob": "135884755c87f3aaf4fd44ed00f681e60ab35859",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/recent-report-attachment-08-2026-11-25/index.html",
+      "snapshot": "report-data/recent-20261125/recent-report-attachment-08-2026-11-25-97d71e7dae14.snapshot",
+      "sourceBlob": "97d71e7dae1461a04481ba936c5310eeec7dca21",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/recent-report-attachment-09-2026-11-25/index.html",
+      "snapshot": "report-data/recent-20261125/recent-report-attachment-09-2026-11-25-e5bb22720e02.snapshot",
+      "sourceBlob": "e5bb22720e02937b579695dd9af47570bc714f91",
+      "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/recent-report-attachment-10-2026-11-25/index.html",
+      "snapshot": "report-data/recent-20261125/recent-report-attachment-10-2026-11-25-a46b174b8da1.snapshot",
+      "sourceBlob": "a46b174b8da12e9c2ee20de59563ae0564a8086a",
+      "encoding": "released-aes-gcm-gzip"
+    }
+  ]
+}

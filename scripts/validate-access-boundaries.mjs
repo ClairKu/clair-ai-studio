@@ -19,6 +19,7 @@ const publicConfigSource = read("public/report-access.json");
 const docsConfigSource = read("docs/report-access.json");
 const publicConfig = JSON.parse(publicConfigSource);
 const standalonePublicEntries = new Set(JSON.parse(read("catalog/standalone-public-entries.json")).entries);
+const publicSnapshotEntries = new Set(JSON.parse(read("catalog/direct-report-snapshots.json")).entries.map(item => item.entry));
 const app = read("src/app.js");
 const settings = read("src/report-access-settings.js");
 const injector = read("scripts/inject-site-access-gate.mjs");
@@ -119,9 +120,7 @@ const independentEncryptedPages = new Set([
 const privateHtmlEntries = new Set(JSON.parse(read("catalog/private-html-reports.json")).entries);
 const standaloneEncryptedPages = new Set([
   ...privateHtmlEntries,
-  "reports/pm-ecology-2026-11-24/index.html",
   "reports/qiming-h2-product-review-2026-11-09/index.html",
-  "reports/private-wealth-memory-2026-11-24/index.html",
 ]);
 for (const entry of standalonePublicEntries) {
   ensure(/^reports\/[^/?#\\]+\/index\.html$/.test(entry) && !entry.includes(".."), `公开成果路径无效：${entry}`);
@@ -137,7 +136,7 @@ for (const htmlPath of htmlPaths) {
   if (standalonePublicEntries.has(outputPath)) {
     ensure(gateCount === 0, `${outputPath} 是公开成果，不应加载共享访问门`);
     ensure(!/<input\b[^>]*type=["']password["']/i.test(html), `${outputPath} 不应包含密码框`);
-    ensure(!html.includes("data-clair-private-envelope") && !html.includes("AES-GCM"), `${outputPath} 不应包含加密正文`);
+    ensure(!html.includes("data-clair-private-envelope") && (publicSnapshotEntries.has(outputPath) || !html.includes("AES-GCM")), `${outputPath} 不应包含加密正文`);
     reportPages += 1;
     continue;
   }
@@ -197,4 +196,5 @@ console.log(
   `访问控制边界校验通过：${workspacePages} 个工作台作用域页面，${reportPages} 个成果作用域页面，`
   + `${publicConfig.immutableLockedEntries.length} 个不可解锁加密成果，${independentEncryptedPages.size} 个独立正文解密入口，1 个独立动作口令且命名空间隔离。`,
 );
+
 
