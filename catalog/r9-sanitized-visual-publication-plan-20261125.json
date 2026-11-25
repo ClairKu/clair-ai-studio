@@ -9,13 +9,13 @@
   "files": [
     {
       "path": "public/reports/r9-full-results-2026-11-19/index.html",
-      "bytes": 250785,
-      "blob": "def297b3ddade1db2019d0917706024c18b815f3"
+      "bytes": 250683,
+      "blob": "76d4b252cc4baf90e911b64b584e2d53bad552a9"
     },
     {
       "path": "docs/reports/r9-full-results-2026-11-19/index.html",
-      "bytes": 250785,
-      "blob": "def297b3ddade1db2019d0917706024c18b815f3"
+      "bytes": 250683,
+      "blob": "76d4b252cc4baf90e911b64b584e2d53bad552a9"
     },
     {
       "path": "public/reports/r9-full-results-2026-11-19/stars.html",
@@ -109,13 +109,13 @@
     },
     {
       "path": "public/reports/r9-query-005-20261119/index.html",
-      "bytes": 10681,
-      "blob": "bbd822b63b4966a2e28d270a6ab45cd9e9261a99"
+      "bytes": 10643,
+      "blob": "8ca3c42520efc5cb558a7ad4aa7cb696f020282f"
     },
     {
       "path": "docs/reports/r9-query-005-20261119/index.html",
-      "bytes": 10681,
-      "blob": "bbd822b63b4966a2e28d270a6ab45cd9e9261a99"
+      "bytes": 10643,
+      "blob": "8ca3c42520efc5cb558a7ad4aa7cb696f020282f"
     },
     {
       "path": "public/reports/r9-query-006-20261119/index.html",
@@ -189,13 +189,13 @@
     },
     {
       "path": "public/reports/r9-query-013-20261119/index.html",
-      "bytes": 22948,
-      "blob": "f314dbb013515e640e2c1f14f6e6bbe3651a7c9a"
+      "bytes": 21813,
+      "blob": "606f88a3c304b32f35b55755c0071eddbc9e72ef"
     },
     {
       "path": "docs/reports/r9-query-013-20261119/index.html",
-      "bytes": 22948,
-      "blob": "f314dbb013515e640e2c1f14f6e6bbe3651a7c9a"
+      "bytes": 21813,
+      "blob": "606f88a3c304b32f35b55755c0071eddbc9e72ef"
     },
     {
       "path": "public/reports/r9-query-014-20261119/index.html",
@@ -209,23 +209,23 @@
     },
     {
       "path": "public/reports/r9-query-015-20261119/index.html",
-      "bytes": 20048,
-      "blob": "04505630e0d3d43b893475d78e6405cf7545181d"
+      "bytes": 10820,
+      "blob": "f22b64c8384e38666b30d8480373a8a45da1ef75"
     },
     {
       "path": "docs/reports/r9-query-015-20261119/index.html",
-      "bytes": 20048,
-      "blob": "04505630e0d3d43b893475d78e6405cf7545181d"
+      "bytes": 10820,
+      "blob": "f22b64c8384e38666b30d8480373a8a45da1ef75"
     },
     {
       "path": "public/reports/r9-query-016-20261119/index.html",
-      "bytes": 16338,
-      "blob": "01d9601ceb11b98787deec42bb132ccf8508e341"
+      "bytes": 15105,
+      "blob": "d31df4871c62d7908ea0a2c08f832ab30c1b8caf"
     },
     {
       "path": "docs/reports/r9-query-016-20261119/index.html",
-      "bytes": 16338,
-      "blob": "01d9601ceb11b98787deec42bb132ccf8508e341"
+      "bytes": 15105,
+      "blob": "d31df4871c62d7908ea0a2c08f832ab30c1b8caf"
     },
     {
       "path": "public/reports/r9-query-017-20261119/index.html",
@@ -409,13 +409,13 @@
     },
     {
       "path": "public/reports/r9-query-036-20261119/index.html",
-      "bytes": 188923,
-      "blob": "9f2621b457bc5e635bb435229e3dfd88911ace20"
+      "bytes": 188833,
+      "blob": "02f0a7544a13e37f1daa36ce6857dc0a7d1777fe"
     },
     {
       "path": "docs/reports/r9-query-036-20261119/index.html",
-      "bytes": 188923,
-      "blob": "9f2621b457bc5e635bb435229e3dfd88911ace20"
+      "bytes": 188833,
+      "blob": "02f0a7544a13e37f1daa36ce6857dc0a7d1777fe"
     },
     {
       "path": "public/reports/r9-query-038-p01-20261119/index.html",
@@ -499,13 +499,13 @@
     },
     {
       "path": "public/reports/r9-query-040-20261119/index.html",
-      "bytes": 11820,
-      "blob": "54cdbac6608e7e72b3af93002ec8ef0aca5d3001"
+      "bytes": 11472,
+      "blob": "c219b3ff96aee828f8a95e1487c2d8bbf519a1e1"
     },
     {
       "path": "docs/reports/r9-query-040-20261119/index.html",
-      "bytes": 11820,
-      "blob": "54cdbac6608e7e72b3af93002ec8ef0aca5d3001"
+      "bytes": 11472,
+      "blob": "c219b3ff96aee828f8a95e1487c2d8bbf519a1e1"
     },
     {
       "path": "public/reports/r9-query-041-20261119/index.html",
@@ -549,13 +549,13 @@
     },
     {
       "path": "public/reports/r9-query-045-20261119/index.html",
-      "bytes": 43573,
-      "blob": "010087402838a2161c4af32de543a87936cd6a2e"
+      "bytes": 42934,
+      "blob": "93c302bab27c5cb8ff511ad3954ce24f6a187c83"
     },
     {
       "path": "docs/reports/r9-query-045-20261119/index.html",
-      "bytes": 43573,
-      "blob": "010087402838a2161c4af32de543a87936cd6a2e"
+      "bytes": 42934,
+      "blob": "93c302bab27c5cb8ff511ad3954ce24f6a187c83"
     },
     {
       "path": "public/reports/r9-query-046-20261119/index.html",
@@ -1329,23 +1329,23 @@
     },
     {
       "path": "public/reports/r9-query-137-20261119/index.html",
-      "bytes": 9823,
-      "blob": "c9715a5f84455f8f24be757cd80c0f98e47d64b2"
+      "bytes": 9773,
+      "blob": "5caaedc03122b299377a559c874a157d76edcaad"
     },
     {
       "path": "docs/reports/r9-query-137-20261119/index.html",
-      "bytes": 9823,
-      "blob": "c9715a5f84455f8f24be757cd80c0f98e47d64b2"
+      "bytes": 9773,
+      "blob": "5caaedc03122b299377a559c874a157d76edcaad"
     },
     {
       "path": "public/reports/r9-query-138-20261119/index.html",
-      "bytes": 8931,
-      "blob": "84e51b7b779ef97263508ab696a391aca1f10399"
+      "bytes": 8916,
+      "blob": "460d8c4a6de1c887e7bade64dc1dddaee2dc8e73"
     },
     {
       "path": "docs/reports/r9-query-138-20261119/index.html",
-      "bytes": 8931,
-      "blob": "84e51b7b779ef97263508ab696a391aca1f10399"
+      "bytes": 8916,
+      "blob": "460d8c4a6de1c887e7bade64dc1dddaee2dc8e73"
     },
     {
       "path": "public/reports/r9-query-139-20261119/index.html",
@@ -1569,13 +1569,13 @@
     },
     {
       "path": "public/reports/r9-query-163-20261119/index.html",
-      "bytes": 25408,
-      "blob": "c4e95760ea566f1cf7b7684c6eb087a768673e92"
+      "bytes": 25384,
+      "blob": "ad808887ac7a7519b97ae7fc5cc316b3d05d8ae6"
     },
     {
       "path": "docs/reports/r9-query-163-20261119/index.html",
-      "bytes": 25408,
-      "blob": "c4e95760ea566f1cf7b7684c6eb087a768673e92"
+      "bytes": 25384,
+      "blob": "ad808887ac7a7519b97ae7fc5cc316b3d05d8ae6"
     },
     {
       "path": "public/reports/r9-full-results-2026-11-19/results.html",
@@ -1590,12 +1590,13 @@
   ],
   "batches": 18,
   "privacy": {
-    "omittedGroups": 3,
-    "omittedIdentifiers": 21,
-    "socialMessages": false,
-    "personalAccountIdentifiers": false,
-    "rawResponsePackages": false
+    "socialSourceText": false,
+    "socialTitleSamples": false,
+    "identifiers": false,
+    "externalImages": false,
+    "rawResponsePackages": false,
+    "omittedGroups": 2,
+    "omittedIdentifiers": 93
   },
-  "maxFileBytes": 250785,
-  "alreadyVerifiedFiles": 19
+  "alreadyVerifiedFiles": 17
 }
