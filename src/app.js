@@ -225,6 +225,30 @@ const initialState = {
     },
   ],
   reports: [
+{
+  "id": "vip-advisor-two-scenarios-2026-11-25",
+  "groupId": "advisor-workbench",
+  "title": "VIP 顾问工作台｜规划交付与主动服务两大场景",
+  "url": "https://clairku.github.io/clair-ai-studio/reports/vip-advisor-two-scenarios-2026-11-25/",
+  "preview": "vip-advisor-two-scenarios-2026-11-25.svg",
+  "pinned": false,
+  "position": -5,
+  "createdAt": "2026-11-25T08:45:07.165848Z",
+  "modifiedAt": "2026-11-25T08:45:07.165848Z",
+  "source": "基于已归档 VIP 流程蓝图与顾问报告培训资料，设计目标变化后的规划交付、事件驱动的主动服务两条作业链；含现状断点、工作台自动化步骤、顾问决定点、交互演示、存量系统映射与试点指标。客户、金额及效果目标为演示或设计假设，生产接入待验收。",
+  "access": "production",
+  "workType": "product-planning",
+  "tags": [
+    "VIP",
+    "顾问工作台",
+    "财务规划",
+    "主动服务",
+    "SOP",
+    "服务闭环",
+    "交互演示",
+    "HTML"
+  ]
+},
     {
       "id": "global-tamp-business-model-landscape-2026-11-25",
       "groupId": "advisor-workbench",
@@ -5601,6 +5625,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "vip-advisor-two-scenarios-2026-11-25": "product-planning",
   "global-tamp-business-model-landscape-2026-11-25": "competitive-research",
   "presentation-archive-2026-11-25": "reporting",
   "global-tamp-advisor-workspace-2026-11-25": "competitive-research",
@@ -5793,6 +5818,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "vip-advisor-two-scenarios-2026-11-25": "advisor-workbench",
   "global-tamp-business-model-landscape-2026-11-25": "advisor-workbench",
   "presentation-archive-2026-11-25": "reporting",
   "global-tamp-advisor-workspace-2026-11-25": "advisor-workbench",

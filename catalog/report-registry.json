@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "vip-advisor-two-scenarios-2026-11-25",
     "global-tamp-business-model-landscape-2026-11-25",
     "presentation-archive-2026-11-25",
     "global-tamp-advisor-workspace-2026-11-25",
@@ -476,6 +477,13 @@
       "preservesReportId": true,
       "access": "owner-encrypted",
       "sourceSnapshot": "2026-11-24"
+    },
+    "vip-advisor-two-scenarios-2026-11-25": {
+      "updatedAt": "2026-11-25",
+      "revision": "two-workflow-scenario-design",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/vip-advisor-two-scenarios-2026-11-25/",
+      "access": "production",
+      "preservesReportId": true
     }
   },
   "hostedApplications": [
