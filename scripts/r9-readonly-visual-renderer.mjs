@@ -1,0 +1,23 @@
+/* Display-only renderer: tables, metrics and SVG charts; no serialized response export or source application scripts. */
+export function visualizeR9Data(v,title="",parent=null){
+ const E=x=>String(x??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"),num=x=>typeof x==="number"&&Number.isFinite(x),scalar=x=>x==null||typeof x!=="object";
+ const label=k=>({asOf:"数据日期",as_of:"数据日期",name:"名称",code:"代码",date:"日期",score:"得分",value:"数值",close:"收盘",nav:"净值",source:"来源",note:"说明",count:"数量",total:"合计",quarter:"季度",weight:"权重",contribution:"加权贡献",reason:"原因",amount:"金额",rows:"明细",series:"序列",current:"当前",stats:"统计",summary:"摘要"}[k]||k);
+ const value=x=>x==null?"—":typeof x==="boolean"?(x?"是":"否"):E(x);
+ function line(values,dates,name){const a=[];let lo=Infinity,hi=-Infinity;for(let i=0;i<values.length;i++)if(num(values[i])){a.push([i,values[i]]);lo=Math.min(lo,values[i]);hi=Math.max(hi,values[i]);}if(a.length<3)return "<p>"+E(name)+"："+values.map(value).join(" · ")+"</p>";const step=Math.max(1,Math.ceil(a.length/420)),sub=a.filter((_,i)=>i%step===0);if(sub.at(-1)!==a.at(-1))sub.push(a.at(-1));return "<figure><figcaption>"+E(name)+" <small>"+a.length+" 个有效点 · 区间 "+Math.round(lo*1e4)/1e4+" ~ "+Math.round(hi*1e4)/1e4+'</small></figcaption><svg viewBox="0 0 800 190" role="img" aria-label="'+E(name)+'"><path d="M24 146H776" stroke="#d9d8d0" fill="none"/><polyline fill="none" stroke="#3e6f8e" stroke-width="2" points="'+sub.map(([i,x])=>(24+i/Math.max(1,values.length-1)*752).toFixed(2)+","+(146-(x-lo)/(hi-lo||1)*112).toFixed(2)).join(" ")+'"/><text x="24" y="179">'+E(dates?.[0]??"第1点")+'</text><text x="776" y="179" text-anchor="end">'+E(dates?.at(-1)??"第"+values.length+"点")+"</text></svg></figure>";}
+ if(scalar(v))return "<p><small>"+E(label(title))+"</small><br>"+value(v)+"</p>";
+ if(Array.isArray(v)){
+  if(!v.length)return "<p>"+E(label(title))+"：暂无已保存数据。</p>";
+  if(v.every(x=>x==null||num(x))){const dates=parent&&Object.values(parent).find(x=>Array.isArray(x)&&x.length===v.length&&typeof x[0]==="string"&&/^\d{4}[-/]/.test(x[0]));return line(v,dates,label(title));}
+  if(v.every(x=>Array.isArray(x))){if(v.length<=40&&Math.max(...v.map(x=>x.length))<=40){return '<div class="scroll"><table><tbody>'+v.map((row,i)=>"<tr><th>"+E(parent?.indices?.[i]?.name??i+1)+"</th>"+row.map(x=>"<td>"+value(x)+"</td>").join("")+"</tr>").join("")+"</tbody></table></div>";}const n=Math.min(...v.slice(0,20).map(x=>x.length));let out="";for(let c=1;c<n;c++)if(v.some(x=>num(x[c])))out+=line(v.map(x=>x[c]),v.map(x=>x[0]),label(title)+" · "+c);return out||"<p>"+E(label(title))+"：已保存 "+v.length+" 行。</p>";}
+  if(v.every(x=>x&&typeof x==="object"&&!Array.isArray(x))){const keys=[...new Set(v.flatMap(x=>Object.keys(x)))],time=["date","datetime","dateTime","day","month","t"].find(k=>v.slice(0,10).filter(x=>x[k]!=null).length>=Math.min(8,v.length)),numbers=keys.filter(k=>k!==time&&v.some(x=>num(x[k]))),isSeries=v.length>5&&time&&numbers.length&&!keys.some(k=>["name","code","symbol","label"].includes(k));let out="";
+   if(isSeries){for(const k of numbers)out+=line(v.map(x=>x[k]),v.map(x=>x[time]),label(title)+" · "+label(k));}
+   else{const columns=keys.filter(k=>v.some(x=>scalar(x[k])&&x[k]!==undefined));if(columns.length)out+='<div class="scroll"><table><thead><tr>'+columns.map(k=>"<th>"+E(label(k))+"</th>").join("")+"</tr></thead><tbody>"+v.map(x=>"<tr>"+columns.map(k=>"<td>"+value(x[k])+"</td>").join("")+"</tr>").join("")+"</tbody></table></div><small>完整展示 "+v.length+" 行已保存明细。</small>";}
+   for(let i=0;i<v.length;i++){const nested=Object.entries(v[i]).filter(([k,x])=>x&&typeof x==="object");if(nested.length)out+='<details><summary>'+E(v[i].name||v[i].title||v[i].label||v[i].code||"明细 "+(i+1))+" · 详细指标</summary>"+nested.map(([k,x])=>visualizeR9Data(x,k,v[i])).join("")+"</details>";}return out;
+  }
+  if(v.every(x=>typeof x==="string")&&v.length>50&&v.every(x=>/^\d{4}[-/]/.test(x)))return "<p>"+E(label(title))+"："+v.length+" 个日期 · "+E(v[0])+" 至 "+E(v.at(-1))+"</p>";
+  return "<ul>"+v.map(x=>"<li>"+(scalar(x)?value(x):visualizeR9Data(x,title,parent))+"</li>").join("")+"</ul>";
+ }
+ let out="<dl>"+Object.entries(v).filter(([k,x])=>scalar(x)).map(([k,x])=>"<div><dt>"+E(label(k))+"</dt><dd>"+value(x)+"</dd></div>").join("")+"</dl>";
+ for(const[k,x]of Object.entries(v))if(x&&typeof x==="object")out+='<details><summary>'+E(label(k))+(Array.isArray(x)?" · "+x.length+" 项":"")+"</summary>"+visualizeR9Data(x,k,v)+"</details>";
+ return out;
+}
