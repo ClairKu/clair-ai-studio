@@ -24,6 +24,7 @@ const encryptedReportEntries = new Set((accessConfig.immutableLockedEntries || [
 const standaloneEncryptedEntries = new Set([
   "reports/qiming-h2-product-review-2026-11-09/index.html",
   "reports/private-wealth-memory-2026-11-24/index.html",
+  "reports/pm-ecology-2026-11-24/index.html",
 ]);
 for (const entry of standalonePublicEntries) {
   if (!/^reports\/[^/?#\\]+\/index\.html$/.test(entry)

@@ -254,7 +254,7 @@ const initialState = {
       "position": 0,
       "createdAt": "2026-11-24T10:21:42.916Z",
       "modifiedAt": "2026-11-24T10:21:42.916Z",
-      "source": "近期材料统一入口：4份新增在线研究、23项受控原件和8项已有线上版本；同题文稿、PDF及Excel附件归并，保留原有较新版本与访问权限。",
+      "source": "近期材料统一入口：5份新增在线研究、22项受控原件和8项已有线上版本；同题文稿、PDF及Excel附件归并，保留原有较新版本与访问权限。",
       "access": "production",
       "workType": "reporting",
       "tags": [
@@ -270,19 +270,21 @@ const initialState = {
       "id": "pm-ecology-2026-11-24",
       "groupId": "product-planning",
       "title": "产品经理，下一站｜AI生态位与且慢转型",
-      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-8a0156751f288191a3f65ca8ed0139ef_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/pm-ecology-2026-11-24/",
       "preview": "pm-ecology-2026-11-24.svg",
       "pinned": false,
       "position": 1,
       "createdAt": "2026-11-24T08:29:42.413969+00:00",
       "modifiedAt": "2026-11-24T08:29:42.413969+00:00",
-      "source": "产品经理转型观点、分类框架与且慢转型策略。 原件按现有账号权限打开，正文未复制到公开仓库。",
-      "access": "account",
+      "source": "完整报告：15个章节、23条来源，含生态位、且慢转型、90天计划与管理层汇报稿。独立加密阅读；研究截至2026.11.24，2026.11.25发布。",
+      "access": "production",
       "workType": "reporting",
       "tags": [
         "且慢产品与客户体验",
-        "受控原件",
-        "近期报告"
+        "产品转型",
+        "完整报告",
+        "近期报告",
+        "HTML"
       ]
     },
     {

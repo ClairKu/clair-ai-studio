@@ -455,6 +455,14 @@
       "revision": "visible-url-verification",
       "url": "https://clairku.github.io/clair-ai-studio/reports/ai-tools-yingmi-links-2026-10-28/",
       "preservesReportId": true
+    },
+    "pm-ecology-2026-11-24": {
+      "updatedAt": "2026-11-25",
+      "revision": "encrypted-complete-html-reader",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/pm-ecology-2026-11-24/",
+      "preservesReportId": true,
+      "access": "owner-encrypted",
+      "sourceSnapshot": "2026-11-24"
     }
   },
   "hostedApplications": [
@@ -481,12 +489,6 @@
       "url": "https://r9-study-clair.clairku.chatgpt.site",
       "access": "owner-private",
       "purpose": "Owner-private R9 research archive, preserved frontend interactions and captured data; original backend, model secrets and separately gated agent were not obtained."
-    },
-    {
-      "id": "pm-ecology-2026-11-24",
-      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-8a0156751f288191a3f65ca8ed0139ef_53fe03be9fa08191800413876a437a2d&account_id=personal",
-      "access": "owner-private",
-      "purpose": "Owner explicitly approved public catalog metadata and this authenticated original-file link on 2026-11-24. Open the original under its existing account permissions; no private report body is hosted in this public repository."
     },
     {
       "id": "qieman-2027-product-strategy-2026-11-23",
