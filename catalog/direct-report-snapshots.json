@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "purpose": "Public, automatic rendering of the 44 released report snapshots; no login, password, session or access-key file is required. Downloads contain the complete standalone HTML.",
+  "purpose": "Public report copies with direct reading and standalone HTML downloads. R9 views exclude third-party social source material and account identifiers.",
   "entries": [
     {
       "entry": "reports/pm-ecology-2026-11-24/index.html",
@@ -265,6 +265,1112 @@
       "snapshot": "report-data/recent-20261125/recent-report-attachment-10-2026-11-25-a46b174b8da1.snapshot",
       "sourceBlob": "a46b174b8da12e9c2ee20de59563ae0564a8086a",
       "encoding": "released-aes-gcm-gzip"
+    },
+    {
+      "entry": "reports/r9-full-results-2026-11-19/index.html",
+      "snapshot": "reports/r9-full-results-2026-11-19/index.html",
+      "sourceBlob": "76d4b252cc4baf90e911b64b584e2d53bad552a9",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-full-results-2026-11-19/stars.html",
+      "snapshot": "reports/r9-full-results-2026-11-19/stars.html",
+      "sourceBlob": "36a0237e6ea9faf332d8723063495e2331483033",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-full-results-2026-11-19/dushu.html",
+      "snapshot": "reports/r9-full-results-2026-11-19/dushu.html",
+      "sourceBlob": "3df165178e5d7b58427ff388ac009f5dd66407cb",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-full-results-2026-11-19/quant.html",
+      "snapshot": "reports/r9-full-results-2026-11-19/quant.html",
+      "sourceBlob": "9c6e38f1b21c50e9aa4b94c37c17a6cdaa156a6a",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-full-results-2026-11-19/gushou-assist.html",
+      "snapshot": "reports/r9-full-results-2026-11-19/gushou-assist.html",
+      "sourceBlob": "d9c9265118bd15832bb2c347192ed80be8020237",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-000-20261119/index.html",
+      "snapshot": "reports/r9-query-000-20261119/index.html",
+      "sourceBlob": "2a280d9c4db115aceab5aa6715fd39cf96292c9e",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-001-20261119/index.html",
+      "snapshot": "reports/r9-query-001-20261119/index.html",
+      "sourceBlob": "4b927fec08420481a850f7f4900669d817c512ea",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-002-20261119/index.html",
+      "snapshot": "reports/r9-query-002-20261119/index.html",
+      "sourceBlob": "4c74753d0af3c948e588c00505ad088b8be68359",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-003-20261119/index.html",
+      "snapshot": "reports/r9-query-003-20261119/index.html",
+      "sourceBlob": "2f3b362a76ae235a8e08fdee012040697f74dd0a",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-004-20261119/index.html",
+      "snapshot": "reports/r9-query-004-20261119/index.html",
+      "sourceBlob": "c49104cd71a7607acac3dde585f863d32b00a182",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-005-20261119/index.html",
+      "snapshot": "reports/r9-query-005-20261119/index.html",
+      "sourceBlob": "8ca3c42520efc5cb558a7ad4aa7cb696f020282f",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-006-20261119/index.html",
+      "snapshot": "reports/r9-query-006-20261119/index.html",
+      "sourceBlob": "7e0ab7be9f2bad9b61fe7dd35b4a3f67c72897f9",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-007-20261119/index.html",
+      "snapshot": "reports/r9-query-007-20261119/index.html",
+      "sourceBlob": "1694565128feda3b6f21d90906eed2b5279f6d96",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-008-20261119/index.html",
+      "snapshot": "reports/r9-query-008-20261119/index.html",
+      "sourceBlob": "9cae0e7f0c7084ac02af8656d6c583153c54d9d5",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-009-20261119/index.html",
+      "snapshot": "reports/r9-query-009-20261119/index.html",
+      "sourceBlob": "1f29b978ac7ebd43cb55a1d260b2d542c71a6068",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-010-20261119/index.html",
+      "snapshot": "reports/r9-query-010-20261119/index.html",
+      "sourceBlob": "f5eb7312bcb0192c37009fa8e7d68e8ec49e6f0c",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-011-20261119/index.html",
+      "snapshot": "reports/r9-query-011-20261119/index.html",
+      "sourceBlob": "48e0bb54cdb6403b5ace53f7734640a573e2c53f",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-012-20261119/index.html",
+      "snapshot": "reports/r9-query-012-20261119/index.html",
+      "sourceBlob": "1ac37fbcf21a25c8ac1bd16d4cecfa6232d990dc",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-013-20261119/index.html",
+      "snapshot": "reports/r9-query-013-20261119/index.html",
+      "sourceBlob": "606f88a3c304b32f35b55755c0071eddbc9e72ef",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-014-20261119/index.html",
+      "snapshot": "reports/r9-query-014-20261119/index.html",
+      "sourceBlob": "664858cde888370dc343ee7ffa7b3235ef7bb16c",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-015-20261119/index.html",
+      "snapshot": "reports/r9-query-015-20261119/index.html",
+      "sourceBlob": "f22b64c8384e38666b30d8480373a8a45da1ef75",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-016-20261119/index.html",
+      "snapshot": "reports/r9-query-016-20261119/index.html",
+      "sourceBlob": "d31df4871c62d7908ea0a2c08f832ab30c1b8caf",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-017-20261119/index.html",
+      "snapshot": "reports/r9-query-017-20261119/index.html",
+      "sourceBlob": "b42b383b8799b8803c11d6e8ef64d1a1e89366ba",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-018-20261119/index.html",
+      "snapshot": "reports/r9-query-018-20261119/index.html",
+      "sourceBlob": "6047156447e1ac9b24b9dae9988f7ee02262f378",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-019-20261119/index.html",
+      "snapshot": "reports/r9-query-019-20261119/index.html",
+      "sourceBlob": "3d7245f650bfb7e96aa9648e4e98cd4f5e79f75b",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-020-20261119/index.html",
+      "snapshot": "reports/r9-query-020-20261119/index.html",
+      "sourceBlob": "f7e20aa772a4e1dc9fbe9137d41e2d0d78733d80",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-021-20261119/index.html",
+      "snapshot": "reports/r9-query-021-20261119/index.html",
+      "sourceBlob": "c4118a15625c683dab516049b5233a8af84f7741",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-022-20261119/index.html",
+      "snapshot": "reports/r9-query-022-20261119/index.html",
+      "sourceBlob": "64b746973b574f3956275fe7e62f0e399305d6e5",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-023-20261119/index.html",
+      "snapshot": "reports/r9-query-023-20261119/index.html",
+      "sourceBlob": "9368098aad8d96906462977393de3a44cb165287",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-024-20261119/index.html",
+      "snapshot": "reports/r9-query-024-20261119/index.html",
+      "sourceBlob": "2c4328b32e5c97ae15a348650efc1c5acb4b5008",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-026-20261119/index.html",
+      "snapshot": "reports/r9-query-026-20261119/index.html",
+      "sourceBlob": "a2d1f5f4270cdcdad40e29037b183fbdce8b6896",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-027-20261119/index.html",
+      "snapshot": "reports/r9-query-027-20261119/index.html",
+      "sourceBlob": "8d6687cdb3c4659dafd556787ec5d0850f64d8f1",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-028-20261119/index.html",
+      "snapshot": "reports/r9-query-028-20261119/index.html",
+      "sourceBlob": "a85478113830c73447034f4d3c3e79a01b3baa53",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-029-20261119/index.html",
+      "snapshot": "reports/r9-query-029-20261119/index.html",
+      "sourceBlob": "8af9fbe8df32a0b4a7f4b7bc8526b69aa4b65ff0",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-030-20261119/index.html",
+      "snapshot": "reports/r9-query-030-20261119/index.html",
+      "sourceBlob": "b8a6571051d7a37511878ec377ea7801c46ee971",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-031-20261119/index.html",
+      "snapshot": "reports/r9-query-031-20261119/index.html",
+      "sourceBlob": "21c452805cf56a838c38714436cb70ce816e625d",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-032-20261119/index.html",
+      "snapshot": "reports/r9-query-032-20261119/index.html",
+      "sourceBlob": "539c238ee90220e498d014df251807e428b44e87",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-033-20261119/index.html",
+      "snapshot": "reports/r9-query-033-20261119/index.html",
+      "sourceBlob": "ccf1d025cbbe78a83738048bb7a066f7e1f264d0",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-034-20261119/index.html",
+      "snapshot": "reports/r9-query-034-20261119/index.html",
+      "sourceBlob": "a8cb164fc888eac03b464fe190f92d11991ebcdc",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-035-20261119/index.html",
+      "snapshot": "reports/r9-query-035-20261119/index.html",
+      "sourceBlob": "8165dec2e6e774809f248cf40c50091793918d36",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-036-20261119/index.html",
+      "snapshot": "reports/r9-query-036-20261119/index.html",
+      "sourceBlob": "02f0a7544a13e37f1daa36ce6857dc0a7d1777fe",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-038-p01-20261119/index.html",
+      "snapshot": "reports/r9-query-038-p01-20261119/index.html",
+      "sourceBlob": "3bd52c41e18141a5da29f18d5b46d390980722ef",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-038-p02-20261119/index.html",
+      "snapshot": "reports/r9-query-038-p02-20261119/index.html",
+      "sourceBlob": "d7336985a6608ef472d22c561a204980d8194682",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-038-p03-20261119/index.html",
+      "snapshot": "reports/r9-query-038-p03-20261119/index.html",
+      "sourceBlob": "89f4d50851cf55c97f7e076d1e42ae6dcd7a6201",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-038-p04-20261119/index.html",
+      "snapshot": "reports/r9-query-038-p04-20261119/index.html",
+      "sourceBlob": "4740e76f0d7c1202e1fecbdffdfaffd183923fbe",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-038-p05-20261119/index.html",
+      "snapshot": "reports/r9-query-038-p05-20261119/index.html",
+      "sourceBlob": "56ff993f7f0448e324dbfa2aaa7f21bb692839b4",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-038-p06-20261119/index.html",
+      "snapshot": "reports/r9-query-038-p06-20261119/index.html",
+      "sourceBlob": "ebb5edc81eb7a618dc1d83bc0cca7c93db2a1aed",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-038-p07-20261119/index.html",
+      "snapshot": "reports/r9-query-038-p07-20261119/index.html",
+      "sourceBlob": "ed7c85d69abfdffe6a929c9caccacb8b91b0178d",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-039-20261119/index.html",
+      "snapshot": "reports/r9-query-039-20261119/index.html",
+      "sourceBlob": "a18a97770afe5685132395ece2efa1fe5100876e",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-040-20261119/index.html",
+      "snapshot": "reports/r9-query-040-20261119/index.html",
+      "sourceBlob": "c219b3ff96aee828f8a95e1487c2d8bbf519a1e1",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-041-20261119/index.html",
+      "snapshot": "reports/r9-query-041-20261119/index.html",
+      "sourceBlob": "1f980f772b427dfd7a4e9d2dcf7d0c62d3170e6f",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-042-20261119/index.html",
+      "snapshot": "reports/r9-query-042-20261119/index.html",
+      "sourceBlob": "19de0191bcd9e9f6889b50ff022f18044afc7e6f",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-043-20261119/index.html",
+      "snapshot": "reports/r9-query-043-20261119/index.html",
+      "sourceBlob": "6183af8fc471dc3aaa95ab482a093d6a91f0eb2d",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-044-20261119/index.html",
+      "snapshot": "reports/r9-query-044-20261119/index.html",
+      "sourceBlob": "4457b1d6649aca565d44f2145166efebff98968d",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-045-20261119/index.html",
+      "snapshot": "reports/r9-query-045-20261119/index.html",
+      "sourceBlob": "93c302bab27c5cb8ff511ad3954ce24f6a187c83",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-046-20261119/index.html",
+      "snapshot": "reports/r9-query-046-20261119/index.html",
+      "sourceBlob": "5ca3a7b8ad9eab3d417a334c3d7a4c4096672d47",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-047-20261119/index.html",
+      "snapshot": "reports/r9-query-047-20261119/index.html",
+      "sourceBlob": "1ff745a8679b94805bf40839ade342117440652c",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-048-20261119/index.html",
+      "snapshot": "reports/r9-query-048-20261119/index.html",
+      "sourceBlob": "a7cd82308813b23baa373cada145798ce1b685ff",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-049-20261119/index.html",
+      "snapshot": "reports/r9-query-049-20261119/index.html",
+      "sourceBlob": "4fdb3413a12a1fc77f64874dfeb5af41d94ddb4d",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-050-20261119/index.html",
+      "snapshot": "reports/r9-query-050-20261119/index.html",
+      "sourceBlob": "6709be2942f093ef2e43b89131e43bb306a4c7e2",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-051-20261119/index.html",
+      "snapshot": "reports/r9-query-051-20261119/index.html",
+      "sourceBlob": "37013fff60c61d5b1f6da207b323050832cc8c13",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-052-20261119/index.html",
+      "snapshot": "reports/r9-query-052-20261119/index.html",
+      "sourceBlob": "36c31a4de90363951d13f3f006b730acdc09d40e",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-053-20261119/index.html",
+      "snapshot": "reports/r9-query-053-20261119/index.html",
+      "sourceBlob": "c6d4f208c8ddfffc3ecd06ed1c6408115a16b7d3",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-054-20261119/index.html",
+      "snapshot": "reports/r9-query-054-20261119/index.html",
+      "sourceBlob": "8aad315b70f4e8552c4702e12d928c3455173d63",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-055-20261119/index.html",
+      "snapshot": "reports/r9-query-055-20261119/index.html",
+      "sourceBlob": "ecf3e9b599c4832781697ea7e2cc10de813f958f",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-056-20261119/index.html",
+      "snapshot": "reports/r9-query-056-20261119/index.html",
+      "sourceBlob": "da84d9196c12129f7487ea510913901cca124a61",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-057-20261119/index.html",
+      "snapshot": "reports/r9-query-057-20261119/index.html",
+      "sourceBlob": "e8ff91da3d46b0f6f9381fedad4eb9f693360916",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-058-20261119/index.html",
+      "snapshot": "reports/r9-query-058-20261119/index.html",
+      "sourceBlob": "ded8557f1679355600b785ec65f7c219d03ae02e",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-059-20261119/index.html",
+      "snapshot": "reports/r9-query-059-20261119/index.html",
+      "sourceBlob": "2871c993b9c8e9ab20da7088a89ec5f44f38183e",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-060-20261119/index.html",
+      "snapshot": "reports/r9-query-060-20261119/index.html",
+      "sourceBlob": "1da394f84b6eeddd19d2564fa43be500c066c997",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-061-20261119/index.html",
+      "snapshot": "reports/r9-query-061-20261119/index.html",
+      "sourceBlob": "ed4f2794be6ca4070c9422106c0d8c376f68d50f",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-062-20261119/index.html",
+      "snapshot": "reports/r9-query-062-20261119/index.html",
+      "sourceBlob": "0d4fd4c6d1454e6140ae2a54624c71301f8f7e17",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-063-20261119/index.html",
+      "snapshot": "reports/r9-query-063-20261119/index.html",
+      "sourceBlob": "426dff2bfc5d9bac5e3feeeb2f5b0b25f10534b6",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-064-20261119/index.html",
+      "snapshot": "reports/r9-query-064-20261119/index.html",
+      "sourceBlob": "aa99ed6fc14bfb07fdcbe53889383ec99ec6bc2d",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-065-20261119/index.html",
+      "snapshot": "reports/r9-query-065-20261119/index.html",
+      "sourceBlob": "28416096a9dcf1ddb167d00d971817191f11a893",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-066-20261119/index.html",
+      "snapshot": "reports/r9-query-066-20261119/index.html",
+      "sourceBlob": "6d663247bae63f0b40f9ca5c044a8e90db0c2c33",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-067-20261119/index.html",
+      "snapshot": "reports/r9-query-067-20261119/index.html",
+      "sourceBlob": "7ca69550840083d9dc88055c33fa8ab287e1ef72",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-068-20261119/index.html",
+      "snapshot": "reports/r9-query-068-20261119/index.html",
+      "sourceBlob": "8ae388e00ca8b277d0a09575b56e7b92835da2ad",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-069-20261119/index.html",
+      "snapshot": "reports/r9-query-069-20261119/index.html",
+      "sourceBlob": "f66e7c247fe7f7c73a2b1aeda3c44fe4135a0d97",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-070-20261119/index.html",
+      "snapshot": "reports/r9-query-070-20261119/index.html",
+      "sourceBlob": "310ee7eccc8512b4ff907b425c25994018c29647",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-071-20261119/index.html",
+      "snapshot": "reports/r9-query-071-20261119/index.html",
+      "sourceBlob": "509e14c8d010bc704f70bee2a1d4d6ebab1c9676",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-072-20261119/index.html",
+      "snapshot": "reports/r9-query-072-20261119/index.html",
+      "sourceBlob": "eb259c5a4c870d59268a865d0d75c64ead381058",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-073-20261119/index.html",
+      "snapshot": "reports/r9-query-073-20261119/index.html",
+      "sourceBlob": "0a3b09254e3fad32c554b6d7229af961ddb6d5af",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-076-20261119/index.html",
+      "snapshot": "reports/r9-query-076-20261119/index.html",
+      "sourceBlob": "941bb9a16d2bef34897b1c4edd759094f5376c5e",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-077-20261119/index.html",
+      "snapshot": "reports/r9-query-077-20261119/index.html",
+      "sourceBlob": "dcae3fa5ac9d9f3b48ab6482a599a86cd9e029ed",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-078-20261119/index.html",
+      "snapshot": "reports/r9-query-078-20261119/index.html",
+      "sourceBlob": "729d211ca7ad72bbd5ca7541b142331ff9dc8c5a",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-079-20261119/index.html",
+      "snapshot": "reports/r9-query-079-20261119/index.html",
+      "sourceBlob": "389b5acf9d1a79851fe3238c5001661135e4921a",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-080-20261119/index.html",
+      "snapshot": "reports/r9-query-080-20261119/index.html",
+      "sourceBlob": "8edd3a33c0a062ba01c300100985445c3811ce74",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-081-20261119/index.html",
+      "snapshot": "reports/r9-query-081-20261119/index.html",
+      "sourceBlob": "592429155c12691a538ff098b155960459ead456",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-083-20261119/index.html",
+      "snapshot": "reports/r9-query-083-20261119/index.html",
+      "sourceBlob": "01066e200f17b50ddcec97f22f5d3f492a2b31bc",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-086-20261119/index.html",
+      "snapshot": "reports/r9-query-086-20261119/index.html",
+      "sourceBlob": "0e01fc3570fe9bf246a021dbdf443a0c3f5fcdb4",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-087-20261119/index.html",
+      "snapshot": "reports/r9-query-087-20261119/index.html",
+      "sourceBlob": "6c4234cc14c33a600e761e9300fa352f15d5a019",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-088-20261119/index.html",
+      "snapshot": "reports/r9-query-088-20261119/index.html",
+      "sourceBlob": "f648b4f014df3a45d97294dc8fd48645b3778ba3",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-089-20261119/index.html",
+      "snapshot": "reports/r9-query-089-20261119/index.html",
+      "sourceBlob": "65fec96b67649532674635901301dbd85e56fa00",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-090-20261119/index.html",
+      "snapshot": "reports/r9-query-090-20261119/index.html",
+      "sourceBlob": "822ca413b5a0a2bb010c7741c52295a4d0265083",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-091-20261119/index.html",
+      "snapshot": "reports/r9-query-091-20261119/index.html",
+      "sourceBlob": "9fe356920373e050e0d5b9960d40bb3b3e032d26",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-093-20261119/index.html",
+      "snapshot": "reports/r9-query-093-20261119/index.html",
+      "sourceBlob": "e1eb0920490dd74bf49b3d26c505f0a121a49c45",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-094-20261119/index.html",
+      "snapshot": "reports/r9-query-094-20261119/index.html",
+      "sourceBlob": "da3ea5e1ff5255d64a4ced5f1b6371243864ad84",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-095-20261119/index.html",
+      "snapshot": "reports/r9-query-095-20261119/index.html",
+      "sourceBlob": "16689061c2658d3fd476bd8c6788d4ca46545c12",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-096-20261119/index.html",
+      "snapshot": "reports/r9-query-096-20261119/index.html",
+      "sourceBlob": "31d1cda1b4c9ad5657a397301c739bc213e7d96f",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-097-20261119/index.html",
+      "snapshot": "reports/r9-query-097-20261119/index.html",
+      "sourceBlob": "65f72b982011a3727f1425ba19e136c1f41db87f",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-098-20261119/index.html",
+      "snapshot": "reports/r9-query-098-20261119/index.html",
+      "sourceBlob": "c907ac7fe7fc77eb8de8312745413d354fd1d2f9",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-099-20261119/index.html",
+      "snapshot": "reports/r9-query-099-20261119/index.html",
+      "sourceBlob": "9be09b937e67b9e8221546b19f6c68d4a32832ba",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-100-20261119/index.html",
+      "snapshot": "reports/r9-query-100-20261119/index.html",
+      "sourceBlob": "891428c2cd7a2e8d9494a32f485785bba5de13bf",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-101-20261119/index.html",
+      "snapshot": "reports/r9-query-101-20261119/index.html",
+      "sourceBlob": "ada0d4ec0be8a2700efe190a5f5363d424add29b",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-102-20261119/index.html",
+      "snapshot": "reports/r9-query-102-20261119/index.html",
+      "sourceBlob": "3c27ad2d5c20cf08a93f4cf5f392abd33920ef12",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-103-20261119/index.html",
+      "snapshot": "reports/r9-query-103-20261119/index.html",
+      "sourceBlob": "c81c29f8fd53430947aa825304af4257a9ca2ebf",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-104-20261119/index.html",
+      "snapshot": "reports/r9-query-104-20261119/index.html",
+      "sourceBlob": "31ff4f4ad50f4a48daa337112bf42de55c7a7eda",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-105-20261119/index.html",
+      "snapshot": "reports/r9-query-105-20261119/index.html",
+      "sourceBlob": "753b67c31ad5597a3099c94ca91cc4b2b775ce0d",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-106-20261119/index.html",
+      "snapshot": "reports/r9-query-106-20261119/index.html",
+      "sourceBlob": "a0cc63b0f76e594247304388d3333f319e92b9ad",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-107-20261119/index.html",
+      "snapshot": "reports/r9-query-107-20261119/index.html",
+      "sourceBlob": "081689a51b2c35c2a367d5bfb9205df68ca57de6",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-108-20261119/index.html",
+      "snapshot": "reports/r9-query-108-20261119/index.html",
+      "sourceBlob": "857da12c8ddd0333d7ea29344c65b13f9493c023",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-109-20261119/index.html",
+      "snapshot": "reports/r9-query-109-20261119/index.html",
+      "sourceBlob": "7f0cc40cf8d1b3818f3ac1aa4361c98b3aded1e9",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-110-20261119/index.html",
+      "snapshot": "reports/r9-query-110-20261119/index.html",
+      "sourceBlob": "340f063fbf34b16e0dc161a1ec30d7ff881868df",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-111-20261119/index.html",
+      "snapshot": "reports/r9-query-111-20261119/index.html",
+      "sourceBlob": "c7ee6fcda310456918f0fb78471bf7e9b9391297",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-112-20261119/index.html",
+      "snapshot": "reports/r9-query-112-20261119/index.html",
+      "sourceBlob": "ecd849a0269b2653f5d2347de086db1d315d8da4",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-113-20261119/index.html",
+      "snapshot": "reports/r9-query-113-20261119/index.html",
+      "sourceBlob": "eaf88e72f53f9eeae62faa9ffd7ba351e555b9db",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-114-20261119/index.html",
+      "snapshot": "reports/r9-query-114-20261119/index.html",
+      "sourceBlob": "2025e16be654b4123ddeb45e64646f51db7719b2",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-115-20261119/index.html",
+      "snapshot": "reports/r9-query-115-20261119/index.html",
+      "sourceBlob": "4940f1b7717b52c92c7817abe32e0738c65c8b0c",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-116-20261119/index.html",
+      "snapshot": "reports/r9-query-116-20261119/index.html",
+      "sourceBlob": "04888a86f866fb4a3a19cbca09e478030a2aff71",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-117-20261119/index.html",
+      "snapshot": "reports/r9-query-117-20261119/index.html",
+      "sourceBlob": "157240194483fa27c1132b3653d3275f4b219754",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-118-20261119/index.html",
+      "snapshot": "reports/r9-query-118-20261119/index.html",
+      "sourceBlob": "866bd5cbfbe37f903cd2fb9589b6f68c03a48dbb",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-119-20261119/index.html",
+      "snapshot": "reports/r9-query-119-20261119/index.html",
+      "sourceBlob": "5ce9c1b06839d47d0a2685ff009c9dee34fb49c0",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-121-20261119/index.html",
+      "snapshot": "reports/r9-query-121-20261119/index.html",
+      "sourceBlob": "46babe6429a6d492ce339979f67d9956d52b5aaf",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-125-20261119/index.html",
+      "snapshot": "reports/r9-query-125-20261119/index.html",
+      "sourceBlob": "638ad2bfd09918efa3201a57179771f4b44eaf5a",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-126-20261119/index.html",
+      "snapshot": "reports/r9-query-126-20261119/index.html",
+      "sourceBlob": "563eb6d90c50e9f2b5e6d408883f9c26926ca973",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-127-20261119/index.html",
+      "snapshot": "reports/r9-query-127-20261119/index.html",
+      "sourceBlob": "81e42800850b22f6c88525b4f2ff6019b15c0136",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-128-20261119/index.html",
+      "snapshot": "reports/r9-query-128-20261119/index.html",
+      "sourceBlob": "0557bbaecda3ae57ba51c9110aa8ae1505cb66f6",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-130-20261119/index.html",
+      "snapshot": "reports/r9-query-130-20261119/index.html",
+      "sourceBlob": "f01fda952be4bafa78a5425ba46f824701117b81",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-131-20261119/index.html",
+      "snapshot": "reports/r9-query-131-20261119/index.html",
+      "sourceBlob": "6cd7aa9aaff4a28d0f758d21d6e47fb2ce7c23b2",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-132-20261119/index.html",
+      "snapshot": "reports/r9-query-132-20261119/index.html",
+      "sourceBlob": "8ce78f1849a399519f426210cd32a8243a62c22c",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-133-20261119/index.html",
+      "snapshot": "reports/r9-query-133-20261119/index.html",
+      "sourceBlob": "e6c72541dfe24b87e0e150fb09b0a2207473e59a",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-137-20261119/index.html",
+      "snapshot": "reports/r9-query-137-20261119/index.html",
+      "sourceBlob": "5caaedc03122b299377a559c874a157d76edcaad",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-138-20261119/index.html",
+      "snapshot": "reports/r9-query-138-20261119/index.html",
+      "sourceBlob": "460d8c4a6de1c887e7bade64dc1dddaee2dc8e73",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-139-20261119/index.html",
+      "snapshot": "reports/r9-query-139-20261119/index.html",
+      "sourceBlob": "81eb5cc21e280e3a9b51ce56ef427ea2f481f034",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-140-20261119/index.html",
+      "snapshot": "reports/r9-query-140-20261119/index.html",
+      "sourceBlob": "4e90f1940827254f82dab4f81a33b27df181953e",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-141-20261119/index.html",
+      "snapshot": "reports/r9-query-141-20261119/index.html",
+      "sourceBlob": "19a5e67f1a1c51c6d1cf1cc410809959fd8191aa",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-142-20261119/index.html",
+      "snapshot": "reports/r9-query-142-20261119/index.html",
+      "sourceBlob": "0db76c9b0f423c5142f81908f164db9007c56497",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-143-20261119/index.html",
+      "snapshot": "reports/r9-query-143-20261119/index.html",
+      "sourceBlob": "c2aff08a4181fdaf8a7370345147a489dfa489a6",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-144-20261119/index.html",
+      "snapshot": "reports/r9-query-144-20261119/index.html",
+      "sourceBlob": "13d224afa68037e8ee8f133f78142ee1dcf04180",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-145-20261119/index.html",
+      "snapshot": "reports/r9-query-145-20261119/index.html",
+      "sourceBlob": "993becc444639db1eb8457e695b9bd4f05110121",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-146-20261119/index.html",
+      "snapshot": "reports/r9-query-146-20261119/index.html",
+      "sourceBlob": "ee04b44f36f0f811fe1bc006f93f2a62ebeea6fd",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-147-20261119/index.html",
+      "snapshot": "reports/r9-query-147-20261119/index.html",
+      "sourceBlob": "137cf7bd05de82b3718d366181405d88e6fdc69c",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-148-20261119/index.html",
+      "snapshot": "reports/r9-query-148-20261119/index.html",
+      "sourceBlob": "97c59e17d72f75ec35651c0ae207e6ae0e0c68ac",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-149-20261119/index.html",
+      "snapshot": "reports/r9-query-149-20261119/index.html",
+      "sourceBlob": "1673d1f7d8425344ed6f7d7e2a64e7dfe68f17d8",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-150-20261119/index.html",
+      "snapshot": "reports/r9-query-150-20261119/index.html",
+      "sourceBlob": "e35843f80c54f69b0dd6b4069a2bd639e7c16d00",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-151-20261119/index.html",
+      "snapshot": "reports/r9-query-151-20261119/index.html",
+      "sourceBlob": "08aa2a46b4ff8e16bbccf2275566b0340ec18d46",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-152-20261119/index.html",
+      "snapshot": "reports/r9-query-152-20261119/index.html",
+      "sourceBlob": "d7b325281d9a09a6703a7d51e787c792a62b2851",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-153-20261119/index.html",
+      "snapshot": "reports/r9-query-153-20261119/index.html",
+      "sourceBlob": "d9a1063c552f414723542a539d9c1c4d4c71e54a",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-154-20261119/index.html",
+      "snapshot": "reports/r9-query-154-20261119/index.html",
+      "sourceBlob": "0f5445ce9ffd3e11b0a5edc6cdfb23fc2ab0f423",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-155-20261119/index.html",
+      "snapshot": "reports/r9-query-155-20261119/index.html",
+      "sourceBlob": "8c27e7813697948f130c8596c4c43cfbb88bdcaf",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-156-20261119/index.html",
+      "snapshot": "reports/r9-query-156-20261119/index.html",
+      "sourceBlob": "acac6b98b44e16ba2420ca682f3349dde1b5a8c9",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-157-20261119/index.html",
+      "snapshot": "reports/r9-query-157-20261119/index.html",
+      "sourceBlob": "264146102ee6e93edeaf497298fccb468e9b833c",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-158-20261119/index.html",
+      "snapshot": "reports/r9-query-158-20261119/index.html",
+      "sourceBlob": "24ced16dd69625f166ee6480319c1b0eca59a87b",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-160-20261119/index.html",
+      "snapshot": "reports/r9-query-160-20261119/index.html",
+      "sourceBlob": "3faf353cd97efefca543c9de0e2b88755689daec",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-161-20261119/index.html",
+      "snapshot": "reports/r9-query-161-20261119/index.html",
+      "sourceBlob": "345674779a5fbccd63275caf501a40a083629a8b",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-query-163-20261119/index.html",
+      "snapshot": "reports/r9-query-163-20261119/index.html",
+      "sourceBlob": "ad808887ac7a7519b97ae7fc5cc316b3d05d8ae6",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
+    },
+    {
+      "entry": "reports/r9-full-results-2026-11-19/results.html",
+      "snapshot": "reports/r9-full-results-2026-11-19/results.html",
+      "sourceBlob": "0a70d3fb6ff7324cc3cae13803abbd4c89c4c7e8",
+      "encoding": "html",
+      "mode": "standalone-visual-report"
     }
   ]
 }

@@ -122,8 +122,9 @@ const standaloneEncryptedPages = new Set([
   ...privateHtmlEntries,
   "reports/qiming-h2-product-review-2026-11-09/index.html",
 ]);
+const relatedR9Pages = new Set(["reports/r9-full-results-2026-11-19/index.html","reports/r9-full-results-2026-11-19/results.html","reports/r9-full-results-2026-11-19/stars.html","reports/r9-full-results-2026-11-19/dushu.html","reports/r9-full-results-2026-11-19/quant.html","reports/r9-full-results-2026-11-19/gushou-assist.html"]);
 for (const entry of standalonePublicEntries) {
-  ensure(/^reports\/[^/?#\\]+\/index\.html$/.test(entry) && !entry.includes(".."), `公开成果路径无效：${entry}`);
+  ensure((/^reports\/[^/?#\\]+\/index\.html$/.test(entry) || relatedR9Pages.has(entry)) && !entry.includes(".."), `公开成果路径无效：${entry}`);
   ensure(!publicConfig.immutableLockedEntries.includes(entry.replace(/index\.html$/, "")), `${entry} 不得公开不可解锁成果`);
   ensure(!independentEncryptedPages.has(entry) && !standaloneEncryptedPages.has(entry), `${entry} 不得公开独立加密成果`);
 }
