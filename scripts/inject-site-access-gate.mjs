@@ -22,6 +22,7 @@ const encryptedReportEntries = new Set((accessConfig.immutableLockedEntries || [
 // A standalone report uses its own strong, locally entered encryption key.
 // Its strict CSP deliberately excludes the shared network-backed access gate.
 const standaloneEncryptedEntries = new Set([
+  ...JSON.parse(readFileSync(join(projectRoot, "catalog/private-html-reports.json"), "utf8")).entries,
   "reports/qiming-h2-product-review-2026-11-09/index.html",
   "reports/private-wealth-memory-2026-11-24/index.html",
   "reports/pm-ecology-2026-11-24/index.html",
@@ -271,3 +272,4 @@ for (const htmlPath of walkHtml(outputRoot)) {
 }
 
 console.log(`Injected the selective site access gate into ${injected} HTML files, including ${encryptedReports} encrypted reports; preserved ${publicReports} standalone public reports.`);
+

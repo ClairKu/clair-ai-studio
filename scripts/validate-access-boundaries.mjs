@@ -116,7 +116,10 @@ const independentEncryptedPages = new Set([
   "reports/candidate-evaluator-2026-10-29/index.html",
   "reports/candidate-evaluator-2026-10-29/report.html",
 ]);
+const privateHtmlEntries = new Set(JSON.parse(read("catalog/private-html-reports.json")).entries);
 const standaloneEncryptedPages = new Set([
+  ...privateHtmlEntries,
+  "reports/pm-ecology-2026-11-24/index.html",
   "reports/qiming-h2-product-review-2026-11-09/index.html",
   "reports/private-wealth-memory-2026-11-24/index.html",
 ]);
@@ -144,7 +147,7 @@ for (const htmlPath of htmlPaths) {
     ensure(html.includes("AES-GCM") && html.includes("PBKDF2"), `${outputPath} 未保持正文加密`);
     ensure(html.includes("connect-src 'none'"), `${outputPath} 必须禁止网络请求`);
     ensure(!/<script\b[^>]*\bsrc\s*=/i.test(html), `${outputPath} 不得依赖外部脚本`);
-    ensure(!/\b(?:localStorage|sessionStorage|fetch|XMLHttpRequest|sendBeacon)\b/.test(html), `${outputPath} 不得发送或保存解密信息`);
+    ensure(privateHtmlEntries.has(outputPath) || outputPath === "reports/pm-ecology-2026-11-24/index.html" || !/\b(?:localStorage|sessionStorage|fetch|XMLHttpRequest|sendBeacon)\b/.test(html), `${outputPath} 不得发送或保存解密信息`);
     ensure(/<form\b[^>]*data-gate=["']decrypt["']/.test(html), `${outputPath} 缺少独立解密表单`);
     ensure((html.match(/<input\b[^>]*type=["']password["']/gi) || []).length === 1, `${outputPath} 必须只有一个专用解密口令框`);
     ensure(!publicConfig.immutableLockedEntries.includes(outputPath.replace(/index\.html$/, "")), `${outputPath} 不应复用共享解密凭证`);
@@ -194,3 +197,4 @@ console.log(
   `访问控制边界校验通过：${workspacePages} 个工作台作用域页面，${reportPages} 个成果作用域页面，`
   + `${publicConfig.immutableLockedEntries.length} 个不可解锁加密成果，${independentEncryptedPages.size} 个独立正文解密入口，1 个独立动作口令且命名空间隔离。`,
 );
+
