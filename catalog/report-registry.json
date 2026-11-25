@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "global-tamp-advisor-workspace-2026-11-25",
     "investment-planning-agent-prd-2026-11-25",
     "recent-reports-2026-11-24",
     "pm-ecology-2026-11-24",

@@ -69,7 +69,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 191;
+const DATA_VERSION = 192;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -225,6 +225,27 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      "id": "global-tamp-advisor-workspace-2026-11-25",
+      "groupId": "advisor-workbench",
+      "title": "海外 TAMP 与顾问工作台｜26 个平台全景研究",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/global-tamp-advisor-workspace-2026-11-25/",
+      "preview": "global-tamp-advisor-workspace-2026-11-25.svg",
+      "pinned": false,
+      "position": -2,
+      "createdAt": "2026-11-25T02:49:28Z",
+      "modifiedAt": "2026-11-25T02:49:28Z",
+      "source": "公开资料研究｜26 个代表平台、54 份官方资料；定位、价值主张、产品特点、商业模式、AI 与且慢启发。",
+      "access": "production",
+      "workType": "competitive-research",
+      "tags": [
+        "调研",
+        "投顾工作台",
+        "TAMP",
+        "AI",
+        "HTML"
+      ]
+    },
     {
       "id": "investment-planning-agent-prd-2026-11-25",
       "groupId": "advisor-workbench",
@@ -5537,6 +5558,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "global-tamp-advisor-workspace-2026-11-25": "competitive-research",
   "investment-planning-agent-prd-2026-11-25": "requirement-review",
   "recent-reports-2026-11-24": "reporting",
   "pm-ecology-2026-11-24": "reporting",
@@ -5726,6 +5748,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "global-tamp-advisor-workspace-2026-11-25": "advisor-workbench",
   "investment-planning-agent-prd-2026-11-25": "advisor-workbench",
   "recent-reports-2026-11-24": "reporting",
   "pm-ecology-2026-11-24": "product-planning",
