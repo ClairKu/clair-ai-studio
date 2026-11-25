@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "investment-planning-agent-prd-2026-11-25",
     "recent-reports-2026-11-24",
     "pm-ecology-2026-11-24",
     "qieman-2027-product-strategy-2026-11-23",
@@ -457,6 +458,12 @@
     }
   },
   "hostedApplications": [
+    {
+      "id": "investment-planning-agent-prd-2026-11-25",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-d007424a3e088191b8740f5c5863a553_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "access": "owner-private",
+      "purpose": "Copy requested by the owner on 2026-11-25. Open the saved standalone HTML under its existing account permissions; only catalog metadata and this authenticated file link are published."
+    },
     {
       "id": "candidate-evaluator-2026-10-29",
       "url": "https://clair-select.pages.dev/",

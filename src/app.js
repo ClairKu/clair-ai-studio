@@ -69,7 +69,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 190;
+const DATA_VERSION = 191;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -224,6 +224,26 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      "id": "investment-planning-agent-prd-2026-11-25",
+      "groupId": "advisor-workbench",
+      "title": "投资规划 Agent · 产品需求精读版",
+      "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-d007424a3e088191b8740f5c5863a553_53fe03be9fa08191800413876a437a2d&account_id=personal",
+      "preview": "investment-planning-agent-prd-2026-11-25.svg",
+      "pinned": false,
+      "position": -1,
+      "createdAt": "2026-11-25T01:25:47.186Z",
+      "modifiedAt": "2026-11-25T01:25:47.186Z",
+      "source": "原页面的独立 HTML 副本，保留全文、图表、截图与目录导航；按原件账号权限打开。",
+      "access": "account",
+      "workType": "requirement-review",
+      "tags": [
+        "投资规划",
+        "Agent",
+        "产品需求",
+        "HTML"
+      ]
+    },
     {
       "id": "recent-reports-2026-11-24",
       "groupId": "reporting",
@@ -5514,6 +5534,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "investment-planning-agent-prd-2026-11-25": "requirement-review",
   "recent-reports-2026-11-24": "reporting",
   "pm-ecology-2026-11-24": "reporting",
   "qieman-2027-product-strategy-2026-11-23": "product-planning",
@@ -5702,6 +5723,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "investment-planning-agent-prd-2026-11-25": "advisor-workbench",
   "recent-reports-2026-11-24": "reporting",
   "pm-ecology-2026-11-24": "product-planning",
   "qieman-2027-product-strategy-2026-11-23": "product-planning",
@@ -10531,6 +10553,7 @@ function bindWorkbenchPersistence() {
     render();
   });
 }
+
 
 
 
