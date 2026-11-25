@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>海外 TAMP 与顾问工作台全景分析｜商业模式 · 费率 · 竞争格局</title>
+<style>
+  :root{
+    --navy:#0b2545; --navy2:#13315c; --blue:#1d4e89; --gold:#c8a45c; --gold-light:#e8d9b5;
+    --ink:#1f2a3d; --sub:#5b6b82; --line:#e3e8ef; --bg:#f4f6fa; --card:#ffffff;
+    --teal:#0f7b6c; --red:#b34747; --purple:#5b4b8a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.75;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+
+  /* ===== 封面 ===== */
+  header.hero{background:linear-gradient(135deg,#081a33 0%,#0b2545 55%,#13315c 100%);color:#fff;padding:64px 0 46px;position:relative;overflow:hidden}
+  header.hero::after{content:"";position:absolute;right:-120px;top:-120px;width:380px;height:380px;border-radius:50%;
+    background:radial-gradient(circle,rgba(200,164,92,.25),transparent 70%)}
+  .kicker{letter-spacing:4px;font-size:12px;color:var(--gold);text-transform:uppercase;font-weight:600;margin-bottom:14px}
+  h1{font-size:34px;line-height:1.3;font-weight:800;letter-spacing:.5px}
+  .hero p.lead{margin-top:16px;color:#c6d2e2;font-size:15px;max-width:760px}
+  .meta-row{margin-top:22px;font-size:12.5px;color:#8fa3bd;display:flex;gap:22px;flex-wrap:wrap}
+  .stat-band{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px;position:relative;z-index:1}
+  .stat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:16px 16px 14px}
+  .stat b{display:block;font-size:26px;color:var(--gold-light);font-weight:800;line-height:1.2}
+  .stat span{font-size:12px;color:#aebdd2;margin-top:4px;display:block}
+
+  /* ===== 导航 ===== */
+  nav.toc{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);box-shadow:0 2px 10px rgba(11,37,69,.05)}
+  nav.toc .wrap{display:flex;gap:4px;overflow-x:auto;padding-top:8px;padding-bottom:8px}
+  nav.toc a{white-space:nowrap;font-size:13px;color:var(--sub);text-decoration:none;padding:6px 12px;border-radius:20px;transition:.2s}
+  nav.toc a:hover{background:#eef2f8;color:var(--navy)}
+
+  main{padding:42px 0 30px}
+  section{margin-bottom:46px;scroll-margin-top:64px}
+  h2{font-size:23px;color:var(--navy);font-weight:800;padding-left:14px;position:relative;margin-bottom:18px}
+  h2::before{content:"";position:absolute;left:0;top:5px;bottom:5px;width:5px;border-radius:3px;background:var(--gold)}
+  h3{font-size:17.5px;color:var(--navy2);margin:26px 0 10px;font-weight:700}
+  h4{font-size:15px;color:var(--blue);margin:16px 0 6px;font-weight:700}
+  p{margin-bottom:10px;color:#2c384b}
+  ul,ol{margin:6px 0 12px 22px}
+  li{margin-bottom:5px}
+  strong{color:var(--navy)}
+  .muted{color:var(--sub);font-size:13px}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-bottom:16px;
+    box-shadow:0 2px 12px rgba(11,37,69,.04)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .mini{background:#f8fafd;border:1px solid var(--line);border-radius:10px;padding:16px}
+  .mini h4{margin-top:0}
+  .tag{display:inline-block;font-size:11.5px;padding:2px 9px;border-radius:20px;font-weight:600;margin:2px 3px 2px 0}
+  .tag.blue{background:#e7f0fb;color:var(--blue)}
+  .tag.gold{background:#f6efdd;color:#8a6d2f}
+  .tag.teal{background:#e2f3f0;color:var(--teal)}
+  .tag.purple{background:#efebf7;color:var(--purple)}
+  .tag.red{background:#f8e9e9;color:var(--red)}
+  .tag.gray{background:#eceff4;color:#52607a}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0 16px;background:#fff;border-radius:10px;overflow:hidden}
+  th{background:var(--navy);color:#fff;text-align:left;padding:10px 12px;font-weight:600;font-size:12.5px;white-space:nowrap}
+  td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:#33415a}
+  tr:nth-child(even) td{background:#f8fafd}
+  tr:last-child td{border-bottom:none}
+  table b{color:var(--navy2)}
+  .scrollx{overflow-x:auto;border-radius:10px}
+
+  .layer{border-left:4px solid var(--gold);background:#fbf9f4;border-radius:0 10px 10px 0;padding:14px 18px;margin:10px 0}
+  .callout{border-radius:10px;padding:16px 20px;margin:14px 0;font-size:14px}
+  .callout.navy{background:#0b2545;color:#dbe5f2}
+  .callout.navy b{color:var(--gold-light)}
+  .callout.light{background:#eef4fb;border:1px solid #d5e4f5}
+  .callout.warn{background:#fdf6ec;border:1px solid #f0e0bd}
+
+  .vendor{border-top:3px solid var(--blue)}
+  .vendor .vh{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+  .vendor .vh b{font-size:16.5px;color:var(--navy)}
+  .vendor .vp{font-size:13.5px;color:var(--sub);font-style:italic;margin-bottom:8px}
+  .kv{display:grid;grid-template-columns:88px 1fr;gap:4px 12px;font-size:13px;margin-top:8px}
+  .kv dt{color:var(--sub);font-weight:600}
+  .kv dd{color:#33415a}
+
+  .timeline{position:relative;margin:14px 0 8px 8px;padding-left:22px;border-left:2px solid var(--line)}
+  .tl{position:relative;margin-bottom:14px}
+  .tl::before{content:"";position:absolute;left:-28px;top:7px;width:10px;height:10px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 2px var(--gold)}
+  .tl b{color:var(--navy);font-size:13.5px}
+  .tl p{font-size:13px;margin:2px 0 0}
+
+  .num{display:inline-flex;width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;font-size:12.5px;
+    align-items:center;justify-content:center;font-weight:700;margin-right:7px;flex-shrink:0}
+  .trend{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
+  footer{background:#081a33;color:#93a5bf;font-size:12px;padding:30px 0 40px;margin-top:20px}
+  footer a{color:#b9c8dd;word-break:break-all}
+  footer h4{color:#dbe5f2;margin-bottom:8px}
+  footer ol{margin-left:18px}
+  footer li{margin-bottom:4px;line-height:1.6}
+  @media(max-width:820px){
+    .stat-band{grid-template-columns:repeat(2,1fr)}
+    .grid2,.grid3{grid-template-columns:1fr}
+    h1{font-size:26px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== 封面 ===== -->
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Wealth Management Industry Research · 2026</div>
+    <h1>海外 TAMP 与顾问工作台全景分析<br><span style="font-size:20px;font-weight:500;color:#c6d2e2">商业模式 · 费率机制 · 竞争格局 · 趋势演进（平行研究版）</span></h1>
+    <p class="lead">聚焦美国独立投顾（RIA）生态，系统梳理交钥匙资产管理平台（Turnkey Asset Management Program）与顾问技术工作台（Advisor Workstation）的商业模式、竞争格局、代表产品与演进方向，并附对国内买方投顾与财富科技建设的启示。</p>
+    <div class="meta-row"><span>研究范围：美国市场为主，兼顾全球口径</span><span>数据截至：2026 年公开资料</span><span>币种：美元</span></div>
+    <div class="stat-band">
+      <div class="stat"><b>≈ $3万亿</b><span>美国 TAMP 平台资产总规模（Dakota, 2025）</span></div>
+      <div class="stat"><b>≈ 45%</b><span>顾问 TAMP 使用率，十年前仅约 10%</span></div>
+      <div class="stat"><b>$9,340亿</b><span>第三方模型组合资产，同比 +46%（Morningstar, 2026.3）</span></div>
+      <div class="stat"><b>8–12个</b><span>单个 RIA 日常使用的软件系统数量</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== 目录 ===== -->
+<nav class="toc">
+  <div class="wrap">
+    <a href="#s1">一、概念界定</a>
+    <a href="#s2">二、市场背景</a>
+    <a href="#s3">三、商业模式与收费</a>
+    <a href="#s4">四、TAMP竞争格局</a>
+    <a href="#s5">五、顾问工作台品类地图</a>
+    <a href="#s6">六、代表产品深度卡片</a>
+    <a href="#s7">七、行业趋势</a>
+    <a href="#s8">八、对国内的启示</a>
+    <a href="#s9">资料来源</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ===== 一、概念界定 ===== -->
+<section id="s1">
+  <h2>一、概念界定：TAMP 与顾问工作台是什么关系</h2>
+
+  <div class="grid2">
+    <div class="card">
+      <h3 style="margin-top:0">1. TAMP：投资与运营的"交钥匙"外包</h3>
+      <p>TAMP（Turnkey Asset Management Program，交钥匙资产管理计划/平台）是一种<strong>面向财务顾问、RIA、经纪商和银行的收费制外包平台</strong>，把组合构建、经理研究、开户、交易、再平衡、税务管理、业绩报告、账单计费、合规留痕等一整套投资管理与中后台职能"打包交付"，顾问无需自建投研和运营团队即可开展全权委托式资产管理业务。</p>
+      <p>它起源于 1980 年代末券商内部的包管账户（Wrap Account）与叠加层组合管理，2000 年后随独立 RIA 渠道壮大，2008 年金融危机后在收费制转型与信义义务监管推动下成为主流基础设施。</p>
+      <p>
+        <span class="tag blue">投资外包</span><span class="tag gold">中后台运营</span><span class="tag teal">技术平台</span><span class="tag purple">白标/私有品牌</span>
+      </p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">2. 顾问工作台：RIA 的软件操作系统</h3>
+      <p>顾问工作台（Advisor Workstation / Advisor Desktop / Advisor Tech Stack）是顾问日常展业所依赖的<strong>软件系统集合</strong>，覆盖客户关系（CRM）、财务规划、组合会计与业绩报告、交易再平衡、风险测评、客户门户、合规归档、营销获客等环节。典型 RIA 平均运行 8–12 个相互独立的系统。</p>
+      <p>行业公认的"三大核心系统"（Kitces Research）为：<strong>CRM + 财务规划软件 + 组合管理系统</strong>，三者数据能否打通，决定了报告质量、自动化水平和 AI 应用的上限。</p>
+      <p>
+        <span class="tag blue">CRM</span><span class="tag gold">财务规划</span><span class="tag teal">组合会计/报告</span><span class="tag purple">再平衡/风控/合规</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="callout navy">
+    <b>两者的关系：</b>TAMP 是"服务 + 技术"的综合体（拿走账户裁量权、对结果负责），顾问工作台是软件层（顾问保留裁量权、工具赋能）。早期二者边界清晰——TAMP 卖投资管理外包，软件商卖 License；当前头部厂商正沿"一体化（All-in-One）"路线互相进入对方领域：TAMP 自建技术栈（如 Orion、Envestnet），软件/托管平台反向提供 TAMP 服务（如 Altruist、Advyzon AIM、Orion Wealth Management），品类边界持续融合。
+  </div>
+
+  <h3>TAMP 交付价值的三个层次（Dakota 框架）</h3>
+  <div class="grid3">
+    <div class="mini"><h4>① 投资层 Investments</h4><p class="muted">组合管理、模型构建、管理人尽调与筛选、SMA/UMA 策略货架、税务叠加管理、直接指数化、另类投资通道。</p></div>
+    <div class="mini"><h4>② 运营层 Operations</h4><p class="muted">开户、交易执行、再平衡、对账、费用账单、合规支持、过渡迁移（transition）、私募认购与资本催缴流程。</p></div>
+    <div class="mini"><h4>③ 技术层 Technology</h4><p class="muted">客户门户、账户聚合、API 集成、业绩报告、提案生成、工作流自动化、数据中台与嵌入式 AI。</p></div>
+  </div>
+  <p class="muted">多数顾问最初为"投资能力"购买 TAMP，但长期留存往往取决于运营与技术层价值——这也是新一代厂商的主战场。</p>
+</section>
+
+<!-- ===== 二、市场背景 ===== -->
+<section id="s2">
+  <h2>二、市场背景：为什么外包成为结构性趋势</h2>
+
+  <div class="card">
+    <h3 style="margin-top:0">市场规模与渗透率</h3>
+    <ul>
+      <li>美国 TAMP 生态平台资产合计约 <strong>3 万亿美元</strong>，顾问使用率十年间由约 10% 升至约 <strong>45%</strong>，年化采纳增速约 16%（Dakota Insights, 2025）。</li>
+      <li>另一家市场研究口径（仅统计 TAMP 项目收入而非平台资产）估算全球 TAMP 市场 2025 年约 <strong>4,894 亿美元</strong>，2034 年达 1.42 万亿，CAGR 12.6%，北美贡献约 40% 收入。两个口径统计对象不同，引用时需区分。</li>
+      <li>底层 RIA 市场高度分散：全美约 <strong>1.5 万–1.65 万家</strong> SEC 注册投顾、管理约 <strong>9 万亿美元</strong> AUM；约 59% 的机构雇员不足 10 人、69% 的 TAMP 用户自身 AUM 不足 5 亿美元、81% 不足 10 亿美元。</li>
+      <li>第三方模型组合资产 2026 年 3 月达 <strong>9,340 亿美元</strong>，同比增长 46%；直接指数化（Direct Indexing）行业资产约 <strong>8,640 亿美元</strong>，几乎所有主流 TAMP 均已上线或在建相关能力。</li>
+    </ul>
+  </div>
+
+  <h3>核心驱动因素</h3>
+  <div class="grid2">
+    <div class="mini"><h4>监管与收费模式切换</h4><p class="muted">SEC Regulation Best Interest、DOL 信义规则推动佣金经纪向 AUM 收费的 fiduciary 模式迁移，包管/管理账户取代交易佣金成为主流载体。</p></div>
+    <div class="mini"><h4>小机构的规模不经济</h4><p class="muted">Fidelity 基准研究显示小型 RIA 费用支出高达收入的 82%，营业利润率仅 18%；自建投资运营团队的全负荷成本约 25–35bp（$250M AUM 机构口径），外包可显著降本。</p></div>
+    <div class="mini"><h4>顾问时间的机会成本</h4><p class="muted">外包投资管理平均每周为顾问释放 <strong>8–9 小时</strong>（AssetMark 口径约 8 小时、运营成本降低 17%），使其聚焦客户关系与获客——投顾最稀缺的资源是时间而非工具。</p></div>
+    <div class="mini"><h4>RIA 并购整合与接班潮</h4><p class="muted">大量创始人临退休无继任安排，roll-up 并购活跃；统一 TAMP/技术栈成为并购后标准化投资框架、整合被收购机构、降低关键人风险的基础设施。</p></div>
+  </div>
+
+  <h3>不同规模机构的 TAMP 使用方式（Dakota 分层框架）</h3>
+  <div class="scrollx">
+  <table>
+    <tr><th>机构类型</th><th>典型诉求</th><th>Build vs Buy</th><th>与 TAMP 的关系</th></tr>
+    <tr><td><b>小型 RIA</b><br>&lt;$5亿 AUM，1–5 名顾问</td><td>模型/SMA、交易再平衡、业绩报告、基础后台</td><td><span class="tag teal">Buy</span></td><td>投资管理与运营整体移交平台</td></tr>
+    <tr><td><b>中型 RIA</b><br>$5亿–20亿</td><td>模型市场、SMA 经理、税务感知再平衡、更多另类</td><td><span class="tag gold">Buy/Blend</span></td><td>平台负责模型与交易，内部保留监督与策略输入</td></tr>
+    <tr><td><b>大型 RIA</b><br>$20亿–100亿</td><td>私募市场、经理尽调、资本催缴、机构级报告</td><td><span class="tag gold">Blend</span></td><td>选择性使用平台补充私募通道与工作流</td></tr>
+    <tr><td><b>超大型 RIA</b><br>$100亿+</td><td>自定义投资载体、顾问网络集成、可扩展报告</td><td><span class="tag blue">Build/Blend</span></td><td>平台作为内部能力在大网络上的延伸</td></tr>
+    <tr><td><b>Wirehouse 团队</b><br>Morgan Stanley/UBS/Merrill</td><td>公司审批平台内的另类、结构化产品与报告</td><td><span class="tag gray">Firm-directed</span></td><td>平台由总部指定，顾问主要用于另类与客户报告</td></tr>
+  </table>
+  </div>
+</section>
+
+<!-- ===== 三、商业模式 ===== -->
+<section id="s3">
+  <h2>三、商业模式、账户形态与定价机制</h2>
+
+  <h3>1. 五种外包业务模式：从"全托管"到"只买模型"</h3>
+  <div class="scrollx">
+  <table>
+    <tr><th>模式</th><th>裁量权归属</th><th>服务内容</th><th>收费方式</th><th>顾问保留的控制权</th></tr>
+    <tr><td><b>传统 TAMP</b><br>Traditional</td><td>TAMP 持有全权裁量</td><td>自有/自研投资组合 + 全套后台</td><td>资产百分比费用；部分通过自有基金费率赚取</td><td>低，选择平台即选择其策略体系</td></tr>
+    <tr><td><b>平台型 TAMP</b><br>Platform</td><td>TAMP 持有裁量</td><td>开放架构，接入多家资管机构产品，含尽调/交易/报告/计费</td><td><strong>两层收费</strong>：平台费 + 底层经理管理费</td><td>中，可在货架内选经理</td></tr>
+    <tr><td><b>模型市场</b><br>Model Marketplace</td><td><strong>顾问保留裁量</strong></td><td>提供多家策略师模型，但不负责执行/报告/计费</td><td>常无策略师费（模型多用其自有产品）</td><td>高，可自由修改模型并自行实施</td></tr>
+    <tr><td><b>模型订阅</b><br>Model Subscription</td><td>顾问保留裁量</td><td>固定年费订阅模型，实施完全自理</td><td>固定年费，与 AUM 脱钩</td><td>很高，但承担全部运营与受托责任</td></tr>
+    <tr><td><b>外包首席投资官</b><br>OCIO</td><td>灵活约定</td><td>深度定制的咨询 + 管理服务，共建组合与投委会流程</td><td>协议定价</td><td>高，类似"外部 CIO"</td></tr>
+  </table>
+  </div>
+
+  <h3>2. 五种管理账户载体：复杂度随客户财富等级递进</h3>
+  <div class="scrollx">
+  <table>
+    <tr><th>账户形态</th><th>机制</th><th>适用客户</th></tr>
+    <tr><td><b>共同基金包管账户</b><br>Mutual Fund Wrap</td><td>一揽子共同基金，单一固定费率打包交易/咨询/行政</td><td>大众客户，追求简单打包方案</td></tr>
+    <tr><td><b>ETF 包管账户</b><br>ETF Wrap</td><td>以 ETF 构建，费率更低、盘中交易、税务更友好</td><td>成本敏感、被动/规则化策略客户</td></tr>
+    <tr><td><b>独立管理账户 SMA</b></td><td>客户直接持有个股，经理按其目标与税务情况定制</td><td>高净值、需个性化与税收管理的客户</td></tr>
+    <tr><td><b>统一管理账户 UMA</b></td><td>一个账户内以多个 sleeve 整合基金/ETF/SMA，统一再平衡与对账单</td><td>需要多策略、多经理一站式配置的客户</td></tr>
+    <tr><td><b>统一家庭账户 UMH</b></td><td>UMA 扩展至全家账户（IRA、应税账户、信托），家庭层面税务与配置协同</td><td>超高净值与多代际规划家庭</td></tr>
+  </table>
+  </div>
+
+  <h3>3. 费率结构与费率压缩</h3>
+  <div class="grid2">
+    <div class="card">
+      <h4>典型价格带</h4>
+      <ul>
+        <li>TAMP 项目综合成本通常在 <strong>0.45%–2.5%</strong> 之间；传统 wrap 账户整体年费常见 1%–3%。</li>
+        <li>平台型 TAMP 拆分为两层：平台基础设施费 2025 年均值约 <strong>28bp</strong>（2021 年为 37bp），包管内投资管理费约 65bp。</li>
+        <li>软件类工作台多按 AUM 基点或席位订阅：CRM 约 $45–75/人/月，单点规划/风控工具约 $125–450/月；Orion 等组合系统约 5–10bp 且设有月费下限。</li>
+        <li>极致低价参照：Vanguard Personal Advisor 全指数组合顾问费仅约 <strong>0.30%–0.31%</strong>，$5 万起投，持续压低行业定价锚点。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>费率压缩的事实</h4>
+      <ul>
+        <li>Cerulli：83% 的顾问对 500 万美元以上客户收费低于 1%；1,000 万美元以上客户平均费率预计降至约 <strong>66bp</strong>。</li>
+        <li>基金资产加权平均费率已从 2005 年 0.83% 降至 2024 年 0.34%（Morningstar）。</li>
+        <li>应对杠杆：并购摊薄固定成本、挖掘组合隐性成本、以自动化提升人均产能；TAMP 的模块化、透明定价成为竞争焦点。</li>
+        <li>平台通过技术投资实现"不增人头而扩张 AUM"，是其商业模型成立的核心。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout light">
+    <strong>价值主张的可量化表达（行业营销常用口径）：</strong>每周释放 8–9 小时、运营成本下降约 17%、$250M AUM 机构自营投资运营全负荷成本 25–35bp vs 平台边际成本更低、每月"多出整整一个工作周"用于获客与客户经营。卖方逻辑已从"帮你选到好经理"转向"帮你把机构级基础设施变成可变成本"。
+  </div>
+</section>
+
+<!-- ===== 四、TAMP 竞争格局 ===== -->
+<section id="s4">
+  <h2>四、TAMP 竞争格局：五个阵营</h2>
+  <p>市场由少数规模化全服务平台主导，同时在另类投资、现代化技术栈、企业级基建、垂直整合托管等方向出现清晰的差异化阵营。</p>
+
+  <div class="card">
+    <h3 style="margin-top:0">阵营总览</h3>
+    <div class="scrollx">
+    <table>
+      <tr><th>阵营</th><th>代表玩家</th><th>定位关键词</th><th>目标客户</th></tr>
+      <tr><td><b>① 全服务巨头</b></td><td>Envestnet、SEI、AssetMark、Orion</td><td>开放架构、全栈生态、规模与整合能力</td><td>全谱系 RIA、经纪商、银行</td></tr>
+      <tr><td><b>② 新一代一体化/垂直整合</b></td><td>Altruist、Advyzon、GeoWealth</td><td>现代化 UI、API 优先、自有托管/清算、价格透明</td><td>新锐及中小 RIA、成本敏感型机构</td></tr>
+      <tr><td><b>③ 企业级基建与模型市场</b></td><td>Vestmark、SMArtX、Adhesion（AssetMark 旗下）</td><td>UMA 引擎、税务优化、直接指数化、可配置工作流</td><td>大型 RIA、经纪商、银行、机构客户</td></tr>
+      <tr><td><b>④ 另类投资专属平台</b></td><td>iCapital、CAIS、GLASfunds、SUBSCRIBE</td><td>私募市场准入、降低起投门槛、认购/催缴自动化</td><td>需要另类配置的全类型顾问</td></tr>
+      <tr><td><b>⑤ 高端组合会计/报告平台</b></td><td>Addepar、SS&C Black Diamond、Envestnet Tamarac</td><td>多托管聚合、另类资产数据模型、客户报告</td><td>HNW/UHNW、家族办公室、大型 RIA</td></tr>
+    </table>
+    </div>
+    <p class="muted">补充参照系：Vanguard PAS、Morningstar Wealth 代表资产管理人直营的低价/研究驱动模式；Zoe Financial 等把 TAMP 与客户线索生成结合，切入价值链更前端；Mercer Advisors、Hightower 等 RIA roll-up 则是 TAMP 的需求方/同业整合者，而非平台供应商。</p>
+  </div>
+
+  <h3>头部玩家规模对照（公开披露口径，注意统计口径差异）</h3>
+  <div class="scrollx">
+  <table>
+    <tr><th>厂商</th><th>关键规模指标</th><th>身份特征</th></tr>
+    <tr><td><b>Envestnet</b></td><td>行业最完整生态；Tamarac 服务 2,700+ RIA、平台资产超 $1.9万亿（2025.5）；接入约 2.3 万只投资产品</td><td>2024 年 Bain Capital 牵头约 $45 亿私有化</td></tr>
+    <tr><td><b>Orion</b></td><td>托管/行政管理资产 AUA 约 <b>$6.6–6.8万亿</b>，财富管理资产 $2,110亿，860 万+ 技术账户；All-in-One/CRM/组合报告市占率第一（T3 2026）</td><td>Genstar/TA 背景；2020 年合并 Brinker Capital</td></tr>
+    <tr><td><b>AssetMark</b></td><td>平台资产 <b>$1,800亿+</b>（2026.6），服务 1 万+ 顾问、34 万+ 家庭，1,100+ 员工</td><td>2024 年 GTCR 以约 $27 亿私有化；华泰曾为股东</td></tr>
+    <tr><td><b>SEI</b></td><td>50 年以上历史的老牌机构；第三方模型资产 $560 亿、跻身 Morningstar 模型提供商前十</td><td>垂直整合托管+中后台+投资管理，机构化色彩最强</td></tr>
+    <tr><td><b>Addepar</b></td><td>平台资产超 <b>$9万亿</b>，1.5 万只私募基金基准库</td><td>UHNW/家办聚合报告标杆，溢价定价</td></tr>
+    <tr><td><b>SS&C Black Diamond</b></td><td>平台资产超 $3.6万亿（2025.9），800+ 托管/主经纪商连接、80+ 集成伙伴</td><td>SS&C 旗下，托管覆盖最广</td></tr>
+    <tr><td><b>Altruist</b></td><td>2025 年托管资产同比 +119%，行业增速最快的 RIA 托管商</td><td>自有清算牌照的垂直整合新势力</td></tr>
+  </table>
+  </div>
+</section>
+
+<!-- ===== 五、顾问工作台 ===== -->
+<section id="s5">
+  <h2>五、顾问工作台品类地图：三大核心 + 周边模块</h2>
+  <p>顾问技术栈可拆解为"三大记录系统 + 一层专项点工具 + 一层客户体验/增长工具"。行业正沿两条路线演化：<strong>一体化套件（All-in-One）</strong>与<strong>可开放集成的最佳单品（Best-of-Breed）</strong>。</p>
+
+  <h3>1. 核心品类与代表厂商</h3>
+  <div class="scrollx">
+  <table>
+    <tr><th>品类</th><th>职能</th><th>代表产品</th><th>定位差异</th></tr>
+    <tr><td><b>CRM</b></td><td>客户关系记录、工作流、管道与合规留痕</td><td>Redtail（Orion 旗下）、Wealthbox、Salesforce FSC、Microsoft Dynamics</td><td>Redtail 独立 RIA 装机量最大；Wealthbox 现代体验见长；Salesforce 面向大型机构深度定制</td></tr>
+    <tr><td><b>财务规划</b></td><td>退休/现金流/税务/遗产场景建模、目标规划、客户门户</td><td>eMoney、MoneyGuide（Envestnet）、RightCapital</td><td>eMoney 现金流派+聚合门户最强；MoneyGuide 目标派、装机广；RightCapital 税务/Roth 建模性价比突出</td></tr>
+    <tr><td><b>组合会计/报告</b></td><td>头寸对账、业绩计算、客户报告、费用账单</td><td>Orion、Tamarac、Black Diamond、Addepar、Advyzon</td><td>前三者面向主流 RIA 后台；Addepar 专攻另类/多托管复杂资产</td></tr>
+    <tr><td><b>交易与再平衡</b></td><td>模型漂移监控、批量/块交易、税务感知再平衡</td><td>iRebal（Envestnet）、TradePMR、Vestmark、各平台内置模块</td><td> increasingly 作为平台原生模块而非独立采购</td></tr>
+    <tr><td><b>风险测评/提案</b></td><td>风险画像、组合压力测试、提案生成、获客问卷</td><td>Nitrogen（原 Riskalyze）、Kwanti、Riskalyze 系引擎</td><td>Nitrogen 的 Risk Number®（1–99）成为行业事实标准，3 万+ 顾问使用</td></tr>
+    <tr><td><b>税务规划</b></td><td>税表 AI 读取、Roth 转换模拟、税务机会识别</td><td>Holistiplan、FP Alpha</td><td>Holistiplan 约 45 秒解析 1040 税表；FP Alpha 覆盖遗产/保险等综合规划</td></tr>
+    <tr><td><b>合规与归档</b></td><td>通讯留痕、WORM 归档、合规手册与考试</td><td>Smarsh、Global Relay、RIA in a Box/COMPLY</td><td>受托责任下的"不可议价"层</td></tr>
+    <tr><td><b>客户体验/增长</b></td><td>客户门户、电子签、开户、营销自动化、会议纪要 AI</td><td>各平台门户、Calendly、Snappy Kraken、AI Notetaker 类</td><td>门户与规划/报告数据联动深度成为差异化点</td></tr>
+  </table>
+  </div>
+
+  <h3>2. 两条架构路线之争</h3>
+  <div class="grid2">
+    <div class="card">
+      <h4>一体化 All-in-One</h4>
+      <p><span class="tag blue">Orion</span><span class="tag blue">Advyzon</span><span class="tag blue">Altruist</span><span class="tag blue">SEI</span></p>
+      <ul>
+        <li>单一数据模型打通 CRM、规划、组合、交易、计费、门户，减少 8–12 个系统间的对账与集成负担。</li>
+        <li>Advyzon 连续 9 年 T3 调研 All-in-One 客户满意度第一，并拿下花旗全球 UMA 项目；Orion 在 T3 2026 拿下 CRM、组合会计、All-in-One 三项市占第一。</li>
+        <li>优势：上线快、供应商少、AI 可直接调用干净的全栈数据；代价：模块深度可能不及单品、存在厂商锁定。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>开放集成 Best-of-Breed</h4>
+      <p><span class="tag gold">Salesforce + 任选</span><span class="tag gold">CircleBlack</span><span class="tag gold">专项点工具</span></p>
+      <ul>
+        <li>每个品类选最强单品，通过 API/数据中台连接；平均 RIA 8–12 个系统的现状即由此而来。</li>
+        <li>行业判断（Morningstar/Veres）："孤岛式点工具正在消亡，但能干净接入数据与工作流的最佳单品不会"——AI Agent 跨系统取数能力正在重估开放架构价值。</li>
+        <li>优势：灵活、可替换、模块最强；代价：集成治理成本高，数据不一致会让 AI 输出"噪音"。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <strong>AI 落地的前置条件（2025 Kitces 研究核心结论）：</strong>在数据碎片化的技术栈上叠加 AI，如同"给没有变速箱的车装高性能发动机"。AI 会议准备、next-best-action 等场景需要同时调用组合系统的持仓业绩、规划系统的目标进度、CRM 的互动历史与合规记录——<strong>集成成熟度优先于 AI 功能数量</strong>，行业普遍按"先打通三大系统 → 再上 Agentic AI"的四阶段路径推进。
+  </div>
+</section>
+
+<!-- ===== 六、代表产品卡片 ===== -->
+<section id="s6">
+  <h2>六、代表产品深度卡片：定位 × 价值主张 × 特点</h2>
+
+  <div class="grid2">
+    <!-- Envestnet -->
+    <div class="card vendor">
+      <div class="vh"><b>Envestnet</b><span class="tag blue">全服务巨头</span></div>
+      <p class="vp">"Adaptive WealthTech"——覆盖财富管理全旅程的开放架构生态</p>
+      <p><strong>定位：</strong>行业产品线最宽的 wealthtech + TAMP 综合体，面向 RIA、经纪商、银行与企业客户，2024 年 Bain Capital 牵头约 45 亿美元私有化后加速技术投入（宣布 10 亿美元级 WealthTech 承诺，Tamarac 单系追加 3,500 万美元）。</p>
+      <dl class="kv">
+        <dt>核心产品</dt><dd>Tamarac（高端 RIA 交易/再平衡/组合会计/CRM/UMA）、MoneyGuide（目标型规划头部）、PMC（5,000+ 第三方管理账户产品、850 自有产品）、Redi2 计费、企业级开放平台</dd>
+        <dt>价值主张</dt><dd>减少"技术集成商"角色占用顾问时间，用一个生态吸收复杂资产、多托管与税务复杂度</dd>
+        <dt>特点</dt><dd>约 2.3 万只产品货架；MoneyGuide 数据已嵌入 Tamarac 工作流与客户门户；AI 建立在已对账的多托管数据之上；模型平台为顾问访问第三方模型的首选入口（Morningstar 调研）</dd>
+      </dl>
+    </div>
+
+    <!-- Orion -->
+    <div class="card vendor">
+      <div class="vh"><b>Orion Advisor Solutions</b><span class="tag blue">全栈平台</span></div>
+      <p class="vp">"Connected tech that works together"——技术与财富管理双 division 模块化组合</p>
+      <p><strong>定位：</strong>AUA 约 6.6–6.8 万亿美元的 wealthtech 龙头，T3 2026 All-in-One、CRM、组合管理/报告三项市占第一；17/20 的 Barron's 顶级 RIA 在其技术上运行。</p>
+      <dl class="kv">
+        <dt>核心产品</dt><dd>Orion Advisor Technology（组合会计、Redtail CRM、交易、规划、合规、客户门户、Denali AI）+ Orion Wealth Management（TAMP、OCIO、Custom Indexing $171亿、现金与信贷）</dd>
+        <dt>价值主张</dt><dd>"后台自运行，顾问经营业务"；客户有机增长率比非 Orion 机构高 40%（其客户调研口径）</dd>
+        <dt>特点</dt><dd>可单买、可全栈、可任意组合；Denali AI 为统一智能层；首批获 ISO/IEC 42001 AI 管理体系认证；Tailored Allocation 把 BlackRock/Fidelity/Vanguard 模型与自定义指数化税务技术结合</dd>
+      </dl>
+    </div>
+
+    <!-- AssetMark -->
+    <div class="card vendor">
+      <div class="vh"><b>AssetMark</b><span class="tag blue">高触达服务型</span></div>
+      <p class="vp">不只是技术平台，更是顾问的"实操型增长伙伴"</p>
+      <p><strong>定位：</strong>1996 年成立，平台资产 1,800 亿美元+、服务 1 万+ 顾问；2024 年 GTCR 约 27 亿美元私有化。差异化在<strong>高接触式服务</strong>而非纯软件。</p>
+      <dl class="kv">
+        <dt>核心产品</dt><dd>eWealthManager 门户、第三方+自有策略（季度经理尽调）、Tax Management Services、直接指数化、半流动私募与公私合一 UMA、AssetMark Trust 自有托管与证券担保贷款、Voyant 规划、Adhesion 模型市场</dd>
+        <dt>价值主张</dt><dd>每周节省约 8 小时、运营成本降低 17%；提供业务咨询、迁所过渡支持、RIA 服务与银行信托方案</dd>
+        <dt>特点</dt><dd>99% 收入为经常性收入；服务团队与顾问陪跑文化强；2026 年推出 Portfolio Model Management 支持自定义多策略模型一键发布、交易团队代执行</dd>
+      </dl>
+    </div>
+
+    <!-- SEI -->
+    <div class="card vendor">
+      <div class="vh"><b>SEI Investments</b><span class="tag purple">机构化老牌</span></div>
+      <p class="vp">五十年历史的垂直整合机构，独立顾问背后的"机构级引擎"</p>
+      <p><strong>定位：</strong>以机构投资能力见长，把托管、中后台基础设施与投资管理垂直整合，同时保持顾问独立性；在模型市场首次披露即以 560 亿美元进入 Morningstar 前十。</p>
+      <dl class="kv">
+        <dt>核心产品</dt><dd>独立财富管理平台（IWM）、自有投资管理、信托与托管、企业级解决方案；近年亦构建 all-in-one 顾问体验</dd>
+        <dt>价值主张</dt><dd>用机构级治理、风控与运营深度服务注重稳健与合规的顾问及银行渠道</dd>
+        <dt>特点</dt><dd>自有产品体系强、分销网络覆盖机构与顾问两端；品牌调性偏 B2B 而非硅谷式产品营销</dd>
+      </dl>
+    </div>
+
+    <!-- Altruist -->
+    <div class="card vendor">
+      <div class="vh"><b>Altruist</b><span class="tag teal">垂直整合颠覆者</span></div>
+      <p class="vp">为 RIA 从零自建的科技型托管商，消灭后台摩擦</p>
+      <p><strong>定位：</strong>七年时间从品类颠覆者成长为全功能托管商，2025 年托管资产同比 +119%，为行业增速最快 RIA 托管商；获 Datos 2025 清算与托管创新奖。</p>
+      <dl class="kv">
+        <dt>核心产品</dt><dd>自有清算经纪商 + 开户/交易/报告/计费一体化软件、碎股交易、高收益现金管理、移动优先 App、Hazel 财富专属 AI</dd>
+        <dt>价值主张</dt><dd>"开户到合规以秒计而非以周计"；整户 60 秒内完成移动开户、每周节省最多 10 小时；行业内少有的完全公开定价</dd>
+        <dt>特点</dt><dd>垂直整合（托管+清算+软件）是其核心叙事；适合在其处托管或希望低成本连接外部账户的新锐 RIA；深度多托管对账能力弱于传统后台</dd>
+      </dl>
+    </div>
+
+    <!-- Advyzon -->
+    <div class="card vendor">
+      <div class="vh"><b>Advyzon</b><span class="tag teal">一体化标杆</span></div>
+      <p class="vp">一个平台跑完全部业务，All-in-One 满意度九连冠</p>
+      <p><strong>定位：</strong>面向 RIA 与投资经理的一体化财富技术+数据平台，T3/Inside Information 2026 连续第九年 All-in-One 客户满意度第一；其 AIM 部门同时提供 TAMP 服务并拿下花旗全球 UMA 订单。</p>
+      <dl class="kv">
+        <dt>核心产品</dt><dd>组合管理、报告、交易再平衡、CRM、计费、文档、财务规划单平台；AIM 提供 UMA、模型管理、税务叠加、直接指数化与另类；Advyzon AI 嵌入式智能体</dd>
+        <dt>价值主张</dt><dd>"用一个平台替代多套系统"，单一数据底座让 AI 原生理解顾问工作流</dd>
+        <dt>特点</dt><dd>模块化可扩展、企业级多币种多法域能力（花旗项目）；相对封闭的固定技术栈是其主要争议点</dd>
+      </dl>
+    </div>
+
+    <!-- GeoWealth -->
+    <div class="card vendor">
+      <div class="vh"><b>GeoWealth</b><span class="tag teal">现代 API 型 TAMP</span></div>
+      <p class="vp">"Advisor Driven, Tech Enabled"——传统 TAMP 的高性价比现代化替代</p>
+      <p><strong>定位：</strong>芝加哥金融科技公司，把顾问技术、组合方案与后台服务整合在现代化 API 平台上，两度获 WealthManagement 行业 TAMP 奖项。</p>
+      <dl class="kv">
+        <dt>核心产品</dt><dd>交易/再平衡/对账、SMA/UMH/UMA、模型中心与私募模型市场、自定义工作流、风险评分、文档库、另类投资、自有交易团队服务</dd>
+        <dt>价值主张</dt><dd>以自动化与工作流效率提供 legacy 平台之外更低成本、更灵活的选择</dd>
+        <dt>特点</dt><dd>与 BlackRock、J.P. Morgan、Goldman 合作落地公私市场结合的定制模型，是头部资管布局私募模型的技术底座</dd>
+      </dl>
+    </div>
+
+    <!-- Vestmark -->
+    <div class="card vendor">
+      <div class="vh"><b>Vestmark</b><span class="tag purple">企业级基础设施</span></div>
+      <p class="vp">规模化个性化的组合治理引擎，V AST 直接指数化获奖</p>
+      <p><strong>定位：</strong>面向经纪商、银行、大型 RIA 与资管机构的企业级组合管理/交易技术、UMA、模型市场与税务感知投资平台，强调"组合治理（portfolio governance）"。</p>
+      <dl class="kv">
+        <dt>核心产品</dt><dd>Vestmark VAST 个性化税务优化引擎、模型市场、SaaS 平台 + 可选外包交易运营服务</dd>
+        <dt>价值主张</dt><dd>在数千顾问/账户级别保持模型执行一致性，同时支持漂移控制、洗售规则、资本利得上限等精细税务约束</dd>
+        <dt>特点</dt><dd>模块化程度高，可只买技术或连带外包服务；Strive 等资管的直接指数化产品由其驱动并上架 Fidelity/Schwab</dd>
+      </dl>
+    </div>
+
+    <!-- Addepar -->
+    <div class="card vendor">
+      <div class="vh"><b>Addepar</b><span class="tag gold">UHNW 报告标杆</span></div>
+      <p class="vp">为复杂财富而生的多托管聚合与分析平台</p>
+      <p><strong>定位：</strong>服务财富经理、家族办公室、私人银行与机构，平台资产超 9 万亿美元，专攻公开市场+私募/不动产/对冲基金等另类资产的统一视图。</p>
+      <dl class="kv">
+        <dt>核心产品</dt><dd>机构级数据聚合、另类资产原生数据模型（资本催缴/分配/waterfall）、多币种、Navigator 私募敞口工具、灵活报告引擎</dd>
+        <dt>价值主张</dt><dd>让简单系统处理不了的复杂家族资产"在一个视图里被准确计算与呈现"</dd>
+        <dt>特点</dt><dd>溢价定价、实施周期长，典型客户为 10 亿美元以上、另类占比高的机构；近年加大 AI 工作流投入</dd>
+      </dl>
+    </div>
+
+    <!-- Black Diamond -->
+    <div class="card vendor">
+      <div class="vh"><b>SS&C Black Diamond</b><span class="tag gold">广覆盖后台套件</span></div>
+      <p class="vp">800+ 托管连接，服务驱动型 RIA 的报告中枢</p>
+      <p><strong>定位：</strong>SS&C Technologies 旗下云平台（2015 年随 Advent 收购纳入），平台资产超 3.6 万亿美元，面向 RIA、家办、银行与经纪商。</p>
+      <dl class="kv">
+        <dt>核心产品</dt><dd>日度对账数据聚合、拖拽式报告、CRM 与 TAMP 模块、80+ AI/工作流伙伴的集成网络、开放 API</dd>
+        <dt>价值主张</dt><dd>行业最广的托管/主经纪商覆盖加上高接触服务，适合多实体、多托管机构</dd>
+        <dt>特点</dt><dd>另类资产服务与复杂实体结构处理强；常作为企业级后台标准件被纳入开放技术栈</dd>
+      </dl>
+    </div>
+
+    <!-- iCapital / CAIS -->
+    <div class="card vendor">
+      <div class="vh"><b>iCapital / CAIS</b><span class="tag red">另类投资闸门</span></div>
+      <p class="vp">把私募市场变成顾问可像买公募一样配置的货架</p>
+      <p><strong>定位：</strong>不做股票/ETF 组合与传统后台，专注另类投资准入，是全服务 TAMP 的互补层。iCapital 为全球最大另类市场，CAIS 主打精选尽调+顾问教育。</p>
+      <dl class="kv">
+        <dt>核心产品</dt><dd>PE/私募信贷/地产/对冲基金低门槛访问、经理尽调、认购文档与资本催缴工作流、投后数据管理（SUBSCRIBE 提供纯数字化基建；GLASfunds 支持顾问自带经理关系）</dd>
+        <dt>价值主张</dt><dd>降低另类投资的最低起投与运营复杂度，让普通合格客户也能获得机构级私募配置</dd>
+        <dt>特点</dt><dd>2025 年美国关于 401(k) 纳入另类的行政令进一步打开需求空间；与 GeoWealth 等 TAMP 深度嵌入式合作成为主流模式</dd>
+      </dl>
+    </div>
+
+    <!-- Nitrogen / 专项点工具 -->
+    <div class="card vendor">
+      <div class="vh"><b>Nitrogen / Holistiplan / FP Alpha</b><span class="tag gray">专项点工具</span></div>
+      <p class="vp">在一个窄场景做到行业标准，再沿工作流扩品</p>
+      <p><strong>定位：</strong>最佳单品路线的代表。Nitrogen（原 Riskalyze）以 Risk Number®（1–99）把主观风险承受度变成可举证的量化语言，3 万+ 顾问使用；Holistiplan 用 AI 约 45 秒读取税表产出规划机会，T3 税务规划品类份额领先；FP Alpha 覆盖税表、Roth 转换模拟与遗产/保险文档分析。</p>
+      <dl class="kv">
+        <dt>价值主张</dt><dd>把一个高频、高价值、原本依赖人工的动作产品化、合规化、客户对话化（风险问卷同时是获客落地页）</dd>
+        <dt>特点</dt><dd>Nitrogen 2026 年推出 agentic 引擎 Nucleus 并通过 ISO 42001；点工具普遍模块化定价（约 $749/年–$450/月），靠开放集成嵌入主流工作台</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 七、趋势 ===== -->
+<section id="s7">
+  <h2>七、六大行业趋势</h2>
+
+  <div class="card">
+    <div class="trend"><span class="num">1</span><div><strong>私募股权驱动的整合与 PE 化</strong><p>规模决定技术投入、定价议价与分销 reach。近年标志性交易：2020 年 Orion 合并 Brinker Capital；2022 年 AssetMark 收购 Adhesion；2024 年 GTCR 以 27 亿美元私有化 AssetMark、Bain Capital 牵头约 45 亿美元私有化 Envestnet。三大多托管 TAMP 现均为 PE 持有，资本在带来纪律与资金的同时，也引发产品扩张激进化与定价试验的行业讨论。小平台要么专精利基，要么成为并购标的。</p></div></div>
+    <div class="trend"><span class="num">2</span><div><strong>从"组合制造商"转向"技术驱动的下一代运营平台"</strong><p>竞争差异点已从模型业绩转向自动化、API 架构、实时数据、提案/计费一体化与托管深度连接。TAMP 越来越像顾问公司的端到端操作系统，而非单纯外包资管；GeoWealth、Altruist 等新势力以现代技术栈蚕食 legacy 平台份额。</p></div></div>
+    <div class="trend"><span class="num">3</span><div><strong>直接指数化与税务个性化成为标配</strong><p>行业资产约 8,640 亿美元的直接指数化几乎进入所有主流 TAMP 路线图：个股级所有权、每日税损收割、集中仓位平滑过渡、个性化因子/价值观筛选。Orion Custom Indexing 已达 171 亿美元，Vestmark VAST 等把税务优化做成企业级基础能力。模型组合资产一年增长 46%，"模型 + 自定义指数化税务外壳"成为新产品范式。</p></div></div>
+    <div class="trend"><span class="num">4</span><div><strong>另类投资下沉与账户形态升级</strong><p>私募信贷、PE、地产通过 iCapital/CAIS 与 TAMP 的嵌入式合作进入主流顾问货架，半流动性产品、低起投、1099 税务报告、UMA 内公私合一账户快速普及；政策端（401(k) 另类准入讨论）可能进一步打开大众市场。</p></div></div>
+    <div class="trend"><span class="num">5</span><div><strong>AI 从附属功能走向工作流原生 Agent</strong><p>Orion Denali、Altruist Hazel、Advyzon AI、Nitrogen Nucleus、Envestnet Report Studio 均把 AI 嵌入已对账数据而非外挂聊天框；AI 会议纪要、税表解析、报告叙述、next-best-action 最先落地，ISO/IEC 42001 AI 管理认证成为新的信任背书。前提是数据治理——集成先于 AI 成为行业共识。</p></div></div>
+    <div class="trend"><span class="num">6</span><div><strong>TAMP 成为资管产品的分发闸门，而获客仍是缺口</strong><p>对资管机构而言，进入主流平台/模型名单等于拿到 RIA 渠道的规模化入场券，BlackRock 以 3,080 亿美元模型资产占据三分之一份额、Envestnet 成为模型首选平台即为例证。但 TAMP 解决的是顾问的产能与效率，<strong>不直接提供客户线索</strong>——Zoe Financial 等把 TAMP 与 lead generation 结合的模式，正是对这一价值链空白的卡位。</p></div></div>
+  </div>
+
+  <h3>关键并购时间线</h3>
+  <div class="timeline">
+    <div class="tl"><b>2020.06　Orion Advisor × Brinker Capital 合并</b><p>TAMP + 组合管理 + 顾问技术栈合体，中型市场标志性整合</p></div>
+    <div class="tl"><b>2022.06　AssetMark 收购 Adhesion Wealth（约 $46M 对价）</b><p>补强 RIA 技术、模型市场与 UMA 能力</p></div>
+    <div class="tl"><b>2024.04　GTCR 以 $27 亿将 AssetMark 私有化</b><p>PE 下注规模化、经常性收入的 TAMP 分销平台</p></div>
+    <div class="tl"><b>2024.07　Bain Capital 牵头约 $45 亿私有化 Envestnet</b><p>品类级交易，确认一体化 wealthtech + TAMP 生态的战略价值</p></div>
+    <div class="tl"><b>2024.12　Orion 收购 Systems Summit Wealth</b><p>持续围绕 TAMP 交付深化顾问工作流整合</p></div>
+  </div>
+</section>
+
+<!-- ===== 八、启示 ===== -->
+<section id="s8">
+  <h2>八、对国内财富管理与买方投顾建设的启示</h2>
+  <p class="muted">中美在账户体系（美国多托管商/券商自清算 vs 国内统一登记结算）、投资载体（SMA/个股直投 vs 基金投顾组合）、税收工具（税损收割/Roth 转换依赖资本利得税框架）与监管框架上差异显著，不能照搬产品形态，但产业分工与平台演进逻辑具有参照价值。</p>
+
+  <div class="grid2">
+    <div class="mini"><h4>1. 投顾价值链分工是确定性方向</h4><p class="muted">美国验证了"顾问聚焦客户关系与规划、平台集中供给投研/交易/运营/技术"的分工效率。国内基金投顾试点深化后，投顾机构的中后台与投研产能同样可平台化、组件化，让一线投顾把时间配置到客户经营而非账户操作。</p></div>
+    <div class="mini"><h4>2. "模型/策略市场"是平台级机会</h4><p class="muted">第三方模型组合近万亿美元、一年 +46%，且平台成为资管分发闸门。对应国内基金投顾策略供给，可借鉴"开放策略货架 + 尽调评价 + 一键实施 + 税务/账单叠加"的市场层设计，而非仅做产品货架。</p></div>
+    <div class="mini"><h4>3. 工作台建设先打通数据，再谈 AI</h4><p class="muted">Kitces 的"集成先于 AI"结论直接适用于国内顾问/理财师工作台：CRM、规划/KYC、组合与交易、报告的数据标准化与 household 视图打通，是智能纪要、持仓诊断、客户洞察等 AI 功能可信落地的前提。</p></div>
+    <div class="mini"><h4>4. 一体化与开放生态会长期并存</h4><p class="muted">Orion/Advyzon 路线证明单数据模型的一体化体验优势，CircleBlack/Nitrogen 路线证明强单品+开放 API 的生命力。国内平台需明确自身是"全栈托管型"还是"开放连接器"，避免在封闭锁定与集成失控之间两头不靠。</p></div>
+    <div class="mini"><h4>5. 价值主张要从"选品能力"转向"经营赋能"</h4><p class="muted">美国 TAMP 营销已普遍用"释放工时、降低 bp 级成本、提升人均客户数、支撑并购整合"等可量化经营语言。国内买方投顾平台同样应以理财师产能、留存、合规可举证性为核心指标，而非仅讲策略收益。</p></div>
+    <div class="mini"><h4>6. 场景本土化：养老金、合规与获客</h4><p class="muted">税务规划类工具在国内受税制限制，但个人养老金、目标日期/目标风险、家庭资产视图与适当性合规留痕是等价场景；此外美国 TAMP 普遍不解决获客，国内平台若能整合线索生成与内容营销（如 Nitrogen 风险问卷式获客），将形成差异化卡位。</p></div>
+  </div>
+
+  <div class="callout navy" style="margin-top:18px">
+    <b>一句话总结：</b>海外 TAMP 的本质是把投顾机构的"投资管理 + 中后台 + 技术"变成可订阅的基础设施，顾问工作台则是这套基础设施的人机界面；行业终局不是更多功能，而是<strong>干净数据驱动的一体化工作流 + 开放的策略/托管生态 + 可量化的顾问产能价值</strong>。
+  </div>
+</section>
+
+</main>
+
+<!-- ===== 资料来源 ===== -->
+<footer id="s9">
+  <div class="wrap">
+    <h4>主要资料来源（公开网络，检索于 2026 年 11 月）</h4>
+    <ol>
+      <li>Dakota Insights, Turnkey Asset Management Platforms (TAMPs): The Evolving Landscape — dakota.com</li>
+      <li>Morningstar, 2026 U.S. Model Portfolio Landscape — morningstar.com</li>
+      <li>Envestnet 官网产品发布、新闻稿及 SEC 10-K 文件 — envestnet.com / investor.envestnet.com</li>
+      <li>Orion Advisor Solutions 官网及新闻稿（AUA、Denali AI、Tailored Allocation）— orion.com</li>
+      <li>AssetMark 官网新闻稿与公司介绍（2026.6 平台资产、Portfolio Model Management）— assetmark.com</li>
+      <li>Altruist 官网与 Datos Insights 奖项资料 — altruist.com</li>
+      <li>Advyzon 官网（T3 2026、Citi UMA、Advyzon AI）— advyzon.com</li>
+      <li>GeoWealth / Vestmark / SMArtX 官网产品资料 — geowealth.com / vestmark.com</li>
+      <li>Contrary Research（Addepar 研究）、US Tech Automations、Milemarker、Investipal 等行业评测</li>
+      <li>Kitces Research 2025 相关解读（Digital Alpha）、Morningstar: Will AI Finally Solve the Advisor Tech Stack Problem</li>
+      <li>Zoe Financial, The State of the Modern TAMP 白皮书新闻稿（2026.5）</li>
+      <li>Cerulli/Fidelity 行业基准数据转引（MarketMinute、Journey Advisory Group）；Vanguard 顾问服务官网费率页</li>
+      <li>Nitrogen / Holistiplan / FP Alpha 官网及 AI FinTech Index、Pickaxe/Rework 工具评测</li>
+      <li>兴业证券《公募基金国际比较系列三：全球来看基金销售渠道将如何演变》（2026.3）</li>
+      <li>市场规模预测：TAMP Market 研究报告（2025–2034，CAGR 12.6% 口径）；深交所《美国管理账户产业的发展》</li>
+    </ol>
+    <p style="margin-top:14px;color:#6f819b">注：不同机构对"TAMP 市场规模"的统计口径（平台资产 / 项目收入 / 行政管理资产 AUA）差异较大，文中已逐项标注口径与时间；厂商规模数字以其最新公开披露为准，不构成任何投资建议。</p>
+  </div>
+</footer>
+
+</body>
+</html>
