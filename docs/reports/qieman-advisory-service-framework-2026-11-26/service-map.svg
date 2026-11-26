@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="group" aria-labelledby="map-name map-desc" font-family="'Inter','PingFang SC','Microsoft YaHei','Noto Sans CJK SC','Heiti SC',sans-serif">
+  <title id="map-name">一次咨询之后，谁把客户的事办下去？</title>
+  <desc id="map-desc">且慢与盈米持续投顾服务的建议框架。上半图中，且慢 App 和千问小顾按授权接续同一件客户事项，AI 小顾与使用工作台的真人顾问按需交付，把决定与结果写回。下半图中，盈米 AI 实验室将专业方法变成可复用服务，供小顾、顾问使用，也可经盈米 AI 开放平台向千问和机构开放。经专家核对的一线反馈用于改进方法。底部列出智能运营转化 L3 的试点口径。</desc>
+  <defs>
+    <marker id="green-tip" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 9 4.5 0 9Z" fill="#2f685b"/></marker>
+    <marker id="ochre-tip" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 9 4.5 0 9Z" fill="#9b6236"/></marker>
+    <style>
+      .wire { fill:none; stroke:#2f685b; stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round }
+      .supply-wire { fill:none; stroke:#9b6236; stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round }
+      .back { stroke-dasharray:5 7 }
+      .ink {fill:#153b36} .muted {fill:#47645c} .ochre {fill:#81512d} .light {fill:#f7fbf4}
+      .col-label {font-size:21px;font-weight:650;fill:#254d44}
+      .label {font-size:22px;font-weight:400;fill:#3b5a52}
+      .supply-label {font-size:21px;font-weight:400;fill:#634f3f}
+      .name {font-size:31px;font-weight:680;fill:#163f36}
+      .branch-label {font-size:18px;font-weight:550;fill:#3c655a}
+      .method-label {font-size:18px;font-weight:550;fill:#85532c}
+      .round-frame {stroke-width:1.6}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fafaf5"/>
+  <g>
+    <path d="M54 33H77" stroke="#27715b" stroke-width="5"/>
+    <text x="90" y="40" font-size="20" font-weight="650" class="ink">且慢 × 盈米</text>
+    <text x="230" y="40" font-size="20" class="muted">投顾服务框架</text>
+    <text x="1544" y="40" font-size="19" text-anchor="end" class="muted">2027 产品规划 · 建议架构</text>
+    <text x="52" y="112" font-size="57" font-weight="720" letter-spacing="-1.6" class="ink">一次咨询之后，谁把客户的事办下去？</text>
+    <text x="56" y="159" font-size="25" class="muted">对客户，换入口或换顾问都能接着上次做。对团队，一种验证过的专业方法可以反复使用。</text>
+    <path d="M55 187H1545" stroke="#c7d1c7" stroke-width="1.5"/>
+  </g>
+  <g class="col-label">
+    <text x="57" y="224">客户从哪里发起</text>
+    <text x="555" y="224">各方凭什么接得上</text>
+    <text x="1126" y="224">谁负责下一步</text>
+  </g>
+  <g aria-hidden="true">
+    <path class="wire" d="M450 300H469V435H450"/>
+    <circle cx="469" cy="368" r="4" fill="#2f685b"/>
+    <path class="wire" d="M469 368H548" marker-end="url(#green-tip)"/>
+    <text x="509" y="351" text-anchor="middle" class="branch-label">按授权</text>
+    <text x="509" y="396" text-anchor="middle" class="branch-label">续接</text>
+    <path class="wire" d="M1012 368H1041"/>
+    <path class="wire" d="M1041 368V300H1119" marker-end="url(#green-tip)"/>
+    <path class="wire" d="M1041 368V435H1119" marker-end="url(#green-tip)"/>
+    <circle cx="1041" cy="368" r="4" fill="#2f685b"/>
+    <text x="1081" y="287" text-anchor="middle" class="branch-label">标准任务</text>
+    <text x="1081" y="423" text-anchor="middle" class="branch-label">专业判断</text>
+    <path class="wire back" d="M1330 497V529H790V501" marker-end="url(#green-tip)"/>
+    <rect x="909" y="512" width="307" height="32" rx="16" fill="#fafaf5"/>
+    <text x="1062" y="535" text-anchor="middle" class="branch-label">客户决定与交付结果写回原事项</text>
+  </g>
+  <g data-topic="app">
+    <rect class="round-frame" x="56" y="243" width="394" height="114" rx="13" fill="#eff4ed" stroke="#b8cdbc"/>
+    <text class="name" x="81" y="284">且慢 App</text>
+    <text class="label" x="81" y="316">发起目标、保存方案、查看进展，</text>
+    <text class="label" x="81" y="344">客户在自营流程中确认办理。</text>
+  </g>
+  <g data-topic="qwen">
+    <rect class="round-frame" x="56" y="378" width="394" height="119" rx="13" fill="#eff4ed" stroke="#b8cdbc"/>
+    <text class="name" x="81" y="420">千问小顾</text>
+    <text class="label" x="81" y="452">小顾在千问里解答问题，</text>
+    <text class="label" x="81" y="480">客户愿意时回且慢继续原目标。</text>
+  </g>
+  <g data-topic="record">
+    <rect class="round-frame" x="555" y="243" width="457" height="254" rx="15" fill="#163f38" stroke="#163f38"/>
+    <text x="584" y="292" class="light" font-size="36" font-weight="680">同一件客户事项</text>
+    <path d="M584 313H984" stroke="#517568" stroke-width="1.5"/>
+    <g font-size="21" font-weight="650" fill="#b7e2c5"><text x="584" y="348">目标</text><text x="584" y="389">进度</text><text x="584" y="430">接手</text><text x="584" y="471">结果</text></g>
+    <g font-size="22" class="light"><text x="656" y="348">客户想解决什么问题</text><text x="656" y="389">上次确认了哪一版方案</text><text x="656" y="430">谁负责下一步，何时再联系</text><text x="656" y="471">客户的选择或正式业务回执</text></g>
+  </g>
+  <g data-topic="xiaogu">
+    <rect class="round-frame" x="1126" y="243" width="419" height="114" rx="13" fill="#fff" stroke="#b8cabc"/>
+    <text class="name" x="1151" y="284">AI 小顾</text>
+    <text x="1520" y="279" text-anchor="end" font-size="19" class="muted">数字服务</text>
+    <text class="label" x="1151" y="316">承接标准测算与解读。</text>
+    <text class="label" x="1151" y="344">4.0 方向 · 按事件主动跟进或停止。</text>
+  </g>
+  <g data-topic="advisor">
+    <rect class="round-frame" x="1126" y="378" width="419" height="119" rx="13" fill="#fff" stroke="#b8cabc"/>
+    <text class="name" x="1151" y="420">且慢顾问工作台</text>
+    <text x="1520" y="415" text-anchor="end" font-size="19" class="muted">真人服务</text>
+    <text class="label" x="1151" y="452">顾问主动检视，权衡家庭目标，</text>
+    <text class="label" x="1151" y="480">与客户修订方案、约定复访。</text>
+  </g>
+  <g aria-hidden="true">
+    <rect x="33" y="557" width="1534" height="249" rx="19" fill="#f2ede0"/>
+    <text x="57" y="600" font-size="23" font-weight="650" class="ochre">专业方法如何复用</text>
+    <text x="554" y="600" font-size="20" class="ochre">业务专家、顾问与运营提供规则、范例和停止条件</text>
+    <path class="supply-wire" d="M390 635V502" marker-end="url(#ochre-tip)"/>
+    <path class="supply-wire" d="M555 690H454" marker-end="url(#ochre-tip)"/>
+    <text x="502" y="678" text-anchor="middle" class="method-label">对外开放</text>
+    <path class="supply-wire" d="M1012 690H1121" marker-end="url(#ochre-tip)"/>
+    <text x="1068" y="678" text-anchor="middle" class="method-label">内部复用</text>
+    <path class="supply-wire" d="M1514 635V585H1573V300H1550" marker-end="url(#ochre-tip)"/>
+    <path class="supply-wire" d="M1573 435H1550" marker-end="url(#ochre-tip)"/>
+    <path class="supply-wire back" d="M1358 753V778H790V755" marker-end="url(#ochre-tip)"/>
+    <rect x="856" y="762" width="428" height="30" rx="15" fill="#f2ede0"/>
+    <text x="1070" y="785" text-anchor="middle" class="method-label">一线修订与失败案例，经专家复核后更新方法</text>
+  </g>
+  <g data-topic="oap">
+    <rect class="round-frame" x="56" y="631" width="394" height="119" rx="13" fill="#fcf9f0" stroke="#d3c4aa"/>
+    <text x="81" y="674" font-size="30" font-weight="670" class="ochre">盈米 AI 开放平台</text>
+    <text class="supply-label" x="81" y="707">按伙伴授权提供工具和服务，</text>
+    <text class="supply-label" x="81" y="735">供千问等渠道及合作机构调用。</text>
+  </g>
+  <g data-topic="lab">
+    <rect class="round-frame" x="555" y="631" width="457" height="119" rx="13" fill="#fffcf5" stroke="#b68a57"/>
+    <text x="580" y="674" font-size="31" font-weight="680" class="ochre">盈米 AI 实验室</text>
+    <text class="supply-label" x="580" y="707">把一线方法组装成可运行的服务，</text>
+    <text class="supply-label" x="580" y="735">用真实问题评测，通过后发布版本。</text>
+  </g>
+  <g data-topic="reuse">
+    <rect class="round-frame" x="1126" y="631" width="419" height="119" rx="13" fill="#fcf9f0" stroke="#d3c4aa"/>
+    <text x="1151" y="674" font-size="30" font-weight="670" class="ochre">同一版专业服务</text>
+    <text class="supply-label" x="1151" y="707">例如教育金测算、账户月报解读。</text>
+    <text class="supply-label" x="1151" y="735">小顾能用，顾问也能核对和复算。</text>
+  </g>
+  <g data-topic="l3">
+    <rect x="55" y="829" width="1491" height="50" rx="10" fill="#e4ede3"/>
+    <text x="79" y="862" font-size="23" font-weight="680" class="ink">智能运营转化 L3</text>
+    <path d="M289 843V865" stroke="#9eb7a7" stroke-width="1.5"/>
+    <text x="311" y="861" font-size="21" class="ink">用具体场景验收。教育金看完整策略买入，账户月报看解读正确、客户关闭后停止提醒。</text>
+  </g>
+</svg>
