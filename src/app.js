@@ -226,6 +226,27 @@ const initialState = {
   ],
   reports: [
     {
+      "id": "qieman-advisor-workbench-roadmap-2026-11-27",
+      "groupId": "advisor-workbench",
+      "title": "且慢投顾工作台 · 产品路线图",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-advisor-workbench-roadmap-2026-11-27/",
+      "preview": "qieman-advisor-workbench-roadmap-2026-11-27.svg",
+      "pinned": false,
+      "position": -9,
+      "createdAt": "2026-11-26T22:04:00.000Z",
+      "source": "按顾问日常作业、客户服务与经营、AI 与专业工具、平台与配置梳理三期模块，附一期交付时间轴和任务明细。",
+      "access": "production",
+      "workType": "product-planning",
+      "tags": [
+        "且慢",
+        "投顾工作台",
+        "产品路线图",
+        "项目排期",
+        "AI 助手",
+        "产品规划"
+      ]
+    },
+    {
       "id": "qieman-2027-ten-figures-2026-11-27",
       "groupId": "product-planning",
       "title": "且慢 2027 产品规划 · 十张图",
@@ -5728,6 +5749,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-advisor-workbench-roadmap-2026-11-27": "product-planning",
   "qieman-2027-ten-figures-2026-11-27": "product-planning",
   "qieman-advisory-service-framework-2026-11-26": "product-planning",
   "xiaogu-l3-service-diagrams-2026-11-26": "reporting",
@@ -5925,6 +5947,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-advisor-workbench-roadmap-2026-11-27": "advisor-workbench",
   "qieman-2027-ten-figures-2026-11-27": "product-planning",
   "qieman-advisory-service-framework-2026-11-26": "product-planning",
   "xiaogu-l3-service-diagrams-2026-11-26": "xiaogu",

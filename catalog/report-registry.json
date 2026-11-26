@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "qieman-advisor-workbench-roadmap-2026-11-27",
     "qieman-2027-ten-figures-2026-11-27",
     "qieman-advisory-service-framework-2026-11-26",
     "xiaogu-l3-service-diagrams-2026-11-26",
@@ -469,6 +470,13 @@
     ]
   },
   "reportRevisions": {
+    "qieman-advisor-workbench-roadmap-2026-11-27": {
+      "updatedAt": "2026-11-27",
+      "revision": "advisor-roadmap-20261127",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-advisor-workbench-roadmap-2026-11-27/",
+      "access": "production",
+      "preservesReportId": true
+    },
     "qieman-2027-ten-figures-2026-11-27": {
       "updatedAt": "2026-11-27",
       "revision": "2027-ten-figures",
