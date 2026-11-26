@@ -1,8 +1,10 @@
 {
-  "entries": [],
-  "source": "recent-reports-2026-11-24",
-  "reports": 0,
+  "entries": [
+    "reports/qieman-2027-product-plan-2026-11-26/index.html"
+  ],
+  "source": "Clair Studio standalone encrypted reports",
+  "reports": 1,
   "attachments": 0,
-  "updated": "2026-11-25",
-  "access": "public-no-password"
+  "updated": "2026-11-26",
+  "access": "owner-encrypted"
 }

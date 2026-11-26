@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "qieman-2027-product-plan-2026-11-26",
     "qas-advisor-workbench-90s-film-script-2026-11-25",
     "vip-advisor-two-scenarios-2026-11-25",
     "global-tamp-business-model-landscape-2026-11-25",
@@ -484,6 +485,13 @@
       "revision": "two-workflow-scenario-design",
       "url": "https://clairku.github.io/clair-ai-studio/reports/vip-advisor-two-scenarios-2026-11-25/",
       "access": "production",
+      "preservesReportId": true
+    },
+    "qieman-2027-product-plan-2026-11-26": {
+      "updatedAt": "2026-11-26",
+      "revision": "2027-management-planning",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-2027-product-plan-2026-11-26/",
+      "access": "owner-encrypted",
       "preservesReportId": true
     }
   },

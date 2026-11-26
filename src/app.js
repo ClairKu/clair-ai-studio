@@ -226,6 +226,27 @@ const initialState = {
   ],
   reports: [
     {
+      "id": "qieman-2027-product-plan-2026-11-26",
+      "groupId": "product-planning",
+      "title": "2027 且慢产品规划｜高客与顾问服务 · AI 生态",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-2027-product-plan-2026-11-26/",
+      "preview": "qieman-2027-product-plan-2026-11-26.svg",
+      "pinned": false,
+      "position": -6,
+      "createdAt": "2026-11-26T15:21:00Z",
+      "modifiedAt": "2026-11-26T15:21:00Z",
+      "source": "年度产品规划。正文在浏览器中使用专属阅读链接打开，支持按产品线与季度查阅。",
+      "access": "production",
+      "workType": "product-planning",
+      "tags": [
+        "产品规划",
+        "且慢",
+        "经营汇报",
+        "加密报告",
+        "HTML"
+      ]
+    },
+    {
       id: "qas-advisor-workbench-90s-film-script-2026-11-25",
       groupId: "advisor-workbench",
       title: "且慢顾问工作台 QAS｜90秒产品短片《把时间还给客户》分镜脚本（五幕13镜 · 旁白稿 · 录屏清单 · 视觉合规规范）",
@@ -5639,6 +5660,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-2027-product-plan-2026-11-26": "product-planning",
   "vip-advisor-two-scenarios-2026-11-25": "product-planning",
   "global-tamp-business-model-landscape-2026-11-25": "competitive-research",
   "presentation-archive-2026-11-25": "reporting",
@@ -5832,6 +5854,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-2027-product-plan-2026-11-26": "product-planning",
   "qas-advisor-workbench-90s-film-script-2026-11-25": "advisor-workbench",
   "vip-advisor-two-scenarios-2026-11-25": "advisor-workbench",
   "global-tamp-business-model-landscape-2026-11-25": "advisor-workbench",
