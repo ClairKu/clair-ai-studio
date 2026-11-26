@@ -226,6 +226,28 @@ const initialState = {
   ],
   reports: [
     {
+      "id": "qieman-2027-ten-figures-2026-11-27",
+      "groupId": "product-planning",
+      "title": "且慢 2027 产品规划 · 十张图",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-2027-ten-figures-2026-11-27/",
+      "preview": "qieman-2027-ten-figures-2026-11-27.svg",
+      "pinned": false,
+      "position": -8,
+      "createdAt": "2026-11-26T17:29:00.000Z",
+      "source": "用一个家庭的学费计划，画出新客承接、老客服务、顾问工作台、生产方式转型和开放生态，以及每季的投入取舍。",
+      "access": "production",
+      "workType": "product-planning",
+      "tags": [
+        "且慢",
+        "产品规划",
+        "AI 小顾",
+        "顾问工作台",
+        "AI 开放平台",
+        "投顾服务",
+        "HTML"
+      ]
+    },
+    {
       "id": "qieman-advisory-service-framework-2026-11-26",
       "groupId": "product-planning",
       "title": "且慢如何规模化交付持续投顾服务｜2027 产品战略框架",
@@ -5706,6 +5728,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-2027-ten-figures-2026-11-27": "product-planning",
   "qieman-advisory-service-framework-2026-11-26": "product-planning",
   "xiaogu-l3-service-diagrams-2026-11-26": "reporting",
   "qieman-2027-product-plan-2026-11-26": "product-planning",
@@ -5902,6 +5925,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-2027-ten-figures-2026-11-27": "product-planning",
   "qieman-advisory-service-framework-2026-11-26": "product-planning",
   "xiaogu-l3-service-diagrams-2026-11-26": "xiaogu",
   "qieman-2027-product-plan-2026-11-26": "product-planning",
