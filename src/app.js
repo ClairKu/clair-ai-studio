@@ -226,6 +226,29 @@ const initialState = {
   ],
   reports: [
     {
+      "id": "xiaogu-l3-service-diagrams-2026-11-26",
+      "groupId": "xiaogu",
+      "title": "AI 小顾 L3 主动服务｜业务闭环、教育金规划与账户月报",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/xiaogu-l3-service-diagrams-2026-11-26/",
+      "preview": "xiaogu-l3-service-diagrams-2026-11-26.svg",
+      "pinned": false,
+      "position": -6,
+      "createdAt": "2026-11-26T15:32:00.000Z",
+      "source": "按 11.11 产品方案、项目申报表与交互原型重绘。含主动介入与停止规则、千问教育金规划的跨端续接、月报解读后的首页变化，以及 3 张高清 PNG 导出。",
+      "access": "production",
+      "workType": "reporting",
+      "tags": [
+        "AI 小顾",
+        "L3",
+        "主动服务",
+        "千问",
+        "教育金",
+        "账户月报",
+        "汇报材料",
+        "HTML"
+      ]
+    },
+    {
       "id": "qieman-2027-product-plan-2026-11-26",
       "groupId": "product-planning",
       "title": "2027 且慢产品规划｜高客与顾问服务 · AI 生态",
@@ -5660,6 +5683,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "xiaogu-l3-service-diagrams-2026-11-26": "reporting",
   "qieman-2027-product-plan-2026-11-26": "product-planning",
   "vip-advisor-two-scenarios-2026-11-25": "product-planning",
   "global-tamp-business-model-landscape-2026-11-25": "competitive-research",
@@ -5854,6 +5878,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "xiaogu-l3-service-diagrams-2026-11-26": "xiaogu",
   "qieman-2027-product-plan-2026-11-26": "product-planning",
   "qas-advisor-workbench-90s-film-script-2026-11-25": "advisor-workbench",
   "vip-advisor-two-scenarios-2026-11-25": "advisor-workbench",
