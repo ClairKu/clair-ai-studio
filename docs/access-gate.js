@@ -1,3 +1,33 @@
+// Mount the original-file reader only on the presentation archive, after its existing access check succeeds.
+(() => {
+  const route = 'reports/presentation-archive-2026-11-25/';
+  if (document.currentScript?.dataset.clairAccessEntry !== route) return;
+  window.addEventListener('clair-site-access-granted', () => {
+    const mount = () => {
+      const shell = document.querySelector('body > .shell');
+      if (!shell || document.getElementById('clair-archive-reader')) return;
+      const reader = document.createElement('iframe');
+      const url = new URL('originals-reader.html', location.href);
+      url.search = location.search;
+      reader.id = 'clair-archive-reader';
+      reader.title = '汇报目录与原始文件';
+      reader.src = url.href;
+      reader.style.cssText = 'display:block;width:100%;height:100vh;height:100dvh;border:0;background:#f7f6f2';
+      shell.before(reader);
+      reader.addEventListener('load', () => {
+        try {
+          if (!reader.contentWindow.archiveDirectory) { reader.remove(); return; }
+          shell.hidden = true;
+          shell.style.display = 'none';
+          document.body.style.margin = '0';
+        } catch { reader.remove(); }
+      }, {once:true});
+    };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount, {once:true});
+    else mount();
+  }, {once:true});
+})();
+
 (() => {
   "use strict";
 

@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="referrer" content="no-referrer"><title>近年汇报与原始档案 · Clair</title>
+<style>
+:root{font-family:Inter,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;font-size:15px;color:#25282a;background:#f7f6f2;--muted:#636761;--edge:#d8dad0;--green:#204c41}*{box-sizing:border-box}body{margin:0}a{color:var(--green);text-underline-offset:3px}button,input,select{font:inherit}button,a{touch-action:manipulation}button{cursor:pointer}.wrap{width:min(1160px,93vw);margin:auto;padding:30px 0 72px}.home{font-size:14px;color:#4d5d54;text-decoration:none}.hero{padding:28px 0 23px;border-bottom:2px solid #303b32}.hero h1{font-size:clamp(30px,4.6vw,59px);letter-spacing:-.055em;line-height:1.15;margin:0 0 12px}.hero p{margin:0;color:#526257;font-size:14px}.connect{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;background:#e9eee7;margin:22px 0 28px;border:1px solid #cbd6c9;padding:15px 20px;border-radius:6px}.connect h2{font-size:16px;margin:0 0 5px}.connect p,.connect small{margin:3px 0;font-size:13px;line-height:1.65;color:#4d5950}.btn,.action,summary{cursor:pointer}.btn,.action{display:inline-block;border:1px solid #aab1a6;border-radius:5px;background:#fffefb;color:var(--green);padding:8px 12px;text-decoration:none;font:600 13px/1.4 inherit}.dark{background:var(--green);color:white;border-color:var(--green)}#views,.filter,.bar,.actions,.file-tools,.file-dialog-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px}#views{gap:4px;border-bottom:1px solid var(--edge);margin-bottom:16px}#views button{background:transparent;color:#495249;border:0;border-bottom:3px solid transparent;border-radius:0;padding:11px 13px;font-size:14px}#views button[aria-pressed=true]{border-color:var(--green);font-weight:700;color:var(--green)}#views b{font-family:ui-monospace,monospace;margin-left:4px;font-size:12px}.filter input,.filter select{min-height:38px;border:1px solid var(--edge);border-radius:4px;padding:6px 10px;background:white;color:#323932;max-width:100%}.filter input{flex:1 1 210px}.filter select{font-size:13px}.bar{justify-content:space-between;margin:17px 0 5px;color:var(--muted);font-size:13px}article{border-top:1px solid var(--edge);padding:18px 0;display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:18px}.when{font:13px/1.7 ui-monospace,monospace;color:var(--muted)}h3{font-size:clamp(16px,2vw,20px);line-height:1.4;margin:0 0 7px;overflow-wrap:anywhere}h3 a{color:#222d25;text-decoration:none}h3 a:hover{text-decoration:underline}.tags{display:flex;flex-wrap:wrap;gap:5px}.tags span{color:#4d5b4c;border:1px solid var(--edge);border-radius:3px;padding:2px 5px;font-size:11px}.content p{margin:8px 0;color:#586057;line-height:1.65;font-size:13px}.row-actions{display:flex;flex-direction:column;align-items:flex-end;gap:6px}.action{font-size:12px;white-space:normal}.filename {overflow-wrap:anywhere;font-size:13px;margin:5px 0}.actions{margin-top:12px}summary{color:#506354;font-size:12px}.empty{padding:26px;background:#eeefe7}#more{margin:20px auto}#fileDialog{width:min(1000px,94vw);max-height:88vh;overflow:auto;border:1px solid var(--edge);border-radius:8px;padding:22px;color:#242d25;background:#fdfcf9}#fileDialog::backdrop{background:#1c2c2280}.file-dialog-head{justify-content:space-between}.file-dialog-head h2{font-size:20px;margin:0;max-width:85%;overflow-wrap:anywhere}#fileState{margin:13px 0;font-size:14px}#filePreview{margin-top:16px}#filePreview iframe{width:100%;height:62vh;border:1px solid var(--edge);background:white}#filePreview img{max-width:100%}#filePreview section{padding:10px 16px;margin:10px 0;background:white;border:1px solid var(--edge);border-radius:5px}#filePreview section h4{margin:4px 0 8px;color:var(--green)}#filePreview section p{margin:4px 0}#filePreview pre{white-space:pre-wrap;overflow-wrap:anywhere}[hidden]{display:none!important}:focus-visible{outline:3px solid #4c8273;outline-offset:2px}@media(max-width:690px){.wrap{padding-top:15px}.hero{padding:20px 0}.connect{margin:14px 0}.row-actions{align-items:flex-start;flex-direction:row;flex-wrap:wrap}article{grid-template-columns:minmax(0,1fr);gap:7px}#views button{padding:8px;font-size:12px}.filter{gap:5px}.filter select{padding:5px}.action{padding:6px 9px}.content p{margin:5px 0}}
+</style></head><body><main class="wrap"><a class="home" href="../../" target="_top">← Clair 工作台</a><header class="hero"><h1>近年汇报与原始档案</h1><p id="summary" aria-live="polite"></p></header>
+<section class="connect"><div><h2>本机原件资料夹</h2><p>网页原文可直接打开。查看私人附件时，选择解压后的 <b>clair-archive</b> 资料夹。文件只在当前设备读取。</p><small id="connectionState" role="status"></small></div><button id="connectFolder" class="btn dark">连接本机原件资料夹</button></section>
+<nav id="views" aria-label="资料范围"></nav><section class="filter" aria-label="筛选资料"><input id="search" type="search" aria-label="搜索报告或文件名" placeholder="搜索报告或原始文件名"><select id="year" aria-label="年份" data-label="全部年份"></select><select id="scene" aria-label="场景" data-label="全部场景"></select><select id="topic" aria-label="主题" data-label="全部主题"></select><select id="format" aria-label="格式" data-label="全部格式"></select><select id="order" aria-label="排序"><option value="new">最近在前</option><option value="old">最早在前</option></select><button id="clear" class="btn">清除筛选</button></section><div class="bar"><span id="count" role="status"></span><button id="export" class="btn">导出清单 CSV</button></div><div id="list"></div><button class="btn" id="more" hidden>显示更多</button></main>
+<dialog id="fileDialog" aria-labelledby="fileName"><div class="file-dialog-head"><h2 id="fileName">打开原件</h2><button type="button" class="btn" id="closeFile" aria-label="关闭原件窗口">关闭</button></div><p id="fileState" role="status"></p><div class="file-tools"><a class="btn dark" id="fileDownload" hidden>下载文件</a><button type="button" class="btn" id="pickDirectory">选择原件资料夹</button><button type="button" class="btn" id="chooseOne" hidden>选择单个文件</button><button type="button" class="btn" id="compatFolder" hidden>使用系统文件选择器</button></div><input id="folderInput" type="file" webkitdirectory multiple hidden><input id="singleInput" type="file" hidden><div id="filePreview"></div></dialog>
+<script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const enc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const onlineKinds = new Set(['report','source-doc','external-file']);
+  const privateKinds = new Set(['file','text','variant']);
+  const views = new Set(['reports','all','originals','pending']);
+  let rows=[], files={}, local=false, request=null, view='reports', limit=40;
+  let params=new URLSearchParams(location.search);
+  function safeAddress(raw) {
+    try {
+      const u=new URL(raw);
+      if(u.protocol!=='https:' || u.username || u.password) return '';
+      const bad=['chatgpt.com','chatgpt.site','oaiusercontent.com'];
+      if(bad.some(d=>u.hostname===d||u.hostname.endsWith('.'+d)))return '';
+      return u.href;
+    } catch { return ''; }
+  }
+  function historic(r) {
+    const links=[];
+    for(const item of r.links||[]) {
+      const url=safeAddress(item.url);if(!url)continue;
+      const host=new URL(url).hostname;
+      if(item.type==='clue')links.push({type:'clue',url,label:'查看历史线索'});
+      else if(host==='outlook.live.com'||host.endsWith('.office.com'))links.push({type:'source',url,label:'打开原邮件'});
+      else if(item.type==='report')links.push({type:'report',url,label:'打开网页原文'});
+      else links.push({type:'source-doc',url,label:host.endsWith('feishu.cn')?'打开飞书原文':host.endsWith('figma.com')?'打开设计原稿':'打开源文档'});
+    }
+    const hasWeb=links.some(l=>onlineKinds.has(l.type));
+    const needLocal=(r.links||[]).some(l=>!safeAddress(l.url)) || !hasWeb;
+    return {...r,links,original:Boolean(r.isOriginal),needLocal,needsOriginal:needLocal,accessLabel:hasWeb?'网页原文':links.some(l=>l.type==='source')?'原邮件 · 本机版本待核':'连接资料夹核对原件'};
+  }
+  try {
+    if(window.frameElement?.id==='clair-archive-reader' && parent.location.origin===location.origin){
+      const node=parent.document.getElementById('archive-data');
+      if(node){rows=JSON.parse(node.textContent).records.map(historic);params=new URLSearchParams(parent.location.search);}
+    }
+  } catch {}
+  if(views.has(params.get('view')))view=params.get('view');
+  function badgeCount(v){return rows.filter(r=>matchView(v,r)).length;}
+  function matchView(v,r){
+    return v==='all'||(v==='reports'&&r.isReport)||(v==='pending'&&r.needsOriginal)||(v==='originals'&&(local?r.isOriginal:r.original));
+  }
+  function readable(l) {return Boolean(l.asset)||onlineKinds.has(l.type);}
+  function attr(l){
+    if(l.asset && files[l.asset])return 'href="./?asset='+encodeURIComponent(l.asset)+'" data-asset="'+enc(l.asset)+'"';
+    const safe=safeAddress(l.url);
+    return safe?'href="'+enc(safe)+'" target="_blank" rel="noopener noreferrer"':'';
+  }
+  function action(l){return '<a class="action" '+attr(l)+'>'+enc(l.label)+' <span aria-hidden="true">↗</span></a>';}
+  function choices(id,values){
+    const el=$(id),current=el.value;el.replaceChildren(new Option(el.dataset.label,''));
+    [...new Set(values.filter(Boolean))].sort((a,b)=>a.localeCompare(b,'zh-CN')).forEach(v=>el.add(new Option(v,v)));
+    el.value=current;
+  }
+  function types(r){return [...new Set([r.format,...(r.filenames||[]).map(f=>f.split('.').pop()?.toUpperCase())].filter(Boolean))];}
+  function facets(){
+    choices('year',rows.map(r=>r.year));choices('scene',rows.map(r=>r.scene));choices('topic',rows.map(r=>r.topic));choices('format',rows.flatMap(types));
+  }
+  function selected(){
+    const q=$('search').value.trim().normalize('NFKC').toLowerCase(),filters=['year','scene','topic'];
+    let out=rows.filter(r=>matchView(view,r) && filters.every(k=>!$(k).value||$(k).value===r[k])&&(!$('format').value||types(r).includes($('format').value))&&(!q||[r.title,r.summary,r.accessLabel,...(r.filenames||[])].join(' ').normalize('NFKC').toLowerCase().includes(q)));
+    out.sort((a,b)=>String(b.date||'').localeCompare(String(a.date||''))||String(a.title).localeCompare(String(b.title),'zh-CN'));if($('order').value==='old')out.reverse();return out;
+  }
+  function row(r){
+    const links=r.links||[],primary=links.find(readable),others=links.filter(l=>l!==primary);
+    const open=primary?'<a '+attr(primary)+'>'+enc(r.title)+'</a>':enc(r.title);
+    const connect=!local&&r.needLocal?'<button class="action" data-request="'+enc(r.id)+'">连接本机原件</button>':'';
+    const source=others.find(l=>l.type==='source');
+    const second=others.find(l=>l.asset);
+    const note=local?(r.verification||r.accessLabel):r.accessLabel;
+    return '<article><div class="when">'+enc(r.date)+'</div><div class="content"><h3>'+open+'</h3><div class="tags">'+[r.scene,r.topic,r.accessLabel].filter(Boolean).map(s=>'<span>'+enc(s)+'</span>').join('')+'</div><p>'+enc(r.summary)+'</p><details><summary>详情与全部文件</summary><p>'+enc(note)+'</p>'+(r.filenames||[]).map(n=>'<div class="filename">'+enc(n)+'</div>').join('')+'<div class="actions">'+links.map(action).join('')+connect+'</div></details></div><div class="row-actions">'+(primary?action(primary):source?action(source):'')+(second?action(second):'')+connect+'</div></article>';
+  }
+  function render(){
+    $('views').innerHTML=[['reports','汇报材料'],['all','全部资料'],['originals',local?'原始文件':'原始文件索引'],['pending',local?'待补原件':'需连接资料夹核对']].map(([v,n])=>'<button data-view="'+v+'" aria-pressed="'+(v===view)+'">'+n+' <b>'+badgeCount(v)+'</b></button>').join('');
+    const res=selected();$('count').textContent=res.length+' 项 · 已显示 '+Math.min(limit,res.length)+' 项';$('list').innerHTML=res.slice(0,limit).map(row).join('')||'<p class="empty">'+(rows.length?'没有符合筛选条件的材料。':'从工作台归档进入，或选择本机原件资料夹。')+'</p>';
+    $('more').hidden=limit>=res.length;
+    $('summary').textContent=rows.length?[rows.length+' 条记录',badgeCount('reports')+' 项汇报',rows.filter(r=>r.links.some(l=>onlineKinds.has(l.type))).length+' 条可在线阅读',...(local?[badgeCount('pending')+' 条待补原件']:[])].join('  ·  '):'';
+  }
+  async function readIndex(file){
+    if(!file||file.size>12*1024*1024)throw Error('请选择含 index.html 和 files 的 clair-archive 资料夹。');
+    const raw=await file.text();
+    function readData(id) {
+      const start='<script id="'+id+'" type="application/json">',a=raw.indexOf(start),b=raw.indexOf('</'+'script>',a+start.length);
+      return a<0||b<0?null:JSON.parse(raw.slice(a+start.length,b));
+    }
+    const records=readData('archive-data')?.records,assets=readData('device-files');
+    if(!Array.isArray(records)||!assets||typeof assets!=='object'||!Object.keys(assets).length||!raw.slice(0,350).includes('data-archive-mode="offline"'))throw Error('这个目录没有配套的原件清单。');
+    for(const [id,a] of Object.entries(assets)){
+      if(!/^[a-z0-9]+$/i.test(id)||typeof a.path!=='string'||! /^(files|text)\//.test(a.path)||a.path.split('/').some(c=>!c||c==='.'||c==='..'||c.includes('\\'))||typeof a.name!=='string'||!Number.isSafeInteger(a.size)||a.size<0||! /^[a-f0-9]{64}$/.test(a.sha256))throw Error('目录格式不完整，请选择完整解压的资料夹。');
+    }
+    const cleaned=records.map(r=>{
+      const ls=(r.links||[]).filter(l=>l.asset?Object.hasOwn(assets,l.asset):safeAddress(l.url));
+      const web=ls.filter(l=>onlineKinds.has(l.type)),native=ls.filter(l=>l.type==='file'),other=ls.filter(l=>!onlineKinds.has(l.type)&&l.type!=='file');
+      return {...r,links:[...web,...native,...other]};
+    });
+    files=assets;rows=cleaned;local=true;facets();render();return assets;
+  }
+  window.archiveDirectory={readIndex,requestedFile(){
+    if(!request){const deep=params.get('asset');return deep&&files[deep]?deep:null;}
+    const r=rows.find(r=>r.id===request);request=null;return r?.links?.find(l=>privateKinds.has(l.type)&&l.asset)?.asset||null;
+  }};
+  document.addEventListener('click',e=>{
+    const n=e.target.closest('[data-view],[data-request]');
+    if(n?.dataset.view){view=n.dataset.view;limit=40;render();}
+    if(n?.dataset.request){request=n.dataset.request;window.openArchiveFolder?.();}
+  });
+  for(const id of ['year','scene','topic','format','order','search'])$(id).addEventListener(id==='search'?'input':'change',()=>{limit=40;render()});
+  $('more').onclick=()=>{limit+=50;render()};
+  $('clear').onclick=()=>{for(const id of ['year','scene','topic','format','search'])$(id).value='';$('order').value='new';limit=40;render()};
+  $('export').onclick=()=>{
+    const quote=v=>'"'+String(v??'').replace(/^[=+@-]/,"'$&").replaceAll('"','""')+'"';
+    const lines=[['标题','日期','类型','入口或原件','地址或资料夹内路径']];
+    for(const r of selected()){const links=r.links.length?r.links:[{}];for(const l of links)lines.push([r.title,r.date,r.accessLabel,l.label||'',l.asset?files[l.asset]?.path:safeAddress(l.url)]);}
+    const url=URL.createObjectURL(new Blob(['\uFEFF'+lines.map(line=>line.map(quote).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'}));
+    const a=document.createElement('a');a.href=url;a.download='归档筛选结果.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),6000);
+  };
+  facets();render();
+})();
+
+</script><script>
+(() => {
+  'use strict';
+  let assets = {};
+  const byId = id => document.getElementById(id);
+  const dialog = byId('fileDialog'), readout = byId('fileState'), stage = byId('filePreview');
+  const cache = new Map(), verified = new WeakSet();
+  let directory = null, chosen = null, revision = 0, objectURL = '';
+  function resetPreview() {
+    revision++;
+    stage.replaceChildren();
+    const download = byId('fileDownload');
+    download.hidden = true;
+    download.removeAttribute('href');
+    if (objectURL) URL.revokeObjectURL(objectURL);
+    objectURL = '';
+  }
+  function size(bytes) {
+    return bytes >= 1048576 ? (bytes / 1048576).toFixed(1) + ' MiB' : Math.max(1, Math.round(bytes / 1024)) + ' KiB';
+  }
+  async function fileInFolder(root,path) {
+    const parts=path.split('/');let handle=root;
+    for (const part of parts.slice(0,-1)) handle=await handle.getDirectoryHandle(part);
+    return (await (await handle.getFileHandle(parts.at(-1))).getFile());
+  }
+  function cleanName(name){return name.normalize('NFC');}
+  async function check(file,asset) {
+    if(file.size!==asset.size || cleanName(file.name)!==cleanName(asset.name))throw Error('文件名或大小与这个版本不符，请重新选择。');
+    if(asset.sha256 && !verified.has(file)){
+      const raw=await crypto.subtle.digest('SHA-256',await file.arrayBuffer());
+      const hex=Array.from(new Uint8Array(raw),b=>b.toString(16).padStart(2,'0')).join('');
+      if(hex!==asset.sha256)throw Error('文件内容与归档版本不符，请重新选择。');
+      verified.add(file);
+    }
+  }
+  async function lookup(id) {
+    if(cache.has(id))return cache.get(id);
+    if(directory)try{if(await directory.queryPermission({mode:'read'})==='granted')return await fileInFolder(directory,assets[id].path);}catch{}
+    return null;
+  }
+  async function xmlPart(file) {
+    const end=new Uint8Array(await file.slice(-65557).arrayBuffer());
+    const dv=new DataView(end.buffer);let pos=end.length-22;
+    while(pos>=0 && dv.getUint32(pos,true)!==0x06054b50)pos--;
+    if(pos<0)throw Error('无法读取演示结构。');
+    const start=dv.getUint32(pos+16,true),bytes=dv.getUint32(pos+12,true);
+    const central=new Uint8Array(await file.slice(start,start+bytes).arrayBuffer());
+    const cd=new DataView(central.buffer),decoder=new TextDecoder(), entries=new Map();
+    for(let at=0;at+46<=central.length && cd.getUint32(at,true)===0x02014b50;){
+      const n=cd.getUint16(at+28,true),x=cd.getUint16(at+30,true),c=cd.getUint16(at+32,true);
+      entries.set(decoder.decode(central.subarray(at+46,at+46+n)),{off:cd.getUint32(at+42,true),size:cd.getUint32(at+20,true),method:cd.getUint16(at+10,true)});
+      at+=46+n+x+c;
+    }
+    return async name=>{
+      const e=entries.get(name);if(!e)throw Error('缺少演示内容。');
+      const lh=new DataView(await file.slice(e.off,e.off+30).arrayBuffer());
+      if(lh.getUint32(0,true)!==0x04034b50)throw Error('文件结构异常。');
+      const o=e.off+30+lh.getUint16(26,true)+lh.getUint16(28,true);
+      const part=file.slice(o,o+e.size);
+      const text=e.method===0?await part.text():await new Response(part.stream().pipeThrough(new DecompressionStream('deflate-raw'))).text();
+      return new DOMParser().parseFromString(text,'application/xml');
+    };
+  }
+  const el=(tag,t)=>{const n=document.createElement(tag);n.textContent=t;return n;};
+  async function slideOutline(file,token){
+    const read=await xmlPart(file),pres=await read('ppt/presentation.xml'),rels=await read('ppt/_rels/presentation.xml.rels');
+    const relMap=new Map(Array.from(rels.getElementsByTagNameNS('*','Relationship'),n=>[n.getAttribute('Id'),n.getAttribute('Target')]));
+    const sequence=Array.from(pres.getElementsByTagNameNS('*','sldId'),n=>relMap.get(n.getAttributeNS('http://schemas.openxmlformats.org/officeDocument/2006/relationships','id')));
+    const out=document.createDocumentFragment();
+    for(const [i,target] of sequence.entries()){
+      if(token!==revision)return;if(!target)continue;
+      const path=new URL(target,'https://archive.invalid/ppt/presentation.xml').pathname.slice(1);
+      const xml=await read(path),section=document.createElement('section');
+      section.append(el('h4','第 '+(i+1)+' 页'));
+      const paras=Array.from(xml.getElementsByTagNameNS('*','p'),p=>Array.from(p.getElementsByTagNameNS('*','t'),t=>t.textContent).join('')).filter(Boolean);
+      for(const p of paras)section.append(el('p',p));
+      if(!paras.length)section.append(el('p','本页为图像或媒体，可在 PowerPoint 中按原版式播放。'));
+      out.append(section);
+    }
+    if(token===revision){stage.replaceChildren(el('h3','逐页文字 · '+sequence.length+' 页'),out);}
+  }
+  async function showFile(id,file,token){
+    const a=assets[id];await check(file,a);if(token!==revision)return;
+    const mime={PDF:'application/pdf',HTML:'text/html',MD:'text/plain',SVG:'image/svg+xml'};
+    const blob=new Blob([file],{type:mime[a.ext]||'application/octet-stream'});
+    objectURL=URL.createObjectURL(blob);
+    const download=byId('fileDownload');download.href=objectURL;download.download=a.name;download.hidden=false;
+    download.textContent=a.kind==='text'?'保存文字预览':'下载 '+a.ext+' 文件';
+    readout.textContent=(a.kind==='variant'?'本机同名版本':a.kind==='text'?'原稿文字预览':'已匹配原件')+' · '+size(a.size);
+    if(a.ext==='PPTX'){
+      try{await slideOutline(file,token);}catch{if(token===revision)stage.textContent='可下载 PPTX，用 PowerPoint 或 WPS 查看完整排版。';}
+    }else if(a.site){stage.textContent='完整站点含配套文件。请打开本机资料夹中的 index.html，或打开目录列出的在线研读版。';}
+    else if(a.ext==='HTML'){
+      const t=await file.text();if(token!==revision)return;
+      const iframe=document.createElement('iframe');iframe.title=a.name;iframe.setAttribute('sandbox','allow-scripts');iframe.referrerPolicy='no-referrer';
+      const csp='<meta http-equiv="Content-Security-Policy" content="default-src \'none\'; img-src data: blob:; style-src \'unsafe-inline\' data:; script-src \'unsafe-inline\' blob:; font-src data:; media-src data: blob:; frame-src data: blob:; connect-src \'none\'; form-action \'none\'; base-uri \'none\'">';
+      iframe.srcdoc=/\x3chead\b[^>]*>/i.test(t)?t.replace(/\x3chead\b[^>]*>/i,m=>m+csp):csp+t;
+      stage.append(iframe);
+    }else if(a.ext==='PDF'){
+      const frame=document.createElement('iframe');frame.title=a.name;frame.src=objectURL;stage.append(frame);
+    }else if(a.ext==='SVG'){
+      const img=document.createElement('img');img.alt=a.name;img.src=objectURL;stage.append(img);
+    }else if(a.ext==='MD'){
+      const t=await file.text();if(token===revision)stage.append(el('pre',t));
+    }else{stage.textContent='文件已就绪，下载后可在相应应用中打开。';}
+  }
+  async function open(id){
+    resetPreview();chosen=id||null;const token=revision;
+    if(!dialog.open)dialog.showModal();
+    byId('fileName').textContent=id?assets[id].name:'连接本机原件资料夹';
+    byId('chooseOne').hidden=!id;
+    readout.textContent=id?'正在查找本机文件…':'选择包含 files 和 text 的 clair-archive 资料夹。文件仅在这台设备读取。';
+    if(!id)return;
+    try{const f=await lookup(id);if(token!==revision)return;if(f){await showFile(id,f,token);return;}
+      readout.textContent='选择本机的 clair-archive 资料夹，或选择下方这份文件。';}
+    catch(e){if(token===revision)readout.textContent=e.message;}
+  }
+  function connected(name){byId('connectionState').textContent='当前资料夹 · '+name;}
+  byId('pickDirectory').onclick=async()=>{
+    if(!window.showDirectoryPicker){byId('folderInput').click();return;}
+    try{
+      const h=await window.showDirectoryPicker({mode:'read',id:'clair-report-originals'});
+      await h.getDirectoryHandle('files');const indexFile=await (await h.getFileHandle('index.html')).getFile();assets=await window.archiveDirectory.readIndex(indexFile);directory=h;cache.clear();connected(h.name);chosen=window.archiveDirectory.requestedFile()||chosen;
+      if(chosen)await open(chosen);else readout.textContent='已连接 '+h.name+'。返回目录即可打开本机原件。';
+    }catch(e){
+      if(e.name==='AbortError')return;
+      if(e.name==='SecurityError'||e.name==='NotAllowedError'){byId('compatFolder').hidden=false;readout.textContent='请使用下方的系统文件选择器选择资料夹。';return;}
+      readout.textContent='请选择解压后包含 files 子目录的 clair-archive 资料夹。';
+    }
+  };
+  byId('folderInput').onchange=async e=>{
+    const files=Array.from(e.target.files||[]);if(!files.length)return;
+    const index=files.find(f=>f.webkitRelativePath.split('/').length===2 && f.name==='index.html');
+    try{assets=await window.archiveDirectory.readIndex(index);}catch{readout.textContent='请选择包含 index.html、files 和 text 的原件资料夹。';return;}
+    chosen=window.archiveDirectory.requestedFile()||chosen;
+    const known=new Map(Object.entries(assets).map(([id,a])=>[cleanName(a.path),id]));
+    const selected=new Map();for(const f of files){
+      const id=known.get(cleanName(f.webkitRelativePath.split('/').slice(1).join('/')));if(!id||f.size!==assets[id].size)continue;
+      selected.set(id,f);
+    }
+    e.target.value='';
+    if(!selected.size){readout.textContent='没有找到匹配文件，请选择包含 files 子目录的资料夹。';return;}
+    directory=null;cache.clear();for(const [id,file] of selected)cache.set(id,file);
+    connected(files[0].webkitRelativePath.split('/')[0]);
+    if(chosen)await open(chosen);else readout.textContent='已在本页连接 '+selected.size+' 份文件。';
+  };
+  byId('compatFolder').onclick=()=>byId('folderInput').click();
+  byId('chooseOne').onclick=()=>byId('singleInput').click();
+  byId('singleInput').onchange=async e=>{
+    const f=e.target.files[0],id=chosen;e.target.value='';if(!f||!id)return;
+    try{await check(f,assets[id]);cache.set(id,f);await open(id);}catch(error){readout.textContent=error.message;}
+  };
+  document.addEventListener('click',e=>{
+    const a=e.target.closest('a[data-asset]');if(!a||!assets[a.dataset.asset]||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;
+    e.preventDefault();open(a.dataset.asset);
+  });
+  window.openArchiveFolder=()=>open(null);byId('connectFolder').onclick=window.openArchiveFolder;byId('closeFile').onclick=()=>dialog.close();
+  dialog.addEventListener('close',()=>{resetPreview();chosen=null;});
+  const id=new URLSearchParams(location.search).get('asset');
+  if(id)open(null);
+})();
+
+</script></body></html>
