@@ -69,7 +69,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 193;
+const DATA_VERSION = 194;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -284,7 +284,7 @@ const initialState = {
         "HTML"
       ]
     },
-    
+    {
       "id": "presentation-archive-2026-11-25",
       "groupId": "reporting",
       "title": "近年汇报与原始档案｜2020—2026",
@@ -293,8 +293,8 @@ const initialState = {
       "pinned": false,
       "position": -3,
       "createdAt": "2026-11-25T03:30:00Z",
-      "modifiedAt": "2026-11-25T03:30:00Z",
-      "source": "盘点1,201个已保存文件与354个工作台条目；98项汇报、116项附原件或源稿，437条已定位资料与7条待补线索。支持年份、场景、格式筛选和CSV导出；原稿按原平台权限打开。",
+      "modifiedAt": "2026-11-26T03:46:06.380953Z",
+      "source": "107份文件已按年份与用途集中归档，99项汇报、109个文件版本，441条已定位资料与7条待补线索。原件直接下载、归档路径、版本关系与CSV导出已更新至2026.11.26；2份特殊旧格式保留原入口。",
       "access": "production",
       "workType": "reporting",
       "tags": [
@@ -10667,6 +10667,7 @@ function bindWorkbenchPersistence() {
     render();
   });
 }
+
 
 
 
