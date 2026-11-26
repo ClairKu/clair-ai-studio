@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-labelledby="title">
+<title id="title">且慢持续投顾服务的两条闭环</title>
+<rect width="1200" height="675" fill="#f6f4ec"/>
+<g font-family="Inter,PingFang SC,Microsoft YaHei,sans-serif">
+<text x="65" y="69" fill="#176351" font-size="22" font-weight="650">且慢 · 2027 产品战略框架</text>
+<text x="62" y="157" fill="#152e32" font-size="57" font-weight="700">把持续的投顾服务做给更多人</text>
+<rect x="60" y="206" width="1080" height="398" rx="12" fill="#153d40"/>
+<text x="95" y="267" fill="#a8e6ca" font-size="25" font-weight="650">客户服务闭环</text>
+<g text-anchor="middle">
+<rect x="96" y="299" width="252" height="80" rx="5" fill="#23484a" stroke="#6e8b81"/>
+<text x="222" y="347" fill="#f5f8f2" font-size="23">千问小顾 / 且慢 App</text>
+<text x="384" y="347" fill="#a8e6ca" font-size="31">→</text>
+<rect x="422" y="299" width="250" height="80" rx="5" fill="#d7efdf"/>
+<text x="547" y="349" fill="#153d40" font-size="30" font-weight="700">小顾 4.0</text>
+<text x="707" y="347" fill="#a8e6ca" font-size="31">→</text>
+<rect x="744" y="299" width="360" height="80" rx="5" fill="#23484a" stroke="#6e8b81"/>
+<text x="924" y="347" fill="#f5f8f2" font-size="24">客户自助 / 顾问深度服务</text>
+</g>
+<path d="M224 390v23h698v-23" fill="none" stroke="#95b3a4" stroke-width="2" stroke-dasharray="5 5"/>
+<rect x="60" y="441" width="1080" height="163" rx="10" fill="#e4ebe0"/>
+<text x="95" y="492" fill="#176351" font-size="25" font-weight="650">服务供给闭环</text>
+<text x="96" y="550" fill="#1d4337" font-size="27">专业方法</text><text x="246" y="550" fill="#638672" font-size="28">→</text>
+<text x="300" y="550" fill="#1d4337" font-size="27" font-weight="650">盈米 AI 实验室</text><text x="545" y="550" fill="#638672" font-size="28">→</text>
+<text x="603" y="550" fill="#1d4337" font-size="24">内部复用 / 盈米 AI 开放平台</text>
+<text x="64" y="647" fill="#49615f" font-size="16">2026.11.26</text>
+</g></svg>

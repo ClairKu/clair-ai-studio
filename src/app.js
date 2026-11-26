@@ -226,6 +226,29 @@ const initialState = {
   ],
   reports: [
     {
+      "id": "qieman-advisory-service-framework-2026-11-26",
+      "groupId": "product-planning",
+      "title": "且慢如何规模化交付持续投顾服务｜2027 产品战略框架",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-advisory-service-framework-2026-11-26/",
+      "preview": "qieman-advisory-service-framework-2026-11-26.svg",
+      "pinned": false,
+      "position": -7,
+      "createdAt": "2026-11-26T16:06:08.185Z",
+      "source": "按客户服务和专业方法复用两条闭环，梳理小顾升级、App、顾问工作台、实验室与开放平台之间的分工。用教育金和账户月报说明 L3 项目的验证范围与投入顺序。",
+      "access": "production",
+      "workType": "product-planning",
+      "tags": [
+        "产品规划",
+        "持续投顾服务",
+        "AI 小顾",
+        "顾问工作台",
+        "盈米 AI 实验室",
+        "AI 开放平台",
+        "L3",
+        "HTML"
+      ]
+    },
+    {
       "id": "xiaogu-l3-service-diagrams-2026-11-26",
       "groupId": "xiaogu",
       "title": "AI 小顾 L3 主动服务｜业务闭环、教育金规划与账户月报",
@@ -5683,6 +5706,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-advisory-service-framework-2026-11-26": "product-planning",
   "xiaogu-l3-service-diagrams-2026-11-26": "reporting",
   "qieman-2027-product-plan-2026-11-26": "product-planning",
   "vip-advisor-two-scenarios-2026-11-25": "product-planning",
@@ -5878,6 +5902,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-advisory-service-framework-2026-11-26": "product-planning",
   "xiaogu-l3-service-diagrams-2026-11-26": "xiaogu",
   "qieman-2027-product-plan-2026-11-26": "product-planning",
   "qas-advisor-workbench-90s-film-script-2026-11-25": "advisor-workbench",

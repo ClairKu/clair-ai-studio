@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots>
+  <script data-clair-access-gate data-clair-access-scope="report" data-clair-access-entry="reports/qieman-advisory-service-framework-2026-11-26/" src="../../access-gate.js?rev=2026-11-12-fast-login-v11"></script>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#163a3f">
+  <meta name="description" content="以一项客户需求为单位，看清且慢如何交付持续投顾服务，以及盈米如何生产、复用和开放这些服务。">
+  <title>且慢如何规模化交付持续投顾服务｜2027 产品战略框架</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f6f4ec; --white: #fffefa; --ink: #152e32; --dim: #49615f;
+      --hair: #cbd2c8; --forest: #153d40; --deep: #0d2b30; --mint: #a8e6ca;
+      --green: #176351; --pale: #e6f1e8; --rust: #8b482f; --apricot: #f4dfca;
+      --sans: Inter, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+      --serif: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", STSong, SimSun, serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.65 var(--sans); -webkit-font-smoothing: antialiased; }
+    h1,h2,h3,h4,p,figure,dl,dd,blockquote { margin: 0; }
+    h1,h2,h3,h4 { line-height: 1.32; }
+    a { color: var(--green); text-underline-offset: 4px; }
+    a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visible { outline: 3px solid #cc7c34; outline-offset: 4px; }
+    .wrap { width: min(1200px, calc(100% - clamp(40px, 8.2vw, 136px))); margin: 0 auto; }
+    .skip { position: fixed; top: -70px; left: 12px; z-index: 30; background: white; padding: 6px 12px; }
+    .skip:focus { top: 8px; }
+    .top { border-bottom: 1px solid var(--hair); background: var(--paper); }
+    .top .wrap { min-height: 54px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { display: inline-flex; gap: 10px; align-items: center; text-decoration: none; white-space: nowrap; color: var(--ink); font-size: 15px; font-weight: 720; }
+    .brand-mark { display: inline-block; width: 17px; height: 19px; border: 2px solid var(--green); border-radius: 9px 1px 9px 1px; position: relative; }
+    .brand-mark::after { content: ""; position: absolute; inset: 4px -5px -4px 5px; border: 2px solid var(--green); border-radius: inherit; background: var(--paper); }
+    .brand small { color: var(--dim); font: 500 12px var(--sans); border-left: 1px solid var(--hair); padding-left: 10px; }
+    .top nav { display: flex; gap: clamp(10px,2vw,26px); align-items: center; }
+    .top nav a,.print { color: var(--dim); font: 600 13px var(--sans); text-decoration: none; }
+    .top nav a:hover { text-decoration: underline; }
+    .print { background: var(--white); border: 1px solid var(--hair); padding: 7px 11px; border-radius: 4px; cursor: pointer; }
+    .intro { padding: clamp(34px,4.1vw,58px) 0 27px; display: grid; grid-template-columns: minmax(0,1.5fr) minmax(205px,.56fr); gap: 30px; align-items: end; }
+    .kicker,.fig-ref { color: var(--green); font: 680 12px/1.5 var(--sans); letter-spacing: .12em; }
+    .intro h1 { font-size: clamp(32px,3.75vw,53px); letter-spacing: -.055em; margin: 8px 0 14px; font-weight: 720; line-height: 1.22; }
+    .intro .lead { font-size: clamp(15px,1.2vw,18px); line-height: 1.75; max-width: 49em; color: var(--dim); }
+    .unit { border-left: 3px solid #89bba9; padding: 1px 0 2px 17px; align-self: center; }
+    .unit strong { display: block; font-size: 15px; margin-bottom: 4px; }
+    .unit p { font-size: 13px; color: var(--dim); line-height: 1.85; }
+    .section { margin-top: clamp(46px,6vw,80px); }
+    .heading { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 19px; }
+    .heading h2 { font-size: clamp(26px,2.4vw,36px); letter-spacing: -.045em; }
+    .heading p { color: var(--dim); font-size: 14px; max-width: 37em; }
+    .map { border: 1px solid #26494a; background: var(--forest); color: #f5f8f2; border-radius: 9px; overflow: hidden; }
+    .map-top { padding: 19px clamp(18px,2.5vw,34px) 16px; border-bottom: 1px solid #456462; background: var(--deep); display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+    .map-top h2 { font-size: clamp(22px,2vw,29px); letter-spacing: -.035em; }
+    .map-top span { font-size: 12px; color: #b1c8c0; white-space: nowrap; }
+    .delivery { padding: 19px clamp(18px,2.5vw,34px) 20px; }
+    .band-head { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; margin-bottom: 13px; }
+    .band-head h3 { font-size: 19px; letter-spacing: -.03em; }
+    .band-head p { font-size: 13px; }
+    .delivery .band-head p { color: #c2d5cc; }
+    .diagram { display: grid; grid-template-columns: 1fr 34px minmax(0,1.03fr) 34px 1.1fr; align-items: stretch; }
+    .node { padding: 15px 16px; border: 1px solid #69817b; border-radius: 5px; background: #23484a; min-width: 0; }
+    .node h4 { color: var(--mint); font-size: 12px; margin-bottom: 9px; }
+    .node strong { font-size: 17px; font-weight: 680; line-height: 1.45; }
+    .node p { color: #d3dfd8; font-size: 13px; line-height: 1.6; }
+    .node p+p { margin-top: 7px; }
+    .node p strong { display: inline; color: #f6faf4; font-size: 15px; margin-right: 5px; }
+    .node.core { background: #d7efdf; border-color: #bfddc9; color: var(--deep); }
+    .core h4 { color: #265c4e; }.core p { color: #294e45; }
+    .core .core-title { display: block; font-size: 22px; line-height: 1.1; margin-bottom: 6px; }
+    .node.core .mode { border-top: 1px solid #a4c5b4; padding-top: 7px; margin-top: 8px; font-size: 12px; }
+    .arrow { color: #a5c5b8; display: grid; place-items: center; font-size: 21px; line-height: 1; }
+    .loopback { margin-top: 11px; display: flex; align-items: center; justify-content: center; gap: 12px; color: #d5e9df; font-size: 13px; }
+    .loopback::before,.loopback::after { content: ""; flex: 1; border-bottom: 1px dashed #74998b; height: 10px; align-self: flex-start; }
+    .loopback::before { border-left: 1px dashed #74998b; border-bottom-left-radius: 5px; }
+    .loopback::after { border-right: 1px dashed #74998b; border-bottom-right-radius: 5px; }
+    .pilot { margin-top: 12px; padding: 8px 12px; color: #eaf2e9; background: #103236; border-left: 3px solid #a2d1b9; font-size: 13px; }
+    .pilot b { color: var(--mint); }
+    .supply { background: #e8eee4; color: var(--ink); padding: 18px clamp(18px,2.5vw,34px) 17px; border-top: 1px solid #b1bcab; }
+    .supply .band-head p { color: #4b6457; }
+    .supply-grid { display: grid; grid-template-columns: 1fr 34px 1fr 34px 1.1fr; align-items: center; }
+    .snode { min-width: 0; font-size: 13px; line-height: 1.6; color: #41584c; }
+    .snode b { display: block; color: #1d4337; font-size: 16px; margin-bottom: 3px; }
+    .supply .arrow { color: #638672; }
+    .outlets { border-left: 2px solid #9eb39f; padding-left: 13px; }.outlets b { display: inline; font-size: 14px; }
+    .outlets div+div { margin-top: 5px; }
+    .feedback { margin-top: 13px; padding-top: 9px; border-top: 1px solid #c2cfc0; color: #425e50; font-size: 12px; }
+    .figure-note { margin: 9px 1px 0; font-size: 12px; color: var(--dim); }
+    .scenario-shell { border: 1px solid var(--hair); border-radius: 7px; background: var(--white); overflow: hidden; }
+    .switcher { display: flex; gap: 7px; padding: 11px; border-bottom: 1px solid var(--hair); background: #f0f1e9; }
+    .switcher button { font: 650 14px/1.4 var(--sans); border: 1px solid transparent; border-radius: 4px; background: transparent; color: var(--dim); cursor: pointer; padding: 9px 15px; }
+    .switcher button[aria-selected="true"] { color: #fff; background: var(--forest); border-color: var(--forest); }
+    .panel { display: grid; grid-template-columns: minmax(220px,.83fr) minmax(0,1.67fr); gap: clamp(20px,3vw,45px); padding: clamp(19px,2.5vw,34px); align-items: start; }
+    .panel[hidden] { display: none; }
+    .case-k { font-size: 12px; font-weight: 700; color: var(--rust); }
+    .quote { margin: 8px 0 10px; font: 650 clamp(22px,2vw,30px)/1.55 var(--serif); color: #203b39; }
+    .case-intro { color: var(--dim); font-size: 14px; }
+    .outcome { margin-top: 19px; border-top: 2px solid #cb9d79; padding-top: 10px; font-size: 14px; color: #554437; }
+    .outcome b { color: var(--rust); }
+    .path { list-style: none; padding: 0; margin: 0; border-left: 1px solid #b4c9bd; }
+    .path li { position: relative; margin-left: 18px; padding: 0 0 15px; }
+    .path li:last-child { padding-bottom: 0; }
+    .path li::before { content: ""; position: absolute; width: 7px; height: 7px; left: -22px; top: 7px; background: var(--green); border-radius: 50%; box-shadow: 0 0 0 3px var(--white); }
+    .path h4 { font-size: 15px; margin-bottom: 3px; }
+    .path p { font-size: 14px; color: var(--dim); }
+    .case-tail { background: #f4f4ec; border-top: 1px solid #dde1d6; padding: 10px clamp(19px,2.5vw,34px); font-size: 13px; color: var(--dim); }
+    .decisions { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.65; }
+    .decisions thead { border-top: 2px solid #385950; border-bottom: 1px solid #b5c4b8; }
+    .decisions th { color: #486053; text-align: left; font-size: 12px; letter-spacing: .04em; padding: 9px 13px; }
+    .decisions td { border-bottom: 1px solid var(--hair); padding: 15px 13px; vertical-align: top; }
+    .decisions td:first-child { width: 20%; }
+    .decisions td:nth-child(2) { width: 40%; }
+    .decisions td b { display: block; font-size: 16px; color: var(--ink); }
+    .decisions td small { display: block; color: var(--green); font-size: 12px; margin-bottom: 4px; }
+    .decisions td:last-child { color: #455953; }
+    .metric-line { display: grid; grid-template-columns: .38fr 1fr; gap: 22px; background: #e8e9de; padding: 18px 20px; border-radius: 5px; margin-top: 18px; align-items: baseline; }
+    .metric-line h3 { font-size: 16px; }
+    .metric-line p { font-size: 14px; color: #3c524c; }
+    .credits { margin: 38px 0 28px; border-top: 1px solid var(--hair); padding-top: 14px; }
+    .credits summary { cursor: pointer; font-weight: 650; font-size: 14px; width: fit-content; }
+    .credits p { font-size: 13px; color: var(--dim); margin-top: 9px; max-width: 76em; }
+    .links { display: flex; gap: 8px 20px; flex-wrap: wrap; margin-top: 10px; font-size: 13px; }
+    footer { border-top: 1px solid var(--hair); padding: 15px 0; color: var(--dim); font-size: 12px; }
+    footer .wrap { display: flex; justify-content: space-between; gap: 12px; }
+    @media(max-width:840px) {
+      .top nav { gap: 12px; }.intro { grid-template-columns: 1fr; gap: 13px; }.unit { display: flex; gap: 10px; align-items: baseline; }
+      .unit strong { white-space: nowrap; font-size: 13px; }.unit p { font-size: 12px; }.unit br { display: none; }
+      .node { padding: 12px; }.diagram,.supply-grid { grid-template-columns: 1fr 21px 1fr 21px 1.1fr; }.heading { align-items: start; flex-direction: column; gap: 6px; }
+    }
+    @media(max-width:640px) {
+      html { scroll-padding-top: 12px; }.wrap { width: calc(100% - 32px); }.top .wrap { min-height: 48px; }.brand small,.top nav a { display: none; }
+      .intro { padding-top: 27px; }.intro h1 { font-size: clamp(29px,7vw,39px); }
+      .unit { display: block; }.unit strong { margin-bottom: 1px; }
+      .map-top { align-items: start; flex-direction: column; gap: 4px; }.map-top span { white-space: normal; }
+      .diagram,.supply-grid { grid-template-columns: 1fr; }.arrow { height: 20px; transform: none; font-size: 0; }.arrow::before { content: "↓"; font: 17px/1 var(--sans); }
+      .node { padding: 12px 14px; }.node h4 { margin-bottom: 4px; }.node p+p { margin-top: 4px; }.node.core .mode { padding-top: 5px; margin-top: 5px; }
+      .band-head { gap: 3px 10px; }.loopback { justify-content: start; }.loopback::before,.loopback::after { display: none; }.outlets { margin-top: 2px; }
+      .panel { grid-template-columns: 1fr; gap: 22px; }.outcome { margin-top: 11px; }.switcher button { flex: 1; font-size: 13px; padding: 8px 4px; }
+      .decisions,.decisions tbody,.decisions tr,.decisions td { display: block; }.decisions thead { display: none; }
+      .decisions tr { border-top: 1px solid #a9b9ab; padding: 13px 0; }.decisions tr:last-child { border-bottom: 1px solid #a9b9ab; }
+      .decisions td,.decisions td:first-child,.decisions td:nth-child(2) { border: none; width: 100%; padding: 3px 0; }
+      .decisions td[data-label]::before { content: attr(data-label) " · "; font-weight: 650; color: #355342; }
+      .metric-line { grid-template-columns: 1fr; gap: 4px; }.section { margin-top: 39px; }
+    }
+    @media(prefers-reduced-motion:reduce) { html { scroll-behavior: auto; } }
+    @media print {
+      @page { size: A4; margin: 12mm; }
+      * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      html,body { background: white; }.wrap { width: 100%; }.top,.switcher,.skip,footer,.links { display: none !important; }
+      .intro { padding: 0 0 12px; grid-template-columns: 1fr; gap: 8px; }.intro h1 { font-size: 29px; }.lead { font-size: 13px !important; }.unit { display: none; }
+      .map { break-inside: avoid; }.map-top { padding: 9px 15px; }.delivery,.supply { padding: 10px 15px; }
+      .panel[hidden],.panel { display: grid !important; }.panel+.panel { border-top: 1px solid var(--hair); }.panel { break-inside: avoid; padding: 13px; gap: 18px; }
+      .heading { margin-bottom: 10px; }.section { margin-top: 17px; }
+      .heading h2 { font-size: 22px; }.case-tail { font-size: 11px; }.case-intro,.outcome,.path p,.decisions,.metric-line p { font-size: 12px; }
+      .path li { padding-bottom: 8px; }.decisions tr,.metric-line { break-inside: avoid; }.credits { margin-top: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="https://clairku.github.io/clair-ai-studio/"><i class="brand-mark" aria-hidden="true"></i> Clair’s Studio <small>产品规划</small></a>
+      <nav aria-label="报告导航"><a href="#framework">关系总图</a><a href="#journeys">客户旅程</a><a href="#choices">投入取舍</a><button type="button" class="print" id="print">打印全稿</button></nav>
+    </div>
+  </header>
+  <main id="main" class="wrap">
+    <section class="intro" aria-labelledby="title">
+      <div>
+        <p class="kicker">且慢 · 2027 产品战略框架</p>
+        <h1 id="title">把持续的投顾服务做给更多人</h1>
+        <p class="lead">客户在千问问起孩子的学费，回到且慢还能继续那份规划。以后用钱时间变了，顾问能接着改。要把这件事做给更多人，且慢要接得住每一次服务，盈米要让更多团队用得上同一套专业方法。</p>
+      </div>
+      <aside class="unit"><strong>用一件客户事项串起来</strong><p>客户想解决什么，已经做到哪一步，<br>下一步谁负责，什么结果算完成。</p></aside>
+    </section>
+
+    <figure id="framework" aria-labelledby="map-title">
+      <div class="map">
+        <header class="map-top"><h2 id="map-title">两条闭环，共用一套投顾方法</h2><span>产品关系总图 · 建议框架</span></header>
+        <section class="delivery" aria-labelledby="delivery-title">
+          <div class="band-head"><h3 id="delivery-title">客户服务闭环</h3><p>让同一件事跨入口、跨时间、跨人机继续。</p></div>
+          <div class="diagram">
+            <div class="node">
+              <h4>需求在哪里出现</h4>
+              <p><strong>千问小顾</strong>在外部对话里接住问题，用户愿意时带回原目标。</p>
+              <p><strong>且慢 App</strong>客户直接提问，或从账户变化、未完成事项开始。</p>
+            </div>
+            <span class="arrow" aria-hidden="true">→</span>
+            <div class="node core">
+              <h4>谁持续判断下一步</h4>
+              <strong class="core-title">小顾 4.0</strong>
+              <p>结合已确认的目标、事件和进度，决定解释、续办、转顾问或等待。</p>
+              <p class="mode"><b>主动式助手</b>是其中一种工作方式，也要判断何时停止。</p>
+            </div>
+            <span class="arrow" aria-hidden="true">→</span>
+            <div class="node">
+              <h4>谁把服务交付给客户</h4>
+              <p><strong>且慢 App</strong>客户保存计划、确认办理、查看正式结果。</p>
+              <p><strong>且慢顾问工作台</strong>顾问主动发起检视、协调家庭目标、修订方案、约定复访。</p>
+            </div>
+          </div>
+          <div class="loopback"><span>↶ 客户选择、顾问结论和正式业务回执回到原事项，决定下一次服务</span></div>
+          <p class="pilot"><b>智能运营转化 L3 项目</b>横跨这条链，首轮验证小顾能否承接市场接待与运营跟进，并交出可核实的业务结果。</p>
+        </section>
+        <section class="supply" aria-labelledby="supply-title">
+          <div class="band-head"><h3 id="supply-title">服务供给闭环</h3><p>让一种已验证的方法供下一位顾问、下一支团队、下一个渠道复用。</p></div>
+          <div class="supply-grid">
+            <div class="snode"><b>业务专家提供专业方法</b>投顾定义好方案，市场和运营给出适用时机、真实卡点和停止条件。</div>
+            <span class="arrow" aria-hidden="true">→</span>
+            <div class="snode"><b>盈米 AI 实验室生产服务</b>把方法与现有工具组装成可运行的服务，用正常和异常案例评测，发布可复用的版本。</div>
+            <span class="arrow" aria-hidden="true">→</span>
+            <div class="snode outlets"><div><b>内部使用</b>　小顾、顾问工作台选用同一专业能力。</div><div><b>外部使用</b>　盈米 AI 开放平台按授权向千问、机构及开发者提供已开放的能力。</div></div>
+          </div>
+          <p class="feedback">↶ 顾问修订、客户中断和渠道使用反馈，经业务复核成为下一版的测试案例。开放平台也可直接提供已有的工具与服务。</p>
+        </section>
+      </div>
+      <figcaption class="figure-note">图中小顾 4.0 是建议的产品方向。千问小顾是小顾在千问的渠道形态。L3 的验证对象是一段具体作业流程。</figcaption>
+    </figure>
+
+    <section class="section" id="journeys" aria-labelledby="cases-title">
+      <div class="heading"><h2 id="cases-title">同一套机制，两种成功结果</h2><p>首轮沿用教育金和月报两个场景。一个核验实际买入，另一个核验解读和退出。</p></div>
+      <div class="scenario-shell" id="scenario-shell">
+        <div class="switcher" role="tablist" aria-label="客户旅程">
+          <button id="tab-new" type="button" role="tab" aria-selected="true" aria-controls="case-new">千问新客 · 教育金</button>
+          <button id="tab-existing" type="button" role="tab" aria-selected="false" aria-controls="case-existing">App 老客 · 账户月报</button>
+        </div>
+        <article class="panel" id="case-new" role="tabpanel" aria-labelledby="tab-new" tabindex="0">
+          <div><div class="case-k">新客获得第一次有效服务</div><blockquote class="quote">“孩子以后上大学，这笔钱现在怎么准备？”</blockquote>
+            <p class="case-intro">千问贡献的是带着具体问题来的客户。且慢能不能接着办，决定这次咨询有没有经营价值。</p>
+            <p class="outcome"><b>首轮转化口径</b><br>在约定观察窗内，正式系统确认、且能关联到原教育金规划的完整策略买入。分母为入组合格的去重新客，比较试点组与原路径。</p></div>
+          <ol class="path">
+            <li><h4>千问小顾先把问题问清楚</h4><p>确认用款时间和意愿。客户选择继续，再按授权衔接且慢，有原目标就接着做。</p></li>
+            <li><h4>在且慢 App 接着上次做</h4><p>小顾只补影响下一步的条件，调用已有规划服务。本人决定是否接受方案，并在正式流程中确认办理。</p></li>
+            <li><h4>家庭有两种用途冲突时，顾问接手</h4><p>例如同一笔钱也要用于近期开支。顾问在工作台比较方案，记录客户决定和复访日期。标准事项可由客户与小顾直接完成。</p></li>
+            <li><h4>按原事项收回结果</h4><p>分别记录保存目标、取得方案、开始办理与完整买入。用户暂缓，就按约定时间再跟进。结果在途，就查原订单。</p></li>
+          </ol>
+        </article>
+        <article class="panel" id="case-existing" role="tabpanel" aria-labelledby="tab-existing" tabindex="0">
+          <div><div class="case-k">老客理解自己的账户</div><blockquote class="quote">“这个月账户少了，是投资亏了，还是我取过钱？”</blockquote>
+            <p class="case-intro">新月报本身就能触发服务。老客此刻想弄清发生了什么，小顾应给出可核对的解释。</p>
+            <p class="outcome"><b>首轮服务口径</b><br>先用离线案例验收同一账户、同一报告期的解读，确认客户可回看、已了解或关闭后能停止提醒。上线试点后再观察重复打扰与求助。</p></div>
+          <ol class="path">
+            <li><h4>正式月报生成，小顾判断是否介入</h4><p>核对用户可访问的账户、报告期、阅读状态和提醒选择。有可解释的新信息，才在允许的位置呈现入口。</p></li>
+            <li><h4>在 App 把变动讲明白</h4><p>从正式报告区分投资损益和资金进出。客户可查看原报告、提出疑问，也可直接关闭。</p></li>
+            <li><h4>客户提出新问题时，再决定谁跟进</h4><p>若提到临近用钱，可新建或接回对应的规划事项。需要家庭层面的判断时，由顾问带着已确认的信息接续。</p></li>
+            <li><h4>解读结束，原提醒随之撤下</h4><p>按反馈关闭本期任务，保留回看入口。后续的规划或顾问预约单独记录，月报服务以自身的交付结果验收。</p></li>
+          </ol>
+        </article>
+        <p class="case-tail">示意旅程。顾问主动检视及跨端接力属于建议设计，两项申报场景的首轮验收范围分别保留。</p>
+      </div>
+    </section>
+
+    <section class="section" id="choices" aria-labelledby="choices-title">
+      <div class="heading"><h2 id="choices-title">新增投入，按什么顺序排</h2><p>先证明一条业务路径有用，再证明人机交接顺畅，最后扩大生产与分发。</p></div>
+      <table class="decisions">
+        <thead><tr><th scope="col">经营决策</th><th scope="col">优先补的缺口</th><th scope="col">值得加大投入的证据</th></tr></thead>
+        <tbody>
+          <tr><td><small>先验证转化</small><b>小顾升级合成一项</b></td><td data-label="投入">用小顾 4.0 表达产品方向，主动服务写进能力设计，L3 承担首轮验证。千问承接、App 找回原目标、取得正式回执一起做。</td><td data-label="验收">看合格新客的完整买入转化相对原路径是否提升，同时看重复打扰和每千项任务人工时。跨端归因打通前，分段报告。</td></tr>
+          <tr><td><small>再做深服务</small><b>两端共用一份进度</b></td><td data-label="投入">保留 App 和顾问工作台的独立职责。用一次目标变更，打通客户自助、顾问复核、约定复访和结果回写，优先解决重复询问与无人跟进。</td><td data-label="验收">换一位顾问能从原事项继续，客户确认的下一步到期有反馈。记录按期有效服务占比和包含复核、返工的每案工时。</td></tr>
+          <tr><td><small>再扩大覆盖</small><b>生产与开放分别验收</b></td><td data-label="投入">实验室先把一项已验证的方法交给第二支团队。开放平台用已有接入支持千问，也可让合作机构把成熟能力嵌入自己的产品。</td><td data-label="验收">实验室看第二团队能否独立交付、花多少适配工时。开放平台看第二入口能否持续完成有效任务、每次成功交付成本多少。</td></tr>
+        </tbody>
+      </table>
+      <div class="metric-line"><h3>这三类责任需要明确</h3><p><b>业务</b>对服务方法和客户结果负责。<b>产品</b>定义跨端共用的事项、体验规则和验收标准。<b>研发</b>接通授权、状态和正式回执，使每一步可以追溯和恢复。</p></div>
+    </section>
+
+    <details class="credits">
+      <summary>方案依据与命名</summary>
+      <p>11 月 11 日《AI 小顾个性化服务产品方案》和《项目申报表》把首轮工作命名为「且慢用户智能转化器」，在小顾 3.0 的专业服务上增加市场接待与运营跟进。本文采用「小顾 4.0」组织下一阶段规划。图中连线与资源顺序属于建议，跨端续接、自动化程度及增量效果需要分别验证。</p>
+      <nav class="links" aria-label="相关材料">
+        <a href="https://clairku.github.io/clair-ai-studio/reports/xiaogu-l3-service-diagrams-2026-11-26/">L3 申报场景图</a>
+        <a href="https://clairku.github.io/clair-ai-studio/reports/vip-advisor-two-scenarios-2026-11-25/">顾问的两条服务流程</a>
+        <a href="https://clairku.github.io/clair-ai-studio/reports/qieman-2027-product-plan-2026-11-26/">且慢 2027 产品规划</a>
+      </nav>
+    </details>
+  </main>
+  <footer><div class="wrap"><span>且慢 · 持续投顾服务</span><time datetime="2026-11-26">2026.11.26</time></div></footer>
+  <script>
+    (() => {
+      const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+      function selectTab(selected, focus) {
+        for (const tab of tabs) {
+          const active = tab === selected;
+          tab.setAttribute('aria-selected', String(active));
+          tab.tabIndex = active ? 0 : -1;
+          document.getElementById(tab.getAttribute('aria-controls')).hidden = !active;
+        }
+        if (focus) selected.focus();
+      }
+      for (const tab of tabs) {
+        tab.addEventListener('click', () => selectTab(tab, false));
+        tab.addEventListener('keydown', event => {
+          const index = tabs.indexOf(tab);
+          const positions = {ArrowRight:(index+1)%tabs.length, ArrowLeft:(index+tabs.length-1)%tabs.length, Home:0, End:tabs.length-1};
+          if (!(event.key in positions)) return;
+          event.preventDefault();
+          selectTab(tabs[positions[event.key]], true);
+        });
+      }
+      selectTab(tabs[0], false);
+      document.getElementById('print').addEventListener('click', () => window.print());
+    })();
+  </script>
+</body>
+</html>

@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "qieman-advisory-service-framework-2026-11-26",
     "xiaogu-l3-service-diagrams-2026-11-26",
     "qieman-2027-product-plan-2026-11-26",
     "qas-advisor-workbench-90s-film-script-2026-11-25",
@@ -467,6 +468,13 @@
     ]
   },
   "reportRevisions": {
+    "qieman-advisory-service-framework-2026-11-26": {
+      "updatedAt": "2026-11-26",
+      "revision": "advisory-service-framework",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-advisory-service-framework-2026-11-26/",
+      "access": "production",
+      "preservesReportId": true
+    },
     "xiaogu-l3-service-diagrams-2026-11-26": {
       "updatedAt": "2026-11-26",
       "revision": "three-application-diagrams",
