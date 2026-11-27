@@ -333,6 +333,7 @@ const viewState = {
 };
 
 let currentData = null;
+let bindingReceipt = null;
 let currentRows = [];
 let resizeTimer = null;
 let questionCorpus = null;
@@ -758,6 +759,26 @@ async function loadPublishedData({ allowFallback = true } = {}) {
   }
 }
 
+async function applyBindingReceipt() {
+  const snapshot = currentData;
+  try {
+    const response = await fetch("./data/binding-receipt.json", { cache: "no-store" });
+    if (!response.ok) return;
+    const receipt = await response.json();
+    const counts = [receipt.bound_accounts, receipt.new_accounts, receipt.existing_accounts];
+    if (currentData !== snapshot || !counts.every(isWholeCount)
+      || receipt.bound_accounts !== receipt.new_accounts + receipt.existing_accounts
+      || !(parseTime(receipt.as_of) > parseTime(snapshot.meta.data_cutoff))) return;
+    bindingReceipt = receipt;
+    renderHeroLead();
+    renderKpis(currentRows);
+    const title = $("#segment-title");
+    if (title) title.textContent = "千问用户关键转化数据 · " + formatCutoff(snapshot.meta.data_cutoff);
+  } catch {
+    // The complete dashboard has already rendered and remains usable if this receipt is unavailable.
+  }
+}
+
 function setFreshness(mode, text) {
   const freshness = $("#freshness");
   if (!freshness) return;   // 顶栏已移除，截止时间改在「累计绑定用户」卡的小字里展示
@@ -787,7 +808,11 @@ function renderHeroLead() {
   const firstInvestors = segment("first_inv");
   const newInvestors = segment("new_inv");
   const sentences = ["盈米基金与 AI 流量入口平台千问合作，以 A2A 模式接入且慢 AI 小顾 Agent"];
-  sentences.push(`上线以来，已有 ${number.format(currentData.metrics.bound_accounts)} 个千问用户绑定且慢账户，其中带来 ${number.format(currentData.metrics.new_accounts)} 个新用户注册，并连接 ${number.format(currentData.metrics.existing_accounts)} 位且慢老用户`);
+  const metrics = bindingReceipt || currentData.metrics;
+  const bindingDate = bindingReceipt ? "截至 " + formatCutoff(bindingReceipt.as_of) : "上线以来";
+  sentences.push(`${bindingDate}，已有 ${number.format(metrics.bound_accounts)} 个千问用户绑定且慢账户，其中带来 ${number.format(metrics.new_accounts)} 个新用户注册，并连接 ${number.format(metrics.existing_accounts)} 位且慢老用户`);
+  if (bindingReceipt) sentences.push("以下转化、App 使用及逐日数据截至 " + formatCutoff(currentData.meta.data_cutoff)
+    + "，资产截至 " + currentData.meta.asset_as_of);
   if (all?.state === "confirmed" && firstInvestors?.state === "confirmed" && newInvestors?.state === "confirmed") {
     sentences.push(`绑定后完成开户 ${number.format(all.opened_after_binding_accounts)} 人、风测 ${number.format(all.risk_after_binding_accounts)} 人，首投 ${number.format(firstInvestors.population_accounts)} 人、新投 ${number.format(newInvestors.population_accounts)} 人，新投用户入金 ${formatAmount(newInvestors.inflow_amount_wan)}`);
     sentences.push(`全部绑定用户累计新增入金 ${formatAmount(all.inflow_amount_wan)}，总资产规模 ${formatAmount(all.total_asset_wan)}`);
@@ -934,11 +959,8 @@ function renderSegmentPanel() {
 
 function renderKpis(rows) {
   // 顶部三张总览卡固定展示全窗口累计口径；日期筛选只影响下方走势和日明细。
-  const totals = {
-    bound: currentData.metrics.bound_accounts,
-    new: currentData.metrics.new_accounts,
-    existing: currentData.metrics.existing_accounts,
-  };
+  const metrics = bindingReceipt || currentData.metrics;
+  const totals = { bound: metrics.bound_accounts, new: metrics.new_accounts, existing: metrics.existing_accounts };
   const allRows = currentData.daily;
   $("#bound-total").textContent = number.format(totals.bound);
   $("#new-accounts").textContent = number.format(totals.new);
@@ -947,19 +969,27 @@ function renderKpis(rows) {
   $("#existing-share").textContent = formatShare(totals.existing, totals.bound);
   const app = currentData.app_usage;
   $("#app-users").textContent = app?.state === "confirmed" ? number.format(app.cohorts.all.users) : "—";
-  $("#app-share").textContent = app?.state === "confirmed" ? formatShare(app.cohorts.all.users, totals.bound) : "";
+  $("#app-share").textContent = app?.state === "confirmed" ? formatShare(app.cohorts.all.users, currentData.metrics.bound_accounts) : "";
   $("#app-breakdown").textContent = app?.state === "confirmed"
     ? `有 App 使用记录 · 新客 ${number.format(app.cohorts.new.users)} · 老客 ${number.format(app.cohorts.existing.users)}`
     : "使用记录待更新";
   const range = `${formatDay(allRows[0].date)}—${formatDay(allRows.at(-1).date)}`;
   $("#bound-context").textContent = `${range} ${formatClock(currentData.meta.data_cutoff)} · ${allRows.length} 天`;
+  if (bindingReceipt) {
+    const delta = totals.bound - currentData.metrics.bound_accounts;
+    $("#bound-context").textContent = "截至 " + formatCutoff(bindingReceipt.as_of) + " · 较 "
+      + formatDay(currentData.meta.data_cutoff.slice(0, 10)) + " " + (delta > 0 ? "+" : "") + number.format(delta) + " 人";
+    $("#app-breakdown").textContent = formatDay(currentData.meta.data_cutoff.slice(0, 10)) + " 快照（分母 "
+      + number.format(currentData.metrics.bound_accounts) + " 人）· " + $("#app-breakdown").textContent;
+  }
   // 老用户卡小字同样固定为全窗口生命周期拆分。
   const lifecycle = currentData.profile?.cohorts?.existing?.dimensions?.find((item) => item.id === "holding_lifecycle_status");
   const breakdown = $("#existing-breakdown");
   if (breakdown) {
     if (lifecycle?.state === "confirmed") {
       const seg = (id) => lifecycle.buckets.find((bucket) => bucket.id === id)?.accounts ?? 0;
-      breakdown.textContent = `${number.format(seg("no_first_investment"))} 无首投 · ${number.format(seg("churned"))} 已流失 · ${number.format(seg("under_management"))} 在管`;
+      const lifecycleDate = bindingReceipt ? formatDay(currentData.meta.data_cutoff.slice(0, 10)) + " 快照 · " : "";
+      breakdown.textContent = lifecycleDate + `${number.format(seg("no_first_investment"))} 无首投 · ${number.format(seg("churned"))} 已流失 · ${number.format(seg("under_management"))} 在管`;
     } else {
       breakdown.textContent = "绑定时已有且慢账户";
     }
@@ -2242,6 +2272,7 @@ function renderView({ announce = false } = {}) {
 
 function render(data) {
   currentData = validateData(data);
+  bindingReceipt = null;
   const firstDate = currentData.daily[0].date;
   const lastDate = currentData.daily.at(-1).date;
   if (!viewState.start || viewState.start < firstDate || viewState.start > lastDate) viewState.start = firstDate;
@@ -2535,6 +2566,7 @@ async function init() {
   setFreshness("loading", "正在读取数据");
   try {
     render(await loadPublishedData());
+    void applyBindingReceipt();
     setNotice("");
   } catch {
     setFreshness("error", "数据读取失败");
