@@ -1,10 +1,11 @@
 {
   "entries": [
-    "reports/qieman-2027-product-plan-2026-11-26/index.html"
+    "reports/qieman-2027-product-plan-2026-11-26/index.html",
+    "reports/qieman-2027-product-briefing-2026-11-27/index.html"
   ],
   "source": "Clair Studio standalone encrypted reports",
-  "reports": 1,
+  "reports": 2,
   "attachments": 0,
-  "updated": "2026-11-26",
+  "updated": "2026-11-27",
   "access": "owner-encrypted"
 }
