@@ -234,7 +234,7 @@ const initialState = {
       "pinned": false,
       "position": -10,
       "createdAt": "2026-11-27T10:01:34Z",
-      "source": "从会后财务规划初稿到赎回后的客户跟进，展示顾问与 AI 的分工、三层专业方法和审阅责任。",
+      "source": "体验智能助手、客户 360 与服务包。会谈语音、企微、资料表和账户数据自动汇成财务规划报告。客户表达赎回意向时，顾问收到依据、建议与通话提纲。",
       "access": "production",
       "workType": "reporting",
       "tags": [

@@ -474,7 +474,7 @@
   "reportRevisions": {
     "qieman-lodestar-advisor-workbench": {
       "updatedAt": "2026-11-27",
-      "revision": "lodestar-product-introduction-20261127",
+      "revision": "lodestar-service-demo-20261127-v2",
       "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-lodestar-advisor-workbench/",
       "access": "production",
       "preservesReportId": true
