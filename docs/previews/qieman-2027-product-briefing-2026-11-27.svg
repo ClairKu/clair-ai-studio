@@ -1,16 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
-<title id="title">2027 年且慢产品规划 · 管理层汇报</title><desc id="desc">三个服务入口相接于一份计划。紫色线条汇合后分别前往客户和顾问。</desc>
-<rect width="1280" height="720" fill="#291c3b"/><path d="M65 85h1150M65 629h1150" stroke="#694e79" stroke-width="2"/>
-<g font-family="PingFang SC, Microsoft YaHei, sans-serif" fill="#dac7ef">
-<text x="67" y="64" font-size="23" font-weight="600">且慢产品团队</text><text x="1210" y="64" text-anchor="end" font-size="21">管理层汇报</text>
-<text x="63" y="279" fill="#caa8f6" font-family="ui-monospace, monospace" font-size="126" letter-spacing="-7">2027</text>
-<text x="63" y="397" fill="#fff9ff" font-size="83" font-weight="700" font-family="Songti SC, STSong, serif">且慢产品规划</text>
-<text x="70" y="481" font-size="31">客户、顾问与 AI 的服务怎样接续</text>
-<text x="67" y="678" font-size="23">产品关系　 /　季度交付　 /　团队分工</text></g>
-<g fill="none" stroke-linecap="round" stroke-linejoin="round">
-<path d="M748 211C830 211 815 305 910 305M749 429C834 429 822 338 910 338" stroke="#b995df" stroke-width="5"/>
-<path d="m873 304 121-55 118 52-121 62Z" fill="#73538d" stroke="#dcb8f4" stroke-width="3"/>
-<path d="m873 321 118 62 121-65m-237 19 116 62 120-64" stroke="#8e6aa9" stroke-width="3"/>
-<path d="M1109 289q49-27 73-80m-72 118q56 22 76 91" stroke="#d4b1f1" stroke-width="4"/>
-<path d="M1185 432v27c0 28-17 43-44 43h-126q-25 0-25-28v-62m-7 11 7-11 8 11" stroke="#f0bc84" stroke-width="3" stroke-dasharray="7 9"/>
-<g fill="#332343" stroke="#e7cbff" stroke-width="4"><circle cx="748" cy="211" r="8"/><circle cx="749" cy="429" r="8"/><circle cx="1183" cy="202" r="8"/><circle cx="1187" cy="423" r="8"/></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t d">
+<title id="t">2027 且慢产品战略与年度经营计划</title><desc id="d">年底经营复盘、年度目标与执行路线图。</desc>
+<rect width="1280" height="720" fill="#f4edf6"/><path d="M65 94h1150M65 618h1150" stroke="#cdbcd5" stroke-width="2"/>
+<g font-family="PingFang SC,Microsoft YaHei,sans-serif" fill="#54386c"><text x="65" y="65" font-size="24" font-weight="650">且慢产品团队</text><text x="1215" y="65" font-size="22" text-anchor="end">年底管理汇报</text>
+<text x="61" y="250" font-size="124" fill="#87699c" font-family="Songti SC,serif" letter-spacing="-8">2027</text>
+<g font-family="Songti SC,STSong,serif" font-weight="700" font-size="76" fill="#32233e"><text x="60" y="358">且慢产品战略</text><text x="60" y="458" fill="#5e4080">与年度经营计划</text></g>
+<text x="66" y="673" font-size="25">年度复盘　／　经营目标　／　季度交付</text></g>
+<g transform="translate(760 198)" fill="none" stroke-linejoin="round" stroke-linecap="round">
+<rect x="-25" y="-48" width="474" height="345" rx="12" fill="#342547"/>
+<path d="m9 176 99-46 122 54-97 50z" fill="#443257" stroke="#806691" stroke-width="2"/><path d="m9 162 98-46 122 54-97 50z" fill="#60467d" stroke="#a48bb4" stroke-width="2"/><path d="m9 148 98-46 122 54-97 50z" fill="#765995" stroke="#dfc6f2" stroke-width="2"/>
+<path d="M113 134V97q0-11 12-16l115-57h38M143 140v-24q0-7 10-12l91-40h34" stroke="#dac6ed" stroke-width="3"/><path d="m172 151 76-36h30" stroke="#e9bb8a" stroke-width="3"/>
+<g font-family="PingFang SC,Microsoft YaHei,sans-serif" font-weight="650" font-size="20" fill="#f5edf9" stroke="none"><text x="291" y="30">客户服务</text><text x="291" y="70">顾问产能</text><text x="291" y="121">生态增长</text></g></g></svg>
