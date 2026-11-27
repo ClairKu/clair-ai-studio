@@ -249,13 +249,13 @@ const initialState = {
     {
       "id": "qieman-2027-ten-figures-2026-11-27",
       "groupId": "product-planning",
-      "title": "且慢 2027 产品规划 · 十张图",
+      "title": "且慢 2027 产品规划 · 十张战略框架图",
       "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-2027-ten-figures-2026-11-27/",
       "preview": "qieman-2027-ten-figures-2026-11-27.svg",
       "pinned": false,
       "position": -8,
       "createdAt": "2026-11-26T17:29:00.000Z",
-      "source": "用一个家庭的学费计划，画出新客承接、老客服务、顾问工作台、生产方式转型和开放生态，以及每季的投入取舍。",
+      "source": "从战略全景和投入优先级，展开客户端、顾问端、AI 开放生态及服务生产方式，用年度经营口径和三线四季路线图排定交付。",
       "access": "production",
       "workType": "product-planning",
       "tags": [

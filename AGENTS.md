@@ -20,6 +20,10 @@ Standing user instruction confirmed on 2026-11-19: all completed reports and rep
 - A completed report includes a working deployed report URL and its workbench catalog entry. A local file, Library link, commit, or submitted deployment alone does not establish successful publication.
 - Preserve the existing audience and access gate. Never weaken encryption, passwords, or access controls to make a report accessible.
 
+## Report palette
+
+Prefer the workbench violet (#7356D8) and its light lavender surfaces for new or revised reports. Use green sparingly. Follow the visual direction requested for a particular report.
+
 ## Publication checks
 
 - Read the current branch and affected files before changing them; preserve concurrent updates and all existing reports.

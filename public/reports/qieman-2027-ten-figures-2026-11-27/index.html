@@ -2,564 +2,593 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots>
+<meta name="theme-color" content="#F0EDF6">
 <script data-clair-access-gate data-clair-access-scope="report" data-clair-access-entry="reports/qieman-2027-ten-figures-2026-11-27/" src="../../access-gate.js?rev=2026-11-12-fast-login-v11"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f4f3ec">
-<meta name="description" content="用一个家庭的学费计划，画出 2027 年且慢客户端、顾问工作台、AI 小顾与开放平台的产品取舍。">
-<title>且慢 2027 产品规划 · 十张图</title>
+<title>且慢 2027 产品规划 · 十张战略框架图</title>
 <style>
-:root{--paper:#f4f3ec;--ink:#123d40;--green:#08786c;--line:#c8d3c8;--muted:#526960;--white:#fffdf5;--font:Inter,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;color-scheme:light;font-family:var(--font);color:var(--ink);background:var(--paper)}
-*{box-sizing:border-box}body{margin:0}button,a,summary{font:inherit}a{color:var(--green);text-underline-offset:4px}button{color:var(--ink);cursor:pointer}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #b65a38;outline-offset:4px}button:disabled{cursor:default;opacity:.45}[hidden]{display:none!important}
-header{border-bottom:1px solid var(--line)}.toolbar,.viewer-shell,.overview-shell,.sources{width:min(1460px,calc(100% - clamp(30px,7vw,144px)));margin:auto}.toolbar{display:flex;align-items:center;justify-content:space-between;min-height:71px;gap:16px}h1{font-size:clamp(18px,2vw,26px);letter-spacing:-.03em;margin:0;font-weight:720}.title{display:flex;align-items:baseline;gap:17px}.title a{color:var(--muted);font-size:13px;text-decoration:none;white-space:nowrap}.actions,.bottom,.steps,.overlay-bar{display:flex;align-items:center;gap:10px}.plain,.emph,.prevnext,.close{padding:9px 14px;min-height:38px;border:1px solid var(--line);border-radius:8px;background:transparent;font-size:14px;font-weight:580}.plain:hover,.prevnext:hover:enabled,.close:hover{background:#e7ede2}.emph{background:var(--ink);color:#fff;border-color:var(--ink)}.emph:hover{background:#215756}.viewer-shell{padding-top:clamp(12px,2vh,25px)}.art{width:min(100%,calc((100svh - 193px) * 1.77778));min-width:min(100%,630px);margin:0 auto;background:var(--white);border:1px solid #c9d3c7;box-shadow:0 5px 22px #17363013;line-height:0;overflow:hidden}.art svg{width:100%;height:auto;display:block}
-.bottom{width:min(100%,calc((100svh - 193px) * 1.77778));min-width:min(100%,630px);margin:13px auto 0;justify-content:space-between;gap:12px}.steps{gap:2px}.dot{display:flex;justify-content:center;align-items:center;width:25px;height:34px;border:0;background:transparent;padding:2px}.dot b{height:5px;width:17px;border-radius:3px;background:#b2c4b8}.dot[aria-current=step] b{background:var(--green);height:7px;width:22px}.progress{display:flex;align-items:center;gap:15px}.progress output{font:600 13px/1.2 var(--font);color:var(--muted);white-space:nowrap}.sources{color:var(--muted);font-size:13px;margin-top:17px;margin-bottom:17px;max-width:1350px}.sources summary{cursor:pointer;max-width:max-content}.source-body{max-width:850px;line-height:1.85;margin:9px 0}.source-body a{margin-right:14px}.overview-shell{padding:22px 0 5px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(285px,100%),1fr));gap:21px 17px}.tile{border:0;text-align:left;background:transparent;padding:0;display:block}.tile img{width:100%;height:auto;display:block;border-radius:3px;border:1px solid var(--line)}.tile span{display:block;color:var(--ink);font-size:14px;margin:7px 1px;font-weight:620}.tile:hover img,.tile:focus-visible img{outline:2px solid var(--green);outline-offset:2px}
-dialog{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;border:0;padding:0;background:var(--paper);color:var(--ink)}dialog::backdrop{background:var(--ink)}.overlay-bar{position:sticky;top:0;z-index:1;padding:12px 18px;justify-content:space-between;border-bottom:1px solid var(--line);background:var(--paper)}.overlay-bar strong{font-size:15px}.overlay-art{overflow:auto;width:100%;height:calc(100dvh - 66px);overscroll-behavior:contain}.overlay-art img{display:block;width:max(100%,1120px);height:auto;margin:auto}.status{position:fixed;left:50%;transform:translateX(-50%);bottom:17px;border-radius:8px;padding:10px 17px;background:var(--ink);color:white;font-size:14px;z-index:3;box-shadow:0 1px 14px #0002}.status:empty{display:none}.skip{position:absolute;left:14px;top:-100px;background:white;padding:12px;z-index:4}.skip:focus{top:8px}
-@media(max-width:850px){.toolbar{align-items:flex-start;padding:11px 0;min-height:0}.title{flex-direction:column;gap:3px}.actions{gap:6px;align-self:center}.plain,.emph,.prevnext,.close{padding:8px 10px}.dot{width:20px}.steps{gap:0}}
-@media(max-width:620px){.toolbar{display:grid;gap:10px}.title{flex-direction:row;align-items:baseline;gap:10px}.actions{flex-wrap:wrap;gap:6px}.plain,.emph{font-size:13px;min-height:35px}.viewer-shell,.overview-shell,.toolbar,.sources{width:calc(100% - 24px)}.bottom{display:grid;grid-template-columns:auto 1fr auto;gap:5px}.progress{justify-content:center;flex-wrap:wrap;gap:1px 6px}.dot{width:14px;height:26px}.dot b{width:8px}.dot[aria-current=step] b{width:12px}.progress output{font-size:12px}.prevnext{font-size:13px;padding:7px}.sources{margin-top:14px}.art{box-shadow:none}.tile span{font-size:15px}.grid{grid-template-columns:1fr}.overlay-art img{width:1070px}.overlay-bar strong{max-width:78%;font-size:14px}}
-@media print{@page{size:320mm 180mm;margin:0}html,body,main,.viewer-shell{margin:0;padding:0;background:white;width:100%}header,.bottom,.overview-shell,.sources,dialog,.status,.skip{display:none!important}#viewer[hidden]{display:block!important}.art,.art[hidden]{display:block!important;width:100%;min-width:0;border:0;box-shadow:none;break-after:page;page-break-after:always}.art:last-of-type{break-after:auto;page-break-after:auto}.art svg{display:block;width:100%;height:auto}}
+:root{color-scheme:light;--ink:#272139;--muted:#605874;--violet:#7356D8;--deep:#5239A9;--line:#d5cee1;--paper:#FAF9FC;--lilac:#F0EDF6;--bar:60px;font:16px/1.5 Inter,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);background:var(--paper)}
+a{color:var(--deep);text-underline-offset:3px}button,select,summary{font:inherit;color:inherit}
+button,summary,select{border:1px solid var(--line);border-radius:8px;background:white;min-height:37px;padding:6px 12px;cursor:pointer}
+button:hover,summary:hover,select:hover{background:var(--lilac)}button:disabled{opacity:.38;cursor:default}button:focus-visible,summary:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--violet);outline-offset:2px}
+button[aria-pressed=true]{background:#e7e0fa;border-color:#b7a6ee;color:var(--deep)}
+.bar{position:sticky;z-index:5;top:0;background:rgba(250,249,252,.97);border-bottom:1px solid var(--line);min-height:var(--bar);display:flex;align-items:center;gap:14px;padding:9px clamp(12px,2.6vw,48px)}
+.brand{display:flex;align-items:center;gap:10px;white-space:nowrap;font-weight:700;font-size:17px}.brand:before{content:"";display:inline-block;width:25px;height:8px;border-radius:9px;background:var(--violet)}
+.bar nav,.actions,.navpair{display:flex;align-items:center;gap:6px}.bar nav{flex:1}.actions{margin-left:auto}.bar select{max-width:235px}.turn{font-size:20px;line-height:1;width:37px;padding:4px}
+#present{background:var(--deep);color:white;border-color:var(--deep)}#present:hover{background:#452d99}
+.exports{position:relative}.exports summary{list-style:none;white-space:nowrap}.exports summary::-webkit-details-marker{display:none}.exports summary:after{content:"⌄";margin-left:5px}.menu{position:absolute;right:0;top:calc(100% + 8px);display:grid;gap:4px;width:204px;padding:7px;background:white;border:1px solid var(--line);box-shadow:0 8px 24px #37295423;border-radius:9px}.menu button{text-align:left;border:0;white-space:nowrap}
+#atlas{width:100%;margin:0}.art{margin:0;width:100%;scroll-margin-top:var(--bar);background:white}.art svg{display:block;width:100%;height:auto}.viewport{width:100%;overflow:auto;margin:0}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;margin:0}
+body.ready .art[hidden]{display:none}body.overview .art+.art{margin-top:clamp(14px,2.3vw,40px);border-top:4px solid #d9d2e5}body.overview{background:#eae6f0}
+body.zoomed .art:not([hidden]) .viewport svg{width:max(138%,1280px);max-width:none;height:auto}
+.sources{border-top:1px solid var(--line);padding:14px clamp(18px,4vw,72px) 30px;background:var(--paper);font-size:14px;color:var(--muted)}.sources summary{display:inline-block;min-height:auto;border:0;background:none;padding:5px 0;color:var(--deep);font-weight:650}.sources summary:after{content:" ＋"}.sources[open] summary:after{content:" －"}.sources p{margin:6px 0}.sources nav{display:flex;flex-wrap:wrap;gap:5px 20px}
+#status{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:9;background:#2a233dec;padding:7px 14px;color:white;border-radius:7px;font-size:14px;pointer-events:none}#status:empty{display:none}
+body.present{height:100vh;height:100dvh;overflow:hidden;background:#211d2c;display:flex;flex-direction:column}body.present .bar{flex:0 0 auto;background:#f4f1f8;position:relative}body.present .brand,body.present .extras,body.present .sources{display:none}body.present #atlas{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:auto}body.present .art{background:transparent;height:100%}body.present .viewport{height:100%;display:grid;place-items:center;overflow:hidden}body.present .art svg{height:100%;width:100%;object-fit:contain}
+@media(max-width:820px){:root{--bar:54px}.bar{gap:7px;padding:7px 9px}.brand{display:none}.bar select{max-width:200px}.bar nav,.actions{gap:4px}.bar button,.bar select,.bar summary{padding-left:8px;padding-right:8px}}
+@media(max-width:610px){.bar{flex-wrap:wrap}.bar nav{flex:0 0 100%;justify-content:space-between}.bar nav select{flex:1;max-width:none}.actions{width:100%;margin:0}.actions>#present{margin-left:auto}:root{--bar:97px}body.present .bar{flex-wrap:nowrap}body.present .bar nav{flex:1 1 auto}body.present .actions{width:auto;flex:0 0 auto}body.present .actions>#present{white-space:nowrap}}
+@media print{@page{size:16in 9in;margin:0}html,body,body.present,#atlas{background:white!important;display:block!important;overflow:visible!important;height:auto!important;width:100%!important}.bar,.sources,#status{display:none!important}.art,.art[hidden],body.ready .art[hidden],body.overview .art+.art{display:block!important;margin:0!important;border:0!important;width:100%!important;height:9in!important;break-after:page;break-inside:avoid}.art:last-child{break-after:auto}.viewport,.art svg{display:block!important;width:100%!important;height:9in!important;overflow:visible!important;max-width:100%!important}}
 </style>
 </head>
 <body>
-<a class="skip" href="#viewer">跳到图册</a>
-<header><div class="toolbar"><div class="title"><h1>且慢 2027 产品规划 · 十张图</h1><a href="https://clairku.github.io/clair-ai-studio/">返回工作台 ↗</a></div>
-<nav class="actions" aria-label="图册工具"><a class="plain" style="display:inline-flex;align-items:center;color:inherit;text-decoration:none;font-weight:650" href="./service-review.html">服务验收图解</a><button id="overview-toggle" class="plain" type="button" aria-pressed="false">十图总览</button><button id="zoom" class="plain" type="button">放大本图</button><button id="save-one" class="plain" type="button">下载本图</button><button id="save-all" class="emph" type="button">下载十张 PNG</button></nav>
-</div></header>
-<main>
-<section id="viewer" class="viewer-shell" aria-label="逐张看图" tabindex="-1">
-<figure class="art" data-section="全景" data-slug="service-map"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t1 d1"><title id="t1">从第一次提问，陪客户到用钱那天</title><desc id="d1">两条入口汇入同一份计划。简单事项由小顾接续，日期或预算变化时由真人顾问与客户商量，办理后的真实结果可以回看。</desc>
-<rect x="0" y="0" width="1280" height="720" rx="0" fill="#123E40"/>
-<path d="M61 39h11l7-11h10" fill="none" stroke="#A3E0C4" stroke-width="3.7" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="104" y="41" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="650" fill="#FFFDF5" text-anchor="start">且慢  /  2027 产品规划</text>
-<text x="1218" y="41" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="620" fill="#BED5C9" text-anchor="end">01 / 10     全景</text>
-<path d="M61 63L1219 63" fill="none" stroke="#4C706D" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="59" y="132" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="50" font-weight="720" fill="#FFFDF5" text-anchor="start">从第一次提问，陪客户到用钱那天</text>
-<path d="M1138 334V246Q1138 219 1111 219H668Q642 219 642 245V323" fill="none" stroke="#BED5C9" stroke-width="2.5" stroke-dasharray="6 8" stroke-linecap="round" stroke-linejoin="round"/>
-<g transform="translate(642 324) rotate(90)"><path d="M-10 -6.3L0 0L-10 6.3" fill="none" stroke="#BED5C9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<text x="885" y="202" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="560" fill="#BED5C9" text-anchor="middle">下次复访，打开原计划</text>
-<path d="M86 284H211Q238 284 263 311L305 354Q323 374 351 374H1140" fill="none" stroke="#A3E0C4" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M86 471H204Q231 471 254 444L302 394Q321 374 351 374" fill="none" stroke="#A3E0C4" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M642 374C663 374 681 403 695 430L728 489Q740 511 766 511H813Q836 511 850 487L894 409Q914 374 937 374" fill="none" stroke="#F5B48A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="86" cy="284" r="13" fill="#123E40" stroke="#A3E0C4" stroke-width="6"/>
-<circle cx="86" cy="471" r="13" fill="#123E40" stroke="#A3E0C4" stroke-width="6"/>
-<circle cx="385" cy="374" r="13" fill="#123E40" stroke="#A3E0C4" stroke-width="6"/>
-<circle cx="642" cy="374" r="13" fill="#123E40" stroke="#A3E0C4" stroke-width="6"/>
-<circle cx="937" cy="374" r="13" fill="#123E40" stroke="#A3E0C4" stroke-width="6"/>
-<circle cx="1138" cy="374" r="13" fill="#123E40" stroke="#A3E0C4" stroke-width="6"/>
-<circle cx="788" cy="511" r="14" fill="#123E40" stroke="#F5B48A" stroke-width="6"/>
-<circle cx="1138" cy="374" r="5" fill="#A3E0C4"/>
-<text x="68" y="247" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="32" font-weight="670" fill="#FFFDF5" text-anchor="start">千问</text>
-<text x="153" y="245" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="500" fill="#BED5C9" text-anchor="start">新客问学费</text>
-<text x="68" y="523" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="31" font-weight="670" fill="#FFFDF5" text-anchor="start">且慢 App</text>
-<text x="69" y="555" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="500" fill="#BED5C9" text-anchor="start">老客看账户或改计划</text>
-<text x="389" y="331" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="28" font-weight="680" fill="#FFFDF5" text-anchor="middle">小顾接住问题</text>
-<text x="594" y="427" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="650" fill="#FFFDF5" text-anchor="middle">保存用钱计划</text>
-<text x="936" y="328" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="650" fill="#FFFDF5" text-anchor="middle">客户选定安排</text>
-<text x="1135" y="430" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="650" fill="#FFFDF5" text-anchor="middle">查看结果</text>
-<text x="790" y="562" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="29" font-weight="680" fill="#F5B48A" text-anchor="middle">顾问工作台</text>
-<text x="790" y="597" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="500" fill="#BED5C9" text-anchor="middle">期限或预算冲突，真人接手</text>
-<g transform="translate(69 614) scale(1.00000)" fill="none" stroke="#A3E0C4" color="#A3E0C4" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5c-3-2-6-2-9-1v15c3-1 6-1 9 1 3-2 6-2 9-1V4c-3-1-6-1-9 1Zm0 0v15"/></g>
-<text x="106" y="634" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="670" fill="#A3E0C4" text-anchor="start">盈米 AI 实验室</text>
-<text x="257" y="634" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="510" fill="#BED5C9" text-anchor="start">把专业方法做成共用工具</text>
-<path d="M612 612L612 639" fill="none" stroke="#4C706D" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<g transform="translate(656 614) scale(0.95833)" fill="none" stroke="#A3E0C4" color="#A3E0C4" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m9.5 14.5 5-5m-2.8-3 2.1-2.1a4.6 4.6 0 0 1 6.5 6.5l-3.4 3.4m-9.8-4.6-3.4 3.4a4.6 4.6 0 0 0 6.5 6.5l2.1-2.1"/></g>
-<text x="694" y="634" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="670" fill="#A3E0C4" text-anchor="start">盈米 AI 开放平台</text>
-<text x="871" y="634" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="510" fill="#BED5C9" text-anchor="start">把已验证的服务接到外部入口</text>
-<path d="M61 659L1219 659" fill="none" stroke="#4C706D" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="62" y="693" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="17" font-weight="520" fill="#BED5C9" text-anchor="start">涉及办理时，客户在且慢自行确认，到账状态回到原计划。</text>
-<text x="1219" y="693" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="16" font-weight="600" fill="#BED5C9" text-anchor="end">2027 规划示意</text>
-</svg></figure>
-<figure class="art" data-section="产品概念" data-slug="goal-math" hidden><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t2 d2"><title id="t2">十二万元学费，每月该留多少钱？</title><desc id="d2">虚构的林女士在 2027 年 1 月为 18 个月后的学费做计划。目标 12 万元，已备 6.6 万元，余下 5.4 万元分 18 期，每期 3,000 元。</desc>
-<rect x="0" y="0" width="1280" height="720" rx="0" fill="#F6F4EA"/>
-<path d="M61 39h11l7-11h10" fill="none" stroke="#08786C" stroke-width="3.7" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="104" y="41" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="650" fill="#123D40" text-anchor="start">且慢  /  2027 产品规划</text>
-<text x="1218" y="41" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="620" fill="#496862" text-anchor="end">02 / 10     产品概念</text>
-<path d="M61 63L1219 63" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="59" y="132" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="50" font-weight="720" fill="#123D40" text-anchor="start">十二万元学费，每月该留多少钱？</text>
-<rect x="63" y="179" width="385" height="439" rx="22" fill="#EEE6D4"/>
-<path d="M98 245h78m-78 10h52" fill="none" stroke="#C9BDA6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<g transform="translate(155 215) scale(7.41667)" fill="none" stroke="#08786C" color="#08786C" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="m2 10 10-5 10 5-10 5-10-5Z M5.5 12v5c3.5 3.4 9.5 3.4 13 0v-5 M22 10v7"/></g>
-<text x="98" y="415" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="650" fill="#496862" text-anchor="start">林女士  ·  2027 年 1 月</text>
-<text x="97" y="481" font-family="'Songti SC','STSong','Noto Serif CJK SC','PingFang SC',serif" font-size="30" font-weight="650" fill="#123D40" text-anchor="start">“孩子十八个月后上学，</text>
-<text x="98" y="534" font-family="'Songti SC','STSong','Noto Serif CJK SC','PingFang SC',serif" font-size="36" font-weight="700" fill="#123D40" text-anchor="start">要备十二万元。”</text>
-<path d="M97 575L408 575" fill="none" stroke="#CABFA9" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="98" y="602" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="17" font-weight="550" fill="#496862" text-anchor="start">家庭教育金</text>
-<text x="407" y="602" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="17" font-weight="650" fill="#496862" text-anchor="end">计划 V1</text>
-<text x="512" y="209" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="600" fill="#496862" text-anchor="start">学费目标</text>
-<text x="508" y="296" font-family="'Avenir Next','Inter',Arial,'PingFang SC','Microsoft YaHei',sans-serif" font-size="85" font-weight="650" fill="#123D40" text-anchor="start">12</text>
-<text x="627" y="292" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="32" font-weight="650" fill="#123D40" text-anchor="start">万元</text>
-<rect x="512" y="327" width="671" height="46" rx="8" fill="#E0EEE3"/>
-<rect x="512" y="327" width="369.05" height="46" rx="8" fill="#08786C"/>
-<rect x="864" y="327" width="17" height="46" rx="0" fill="#08786C"/>
-<path d="M881 323L881 378" fill="none" stroke="#FFFDF5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="513" y="413" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="650" fill="#08786C" text-anchor="start">已备  6.6 万</text>
-<text x="1183" y="413" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="650" fill="#496862" text-anchor="end">还差  5.4 万</text>
-<path d="M512 449L1184 449" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="512" y="501" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="580" fill="#496862" text-anchor="start">分 18 个月补足</text>
-<text x="511" y="559" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="32" font-weight="600" fill="#123D40" text-anchor="start">5.4 万 ÷ 18 =</text>
-<text x="763" y="565" font-family="'Avenir Next','Inter',Arial,'PingFang SC','Microsoft YaHei',sans-serif" font-size="77" font-weight="650" fill="#08786C" text-anchor="start">3,000</text>
-<text x="1016" y="557" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="35" font-weight="650" fill="#08786C" text-anchor="start">元 / 月</text>
-<rect x="512.0" y="598" width="28" height="9" rx="3" fill="#08786C"/>
-<rect x="549.6" y="598" width="28" height="9" rx="3" fill="#ADCDC0"/>
-<rect x="587.2" y="598" width="28" height="9" rx="3" fill="#ADCDC0"/>
-<rect x="624.8" y="598" width="28" height="9" rx="3" fill="#ADCDC0"/>
-<rect x="662.4" y="598" width="28" height="9" rx="3" fill="#ADCDC0"/>
-<rect x="700.0" y="598" width="28" height="9" rx="3" fill="#ADCDC0"/>
-<rect x="737.6" y="598" width="28" height="9" rx="3" fill="#ADCDC0"/>
-<rect x="775.2" y="598" width="28" height="9" rx="3" fill="#ADCDC0"/>
-<rect x="812.8" y="598" width="28" height="9" rx="3" fill="#ADCDC0"/>
-<rect x="850.4000000000001" y="598" width="28" height="9" rx="3" fill="#ADCDC0"/>
-<rect x="888.0" y="598" width="28" height="9" rx="3" fill="#ADCDC0"/>
-<rect x="925.6" y="598" width="28" height="9" rx="3" fill="#ADCDC0"/>
-<rect x="963.2" y="598" width="28" height="9" rx="3" fill="#ADCDC0"/>
-<rect x="1000.8" y="598" width="28" height="9" rx="3" fill="#ADCDC0"/>
-<rect x="1038.4" y="598" width="28" height="9" rx="3" fill="#ADCDC0"/>
-<rect x="1076.0" y="598" width="28" height="9" rx="3" fill="#ADCDC0"/>
-<rect x="1113.6" y="598" width="28" height="9" rx="3" fill="#ADCDC0"/>
-<rect x="1151.2" y="598" width="28" height="9" rx="3" fill="#08786C"/>
-<path d="M61 659L1219 659" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="62" y="693" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="17" font-weight="520" fill="#496862" text-anchor="start">测算按月等额，不计收益和费用。</text>
-<text x="1219" y="693" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="16" font-weight="600" fill="#496862" text-anchor="end">虚构家庭示例</text>
-</svg></figure>
-<figure class="art" data-section="新客旅程" data-slug="qianwen-handoff" hidden><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t3 d3"><title id="t3">从千问回到且慢，接着刚才那笔测算</title><desc id="d3">客户在千问小顾完成初算，自愿将用途、金额和日期带入且慢，核对后保存第一份学费计划。</desc>
-<rect x="0" y="0" width="1280" height="720" rx="0" fill="#F6F4EA"/>
-<path d="M61 39h11l7-11h10" fill="none" stroke="#08786C" stroke-width="3.7" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="104" y="41" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="650" fill="#123D40" text-anchor="start">且慢  /  2027 产品规划</text>
-<text x="1218" y="41" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="620" fill="#496862" text-anchor="end">03 / 10     新客旅程</text>
-<path d="M61 63L1219 63" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="59" y="132" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="50" font-weight="720" fill="#123D40" text-anchor="start">从千问回到且慢，接着刚才那笔测算</text>
-<rect x="79" y="179" width="320" height="453" rx="35" fill="#D7DED3"/>
-<rect x="74" y="172" width="320" height="453" rx="35" fill="#123D40"/>
-<rect x="80" y="178" width="308" height="441" rx="30" fill="#FFFDF5"/>
-<rect x="203.0" y="185" width="62" height="6" rx="4" fill="#123D40"/>
-<rect x="197.0" y="609" width="74" height="4" rx="2" fill="#8CA39A"/>
-<rect x="886" y="179" width="320" height="453" rx="35" fill="#D7DED3"/>
-<rect x="881" y="172" width="320" height="453" rx="35" fill="#123D40"/>
-<rect x="887" y="178" width="308" height="441" rx="30" fill="#FFFDF5"/>
-<rect x="1010.0" y="185" width="62" height="6" rx="4" fill="#123D40"/>
-<rect x="1004.0" y="609" width="74" height="4" rx="2" fill="#8CA39A"/>
-<text x="100" y="237" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="680" fill="#123D40" text-anchor="start">千问 · 小顾</text>
-<path d="M98 255L370 255" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="136" y="276" width="232" height="55" rx="16" fill="#E0EEE3"/>
-<text x="252" y="311" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="580" fill="#123D40" text-anchor="middle">18 个月后要交学费。</text>
-<g transform="translate(101 356) scale(1.37500)" fill="none" stroke="#08786C" color="#08786C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m2 10 10-5 10 5-10 5-10-5Z M5.5 12v5c3.5 3.4 9.5 3.4 13 0v-5 M22 10v7"/></g>
-<text x="145" y="381" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="680" fill="#123D40" text-anchor="start">教育金测算</text>
-<text x="100" y="444" font-family="'Avenir Next','Inter',Arial,'PingFang SC','Microsoft YaHei',sans-serif" font-size="47" font-weight="700" fill="#08786C" text-anchor="start">3,000</text>
-<text x="247" y="440" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="630" fill="#08786C" text-anchor="start">元 / 月</text>
-<text x="101" y="477" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="500" fill="#496862" text-anchor="start">目标 12 万元，已备 6.6 万元</text>
-<rect x="99" y="520" width="269" height="51" rx="13" fill="#08786C"/>
-<text x="233" y="553" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="21" font-weight="650" fill="#FFFDF5" text-anchor="middle">同意带入且慢</text>
-<text x="1040" y="237" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="680" fill="#123D40" text-anchor="middle">且慢 · 我的目标</text>
-<path d="M906 255L1176 255" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<g transform="translate(907 280) scale(1.45833)" fill="none" stroke="#08786C" color="#08786C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h9l5 5v13H5Z M14 3v6h5 M8.5 13h7m-7 4h5"/></g>
-<text x="953" y="306" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="700" fill="#123D40" text-anchor="start">学费计划</text>
-<text x="907" y="365" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="520" fill="#496862" text-anchor="start">用款时间</text>
-<text x="1175" y="365" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="640" fill="#123D40" text-anchor="end">2028 年 7 月</text>
-<path d="M908 383L1175 383" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="907" y="423" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="520" fill="#496862" text-anchor="start">每月准备</text>
-<text x="1175" y="423" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="700" fill="#08786C" text-anchor="end">3,000 元</text>
-<text x="907" y="477" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="500" fill="#496862" text-anchor="start">已带入刚才的测算，可修改</text>
-<rect x="907" y="520" width="268" height="51" rx="13" fill="#08786C"/>
-<text x="1041" y="553" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="21" font-weight="650" fill="#FFFDF5" text-anchor="middle">确认并保存</text>
-<path d="M407 382H501Q523 382 538 367L575 331Q587 319 609 319H671Q691 319 703 331L739 366Q755 382 776 382H866" fill="none" stroke="#08786C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-<g transform="translate(865 382) rotate(0)"><path d="M-12 -7.5600000000000005L0 0L-12 7.5600000000000005" fill="none" stroke="#08786C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<circle cx="641" cy="319" r="39" fill="#E0EEE3" stroke="#08786C" stroke-width="2"/>
-<g transform="translate(623 301) scale(1.50000)" fill="none" stroke="#08786C" color="#08786C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m9.5 14.5 5-5m-2.8-3 2.1-2.1a4.6 4.6 0 0 1 6.5 6.5l-3.4 3.4m-9.8-4.6-3.4 3.4a4.6 4.6 0 0 0 6.5 6.5l2.1-2.1"/></g>
-<text x="640" y="438" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="28" font-weight="700" fill="#123D40" text-anchor="middle">本人同意后带入</text>
-<text x="640" y="478" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="520" fill="#496862" text-anchor="middle">用途、金额、用款日</text>
-<path d="M61 659L1219 659" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="62" y="693" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="17" font-weight="520" fill="#496862" text-anchor="start">客户暂不授权，可以留在千问看完这次测算。</text>
-<text x="1219" y="693" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="16" font-weight="600" fill="#496862" text-anchor="end">规划界面示意</text>
-</svg></figure>
-<figure class="art" data-section="存量体验" data-slug="wealth-record" hidden><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t4 d4"><title id="t4">打开财富档案，看懂这笔钱为什么变多</title><desc id="d4">三笔各 3,000 元的到账让学费从 6.6 万元增至 7.5 万元，达到 12 万目标的 62.5%。档案保留到账依据，也能修改用款日。</desc>
-<rect x="0" y="0" width="1280" height="720" rx="0" fill="#F6F4EA"/>
-<path d="M61 39h11l7-11h10" fill="none" stroke="#08786C" stroke-width="3.7" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="104" y="41" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="650" fill="#123D40" text-anchor="start">且慢  /  2027 产品规划</text>
-<text x="1218" y="41" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="620" fill="#496862" text-anchor="end">04 / 10     存量体验</text>
-<path d="M61 63L1219 63" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="59" y="132" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="50" font-weight="720" fill="#123D40" text-anchor="start">打开财富档案，看懂这笔钱为什么变多</text>
-<text x="73" y="202" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="620" fill="#496862" text-anchor="start">且慢 App   /   财富档案   /   学费计划</text>
-<text x="73" y="248" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="650" fill="#123D40" text-anchor="start">2027 年 4 月</text>
-<circle cx="337" cy="437" r="147" fill="none" stroke="#E0EEE3" stroke-width="31"/>
-<path d="M337 290A147 147 0 1 1 233.055 540.945" fill="none" stroke="#08786C" stroke-width="31" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="233.05530316557753" cy="540.9446968344225" r="8" fill="#FFFDF5"/>
-<text x="337" y="381" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="21" font-weight="590" fill="#496862" text-anchor="middle">已备学费</text>
-<text x="322" y="449" font-family="'Avenir Next','Inter',Arial,'PingFang SC','Microsoft YaHei',sans-serif" font-size="71" font-weight="650" fill="#123D40" text-anchor="middle">7.5</text>
-<text x="385" y="445" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="27" font-weight="660" fill="#123D40" text-anchor="start">万</text>
-<text x="338" y="489" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="21" font-weight="550" fill="#496862" text-anchor="middle">目标 12 万元</text>
-<text x="336" y="620" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="620" fill="#08786C" text-anchor="middle">已备 62.5%   ·   原计划还剩 15 期</text>
-<path d="M605 231L605 608" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="660" y="245" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="33" font-weight="700" fill="#123D40" text-anchor="start">从 6.6 万到 7.5 万</text>
-<text x="661" y="281" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="21" font-weight="510" fill="#496862" text-anchor="start">多出的 9,000 元，来自三笔到账。</text>
-<circle cx="677" cy="330" r="14" fill="#E0EEE3"/>
-<g transform="translate(669 322) scale(0.66667)" fill="none" stroke="#08786C" color="#08786C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></g>
-<text x="711" y="338" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="620" fill="#123D40" text-anchor="start">2 月</text>
-<text x="838" y="337" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="21" font-weight="500" fill="#496862" text-anchor="start">学费资金到账</text>
-<text x="1184" y="338" font-family="'Avenir Next','Inter',Arial,'PingFang SC','Microsoft YaHei',sans-serif" font-size="27" font-weight="650" fill="#08786C" text-anchor="end">+3,000</text>
-<path d="M662 361L1186 361" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="677" cy="398" r="14" fill="#E0EEE3"/>
-<g transform="translate(669 390) scale(0.66667)" fill="none" stroke="#08786C" color="#08786C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></g>
-<text x="711" y="406" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="620" fill="#123D40" text-anchor="start">3 月</text>
-<text x="838" y="405" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="21" font-weight="500" fill="#496862" text-anchor="start">学费资金到账</text>
-<text x="1184" y="406" font-family="'Avenir Next','Inter',Arial,'PingFang SC','Microsoft YaHei',sans-serif" font-size="27" font-weight="650" fill="#08786C" text-anchor="end">+3,000</text>
-<path d="M662 429L1186 429" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="677" cy="466" r="14" fill="#E0EEE3"/>
-<g transform="translate(669 458) scale(0.66667)" fill="none" stroke="#08786C" color="#08786C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></g>
-<text x="711" y="474" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="620" fill="#123D40" text-anchor="start">4 月</text>
-<text x="838" y="473" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="21" font-weight="500" fill="#496862" text-anchor="start">学费资金到账</text>
-<text x="1184" y="474" font-family="'Avenir Next','Inter',Arial,'PingFang SC','Microsoft YaHei',sans-serif" font-size="27" font-weight="650" fill="#08786C" text-anchor="end">+3,000</text>
-<path d="M662 497L1186 497" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="656" y="533" width="532" height="71" rx="12" fill="#E5EDDF"/>
-<g transform="translate(677 555) scale(1.12500)" fill="none" stroke="#08786C" color="#08786C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m3.5 17.2 12.3-12.3a2.3 2.3 0 0 1 3.3 3.3L6.9 20.5 3 21Zm10-10 3.3 3.4"/></g>
-<text x="725" y="577" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="600" fill="#123D40" text-anchor="start">用钱时间变了</text>
-<text x="1165" y="577" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="21" font-weight="670" fill="#08786C" text-anchor="end">修改用款日  →</text>
-<path d="M61 659L1219 659" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="62" y="693" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="17" font-weight="520" fill="#496862" text-anchor="start">每笔到账都能回查。客户下次打开时，可以接着改原计划。</text>
-<text x="1219" y="693" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="16" font-weight="600" fill="#496862" text-anchor="end">虚构账户示例</text>
-</svg></figure>
-<figure class="art" data-section="小顾 4.0 / L3" data-slug="xiaogu-followup" hidden><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t5 d5"><title id="t5">到了约定日，小顾只问一个问题</title><desc id="d5">客户同意后，小顾在约定复访日询问用款时间是否变化。照旧、提前和关闭分别写回不同结果，客户可以停止这项提醒。</desc>
-<rect x="0" y="0" width="1280" height="720" rx="0" fill="#123E40"/>
-<path d="M61 39h11l7-11h10" fill="none" stroke="#A3E0C4" stroke-width="3.7" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="104" y="41" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="650" fill="#FFFDF5" text-anchor="start">且慢  /  2027 产品规划</text>
-<text x="1218" y="41" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="620" fill="#BED5C9" text-anchor="end">05 / 10     小顾 4.0 / L3</text>
-<path d="M61 63L1219 63" fill="none" stroke="#4C706D" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="59" y="132" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="50" font-weight="720" fill="#FFFDF5" text-anchor="start">到了约定日，小顾只问一个问题</text>
-<rect x="73" y="245" width="193" height="183" rx="17" fill="none" stroke="#BED5C9" stroke-width="2"/>
-<rect x="73" y="245" width="193" height="49" rx="16" fill="#A3E0C4"/>
-<rect x="73" y="275" width="193" height="19" rx="0" fill="#A3E0C4"/>
-<path d="M118 231L118 258" fill="none" stroke="#A3E0C4" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M221 231L221 258" fill="none" stroke="#A3E0C4" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="170" y="278" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="680" fill="#123D40" text-anchor="middle">四月</text>
-<text x="170" y="389" font-family="'Avenir Next','Inter',Arial,'PingFang SC','Microsoft YaHei',sans-serif" font-size="84" font-weight="620" fill="#FFFDF5" text-anchor="middle">30</text>
-<text x="170" y="471" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="27" font-weight="680" fill="#FFFDF5" text-anchor="middle">已约好复访</text>
-<text x="170" y="503" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="500" fill="#BED5C9" text-anchor="middle">客户允许本次提醒</text>
-<path d="M284 343L332 343" fill="none" stroke="#A3E0C4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(332 343) rotate(0.0)"><path d="M-10 -6.3L0 0L-10 6.3" fill="none" stroke="#A3E0C4" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<rect x="349" y="263" width="373" height="167" rx="23" fill="#A3E0C4"/>
-<path d="M377 425l2 24 32-24Z" fill="#A3E0C4" stroke="none" stroke-width="0" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="379" y="307" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="650" fill="#08786C" text-anchor="start">AI 小顾</text>
-<text x="378" y="350" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="30" font-weight="680" fill="#123D40" text-anchor="start">“交学费的时间</text>
-<text x="378" y="393" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="30" font-weight="680" fill="#123D40" text-anchor="start">有变化吗？”</text>
-<path d="M724 343H756Q775 343 775 324V222Q775 205 796 205H830" fill="none" stroke="#BED5C9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M724 343H833" fill="none" stroke="#F5B48A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M724 343H756Q775 343 775 362V476Q775 493 795 493H830" fill="none" stroke="#BED5C9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<g transform="translate(831 205) rotate(0)"><path d="M-9 -5.67L0 0L-9 5.67" fill="none" stroke="#BED5C9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<g transform="translate(831 343) rotate(0)"><path d="M-9 -5.67L0 0L-9 5.67" fill="none" stroke="#F5B48A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<g transform="translate(831 493) rotate(0)"><path d="M-9 -5.67L0 0L-9 5.67" fill="none" stroke="#BED5C9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<text x="858" y="213" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="29" font-weight="690" fill="#A3E0C4" text-anchor="start">“没变。”</text>
-<text x="863" y="251" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="500" fill="#FFFDF5" text-anchor="start">记下本次确认，按原计划继续。</text>
-<text x="858" y="351" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="29" font-weight="690" fill="#F5B48A" text-anchor="start">“提前半年了。”</text>
-<text x="863" y="389" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="500" fill="#FFFDF5" text-anchor="start">重新测算，客户同意后约顾问。</text>
-<text x="858" y="501" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="29" font-weight="690" fill="#BED5C9" text-anchor="start">“不用提醒了。”</text>
-<text x="863" y="539" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="500" fill="#FFFDF5" text-anchor="start">关闭这笔学费计划的后续提醒。</text>
-<path d="M72 583L1209 583" fill="none" stroke="#4C706D" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="73" y="622" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="680" fill="#A3E0C4" text-anchor="start">L3 试点验收</text>
-<text x="257" y="622" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="550" fill="#FFFDF5" text-anchor="start">按约触发</text>
-<path d="M367 615L422 615" fill="none" stroke="#BED5C9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(422 615) rotate(0.0)"><path d="M-10 -6.3L0 0L-10 6.3" fill="none" stroke="#BED5C9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<text x="444" y="622" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="550" fill="#FFFDF5" text-anchor="start">只问一次</text>
-<path d="M550 615L606 615" fill="none" stroke="#BED5C9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(606 615) rotate(0.0)"><path d="M-10 -6.3L0 0L-10 6.3" fill="none" stroke="#BED5C9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<text x="632" y="622" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="550" fill="#FFFDF5" text-anchor="start">取得回复</text>
-<path d="M738 615L792 615" fill="none" stroke="#BED5C9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(792 615) rotate(0.0)"><path d="M-10 -6.3L0 0L-10 6.3" fill="none" stroke="#BED5C9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<text x="817" y="622" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="550" fill="#FFFDF5" text-anchor="start">更新计划或停止</text>
-<path d="M61 659L1219 659" fill="none" stroke="#4C706D" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="62" y="693" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="17" font-weight="520" fill="#BED5C9" text-anchor="start">未获许可时不发出提醒。无回复时保留待确认状态。</text>
-<text x="1219" y="693" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="16" font-weight="600" fill="#BED5C9" text-anchor="end">规划流程示意</text>
-</svg></figure>
-<figure class="art" data-section="高客顾问工作台" data-slug="advisor-decision" hidden><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t6 d6"><title id="t6">学费提前半年，顾问把两种安排摆出来</title><desc id="d6">2027 年 4 月末，已备 7.5 万元。用款日从 2028 年 7 月提前到 1 月，剩 9 期。顾问比较每月 5,000 元与每月 3,000 元并一次补 1.8 万元两个选择，再请客户确认来源与决定。</desc>
-<rect x="0" y="0" width="1280" height="720" rx="0" fill="#F6F4EA"/>
-<path d="M61 39h11l7-11h10" fill="none" stroke="#08786C" stroke-width="3.7" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="104" y="41" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="650" fill="#123D40" text-anchor="start">且慢  /  2027 产品规划</text>
-<text x="1218" y="41" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="620" fill="#496862" text-anchor="end">06 / 10     高客顾问工作台</text>
-<path d="M61 63L1219 63" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="59" y="132" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="50" font-weight="720" fill="#123D40" text-anchor="start">学费提前半年，顾问把两种安排摆出来</text>
-<rect x="65" y="164" width="164" height="36" rx="18.0" fill="#F3D7BD"/><text x="147.0" y="188.48" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="650" fill="#AC4B29" text-anchor="middle">今日优先跟进</text>
-<text x="250" y="191" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="620" fill="#123D40" text-anchor="start">林女士  /  学费提前：2028 年 7 月 → 2028 年 1 月</text>
-<rect x="63" y="223" width="1155" height="80" rx="11" fill="#E0EEE3"/>
-<g transform="translate(87 248) scale(1.25000)" fill="none" stroke="#08786C" color="#08786C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M7 3v4m10-4v4M3 10h18m-14 5h3m4 0h3"/></g>
-<text x="135" y="273" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="660" fill="#123D40" text-anchor="start">当前只剩 9 期</text>
-<path d="M441 245L441 283" fill="none" stroke="#BFCFC2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="471" y="273" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="600" fill="#123D40" text-anchor="start">12 万目标  −  7.5 万已备  =</text>
-<text x="829" y="273" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="29" font-weight="720" fill="#08786C" text-anchor="start">还需 4.5 万元</text>
-<text x="67" y="355" font-family="'Avenir Next','Inter',Arial,'PingFang SC','Microsoft YaHei',sans-serif" font-size="30" font-weight="700" fill="#08786C" text-anchor="start">A</text>
-<text x="118" y="355" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="650" fill="#123D40" text-anchor="start">提高月预算</text>
-<text x="67" y="464" font-family="'Avenir Next','Inter',Arial,'PingFang SC','Microsoft YaHei',sans-serif" font-size="30" font-weight="700" fill="#AC4B29" text-anchor="start">B</text>
-<text x="118" y="464" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="650" fill="#123D40" text-anchor="start">保留月预算</text>
-<rect x="330" y="318" width="772" height="59" rx="8" fill="#08786C"/>
-<text x="716" y="356" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="640" fill="#FFFDF5" text-anchor="middle">每月 5,000 元 × 9 期</text>
-<rect x="330" y="427" width="463.2" height="59" rx="8" fill="#08786C"/>
-<rect x="780" y="427" width="14" height="59" rx="0" fill="#08786C"/>
-<rect x="793.2" y="427" width="308.8" height="59" rx="8" fill="#F3D7BD"/>
-<rect x="793.2" y="427" width="12" height="59" rx="0" fill="#F3D7BD"/>
-<path d="M793 425L793 489" fill="none" stroke="#F6F4EA" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="559" y="465" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="660" fill="#FFFDF5" text-anchor="middle">每月 3,000 元 × 9 期</text>
-<text x="946" y="465" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="650" fill="#AC4B29" text-anchor="middle">另外一次补 1.8 万元</text>
-<text x="1217" y="355" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="700" fill="#123D40" text-anchor="end">4.5 万</text>
-<text x="1217" y="464" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="700" fill="#123D40" text-anchor="end">4.5 万</text>
-<rect x="65" y="533" width="1153" height="83" rx="12" fill="#EDE8DB"/>
-<g transform="translate(92 557) scale(1.41667)" fill="none" stroke="#496862" color="#496862" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18v12H10l-6 5v-5H3Z M7 8.5h10m-10 4h7"/></g>
-<text x="146" y="581" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="600" fill="#496862" text-anchor="start">顾问问</text>
-<text x="241" y="584" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="650" fill="#123D40" text-anchor="start">“有不动用家庭备用金、可以单独留出的 1.8 万元吗？”</text>
-<path d="M61 659L1219 659" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="62" y="693" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="17" font-weight="520" fill="#496862" text-anchor="start">林女士确认另有 1.8 万元可用，选择 B。顾问保存新版计划，约好 7 月复访。</text>
-<text x="1219" y="693" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="16" font-weight="600" fill="#496862" text-anchor="end">同一家庭  /  2027 年 4 月末</text>
-</svg></figure>
-<figure class="art" data-section="生产方式转型" data-slug="production-model" hidden><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t7 d7"><title id="t7">把一位顾问的方法，教给下一位顾问</title><desc id="d7">原来业务提需求、产品设计、研发上线、顾问试用。规划中，专家给规则，产品定义客户、目标与计划及验收案例，实验室做成测算服务，研发维护数据、权限和版本，顾问可用同一案例带教。</desc>
-<rect x="0" y="0" width="1280" height="720" rx="0" fill="#F6F4EA"/>
-<path d="M61 39h11l7-11h10" fill="none" stroke="#08786C" stroke-width="3.7" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="104" y="41" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="650" fill="#123D40" text-anchor="start">且慢  /  2027 产品规划</text>
-<text x="1218" y="41" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="620" fill="#496862" text-anchor="end">07 / 10     生产方式转型</text>
-<path d="M61 63L1219 63" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="59" y="132" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="50" font-weight="720" fill="#123D40" text-anchor="start">把一位顾问的方法，教给下一位顾问</text>
-<text x="66" y="202" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="620" fill="#496862" text-anchor="start">现有交接</text>
-<text x="224" y="206" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="600" fill="#496862" text-anchor="start">业务提需求</text>
-<path d="M367 197L437 197" fill="none" stroke="#BFCFC2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(437 197) rotate(0.0)"><path d="M-8 -5.04L0 0L-8 5.04" fill="none" stroke="#BFCFC2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<text x="480" y="206" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="600" fill="#496862" text-anchor="start">产品设计</text>
-<path d="M623 197L693 197" fill="none" stroke="#BFCFC2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(693 197) rotate(0.0)"><path d="M-8 -5.04L0 0L-8 5.04" fill="none" stroke="#BFCFC2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<text x="730" y="206" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="600" fill="#496862" text-anchor="start">研发上线</text>
-<path d="M873 197L943 197" fill="none" stroke="#BFCFC2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(943 197) rotate(0.0)"><path d="M-8 -5.04L0 0L-8 5.04" fill="none" stroke="#BFCFC2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<text x="988" y="206" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="600" fill="#496862" text-anchor="start">顾问试用</text>
-<path d="M64 235L1218 235" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="68" y="284" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="670" fill="#08786C" text-anchor="start">2027 拟采用的分工</text>
-<g transform="translate(72 321) scale(1.33333)" fill="none" stroke="#08786C" color="#08786C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M2 20c.4-4.8 3-7 7-7s6.6 2.2 7 7m-1.5-15c5 .5 5.4 7 .5 8m2.5 1c2.8.8 4.2 3 4.5 6"/></g>
-<text x="119" y="346" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="680" fill="#123D40" text-anchor="start">业务专家</text>
-<text x="72" y="383" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="510" fill="#496862" text-anchor="start">给出规则、难例和判断依据</text>
-<g transform="translate(72 433) scale(1.33333)" fill="none" stroke="#08786C" color="#08786C" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h5m4 0h9M3 12h11m4 0h3M3 18h3m4 0h11M9 3v6m6 0v6m-8 0v6"/></g>
-<text x="119" y="459" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="680" fill="#123D40" text-anchor="start">产品经理</text>
-<text x="72" y="496" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="510" fill="#496862" text-anchor="start">定对象、流程与验收样例</text>
-<path d="M328 353H353Q373 353 383 371L406 406H437" fill="none" stroke="#08786C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M328 470H353Q373 470 383 452L406 406" fill="none" stroke="#08786C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<g transform="translate(437 406) rotate(0)"><path d="M-10 -6.3L0 0L-10 6.3" fill="none" stroke="#08786C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<rect x="467" y="303" width="335" height="203" rx="18" fill="#D5E6DA"/>
-<rect x="458" y="294" width="335" height="203" rx="18" fill="#C0D8C8"/>
-<rect x="450" y="285" width="335" height="203" rx="18" fill="#08786C"/>
-<text x="479" y="327" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="650" fill="#FFFDF5" text-anchor="start">盈米 AI 实验室</text>
-<g transform="translate(479 352) scale(2.12500)" fill="none" stroke="#A3E0C4" color="#A3E0C4" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5c-3-2-6-2-9-1v15c3-1 6-1 9 1 3-2 6-2 9-1V4c-3-1-6-1-9 1Zm0 0v15"/></g>
-<text x="548" y="391" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="32" font-weight="670" fill="#FFFDF5" text-anchor="start">教育金测算</text>
-<path d="M480 422L754 422" fill="none" stroke="#69A89A" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="480" y="461" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="510" fill="#FFFDF5" text-anchor="start">同一组案例通过后发布</text>
-<path d="M804 403H832Q849 403 861 385L886 349Q898 331 919 331H951" fill="none" stroke="#08786C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<g transform="translate(951 331) rotate(0)"><path d="M-10 -6.3L0 0L-10 6.3" fill="none" stroke="#08786C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<path d="M804 403H832Q849 403 861 421L886 456Q898 474 919 474H951" fill="none" stroke="#08786C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<g transform="translate(951 474) rotate(0)"><path d="M-10 -6.3L0 0L-10 6.3" fill="none" stroke="#08786C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<text x="970" y="331" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="670" fill="#123D40" text-anchor="start">小顾对客测算</text>
-<text x="970" y="362" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="510" fill="#496862" text-anchor="start">客户自助使用</text>
-<text x="970" y="474" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="670" fill="#123D40" text-anchor="start">顾问带教复算</text>
-<text x="970" y="505" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="510" fill="#496862" text-anchor="start">新人用难例练习</text>
-<rect x="64" y="544" width="1154" height="82" rx="10" fill="#E4EBDF"/>
-<text x="87" y="576" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="650" fill="#08786C" text-anchor="start">共同的业务对象（本体）</text>
-<text x="355" y="576" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="560" fill="#123D40" text-anchor="start">客户  —  资金目标  —  计划版本  —  回执</text>
-<text x="87" y="608" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="650" fill="#08786C" text-anchor="start">研发维护底座</text>
-<text x="355" y="608" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="560" fill="#123D40" text-anchor="start">账户数据、测算接口、授权和版本回退</text>
-<path d="M61 659L1219 659" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="62" y="693" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="17" font-weight="520" fill="#496862" text-anchor="start">验收时，让小顾和一位新顾问分别处理同一案例，核对数字与处置理由。</text>
-</svg></figure>
-<figure class="art" data-section="AI 开放生态" data-slug="open-platform" hidden><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t8 d8"><title id="t8">一套测算，千问和机构各交付什么？</title><desc id="d8">实验室验证教育金测算后，盈米 AI 开放平台按授权、渠道和版本交付。千问关注客户能否带回并确认目标，机构试点关注是否连续四周在生产环境成功使用以及服务收入能否覆盖交付成本。</desc>
-<rect x="0" y="0" width="1280" height="720" rx="0" fill="#F6F4EA"/>
-<path d="M61 39h11l7-11h10" fill="none" stroke="#08786C" stroke-width="3.7" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="104" y="41" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="650" fill="#123D40" text-anchor="start">且慢  /  2027 产品规划</text>
-<text x="1218" y="41" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="620" fill="#496862" text-anchor="end">08 / 10     AI 开放生态</text>
-<path d="M61 63L1219 63" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="59" y="132" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="50" font-weight="720" fill="#123D40" text-anchor="start">一套测算，千问和机构各交付什么？</text>
-<text x="68" y="213" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="640" fill="#496862" text-anchor="start">已验证的服务</text>
-<rect x="75" y="272" width="234" height="213" rx="15" fill="#E8EADE"/>
-<rect x="68" y="263" width="234" height="213" rx="15" fill="#FFFDF5" stroke="#BFCFC2" stroke-width="1.5"/>
-<g transform="translate(94 286) scale(2.91667)" fill="none" stroke="#08786C" color="#08786C" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="m3 7.4 9-4.6 9 4.6v9.2L12 21l-9-4.4V7.4Zm0 0L12 12l9-4.6M12 12v9m-4.4-16 9.1 4.5"/></g>
-<text x="93" y="402" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="30" font-weight="700" fill="#123D40" text-anchor="start">教育金测算</text>
-<text x="94" y="444" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="540" fill="#496862" text-anchor="start">公式、规则、样例</text>
-<path d="M314 368L381 368" fill="none" stroke="#08786C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(381 368) rotate(0.0)"><path d="M-10 -6.3L0 0L-10 6.3" fill="none" stroke="#08786C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<rect x="394" y="258" width="289" height="225" rx="18" fill="#08786C"/>
-<text x="424" y="307" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="21" font-weight="620" fill="#A3E0C4" text-anchor="start">盈米</text>
-<text x="422" y="359" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="33" font-weight="680" fill="#FFFDF5" text-anchor="start">AI 开放平台</text>
-<path d="M423 384L653 384" fill="none" stroke="#7BB5A2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="424" y="425" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="550" fill="#FFFDF5" text-anchor="start">渠道授权 · 版本 · 计量</text>
-<path d="M684 368H712Q734 368 734 347V267Q734 248 753 248H786" fill="none" stroke="#08786C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<g transform="translate(785 248) rotate(0)"><path d="M-10 -6.3L0 0L-10 6.3" fill="none" stroke="#08786C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<path d="M684 368H712Q734 368 734 389V486Q734 505 753 505H786" fill="none" stroke="#AC4B29" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<g transform="translate(785 505) rotate(0)"><path d="M-10 -6.3L0 0L-10 6.3" fill="none" stroke="#AC4B29" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<rect x="806" y="180" width="404" height="164" rx="14" fill="#E0EDE3"/>
-<text x="832" y="224" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="30" font-weight="690" fill="#123D40" text-anchor="start">千问小顾</text>
-<text x="1178" y="222" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="680" fill="#08786C" text-anchor="end">A2A</text>
-<path d="M832 245L1184 245" fill="none" stroke="#AECBB8" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="832" y="285" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="600" fill="#123D40" text-anchor="start">看新客能否回到且慢</text>
-<text x="832" y="317" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="650" fill="#08786C" text-anchor="start">确认第一份计划</text>
-<rect x="806" y="402" width="404" height="186" rx="14" fill="#F1E2D1"/>
-<text x="832" y="448" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="30" font-weight="690" fill="#123D40" text-anchor="start">机构试点</text>
-<text x="1183" y="446" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="640" fill="#AC4B29" text-anchor="end">MCP / Skills</text>
-<path d="M832 469L1184 469" fill="none" stroke="#D6BDAB" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="832" y="508" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="600" fill="#123D40" text-anchor="start">看生产任务能否连续四周跑通</text>
-<text x="832" y="551" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="620" fill="#AC4B29" text-anchor="start">验收后按年或按成功任务收费</text>
-<text x="69" y="570" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="21" font-weight="570" fill="#496862" text-anchor="start">方法由实验室验证</text>
-<text x="395" y="570" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="21" font-weight="570" fill="#496862" text-anchor="start">平台按伙伴范围交付</text>
-<path d="M61 659L1219 659" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="62" y="693" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="17" font-weight="520" fill="#496862" text-anchor="start">首个合作入口做深，再以实际使用、收入与交付成本决定机构扩展。</text>
-<text x="1219" y="693" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="16" font-weight="600" fill="#496862" text-anchor="end">合作模式为规划建议</text>
-</svg></figure>
-<figure class="art" data-section="经营口径" data-slug="service-economics" hidden><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t9 d9"><title id="t9">每月究竟帮多少人办成了事？</title><desc id="d9">建议按有客户确认或正式业务回执的服务去重计人，并按新客首份计划、老客到期复访、顾问每案总工时和九十日人均净流入差看效果。</desc>
-<rect x="0" y="0" width="1280" height="720" rx="0" fill="#F6F4EA"/>
-<path d="M61 39h11l7-11h10" fill="none" stroke="#08786C" stroke-width="3.7" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="104" y="41" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="650" fill="#123D40" text-anchor="start">且慢  /  2027 产品规划</text>
-<text x="1218" y="41" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="620" fill="#496862" text-anchor="end">09 / 10     经营口径</text>
-<path d="M61 63L1219 63" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="59" y="132" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="50" font-weight="720" fill="#123D40" text-anchor="start">每月究竟帮多少人办成了事？</text>
-<text x="67" y="198" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="650" fill="#496862" text-anchor="start">同一客户  /  同月示例</text>
-<path d="M141 308H624" fill="none" stroke="#BFCFC2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M659 308H717C753 308 760 294 792 294H840" fill="none" stroke="#08786C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<g transform="translate(839 294) rotate(0)"><path d="M-10 -6.3L0 0L-10 6.3" fill="none" stroke="#08786C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<rect x="857" y="209" width="351" height="174" rx="18" fill="#08786C"/>
-<text x="929" y="337" font-family="'Avenir Next','Inter',Arial,'PingFang SC','Microsoft YaHei',sans-serif" font-size="107" font-weight="650" fill="#FFFDF5" text-anchor="middle">1</text>
-<text x="1002" y="288" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="680" fill="#FFFDF5" text-anchor="start">位有效服务客户</text>
-<text x="1004" y="328" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="550" fill="#A3E0C4" text-anchor="start">按人、按月去重</text>
-<circle cx="143" cy="307" r="41" fill="#E0EEE3" stroke="#08786C" stroke-width="2"/>
-<g transform="translate(122 286) scale(1.75000)" fill="none" stroke="#08786C" color="#08786C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h9l5 5v13H5Z M14 3v6h5 M8.5 13h7m-7 4h5"/></g>
-<text x="143" y="392" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="21" font-weight="640" fill="#123D40" text-anchor="middle">确认计划</text>
-<circle cx="387" cy="307" r="41" fill="#E0EEE3" stroke="#08786C" stroke-width="2"/>
-<g transform="translate(366 286) scale(1.75000)" fill="none" stroke="#08786C" color="#08786C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18v12H10l-6 5v-5H3Z M7 8.5h10m-10 4h7"/></g>
-<text x="387" y="392" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="21" font-weight="640" fill="#123D40" text-anchor="middle">确认复访结论</text>
-<circle cx="623" cy="307" r="41" fill="#E0EEE3" stroke="#08786C" stroke-width="2"/>
-<g transform="translate(602 286) scale(1.75000)" fill="none" stroke="#08786C" color="#08786C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14v18l-3-2-4 2-4-2-3 2V3Z M8.5 7h7m-7 4h7m-7 4h3"/></g>
-<text x="623" y="392" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="21" font-weight="640" fill="#123D40" text-anchor="middle">收到办理回执</text>
-<path d="M66 437L1214 437" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="67" y="511" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="680" fill="#08786C" text-anchor="start">新客首服率</text>
-<text x="67" y="555" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="520" fill="#123D40" text-anchor="start">确认首份计划的新客</text>
-<text x="67" y="590" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="520" fill="#123D40" text-anchor="start">÷ 启动规划的新客</text>
-<path d="M337 477L337 609" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="359" y="511" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="680" fill="#08786C" text-anchor="start">到期复访完成率</text>
-<text x="359" y="555" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="520" fill="#123D40" text-anchor="start">确认复访结论的客户</text>
-<text x="359" y="590" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="520" fill="#123D40" text-anchor="start">÷ 当月约定到期客户</text>
-<path d="M631 477L631 609" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="653" y="511" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="680" fill="#08786C" text-anchor="start">每案总工时</text>
-<text x="653" y="555" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="520" fill="#123D40" text-anchor="start">准备、沟通、复核与返工</text>
-<text x="653" y="590" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="520" fill="#123D40" text-anchor="start">总工时 ÷ 已结案件数</text>
-<path d="M934 477L934 609" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="956" y="511" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="680" fill="#08786C" text-anchor="start">90 日人均净流入差</text>
-<text x="956" y="555" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="520" fill="#123D40" text-anchor="start">试点组人均净流入</text>
-<text x="956" y="590" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="520" fill="#123D40" text-anchor="start">减去可比组人均净流入</text>
-<path d="M61 659L1219 659" fill="none" stroke="#BFCFC2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="62" y="693" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="17" font-weight="520" fill="#496862" text-anchor="start">计划确认、复访结论或正式回执至少满足一项。打开页面和发送提醒只计过程。</text>
-<text x="1219" y="693" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="16" font-weight="600" fill="#496862" text-anchor="end">建议经营口径</text>
-</svg></figure>
-<figure class="art" data-section="年度取舍" data-slug="quarterly-decisions" hidden><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t10 d10"><title id="t10">先让一组顾问用起来，再决定扩多大</title><desc id="d10">建议首季只选千问一个入口和一组顾问试点，次季连通顾问接手和结果回传，三季度换组并做机构复用，年底以质量、工时和经营贡献决定投入。</desc>
-<rect x="0" y="0" width="1280" height="720" rx="0" fill="#123E40"/>
-<path d="M61 39h11l7-11h10" fill="none" stroke="#A3E0C4" stroke-width="3.7" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="104" y="41" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="650" fill="#FFFDF5" text-anchor="start">且慢  /  2027 产品规划</text>
-<text x="1218" y="41" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="18" font-weight="620" fill="#BED5C9" text-anchor="end">10 / 10     年度取舍</text>
-<path d="M61 63L1219 63" fill="none" stroke="#4C706D" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="59" y="132" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="50" font-weight="720" fill="#FFFDF5" text-anchor="start">先让一组顾问用起来，再决定扩多大</text>
-<path d="M79 432H319Q338 432 338 414V399Q338 382 358 382H604Q623 382 623 363V351Q623 333 643 333H894Q913 333 913 315V302Q913 284 933 284H1192" fill="none" stroke="#A3E0C4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-<g transform="translate(1191 284) rotate(0)"><path d="M-12 -7.5600000000000005L0 0L-12 7.5600000000000005" fill="none" stroke="#A3E0C4" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
-<circle cx="91" cy="432" r="9" fill="#123E40" stroke="#A3E0C4" stroke-width="4"/>
-<text x="88" y="395" font-family="'Avenir Next','Inter',Arial,'PingFang SC','Microsoft YaHei',sans-serif" font-size="48" font-weight="650" fill="#A3E0C4" text-anchor="start">Q1</text>
-<text x="173" y="390" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="550" fill="#BED5C9" text-anchor="start">1—3 月</text>
-<text x="88" y="484" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="30" font-weight="680" fill="#FFFDF5" text-anchor="start">跑通一组</text>
-<text x="88" y="519" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="530" fill="#BED5C9" text-anchor="start">千问新客 + 一组顾问</text>
-<circle cx="377" cy="382" r="9" fill="#123E40" stroke="#A3E0C4" stroke-width="4"/>
-<text x="374" y="345" font-family="'Avenir Next','Inter',Arial,'PingFang SC','Microsoft YaHei',sans-serif" font-size="48" font-weight="650" fill="#A3E0C4" text-anchor="start">Q2</text>
-<text x="459" y="340" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="550" fill="#BED5C9" text-anchor="start">4—6 月</text>
-<text x="374" y="434" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="30" font-weight="680" fill="#FFFDF5" text-anchor="start">接完一次变更</text>
-<text x="374" y="469" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="530" fill="#BED5C9" text-anchor="start">改期交顾问，月报回 App</text>
-<circle cx="665" cy="333" r="9" fill="#123E40" stroke="#A3E0C4" stroke-width="4"/>
-<text x="662" y="296" font-family="'Avenir Next','Inter',Arial,'PingFang SC','Microsoft YaHei',sans-serif" font-size="48" font-weight="650" fill="#A3E0C4" text-anchor="start">Q3</text>
-<text x="747" y="291" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="550" fill="#BED5C9" text-anchor="start">7—9 月</text>
-<text x="662" y="385" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="30" font-weight="680" fill="#FFFDF5" text-anchor="start">换一组复用</text>
-<text x="662" y="420" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="530" fill="#BED5C9" text-anchor="start">第二顾问组 + 一家机构</text>
-<circle cx="954" cy="284" r="9" fill="#123E40" stroke="#A3E0C4" stroke-width="4"/>
-<text x="951" y="247" font-family="'Avenir Next','Inter',Arial,'PingFang SC','Microsoft YaHei',sans-serif" font-size="48" font-weight="650" fill="#A3E0C4" text-anchor="start">Q4</text>
-<text x="1036" y="242" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="550" fill="#BED5C9" text-anchor="start">10—12 月</text>
-<text x="951" y="336" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="30" font-weight="680" fill="#FFFDF5" text-anchor="start">决定来年投入</text>
-<text x="951" y="371" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="530" fill="#BED5C9" text-anchor="start">核对净流入与机构贡献毛益</text>
-<path d="M66 566L1213 566" fill="none" stroke="#4C706D" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="67" y="609" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="640" fill="#A3E0C4" text-anchor="start">首季试点建议</text>
-<text x="221" y="609" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="620" fill="#FFFDF5" text-anchor="start">5 名顾问 × 4 周，至少 30 案</text>
-<path d="M622 587L622 619" fill="none" stroke="#4C706D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="650" y="609" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="640" fill="#A3E0C4" text-anchor="start">扩量看</text>
-<text x="743" y="609" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="570" fill="#FFFDF5" text-anchor="start">复访完成率上升、每案工时下降、关键事实无误</text>
-<path d="M61 659L1219 659" fill="none" stroke="#4C706D" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="62" y="693" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="17" font-weight="520" fill="#BED5C9" text-anchor="start">首季建立基线，三季度换组复测。服务质量和工时都达标，再扩到养老用款。</text>
-</svg></figure>
-<nav class="bottom" aria-label="翻页"><button type="button" class="prevnext" id="prev">← 上一张</button><div class="progress"><div id="steps" class="steps"></div><output id="position" aria-live="polite"></output></div><button type="button" class="prevnext" id="next">下一张 →</button></nav>
-</section>
-<section id="overview" class="overview-shell" aria-label="十图总览" hidden><div class="grid" id="grid"></div></section>
-</main>
-<details class="sources"><summary>规划依据与示例说明</summary><div class="source-body">这是产品侧的 2027 年建议方案。林女士、界面与资金流水均为虚构演示。试点规模、收费方式及验收指标均为建议，年度目标在首季基线核定后确认。<br><a href="https://clairku.github.io/clair-ai-studio/reports/qieman-2027-product-plan-2026-11-26/">年度产品规划</a><a href="https://clairku.github.io/clair-ai-studio/reports/vip-advisor-two-scenarios-2026-11-25/">顾问的两条作业流程</a><a href="https://clairku.github.io/clair-ai-studio/reports/xiaogu-l3-service-diagrams-2026-11-26/">小顾主动服务方案</a></div></details>
-<dialog id="enlarged" aria-label="放大本图"><div class="overlay-bar"><strong id="zoom-title"></strong><button type="button" class="close" id="zoom-close">关闭</button></div><div class="overlay-art"><img id="zoom-image" alt=""></div></dialog><div class="status" role="status"></div>
+<header class="bar" aria-label="图册工具">
+<span class="brand">且慢 2027 产品规划</span>
+<nav aria-label="选择框架图"><label class="sr" for="jump">跳至图</label><select id="jump"><option value="0">01　战略全景</option><option value="1">02　投入取舍</option><option value="2">03　服务分层</option><option value="3">04　客户端架构</option><option value="4">05　顾问端架构</option><option value="5">06　AI 产品架构</option><option value="6">07　生产方式转型</option><option value="7">08　开放生态</option><option value="8">09　经营指标</option><option value="9">10　年度路线图</option></select><span class="navpair"><button id="prev" class="turn" aria-label="上一张" title="上一张（←）">←</button><button id="next" class="turn" aria-label="下一张" title="下一张（→）">→</button></span></nav>
+<div class="actions">
+<button class="extras" id="continuous" aria-pressed="false">十图连读</button>
+<button class="extras" id="zoom" aria-pressed="false">放大</button>
+<details id="exports" class="exports extras"><summary>下载</summary><div class="menu"><button id="save-one">当前图 · 4K PNG</button><button id="save-vector">当前图 · 矢量 SVG</button><button id="save-all">全部十图 · 4K ZIP</button></div></details>
+<button id="present" aria-pressed="false">全屏演示</button>
+</div>
+</header>
+<main id="atlas" aria-label="十张年度战略框架图"><figure class="art" id="fig-01" data-filename="01-strategy-map" aria-label="2027 年且慢投顾产品全景"><div class="viewport"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t1 d1"><title id="t1">2027 年且慢投顾产品全景</title><desc id="d1">客户端经营新老客户，顾问工作台支撑高客服务，开放平台服务渠道与机构。三条线复用账户诊断、资金规划、跟踪记录和业务回执。</desc>
+<rect x="0" y="0" width="1280" height="720" fill="#252039"/>
+<rect x="48" y="26" width="31" height="9" rx="4" fill="#D9CEFF"/>
+<text x="92" y="42" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="660" fill="#FFFFFF" text-anchor="start">且慢  /  2027 产品规划</text>
+<text x="1231" y="42" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="630" fill="#CDC5DF" text-anchor="end">01 / 10    战略全景</text>
+<path d="M48 61L1232 61" fill="none" stroke="#5E5377" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="46" y="123" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="52" font-weight="720" fill="#FFFFFF" text-anchor="start">2027 年且慢投顾产品全景</text>
+<path d="M48 207 640 145 1232 207V243H48Z" fill="#7356D8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="640" y="221" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="41" font-weight="720" fill="#FFFFFF" text-anchor="middle">扩大有效投顾服务覆盖</text>
+<rect x="48" y="257" width="386" height="198" fill="#342C4D" stroke="#5E5377" stroke-width="1.4"/>
+<text x="72" y="295" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="650" fill="#D9CEFF" text-anchor="start">客户经营</text>
+<text x="70" y="347" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="39" font-weight="730" fill="#FFFFFF" text-anchor="start">且慢客户端</text>
+<path d="M72 366L410 366" fill="none" stroke="#5E5377" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="72" y="404" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="550" fill="#FFFFFF" text-anchor="start">且慢 App 与 AI 小顾 4.0</text>
+<text x="72" y="438" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="520" fill="#CDC5DF" text-anchor="start">账户、交易与投顾规划</text>
+<rect x="447" y="257" width="386" height="198" fill="#342C4D" stroke="#5E5377" stroke-width="1.4"/>
+<text x="471" y="295" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="650" fill="#D9CEFF" text-anchor="start">高客服务</text>
+<text x="469" y="347" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="39" font-weight="730" fill="#FFFFFF" text-anchor="start">顾问工作台</text>
+<path d="M471 366L809 366" fill="none" stroke="#5E5377" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="471" y="404" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="550" fill="#FFFFFF" text-anchor="start">高客分层与管户</text>
+<text x="471" y="438" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="520" fill="#CDC5DF" text-anchor="start">规划交付与持续复访</text>
+<rect x="846" y="257" width="386" height="198" fill="#342C4D" stroke="#5E5377" stroke-width="1.4"/>
+<text x="870" y="295" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="650" fill="#D9CEFF" text-anchor="start">生态增长</text>
+<text x="868" y="347" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="39" font-weight="730" fill="#FFFFFF" text-anchor="start">AI 开放平台</text>
+<path d="M870 366L1208 366" fill="none" stroke="#5E5377" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="870" y="404" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="550" fill="#FFFFFF" text-anchor="start">千问等外部入口</text>
+<text x="870" y="438" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="520" fill="#CDC5DF" text-anchor="start">机构接入与生产应用</text>
+<rect x="48" y="472" width="1184" height="76" fill="#E7E0FA"/>
+<text x="72" y="520" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="29" font-weight="700" fill="#493891" text-anchor="start">共用投顾能力</text>
+<path d="M304 491L304 530" fill="none" stroke="#B8A9DF" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="331" y="519" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="27" font-weight="660" fill="#272139" text-anchor="start">账户诊断</text>
+<text x="540" y="519" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="27" font-weight="660" fill="#272139" text-anchor="start">资金规划</text>
+<text x="752" y="519" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="27" font-weight="660" fill="#272139" text-anchor="start">服务记录</text>
+<text x="1000" y="519" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="27" font-weight="660" fill="#272139" text-anchor="start">办理回执</text>
+<rect x="48" y="558" width="1184" height="82" fill="#3F345C"/>
+<text x="72" y="608" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="29" font-weight="700" fill="#D9CEFF" text-anchor="start">生产与运行</text>
+<path d="M304 578L304 621" fill="none" stroke="#5E5377" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="331" y="608" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="610" fill="#FFFFFF" text-anchor="start">盈米 AI 实验室沉淀方法</text>
+<text x="712" y="608" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="560" fill="#FFFFFF" text-anchor="start">企业平台提供数据、授权与运行能力</text>
+<path d="M48 662L1232 662" fill="none" stroke="#5E5377" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="49" y="698" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="540" fill="#CDC5DF" text-anchor="start">年度取舍　客户档案和服务记录优先共建，成熟能力再复制到更多顾问与伙伴。</text>
+</svg></div></figure>
+<figure class="art" id="fig-02" data-filename="02-investment-priorities" aria-label="哪些能力先建，哪些先试？"><div class="viewport"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t2 d2"><title id="t2">哪些能力先建，哪些先试？</title><desc id="d2">按单端或多端复用、是否属于主流程前提两项判断安排投入。档案与回执优先共建，交易体验持续补齐，L3 作业与机构服务包先验证效果。</desc>
+<rect x="0" y="0" width="1280" height="720" fill="#FAF9FC"/>
+<rect x="48" y="26" width="31" height="9" rx="4" fill="#5239A9"/>
+<text x="92" y="42" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="660" fill="#272139" text-anchor="start">且慢  /  2027 产品规划</text>
+<text x="1231" y="42" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="630" fill="#605874" text-anchor="end">02 / 10    投入取舍</text>
+<path d="M48 61L1232 61" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="46" y="123" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="52" font-weight="720" fill="#272139" text-anchor="start">哪些能力先建，哪些先试？</text>
+<text x="49" y="183" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="650" fill="#605874" text-anchor="start">复用范围</text>
+<rect x="213" y="200" width="501" height="164" fill="#F0EDF6"/>
+<rect x="719" y="200" width="513" height="164" fill="#7356D8"/>
+<rect x="213" y="369" width="501" height="164" fill="#F0EFF2"/>
+<rect x="719" y="369" width="513" height="164" fill="#E7E0FA"/>
+<text x="121" y="295" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="650" fill="#493891" text-anchor="middle">多端共用</text>
+<text x="121" y="464" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="650" fill="#605874" text-anchor="middle">单端使用</text>
+<path d="M182 536L182 205" fill="none" stroke="#D2CBE1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M176.30 214.00L182 204L187.70 214.00" fill="none" stroke="#6B628A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="241" y="248" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="37" font-weight="720" fill="#493891" text-anchor="start">限定试点</text>
+<text x="241" y="297" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="27" font-weight="550" fill="#605874" text-anchor="start">智能运营转化 L3</text>
+<text x="241" y="334" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="27" font-weight="550" fill="#605874" text-anchor="start">机构投顾服务包</text>
+<text x="749" y="248" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="37" font-weight="720" fill="#FFFFFF" text-anchor="start">优先共建</text>
+<text x="749" y="297" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="27" font-weight="550" fill="#FFFFFF" text-anchor="start">客户授权、财富档案</text>
+<text x="749" y="334" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="27" font-weight="550" fill="#FFFFFF" text-anchor="start">服务记录与办理回执</text>
+<text x="241" y="418" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="37" font-weight="720" fill="#605874" text-anchor="start">延后安排</text>
+<text x="241" y="467" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="27" font-weight="550" fill="#605874" text-anchor="start">全量界面改版</text>
+<text x="241" y="504" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="27" font-weight="550" fill="#605874" text-anchor="start">低频单客定制</text>
+<text x="749" y="418" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="37" font-weight="720" fill="#493891" text-anchor="start">持续补齐</text>
+<text x="749" y="467" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="27" font-weight="550" fill="#272139" text-anchor="start">账户收益解释</text>
+<text x="749" y="504" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="27" font-weight="550" fill="#272139" text-anchor="start">交易进度与异常处理</text>
+<path d="M214 561L1226 561" fill="none" stroke="#6B628A" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M1216.00 555.30L1226 561L1216.00 566.70" fill="none" stroke="#6B628A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="454" y="608" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="28" font-weight="640" fill="#605874" text-anchor="middle">可独立验证</text>
+<text x="970" y="608" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="28" font-weight="650" fill="#493891" text-anchor="middle">主流程的前提</text>
+<text x="49" y="633" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="650" fill="#605874" text-anchor="start">依赖程度</text>
+<path d="M48 662L1232 662" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="49" y="698" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="540" fill="#605874" text-anchor="start">投入顺序是产品建议。跨端共用且影响主流程的能力，由三条产品线共同验收。</text>
+</svg></div></figure>
+<figure class="art" id="fig-03" data-filename="03-advisory-model" aria-label="同一套投顾方法，三种服务深度"><div class="viewport"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t3 d3"><title id="t3">同一套投顾方法，三种服务深度</title><desc id="d3">按客户意愿、服务权益和需求复杂度选择小顾自助、人机协作或主顾问加专家组。同一位客户可以随任务切换，三种方式共享经客户确认的档案。</desc>
+<rect x="0" y="0" width="1280" height="720" fill="#FAF9FC"/>
+<rect x="48" y="26" width="31" height="9" rx="4" fill="#5239A9"/>
+<text x="92" y="42" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="660" fill="#272139" text-anchor="start">且慢  /  2027 产品规划</text>
+<text x="1231" y="42" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="630" fill="#605874" text-anchor="end">03 / 10    服务分层</text>
+<path d="M48 61L1232 61" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="46" y="123" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="52" font-weight="720" fill="#272139" text-anchor="start">同一套投顾方法，三种服务深度</text>
+<text x="49" y="175" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="580" fill="#605874" text-anchor="start">服务权益、任务复杂度与客户意愿共同决定分工</text>
+<path d="M276 204H422L473 299H225Z" fill="#5239A9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M220 309H479L546 427H153Z" fill="#7356D8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M148 437H551L627 567H71Z" fill="#E7E0FA" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="350" y="266" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="30" font-weight="700" fill="#FFFFFF" text-anchor="middle">1+N 专家组</text>
+<text x="350" y="379" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="38" font-weight="700" fill="#FFFFFF" text-anchor="middle">人机协作</text>
+<text x="350" y="517" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="42" font-weight="700" fill="#493891" text-anchor="middle">小顾自助</text>
+<path d="M483 254L687 254" fill="none" stroke="#D2CBE1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="688" cy="254" r="4.5" fill="#5239A9"/>
+<text x="711" y="255" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="31" font-weight="690" fill="#272139" text-anchor="start">复杂家庭规划</text>
+<text x="711" y="294" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="520" fill="#605874" text-anchor="start">主顾问牵头，投顾或规划专家共同复核。</text>
+<path d="M555 368L687 368" fill="none" stroke="#D2CBE1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="688" cy="368" r="4.5" fill="#7356D8"/>
+<text x="711" y="369" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="31" font-weight="690" fill="#272139" text-anchor="start">客户需要比较和取舍</text>
+<text x="711" y="408" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="520" fill="#605874" text-anchor="start">小顾整理依据，顾问解释方案并跟进。</text>
+<path d="M633 501L687 501" fill="none" stroke="#D2CBE1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="688" cy="501" r="4.5" fill="#6B628A"/>
+<text x="711" y="502" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="31" font-weight="690" fill="#272139" text-anchor="start">标准需求清晰</text>
+<text x="711" y="541" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="520" fill="#605874" text-anchor="start">小顾提供账户解读、标准测算和约定提醒。</text>
+<rect x="48" y="587" width="1184" height="60" fill="#F0EDF6"/>
+<text x="71" y="625" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="670" fill="#5239A9" text-anchor="start">三类服务共用</text>
+<text x="292" y="626" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="610" fill="#272139" text-anchor="start">经授权的账户事实</text>
+<text x="610" y="626" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="610" fill="#272139" text-anchor="start">客户已确认的目标</text>
+<text x="932" y="626" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="610" fill="#272139" text-anchor="start">同一份服务记录</text>
+<path d="M48 662L1232 662" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="49" y="698" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="540" fill="#605874" text-anchor="start">客户可以按任务切换服务深度。复杂判断由顾问承担，正式办理由客户本人确认。</text>
+</svg></div></figure>
+<figure class="art" id="fig-04" data-filename="04-client-product" aria-label="财富档案怎样支撑且慢 App 的三条产品线？"><div class="viewport"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t4 d4"><title id="t4">财富档案怎样支撑且慢 App 的三条产品线？</title><desc id="d4">在获得授权的范围内，把账户事实、客户目标和服务约定关联到财富档案。账户与交易、投顾规划和 AI 小顾都使用这份档案，客户决定与办理回执可以写回。</desc>
+<rect x="0" y="0" width="1280" height="720" fill="#FAF9FC"/>
+<rect x="48" y="26" width="31" height="9" rx="4" fill="#5239A9"/>
+<text x="92" y="42" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="660" fill="#272139" text-anchor="start">且慢  /  2027 产品规划</text>
+<text x="1231" y="42" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="630" fill="#605874" text-anchor="end">04 / 10    客户端架构</text>
+<path d="M48 61L1232 61" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="46" y="123" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="52" font-weight="720" fill="#272139" text-anchor="start">财富档案怎样支撑且慢 App 的三条产品线？</text>
+<text x="57" y="188" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="650" fill="#605874" text-anchor="start">经授权的输入</text>
+<text x="827" y="188" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="650" fill="#605874" text-anchor="start">客户端产品线</text>
+<text x="56" y="246" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="31" font-weight="680" fill="#272139" text-anchor="start">账户事实</text>
+<text x="57" y="285" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="520" fill="#605874" text-anchor="start">资产、持仓与资金流水</text>
+<path d="M58 306L316 306" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="56" y="381" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="31" font-weight="680" fill="#272139" text-anchor="start">客户目标</text>
+<text x="57" y="420" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="520" fill="#605874" text-anchor="start">用途、期限与优先级</text>
+<path d="M58 441L316 441" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="56" y="516" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="31" font-weight="680" fill="#272139" text-anchor="start">服务约定</text>
+<text x="57" y="555" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="520" fill="#605874" text-anchor="start">顾问关系与复访安排</text>
+<path d="M58 576L316 576" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M332 245H369Q390 245 395 265L414 339Q421 369 446 369" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M332 370L449 370" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M332 514H369Q390 514 395 494L414 406Q420 370 446 370" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M437.00 364.30L447 370L437.00 375.70" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="570" cy="370" r="111" fill="#E7E0FA"/>
+<circle cx="570" cy="370" r="96" fill="#7356D8"/>
+<text x="570" y="365" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="38" font-weight="710" fill="#FFFFFF" text-anchor="middle">财富档案</text>
+<text x="570" y="406" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="21" font-weight="570" fill="#FFFFFF" text-anchor="middle">关联客户与目标</text>
+<path d="M682 370H712Q737 370 748 345L771 277Q780 252 805 252" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M682 370L805 370" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M682 370H712Q737 370 748 395L771 461Q780 487 805 487" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M795.00 246.30L805 252L795.00 257.70" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="829" y="256" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="32" font-weight="700" fill="#493891" text-anchor="start">账户与交易</text>
+<text x="829" y="293" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="540" fill="#272139" text-anchor="start">解释资产变化，跟踪办理进度</text>
+<path d="M795.00 364.30L805 370L795.00 375.70" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="829" y="374" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="32" font-weight="700" fill="#493891" text-anchor="start">投顾与规划</text>
+<text x="829" y="411" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="540" fill="#272139" text-anchor="start">用四笔钱组织配置与检视</text>
+<path d="M795.00 481.30L805 487L795.00 492.70" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="829" y="491" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="32" font-weight="700" fill="#493891" text-anchor="start">AI 小顾</text>
+<text x="829" y="528" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="540" fill="#272139" text-anchor="start">交付解读、跟进任务、转接顾问</text>
+<path d="M1177 551V569Q1177 592 1154 592H596Q570 592 570 570V495" fill="none" stroke="#6B628A" stroke-width="2.6" stroke-dasharray="7 8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M564.87 502.00L570 493L575.13 502.00" fill="none" stroke="#6B628A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="895" y="629" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="620" fill="#493891" text-anchor="middle">客户确认与正式回执写回原档案</text>
+<path d="M48 662L1232 662" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="49" y="698" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="540" fill="#605874" text-anchor="start">App 承接长期关系。客户可以更正目标、管理授权，并从原记录继续办理或求助。</text>
+</svg></div></figure>
+<figure class="art" id="fig-05" data-filename="05-advisor-operating-model" aria-label="高客经营、队伍培养与工作台同步建设"><div class="viewport"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t5 d5"><title id="t5">高客经营、队伍培养与工作台同步建设</title><desc id="d5">将管户、流程经营和专业服务三个阶段，与业务责任、队伍培养和工作台能力对齐。一期承接任务与客户，二期扩展服务流程，三期增加投研和顾问成长。</desc>
+<rect x="0" y="0" width="1280" height="720" fill="#FAF9FC"/>
+<rect x="48" y="26" width="31" height="9" rx="4" fill="#5239A9"/>
+<text x="92" y="42" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="660" fill="#272139" text-anchor="start">且慢  /  2027 产品规划</text>
+<text x="1231" y="42" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="630" fill="#605874" text-anchor="end">05 / 10    顾问端架构</text>
+<path d="M48 61L1232 61" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="46" y="123" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="52" font-weight="720" fill="#272139" text-anchor="start">高客经营、队伍培养与工作台同步建设</text>
+<text x="48" y="177" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="570" fill="#605874" text-anchor="start">业务团队定服务标准，产品团队把标准落实到顾问作业。</text>
+<rect x="253" y="205" width="318" height="96" fill="#5239A9"/>
+<text x="274" y="239" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="21" font-weight="620" fill="#FFFFFF" text-anchor="start">一期范围</text>
+<text x="272" y="280" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="32" font-weight="690" fill="#FFFFFF" text-anchor="start">接入与管户</text>
+<rect x="577" y="205" width="318" height="96" fill="#7356D8"/>
+<text x="598" y="239" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="21" font-weight="620" fill="#FFFFFF" text-anchor="start">二期范围</text>
+<text x="596" y="280" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="32" font-weight="690" fill="#FFFFFF" text-anchor="start">流程化经营</text>
+<rect x="901" y="205" width="331" height="96" fill="#E7E0FA"/>
+<text x="922" y="239" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="21" font-weight="620" fill="#493891" text-anchor="start">三期范围</text>
+<text x="920" y="280" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="32" font-weight="690" fill="#493891" text-anchor="start">专业与成长</text>
+<rect x="48" y="310" width="1184" height="80" fill="#F0EDF6"/>
+<text x="66" y="359" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="690" fill="#493891" text-anchor="start">业务经营</text>
+<path d="M244 323L244 376" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="270" y="359" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="570" fill="#272139" text-anchor="start">归属与首访</text>
+<path d="M568 323L568 376" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="594" y="359" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="570" fill="#272139" text-anchor="start">规划交付与复访</text>
+<path d="M892 323L892 376" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="918" y="359" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="570" fill="#272139" text-anchor="start">经营分析与质检</text>
+<rect x="48" y="399" width="1184" height="80" fill="#FFFFFF"/>
+<text x="66" y="448" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="690" fill="#493891" text-anchor="start">队伍培养</text>
+<path d="M244 412L244 465" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="270" y="448" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="570" fill="#272139" text-anchor="start">新人跟访</text>
+<path d="M568 412L568 465" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="594" y="448" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="570" fill="#272139" text-anchor="start">导师复核与带教</text>
+<path d="M892 412L892 465" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="918" y="448" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="570" fill="#272139" text-anchor="start">能力画像与陪练</text>
+<rect x="48" y="488" width="1184" height="80" fill="#F0EDF6"/>
+<text x="66" y="537" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="690" fill="#493891" text-anchor="start">工作台能力</text>
+<path d="M244 501L244 554" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="270" y="537" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="570" fill="#272139" text-anchor="start">客户、线索、待办</text>
+<path d="M568 501L568 554" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="594" y="537" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="570" fill="#272139" text-anchor="start">流程看板、投后监控</text>
+<path d="M892 501L892 554" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="918" y="537" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="570" fill="#272139" text-anchor="start">产品投研、能力提升</text>
+<rect x="48" y="589" width="1184" height="57" fill="#E7E0FA"/>
+<text x="70" y="626" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="690" fill="#493891" text-anchor="start">经营验收</text>
+<text x="246" y="626" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="650" fill="#272139" text-anchor="start">到期服务覆盖</text>
+<text x="552" y="626" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="650" fill="#272139" text-anchor="start">每案总工时</text>
+<text x="881" y="626" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="650" fill="#272139" text-anchor="start">顾问独立办结率</text>
+<path d="M48 662L1232 662" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="49" y="698" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="540" fill="#605874" text-anchor="start">工作台三期范围据 11 月 27 日路线图。二、三期尚待排期，表中经营与培养安排为建议。</text>
+</svg></div></figure>
+<figure class="art" id="fig-06" data-filename="06-xiaogu-and-l3" aria-label="小顾 4.0 管持续服务，L3 验证自主作业"><div class="viewport"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t6 d6"><title id="t6">小顾 4.0 管持续服务，L3 验证自主作业</title><desc id="d6">小顾 4.0 的规划包括需求理解、可保存的交付结果与按约跟进。智能运营转化 L3 试点只选范围明确的作业，检查结果证据、异常接管和真实经营增量。</desc>
+<rect x="0" y="0" width="1280" height="720" fill="#252039"/>
+<rect x="48" y="26" width="31" height="9" rx="4" fill="#D9CEFF"/>
+<text x="92" y="42" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="660" fill="#FFFFFF" text-anchor="start">且慢  /  2027 产品规划</text>
+<text x="1231" y="42" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="630" fill="#CDC5DF" text-anchor="end">06 / 10    AI 产品架构</text>
+<path d="M48 61L1232 61" fill="none" stroke="#5E5377" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="46" y="123" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="52" font-weight="720" fill="#FFFFFF" text-anchor="start">小顾 4.0 管持续服务，L3 验证自主作业</text>
+<rect x="48" y="173" width="1184" height="168" fill="#342C4D" stroke="#5E5377" stroke-width="1.2"/>
+<rect x="48" y="173" width="264" height="168" fill="#7356D8"/>
+<text x="71" y="214" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="620" fill="#D9CEFF" text-anchor="start">客户侧产品</text>
+<text x="69" y="278" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="44" font-weight="720" fill="#FFFFFF" text-anchor="start">小顾 4.0</text>
+<path d="M312 252L1197 252" fill="none" stroke="#5E5377" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="331" y="207" width="248" height="92" fill="#342C4D"/>
+<text x="455" y="251" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="34" font-weight="700" fill="#FFFFFF" text-anchor="middle">理解客户</text>
+<text x="455" y="292" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="540" fill="#CDC5DF" text-anchor="middle">目标与账户事实</text>
+<rect x="624" y="207" width="248" height="92" fill="#342C4D"/>
+<text x="748" y="251" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="34" font-weight="700" fill="#FFFFFF" text-anchor="middle">交付成果</text>
+<text x="748" y="292" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="540" fill="#CDC5DF" text-anchor="middle">报告、计划与任务</text>
+<rect x="937" y="207" width="248" height="92" fill="#342C4D"/>
+<text x="1061" y="251" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="34" font-weight="700" fill="#FFFFFF" text-anchor="middle">持续服务</text>
+<text x="1061" y="292" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="540" fill="#CDC5DF" text-anchor="middle">按约定主动跟进</text>
+<path d="M594.00 246.30L604 252L594.00 257.70" fill="none" stroke="#D9CEFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M888.00 246.30L898 252L888.00 257.70" fill="none" stroke="#D9CEFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M643 341L643 360" fill="none" stroke="#D9CEFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M643 408L643 425" fill="none" stroke="#D9CEFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M648.13 416.00L643 425L637.87 416.00" fill="none" stroke="#D9CEFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="643" y="393" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="640" fill="#D9CEFF" text-anchor="middle">选出能界定范围、能核验结果的标准作业</text>
+<rect x="48" y="437" width="1184" height="162" fill="#342C4D" stroke="#5E5377" stroke-width="1.2"/>
+<rect x="48" y="437" width="264" height="162" fill="#463864"/>
+<text x="71" y="476" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="620" fill="#D9CEFF" text-anchor="start">业务侧验证</text>
+<text x="69" y="527" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="39" font-weight="720" fill="#FFFFFF" text-anchor="start">L3 试点</text>
+<text x="70" y="569" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="600" fill="#D9CEFF" text-anchor="start">智能运营转化</text>
+<text x="455" y="513" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="32" font-weight="690" fill="#FFFFFF" text-anchor="middle">定义作业</text>
+<text x="455" y="555" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="530" fill="#CDC5DF" text-anchor="middle">许可与完成条件</text>
+<text x="748" y="513" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="32" font-weight="690" fill="#FFFFFF" text-anchor="middle">执行与验真</text>
+<text x="748" y="555" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="530" fill="#CDC5DF" text-anchor="middle">回执或异常接管</text>
+<text x="1061" y="513" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="32" font-weight="690" fill="#FFFFFF" text-anchor="middle">核算增量</text>
+<text x="1061" y="555" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="530" fill="#CDC5DF" text-anchor="middle">同类客群对照</text>
+<path d="M594.00 509.30L604 515L594.00 520.70" fill="none" stroke="#D9CEFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M888.00 509.30L898 515L888.00 520.70" fill="none" stroke="#D9CEFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="50" y="637" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="650" fill="#D9CEFF" text-anchor="start">扩量依据</text>
+<text x="215" y="637" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="610" fill="#FFFFFF" text-anchor="start">自主完成率</text>
+<text x="481" y="637" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="610" fill="#FFFFFF" text-anchor="start">关键事实质量</text>
+<text x="771" y="637" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="610" fill="#FFFFFF" text-anchor="start">转化增量与人工成本</text>
+<path d="M48 662L1232 662" fill="none" stroke="#5E5377" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="49" y="698" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="540" fill="#CDC5DF" text-anchor="start">主动跟进由客户授权。异常交顾问，业务办理取自营回执，退订后停止相应触达。</text>
+</svg></div></figure>
+<figure class="art" id="fig-07" data-filename="07-production-model" aria-label="业务与产研围绕同一套本体建设服务"><div class="viewport"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t7 d7"><title id="t7">业务与产研围绕同一套本体建设服务</title><desc id="d7">从业务提需求、产品设计、研发开发、测试上线的串行交接，转为业务团队和产品研发共同定义、组装、验收服务。业务本体共享客户、账户、目标、任务和回执的定义，平台研发维护数据与运行。</desc>
+<rect x="0" y="0" width="1280" height="720" fill="#FAF9FC"/>
+<rect x="48" y="26" width="31" height="9" rx="4" fill="#5239A9"/>
+<text x="92" y="42" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="660" fill="#272139" text-anchor="start">且慢  /  2027 产品规划</text>
+<text x="1231" y="42" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="630" fill="#605874" text-anchor="end">07 / 10    生产方式转型</text>
+<path d="M48 61L1232 61" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="46" y="123" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="52" font-weight="720" fill="#272139" text-anchor="start">业务与产研围绕同一套本体建设服务</text>
+<rect x="48" y="159" width="1184" height="72" fill="#F0EDF6"/>
+<text x="66" y="204" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="680" fill="#605874" text-anchor="start">原有交付</text>
+<text x="252" y="205" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="600" fill="#605874" text-anchor="start">业务提需求</text>
+<text x="508" y="205" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="600" fill="#605874" text-anchor="start">产品设计</text>
+<text x="759" y="205" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="600" fill="#605874" text-anchor="start">研发开发</text>
+<text x="1016" y="205" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="600" fill="#605874" text-anchor="start">测试上线</text>
+<path d="M402 195L464 195" fill="none" stroke="#6B628A" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><path d="M456.00 190.44L464 195L456.00 199.56" fill="none" stroke="#6B628A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M650 195L712 195" fill="none" stroke="#6B628A" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><path d="M704.00 190.44L712 195L704.00 199.56" fill="none" stroke="#6B628A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M898 195L960 195" fill="none" stroke="#6B628A" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><path d="M952.00 190.44L960 195L952.00 199.56" fill="none" stroke="#6B628A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="48" y="253" width="575" height="118" fill="#E7E0FA"/>
+<rect x="637" y="253" width="595" height="118" fill="#E7E0FA"/>
+<text x="70" y="300" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="34" font-weight="710" fill="#493891" text-anchor="start">业务团队</text>
+<text x="70" y="343" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="560" fill="#272139" text-anchor="start">给出专业规则、实际难例与好坏范例</text>
+<text x="659" y="300" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="34" font-weight="710" fill="#493891" text-anchor="start">产品与应用研发</text>
+<text x="659" y="343" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="560" fill="#272139" text-anchor="start">定义服务流程，组装能力并共同验收</text>
+<path d="M335 371L335 390" fill="none" stroke="#D2CBE1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M931 371L931 390" fill="none" stroke="#D2CBE1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="49" y="389" width="1182" height="54" fill="#F0EDF6"/>
+<text x="640" y="425" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="630" fill="#493891" text-anchor="middle">盈米 AI 实验室负责组装、评测与版本发布</text>
+<path d="M335 461L335 445" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M330.44 452.00L335 444L339.56 452.00" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M931 461L931 445" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M926.44 452.00L931 444L935.56 452.00" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="48" y="466" width="1184" height="76" fill="#7356D8"/>
+<text x="71" y="514" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="31" font-weight="710" fill="#FFFFFF" text-anchor="start">共同业务本体</text>
+<path d="M318 486L318 522" fill="none" stroke="#AD9DE8" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="349" y="514" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="28" font-weight="620" fill="#FFFFFF" text-anchor="start">客户、账户、目标、服务任务与回执的统一定义</text>
+<path d="M640 575L640 549" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M634.87 558.00L640 549L645.13 558.00" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="48" y="581" width="1184" height="64" fill="#38304F"/>
+<text x="72" y="623" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="27" font-weight="690" fill="#FFFFFF" text-anchor="start">平台研发</text>
+<text x="318" y="623" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="600" fill="#FFFFFF" text-anchor="start">数据与交易接口</text>
+<text x="630" y="623" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="600" fill="#FFFFFF" text-anchor="start">模型运行与工具调用</text>
+<text x="1006" y="623" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="600" fill="#FFFFFF" text-anchor="start">权限与审计</text>
+<path d="M48 662L1232 662" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="49" y="698" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="540" fill="#605874" text-anchor="start">业务负责专业判断，产品负责跨端体验与验收，研发负责共用能力的稳定运行。</text>
+</svg></div></figure>
+<figure class="art" id="fig-08" data-filename="08-open-ecosystem" aria-label="开放平台有两条经营路径"><div class="viewport"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t8 d8"><title id="t8">开放平台有两条经营路径</title><desc id="d8">盈米 AI 实验室验证方法，盈米 AI 开放平台按渠道授权、版本和任务计量交付。外部 AI 渠道看新客接续与资金增量，机构采购看生产使用、续费与贡献毛益。</desc>
+<rect x="0" y="0" width="1280" height="720" fill="#FAF9FC"/>
+<rect x="48" y="26" width="31" height="9" rx="4" fill="#5239A9"/>
+<text x="92" y="42" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="660" fill="#272139" text-anchor="start">且慢  /  2027 产品规划</text>
+<text x="1231" y="42" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="630" fill="#605874" text-anchor="end">08 / 10    开放生态</text>
+<path d="M48 61L1232 61" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="46" y="123" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="52" font-weight="720" fill="#272139" text-anchor="start">开放平台有两条经营路径</text>
+<rect x="52" y="162" width="1176" height="92" fill="#5239A9"/>
+<text x="76" y="221" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="35" font-weight="710" fill="#FFFFFF" text-anchor="start">盈米 AI 开放平台</text>
+<path d="M443 181L443 235" fill="none" stroke="#AE9DE5" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="475" y="218" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="28" font-weight="650" fill="#FFFFFF" text-anchor="start">经过验证的投顾服务包</text>
+<text x="870" y="218" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="560" fill="#FFFFFF" text-anchor="start">授权、版本与计量</text>
+<path d="M640 254V268Q640 281 628 281H346Q330 281 330 296V309" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M335.13 300.00L330 309L324.87 300.00" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M640 254V268Q640 281 652 281H931Q947 281 947 296V309" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M952.13 300.00L947 309L941.87 300.00" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M637 327L637 634" fill="none" stroke="#D2CBE1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="63" y="353" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="660" fill="#5239A9" text-anchor="start">渠道合作</text>
+<text x="63" y="410" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="36" font-weight="720" fill="#272139" text-anchor="start">外部入口带来新客</text>
+<rect x="63" y="437" width="530" height="62" fill="#F0EDF6"/>
+<text x="79" y="477" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="650" fill="#493891" text-anchor="start">千问小顾</text>
+<path d="M256 467L323 467" fill="none" stroke="#7356D8" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M314.00 461.87L323 467L314.00 472.13" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="355" y="477" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="650" fill="#493891" text-anchor="start">且慢自营</text>
+<text x="63" y="546" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="540" fill="#272139" text-anchor="start">原需求回到且慢，客户确认首份服务。</text>
+<path d="M63 568L593 568" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="63" y="610" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="660" fill="#493891" text-anchor="start">看首服完成率与 90 日人均净流入差</text>
+<text x="674" y="353" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="660" fill="#5239A9" text-anchor="start">机构合作</text>
+<text x="674" y="410" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="36" font-weight="720" fill="#272139" text-anchor="start">机构购买专业能力</text>
+<rect x="674" y="437" width="530" height="62" fill="#F0EDF6"/>
+<text x="690" y="477" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="650" fill="#493891" text-anchor="start">接入与自测</text>
+<path d="M867 467L934 467" fill="none" stroke="#7356D8" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M925.00 461.87L934 467L925.00 472.13" fill="none" stroke="#7356D8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="966" y="477" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="650" fill="#493891" text-anchor="start">生产使用</text>
+<text x="674" y="546" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="540" fill="#272139" text-anchor="start">机构用 MCP、Skills 或 Agent 接入。</text>
+<path d="M674 568L1204 568" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="674" y="610" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="660" fill="#493891" text-anchor="start">看四周持续使用、续费与贡献毛益</text>
+<path d="M48 662L1232 662" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="49" y="698" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="540" fill="#605874" text-anchor="start">先在既有渠道验证承接，再扩第二入口。机构试点按生产任务验收并核算直接成本。</text>
+</svg></div></figure>
+<figure class="art" id="fig-09" data-filename="09-service-economics" aria-label="服务覆盖按人算，经营回报分开看"><div class="viewport"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t9 d9"><title id="t9">服务覆盖按人算，经营回报分开看</title><desc id="d9">月度有效服务客户按人去重，分为首次服务、上月与本月连续服务、间隔后恢复服务三类。并行核算客户资金增量、顾问每案总工时和机构贡献毛益。</desc>
+<rect x="0" y="0" width="1280" height="720" fill="#FAF9FC"/>
+<rect x="48" y="26" width="31" height="9" rx="4" fill="#5239A9"/>
+<text x="92" y="42" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="660" fill="#272139" text-anchor="start">且慢  /  2027 产品规划</text>
+<text x="1231" y="42" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="630" fill="#605874" text-anchor="end">09 / 10    经营指标</text>
+<path d="M48 61L1232 61" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="46" y="123" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="52" font-weight="720" fill="#272139" text-anchor="start">服务覆盖按人算，经营回报分开看</text>
+<rect x="48" y="159" width="1184" height="92" fill="#5239A9"/>
+<text x="75" y="218" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="38" font-weight="710" fill="#FFFFFF" text-anchor="start">月度有效服务客户数</text>
+<text x="1210" y="216" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="560" fill="#FFFFFF" text-anchor="end">本人确认服务结果，或取得正式办理回执</text>
+<path d="M640 252L640 278" fill="none" stroke="#7356D8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M237 292V282H1043V292" fill="none" stroke="#7356D8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="62" y="347" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="34" font-weight="700" fill="#493891" text-anchor="start">首次获服务</text>
+<text x="62" y="391" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="540" fill="#272139" text-anchor="start">本月首次完成有效服务</text>
+<text x="473" y="347" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="34" font-weight="700" fill="#493891" text-anchor="start">连续获服务</text>
+<text x="473" y="391" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="540" fill="#272139" text-anchor="start">上月、本月均有有效服务</text>
+<text x="874" y="347" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="34" font-weight="700" fill="#493891" text-anchor="start">恢复获服务</text>
+<text x="874" y="391" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="540" fill="#272139" text-anchor="start">此前有服务，上月中断</text>
+<text x="436" y="354" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="39" font-weight="520" fill="#6B628A" text-anchor="middle">＋</text>
+<text x="837" y="354" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="39" font-weight="520" fill="#6B628A" text-anchor="middle">＋</text>
+<path d="M48 435L1232 435" fill="none" stroke="#D2CBE1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="49" y="479" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="680" fill="#605874" text-anchor="start">三项经营复核</text>
+<rect x="50" y="506" width="5" height="120" fill="#7356D8"/>
+<text x="70" y="540" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="30" font-weight="710" fill="#493891" text-anchor="start">客户资金</text>
+<text x="70" y="583" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="630" fill="#272139" text-anchor="start">90 日人均净流入差</text>
+<text x="70" y="619" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="520" fill="#605874" text-anchor="start">试点组与可比组对照</text>
+<rect x="452" y="506" width="5" height="120" fill="#7356D8"/>
+<text x="472" y="540" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="30" font-weight="710" fill="#493891" text-anchor="start">顾问产能</text>
+<text x="472" y="583" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="630" fill="#272139" text-anchor="start">每案总工时与到期覆盖</text>
+<text x="472" y="619" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="520" fill="#605874" text-anchor="start">工时含准备、复核和返工</text>
+<rect x="852" y="506" width="5" height="120" fill="#7356D8"/>
+<text x="872" y="540" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="30" font-weight="710" fill="#493891" text-anchor="start">机构回报</text>
+<text x="872" y="583" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="630" fill="#272139" text-anchor="start">续用与贡献毛益</text>
+<text x="872" y="619" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="520" fill="#605874" text-anchor="start">确认收入减直接交付成本</text>
+<path d="M48 662L1232 662" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="49" y="698" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="540" fill="#605874" text-anchor="start">覆盖人数按月去重，三类互斥。经营指标在 Q1 建立基线，再核定年度目标。</text>
+</svg></div></figure>
+<figure class="art" id="fig-10" data-filename="10-quarterly-roadmap" aria-label="2027 年三条产品主线的季度交付"><div class="viewport"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t10 d10"><title id="t10">2027 年三条产品主线的季度交付</title><desc id="d10">Q1 建基线并小范围验证，Q2 打通两端交付与机构试点，Q3 换组复用，Q4 比较服务覆盖、资金增量与机构毛益，决定下一年度资源。此处均为年度建议里程碑。</desc>
+<rect x="0" y="0" width="1280" height="720" fill="#FAF9FC"/>
+<rect x="48" y="26" width="31" height="9" rx="4" fill="#5239A9"/>
+<text x="92" y="42" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="660" fill="#272139" text-anchor="start">且慢  /  2027 产品规划</text>
+<text x="1231" y="42" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="19" font-weight="630" fill="#605874" text-anchor="end">10 / 10    年度路线图</text>
+<path d="M48 61L1232 61" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="46" y="123" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="52" font-weight="720" fill="#272139" text-anchor="start">2027 年三条产品主线的季度交付</text>
+<rect x="48" y="160" width="181" height="90" fill="#363047"/>
+<text x="64" y="215" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="28" font-weight="680" fill="#FFFFFF" text-anchor="start">产品主线</text>
+<rect x="236" y="160" width="244" height="90" fill="#5239A9"/>
+<text x="250" y="202" font-family="'Inter','Avenir Next','Arial','PingFang SC','Microsoft YaHei',sans-serif" font-size="29" font-weight="720" fill="#FFFFFF" text-anchor="start">Q1</text>
+<text x="251" y="235" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="620" fill="#FFFFFF" text-anchor="start">建基线</text>
+<rect x="485" y="160" width="244" height="90" fill="#7356D8"/>
+<text x="499" y="202" font-family="'Inter','Avenir Next','Arial','PingFang SC','Microsoft YaHei',sans-serif" font-size="29" font-weight="720" fill="#FFFFFF" text-anchor="start">Q2</text>
+<text x="500" y="235" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="620" fill="#FFFFFF" text-anchor="start">贯通交付</text>
+<rect x="734" y="160" width="244" height="90" fill="#6650AF"/>
+<text x="748" y="202" font-family="'Inter','Avenir Next','Arial','PingFang SC','Microsoft YaHei',sans-serif" font-size="29" font-weight="720" fill="#FFFFFF" text-anchor="start">Q3</text>
+<text x="749" y="235" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="620" fill="#FFFFFF" text-anchor="start">换组复用</text>
+<rect x="983" y="160" width="244" height="90" fill="#50427A"/>
+<text x="997" y="202" font-family="'Inter','Avenir Next','Arial','PingFang SC','Microsoft YaHei',sans-serif" font-size="29" font-weight="720" fill="#FFFFFF" text-anchor="start">Q4</text>
+<text x="998" y="235" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="22" font-weight="620" fill="#FFFFFF" text-anchor="start">核算取舍</text>
+<rect x="48" y="258" width="181" height="97" fill="#E7E0FA"/>
+<text x="64" y="316" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="30" font-weight="700" fill="#493891" text-anchor="start">客户端</text>
+<rect x="236" y="258" width="244" height="97" fill="#F0EDF6" stroke="#D2CBE1" stroke-width="0.8"/>
+<text x="251" y="298" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="660" fill="#272139" text-anchor="start">财富档案</text>
+<text x="251" y="335" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="550" fill="#605874" text-anchor="start">小顾首轮任务</text>
+<rect x="485" y="258" width="244" height="97" fill="#F0EDF6" stroke="#D2CBE1" stroke-width="0.8"/>
+<text x="500" y="298" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="660" fill="#272139" text-anchor="start">资金计划</text>
+<text x="500" y="335" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="550" fill="#605874" text-anchor="start">交易与服务回执</text>
+<rect x="734" y="258" width="244" height="97" fill="#F0EDF6" stroke="#D2CBE1" stroke-width="0.8"/>
+<text x="749" y="298" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="660" fill="#272139" text-anchor="start">主动复访</text>
+<text x="749" y="335" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="550" fill="#605874" text-anchor="start">养老目标试点</text>
+<rect x="983" y="258" width="244" height="97" fill="#F0EDF6" stroke="#D2CBE1" stroke-width="0.8"/>
+<text x="998" y="298" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="660" fill="#272139" text-anchor="start">年度检视</text>
+<text x="998" y="335" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="550" fill="#605874" text-anchor="start">留存与净流入</text>
+<rect x="48" y="363" width="181" height="97" fill="#E7E0FA"/>
+<text x="64" y="421" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="30" font-weight="700" fill="#493891" text-anchor="start">顾问端</text>
+<rect x="236" y="363" width="244" height="97" fill="#FFFFFF" stroke="#D2CBE1" stroke-width="0.8"/>
+<text x="251" y="403" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="660" fill="#272139" text-anchor="start">一组顾问试点</text>
+<text x="251" y="440" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="550" fill="#605874" text-anchor="start">建立工时基线</text>
+<rect x="485" y="363" width="244" height="97" fill="#FFFFFF" stroke="#D2CBE1" stroke-width="0.8"/>
+<text x="500" y="403" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="660" fill="#272139" text-anchor="start">方案复核</text>
+<text x="500" y="440" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="550" fill="#605874" text-anchor="start">到期服务队列</text>
+<rect x="734" y="363" width="244" height="97" fill="#FFFFFF" stroke="#D2CBE1" stroke-width="0.8"/>
+<text x="749" y="403" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="660" fill="#272139" text-anchor="start">第二组顾问</text>
+<text x="749" y="440" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="550" fill="#605874" text-anchor="start">复测独立办结</text>
+<rect x="983" y="363" width="244" height="97" fill="#FFFFFF" stroke="#D2CBE1" stroke-width="0.8"/>
+<text x="998" y="403" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="660" fill="#272139" text-anchor="start">高客覆盖</text>
+<text x="998" y="440" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="550" fill="#605874" text-anchor="start">服务质量与人效</text>
+<rect x="48" y="468" width="181" height="97" fill="#E7E0FA"/>
+<text x="64" y="526" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="30" font-weight="700" fill="#493891" text-anchor="start">开放生态</text>
+<rect x="236" y="468" width="244" height="97" fill="#F0EDF6" stroke="#D2CBE1" stroke-width="0.8"/>
+<text x="251" y="508" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="660" fill="#272139" text-anchor="start">千问承接</text>
+<text x="251" y="545" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="550" fill="#605874" text-anchor="start">首个能力包</text>
+<rect x="485" y="468" width="244" height="97" fill="#F0EDF6" stroke="#D2CBE1" stroke-width="0.8"/>
+<text x="500" y="508" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="660" fill="#272139" text-anchor="start">一家机构</text>
+<text x="500" y="545" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="550" fill="#605874" text-anchor="start">生产验收</text>
+<rect x="734" y="468" width="244" height="97" fill="#F0EDF6" stroke="#D2CBE1" stroke-width="0.8"/>
+<text x="749" y="508" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="660" fill="#272139" text-anchor="start">第二伙伴复用</text>
+<text x="749" y="545" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="550" fill="#605874" text-anchor="start">核算适配成本</text>
+<rect x="983" y="468" width="244" height="97" fill="#F0EDF6" stroke="#D2CBE1" stroke-width="0.8"/>
+<text x="998" y="508" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="25" font-weight="660" fill="#272139" text-anchor="start">续用与毛益</text>
+<text x="998" y="545" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="550" fill="#605874" text-anchor="start">次年投入决定</text>
+<rect x="48" y="590" width="1184" height="57" fill="#38304F"/>
+<text x="67" y="627" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="23" font-weight="690" fill="#D9CEFF" text-anchor="start">扩投条件</text>
+<text x="227" y="627" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="610" fill="#FFFFFF" text-anchor="start">客户结果可确认</text>
+<text x="528" y="627" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="610" fill="#FFFFFF" text-anchor="start">换组后质量与工时达标</text>
+<text x="920" y="627" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="24" font-weight="610" fill="#FFFFFF" text-anchor="start">经营贡献可核算</text>
+<path d="M48 662L1232 662" fill="none" stroke="#D2CBE1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="49" y="698" font-family="'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans CJK SC',sans-serif" font-size="20" font-weight="540" fill="#605874" text-anchor="start">季度内容为建议里程碑。扩展至养老、第二顾问组及伙伴前，先复核上一阶段的服务结果。</text>
+</svg></div></figure></main>
+<details class="sources"><summary>规划依据与口径</summary>
+<p>季度交付、投入次序和经营指标为规划建议。顾问工作台分期沿用 11 月 27 日路线图，二、三期具体日期待定。</p>
+<nav aria-label="工作台相关材料"><a href="https://clairku.github.io/clair-ai-studio/reports/qieman-2027-product-plan-2026-11-26/">年度规划底稿</a><a href="https://clairku.github.io/clair-ai-studio/reports/qieman-advisor-workbench-roadmap-2026-11-27/">顾问工作台路线图</a><a href="https://clairku.github.io/clair-ai-studio/reports/xiaogu-l3-service-diagrams-2026-11-26/">小顾 L3 方案</a><a href="./service-review.html">服务验收附录</a></nav>
+</details>
+<div id="status" role="status" aria-live="polite"></div>
 <script>
-(() => {
+(()=>{
 'use strict';
-const $ = id => document.getElementById(id);
-const pages = Array.from(document.querySelectorAll('figure.art'));
-const svg = page => page.querySelector('svg');
-const title = page => svg(page).querySelector('title').textContent;
-const serial = i => String(i + 1).padStart(2, '0');
-const metadata = pages.map(page => ({slug:page.dataset.slug, section:page.dataset.section, title:title(page), image:new XMLSerializer().serializeToString(svg(page))}));
-const sourceUrl = item => 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(item.image);
-let pageIndex = 0;
-let inOverview = false;
-let generating = false;
-let noticeTimer;
-function notice(value) {
-  clearTimeout(noticeTimer);
-  document.querySelector('.status').textContent = value;
-  if (value && !generating) noticeTimer = setTimeout(() => notice(''), 3000);
+const el=id=>document.getElementById(id);
+const pages=Array.from(document.querySelectorAll('figure.art'));
+const serial=i=>String(i+1).padStart(2,'0');
+let current=0, all=false, presenting=false, busy=false, scheduled=false, messageTimer;
+document.body.classList.add('ready');
+function status(message){clearTimeout(messageTimer);el('status').textContent=message;if(message)messageTimer=setTimeout(()=>{el('status').textContent='';},4000);}
+function selectPage(i){
+  current=Math.max(0,Math.min(i,pages.length-1));
+  el('jump').value=String(current);
+  el('prev').disabled=current===0;
+  el('next').disabled=current===pages.length-1;
 }
-const dots = metadata.map((item, i) => {
-  const dot = document.createElement('button');
-  dot.type='button'; dot.className='dot'; dot.setAttribute('aria-label','第 ' + (i+1) + ' 张，' + item.title); dot.title=item.title;
-  dot.append(document.createElement('b'));
-  dot.addEventListener('click',()=>visit(i));
-  $('steps').append(dot);
-  const tile=document.createElement('button'); tile.type='button'; tile.className='tile';
-  const preview=new Image(); preview.src=sourceUrl(item); preview.alt=item.title; preview.loading='lazy';
-  const caption=document.createElement('span'); caption.textContent=serial(i)+'  /  '+item.section;
-  tile.append(preview,caption); tile.addEventListener('click',()=>visit(i,true)); $('grid').append(tile);
-  return dot;
+function setZoom(enable){
+  document.body.classList.toggle('zoomed',enable);
+  el('zoom').setAttribute('aria-pressed',String(enable));
+  el('zoom').textContent=enable?'适应宽度':'放大';
+  if(!enable)for(const page of pages)page.querySelector('.viewport').scrollLeft=0;
+}
+function readHash(){
+  const h=location.hash;
+  const target=/^#fig-(0[1-9]|10)$/.exec(h);
+  all=h==='#overview'&&!presenting;
+  selectPage(target?Number(target[1])-1:all?current:0);
+  document.body.classList.toggle('overview',all);
+  el('continuous').setAttribute('aria-pressed',String(all));
+  el('continuous').textContent=all?'单图阅读':'十图连读';
+  pages.forEach((page,i)=>{page.hidden=!all&&i!==current;});
+  setZoom(false);
+  if(all)pages[current].scrollIntoView({block:'start'});
+  else if(!presenting)window.scrollTo(0,0);
+}
+function go(i){
+  if(i<0||i>=pages.length)return;
+  const hash='#fig-'+serial(i);
+  if(location.hash===hash)readHash();else location.hash=hash;
+}
+function step(delta){
+  if(all){selectPage(current+delta);pages[current].scrollIntoView({block:'start'});}
+  else go(current+delta);
+}
+function visiblePage(){
+  if(!all||scheduled)return;
+  scheduled=true;
+  requestAnimationFrame(()=>{
+    scheduled=false;if(!all)return;
+    const y=document.querySelector('.bar').getBoundingClientRect().bottom+Math.max(10,window.innerHeight*.18);
+    let i=current;for(let j=0;j<pages.length;j++){if(pages[j].getBoundingClientRect().top<=y)i=j;else break;}
+    selectPage(i);
+  });
+}
+el('jump').addEventListener('change',e=>go(Number(e.target.value)));
+el('prev').addEventListener('click',()=>step(-1));el('next').addEventListener('click',()=>step(1));
+el('continuous').addEventListener('click',()=>{if(all)go(current);else location.hash='overview';});
+el('zoom').addEventListener('click',()=>setZoom(!document.body.classList.contains('zoomed')));
+function setPresentation(enable){
+  presenting=enable;
+  document.body.classList.toggle('present',enable);
+  el('present').setAttribute('aria-pressed',String(enable));
+  el('present').textContent=enable?'退出演示':'全屏演示';
+  if(enable){el('exports').open=false;setZoom(false);if(all)go(current);}
+}
+el('present').addEventListener('click',async()=>{
+  if(presenting){
+    setPresentation(false);
+    if(document.fullscreenElement&&document.exitFullscreen)try{await document.exitFullscreen();}catch{}
+    return;
+  }
+  setPresentation(true);
+  if(document.documentElement.requestFullscreen)try{await document.documentElement.requestFullscreen();}catch{/* In-app webviews can still present in the full viewport. */}
 });
-function display(i) {
-  pageIndex=Math.max(0,Math.min(i,pages.length-1));
-  pages.forEach((page,j)=>{page.hidden=j!==pageIndex; if(j===pageIndex)dots[j].setAttribute('aria-current','step');else dots[j].removeAttribute('aria-current');});
-  $('prev').disabled=pageIndex===0; $('next').disabled=pageIndex===pages.length-1;
-  $('position').textContent=serial(pageIndex)+' / '+pages.length;
-}
-function overview(on) {
-  inOverview=on; $('overview').hidden=!on; $('viewer').hidden=on;
-  $('overview-toggle').setAttribute('aria-pressed',String(on));
-  $('overview-toggle').textContent=on?'逐张查看':'十图总览';
-  $('zoom').hidden=on; $('save-one').hidden=on;
-}
-function visit(i,focus=false) {
-  overview(false); display(i);
-  const hash='#fig-'+serial(pageIndex);
-  if(location.hash!==hash)location.hash=hash;
-  if(focus)$('viewer').focus({preventScroll:true});
-}
-function readLocation() {
-  if(location.hash==='#overview'){overview(true);return;}
-  const found=location.hash.match(/^#fig-(0[1-9]|10)$/);
-  overview(false); display(found?Number(found[1])-1:0);
-}
-$('overview-toggle').addEventListener('click',()=>{if(inOverview)visit(pageIndex,true);else{overview(true);location.hash='overview';}});
-$('prev').addEventListener('click',()=>visit(pageIndex-1));
-$('next').addEventListener('click',()=>visit(pageIndex+1));
-window.addEventListener('hashchange',readLocation);
-const modal=$('enlarged');
-$('zoom').addEventListener('click',()=>{const item=metadata[pageIndex];$('zoom-title').textContent=serial(pageIndex)+' / '+item.title;$('zoom-image').src=sourceUrl(item);$('zoom-image').alt=item.title;modal.showModal();modal.querySelector('.overlay-art').scrollTo(0,0);});
-$('zoom-close').addEventListener('click',()=>modal.close());
-document.addEventListener('keydown',event=>{
-  if(modal.open || inOverview || event.altKey || event.ctrlKey || event.metaKey)return;
-  if(event.key==='ArrowRight' || event.key==='ArrowLeft'){event.preventDefault();visit(pageIndex+(event.key==='ArrowRight'?1:-1));}
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement&&presenting)setPresentation(false);});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){if(presenting)setPresentation(false);else if(el('exports').open)el('exports').open=false;else setZoom(false);return;}
+  if(e.altKey||e.ctrlKey||e.metaKey||e.shiftKey||['SELECT','INPUT','TEXTAREA'].includes(e.target.tagName)||el('exports').open)return;
+  if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();step(e.key==='ArrowRight'?1:-1);}
 });
-let touchStart;
-$('viewer').addEventListener('touchstart',e=>{touchStart=e.touches.length===1?[e.touches[0].clientX,e.touches[0].clientY]:null;},{passive:true});
-$('viewer').addEventListener('touchend',e=>{if(!touchStart || e.changedTouches.length!==1)return;const dx=e.changedTouches[0].clientX-touchStart[0],dy=e.changedTouches[0].clientY-touchStart[1];touchStart=null;if(Math.abs(dx)>75 && Math.abs(dx)>Math.abs(dy)*2)visit(pageIndex+Math.sign(-dx));},{passive:true});
+document.addEventListener('click',e=>{if(!el('exports').contains(e.target))el('exports').open=false;});
+window.addEventListener('hashchange',readHash);
+window.addEventListener('scroll',visiblePage,{passive:true});
+const filename=(i,ext)=>pages[i].dataset.filename+'.'+ext;
+function svgBlob(i){
+  const svg=pages[i].querySelector('svg');
+  return new Blob([new XMLSerializer().serializeToString(svg)],{type:'image/svg+xml;charset=utf-8'});
+}
 function download(blob,name){
-  const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),60000);
+  const url=URL.createObjectURL(blob),link=document.createElement('a');
+  link.href=url;link.download=name;document.body.appendChild(link);link.click();link.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),60000);
 }
-async function renderPNG(i){
-  const img=new Image();
-  await new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=reject;img.src=sourceUrl(metadata[i]);});
-  const canvas=document.createElement('canvas');canvas.width=2560;canvas.height=1440;
-  const context=canvas.getContext('2d');if(!context)throw new Error('canvas unavailable');
-  context.drawImage(img,0,0,canvas.width,canvas.height);
-  return await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error('PNG unavailable')),'image/png'));
+async function png(i){
+  const source=URL.createObjectURL(svgBlob(i)),canvas=document.createElement('canvas');
+  try{
+    const img=new Image();await new Promise((ok,fail)=>{img.onload=ok;img.onerror=fail;img.src=source;});
+    canvas.width=3840;canvas.height=2160;
+    const ctx=canvas.getContext('2d');if(!ctx)throw new Error('canvas');
+    ctx.drawImage(img,0,0,3840,2160);
+    return await new Promise((ok,fail)=>canvas.toBlob(b=>b?ok(b):fail(new Error('png')),'image/png'));
+  }finally{URL.revokeObjectURL(source);canvas.width=1;canvas.height=1;}
 }
-// The PNGs are already compressed. ZIP's stored method keeps the download self-contained.
 const checksums = Array.from({length:256},(_,n)=>{let value=n;for(let k=0;k<8;k++)value=(value&1)?(0xedb88320^(value>>>1)):value>>>1;return value>>>0;});
 function crc32(bytes){let value=0xffffffff;for(const b of bytes)value=checksums[(value^b)&255]^(value>>>8);return (value^0xffffffff)>>>0;}
 function header(n){const data=new Uint8Array(n),v=new DataView(data.buffer);return {data,u16:(o,x)=>v.setUint16(o,x,true),u32:(o,x)=>v.setUint32(o,x,true)};}
@@ -574,18 +603,24 @@ function zip(entries){
   const end=header(22);end.u32(0,0x06054b50);end.u16(8,entries.length);end.u16(10,entries.length);end.u32(12,dirSize);end.u32(16,offset);
   return new Blob([...files,...directory,end.data],{type:'application/zip'});
 }
-function filename(i){return serial(i)+'-'+metadata[i].slug+'.png';}
-async function save(all){
-  if(generating)return;generating=true;$('save-one').disabled=true;$('save-all').disabled=true;
+async function save(kind){
+  if(busy)return;busy=true;el('exports').open=false;
+  const at=current;
   try{
-    if(all){const entries=[];for(let i=0;i<pages.length;i++){notice('正在生成高清图 '+serial(i)+' / 10');entries.push({name:filename(i),bytes:new Uint8Array(await (await renderPNG(i)).arrayBuffer())});}download(zip(entries),'qieman-2027-ten-figures.zip');}
-    else{const i=pageIndex;notice('正在生成高清图');download(await renderPNG(i),filename(i));}
-    generating=false;notice('已生成下载文件');
-  }catch{generating=false;notice('下载未完成，可重新生成。');}
-  finally{$('save-one').disabled=false;$('save-all').disabled=false;}
+    if(kind==='all'){
+      const entries=[];
+      for(let i=0;i<pages.length;i++){
+        status('正在生成 4K 图 '+serial(i)+' / 10');
+        entries.push({name:filename(i,'png'),bytes:new Uint8Array(await (await png(i)).arrayBuffer())});
+      }
+      download(zip(entries),'qieman-2027-strategy-frameworks-4k.zip');
+    }else if(kind==='svg'){download(svgBlob(at),filename(at,'svg'));}
+    else{status('正在生成 4K 图 '+serial(at));download(await png(at),filename(at,'png'));}
+    status('下载文件已生成');
+  }catch{status('文件未能生成，请重试或下载矢量图。');}finally{busy=false;}
 }
-$('save-one').addEventListener('click',()=>save(false));$('save-all').addEventListener('click',()=>save(true));
-display(0);readLocation();
+el('save-one').addEventListener('click',()=>save('png'));el('save-all').addEventListener('click',()=>save('all'));el('save-vector').addEventListener('click',()=>save('svg'));
+readHash();
 })();
 </script>
 </body>
