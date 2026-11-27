@@ -474,9 +474,9 @@
   "reportRevisions": {
     "qieman-lodestar-advisor-workbench": {
       "updatedAt": "2026-11-27",
-      "revision": "lodestar-service-demo-20261127-v2",
-      "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-lodestar-advisor-workbench/",
-      "access": "production",
+      "revision": "lodestar-private-archive-20261127-v3",
+      "url": "https://chatgpt.com/space/page_5e49db8dde6c8191b5770cda62c38a5b",
+      "access": "account",
       "preservesReportId": true
     },
     "mcp-strategy-detail-review": {
@@ -544,6 +544,12 @@
     }
   },
   "hostedApplications": [
+    {
+      "id": "qieman-lodestar-advisor-workbench",
+      "url": "https://chatgpt.com/space/page_5e49db8dde6c8191b5770cda62c38a5b",
+      "access": "owner-private",
+      "purpose": "The standalone HTML is held under its owner's existing account permissions. The public workbench contains only catalog metadata and the authenticated document link for this edition."
+    },
     {
       "id": "investment-planning-agent-prd-2026-11-25",
       "url": "https://chatgpt.com/library?file_id=libfile_fde3_f-d007424a3e088191b8740f5c5863a553_53fe03be9fa08191800413876a437a2d&account_id=personal",

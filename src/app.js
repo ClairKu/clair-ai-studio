@@ -229,13 +229,13 @@ const initialState = {
       "id": "qieman-lodestar-advisor-workbench",
       "groupId": "advisor-workbench",
       "title": "Lodestar｜且慢顾问工作台",
-      "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-lodestar-advisor-workbench/",
+      "url": "https://chatgpt.com/space/page_5e49db8dde6c8191b5770cda62c38a5b",
       "preview": "qieman-lodestar-advisor-workbench.png",
       "pinned": false,
       "position": -10,
       "createdAt": "2026-11-27T10:01:34Z",
-      "source": "体验智能助手、客户 360 与服务包。会谈语音、企微、资料表和账户数据自动汇成财务规划报告。客户表达赎回意向时，顾问收到依据、建议与通话提纲。",
-      "access": "production",
+      "source": "依据宣发稿与场景档案梳理的单文件 HTML，含财务规划与赎回意向跟进两个产品演示。完整文件按所属账号权限打开。",
+      "access": "account",
       "workType": "reporting",
       "tags": [
         "且慢",
@@ -246,6 +246,17 @@ const initialState = {
         "Skill",
         "汇报材料",
         "HTML"
+      ],
+      "modifiedAt": "2026-11-27T10:53:36.644089Z",
+      "relatedLinks": [
+        {
+          "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-lodestar-advisor-workbench/archive/",
+          "label": "档案版工作台入口"
+        },
+        {
+          "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-lodestar-advisor-workbench/",
+          "label": "原工作台演示"
+        }
       ]
     },
     {
