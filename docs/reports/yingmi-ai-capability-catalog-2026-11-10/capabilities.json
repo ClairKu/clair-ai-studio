@@ -1,10 +1,10 @@
 {
   "title": "盈米AI开放能力清单",
-  "version": 8,
-  "date": "2026-11-11",
+  "version": 9,
+  "date": "2026-11-27",
   "counts": {
     "MCP": 92,
-    "Skills": 10,
+    "Skills": 12,
     "Agent": 6
   },
   "scenes": [
@@ -748,6 +748,7 @@
       "kind": "business",
       "icon": "private",
       "item_uids": [
+        "skill-private-fund-analysis",
         "mcp-GetPrivateFundOverview",
         "mcp-GetPrivateFundResolve",
         "mcp-GetPrivateFundSearch",
@@ -762,13 +763,14 @@
           "name": "私募基础信息",
           "source_kind": "stargate-route",
           "item_uids": [
+            "skill-private-fund-analysis",
             "mcp-GetPrivateFundOverview",
             "mcp-GetPrivateFundManagerProfile"
           ],
           "counts": {
-            "all": 2,
+            "all": 3,
             "MCP": 2,
-            "Skills": 0,
+            "Skills": 1,
             "Agent": 0
           }
         },
@@ -778,14 +780,15 @@
           "name": "私募识别与检索",
           "source_kind": "stargate-route",
           "item_uids": [
+            "skill-private-fund-analysis",
             "mcp-GetPrivateFundResolve",
             "mcp-GetPrivateFundSearch",
             "mcp-GetPrivateFundStrategyTree"
           ],
           "counts": {
-            "all": 3,
+            "all": 4,
             "MCP": 3,
-            "Skills": 0,
+            "Skills": 1,
             "Agent": 0
           }
         },
@@ -795,20 +798,21 @@
           "name": "私募业绩与风险",
           "source_kind": "stargate-route",
           "item_uids": [
+            "skill-private-fund-analysis",
             "mcp-GetPrivateFundMetrics"
           ],
           "counts": {
-            "all": 1,
+            "all": 2,
             "MCP": 1,
-            "Skills": 0,
+            "Skills": 1,
             "Agent": 0
           }
         }
       ],
       "counts": {
-        "all": 6,
+        "all": 7,
         "MCP": 6,
-        "Skills": 0,
+        "Skills": 1,
         "Agent": 0
       }
     },
@@ -818,6 +822,7 @@
       "kind": "user_data",
       "icon": "database",
       "item_uids": [
+        "skill-personal-holdings-analysis",
         "mcp-GetUserProfitRateCurve",
         "mcp-GetUserProfitCalendar",
         "mcp-GetUserM4FundDetail",
@@ -841,6 +846,7 @@
           "name": "收益与净值",
           "source_kind": "stargate-route",
           "item_uids": [
+            "skill-personal-holdings-analysis",
             "mcp-GetUserProfitRateCurve",
             "mcp-GetUserProfitCalendar",
             "mcp-GetUserAssetCurve",
@@ -849,9 +855,9 @@
             "mcp-GetUserProfitData"
           ],
           "counts": {
-            "all": 6,
+            "all": 7,
             "MCP": 6,
-            "Skills": 0,
+            "Skills": 1,
             "Agent": 0
           }
         },
@@ -861,13 +867,14 @@
           "name": "用户持仓",
           "source_kind": "stargate-route",
           "item_uids": [
+            "skill-personal-holdings-analysis",
             "mcp-GetUserM4FundDetail",
             "mcp-GetUserAccountsAndProducts"
           ],
           "counts": {
-            "all": 2,
+            "all": 3,
             "MCP": 2,
-            "Skills": 0,
+            "Skills": 1,
             "Agent": 0
           }
         },
@@ -892,13 +899,14 @@
           "name": "资产结构与分布",
           "source_kind": "stargate-route",
           "item_uids": [
+            "skill-personal-holdings-analysis",
             "mcp-GetUserAssetAnalysis",
             "mcp-GetUserM4ProdGroup"
           ],
           "counts": {
-            "all": 2,
+            "all": 3,
             "MCP": 2,
-            "Skills": 0,
+            "Skills": 1,
             "Agent": 0
           }
         },
@@ -908,12 +916,13 @@
           "name": "账户诊断",
           "source_kind": "stargate-route",
           "item_uids": [
+            "skill-personal-holdings-analysis",
             "mcp-GetUserAccountDiagnosis"
           ],
           "counts": {
-            "all": 1,
+            "all": 2,
             "MCP": 1,
-            "Skills": 0,
+            "Skills": 1,
             "Agent": 0
           }
         },
@@ -938,12 +947,13 @@
           "name": "风险与回撤",
           "source_kind": "stargate-route",
           "item_uids": [
+            "skill-personal-holdings-analysis",
             "mcp-GetUserAccountHierarchyDrawdown"
           ],
           "counts": {
-            "all": 1,
+            "all": 2,
             "MCP": 1,
-            "Skills": 0,
+            "Skills": 1,
             "Agent": 0
           }
         },
@@ -964,9 +974,9 @@
         }
       ],
       "counts": {
-        "all": 15,
+        "all": 16,
         "MCP": 15,
-        "Skills": 0,
+        "Skills": 1,
         "Agent": 0
       }
     },
@@ -1023,6 +1033,62 @@
   ],
   "items": [
     {
+      "uid": "skill-personal-holdings-analysis",
+      "layer": "Skills",
+      "name": "个人持仓分析",
+      "english": "personal-holdings-analysis",
+      "category": "财富规划与资产配置",
+      "subcategory": "用户持仓",
+      "inputs": "本人已授权的且慢账户。查询时可指定子账户、统计区间和关注点，诊断范围为全部持仓。",
+      "outputs": "账户与产品持仓、四笔钱分布、累计收益、区间收益率和最大回撤。全部持仓诊断包含资产配置、风险、历史模拟回测及相关性，诊断结果不写入账户。",
+      "source_url": "https://qieman.com/mcp/skill-detail/personal-holdings-analysis",
+      "official_name": "personal-holdings-analysis",
+      "description": "分析当前授权用户本人的且慢持仓，按总账户或子账户查看收益和回撤，并对全部持仓做风险诊断。",
+      "scenes": [
+        "user-data"
+      ],
+      "fields": [],
+      "out_fields": [],
+      "input_summary": "本人且慢账户授权，可按需指定子账户、统计区间或诊断需求",
+      "output_summary": "持仓与四笔钱分布、账户收益与最大回撤、配置诊断、模拟回测与相关性",
+      "website_order": 0,
+      "classification_paths": [
+        "用户数据 / 收益与净值",
+        "用户数据 / 用户持仓",
+        "用户数据 / 资产结构与分布",
+        "用户数据 / 账户诊断",
+        "用户数据 / 风险与回撤"
+      ],
+      "source_checked_on": "2026-11-27"
+    },
+    {
+      "uid": "skill-private-fund-analysis",
+      "layer": "Skills",
+      "name": "私募研究",
+      "english": "private-fund-analysis",
+      "category": "基金策略与组合分析",
+      "subcategory": "私募识别与检索",
+      "inputs": "已完成适当性核验的授权范围。筛选时提供完整策略路径，研究时提供产品或管理人名称，比较业绩时指定共同区间与基准。",
+      "outputs": "按策略筛选的候选清单、产品档案及净值、认购门槛与费用、同区间的收益、回撤及相对基准的超额收益，以及管理人备案、规模和人员信息。区间不一致时不排名。",
+      "source_url": "https://qieman.com/mcp/skill-detail/private-fund-analysis",
+      "official_name": "private-fund-analysis",
+      "description": "在适当性核验完成且授权可见的范围内，按策略筛选盈米代销私募，研究已确认的产品、比较业绩或查询管理人。",
+      "scenes": [
+        "private-research"
+      ],
+      "fields": [],
+      "out_fields": [],
+      "input_summary": "适当性核验与授权、策略路径或产品／管理人名称，比较时指定区间与基准",
+      "output_summary": "候选清单、产品档案与净值、门槛与费用、收益／回撤／超额收益、管理人概况",
+      "website_order": 1,
+      "classification_paths": [
+        "私募研究 / 私募基础信息",
+        "私募研究 / 私募识别与检索",
+        "私募研究 / 私募业绩与风险"
+      ],
+      "source_checked_on": "2026-11-27"
+    },
+    {
       "uid": "skill-advisor-allocation",
       "layer": "Skills",
       "name": "顾问资产配置",
@@ -1041,7 +1107,7 @@
       "out_fields": [],
       "input_summary": "可投资金额、目标、资金期限、流动性、风险约束及现有方案。",
       "output_summary": "资产配置比例和金额、配置理由，以及基金或策略实施参考。",
-      "website_order": 0,
+      "website_order": 2,
       "classification_paths": [
         "投资规划与组合管理 / 投资方案生成与评估"
       ]
@@ -1065,7 +1131,7 @@
       "out_fields": [],
       "input_summary": "客户授权资料、服务目的、信息日期，以及当前要解决的问题。",
       "output_summary": "单客洞察、备访问题、服务需求分群与证据记录",
-      "website_order": 1,
+      "website_order": 3,
       "classification_paths": [
         "市场资讯与内容 / 顾问交付与运营"
       ]
@@ -1090,7 +1156,7 @@
       "out_fields": [],
       "input_summary": "已确定的基金或策略、沟通问题、目标受众和表达渠道。",
       "output_summary": "产品说明、费率规则表、常见问题，以及顾问沟通提纲或话术。",
-      "website_order": 2,
+      "website_order": 4,
       "classification_paths": [
         "市场资讯与内容 / 顾问交付与运营",
         "交易与业务办理 / 交易规则与限额"
@@ -1115,7 +1181,7 @@
       "out_fields": [],
       "input_summary": "家庭收支、资产负债、成员责任，以及教育养老等财富目标。",
       "output_summary": "家庭财务体检、目标测算、四笔钱安排与长期现金流规划。",
-      "website_order": 3,
+      "website_order": 5,
       "classification_paths": [
         "投资规划与组合管理 / 家庭财务与现金流"
       ]
@@ -1139,7 +1205,7 @@
       "out_fields": [],
       "input_summary": "一只或多只基金的名称或代码、分析期间，以及关注的问题。",
       "output_summary": "基金业绩风险、持仓风格、经理与归因结论，以及同口径比较。",
-      "website_order": 4,
+      "website_order": 6,
       "classification_paths": [
         "公募基金研究 / 基金诊断"
       ]
@@ -1163,7 +1229,7 @@
       "out_fields": [],
       "input_summary": "市场、指数、行业或主题，以及关注日期、期间和研究问题。",
       "output_summary": "行情事实、重要事件、具名观点，以及市场简报或专题分析。",
-      "website_order": 5,
+      "website_order": 7,
       "classification_paths": [
         "市场资讯与内容 / 观点与实时解读"
       ]
@@ -1187,7 +1253,7 @@
       "out_fields": [],
       "input_summary": "两只以上基金及金额或权重，或大类资产权重与分析目标。",
       "output_summary": "组合穿透、集中度、相关性、回测、风险及情景比较结果。",
-      "website_order": 6,
+      "website_order": 8,
       "classification_paths": [
         "投资规划与组合管理 / 组合诊断"
       ]
@@ -1211,7 +1277,7 @@
       "out_fields": [],
       "input_summary": "公开投顾策略名称或代码、分析期间、对比对象及关注重点。",
       "output_summary": "策略定位、机制、业绩风险、底层持仓，以及策略比较结论。",
-      "website_order": 7,
+      "website_order": 9,
       "classification_paths": [
         "投顾策略研究 / 策略基本信息"
       ]
@@ -1235,7 +1301,7 @@
       "out_fields": [],
       "input_summary": "内容主题、受众、发布渠道、时效，以及已核验的研究素材。",
       "output_summary": "选题、素材包、投教文章、多渠道成稿或图文报告等内容。",
-      "website_order": 8,
+      "website_order": 10,
       "classification_paths": [
         "市场资讯与内容 / 投顾内容"
       ]
@@ -1259,7 +1325,7 @@
       "out_fields": [],
       "input_summary": "基金类型、收益风险、规模费率、风格或交易条件及候选数量。",
       "output_summary": "实际筛选条件、候选基金清单、比较结果及相关异动记录。",
-      "website_order": 9,
+      "website_order": 11,
       "classification_paths": [
         "公募基金研究 / 基金搜索与筛选"
       ]
@@ -14274,5 +14340,10 @@
         "child": "general-tools--9af6e4c4"
       }
     }
+  },
+  "layer_snapshot_dates": {
+    "MCP": "2026-11-11",
+    "Skills": "2026-11-27",
+    "Agent": "2026-11-11"
   }
 }

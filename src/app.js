@@ -1454,9 +1454,9 @@ const initialState = {
       preview: "yingmi-ai-capability-catalog-2026-11-10.jpg",
       pinned: false,
       position: 0,
-      modifiedAt: "2026-11-11T16:17:12+08:00",
+      modifiedAt: "2026-11-27T10:39:23+08:00",
       createdAt: "2026-11-10T12:23:52+08:00",
-      source: "108项AI能力：92个MCP、10个Skills、6个Agent。按8类业务与44个子类交叉浏览，展示中英文名称、用途及IN/OUT，支持搜索和Excel导出。",
+      source: "收录 110 项 AI 能力，含 92 个 MCP、12 个 Skills 和 6 个 Agent。新增个人持仓分析、私募研究，可按 8 类业务、44 个子类检索并导出 Excel。",
       access: "production",
       workType: "ai-research",
       tags: [
