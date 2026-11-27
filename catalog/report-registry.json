@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "qieman-lodestar-advisor-workbench",
     "mcp-strategy-detail-review",
     "qieman-advisor-workbench-roadmap-2026-11-27",
     "qieman-2027-ten-figures-2026-11-27",
@@ -471,6 +472,13 @@
     ]
   },
   "reportRevisions": {
+    "qieman-lodestar-advisor-workbench": {
+      "updatedAt": "2026-11-27",
+      "revision": "lodestar-product-introduction-20261127",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-lodestar-advisor-workbench/",
+      "access": "production",
+      "preservesReportId": true
+    },
     "mcp-strategy-detail-review": {
       "updatedAt": "2026-11-27",
       "revision": "strategy-detail-review-20261127",

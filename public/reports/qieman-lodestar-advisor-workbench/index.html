@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#142741">
+  <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots>
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="且慢顾问工作台 Lodestar 的两段服务现场。一场沟通如何形成财务规划初稿，一笔赎回如何得到更合适的跟进。">
+  <title>Lodestar｜且慢顾问工作台</title>
+  <script data-clair-access-gate data-clair-access-scope="report" data-clair-access-entry="reports/qieman-lodestar-advisor-workbench/" src="../../access-gate.js?rev=2026-11-12-fast-login-v11"></script>
+  <style>
+    :root{
+      color-scheme:light;
+      --ink:#162a42;--muted:#4e6376;--faint:#63788a;--blue:#17569d;--line:#d3dfe8;
+      --sky:#edf4fb;--violet:#594c89;--lilac:#f3f0f9;--paper:#fff;--dark:#142741;
+      --sans:Inter,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+      --serif:Baskervville,"Iowan Old Style","Palatino Linotype",Georgia,serif;
+      --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+      --width:1104px;--pad:clamp(22px,5vw,74px);--nav:65px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav) + 22px)}
+    body{margin:0;color:var(--ink);background:var(--paper);font:16px/1.76 var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+    a{color:inherit;text-underline-offset:.24em}a:focus-visible{outline:3px solid #b85d12;outline-offset:5px}
+    h1,h2,h3,h4,p,figure,blockquote,ol,ul,dl,dd{margin:0}
+    h1,h2,h3,h4{line-height:1.28;letter-spacing:-.036em}
+    a,button{-webkit-tap-highlight-color:transparent}
+    img{display:block;max-width:100%}
+    .wrap{width:min(var(--width),calc(100% - var(--pad)*2));margin-inline:auto}
+    .skip{position:fixed;left:16px;top:8px;z-index:20;padding:8px 14px;background:white;color:var(--blue);transform:translateY(-160%)}
+    .skip:focus{transform:none}
+    .bar{position:sticky;top:0;z-index:8;background:#fbfdff;border-bottom:1px solid var(--line)}
+    .bar-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:var(--nav)}
+    .brand{display:inline-flex;align-items:center;gap:15px;flex-shrink:0;color:var(--ink);text-decoration:none;font-size:14px;font-weight:620}
+    .brand img{width:67px;height:auto}.brand span{padding-left:14px;border-left:1px solid #bbcad5;line-height:1.2}
+    .chapters{display:flex;align-self:stretch;align-items:stretch;gap:clamp(15px,2vw,32px)}
+    .chapters a{display:inline-flex;align-items:center;border-bottom:2px solid transparent;text-decoration:none;font-size:13px;font-weight:580;color:#536678;white-space:nowrap}
+    .chapters a:hover,.chapters a[aria-current="location"]{color:var(--blue);border-bottom-color:var(--blue)}
+    .reading-line{position:absolute;bottom:-1px;left:0;width:100%;height:2px;background:#568ad7;transform:scaleX(0);transform-origin:left;pointer-events:none}
+    .hero{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(114deg,#122239 5%,#173552 75%,#1d3d58);color:white}
+    .atlas{position:absolute;z-index:-1;top:49%;left:78%;width:960px;aspect-ratio:1;transform:translate(-50%,-50%);border:1px solid #ffffff0f;border-radius:50%;pointer-events:none}
+    .atlas i{position:absolute;border:1px solid #bcd9fa17;border-radius:50%;inset:10%}.atlas i:nth-child(2){inset:20%}.atlas i:nth-child(3){inset:30%}
+    .atlas::before,.atlas::after{content:"";position:absolute;left:50%;top:-20%;height:140%;width:1px;background:#aac8df12;transform:rotate(34deg)}.atlas::after{transform:rotate(124deg)}
+    .hero-inner{display:grid;grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr);gap:clamp(36px,6vw,88px);align-items:center;padding-block:clamp(52px,6.4vw,92px)}
+    .hero-kicker,.section-label,.figure-label{display:flex;align-items:center;gap:10px;font-weight:700}
+    .hero-kicker{font-size:14px;letter-spacing:.1em;color:#bdd7ef}
+    .north{display:inline-block;width:23px;height:23px;flex:none;background:#b2daff;clip-path:polygon(50% 0,58% 38%,81% 20%,63% 44%,100% 50%,62% 57%,78% 79%,56% 63%,50% 100%,43% 62%,19% 80%,37% 57%,0 50%,38% 43%,20% 20%,43% 38%)}
+    .nameplate{display:block;margin:12px 0 13px;font:normal clamp(64px,7.2vw,103px)/.99 var(--serif);letter-spacing:-.063em;color:#fff}
+    .hero-claim{display:block;font-size:clamp(26px,2.8vw,41px);font-weight:660;letter-spacing:-.055em;line-height:1.34}
+    .hero-copy{max-width:32em;margin:18px 0 22px;color:#d2e0ed;font-size:clamp(15px,1.3vw,18px);line-height:1.85}
+    .jump{display:inline-flex;gap:14px;align-items:center;text-decoration:none;color:#eaf5ff;font-size:14px;font-weight:650}
+    .jump span{display:grid;place-items:center;width:29px;height:29px;border:1px solid #7593ae;border-radius:50%;line-height:1}
+    .jump:hover span{background:#ffffff22}
+    .desk{margin:0;background:#fbfdff;color:var(--ink);border:1px solid #cad9e3;border-radius:14px;box-shadow:0 24px 66px #06132650;overflow:hidden}
+    .desk-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 21px;background:#eef4fa;border-bottom:1px solid #d6e2ec;font-size:13px}
+    .desk-top strong{display:flex;align-items:center;gap:9px}.desk-top small{font-size:11px;color:var(--faint)}
+    .tile-icon{display:inline-grid;place-items:center;width:23px;height:23px;background:#1a476e;border-radius:6px}.tile-icon .north{width:15px;height:15px;background:#fff}
+    .desk-score{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:22px 23px 19px}
+    .desk-score .label{color:var(--muted);font-size:13px;font-weight:620}
+    .score{display:flex;align-items:baseline;gap:5px;line-height:1.12;margin:3px 0 8px}.score b{font:600 53px/1 var(--sans);letter-spacing:-.065em}.score span{font-size:13px}
+    .urgent{color:#84531c;background:#f6ebd7;border-radius:3px;font-size:11px;padding:3px 7px;font-weight:650}
+    .done{text-align:right;border-left:1px solid var(--line);padding-left:18px;color:var(--muted);font-size:13px}
+    .done strong{display:block;color:#3c627f;font:580 32px/1.25 var(--sans)}
+    .desk-link{display:grid;grid-template-columns:8px 1fr 16px;gap:12px;align-items:start;padding:15px 22px;border-top:1px solid #dee8ef;text-decoration:none;transition:background .18s}
+    .desk-link:hover{background:#edf4fb}.dot{width:7px;height:7px;margin-top:8px;border-radius:50%;background:#5791c0}.dot.violet{background:#8374b5}
+    .desk-link strong{display:block;font-size:14px}.desk-link small{display:block;margin-top:3px;font-size:12px;line-height:1.55;color:var(--muted)}.desk-arrow{color:#4a729a;font-size:15px}
+    .chapter{padding-block:clamp(52px,6.6vw,90px)}
+    .chapter+.chapter{border-top:1px solid var(--line)}
+    .section-label{margin-bottom:12px;color:var(--blue);font-size:13px;letter-spacing:.09em}
+    .section-label::before{content:"";width:29px;height:2px;background:currentColor}
+    h2{font-size:clamp(28px,3.05vw,44px);font-weight:680;text-wrap:balance}.lead{max-width:48em;color:var(--muted);font-size:clamp(16px,1.4vw,18px);margin-top:14px;line-height:1.9}
+    .lead strong{color:var(--ink);font-weight:650}
+    h3{font-size:clamp(21px,2.1vw,28px);font-weight:660}h4{font-size:18px;font-weight:680}
+    .work-layout{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:start;gap:clamp(36px,7vw,112px)}
+    .work-layout .lead{max-width:33em}.entry-list{border-top:2px solid #87a1b7}
+    .entry{display:grid;grid-template-columns:90px minmax(0,1fr);gap:15px;border-bottom:1px solid var(--line);padding:16px 0}
+    .entry dt{font-size:15px;font-weight:710}.entry dd{color:var(--muted);font-size:15px;line-height:1.75}.entry dd b{color:var(--ink);font-weight:610}
+    .planning{background:#f3f7fb}
+    .plan-grid{display:grid;grid-template-columns:.99fr 1.01fr;gap:clamp(34px,6vw,88px);align-items:start;margin-top:34px}
+    .steps{list-style:none;padding:0;counter-reset:procedure}
+    .steps li{position:relative;counter-increment:procedure;padding:0 0 20px 37px}
+    .steps li::before{content:counter(procedure);position:absolute;left:0;top:2px;display:grid;place-items:center;width:23px;height:23px;border-radius:50%;border:1px solid #aec3d9;color:var(--blue);font:600 12px var(--mono);background:#f3f7fb}
+    .steps li:not(:last-child)::after{content:"";position:absolute;width:1px;top:29px;bottom:4px;left:11px;background:#c2d3e3}
+    .steps li:last-child{padding-bottom:0}.steps h3{font-size:18px;line-height:1.5}.steps p{color:var(--muted);font-size:15px;margin-top:3px}
+    .paper{background:white;border:1px solid #c4d4e1;border-left:4px solid #3b73ab;box-shadow:7px 7px 0 #dee8f1;padding:clamp(21px,2.6vw,35px);border-radius:2px}
+    .paper-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.paper-head span{font-size:12px;color:var(--muted)}.paper-head b{font-size:11px;color:#3a5f85;background:#e7f0fa;padding:3px 9px;border-radius:3px}
+    .paper h3{font-size:clamp(23px,2.2vw,30px)}.paper-rule{width:42px;height:3px;background:#2c689c;margin:13px 0 18px}
+    .paper dl{font-size:14px}.paper dt{font-weight:680;color:#264d70;margin-top:14px}.paper dd{color:var(--muted);margin-top:3px}
+    .paper .confirm{background:#fbf3e5;border-left:2px solid #bd8b48;padding:10px 13px;margin-top:15px}.paper .confirm dt{margin-top:0;color:#744815}
+    .packet{margin-top:24px;border-top:1px solid #ccdae5;padding-top:15px;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 13px;font-size:14px;color:var(--muted)}.packet b{color:var(--ink)}
+    .client .lead{max-width:49em}
+    .event{margin-top:28px;display:flex;align-items:center;flex-wrap:wrap;gap:6px 14px;background:#203955;color:#f4f9ff;padding:13px 22px;border-radius:6px 6px 0 0}
+    .event small{font-size:12px;letter-spacing:.08em;color:#c1d7ee}.event b{font-size:16px}
+    .branch{display:grid;grid-template-columns:1fr 1fr;border:1px solid #cbd7e2;border-top:0;border-radius:0 0 6px 6px;overflow:hidden}
+    .profile{padding:clamp(20px,2.8vw,34px);background:#f0f6fb}.profile+.profile{border-left:1px solid #ced9e4;background:#f3f1f8}
+    .profile .who{display:inline-block;margin-bottom:11px;color:#346285;font-size:13px;font-weight:650}.profile+.profile .who{color:var(--violet)}
+    .profile h3{font-size:clamp(20px,2.05vw,27px);margin-bottom:18px}
+    .profile dl{display:grid;grid-template-columns:4em minmax(0,1fr);gap:10px 13px;font-size:15px;line-height:1.7}
+    .profile dt{color:var(--muted);font-size:13px;padding-top:2px}.profile dd:last-child{font-weight:650}
+    .follow{display:grid;grid-template-columns:.88fr 1.12fr;gap:clamp(25px,5vw,68px);margin-top:32px;align-items:start}
+    .follow h3{font-size:21px}.follow p{margin-top:9px;font-size:15px;color:var(--muted)}
+    .call-note{margin:0;padding:0 0 0 18px;border-left:3px solid #9f8cc5}.call-note figcaption{font-size:12px;font-weight:670;color:var(--violet);margin-bottom:5px}
+    .call-note blockquote{font-size:clamp(16px,1.5vw,20px);line-height:1.8;color:#354058}
+    .service-ops{margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:22px;border-block:1px solid var(--line);padding-block:17px}
+    .service-ops h4{font-size:15px;letter-spacing:0}.service-ops p{font-size:14px;color:var(--muted);margin-top:4px}
+    .methods{background:#f4f2f8}
+    .methods .section-label{color:var(--violet)}.method-layout{display:grid;grid-template-columns:.88fr 1.12fr;gap:clamp(34px,6vw,84px);align-items:start}
+    .method-layout .lead{max-width:30em}
+    .method-quote{margin-top:19px;border-left:2px solid #b7a7d5;padding-left:15px;color:#51446b;font-size:15px}
+    .layers{margin:0}.layers figcaption{font-size:13px;font-weight:660;color:var(--violet);margin:0 0 10px}
+    .layer{display:grid;grid-template-columns:85px minmax(0,1fr);gap:12px;align-items:baseline;background:white;border:1px solid #dcd5e9;border-left-width:4px;padding:13px 16px;margin-top:6px}
+    .layer b{font-size:15px}.layer span{font-size:14px;color:#55576d;line-height:1.7}.layer.personal{margin-left:24px;border-left-color:#a18ebc}.layer.team{margin-left:12px;border-left-color:#88749f}.layer.org{border-left-color:#654f85}
+    .base{padding:13px 16px;background:#3e3853;color:#eeeaf6;border-radius:0 0 5px 5px;margin-top:6px}.base b{font-size:14px}.base p{font-size:13px;color:#e1dbeb;margin-top:3px;line-height:1.7}
+    .checks{display:grid;grid-template-columns:repeat(3,1fr);margin:28px 0 32px;list-style:none;padding:0;border-top:2px solid #819db9}
+    .checks li{padding:16px 23px 0 0}.checks li+li{border-left:1px solid var(--line);padding-left:23px}
+    .checks .when{font:650 13px var(--sans);color:var(--blue)}.checks h3{font-size:20px;margin:7px 0}.checks p{color:var(--muted);font-size:15px}
+    .outcomes{border-top:1px solid var(--line);display:grid;grid-template-columns:145px minmax(0,1fr);align-items:baseline;gap:15px;padding-top:20px}
+    .outcomes h3{font-size:18px}.outcomes dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:5px 14px;font-size:14px}.outcomes dt{font-weight:680;color:var(--ink)}.outcomes dd{color:var(--muted)}
+    .end{background:#162b44;color:#fff;padding:clamp(32px,4.2vw,56px) 0}
+    .end-inner{display:flex;justify-content:space-between;gap:24px;align-items:flex-end}.end small{font-size:13px;color:#c1d3e6;letter-spacing:.06em}
+    .end p{font:normal 34px/1.16 var(--serif);letter-spacing:-.045em;margin-top:5px}
+    .footer-links{display:flex;align-items:center;flex-wrap:wrap;gap:14px 24px;font-size:13px;color:#d8e5f0}.footer-links a{text-decoration-thickness:1px}
+    @media(max-width:880px){
+      .hero-inner{gap:28px;grid-template-columns:minmax(0,1fr) minmax(0,.88fr)}.hero-claim{font-size:26px}
+      .work-layout,.method-layout{gap:30px;grid-template-columns:.95fr 1.05fr}.entry{grid-template-columns:75px minmax(0,1fr);gap:10px}
+      .desk-score{padding:16px 19px}.desk-link{padding:12px 18px}.outcomes{grid-template-columns:125px minmax(0,1fr)}
+    }
+    @media(max-width:700px){
+      :root{--pad:22px;--nav:84px}.bar-inner{align-items:flex-start;flex-direction:column;gap:0;padding-top:10px;min-height:var(--nav)}
+      .brand{gap:10px;font-size:13px}.brand img{width:50px}.brand span{padding-left:10px}.chapters{justify-content:space-between;gap:8px;margin-top:4px}.chapters a{font-size:12px;padding-block:8px}
+      .hero-inner,.work-layout,.plan-grid,.follow,.method-layout{grid-template-columns:1fr}
+      .hero-inner{padding:39px 0 34px;gap:26px}.hero-copy{margin:13px 0 16px;max-width:none}.nameplate{font-size:clamp(64px,14vw,82px);margin:9px 0 10px}.hero-claim{font-size:clamp(23px,5.9vw,29px)}.hero-kicker{font-size:13px}
+      .desk{max-width:520px}.desk-top{padding:10px 16px}.desk-score{padding:13px 16px}.score{margin:2px 0 4px}.score b{font-size:37px}.done strong{font-size:24px}.desk-link{padding:10px 15px}.desk-link small{margin-top:1px}
+      .chapter{padding-block:43px}.section-label{font-size:12px;margin-bottom:8px}.work-layout,.method-layout{gap:22px}.entry{padding:12px 0}.plan-grid{margin-top:23px;gap:24px}.steps li{padding-bottom:14px}
+      .paper{box-shadow:4px 4px 0 #dee8f1}.packet{margin-top:22px}.branch{grid-template-columns:1fr}.profile+.profile{border-left:0;border-top:1px solid #ced9e4}.profile .who{margin-bottom:5px}.profile h3{margin-bottom:13px}
+      .follow{gap:16px;margin-top:24px}.service-ops{grid-template-columns:1fr;gap:13px;margin-top:21px}.service-ops p{margin-top:3px}
+      .checks{grid-template-columns:1fr;margin:22px 0}.checks li,.checks li+li{display:grid;grid-template-columns:3.3em 1fr;column-gap:8px;align-items:baseline;border-left:0;border-bottom:1px solid var(--line);padding:12px 0}.checks h3{margin:0;font-size:18px}.checks p{grid-column:2;margin-top:2px}
+      .outcomes{grid-template-columns:1fr;gap:10px;border:0;padding:0}.outcomes dl{gap:8px 12px}
+      .end-inner{flex-direction:column;align-items:flex-start;gap:16px}
+    }
+    @media(max-width:365px){:root{--pad:15px}.entry{grid-template-columns:68px minmax(0,1fr)}.profile dl{gap:8px}.layer{grid-template-columns:66px minmax(0,1fr);padding:11px}.chapters{gap:4px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+    @media print{
+      @page{margin:14mm;size:A4}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      :root{--pad:0px;--width:100%}.bar{position:static}.bar-inner{min-height:40px}.chapters,.jump,.footer-links,.reading-line,.skip{display:none}.hero-inner{padding:24px 0;gap:20px;grid-template-columns:1fr 1fr}
+      .nameplate{font-size:53px}.hero-claim{font-size:22px}.hero-copy,.lead,body{font-size:12px}.chapter{padding:22px 0}.desk,.paper,.branch,.layer,.checks li,.steps li{break-inside:avoid}
+      h2,h3,h4{break-after:avoid}.plan-grid,.work-layout,.method-layout,.follow{gap:20px}.desk{box-shadow:none}.paper{box-shadow:none}.end{padding:15px 0}
+    }
+  </style>
+</head>
+<body id="top">
+  <a class="skip" href="#work">跳至正文</a>
+  <header class="bar">
+    <div class="wrap bar-inner">
+      <a class="brand" href="#top" aria-label="且慢顾问工作台，回到页首"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK8AAABDCAMAAADdyqW+AAAC6FBMVEUNbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp0Nbp2XkGlKAAAA93RSTlMAD0B+stPw6s6qdDcGIXjU0aWSkJOs2vTEZBPc4pUZAh5Oo8VMcPWBJS+a51Fh8shFBFvYFsLkP12fVWoFizmWNPljrrmI0I6dwFetewoISrtJfYMb4el/F2LmA2tYLF/3c1LggnV3ntI1Vh0jS7gMmRDGvMG+CUM2+rpBhBQ9+GmwEiqn9u0N1mx5/GYxLpEBHMofy0b7jFxn6+WrDo0LgLVP169QEQciTWBe4yAy/TpxSFqc/t7b2VQm8b+2zMPu8zsatOyxzZSP772Ycm1uLcepKymHeoaJhW+KMELo3ckkJ89oOETfFWWoWUc+dhih1ZekKLNTlEH/9AAAAAlwSFlzAAAuIwAALiMBeKU/dgAACElJREFUaN7NmnlcVUUUxwcFfSKuaWgoooJlKqggLkGCa2qQRuGCIW6pJGpo4hKCKWhaiWia4IJoqFS4pFYKGIkaLkVqqS2mkluLS9v5tzP33vfeXWbue/e9x+f1+8Mz98zcOd/PvJm5ZwYJ4cmjTl1Pr3pAVd/UwLuhD/kfq1HjJhS0XtNmzR9p0fJRX/rQqvVj7sbiqLUfQJu2dfytnnYB7TsgdMdAd6MxFATQ6fEnGBWdnwTo0tXdeCp1C4aQ7rzKHj3bQGgddyPKFNYLwnvrtugD0NfdlBb1A3jKVpuISKj/tLtBRfUHk78dzaKiYYC7UakGQlv7GkYMgsHuhiVkCPSxu+1QeMaVoXs48M4wGG6gdV1o7kLeiBHPxlgewmK1DfyfU3tGwihDIZ6HOEfIXmC7X4T40WOk8thxQQnq+lbq33MwjDcYuS+8xK8ck8j2T0iayPQPox/8Bh5CeRLA5ClTX5Zp6jSsnT5D1j4ZIg0PVQi8wq2bCSNTGG7/JIBZAYyKXggU3H+2mZetOZbNKwH8DOPiS+Hculex+9S584Yp9VonGrZTn/lM3jSpTHlDFjSUacGohQKwJUlYBPbsu2othtd5VelJoKMlNnkHquozABaOtazDQMh0AJeQpfCGDm+Sf4SPUhHLKO3yQG0qTXnNE4jyttTy+lqfsrIdwiU+ME+HN0u7q4ZR3hWM9pTXnPlR3pWZb8r01KrV2J1lbN5i/ED2aTS8rTO+6Rr3E5T3HQ5v7zVrLLwMWXkz2jiIS3LAZJy3M4d37VjIXSfxrn+3u1zJG2S8k8DxdGsjpDP9Rnjf2yTyPk3ywHedyDtC1SZDxpu/wWFcnMFznOadBiJvexIJ0ETk3czn3QJbHefFQE7zToVtAm8gWYD/9hR4/QoUipStt0ydz5RtBbLXqhHeVbjzivtZbBbAdlLIXm/R0ul8R7ATuGQFO2c2wjsQs39p/40H2Enex3KXUSkyjeqJ6w2KhNa7NHuzbe3eU/xBivSrjPuQy+uhcX/E4h0HU828aDzIWMx30lRtcHilbLcEWhuD7TxluvD77DU1boSPbWE+o5HwvdC6PRi8UQAFZt4i7/f3kZz9B9TvxTb+OGZfgVCcCCVGaGMPyqbUoSmEPMd8n/IeOhz6iVKhkxm8uCnUlX2P4dPP2JExs6NJTjM4YgA36rByEbyGQ8Y6e+rlOyrebIAgK+/8owCfNg1dGVpaVlZWjvYY2pDQlTvoTd7R5C1kLjSyH3exJngzwryOEOZvkca9W8u7GT2FVt5tn9MmvhnCjR1UZFQINjgjWAx3gDSB3Xbjhq3WjtYXqb14vLs0bn8Nbzfq2abiPY6FSrT00NYCLT36vEWzoJQe5AQsw6feBc/2jiG21JTx657stZ7Ha89+dgodzYmKdy0WtkueL9G+iXYT2v5ok2AfiVhO+4mvSiC6as+ajaejRzrD+zzAmQQ1Lz1HzEI7Ce1ZtOfQfiVMPsx94WtSLcV+NEqXdwh7/Zx0hpcECpuX/bxHYZq4DIQNSu9GOpGz3pc6xStKyUtn5k4Qz0243UE3tD0l3g9hsmzkvtHhrcvhPe9y3sAL1Rc6ot2/rHpZA7SRF6svfivxhgDMoFfUkr7j83pxeA+6nJcnmjksxXM9ibH6qnm4/rxeWDcXjvPi9wKeiRxadSkuLi6yamjVYLSXq7Ze6Sjx4vf1aA7mzGZV8E72zXm87/F4tRvkWpu8KwCyv2eFf7ui6Q8BaM8JkyAiyxI+n33C2cL9lX7k8WoToeM2ecm+khxW9Mo9UmkGttybTrpa45/4icU7kIebxDqfC/mDb3CFUsG+tseX/eOWiR8NVAztuVSYFxaN1r6wmIcLi1j9C/lZ3tV4pa5m2+RdI/T5cxtFiEPC47XrZnSg9zsNZA281DfXRSe4vJd4vLz7El3eG61qTpWfAvA8ZVV5mRRKSNl/EYrvEnJeTuE1XpG2eXFxoTuPN2m2xh1ge/4KOgiKs0kJHo9hQ/jSKKFrcchvEnJJCbJ+6IDCW5O8LxJh0+PpBHO+ObyfScqHhtYHIV24vbad9JgrBu5HyJJULc/ZMLItl48LG2uFFydOsbm8jt7Cxt+x1CVLkRtj+W6oAia67wVCbvrp4MK6WuElewD6inMikS6d0zMVgy/qGs4JsuSRGikrz/81+Q08oPygR0t3llrhJb/hVPsK7e97sWrIcXlVpiV6B+HucExUWlraH8LusSvoqi4u/FFbvPRYD6ZCgc1TWZNwWjZe96ot/vufPYjXp8XzpoO8qrsJBi+pEy7GeKj5fvVTMNze+eeVgoKqv3JXg00FOMj7d16BTV5yZ5w4hDfaqWtKbZMxdZmDS3wwH8nSXvvfpy/RpbMSYNZ1G7zDPfdKYfIeBC3IkVd5OIarvopqF2bu1cb4bqV24QfWD6CWt58JXcOG9zfHetHTu+v1HPNIFzvEq/6jYEJLY+8X83iPfI17lu/y7lhc8o/8jUpzi7YO4G7SjF9JrpeJqqZ8e2Xl9vIak1I1uZWoazWmkWgGjci8o+A1Z4zpv9Dv05niV6XnxD/rmSMeu2l5I9Uwrp3/+cAuUV56GvaZ8e1DLP4zQHFqKNpUGk0jpsp8OeUGcR+4EJfgLr85naR/k5cRfiboYo62gf9LHeord6OIHYZwjd8a6+muN73lvF9QqHOZF6NaLrGLDOCedSmug+pgN+4qd6OKyrSPNj/F+VCuUWIrO3DPz3Y+kMvkHW6DdkiyuxGV2vV4tg6t311382nlce8hh/bYBHezcdQ57pqadfWge9ed77j21OjfjZvnPbx9tX6Xn6eXNrty6wXnu3SB/gMZk1/MN7QwLQAAAABJRU5ErkJggg==" width="175" height="67" alt="且慢"><span>顾问工作台</span></a>
+      <nav class="chapters" aria-label="阅读目录">
+        <a href="#work">工作方式</a><a href="#planning">财务规划</a><a href="#clients">客户经营</a><a href="#methods">专业方法</a><a href="#review">质量把关</a>
+      </nav>
+    </div>
+    <div class="reading-line" aria-hidden="true"></div>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="atlas" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="wrap hero-inner">
+        <div>
+          <p class="hero-kicker"><i class="north" aria-hidden="true"></i>且慢 AI Native 顾问工作台</p>
+          <h1 id="hero-title"><span class="nameplate" lang="en">Lodestar</span><span class="hero-claim">让顾问把精力留给客户</span></h1>
+          <p class="hero-copy">一场会谈结束，工作台备好财务规划初稿。客户发起赎回，它找出相关的沟通记录和需要核实的问题。顾问接手时，可以直接审阅方案，或给客户打那通最需要的电话。</p>
+          <a class="jump" href="#work">往下读<span aria-hidden="true">↓</span></a>
+        </div>
+        <figure class="desk" aria-labelledby="desk-caption">
+          <figcaption class="desk-top" id="desk-caption"><strong><i class="tile-icon" aria-hidden="true"><i class="north"></i></i>顾问工作摘要</strong><small>08:00 · 界面示意</small></figcaption>
+          <div class="desk-score">
+            <div><p class="label">需要你亲自处理</p><div class="score"><b>6</b><span>件</span></div><span class="urgent">其中 2 件高优先级</span></div>
+            <div class="done">已自动处理<strong>15 <small style="font:500 12px var(--sans)">件</small></strong></div>
+          </div>
+          <a class="desk-link" href="#planning"><i class="dot" aria-hidden="true"></i><span><strong>审阅家庭财务规划初稿</strong><small>会谈文字稿、报告和下次沟通提醒已备好</small></span><span class="desk-arrow" aria-hidden="true">↘</span></a>
+          <a class="desk-link" href="#clients"><i class="dot violet" aria-hidden="true"></i><span><strong>确认一笔大额赎回的原因</strong><small>查看近期沟通、判断依据与跟进建议</small></span><span class="desk-arrow" aria-hidden="true">↘</span></a>
+        </figure>
+      </div>
+    </section>
+    <section class="chapter" id="work" aria-labelledby="work-title">
+      <div class="wrap work-layout">
+        <div>
+          <p class="section-label">工作方式</p>
+          <h2 id="work-title">今天先服务谁？<br>工作台先把线索找齐。</h2>
+          <p class="lead">顾问的一天常从翻账户、查企微、找会议记录开始。客户越多，越容易错过一段重要的对话。Lodestar 在授权范围内关联这些资料，把值得处理的变化和下一步送到顾问面前。</p>
+        </div>
+        <dl class="entry-list">
+          <div class="entry"><dt>顾问发起</dt><dd>选中客户，说一句<b>“帮我起草一份家庭财务规划报告”</b>。智能体（Agent）安排取数与分析，按需调用专业方法。</dd></div>
+          <div class="entry"><dt>工作台发起</dt><dd><b>定时</b>检查在管客户，也能由<b>事件</b>触发。市场波动、持仓偏离目标或长期未联系，都可以成为检查的起点。</dd></div>
+          <div class="entry"><dt>顾问接手</dt><dd>首页列出已办事项、待办和优先级。顾问打开一项就能看见<b>发生了什么、判断依据和待核问题</b>，决定怎样服务客户。</dd></div>
+        </dl>
+      </div>
+    </section>
+    <section class="chapter planning" id="planning" aria-labelledby="plan-title">
+      <div class="wrap">
+        <p class="section-label">服务现场一 · 财务规划</p>
+        <h2 id="plan-title">从一次会谈，到一份能核对的规划报告</h2>
+        <p class="lead">客户谈到了购房安排，家人的年龄和退休时间却没说清。会后，工作台可以识别规划需求、主动起草，也可以由顾问一句话启动。两种入口调用同一套财务规划方法。</p>
+        <div class="plan-grid">
+          <ol class="steps">
+            <li><h3>把分散的资料放回同一户家庭</h3><p>整理会谈文字稿、企微沟通和账户资料，标明哪些是客户亲口说的，哪些仍需补问。</p></li>
+            <li><h3>先看财务状况，再谈配置</h3><p>用一致的框架检查资产负债、收支和现金流，由计算工具完成测算，分析结论可回到对应资料。</p></li>
+            <li><h3>按每笔钱的用途和期限规划</h3><p>把目标按短、中、长期展开，再按照用款时间、流动性和风险约束，形成相应的配置草案。</p></li>
+            <li><h3>把初稿和疑问一起交给顾问</h3><p>工作台生成品牌与结构统一的报告。顾问核实假设、调整方案、审阅定稿，再向客户讲解。</p></li>
+          </ol>
+          <figure class="paper" aria-labelledby="paper-title">
+            <figcaption class="paper-head"><span>顾问收到的交付摘要 · 示例</span><b>初稿待审</b></figcaption>
+            <h3 id="paper-title">家庭财务规划报告</h3><div class="paper-rule" aria-hidden="true"></div>
+            <dl>
+              <dt>会谈已提及</dt><dd>家庭有购房计划，近期资金安排要为这项目标留出空间。</dd>
+              <dt>初稿怎样处理</dt><dd>把购房列入用款目标，单独审阅其期限与流动性要求。</dd>
+            </dl>
+            <dl class="confirm"><dt>请顾问核实两项</dt><dd>配偶年龄尚未取得。退休年龄暂采用测算假设，需向客户确认。</dd></dl>
+          </figure>
+        </div>
+        <p class="packet"><b>此次会后的三项产出</b><span>会谈文字稿</span><span>财务规划报告初稿</span><span>下次沟通提醒</span></p>
+      </div>
+    </section>
+    <section class="chapter client" id="clients" aria-labelledby="client-title">
+      <div class="wrap">
+        <p class="section-label">服务现场二 · 客户经营</p>
+        <h2 id="client-title">同一笔赎回，顾问该怎样开口？</h2>
+        <p class="lead">两位客户都触发了大额赎回提醒。把最近的谈话放回这笔交易，就会看到两个不同的服务需求。工作台把事实、初步判断和建议分开呈现，赎回原因由顾问向客户核实。</p>
+        <div class="event"><small>共同的账户事件</small><b>客户发起一笔大额赎回</b></div>
+        <div class="branch">
+          <article class="profile"><span class="who">客户 A</span><h3>上次刚谈到买房</h3><dl><dt>已有依据</dt><dd>近期沟通提及购房计划。</dd><dt>初步判断</dt><dd>这笔钱可能用于计划内支出。</dd><dt>顾问跟进</dt><dd>先确认用款时间，按购房安排协助资金衔接。</dd></dl></article>
+          <article class="profile"><span class="who">客户 B</span><h3>连续几周担心亏损</h3><dl><dt>已有依据</dt><dd>最近几次沟通都谈到亏损带来的压力。</dd><dt>初步判断</dt><dd>这次赎回可能与近期波动有关。</dd><dt>顾问跟进</dt><dd>优先联系，先听顾虑，再按客户意愿一起复盘账户。</dd></dl></article>
+        </div>
+        <div class="follow">
+          <div><h3>待办里附上能用的材料</h3><p>任务中心按优先级排列。点开一条，顾问可以看到事实来源、判断的把握程度、待确认事项、建议动作和沟通草稿。</p></div>
+          <figure class="call-note"><figcaption>给客户 B 的通话开场 · 示例</figcaption><blockquote>“看到您这次有一笔赎回，想先了解一下这笔钱的安排。上次聊到市场波动，最近您最挂心的是哪件事？”</blockquote></figure>
+        </div>
+        <div class="service-ops">
+          <div><h4>任务怎样持续运行</h4><p>顾问选定客户范围、触发频率和所需产出。例如，每个交易日检查流失迹象。只有沟通缺失一项信号时，示例规则会记为低风险，留给顾问内部核对。</p></div>
+          <div><h4>处理结果怎样回到下次服务</h4><p>授权内的内部整理可自动完成并同步。需要判断的事项进入待办，顾问可以立即处理、延后或关闭，并把核实结果和质检意见留给下次跟进。</p></div>
+        </div>
+      </div>
+    </section>
+    <section class="chapter methods" id="methods" aria-labelledby="method-title">
+      <div class="wrap method-layout">
+        <div><p class="section-label">专业方法</p><h2 id="method-title">好的做法，下一位顾问也能用</h2>
+          <p class="lead">把一套服务方法写成可复用的技能（Skill），明确适用客户、触发条件、可用数据、判断规则、交付方式和执行权限。工作台每次都能按这套方法完成任务。</p>
+          <p class="method-quote">顾问可以用一句话描述自己的工作流，再调整规则。一次审阅中发现的资料遗漏，经验证后可以写回相应的 Skill，供下一份报告复用。</p>
+        </div>
+        <figure class="layers"><figcaption>同一套基础能力，容纳三层专业方法</figcaption>
+          <div class="layer personal"><b>个人 Skill</b><span>顾问保存自己的追问顺序、分析习惯和讲解方式。</span></div>
+          <div class="layer team"><b>团队 Skill</b><span>团队约定服务流程、跟进节奏和审阅要求，可以持续更新。</span></div>
+          <div class="layer org"><b>盈米 Skill</b><span>将组织的投顾服务标准、财务规划框架和专业方法内置。</span></div>
+          <div class="base"><b>基础能力由工作台统一提供</b><p>Agent 规划、执行和校验任务，按权限调用客户与账户数据、投研计算、知识与合规规则，以及文档和消息工具。</p></div>
+        </figure>
+      </div>
+    </section>
+    <section class="chapter" id="review" aria-labelledby="review-title">
+      <div class="wrap">
+        <p class="section-label">质量把关</p>
+        <h2 id="review-title">投资建议和对客承诺，由顾问本人作出</h2>
+        <p class="lead">顾问审阅一项结果，可以查到它用了什么资料、怎么算出数字、哪里还有疑问。这条责任边界贯穿任务开始、执行和结束的每一步。</p>
+        <ol class="checks">
+          <li><span class="when">事前</span><h3>先定权限</h3><p>写明任务范围、可用数据和可执行动作。不同事项分级授权，顾问可以调整。</p></li>
+          <li><span class="when">事中</span><h3>结论带上依据</h3><p>数字由工具计算。事实、AI 判断、待核项分别列出。不确定项转人工，对客动作默认由顾问确认。</p></li>
+          <li><span class="when">事后</span><h3>过程可以复盘</h3><p>保留取数、分析、校验和交付记录，支持回查与抽检。顾问的修正进入下一次服务。</p></li>
+        </ol>
+        <div class="outcomes"><h3>对顾问的价值</h3><dl>
+          <dt>提效</dt><dd>把找数、核对和排版的时间，留给事前沟通、审阅定稿和事后讲解。</dd>
+          <dt>提质</dt><dd>不同顾问交付的方案沿用相同的分析框架，每份结论都有依据可查。</dd>
+          <dt>个性化</dt><dd>统一服务标准之上，团队和个人都能保留适合自己客户的方法。</dd>
+          <dt>成长</dt><dd>用服务复盘和质检形成顾问能力画像，找到需要加强的环节，安排对应的训练。</dd>
+        </dl></div>
+      </div>
+    </section>
+  </main>
+  <footer class="end"><div class="wrap end-inner"><div><small>且慢顾问工作台</small><p lang="en">Lodestar</p></div>
+    <div class="footer-links"><a href="https://yingmi.feishu.cn/docx/J0F4dvwAmoeEBixsJEQcRmmsnqn" target="_blank" rel="noreferrer">飞书原稿</a><a href="https://clairku.github.io/clair-ai-studio/" target="_blank" rel="noreferrer">Clair 的工作台</a><a href="#top">回到页首 ↑</a></div>
+  </div></footer>
+  <script>
+    (() => {
+      const links = Array.from(document.querySelectorAll(".chapters a"));
+      const sections = links.map(link => document.querySelector(link.hash));
+      const bar = document.querySelector(".bar");
+      const line = document.querySelector(".reading-line");
+      let queued = false;
+      function updateReadingPosition() {
+        const height = document.documentElement.scrollHeight - window.innerHeight;
+        line.style.transform = "scaleX(" + (height ? Math.min(1, Math.max(0, window.scrollY / height)) : 0) + ")";
+        const threshold = bar.getBoundingClientRect().height + 55;
+        let active = -1;
+        sections.forEach((section, i) => { if (section.getBoundingClientRect().top <= threshold) active = i; });
+        links.forEach((link, i) => {
+          if (i === active) link.setAttribute("aria-current", "location");
+          else link.removeAttribute("aria-current");
+        });
+        queued = false;
+      }
+      function scheduleUpdate() {
+        if (!queued) { queued = true; requestAnimationFrame(updateReadingPosition); }
+      }
+      window.addEventListener("scroll", scheduleUpdate, {passive:true});
+      window.addEventListener("resize", scheduleUpdate);
+      window.addEventListener("pageshow", scheduleUpdate);
+      updateReadingPosition();
+    })();
+  </script>
+</body>
+</html>

@@ -226,6 +226,29 @@ const initialState = {
   ],
   reports: [
     {
+      "id": "qieman-lodestar-advisor-workbench",
+      "groupId": "advisor-workbench",
+      "title": "Lodestar｜且慢顾问工作台",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-lodestar-advisor-workbench/",
+      "preview": "qieman-lodestar-advisor-workbench.png",
+      "pinned": false,
+      "position": -10,
+      "createdAt": "2026-11-27T10:01:34Z",
+      "source": "从会后财务规划初稿到赎回后的客户跟进，展示顾问与 AI 的分工、三层专业方法和审阅责任。",
+      "access": "production",
+      "workType": "reporting",
+      "tags": [
+        "且慢",
+        "投顾工作台",
+        "Lodestar",
+        "财务规划",
+        "客户经营",
+        "Skill",
+        "汇报材料",
+        "HTML"
+      ]
+    },
+    {
       "id": "mcp-strategy-detail-review",
       "groupId": "ai-platform",
       "title": "盈米 MCP 策略详情页｜改版样稿",
@@ -5771,6 +5794,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-lodestar-advisor-workbench": "reporting",
   "mcp-strategy-detail-review": "product-demo",
   "qieman-advisor-workbench-roadmap-2026-11-27": "product-planning",
   "qieman-2027-ten-figures-2026-11-27": "product-planning",
@@ -5970,6 +5994,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-lodestar-advisor-workbench": "advisor-workbench",
   "mcp-strategy-detail-review": "ai-platform",
   "qieman-advisor-workbench-roadmap-2026-11-27": "advisor-workbench",
   "qieman-2027-ten-figures-2026-11-27": "product-planning",
