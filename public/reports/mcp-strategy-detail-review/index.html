@@ -63,6 +63,27 @@
     .steps b{color:var(--ink)}.metric{padding:16px 18px;border-left:3px solid var(--violet);background:var(--lav);border-radius:0 7px 7px 0}
     .metric strong{display:block;font-size:18px;color:#412e72}.metric p,.checks{font-size:14px;margin-top:6px}.checks{color:var(--muted);line-height:1.65}
     footer{background:#f0edf4;border-top:1px solid var(--line);color:var(--muted);padding:14px 0;font-size:12px}footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 20px}
+    .hero,.sample{--violet:#0868d2;--lav:#e9f3ff;--line:#dce6f2}
+    .hero{background:linear-gradient(105deg,#ecf4ff,#dcecff);color:#142b4a}
+    .hero-grid{padding-block:26px}.hero p{color:#344c69}.hero .btn:hover{background:#0756af}
+    .hero .btn.secondary{border-color:#91b7e5;color:#075ab5;background:white}.hero .btn.secondary:hover{background:#eff6ff}
+    .sample-shell{padding:clamp(15px,2.4vw,26px);border:1px solid var(--line);border-radius:13px;background:white}
+    .strategy-context{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;margin:0 0 12px}
+    .strategy-context span{font-size:13px;color:#425775}.strategy-context strong{font-weight:650}
+    .strategy-context code{background:#edf5ff;color:#095dac;padding:2px 8px;border-radius:5px;font:13px/1.5 var(--mono)}
+    .questions{margin-bottom:18px;gap:8px}.questions button{min-height:40px;padding-inline:14px;border-color:#c7d5e5;color:#294059}
+    .questions button[aria-pressed="true"]{color:#0756ae;border-color:#77a9e3;background:#eaf4ff}
+    .result{border-color:#d9e3ef;padding:20px}.result-head{border:0;padding:0}.result h3{margin-top:0}
+    .dev{background:#f1f7ff;border:1px solid #d6e5f8;color:#203854;padding:20px}
+    .dev-top h3,.dev a{color:#085db8}.dev-label{color:#516b8a}.dev-switch{border-color:#c8daef}
+    .dev-switch button{color:#52677e}.dev-switch button[aria-pressed="true"]{color:#0756ae;border-color:#3385df}
+    .dev pre{color:#173f66}.dev .copy{color:#125894;border-color:#a9c3dd;background:white}.dev .copy:hover{background:#e6f1ff}
+    .dev .foot,.dev .copy-status,.field-list dd{color:#4a607c}.dev .foot,.field-list div{border-color:#cddcee}.field-list dt{color:#183b60}
+    .visual{margin-top:14px;border:1px solid var(--line);border-radius:8px;background:white}
+    .visual summary{cursor:pointer;color:#145da4;font-size:14px;font-weight:650;padding:13px 17px}
+    .visual[open] summary{border-bottom:1px solid var(--line)}.visual figure{margin:0;padding:10px}
+    .visual img{display:block;width:100%;height:auto;border:1px solid #e0e7ee;border-radius:4px}
+    .visual figcaption{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:5px 12px;padding:7px 2px 0;color:#52667b;font-size:12px}
     @media(max-width:920px){.hero-grid{grid-template-columns:1fr;gap:14px}.hero-grid{padding-top:25px;padding-bottom:23px}.wrap{width:min(100% - 40px,1112px)}}
     @media(max-width:740px){.wrap{width:calc(100% - 32px)}.mast-inner{min-height:51px}.mast nav{gap:13px}.mast nav a{font-size:12px}.brand{font-size:14px;gap:7px}.brand-mark{width:15px;height:15px;border-width:4px}
       .sample-grid,.delivery{grid-template-columns:1fr}.sample,.review,.delivery{padding-block:25px}.delivery{gap:15px}.section-heading{align-items:start}.stamp{font-size:11px;text-align:right}
@@ -76,27 +97,30 @@
 <body>
   <header class="mast"><div class="wrap mast-inner">
     <a class="brand" href="https://clairku.github.io/clair-ai-studio/"><span class="brand-mark" aria-hidden="true"></span>Clair’s Studio</a>
-    <nav aria-label="页内导航"><a href="#sample">体验样稿</a><a href="#review">改版说明</a><a href="#delivery">上线验收</a></nav>
+    <nav aria-label="页内导航"><a href="#sample">体验样稿</a><a id="visual-link" href="#visual">首屏设计图</a><a href="#review">改版说明</a></nav>
   </div></header>
   <main>
     <section class="hero" aria-labelledby="main-title"><div class="wrap hero-grid">
       <div><div class="eyebrow">盈米 MCP ／ 策略基本信息</div><h1 id="main-title">投顾策略详情查询</h1>
-        <p>按策略代码查询基本资料，供顾问回答客户问题，或供开发者生成一张策略资料卡。可查范围以当前渠道授权为准。</p>
+        <p>按策略代码查询投顾策略资料，用于顾问答疑或生成策略资料卡。可查范围以当前渠道授权为准。</p>
       </div>
       <div class="actions"><a class="btn" id="try-link" href="#sample">体验查询示例 <span aria-hidden="true">↓</span></a><a class="btn secondary" href="https://github.com/yingmi-dev/Yingmi-MCP#快速开始" target="_blank" rel="noopener noreferrer">查看接入文档 <span aria-hidden="true">↗</span></a></div>
     </div></section>
     <section class="sample wrap" id="sample" aria-labelledby="sample-title">
-      <div class="section-heading"><h2 id="sample-title">用一个策略试试看</h2><span class="stamp">公开资料演示<br>资料核对 2026.11.27</span></div>
-      <div class="sample-grid">
-        <article class="result">
-          <div class="question-label">选择一个问题</div>
+      <div class="section-heading"><h2 id="sample-title">查询体验</h2><span class="stamp">公开资料演示<br>资料核对 2026.11.27</span></div>
+      <div class="sample-shell">
+        <div class="sample-controls">
+          <div class="strategy-context"><span>示例策略</span><strong>我要稳稳的幸福</strong><code>ZH013136</code></div>
           <div class="questions" role="group" aria-label="示例问题">
             <button type="button" data-question="overview" aria-pressed="true" aria-controls="answer">这是什么策略？</button>
             <button type="button" data-question="invest" aria-pressed="false" aria-controls="answer">主要投向什么？</button>
             <button type="button" data-question="roles" aria-pressed="false" aria-controls="answer">谁提供投顾服务？</button>
           </div>
+        </div>
+        <div class="sample-grid">
+          <article class="result">
           <div id="answer" aria-live="polite" aria-atomic="true">
-            <div class="result-head"><div class="code-label">ZH013136</div><h3 id="answer-title">我要稳稳的幸福</h3></div>
+            <div class="result-head"><h3 id="answer-title">我要稳稳的幸福</h3></div>
             <p id="answer-lead" class="lead">这是一项以债券类资产为主要投向、采用量化方法运作的投顾策略。</p>
             <dl class="facts" id="answer-facts">
               <div class="row"><dt>策略建议方</dt><dd>交银施罗德基金管理有限公司</dd></div>
@@ -128,7 +152,15 @@
           </div>
           <p class="foot">入参沿用原页示例。左侧答案取自公开资料，当前样稿未连接生产接口。</p>
         </aside>
+        </div>
       </div>
+      <details class="visual" id="visual">
+        <summary>查看盈米蓝白版首屏设计图</summary>
+        <figure>
+          <img src="first-screen.jpg" width="1586" height="992" loading="lazy" decoding="async" alt="盈米 AI 开放平台首屏设计图。三个完整问题位于策略选择下方，左栏展示策略答案，右栏展示对应的示例入参。">
+          <figcaption>桌面端视觉稿，保留盈米现有导航和蓝白配色。<a href="first-screen.jpg" target="_blank" rel="noopener">查看原尺寸 ↗</a></figcaption>
+        </figure>
+      </details>
     </section>
     <section class="review" id="review" aria-labelledby="review-title"><div class="wrap">
       <div class="section-label">改版说明</div><h2 id="review-title">先让访客看到一次查询的结果</h2>
@@ -182,6 +214,13 @@
           sources: [rolesSource]
         }
       };
+      const visual = document.getElementById("visual");
+      function openLinkedVisual() {
+        if (window.location.hash === "#visual") visual.open = true;
+      }
+      openLinkedVisual();
+      window.addEventListener("hashchange", openLinkedVisual);
+      document.getElementById("visual-link").addEventListener("click", () => { visual.open = true; });
       const questions = [...document.querySelectorAll("[data-question]")];
       const panels = [...document.querySelectorAll("[data-view]")];
       function cell(tag, value) {
