@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots>
+  <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js?rev=2026-11-12-fast-login-v11"></script>
+  <meta name="theme-color" content="#251f39">
+  <meta name="description" content="盈米 MCP 策略详情页改版建议。用可检验的策略资料示例，串起体验、参数与接入。">
+  <title>策略详情查询 · 页面改版样稿｜Clair's Studio</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper:#f8f7fa; --white:#fff; --ink:#251f34; --muted:#645e71; --line:#e0dce7;
+      --violet:#6345bc; --lav:#eee9fb; --deep:#292239; --dusk:#403458; --soft:#f4f1fa;
+      --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+      --sans:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth;scroll-padding-top:20px}
+    body{margin:0;color:var(--ink);background:var(--paper);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+    button,a{touch-action:manipulation}button{font:inherit;cursor:pointer}a{color:var(--violet);text-decoration-thickness:1px;text-underline-offset:3px}
+    button:focus-visible,a:focus-visible,summary:focus-visible,[tabindex="-1"]:focus-visible{outline:3px solid #8a60dc;outline-offset:3px}
+    [hidden]{display:none!important}.wrap{width:min(1112px,calc(100% - 64px));margin-inline:auto}
+    .mast{background:white;border-bottom:1px solid var(--line)}.mast-inner{min-height:62px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .brand{font-size:16px;font-weight:740;letter-spacing:-.035em;color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;gap:10px}
+    .brand-mark{width:19px;height:19px;border:5px solid var(--violet);border-right-color:transparent;border-radius:50%;display:inline-block;transform:rotate(-26deg)}
+    .mast nav{display:flex;gap:24px}.mast nav a{font-size:14px;color:var(--muted);text-decoration:none}.mast nav a:hover{color:var(--violet);text-decoration:underline}
+    .hero{background:linear-gradient(109deg,#f3effb,#f9f8fc 65%,#f1edf8);border-bottom:1px solid var(--line)}
+    .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:24px;padding:34px 0 31px}
+    .eyebrow,.section-label{color:var(--violet);font-weight:690;font-size:13px;letter-spacing:.045em}
+    h1,h2,h3,p{margin:0}h1{font-size:clamp(35px,5.1vw,60px);font-weight:760;line-height:1.13;letter-spacing:-.055em;margin:6px 0 11px}
+    .hero p{color:#4e475c;max-width:675px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;color:white;background:var(--violet);font-size:14px;font-weight:650;text-decoration:none;padding:10px 16px;border:1px solid var(--violet);border-radius:7px}
+    .btn:hover{background:#5135a4}.btn.secondary{background:white;border-color:#cfc6e1;color:#44335f}.btn.secondary:hover{background:#f0ebfa}
+    .sample{padding:34px 0 38px}.section-heading{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:13px}
+    h2{font-size:clamp(24px,3.7vw,35px);line-height:1.28;letter-spacing:-.045em}h3{font-size:19px;line-height:1.4}
+    .stamp,.note{font-size:13px;color:var(--muted)}.stamp{font-variant-numeric:tabular-nums}
+    .sample-grid{display:grid;grid-template-columns:minmax(0,1.27fr) minmax(0,.88fr);gap:16px;align-items:stretch}
+    .result,.dev{border-radius:13px;min-width:0;overflow:hidden}.result{background:white;border:1px solid var(--line);padding:23px clamp(18px,2.5vw,31px) 20px}
+    .question-label{font-size:13px;font-weight:660;color:var(--muted);margin-bottom:8px}.questions{display:flex;align-items:stretch;flex-wrap:wrap;gap:7px;margin-bottom:18px}
+    .questions button{font-size:13px;color:#534c60;line-height:1.45;text-align:left;background:#fff;border:1px solid #d5cedf;border-radius:6px;padding:7px 11px;min-height:36px;white-space:normal}
+    .questions button[aria-pressed="true"]{background:var(--lav);color:#4c3393;border-color:#aa97d5;font-weight:650}
+    .result-head{border-top:1px solid var(--line);padding-top:17px}.code-label{font:12px/1.5 var(--mono);color:var(--violet);letter-spacing:.035em}
+    .result h3{font-size:clamp(23px,3.5vw,34px);letter-spacing:-.04em;margin:3px 0 6px}.lead{font-size:16px;color:#443b53}
+    .facts{margin:14px 0 13px}.row{display:grid;grid-template-columns:106px minmax(0,1fr);gap:12px;border-top:1px solid #edeaf1;padding:6px 0}
+    .row dt{color:var(--muted);font-size:13px}.row dd{margin:0;font-size:14px;font-weight:560}.sources{font-size:12px;color:var(--muted)}.sources a{margin-right:7px}
+    .dev{background:var(--deep);color:#faf8ff;padding:23px clamp(18px,2.4vw,28px);display:flex;flex-direction:column}
+    .dev-top{display:flex;align-items:center;justify-content:space-between;gap:8px}.dev-top h3{font:600 clamp(17px,2.25vw,23px)/1.45 var(--mono);letter-spacing:-.06em;color:#f7f1ff}
+    .dev-label{color:#c7b8df;font-size:12px;white-space:nowrap}.dev-switch{display:flex;border-bottom:1px solid #594d6b;gap:20px;margin-top:15px}
+    .dev-switch button{background:none;color:#c3b9d5;border:0;border-bottom:2px solid transparent;padding:6px 1px;font-size:14px}
+    .dev-switch button[aria-pressed="true"]{border-color:#c1a2ff;color:#fff;font-weight:700}
+    pre{font:14px/1.72 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere;tab-size:2;margin:0;color:#e7dcfb}.code-wrap{margin:16px 0 12px}.code-actions{display:flex;align-items:center;gap:10px}
+    .copy{font:12px/1.4 var(--sans);color:#f6efff;border:1px solid #847296;background:transparent;border-radius:5px;padding:6px 11px}
+    .copy:hover{background:var(--dusk)}.copy-status{font-size:12px;color:#e4d2ff;min-height:18px}.dev .foot{border-top:1px solid #594d6b;color:#d0c8dc;font-size:13px;padding-top:11px;margin-top:auto}
+    .field-list{display:grid;gap:0;margin:10px 0 16px}.field-list div{border-bottom:1px solid #50445e;padding:9px 0}.field-list dt{font-size:14px;color:white;font-weight:630}.field-list dd{color:#d8cfe5;font-size:13px;margin:2px 0 0}
+    .dev a{color:#e2ceff}.review{border-top:1px solid var(--line);background:white;padding:37px 0 40px}.section-label{margin-bottom:4px}
+    .review-intro{max-width:780px;color:var(--muted);margin:8px 0 20px}.matrix{border-block:1px solid var(--line)}
+    .m-row{display:grid;grid-template-columns:106px minmax(0,.88fr) minmax(0,1.25fr);gap:20px;align-items:start;padding:14px 0;border-top:1px solid var(--line)}
+    .m-row:first-child{border-top:0}.m-head{background:#f6f4f9;font-size:12px;font-weight:660;color:var(--muted);padding:7px 10px}.m-row:not(.m-head){font-size:14px;padding-inline:10px}
+    .m-row b{display:block;font-weight:700}.m-row .prio{font:11px/1.4 var(--mono);display:inline-block;color:var(--violet);margin-top:3px}.m-old{color:var(--muted)}
+    .delivery{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,1fr);gap:30px;padding:34px 0 42px}.delivery h3{margin-bottom:10px}.steps{margin:0;padding:0;list-style:none;counter-reset:step}
+    .steps li{position:relative;padding:0 0 12px 31px;font-size:14px;color:#524b5c;counter-increment:step}.steps li::before{content:counter(step);position:absolute;left:0;top:1px;color:var(--violet);border:1px solid #cbbfdd;border-radius:50%;width:20px;height:20px;text-align:center;font:600 11px/19px var(--mono)}
+    .steps b{color:var(--ink)}.metric{padding:16px 18px;border-left:3px solid var(--violet);background:var(--lav);border-radius:0 7px 7px 0}
+    .metric strong{display:block;font-size:18px;color:#412e72}.metric p,.checks{font-size:14px;margin-top:6px}.checks{color:var(--muted);line-height:1.65}
+    footer{background:#f0edf4;border-top:1px solid var(--line);color:var(--muted);padding:14px 0;font-size:12px}footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 20px}
+    @media(max-width:920px){.hero-grid{grid-template-columns:1fr;gap:14px}.hero-grid{padding-top:25px;padding-bottom:23px}.wrap{width:min(100% - 40px,1112px)}}
+    @media(max-width:740px){.wrap{width:calc(100% - 32px)}.mast-inner{min-height:51px}.mast nav{gap:13px}.mast nav a{font-size:12px}.brand{font-size:14px;gap:7px}.brand-mark{width:15px;height:15px;border-width:4px}
+      .sample-grid,.delivery{grid-template-columns:1fr}.sample,.review,.delivery{padding-block:25px}.delivery{gap:15px}.section-heading{align-items:start}.stamp{font-size:11px;text-align:right}
+      .m-head{display:none}.m-row{grid-template-columns:1fr;gap:3px}.m-row:not(.m-head){padding:13px 0}.m-row .prio{margin-left:8px}.m-row b{display:inline-block}.m-old::before{content:"现页 · ";font-weight:630}.m-new::before{content:"建议 · ";font-weight:630;color:var(--violet)}
+      .result,.dev{padding:18px}.questions{gap:6px}.row{grid-template-columns:90px minmax(0,1fr);gap:6px}.dev .foot{margin-top:12px}}
+    @media(max-width:370px){.mast nav{gap:9px}.mast-inner{gap:9px}.hero-grid{padding-block:19px}.wrap{width:calc(100% - 24px)}.questions button{padding:6px 8px}.actions{gap:7px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+    @media print{.mast,.actions,.copy,.copy-status,footer,.questions{display:none}.wrap{width:100%}.hero,.dev,.review,.result,.metric{background:white;color:#171421}.dev *{color:#27232e!important}.sample-grid,.delivery{display:block}.dev{border:1px solid #aaa;margin-top:10px}.m-row{break-inside:avoid}.sample,.review,.delivery{padding-block:12px}}
+  </style>
+</head>
+<body>
+  <header class="mast"><div class="wrap mast-inner">
+    <a class="brand" href="https://clairku.github.io/clair-ai-studio/"><span class="brand-mark" aria-hidden="true"></span>Clair’s Studio</a>
+    <nav aria-label="页内导航"><a href="#sample">体验样稿</a><a href="#review">改版说明</a><a href="#delivery">上线验收</a></nav>
+  </div></header>
+  <main>
+    <section class="hero" aria-labelledby="main-title"><div class="wrap hero-grid">
+      <div><div class="eyebrow">盈米 MCP ／ 策略基本信息</div><h1 id="main-title">投顾策略详情查询</h1>
+        <p>按策略代码查询基本资料，供顾问回答客户问题，或供开发者生成一张策略资料卡。可查范围以当前渠道授权为准。</p>
+      </div>
+      <div class="actions"><a class="btn" id="try-link" href="#sample">体验查询示例 <span aria-hidden="true">↓</span></a><a class="btn secondary" href="https://github.com/yingmi-dev/Yingmi-MCP#快速开始" target="_blank" rel="noopener noreferrer">查看接入文档 <span aria-hidden="true">↗</span></a></div>
+    </div></section>
+    <section class="sample wrap" id="sample" aria-labelledby="sample-title">
+      <div class="section-heading"><h2 id="sample-title">用一个策略试试看</h2><span class="stamp">公开资料演示<br>资料核对 2026.11.27</span></div>
+      <div class="sample-grid">
+        <article class="result">
+          <div class="question-label">选择一个问题</div>
+          <div class="questions" role="group" aria-label="示例问题">
+            <button type="button" data-question="overview" aria-pressed="true" aria-controls="answer">这是什么策略？</button>
+            <button type="button" data-question="invest" aria-pressed="false" aria-controls="answer">主要投向什么？</button>
+            <button type="button" data-question="roles" aria-pressed="false" aria-controls="answer">谁提供投顾服务？</button>
+          </div>
+          <div id="answer" aria-live="polite" aria-atomic="true">
+            <div class="result-head"><div class="code-label">ZH013136</div><h3 id="answer-title">我要稳稳的幸福</h3></div>
+            <p id="answer-lead" class="lead">这是一项以债券类资产为主要投向、采用量化方法运作的投顾策略。</p>
+            <dl class="facts" id="answer-facts">
+              <div class="row"><dt>策略建议方</dt><dd>交银施罗德基金管理有限公司</dd></div>
+              <div class="row"><dt>投顾服务机构</dt><dd>珠海盈米基金销售有限公司</dd></div>
+            </dl>
+            <div class="sources" id="answer-sources">资料来源　<a href="https://qieman.com/alfa/portfolio/ZH013136/detail?replaced=1" target="_blank" rel="noopener noreferrer">且慢策略详情 ↗</a><a href="https://content.qieman.com/content/article?articleId=10549" target="_blank" rel="noopener noreferrer">且慢服务主体说明 ↗</a></div>
+          </div>
+        </article>
+        <aside class="dev" aria-label="开发者参数">
+          <div class="dev-top"><h3>GetStrategyDetails</h3><span class="dev-label">开发者视图</span></div>
+          <div class="dev-switch" role="group" aria-label="开发者视图内容">
+            <button type="button" data-view="request" aria-controls="request" aria-pressed="true">示例入参</button>
+            <button type="button" data-view="fields" aria-controls="fields" aria-pressed="false">展示依据</button>
+          </div>
+          <div id="request" class="code-wrap">
+            <pre id="request-code">{
+  "strategyCodes": ["ZH013136"],
+  "pageNum": 1,
+  "pageSize": 2
+}</pre>
+            <div class="code-actions"><button type="button" id="copy" class="copy">复制入参</button><span id="copy-status" class="copy-status" role="status"></span></div>
+          </div>
+          <div id="fields" hidden>
+            <dl class="field-list">
+              <div><dt>策略名称、代码、投资方式</dt><dd>取自且慢公开策略页，可逐项核对。</dd></div>
+              <div><dt>投顾服务机构、策略建议方</dt><dd>取自且慢公开说明，分别展示两个机构的职责。</dd></div>
+              <div><dt>生产响应</dt><dd>上线时以当前渠道授权的实际出参生成字段表，再从同一次返回生成用户答案。</dd></div>
+            </dl>
+          </div>
+          <p class="foot">入参沿用原页示例。左侧答案取自公开资料，当前样稿未连接生产接口。</p>
+        </aside>
+      </div>
+    </section>
+    <section class="review" id="review" aria-labelledby="review-title"><div class="wrap">
+      <div class="section-label">改版说明</div><h2 id="review-title">先让访客看到一次查询的结果</h2>
+      <p class="review-intro">访客打开页面，就能看到结果、核对入参，并找到接入自己应用的方法。顾问读策略答案，开发者在旁边核对同一示例的参数。</p>
+      <div class="matrix" role="table" aria-label="页面改动优先级">
+        <div class="m-row m-head" role="row"><div role="columnheader">改动项</div><div role="columnheader">截图里的阻力</div><div role="columnheader">建议上线内容</div></div>
+        <div class="m-row" role="row"><div role="rowheader"><b>示例答案</b><span class="prio">P0</span></div><div role="cell" class="m-old">“综合评估详情已汇总”后面列了指标名，读完仍不知道这项策略投什么。</div><div role="cell" class="m-new">保留“我要稳稳的幸福”，直接给出策略名称、主要投向和可核对的来源。日期区分资料核对时间与指标截止日。</div></div>
+        <div class="m-row" role="row"><div role="rowheader"><b>能力说明</b><span class="prio">P0</span></div><div role="cell" class="m-old">“全息数据字典”“全量因子”“代销白名单准入”让读者难判断一次详情查询能返回什么。</div><div role="cell" class="m-new">一句话写清输入、用途与可查范围。收益、风险和持仓等展示项逐条对照授权出参。综合研报另作多工具示例，并标明各工具的贡献。<a href="https://github.com/yingmi-dev/Yingmi-MCP" target="_blank" rel="noopener noreferrer">官方工具目录 ↗</a></div></div>
+        <div class="m-row" role="row"><div role="rowheader"><b>名称与代码</b><span class="prio">P0</span></div><div role="cell" class="m-old">访客输入策略名，右栏却直接出现 <code>strategyCodes</code>，中间少了一步。</div><div role="cell" class="m-new">示例预选名称和代码。支持自由输入时，只在当前授权范围内匹配。多条候选请用户选一条，零条显示“当前可查询范围内未找到匹配策略”。</div></div>
+        <div class="m-row" role="row"><div role="rowheader"><b>体验与接入</b><span class="prio">P1</span></div><div role="cell" class="m-old">手机壳内的提问被截断，调用示例和参数分散在下方，页首按钮写着“管理 MCP”。</div><div role="cell" class="m-new">压缩标题区，合并体验和调用示例。桌面并排显示结果与参数，手机纵向排列。首次访客可体验、看接入文档，已接入用户在账户导航内管理。公开页面移除 vConsole。</div></div>
+      </div>
+    </div></section>
+    <section class="wrap delivery" id="delivery" aria-label="上线与验收">
+      <div><h3>给团队的上线顺序</h3>
+        <ol class="steps">
+          <li><b>核准一个样例。</b> 用目标渠道实际调用一个已批准展示的策略，逐项确认可返回字段、来源及缺失值。没有数据时明确显示“暂无资料”。</li>
+          <li><b>打通一个体验区。</b> 同一条已授权响应生成自然语言答案和原始 JSON。切换问题时保留所选策略。360 像素宽度下，问题可换行且操作按钮均可触达。</li>
+          <li><b>复用到其他 MCP。</b> 用“工具、输入、授权字段、示例问题、样本响应”生成详情页，接口字段变化时同步校验示例。</li>
+        </ol>
+      </div>
+      <div><h3>怎么判断改版有效</h3>
+        <div class="metric"><strong>7 天内首次成功调用率</strong><p>当天首次进入详情页、此前未成功调用该工具的可识别账号中，有多少在随后 7 天内从自己的应用成功调用了它。</p></div>
+        <p class="checks">按同一批账号去重，剔除站内演示和内部测试。另看示例体验率（体验人数／详情页访客）及接入文档点击率。改版前后采用相同观察窗口。</p>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap"><span>Clair’s Studio · AI 开放平台与生态</span><span>页面评审与资料核对 2026 年 11 月 27 日</span></div></footer>
+  <script>
+    (() => {
+      const strategyUrl = "https://qieman.com/alfa/portfolio/ZH013136/detail?replaced=1";
+      const rolesUrl = "https://content.qieman.com/content/article?articleId=10549";
+      const strategySource = ["且慢策略详情", strategyUrl];
+      const rolesSource = ["且慢服务主体说明", rolesUrl];
+      const examples = {
+        overview: {
+          title: "我要稳稳的幸福",
+          lead: "这是一项以债券类资产为主要投向、采用量化方法运作的投顾策略。",
+          facts: [["策略建议方", "交银施罗德基金管理有限公司"], ["投顾服务机构", "珠海盈米基金销售有限公司"]],
+          sources: [strategySource, rolesSource]
+        },
+        invest: {
+          title: "以债券类资产为主",
+          lead: "且慢的策略介绍将债券类资产列为主要投资方向，并说明组合采用量化方法运作。",
+          facts: [["策略名称", "我要稳稳的幸福"], ["投资方式", "量化运作"]],
+          sources: [strategySource]
+        },
+        roles: {
+          title: "盈米基金提供投顾服务",
+          lead: "“我要稳稳的幸福”（盈米基金版）由盈米基金提供投资顾问服务。交银施罗德基金向盈米基金提供策略建议。",
+          facts: [["投顾服务机构", "珠海盈米基金销售有限公司"], ["策略建议方", "交银施罗德基金管理有限公司"]],
+          sources: [rolesSource]
+        }
+      };
+      const questions = [...document.querySelectorAll("[data-question]")];
+      const panels = [...document.querySelectorAll("[data-view]")];
+      function cell(tag, value) {
+        const node = document.createElement(tag);
+        node.textContent = value;
+        return node;
+      }
+      function showQuestion(button) {
+        const example = examples[button.dataset.question];
+        questions.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
+        document.getElementById("answer-title").textContent = example.title;
+        document.getElementById("answer-lead").textContent = example.lead;
+        const facts = example.facts.map(([label, value]) => {
+          const row = document.createElement("div");
+          row.className = "row";
+          row.append(cell("dt", label), cell("dd", value));
+          return row;
+        });
+        document.getElementById("answer-facts").replaceChildren(...facts);
+        const sources = example.sources.map(([label, url]) => {
+          const link = cell("a", label + " ↗");
+          link.href = url;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          return link;
+        });
+        document.getElementById("answer-sources").replaceChildren("资料来源　", ...sources);
+      }
+      questions.forEach(button => button.addEventListener("click", () => showQuestion(button)));
+      panels.forEach(button => button.addEventListener("click", () => {
+        panels.forEach(item => {
+          const active = item === button;
+          item.setAttribute("aria-pressed", String(active));
+          document.getElementById(item.dataset.view).hidden = !active;
+        });
+      }));
+      document.getElementById("try-link").addEventListener("click", () => {
+        showQuestion(questions[0]);
+        questions[0].focus({preventScroll:true});
+      });
+      document.getElementById("copy").addEventListener("click", async () => {
+        const code = document.getElementById("request-code");
+        const status = document.getElementById("copy-status");
+        try {
+          await navigator.clipboard.writeText(code.textContent);
+          status.textContent = "入参已复制";
+        } catch {
+          const selection = window.getSelection();
+          const range = document.createRange();
+          range.selectNodeContents(code);
+          selection.removeAllRanges();
+          selection.addRange(range);
+          status.textContent = "已选中，可手动复制";
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

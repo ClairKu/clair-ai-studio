@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "mcp-strategy-detail-review",
     "qieman-advisor-workbench-roadmap-2026-11-27",
     "qieman-2027-ten-figures-2026-11-27",
     "qieman-advisory-service-framework-2026-11-26",
@@ -470,6 +471,13 @@
     ]
   },
   "reportRevisions": {
+    "mcp-strategy-detail-review": {
+      "updatedAt": "2026-11-27",
+      "revision": "strategy-detail-review-20261127",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/mcp-strategy-detail-review/",
+      "access": "production",
+      "preservesReportId": true
+    },
     "qieman-advisor-workbench-roadmap-2026-11-27": {
       "updatedAt": "2026-11-27",
       "revision": "advisor-roadmap-20261127",

@@ -226,6 +226,28 @@ const initialState = {
   ],
   reports: [
     {
+      "id": "mcp-strategy-detail-review",
+      "groupId": "ai-platform",
+      "title": "盈米 MCP 策略详情页｜改版样稿",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/mcp-strategy-detail-review/",
+      "preview": "mcp-strategy-detail-review.svg",
+      "pinned": false,
+      "position": -1,
+      "createdAt": "2026-11-27T08:48:33Z",
+      "source": "GetStrategyDetails 详情页改版。用“我要稳稳的幸福”演示策略资料、输入参数和来源，附替换文案、上线次序与验收口径。",
+      "access": "production",
+      "workType": "product-demo",
+      "tags": [
+        "AI 开放平台",
+        "MCP",
+        "策略详情",
+        "GetStrategyDetails",
+        "交互设计",
+        "原型 Demo",
+        "HTML"
+      ]
+    },
+    {
       "id": "qieman-advisor-workbench-roadmap-2026-11-27",
       "groupId": "advisor-workbench",
       "title": "且慢投顾工作台 · 产品路线图",
@@ -5749,6 +5771,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "mcp-strategy-detail-review": "product-demo",
   "qieman-advisor-workbench-roadmap-2026-11-27": "product-planning",
   "qieman-2027-ten-figures-2026-11-27": "product-planning",
   "qieman-advisory-service-framework-2026-11-26": "product-planning",
@@ -5947,6 +5970,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "mcp-strategy-detail-review": "ai-platform",
   "qieman-advisor-workbench-roadmap-2026-11-27": "advisor-workbench",
   "qieman-2027-ten-figures-2026-11-27": "product-planning",
   "qieman-advisory-service-framework-2026-11-26": "product-planning",

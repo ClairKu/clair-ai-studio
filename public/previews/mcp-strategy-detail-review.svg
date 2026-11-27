@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="t d">
+<title id="t">投顾策略详情查询</title><desc id="d">改版样稿，公开策略资料卡与开发者入参并排展示</desc>
+<rect width="640" height="360" fill="#f8f7fa"/><rect width="640" height="28" fill="#fff"/><path d="M0 28h640" stroke="#ded9e7"/>
+<g font-family="PingFang SC,Arial,sans-serif"><text x="28" y="19" fill="#514466" font-size="12" font-weight="650">Clair’s Studio</text>
+<rect x="0" y="29" width="640" height="104" fill="#f0ecf8"/><text x="28" y="54" font-size="12" fill="#6345bc" font-weight="650">盈米 MCP ／ 策略基本信息</text>
+<text x="26" y="101" font-size="39" font-weight="700" fill="#251f34">投顾策略详情查询</text>
+<text x="28" y="165" font-size="19" font-weight="700" fill="#251f34">用一个策略试试看</text>
+<rect x="28" y="179" width="340" height="156" rx="9" fill="#fff" stroke="#e0dce7"/>
+<rect x="43" y="193" width="103" height="21" rx="5" fill="#eee9fb"/><text x="50" y="208" font-size="12" fill="#5333a0">这是什么策略？</text>
+<path d="M42 225h312" stroke="#e0dce7"/><text x="44" y="246" font-family="monospace" font-size="12" fill="#6345bc">ZH013136</text>
+<text x="42" y="277" font-size="25" font-weight="700" fill="#251f34">我要稳稳的幸福</text><text x="44" y="304" font-size="13" fill="#625a6d">以债券类资产为主，采用量化方法运作。</text>
+<rect x="380" y="179" width="232" height="156" rx="9" fill="#292239"/><text x="395" y="206" font-family="monospace" font-size="16" font-weight="700" fill="#f8f4ff">GetStrategyDetails</text><text x="395" y="232" font-size="12" fill="#dfceff">示例入参</text><path d="M395 240h202" stroke="#695583"/>
+<text fill="#eadfff" font-family="monospace" font-size="11"><tspan x="396" y="258">{</tspan><tspan x="402" y="275">"strategyCodes": ["ZH013136"],</tspan><tspan x="402" y="291">"pageNum": 1,</tspan><tspan x="402" y="307">"pageSize": 2</tspan><tspan x="396" y="322">}</tspan></text></g></svg>
