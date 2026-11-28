@@ -475,7 +475,7 @@
   "reportRevisions": {
     "qieman-lodestar-service-story": {
       "updatedAt": "2026-11-28",
-      "revision": "lodestar-service-story-20261128",
+      "revision": "lodestar-service-story-20261128-business-v2",
       "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-lodestar-service-story/",
       "access": "production",
       "preservesReportId": true

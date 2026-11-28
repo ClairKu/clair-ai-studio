@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#faf9f5">
   <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots>
   <meta name="referrer" content="no-referrer">
-  <meta name="description" content="一场会谈怎样变成财务规划报告，同样的大额赎回为什么需要不同的跟进。通过两个服务现场认识且慢顾问工作台 Lodestar。">
+  <meta name="description" content="且慢顾问工作台 Lodestar 的业务背景、关键业务目标、产品型态与预期效果。通过财务规划和赎回跟进两个服务现场，看顾问如何使用工作台、团队如何检验成效。">
   <title>会谈之后，电话之前｜且慢顾问工作台 Lodestar</title>
   <script data-clair-access-gate data-clair-access-scope="report" data-clair-access-entry="reports/qieman-lodestar-service-story/" src="../../access-gate.js?rev=2026-11-12-fast-login-v11"></script>
   <style>
@@ -78,10 +78,28 @@
     .brief-line:hover b, .chapter-nav a:hover { text-decoration: underline; }
     figcaption, .note { font-size: 13px; line-height: 1.65; color: var(--muted); }
     .brief-figure figcaption { margin-top: 13px; }
-    .opening { padding: 0 0 clamp(53px, 7vw, 85px); }
-    .opening-grid { display: grid; grid-template-columns: .72fr 1.28fr; column-gap: clamp(28px, 7vw, 90px); border-top: 1px solid var(--rule); padding-top: 30px; align-items: start; }
-    .opening h2 { font-size: clamp(25px, 2.7vw, 35px); line-height: 1.48; }
-    .opening-grid p + p { margin-top: 9px; }
+    .opening { padding: 0 0 clamp(34px, 4.3vw, 54px); }
+    .opening-grid { display: grid; grid-template-columns: .9fr 1.1fr; column-gap: clamp(34px, 6vw, 78px); border-top: 1px solid var(--rule); padding-top: 30px; align-items: start; }
+    .opening h2 { margin: 10px 0 13px; font-size: clamp(25px, 2.6vw, 34px); line-height: 1.4; }
+    .background-copy p + p { margin-top: 10px; }
+    .goal-list > div { display: grid; grid-template-columns: 4.3em 1fr; gap: 11px; border-top: 1px solid var(--rule); padding: 7px 0; font-size: 15px; line-height: 1.7; }
+    .goal-list dt { color: var(--blue); font-weight: 700; }
+    .product-shape { padding: 0 0 clamp(44px, 5.4vw, 72px); }
+    .product-heading { border-top: 1px solid var(--rule); padding-top: 24px; }
+    .product-heading .mid-title { margin-top: 8px; }
+    .product-map { margin-top: 22px; border: 1px solid #beccd3; background: #fff; }
+    .product-rooms { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+    .product-rooms > div { padding: 19px clamp(17px, 2.1vw, 26px) 21px; }
+    .product-rooms > div + div { border-left: 1px solid var(--rule); }
+    .product-rooms > div:nth-child(2) { background: #edf4f8; }
+    .product-rooms .room-purpose { font-size: 13px; color: var(--blue); }
+    .product-rooms h3 { margin: 4px 0 7px; font-size: 21px; line-height: 1.4; }
+    .product-rooms p, .product-rooms dd { font-size: 15px; line-height: 1.7; }
+    .product-rooms dl > div + div { margin-top: 6px; }
+    .product-rooms dt { display: inline; font-size: 15px; color: #22536d; font-weight: 700; }
+    .product-rooms dd { display: inline; }
+    .product-rooms a { color: var(--blue); }
+    .product-map figcaption { padding: 10px clamp(17px, 2.1vw, 26px); border-top: 1px solid var(--rule); color: #3b5563; }
     .chapter { padding: clamp(52px, 6vw, 80px) 0; }
     .financial { background: white; border-block: 1px solid var(--rule); }
     .section-tag { display: inline-flex; align-items: center; gap: 11px; font-size: 14px; letter-spacing: .16em; color: var(--blue); font-weight: 650; }
@@ -171,6 +189,18 @@
     .method-example { margin-top: 27px; display: grid; grid-template-columns: 7.5em 1fr; align-items: baseline; gap: 15px; padding: 19px clamp(17px, 2.4vw, 27px); background: #eaf1f3; }
     .method-example strong { color: #24546e; }
     .method-example p { font-size: 15px; }
+    .outcomes { background: #f1f6f8; border-bottom: 1px solid var(--rule); }
+    .coverage-measure { margin-top: 24px; padding: 18px clamp(17px, 2.4vw, 29px); border-left: 3px solid var(--bright); background: #fff; }
+    .coverage-measure h3 { color: #1c4f70; font-size: 20px; }
+    .coverage-measure p { margin-top: 4px; font-size: 15px; }
+    .outcomes-table { margin-top: 21px; width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 15px; line-height: 1.75; }
+    .outcomes-table th, .outcomes-table td { padding: 12px 15px 12px 0; text-align: left; vertical-align: top; border-bottom: 1px solid #cbd8df; }
+    .outcomes-table thead th { color: #49626f; font-size: 13px; border-bottom-color: #8da5b3; }
+    .outcomes-table thead th:first-child { width: 14%; }
+    .outcomes-table thead th:nth-child(2) { width: 36%; }
+    .outcomes-table tbody th { color: #1e506d; }
+    .outcomes-table td:last-child { padding-right: 0; }
+    .pilot-note { max-width: 55em; margin-top: 14px; color: var(--muted); font-size: 14px; }
     .closing { padding: clamp(43px, 5.2vw, 72px) 0; background: #fff; }
     .closing-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(22px, 5vw, 70px); align-items: start; }
     .closing h2 { font-size: clamp(31px, 3.3vw, 47px); line-height: 1.4; letter-spacing: -.045em; }
@@ -206,8 +236,20 @@
       .brief-paper h2 { margin-block: 8px 10px; }
       .counts { padding: 9px 0; margin-bottom: 9px; }
       .brief-figure figcaption { margin-top: 8px; }
-      .opening { padding-bottom: 37px; }
-      .opening-grid { gap: 13px; padding-top: 22px; }
+      .opening { padding-bottom: 26px; }
+      .opening-grid { gap: 25px; padding-top: 22px; }
+      .opening h2 { margin: 5px 0 10px; }
+      .product-rooms { grid-template-columns: 1fr; }
+      .product-rooms > div { padding: 13px 17px; }
+      .product-rooms > div + div { border-left: 0; border-top: 1px solid var(--rule); }
+      .product-rooms h3 { display: inline; font-size: 19px; margin-left: 6px; }
+      .product-rooms dl, .product-rooms p { margin-top: 5px; }
+      .outcomes-table, .outcomes-table tbody, .outcomes-table tr, .outcomes-table td, .outcomes-table tbody th { display: block; width: auto; }
+      .outcomes-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+      .outcomes-table tr { border-top: 1px solid #bdcdd5; padding: 10px 0; }
+      .outcomes-table th, .outcomes-table td { border: 0; padding: 1px 0; }
+      .outcomes-table td:last-child { color: #43606f; font-size: 14px; }
+      .outcomes-table td:last-child::before { content: "试点观察　"; font-weight: 700; }
       .chapter { padding: 42px 0; }
       .chapter-head { gap: 14px; }
       .chapter-title { margin-top: 9px; font-size: clamp(32px, 6.7vw, 44px); }
@@ -241,6 +283,7 @@
       .footer .shell { align-items: flex-start; }
     }
     @media (max-width: 365px) {
+      .chapter-nav a { font-size: 12px; }
       .brief-line { grid-template-columns: 1fr auto; }
       .brief-line span:first-child { grid-column: 1 / -1; }
       .identity { gap: 9px; }
@@ -260,7 +303,7 @@
       h1 { font-size: 31pt; }
       h1 br { display: none; }
       .chapter-title { font-size: 23pt; }
-      figure, .method-example, .layer > div, .boundaries li { break-inside: avoid; }
+      figure, .method-example, .layer > div, .boundaries li, .coverage-measure, .outcomes-table tr { break-inside: avoid; }
       h2, h3 { break-after: avoid; }
       .report-frame, .method-grid { display: grid; grid-template-columns: 1.32fr .85fr; }
       .business { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
@@ -277,10 +320,11 @@
         <span>顾问工作台</span>
       </a>
       <nav class="chapter-nav" aria-label="文章目录">
-        <a href="#overview" aria-current="location">工作方式</a>
+        <a href="#overview" aria-current="location">业务全貌</a>
         <a href="#planning">财务规划</a>
         <a href="#service">客户经营</a>
         <a href="#method">方法与边界</a>
+        <a href="#outcomes">预期效果</a>
       </nav>
     </div>
     <div class="reading-progress" aria-hidden="true"><i></i></div>
@@ -291,13 +335,13 @@
         <div>
           <div class="product"><span class="wordmark" lang="en">Lodestar</span><span class="product-name">且慢顾问工作台</span></div>
           <h1 id="story-title">会谈之后，<br>电话之前。</h1>
-          <p class="hero-copy">一场会谈结束，顾问收到财务规划初稿。客户发起赎回，顾问接到提醒时，手边已经有了账户复盘和通话提纲。Lodestar 把准备工作往前做，让顾问把时间留给客户。</p>
+          <p class="hero-copy">Lodestar 是且慢为理财顾问设计的 AI 工作台。一场会谈结束，它送来有资料出处的财务规划初稿。客户发起赎回，它把账户复盘和通话提纲备好，由顾问决定该先联系谁、该问什么。</p>
           <a class="read-link" href="#planning"><span>从一场会谈读起</span><b aria-hidden="true">↓</b></a>
         </div>
         <figure class="brief-figure">
           <div class="brief-back">
             <div class="brief-paper">
-              <div class="ui-top"><span><i class="dot"></i>智能助手</span><span class="sample">工作台示例</span></div>
+              <div class="ui-top"><span><i class="dot"></i>智能助手</span><span class="sample">单日任务示例</span></div>
               <h2>今天，有哪些事需要我？</h2>
               <dl class="counts" aria-label="原稿中的工作简报示例">
                 <div><dt>15</dt><dd>件已自动处理</dd></div>
@@ -313,13 +357,43 @@
       </div>
       <div class="opening">
         <div class="shell opening-grid">
-          <h2>顾问最缺的，<br>是了解客户的时间。</h2>
-          <div>
-            <p>一份报告要翻会议记录、查账户、算现金流、排版。一条赎回提醒只给出金额，顾问还得翻聊天记录，回想客户最近有没有提过用钱。服务的难度藏在这些细节里，经验较少的顾问尤其容易漏看。</p>
-            <p>在 Lodestar，顾问可以在对话里发起任务。工作台也会在约定时间或客户情况发生变化时主动分析，把依据、草稿和待确认的问题一起送来。下面是两次顾问接手的现场。</p>
-          </div>
+          <section id="background" aria-labelledby="background-title">
+            <p class="section-tag">业务背景</p>
+            <h2 id="background-title">客户的变化，靠顾问一户户找。</h2>
+            <div class="background-copy">
+              <p>一笔赎回在账户里看得见，背后的购房计划可能只在上次会谈中提过，用钱日期还要翻企微记录核实。顾问得把三处资料拼起来，才知道该问哪一句。名下客户一多，容易错过的，是暂时没有主动开口的人。</p>
+              <p>团队已有财务规划和投后陪伴的方法，执行却仰赖个人经验。资深顾问要花时间重复找数、写稿，新顾问容易漏问关键条件，主管也难定位哪一步需要辅导。</p>
+            </div>
+          </section>
+          <section id="goals" aria-labelledby="goals-title">
+            <p class="section-tag">关键业务目标</p>
+            <h2 id="goals-title">让同一支团队及时服务更多客户，<br>也能守住每次交付的质量。</h2>
+            <dl class="goal-list">
+              <div><dt>提效</dt><dd>把查数、整理和起草交给工作台，给顾问腾出讲解方案与主动回访的时间。</dd></div>
+              <div><dt>提质</dt><dd>不同顾问按同一框架核对事实、用款约束和关键假设，减少漏项与返工。</dd></div>
+              <div><dt>个性化</dt><dd>保留顾问自己的服务方法，也让每户家庭的目标和资金安排真正改变跟进动作。</dd></div>
+              <div><dt>成长</dt><dd>让新人能沿团队方法独立完成服务，让主管能依据真实交付发现短板、定向辅导。</dd></div>
+            </dl>
+          </section>
         </div>
       </div>
+      <section class="shell product-shape" id="product-form" aria-labelledby="product-title">
+        <div class="chapter-head product-heading">
+          <div><p class="section-tag">产品型态</p><h2 class="mid-title" id="product-title">一个工作台，两种任务入口。</h2></div>
+          <p class="chapter-intro">在顾问的桌面工作台里，可以直接对智能助手交代一位客户的任务。系统也能定时巡检，或在会后识别出规划需求、发现账户变化时主动发起任务。两个入口共用客户档案，按任务调用相应的专业方法。</p>
+        </div>
+        <figure class="product-map" aria-label="智能助手、客户 360、任务中心和专业交付的关系">
+          <div class="product-rooms">
+            <div><span class="room-purpose">发起工作</span><h3>智能助手</h3><dl>
+              <div><dt>顾问发起</dt> <dd>在对话里要求助手为指定家庭准备一份规划。</dd></div>
+              <div><dt>系统发起</dt> <dd>定时巡检或识别到客户变化后，把待办推送给顾问。</dd></div>
+            </dl></div>
+            <div><span class="room-purpose">形成依据</span><h3>客户 360 与专业 Skill</h3><p>客户 360 汇集目标、账户和沟通历史。Agent 调用相应的 Skill，按团队定义的步骤查数、计算、生成材料，列出待核事项。</p></div>
+            <div><span class="room-purpose">审阅与跟进</span><h3>任务中心与交付物</h3><p>顾问按优先级打开<a href="#report">财务规划初稿</a>或<a href="#followup">客户服务跟进单</a>，核对依据，确认方案或致电客户，再记录结果。</p></div>
+          </div>
+          <figcaption>团队和顾问可配置任务的客户范围、频率、判断规则和执行权限。下面两个场景展示同一个工作台如何支持不同的服务。</figcaption>
+        </figure>
+      </section>
     </section>
 
     <section id="planning" class="chapter financial" aria-labelledby="planning-title">
@@ -442,6 +516,29 @@
           </div>
         </div>
         <aside class="method-example"><strong>一条规则的分寸</strong><p>以流失预警为例，只有“长期未联系”这一项时，可以建一条低风险待办，请顾问先核实近况。若同时出现资产下降或活跃度变化，再结合其他证据重新判断。这个任务的产出只给顾问，对客户的沟通由顾问发起。</p></aside>
+      </div>
+    </section>
+    <section id="outcomes" class="chapter outcomes" aria-labelledby="outcomes-title">
+      <div class="shell">
+        <div class="chapter-head">
+          <div><p class="section-tag">预期效果</p><h2 class="chapter-title" id="outcomes-title">省下的准备时间，<br>有没有变成客户得到的服务？</h2></div>
+          <p class="chapter-intro">对客户，预期是重要变化有人及时过问，跟进也符合自己的用钱安排。对顾问，是少做重复准备，多做判断与沟通。对团队，是成熟的方法带得动新人，客户多起来，交付质量依然稳定。</p>
+        </div>
+        <aside class="coverage-measure" aria-label="建议优先观察的业务指标">
+          <h3>先看月度有效服务覆盖率</h3>
+          <p>分母是试点顾问月初的在管客户数。分子是这些客户中，当月收到正式规划报告，或与顾问实际沟通并留有结果记录的去重人数。同时记录每位顾问的有效服务户数，按客户服务层级和约定服务频率分别比较。</p>
+        </aside>
+        <table class="outcomes-table" aria-label="预期业务效果与建议试点指标">
+          <thead><tr><th scope="col">观察维度</th><th scope="col">预期业务变化</th><th scope="col">试点怎么量</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">报告提效</th><td>顾问花在资料整理、核算和排版上的时间缩短。</td><td>记录每份已交付报告的人工准备时间，含审阅和返工，比较同类型报告的工时中位数。</td></tr>
+            <tr><th scope="row">交付提质</th><td>每份报告讲得清依据，客户的重要约束在交付前已核对。</td><td>按同一清单抽检，计算报告首次质检通过率。检查数字来源、目标匹配和待核项处理。</td></tr>
+            <tr><th scope="row">跟进时效</th><td>需要优先联系的客户能更早得到回应。</td><td>在当期到达处理时限、需联系客户的高优先待办中，统计按时完成首次沟通并记录结果的比例。</td></tr>
+            <tr><th scope="row">个性化服务</th><td>计划内购房用款得到到账协助，担心亏损的客户得到有针对性的沟通。</td><td>抽查已完成的赎回跟进，核对客户实际原因与后续动作，统计两者匹配的案例占比。</td></tr>
+            <tr><th scope="row">顾问成长</th><td>新顾问更早能独立完成一份达到团队标准的报告。</td><td>按同一质检标准，比较经验相近的新顾问从入岗到首份独立报告质检通过所需的天数。</td></tr>
+          </tbody>
+        </table>
+        <p class="pilot-note"><strong>试点验收建议</strong>　上线前先记录基线，再对同一批顾问、同类客户和任务比较等长周期。以上是预期方向与建议衡量口径，具体提升幅度待试点实测。</p>
       </div>
     </section>
     <section class="closing" aria-labelledby="closing-title">
