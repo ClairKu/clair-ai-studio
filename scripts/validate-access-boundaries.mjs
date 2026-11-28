@@ -123,8 +123,41 @@ const standaloneEncryptedPages = new Set([
   "reports/qiming-h2-product-review-2026-11-09/index.html",
 ]);
 const relatedR9Pages = new Set(["reports/r9-full-results-2026-11-19/index.html","reports/r9-full-results-2026-11-19/results.html","reports/r9-full-results-2026-11-19/stars.html","reports/r9-full-results-2026-11-19/dushu.html","reports/r9-full-results-2026-11-19/quant.html","reports/r9-full-results-2026-11-19/gushou-assist.html"]);
+const yingmiAcceptancePublicPages = new Set([
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/index.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q001-1.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q001-2.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q001-3.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q002-1.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q002-2.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q002-3.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q003-1.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q003-2.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q003-3.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q004-1.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q004-2.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q004-3.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q005-1.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q005-2.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q005-3.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q006-1.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q006-2.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q006-3.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q007-1.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q007-2.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q007-3.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q008-1.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q008-2.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q008-3.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q009-1.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q009-2.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q009-3.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q010-1.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q010-2.html",
+  "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/artifacts/workflows-Q010-3.html"
+]);
 for (const entry of standalonePublicEntries) {
-  ensure((/^reports\/[^/?#\\]+\/index\.html$/.test(entry) || relatedR9Pages.has(entry) || entry === "reports/yingmi-108-tool-prompts-2026-11-11/tests-2026-11-28/index.html") && !entry.includes(".."), `公开成果路径无效：${entry}`);
+  ensure((/^reports\/[^/?#\\]+\/index\.html$/.test(entry) || relatedR9Pages.has(entry) || yingmiAcceptancePublicPages.has(entry)) && !entry.includes(".."), `公开成果路径无效：${entry}`);
   ensure(!publicConfig.immutableLockedEntries.includes(entry.replace(/index\.html$/, "")), `${entry} 不得公开不可解锁成果`);
   ensure(!independentEncryptedPages.has(entry) && !standaloneEncryptedPages.has(entry), `${entry} 不得公开独立加密成果`);
 }
