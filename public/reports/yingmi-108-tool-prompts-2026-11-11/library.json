@@ -7,7 +7,7 @@
     "Agent": 6,
     "questions": 324
   },
-  "status": "question_design_not_execution_results",
+  "status": "question_design_with_actual_acceptance_review",
   "items": [
     {
       "uid": "skill-advisor-allocation",
@@ -46,7 +46,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q001-1"
+          "id": "Q001-1",
+          "test_status": "fail",
+          "test_url": "tests-2026-11-28/#Q001-1"
         },
         {
           "title": "把教育金和养老钱分开配置",
@@ -59,7 +61,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q001-2"
+          "id": "Q001-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q001-2"
         },
         {
           "title": "复核现有持仓与目标配置偏离",
@@ -75,7 +79,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "不得在缺正式风险测评时输出客户适配结论或买卖指令。",
-          "id": "Q001-3"
+          "id": "Q001-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q001-3"
         }
       ]
     },
@@ -119,7 +125,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q002-1"
+          "id": "Q002-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q002-1"
         },
         {
           "title": "区分焦虑表达与实际风险能力",
@@ -135,7 +143,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q002-2"
+          "id": "Q002-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q002-2"
         },
         {
           "title": "把服务需求做成顾问优先级",
@@ -150,7 +160,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q002-3"
+          "id": "Q002-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q002-3"
         }
       ]
     },
@@ -193,7 +205,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q003-1"
+          "id": "Q003-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q003-1"
         },
         {
           "title": "回答净值涨了为什么仍亏损",
@@ -209,7 +223,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q003-2"
+          "id": "Q003-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q003-2"
         },
         {
           "title": "解释ETF与场外基金交易差异",
@@ -222,7 +238,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q003-3"
+          "id": "Q003-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q003-3"
         }
       ]
     },
@@ -268,7 +286,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q004-1"
+          "id": "Q004-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q004-1"
         },
         {
           "title": "测算十年后四年教育费用",
@@ -283,7 +303,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q004-2"
+          "id": "Q004-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q004-2"
         },
         {
           "title": "检验降薪一年会不会打断目标",
@@ -301,7 +323,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q004-3"
+          "id": "Q004-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q004-3"
         }
       ]
     },
@@ -342,7 +366,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q005-1"
+          "id": "Q005-1",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q005-1"
         },
         {
           "title": "验证近期业绩落后的真实原因",
@@ -355,7 +381,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q005-2"
+          "id": "Q005-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q005-2"
         },
         {
           "title": "比较宽基ETF的真实风险差异",
@@ -368,7 +396,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q005-3"
+          "id": "Q005-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q005-3"
         }
       ]
     },
@@ -409,7 +439,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q006-1"
+          "id": "Q006-1",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q006-1"
         },
         {
           "title": "追踪人工智能主题的证据变化",
@@ -424,7 +456,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q006-2"
+          "id": "Q006-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q006-2"
         },
         {
           "title": "用同一口径比较两种市场观点",
@@ -437,7 +471,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q006-3"
+          "id": "Q006-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q006-3"
         }
       ]
     },
@@ -480,7 +516,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q007-1"
+          "id": "Q007-1",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q007-1"
         },
         {
           "title": "对比原组合和教学目标组合",
@@ -496,7 +534,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q007-2"
+          "id": "Q007-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q007-2"
         },
         {
           "title": "看看长期账户五年情景分布",
@@ -511,7 +551,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q007-3"
+          "id": "Q007-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q007-3"
         }
       ]
     },
@@ -552,7 +594,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q008-1"
+          "id": "Q008-1",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q008-1"
         },
         {
           "title": "比较两只策略承担的不同任务",
@@ -565,7 +609,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q008-2"
+          "id": "Q008-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q008-2"
         },
         {
           "title": "从一只基金反查相关投顾策略",
@@ -578,7 +624,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q008-3"
+          "id": "Q008-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q008-3"
         }
       ]
     },
@@ -622,7 +670,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q009-1"
+          "id": "Q009-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q009-1"
         },
         {
           "title": "把研究结论改成波动陪伴信",
@@ -637,7 +687,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q009-2"
+          "id": "Q009-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q009-2"
         },
         {
           "title": "为新人顾问设计一周投教选题",
@@ -652,7 +704,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q009-3"
+          "id": "Q009-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q009-3"
         }
       ]
     },
@@ -693,7 +747,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q010-1"
+          "id": "Q010-1",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q010-1"
         },
         {
           "title": "给短期备用研究债基候选",
@@ -706,7 +762,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q010-2"
+          "id": "Q010-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q010-2"
         },
         {
           "title": "核对热门基金是否满足研究条件",
@@ -719,7 +777,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q010-3"
+          "id": "Q010-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q010-3"
         }
       ]
     },
@@ -832,7 +892,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "返回incomeEffect/yieldEffect/spreadEffect/pickEffect/alpha；日期可核；不补造未返回因子。",
-          "id": "Q011-1"
+          "id": "Q011-1",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q011-1"
         },
         {
           "title": "信用选券尽调",
@@ -845,7 +907,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "单基金入参逐只调用；区间差异显式标注；不把spreadEffect当信用违约概率。",
-          "id": "Q011-2"
+          "id": "Q011-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q011-2"
         },
         {
           "title": "客户波动解释",
@@ -858,7 +922,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "文案只引用实际返回值；无本工具不支持的精确利率压力测试。",
-          "id": "Q011-3"
+          "id": "Q011-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q011-3"
         }
       ]
     },
@@ -1008,7 +1074,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "先连接策略搜索工具，以关键词查回并核对唯一strategyCode；多候选时先确认，不可猜代码。",
           "acceptance": "保留categoryName/categoryCode/levelType/ratio/children；不重复累加父子层级。",
-          "id": "Q012-1"
+          "id": "Q012-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q012-1"
         },
         {
           "title": "策略配置互补比较",
@@ -1023,7 +1091,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "先连接策略搜索工具，以关键词查回并核对唯一strategyCode；多候选时先确认，不可猜代码。",
           "acceptance": "比较依据来自资产树；不将大类重合等同持仓重复，也不编历史变化。",
-          "id": "Q012-2"
+          "id": "Q012-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q012-2"
         },
         {
           "title": "配置解释素材",
@@ -1038,7 +1108,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "先连接策略搜索工具，以关键词查回并核对唯一strategyCode；多候选时先确认，不可猜代码。",
           "acceptance": "区分分类层级与覆盖范围；没有历史入参时不声称验证过配置中枢。",
-          "id": "Q012-3"
+          "id": "Q012-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q012-3"
         }
       ]
     },
@@ -1095,7 +1167,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不把基准收益当基金收益；不补造历史基准变更。",
-          "id": "Q013-1"
+          "id": "Q013-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q013-1"
         },
         {
           "title": "混合基准构成识别",
@@ -1108,7 +1182,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不假定每个基金都有股债混合基准；不从benchmark推断实际仓位。",
-          "id": "Q013-2"
+          "id": "Q013-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q013-2"
         },
         {
           "title": "顾问比较口径",
@@ -1121,7 +1197,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "完整保留两条benchmark；没有真实收益时不判断超额表现。",
-          "id": "Q013-3"
+          "id": "Q013-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q013-3"
         }
       ]
     },
@@ -1318,7 +1396,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "保留reportDate与assetType；不重复加总汇总项；不将配置比例直接当收益来源金额。",
-          "id": "Q014-1"
+          "id": "Q014-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q014-1"
         },
         {
           "title": "券种分母教学",
@@ -1331,7 +1411,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "三次参数唯一变化是assetType；报告期一致才比较；不反推出未返回的杠杆。",
-          "id": "Q014-2"
+          "id": "Q014-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q014-2"
         },
         {
           "title": "固定收益观察",
@@ -1344,7 +1426,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "区分区间汇总与逐期数据；券种与评级不互相替代。",
-          "id": "Q014-3"
+          "id": "Q014-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q014-3"
         }
       ]
     },
@@ -1443,7 +1527,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不把换手率当择时胜率；单位不明则明确标注。",
-          "id": "Q015-1"
+          "id": "Q015-1",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q015-1"
         },
         {
           "title": "研究区间敏感性",
@@ -1456,7 +1542,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不将不同长度累计值直接作高低判断；缺乏时间序列不声称逐月加速。",
-          "id": "Q015-2"
+          "id": "Q015-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q015-2"
         },
         {
           "title": "经理风格对照",
@@ -1469,7 +1557,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "可比区间与口径明示；不做无证据的能力/成本排序。",
-          "id": "Q015-3"
+          "id": "Q015-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q015-3"
         }
       ]
     },
@@ -1568,7 +1658,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "只用industrialPreference支持结论；明确偏好与最新配置的区别。",
-          "id": "Q016-1"
+          "id": "Q016-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q016-1"
         },
         {
           "title": "持仓互补线索",
@@ -1581,7 +1673,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "没有持股数据不报重叠比例；不伪造量化相关系数。",
-          "id": "Q016-2"
+          "id": "Q016-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q016-2"
         },
         {
           "title": "风格漂移预警线索",
@@ -1594,7 +1688,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不把区间标签当逐期持仓轨迹；不直接定性违规或漂移。",
-          "id": "Q016-3"
+          "id": "Q016-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q016-3"
         }
       ]
     },
@@ -1749,7 +1845,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不偷偷增加Schema不支持的阈值；不宣称已完成收益/回撤多条件筛选。",
-          "id": "Q017-1"
+          "id": "Q017-1",
+          "test_status": "fail",
+          "test_url": "tests-2026-11-28/#Q017-1"
         },
         {
           "title": "纯债产品资料检索",
@@ -1762,7 +1860,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "页码从0开始；无结果页不编造；不将规模排序当业绩排名。",
-          "id": "Q017-2"
+          "id": "Q017-2",
+          "test_status": "fail",
+          "test_url": "tests-2026-11-28/#Q017-2"
         },
         {
           "title": "交易受限产品排查",
@@ -1775,7 +1875,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "只对查询范围作结论；不从返回列表推断全市场状态。",
-          "id": "Q017-3"
+          "id": "Q017-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q017-3"
         }
       ]
     },
@@ -1881,7 +1983,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "基于relateStrategyList；不补造配置权重和适当性。",
-          "id": "Q018-1"
+          "id": "Q018-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q018-1"
         },
         {
           "title": "固收策略观察名单",
@@ -1894,7 +1998,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不把债基关联等同纯债/低风险策略；不将空结果外推全市场。",
-          "id": "Q018-2"
+          "id": "Q018-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q018-2"
         },
         {
           "title": "投顾池覆盖比较",
@@ -1907,7 +2013,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "只对接口返回集合比较；不当作全部持仓穿透或规模统计。",
-          "id": "Q018-3"
+          "id": "Q018-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q018-3"
         }
       ]
     },
@@ -1985,7 +2093,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "默认窗口可识别或标未知；不声称完整覆盖信用/流动性风险。",
-          "id": "Q019-1"
+          "id": "Q019-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q019-1"
         },
         {
           "title": "债基对照尽调",
@@ -1998,7 +2108,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不擅用未声明的timeInterval枚举；无风险评级时不生成评级。",
-          "id": "Q019-2"
+          "id": "Q019-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q019-2"
         },
         {
           "title": "客户误解澄清",
@@ -2011,7 +2123,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "只引用返回事实；不把集中度当信用评级，不把解释当确定损失预测。",
-          "id": "Q019-3"
+          "id": "Q019-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q019-3"
         }
       ]
     },
@@ -2062,7 +2176,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "先连接策略搜索工具，以关键词查回并核对唯一strategyCode；多候选时先确认，不可猜代码。",
           "acceptance": "使用代码数组；持仓与交易成分概念分开；未返回日期标未知。",
-          "id": "Q020-1"
+          "id": "Q020-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q020-1"
         },
         {
           "title": "策略间持仓比较",
@@ -2077,7 +2193,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "先连接策略搜索工具，以关键词查回并核对唯一strategyCode；多候选时先确认，不可猜代码。",
           "acceptance": "以fundCode去重；不将替代基金算作实际权重；不计算未提供的底层股票交集。",
-          "id": "Q020-2"
+          "id": "Q020-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q020-2"
         },
         {
           "title": "顾问产品解释",
@@ -2092,7 +2210,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "先连接策略搜索工具，以关键词查回并核对唯一strategyCode；多候选时先确认，不可猜代码。",
           "acceptance": "输出依据止于持仓/分类/替代信息；无调仓入参不编历史。",
-          "id": "Q020-3"
+          "id": "Q020-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q020-3"
         }
       ]
     },
@@ -2233,7 +2353,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "区分收益率与贡献率；返回结构不明时不做贡献排序。",
-          "id": "Q021-1"
+          "id": "Q021-1",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q021-1"
         },
         {
           "title": "行业阶段变化",
@@ -2246,7 +2368,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不伪造逐期轨迹；没有年化口径不自行年化或归因因果。",
-          "id": "Q021-2"
+          "id": "Q021-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q021-2"
         },
         {
           "title": "顾问沟通事实核查",
@@ -2259,7 +2383,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不将行业收益相加；不把接口未给出的持仓权重补出来。",
-          "id": "Q021-3"
+          "id": "Q021-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q021-3"
         }
       ]
     },
@@ -2365,7 +2491,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "官网未明确thresholdList数值单位；需连接文档/服务端核实后将50%转换。",
           "acceptance": "阈值单位明确后才调用；输出indicatorValue，不越界评风险。",
-          "id": "Q022-1"
+          "id": "Q022-1",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q022-1"
         },
         {
           "title": "交易活跃度观察",
@@ -2378,7 +2506,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "核对thresholdList单位及reportDate与timeRange同时出现时的优先级；本题仅指定reportDate。",
           "acceptance": "between正好两个有序阈值；不将报告期换手误作每日频率。",
-          "id": "Q022-2"
+          "id": "Q022-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q022-2"
         },
         {
           "title": "高换手尽调线索",
@@ -2391,7 +2521,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "需先确认换手率指标与阈值的单位，300%不得擅传3或300。",
           "acceptance": "不把指标当年度交易次数；不承诺名单全市场穷尽。",
-          "id": "Q022-3"
+          "id": "Q022-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q022-3"
         }
       ]
     },
@@ -2539,7 +2671,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "window合法；保留空值；不从uv推断资金流。",
-          "id": "Q023-1"
+          "id": "Q023-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q023-1"
         },
         {
           "title": "短期关注变化",
@@ -2552,7 +2686,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "仅比较榜单集合；不伪造趋势或资金迁移。",
-          "id": "Q023-2"
+          "id": "Q023-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q023-2"
         },
         {
           "title": "热度与风险教育",
@@ -2565,7 +2701,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "null不改成0；maxDrawdown口径不明需标注；不越界估值判断。",
-          "id": "Q023-3"
+          "id": "Q023-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q023-3"
         }
       ]
     },
@@ -2616,7 +2754,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "先连接策略搜索工具，以关键词查回并核对唯一strategyCode；多候选时先确认，不可猜代码。",
           "acceptance": "交易与现有持仓区分；替代标的不可重复计权；不下单。",
-          "id": "Q024-1"
+          "id": "Q024-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q024-1"
         },
         {
           "title": "多策略交易准备",
@@ -2631,7 +2771,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "先连接策略搜索工具，以关键词查回并核对唯一strategyCode；多候选时先确认，不可猜代码。",
           "acceptance": "不把可交易成分查询当实时限购确认；不补造状态。",
-          "id": "Q024-2"
+          "id": "Q024-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q024-2"
         },
         {
           "title": "客服替代基金解释",
@@ -2646,7 +2788,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "先连接策略搜索工具，以关键词查回并核对唯一strategyCode；多候选时先确认，不可猜代码。",
           "acceptance": "原因未知时标未知；不自行执行替换或生成交易。",
-          "id": "Q024-3"
+          "id": "Q024-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q024-3"
         }
       ]
     },
@@ -2976,7 +3120,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "检查personalLowestPeriodicAmount及canAllot；不把计划金额当API额外入参。",
-          "id": "Q025-1"
+          "id": "Q025-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q025-1"
         },
         {
           "title": "大额申购前检查",
@@ -2989,7 +3135,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "未知持仓不假定0；保留错误/限制原因；以当前交易日为准。",
-          "id": "Q025-2"
+          "id": "Q025-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q025-2"
         },
         {
           "title": "赎回与转换客服核查",
@@ -3002,7 +3150,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "份额与金额不混淆；不以本工具替代到账规则查询。",
-          "id": "Q025-3"
+          "id": "Q025-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q025-3"
         }
       ]
     },
@@ -3096,7 +3246,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "先连接策略搜索工具，以关键词查回并核对唯一strategyCode；多候选时先确认，不可猜代码。",
           "acceptance": "保留原始percent单位；没有收益返回时不判断跑赢。",
-          "id": "Q026-1"
+          "id": "Q026-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q026-1"
         },
         {
           "title": "不同策略比较准备",
@@ -3111,7 +3263,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "先连接策略搜索工具，以关键词查回并核对唯一strategyCode；多候选时先确认，不可猜代码。",
           "acceptance": "单工具不编绩效数据；不能把策略基准称为基金合同法定基准。",
-          "id": "Q026-2"
+          "id": "Q026-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q026-2"
         },
         {
           "title": "顾问客户解释",
@@ -3126,7 +3280,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "先连接策略搜索工具，以关键词查回并核对唯一strategyCode；多候选时先确认，不可猜代码。",
           "acceptance": "不凭名称预设股债比例；指数构成按返回内容表述。",
-          "id": "Q026-3"
+          "id": "Q026-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q026-3"
         }
       ]
     },
@@ -3220,7 +3376,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "先连接策略搜索工具，以关键词查回并核对唯一strategyCode；多候选时先确认，不可猜代码。",
           "acceptance": "rows=null按失败处理；空列表不捏造；hasMoreRows=true提示截断。",
-          "id": "Q027-1"
+          "id": "Q027-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q027-1"
         },
         {
           "title": "策略池批量尽调",
@@ -3235,7 +3393,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "先连接策略搜索工具，以关键词查回并核对唯一strategyCode；多候选时先确认，不可猜代码。",
           "acceptance": "分页遵循hasMoreRows；不将任意rows键名臆解成收益/风险。",
-          "id": "Q027-2"
+          "id": "Q027-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q027-2"
         },
         {
           "title": "运营资料复核",
@@ -3250,7 +3410,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "先连接策略搜索工具，以关键词查回并核对唯一strategyCode；多候选时先确认，不可猜代码。",
           "acceptance": "区分字段缺失与产品没有该属性；仅按实际rows做检查。",
-          "id": "Q027-3"
+          "id": "Q027-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q027-3"
         }
       ]
     },
@@ -3321,7 +3483,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不猜timeInterval枚举；不把正贡献等于每次操作都获利。",
-          "id": "Q028-1"
+          "id": "Q028-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q028-1"
         },
         {
           "title": "择时指标对照",
@@ -3334,7 +3498,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "只用返回两个数值；不报未提供的调仓次数/成本。",
-          "id": "Q028-2"
+          "id": "Q028-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q028-2"
         },
         {
           "title": "顾问研究沟通",
@@ -3347,7 +3513,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不引用换手率或选股能力作为本工具返回；默认区间未知需明确。",
-          "id": "Q028-3"
+          "id": "Q028-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q028-3"
         }
       ]
     },
@@ -3432,7 +3600,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "频次不冒充事件明细；不把告警当违约证据。",
-          "id": "Q029-1"
+          "id": "Q029-1",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q029-1"
         },
         {
           "title": "固收候选初筛",
@@ -3445,7 +3615,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "无数据不写0；不把频次直接转换成风险等级。",
-          "id": "Q029-2"
+          "id": "Q029-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q029-2"
         },
         {
           "title": "短长窗口观察",
@@ -3458,7 +3630,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不把窗口差值当已验证事件列表；不编原因/日期。",
-          "id": "Q029-3"
+          "id": "Q029-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q029-3"
         }
       ]
     },
@@ -3522,7 +3696,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "保留代码前导零；多义时不擅自选A/C类。",
-          "id": "Q030-1"
+          "id": "Q030-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q030-1"
         },
         {
           "title": "旧名称数据清洗",
@@ -3535,7 +3711,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不冒认完整更名历史；无匹配不造代码。",
-          "id": "Q030-2"
+          "id": "Q030-2",
+          "test_status": "fail",
+          "test_url": "tests-2026-11-28/#Q030-2"
         },
         {
           "title": "输入代码确认",
@@ -3548,7 +3726,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "前导零完整；没有结果时停止依赖查询。",
-          "id": "Q030-3"
+          "id": "Q030-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q030-3"
         }
       ]
     },
@@ -3619,7 +3799,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "只用三项返回；不声称获得历史板块轨迹。",
-          "id": "Q031-1"
+          "id": "Q031-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q031-1"
         },
         {
           "title": "同主题产品辨别",
@@ -3632,7 +3814,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "空标签不补造；不将标签当完整持仓分布。",
-          "id": "Q031-2"
+          "id": "Q031-2",
+          "test_status": "fail",
+          "test_url": "tests-2026-11-28/#Q031-2"
         },
         {
           "title": "产品资料校对",
@@ -3645,7 +3829,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不超出标签/备注证据；代码与原始标签可追溯。",
-          "id": "Q031-3"
+          "id": "Q031-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q031-3"
         }
       ]
     },
@@ -3793,7 +3979,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "累计值不重复相加；分类和分母未知时不擅定。",
-          "id": "Q032-1"
+          "id": "Q032-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q032-1"
         },
         {
           "title": "短长窗口集中度",
@@ -3806,7 +3994,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "行业集中与个股集中分开；不编逐季轨迹。",
-          "id": "Q032-2"
+          "id": "Q032-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q032-2"
         },
         {
           "title": "指数产品比较",
@@ -3819,7 +4009,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "同口径/报告期优先；无数据不强行排名。",
-          "id": "Q032-3"
+          "id": "Q032-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q032-3"
         }
       ]
     },
@@ -3925,7 +4117,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "分红日期/金额按原返回；不把每份分红当个人到账。",
-          "id": "Q033-1"
+          "id": "Q033-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q033-1"
         },
         {
           "title": "年度分红资料整理",
@@ -3938,7 +4132,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不虚构日期入参；空/不完整记录不推断全年无分红。",
-          "id": "Q033-2"
+          "id": "Q033-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q033-2"
         },
         {
           "title": "分红误解投教",
@@ -3951,7 +4147,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不从分红推导未经复权的总收益；不保证未来分红。",
-          "id": "Q033-3"
+          "id": "Q033-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q033-3"
         }
       ]
     },
@@ -4113,7 +4311,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "数据次序正确；不填造停牌/未披露日期；不比较原始净值高低排名。",
-          "id": "Q034-1"
+          "id": "Q034-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q034-1"
         },
         {
           "title": "近期波动观察",
@@ -4126,7 +4326,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "展示实际最新日；单位净值涨跌与复权收益分开。",
-          "id": "Q034-2"
+          "id": "Q034-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q034-2"
         },
         {
           "title": "历史资料归档",
@@ -4139,7 +4341,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "curDimensionType与请求核对；有截断/错误不冒称全量。",
-          "id": "Q034-3"
+          "id": "Q034-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q034-3"
         }
       ]
     },
@@ -4343,7 +4547,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "每个值对应阶段与口径；缺失不作0；不编近五年未返回数据。",
-          "id": "Q035-1"
+          "id": "Q035-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q035-1"
         },
         {
           "title": "客户持仓表现解释",
@@ -4356,7 +4562,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不虚构夏普/回撤字段；不把产品收益当客户个人收益。",
-          "id": "Q035-2"
+          "id": "Q035-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q035-2"
         },
         {
           "title": "投研表格质量复核",
@@ -4369,7 +4577,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "原字段可回溯；年化/累计不混；不造同类排名。",
-          "id": "Q035-3"
+          "id": "Q035-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q035-3"
         }
       ]
     },
@@ -5147,7 +5357,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "使用合法op；预计日期不承诺一定到账；未输入金额不算最终费用。",
-          "id": "Q036-1"
+          "id": "Q036-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q036-1"
         },
         {
           "title": "赎回到账计划",
@@ -5160,7 +5372,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "15点后时点准确保留；费用按条件解释；不承诺可用款日。",
-          "id": "Q036-2"
+          "id": "Q036-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q036-2"
         },
         {
           "title": "交易截止时间教育",
@@ -5173,7 +5387,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "两次交易时点明确；不擅用所有基金同规则；不发单。",
-          "id": "Q036-3"
+          "id": "Q036-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q036-3"
         }
       ]
     },
@@ -5489,7 +5705,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "只解释实际字段；不将持仓加权PE当基金净值；不编历史分位。",
-          "id": "Q037-1"
+          "id": "Q037-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q037-1"
         },
         {
           "title": "重仓披露偏差",
@@ -5502,7 +5720,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "范围/日期双核对；不把半年全持仓当当前实时全部持仓。",
-          "id": "Q037-2"
+          "id": "Q037-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q037-2"
         },
         {
           "title": "加权方法敏感性",
@@ -5515,7 +5735,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "仅改变calculationMethod；PE/PB/ROE没有返回时标缺失。",
-          "id": "Q037-3"
+          "id": "Q037-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q037-3"
         }
       ]
     },
@@ -5635,7 +5857,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "展示真实数据时点；不把披露持仓当实时仓位。",
-          "id": "Q038-1"
+          "id": "Q038-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q038-1"
         },
         {
           "title": "行业互补性初看",
@@ -5648,7 +5872,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "分类一致才比较；行业重合不冒充股票重合/相关性。",
-          "id": "Q038-2"
+          "id": "Q038-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q038-2"
         },
         {
           "title": "区间配置复核",
@@ -5661,7 +5887,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "区间/逐期结构先核；无调仓记录不编具体交易。",
-          "id": "Q038-3"
+          "id": "Q038-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q038-3"
         }
       ]
     },
@@ -6145,7 +6373,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "依据recentInfo/diagnoseSummary等实际字段；不将诊断当个性化适当性结论。",
-          "id": "Q039-1"
+          "id": "Q039-1",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q039-1"
         },
         {
           "title": "债基客户解释",
@@ -6158,7 +6388,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "未返回专业风险项不补造；不宣称债基保本。",
-          "id": "Q039-2"
+          "id": "Q039-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q039-2"
         },
         {
           "title": "诊断结果可用性复核",
@@ -6171,7 +6403,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "message路径正确处理；不冒称已独立验证模型结论。",
-          "id": "Q039-3"
+          "id": "Q039-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q039-3"
         }
       ]
     },
@@ -6305,7 +6539,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "三分母不混用；基金评级与债券持仓评级区分。",
-          "id": "Q040-1"
+          "id": "Q040-1",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q040-1"
         },
         {
           "title": "高评级敞口对照",
@@ -6318,7 +6554,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "分类以实际返回核验；无数据非零；高AAA占比不等于无风险。",
-          "id": "Q040-2"
+          "id": "Q040-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q040-2"
         },
         {
           "title": "未评级暴露追查",
@@ -6331,7 +6569,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不从分类推定违约；不将区间结果冒充实时持仓。",
-          "id": "Q040-3"
+          "id": "Q040-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q040-3"
         }
       ]
     },
@@ -6437,7 +6677,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "仅合法阈值；记录日期保留；无因果字段不归因。",
-          "id": "Q041-1"
+          "id": "Q041-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q041-1"
         },
         {
           "title": "周度压力观察",
@@ -6450,7 +6692,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不混淆日/周阈值；不外推无告警即安全。",
-          "id": "Q041-2"
+          "id": "Q041-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q041-2"
         },
         {
           "title": "异动事件调查入口",
@@ -6463,7 +6707,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不把unusual等同dailyDive；原始记录与调查假设分开。",
-          "id": "Q041-3"
+          "id": "Q041-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q041-3"
         }
       ]
     },
@@ -6583,7 +6829,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "官网未写thresholdList数值单位，核实后转换80%。",
           "acceptance": "比例单位先核；券种筛选不冒充基金正式分类。",
-          "id": "Q042-1"
+          "id": "Q042-1",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q042-1"
         },
         {
           "title": "可转债敞口控制",
@@ -6596,7 +6844,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "需确认thresholdList单位；仅使用reportDate，避免未说明的窗口优先级。",
           "acceptance": "不传total_net_asset错误枚举；不由一项占比认定纯债。",
-          "id": "Q042-2"
+          "id": "Q042-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q042-2"
         },
         {
           "title": "信用债集中观察",
@@ -6609,7 +6859,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "核实thresholdList单位后将50%、70%转换为接口数值。",
           "acceptance": "between两个阈值有序；信用类型与信用质量分开。",
-          "id": "Q042-3"
+          "id": "Q042-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q042-3"
         }
       ]
     },
@@ -6673,7 +6925,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "0.85应显示85%不是0.85%；不编历史轨迹。",
-          "id": "Q043-1"
+          "id": "Q043-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q043-1"
         },
         {
           "title": "跨产品权益对比",
@@ -6686,7 +6940,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "缺失不当0；不由权益仓位代表全部风险。",
-          "id": "Q043-2"
+          "id": "Q043-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q043-2"
         },
         {
           "title": "客户配置说明",
@@ -6699,7 +6955,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "等级按返回原文；不将本工具包装为历史择时分析。",
-          "id": "Q043-3"
+          "id": "Q043-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q043-3"
         }
       ]
     },
@@ -6763,7 +7021,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不承诺具体修复时间；不造修复天数。",
-          "id": "Q044-1"
+          "id": "Q044-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q044-1"
         },
         {
           "title": "候选基金修复表现对照",
@@ -6776,7 +7036,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "无具体排名数值则不自行转换百分位；不作未来回本保证。",
-          "id": "Q044-2"
+          "id": "Q044-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q044-2"
         },
         {
           "title": "客户长期持有沟通",
@@ -6789,7 +7051,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不推算个人回本日；不引用不存在的持仓成本。",
-          "id": "Q044-3"
+          "id": "Q044-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q044-3"
         }
       ]
     },
@@ -7896,7 +8160,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "逐基金处理error；不假定所有产品都返回相同字段。",
-          "id": "Q045-1"
+          "id": "Q045-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q045-1"
         },
         {
           "title": "基金经理和配置复核",
@@ -7909,7 +8175,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "任期/数据日明确；不将经理关联误作因果归因。",
-          "id": "Q045-2"
+          "id": "Q045-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q045-2"
         },
         {
           "title": "买前资料缺口识别",
@@ -7922,7 +8190,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "不从交易开放直接推适当性；无客户授权不调用个人资产。",
-          "id": "Q045-3"
+          "id": "Q045-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q045-3"
         }
       ]
     },
@@ -8042,7 +8312,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "需核实thresholdList单位及sumRatingType支持的实际文本。",
           "acceptance": "评级对象是持仓债券；不自动称优质纯债或低风险准入通过。",
-          "id": "Q046-1"
+          "id": "Q046-1",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q046-1"
         },
         {
           "title": "评级下沉敞口控制",
@@ -8055,7 +8327,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "官网阈值单位未明确，且需确认评级类别统计包含范围。",
           "acceptance": "子集定义按服务端；不把AAA以下与未评级随意合并。",
-          "id": "Q046-2"
+          "id": "Q046-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q046-2"
         },
         {
           "title": "未评级资产观察名单",
@@ -8068,7 +8342,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "核对thresholdList单位与长期未评级分类有效性。",
           "acceptance": "两个有序阈值；不将未评级直接评为低等级。",
-          "id": "Q046-3"
+          "id": "Q046-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q046-3"
         }
       ]
     },
@@ -8154,7 +8430,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q047-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q047-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "两只主动基金的超额来源有何差异",
@@ -8168,7 +8447,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q047-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q047-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "给客户讲清楚跑输究竟因为什么",
@@ -8182,7 +8464,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q047-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q047-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -8282,7 +8567,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q048-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q048-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "清理导入持仓前先核对拆分事件",
@@ -8298,7 +8586,10 @@
           "prerequisite": "",
           "acceptance": "去重分批不超过20只；无记录与调用失败区分；拆分比例保留原口径。",
           "id": "Q048-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q048-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "拆分事件表能否作为账务附件",
@@ -8312,7 +8603,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q048-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q048-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -8447,7 +8741,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q049-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q049-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "多只QDII是否集中在同一市场",
@@ -8463,7 +8760,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q049-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q049-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "跨境基金过去一年的地区侧重如何",
@@ -8477,7 +8777,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q049-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q049-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -8591,7 +8894,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q050-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q050-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "我的基金里哪些风险结果需要补核",
@@ -8607,7 +8913,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q050-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q050-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "向研究员说明风险模型的置信程度",
@@ -8621,7 +8930,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q050-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q050-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -8791,7 +9103,10 @@
           "prerequisite": "",
           "acceptance": "只传fundList及代码金额；采用工具实际回测区间，不承诺用户自选日期。",
           "id": "Q051-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q051-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "减少单只基金集中后历史表现怎样",
@@ -8805,7 +9120,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q051-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q051-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "导入持仓做一次可复核的回测",
@@ -8821,7 +9139,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q051-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q051-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -9033,7 +9354,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q052-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q052-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "增加权益后十年收益和风险怎样变化",
@@ -9047,7 +9371,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q052-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q052-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "同一方案短期和长期的概率差异",
@@ -9063,7 +9390,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q052-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q052-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -9198,7 +9528,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q053-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q053-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "同一基金池调整权重后风险如何",
@@ -9212,7 +9545,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q053-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q053-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "按持仓金额换算权重再做风险检查",
@@ -9228,7 +9564,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q053-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q053-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -9440,7 +9779,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q054-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q054-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "指定历史日期市场处于什么状态",
@@ -9454,7 +9796,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q054-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q054-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "两个交易日温度变化能说明什么",
@@ -9468,7 +9813,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q054-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q054-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -9575,7 +9923,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q055-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q055-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "增加债基后底层资产比例如何变化",
@@ -9589,7 +9940,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q055-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q055-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "把持仓穿透图用于客户面谈",
@@ -9605,7 +9959,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q055-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q055-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -9775,7 +10132,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q056-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q056-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "单只混合基金内部究竟如何分布",
@@ -9789,7 +10149,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q056-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q056-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "持仓资产树能否核对到总金额",
@@ -9805,7 +10168,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q056-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q056-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -9891,7 +10257,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q057-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q057-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "两只候选基金哪只更像现有持仓",
@@ -9905,7 +10274,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q057-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q057-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "持仓基金里最像的产品对有哪些",
@@ -9921,7 +10293,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q057-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q057-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -10063,7 +10438,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q058-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q058-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "一年内用的钱能否承受这个目标",
@@ -10077,7 +10455,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q058-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q058-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "相同收益目标降低回撤会改变什么",
@@ -10091,7 +10472,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q058-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q058-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -10282,7 +10666,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q059-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q059-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "只有中短期资金时方案如何判断",
@@ -10296,7 +10683,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q059-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q059-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "留出部分现金后加权收益如何计算",
@@ -10310,7 +10700,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q059-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q059-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -10608,7 +11001,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q060-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q060-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "奖金减少三成会怎样影响结余",
@@ -10624,7 +11020,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q060-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q060-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "削减可选支出能释放多少长期预算",
@@ -10640,7 +11039,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q060-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q060-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -11209,7 +11611,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q061-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q061-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "同类基金集中能否从诊断中看出来",
@@ -11223,7 +11628,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q061-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q061-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "客户面谈前整理一份持仓体检",
@@ -11239,7 +11647,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q061-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q061-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -11650,7 +12061,10 @@
           "prerequisite": "先调用收支分析取得本次真实monthlyEssentialExpense。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q062-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q062-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "流动资产减少后应急能力怎样变化",
@@ -11667,7 +12081,10 @@
           "prerequisite": "先从收支分析取得月必要支出；确认模拟现金余额仍非负。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q062-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q062-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "新增消费贷款会影响哪些健康指标",
@@ -11684,7 +12101,10 @@
           "prerequisite": "先取得实际月必要支出；仅作未花费贷款的情景测算。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q062-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q062-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -11793,7 +12213,10 @@
           "prerequisite": "先StrategySearchByKeyword；重名时由用户确认候选，不杜撰poCode。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q063-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q063-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "两只策略净值可否放在同一张图",
@@ -11809,7 +12232,10 @@
           "prerequisite": "先搜索并确认两个策略代码；仅正常权限查询，不设置noACL。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q063-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q063-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "一份净值文件该怎样补齐出处",
@@ -11825,7 +12251,10 @@
           "prerequisite": "上游确认唯一策略代码；可选主理人及商户代码仅在真实上下文具备时填。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q063-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q063-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -12249,7 +12678,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q064-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q064-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "用现金归还房贷后结构怎样",
@@ -12265,7 +12697,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q064-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q064-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "买投资房会怎样改变资产结构",
@@ -12281,7 +12716,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q064-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q064-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -12530,7 +12968,10 @@
           "prerequisite": "上游搜索并确认产品代码；不得用名称代替代码。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q065-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q065-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "两种策略的收费方式有何不同",
@@ -12546,7 +12987,10 @@
           "prerequisite": "分别确认真实poCode，并保留费用信息生效或查询日期。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q065-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q065-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "顾问说明书中的费用条款能否核对",
@@ -12562,7 +13006,10 @@
           "prerequisite": "先确认代码；若需要个人账户优惠须使用真实授权上下文，不能猜测。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q065-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q065-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -13091,7 +13538,10 @@
           "prerequisite": "上游搜索确认唯一poCode；需要个性化限额时另取真实授权上下文。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q066-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q066-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "准备赎回前先看规则和到账口径",
@@ -13107,7 +13557,10 @@
           "prerequisite": "仅凭实际poCode查询；账户ID不杜撰，个性化规则需授权。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q066-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q066-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "多只策略能否满足同一流动性要求",
@@ -13123,7 +13576,10 @@
           "prerequisite": "方案型规则只有取得上游真实assetPlanId时才追加；不猜scene枚举。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q066-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q066-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -13323,7 +13779,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q067-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q067-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "孩子入学前家庭结构有哪些服务重点",
@@ -13339,7 +13798,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q067-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q067-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "老人退休与子女赡养责任如何备访",
@@ -13355,7 +13817,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q067-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q067-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -13674,7 +14139,10 @@
           "prerequisite": "金额按元/年准备；调用前核对服务端金额频率与年龄端点定义，不能把未明确频率默认为真实规则。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q068-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q068-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "提前五年退休是否增加现金流缺口",
@@ -13690,7 +14158,10 @@
           "prerequisite": "金额按元/年准备；调用前核对服务端金额频率与年龄端点定义，不能把未明确频率默认为真实规则。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q068-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q068-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "收益假设降低后长期规划有多脆弱",
@@ -13706,7 +14177,10 @@
           "prerequisite": "金额按元/年准备；调用前核对服务端金额频率与年龄端点定义，不能把未明确频率默认为真实规则。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q068-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q068-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -13815,7 +14289,10 @@
           "prerequisite": "先搜索确认真实strategyCodes；分页不得漏报截断。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q069-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q069-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "两只策略的调仓节奏有什么差别",
@@ -13831,7 +14308,10 @@
           "prerequisite": "先搜索确认策略代码；按hasMoreRows补齐分页。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q069-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q069-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "最新一次调仓能否作为客户解释材料",
@@ -13847,7 +14327,10 @@
           "prerequisite": "上游确认真实策略码；若未返回理由则仅报告事实。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q069-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q069-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -13940,7 +14423,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q070-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q070-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "为策略研究建立候选清单",
@@ -13954,7 +14440,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q070-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q070-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "客户说的简称能否唯一识别策略",
@@ -13968,7 +14457,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q070-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q070-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -14070,7 +14562,10 @@
           "prerequisite": "先搜索并确认真实策略代码；工具没有客户风险入参。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q071-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q071-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "两只候选策略风险是否处于同一档",
@@ -14086,7 +14581,10 @@
           "prerequisite": "先完成代码识别；只按产品数据作比较。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q071-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q071-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "给顾问核对产品风险资料是否完整",
@@ -14102,7 +14600,10 @@
           "prerequisite": "上游真实策略码必需；不绕过权限或补造评分日期。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q071-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q071-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -14232,7 +14733,10 @@
           "prerequisite": "先GetAssetAllocationPlan成功；真实ID未返回时停止下游，不填模拟ID。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q072-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q072-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "短期配置模型能落到哪些基金",
@@ -14248,7 +14752,10 @@
           "prerequisite": "使用本次同一流程的真实assetPlanId，不能挪用历史或虚构ID。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q072-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q072-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "不同回撤约束的基金模型有何差异",
@@ -14264,7 +14771,10 @@
           "prerequisite": "两次上游都成功且真实ID对应清楚后才查询。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q072-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q072-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -14387,7 +14897,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q073-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q073-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "把投研摘要留存为会议附件",
@@ -14403,7 +14916,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q073-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q073-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "将组合对照页制成打印讨论稿",
@@ -14419,7 +14935,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q073-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q073-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -14490,7 +15009,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q074-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q074-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "某只基金的可交易日期需要怎样核对",
@@ -14504,7 +15026,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q074-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q074-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "相对日期提问如何先固定时间基准",
@@ -14518,7 +15043,10 @@
           "prerequisite": "先GetCurrentTime取得本次实际时间。",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q074-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q074-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -14589,7 +15117,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q075-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q075-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "为本次报告固定数据查询时点",
@@ -14603,7 +15134,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q075-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q075-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "跨日任务开始前先核对日期",
@@ -14617,7 +15151,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q075-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q075-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -14712,7 +15249,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q076-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q076-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "把三种现金流情景画成比较柱图",
@@ -14728,7 +15268,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q076-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q076-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "画一张相关性热力图用于讨论",
@@ -14744,7 +15287,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q076-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q076-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -14970,7 +15516,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q077-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q077-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "为晨会整理不限定主题的热点素材",
@@ -14984,7 +15533,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q077-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "fail",
+          "test_url": "tests-2026-11-28/#Q077-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "同一主题有哪些不同讨论角度",
@@ -14998,7 +15550,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q077-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "fail",
+          "test_url": "tests-2026-11-28/#Q077-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -15168,7 +15723,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q078-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q078-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "晨会前找到最近两天的重要资讯",
@@ -15182,7 +15740,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q078-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q078-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "核对客户转述的降息消息出处",
@@ -15196,7 +15757,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q078-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q078-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -15274,7 +15838,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q079-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q079-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "同一主题的解读是否存在分歧",
@@ -15288,7 +15855,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q079-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q079-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "为客户回答准备事件解读证据",
@@ -15302,7 +15872,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q079-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q079-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -15521,7 +16094,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q080-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q080-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "针对回撤沟通寻找经理原有表述",
@@ -15535,7 +16111,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q080-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q080-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "比较某主题的经理观点和时间差异",
@@ -15549,7 +16128,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q080-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q080-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -15740,7 +16322,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q081-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q081-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "找近期波动中的社区即时观点",
@@ -15754,7 +16339,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q081-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q081-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "追踪指定作者关于长期投资的材料",
@@ -15768,7 +16356,10 @@
           "prerequisite": "",
           "acceptance": "仅根据真实返回字段回答；说明数据日期、单位与缺失信息，不补造数值。",
           "id": "Q081-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q081-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -15810,7 +16401,10 @@
           "prerequisite": "账户服务已连接且用户完成授权；字段Schema未获得，实际参数以连接器当前契约为准。",
           "acceptance": "未授权不取数；不猜参数名；核对原始单位、资金加权与累计收益率口径。",
           "id": "Q082-1",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q082-1",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "某个子账户的收益率与总账户有何差别",
@@ -15824,7 +16418,10 @@
           "prerequisite": "先授权并查询真实账户列表；子账户选择明确后按当前契约查询，不能虚构ID。",
           "acceptance": "账户ID来自上游；同区间可比；无资金流信息不声称完成择时归因。",
           "id": "Q082-2",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q082-2",
+          "original_design_status": "提问设计稿，未逐条实跑"
         },
         {
           "title": "持有单只产品的收益率曲线如何解释",
@@ -15838,7 +16435,10 @@
           "prerequisite": "先授权并确认真实持有产品及连接器当前过滤参数；字段契约未公开。",
           "acceptance": "选择真实持有产品；先查单位再展示；不冒充产品净值或承诺归因。",
           "id": "Q082-3",
-          "design_status": "提问设计稿，未逐条实跑"
+          "design_status": "原设计保留；2026-11-28实测结果见test_status",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q082-3",
+          "original_design_status": "提问设计稿，未逐条实跑"
         }
       ]
     },
@@ -15879,7 +16479,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "只含实际有记录月份；缺失不等于零；不累加月收益率。",
-          "id": "Q083-1"
+          "id": "Q083-1",
+          "test_status": "fail",
+          "test_url": "tests-2026-11-28/#Q083-1"
         },
         {
           "title": "找出上月波动最大的收益日",
@@ -15892,7 +16494,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "排序维度明确；不从单工具结果推断归因。",
-          "id": "Q083-2"
+          "id": "Q083-2",
+          "test_status": "fail",
+          "test_url": "tests-2026-11-28/#Q083-2"
         },
         {
           "title": "回看投资以来的年度收益",
@@ -15905,7 +16509,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "首年非整年标识；收益额与收益率分别展示。",
-          "id": "Q083-3"
+          "id": "Q083-3",
+          "test_status": "fail",
+          "test_url": "tests-2026-11-28/#Q083-3"
         }
       ]
     },
@@ -15946,7 +16552,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "名称相似不合并；保留份额类别与时点。",
-          "id": "Q084-1"
+          "id": "Q084-1",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q084-1"
         },
         {
           "title": "为资产盘点核对基金份额",
@@ -15959,7 +16567,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "金额和份额单位清楚；合计只用有效金额。",
-          "id": "Q084-2"
+          "id": "Q084-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q084-2"
         },
         {
           "title": "生成可复制的当前基金清单",
@@ -15972,7 +16582,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "占比有分母；不把当前持仓当成交易记录。",
-          "id": "Q084-3"
+          "id": "Q084-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q084-3"
         }
       ]
     },
@@ -16013,7 +16625,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "不补造金额；同名出现不等于重复资产。",
-          "id": "Q085-1"
+          "id": "Q085-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q085-1"
         },
         {
           "title": "整理账户归属方便后续查询",
@@ -16026,7 +16640,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "父子层级准确；不虚构ID或推断产品金额。",
-          "id": "Q085-2"
+          "id": "Q085-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q085-2"
         },
         {
           "title": "检查空账户与同名产品出现位置",
@@ -16039,7 +16655,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "仅报告返回结构；不做账户变更。",
-          "id": "Q085-3"
+          "id": "Q085-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q085-3"
         }
       ]
     },
@@ -16080,7 +16698,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "时间对齐；资产增幅不当收益率。",
-          "id": "Q086-1"
+          "id": "Q086-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q086-1"
         },
         {
           "title": "回看某个真实子账户资产变化",
@@ -16093,7 +16713,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "真实子账户选择；不猜测范围或交易原因。",
-          "id": "Q086-2"
+          "id": "Q086-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q086-2"
         },
         {
           "title": "核对指定产品的资产曲线",
@@ -16106,7 +16728,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "本人资产曲线与公开净值区分。",
-          "id": "Q086-3"
+          "id": "Q086-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q086-3"
         }
       ]
     },
@@ -16147,7 +16771,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "不重复汇总父子金额；差异只据返回说明。",
-          "id": "Q087-1"
+          "id": "Q087-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q087-1"
         },
         {
           "title": "查找名称里包含长赢的资产",
@@ -16160,7 +16786,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "无命中不补造；父级子级不重复累计。",
-          "id": "Q087-2"
+          "id": "Q087-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q087-2"
         },
         {
           "title": "核对零持仓项目与有效持仓",
@@ -16173,7 +16801,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "零、缺失和有效持仓区分。",
-          "id": "Q087-3"
+          "id": "Q087-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q087-3"
         }
       ]
     },
@@ -16214,7 +16844,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "基金分类与底层暴露区分；不隐去未覆盖项。",
-          "id": "Q088-1"
+          "id": "Q088-1",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q088-1"
         },
         {
           "title": "按风险等级盘点当前资金分布",
@@ -16227,7 +16859,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "产品等级不当本人风险承受力。",
-          "id": "Q088-2"
+          "id": "Q088-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q088-2"
         },
         {
           "title": "查行业集中是否藏在多只基金里",
@@ -16240,7 +16874,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "分类与覆盖范围明确；无个性化交易指令。",
-          "id": "Q088-3"
+          "id": "Q088-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q088-3"
         }
       ]
     },
@@ -16283,7 +16919,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "需当前平台已连接盈米私募能力并具备对应资料权限；真实产品代码或完整策略路径由授权查询返回后确认。",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q089-1"
+          "id": "Q089-1",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q089-1"
         },
         {
           "title": "核对私募开放安排与费用要素",
@@ -16298,7 +16936,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "需当前平台已连接盈米私募能力并具备对应资料权限；真实产品代码或完整策略路径由授权查询返回后确认。",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q089-2"
+          "id": "Q089-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q089-2"
         },
         {
           "title": "检查净值与档案是否足够新",
@@ -16313,7 +16953,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "需当前平台已连接盈米私募能力并具备对应资料权限；真实产品代码或完整策略路径由授权查询返回后确认。",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q089-3"
+          "id": "Q089-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q089-3"
         }
       ]
     },
@@ -16354,7 +16996,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "评分不当未来收益；未适配不建议交易。",
-          "id": "Q090-1"
+          "id": "Q090-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q090-1"
         },
         {
           "title": "针对一个真实子账户做体检",
@@ -16367,7 +17011,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "范围选择真实且一致；总子账户不可混用。",
-          "id": "Q090-2"
+          "id": "Q090-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q090-2"
         },
         {
           "title": "用自选持仓做结构体检",
@@ -16380,7 +17026,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "模拟组合不与本人账户混合。",
-          "id": "Q090-3"
+          "id": "Q090-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q090-3"
         }
       ]
     },
@@ -16421,7 +17069,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "关注与持有区分；不虚构金额。",
-          "id": "Q091-1"
+          "id": "Q091-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q091-1"
         },
         {
           "title": "为下次研究整理关注清单",
@@ -16434,7 +17084,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "数量基于实际返回；不改变关注状态。",
-          "id": "Q091-2"
+          "id": "Q091-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q091-2"
         },
         {
           "title": "核对私募关注项是否可见",
@@ -16447,7 +17099,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "权限不足与无记录分开。",
-          "id": "Q091-3"
+          "id": "Q091-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q091-3"
         }
       ]
     },
@@ -16488,7 +17142,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "不同历史窗口提示；回撤不可相加。",
-          "id": "Q092-1"
+          "id": "Q092-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q092-1"
         },
         {
           "title": "比较今年共同区间的账户回撤",
@@ -16501,7 +17157,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "实际起点明确；不编发生日期。",
-          "id": "Q092-2"
+          "id": "Q092-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q092-2"
         },
         {
           "title": "回看一次市场波动中的账户差异",
@@ -16514,7 +17172,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "不预设波动原因；不新增工具无出参字段。",
-          "id": "Q092-3"
+          "id": "Q092-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q092-3"
         }
       ]
     },
@@ -16555,7 +17215,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "已有与新生成区分；不补造历史报告。",
-          "id": "Q093-1"
+          "id": "Q093-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q093-1"
         },
         {
           "title": "核对年度报告覆盖哪些年份",
@@ -16568,7 +17230,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "不把累计差自动当本年投资收益。",
-          "id": "Q093-2"
+          "id": "Q093-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q093-2"
         },
         {
           "title": "用报告摘要检查资产记录变化",
@@ -16581,7 +17245,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "摘要不等全文；不凭期末数归因。",
-          "id": "Q093-3"
+          "id": "Q093-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q093-3"
         }
       ]
     },
@@ -16624,7 +17290,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "需当前平台已连接盈米私募能力并具备对应资料权限；真实产品代码或完整策略路径由授权查询返回后确认。",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q094-1"
+          "id": "Q094-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q094-1"
         },
         {
           "title": "核对合同名称与产品代码对应",
@@ -16639,7 +17307,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "需当前平台已连接盈米私募能力并具备对应资料权限；真实产品代码或完整策略路径由授权查询返回后确认。",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q094-2"
+          "id": "Q094-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q094-2"
         },
         {
           "title": "处理同一系列不同期产品歧义",
@@ -16654,7 +17324,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "需当前平台已连接盈米私募能力并具备对应资料权限；真实产品代码或完整策略路径由授权查询返回后确认。",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q094-3"
+          "id": "Q094-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q094-3"
         }
       ]
     },
@@ -16697,7 +17369,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "需当前平台已连接盈米私募能力并具备对应资料权限；真实产品代码或完整策略路径由授权查询返回后确认。",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q095-1"
+          "id": "Q095-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q095-1"
         },
         {
           "title": "在同一管理人下查策略产品",
@@ -16712,7 +17386,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "需当前平台已连接盈米私募能力并具备对应资料权限；真实产品代码或完整策略路径由授权查询返回后确认。",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q095-2"
+          "id": "Q095-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q095-2"
         },
         {
           "title": "检查筛选条件收紧后的候选变化",
@@ -16727,7 +17403,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "需当前平台已连接盈米私募能力并具备对应资料权限；真实产品代码或完整策略路径由授权查询返回后确认。",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q095-3"
+          "id": "Q095-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q095-3"
         }
       ]
     },
@@ -16768,7 +17446,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "保额不当可投资资产；分组忠于返回。",
-          "id": "Q096-1"
+          "id": "Q096-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q096-1"
         },
         {
           "title": "整理近期可用资金与长期资金目录",
@@ -16781,7 +17461,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "分类不等可赎回；未分组项不遗漏。",
-          "id": "Q096-2"
+          "id": "Q096-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q096-2"
         },
         {
           "title": "核对保钱里实际记录了什么",
@@ -16794,7 +17476,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "未记录不等无保障；不编责任条款。",
-          "id": "Q096-3"
+          "id": "Q096-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q096-3"
         }
       ]
     },
@@ -16837,7 +17521,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "需当前平台已连接盈米私募能力并具备对应资料权限；真实产品代码或完整策略路径由授权查询返回后确认。",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q097-1"
+          "id": "Q097-1",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q097-1"
         },
         {
           "title": "区分名称相近的私募管理人",
@@ -16852,7 +17538,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "需当前平台已连接盈米私募能力并具备对应资料权限；真实产品代码或完整策略路径由授权查询返回后确认。",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q097-2"
+          "id": "Q097-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q097-2"
         },
         {
           "title": "为管理人面谈准备履历问题",
@@ -16867,7 +17555,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "需当前平台已连接盈米私募能力并具备对应资料权限；真实产品代码或完整策略路径由授权查询返回后确认。",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q097-3"
+          "id": "Q097-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q097-3"
         }
       ]
     },
@@ -16908,7 +17598,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "余额增长不等净值收益；不混时间加权与现金加权。",
-          "id": "Q098-1"
+          "id": "Q098-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q098-1"
         },
         {
           "title": "核对真实子账户的净值路径",
@@ -16921,7 +17613,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "起点实际；无持仓归因出参不归因。",
-          "id": "Q098-2"
+          "id": "Q098-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q098-2"
         },
         {
           "title": "区分产品净值和本人持有表现",
@@ -16934,7 +17628,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "公开净值与本人持有口径不混合。",
-          "id": "Q098-3"
+          "id": "Q098-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q098-3"
         }
       ]
     },
@@ -16975,7 +17671,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "父子不重算；持有期差异解释。",
-          "id": "Q099-1"
+          "id": "Q099-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q099-1"
         },
         {
           "title": "比较今年子账户收益但不混口径",
@@ -16988,7 +17686,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "请求区间与返回区间核对；短期年化提示。",
-          "id": "Q099-2"
+          "id": "Q099-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q099-2"
         },
         {
           "title": "为账户复盘核对层级收益合计",
@@ -17001,7 +17701,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "只加同级金额；不相加收益率或猜差异原因。",
-          "id": "Q099-3"
+          "id": "Q099-3",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q099-3"
         }
       ]
     },
@@ -17042,7 +17744,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "最新模式与累计模式区分；未结算不填零。",
-          "id": "Q100-1"
+          "id": "Q100-1",
+          "test_status": "fail",
+          "test_url": "tests-2026-11-28/#Q100-1"
         },
         {
           "title": "按收益额查看本人持有产品",
@@ -17055,7 +17759,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "真实持有范围；排序口径和持有期限制。",
-          "id": "Q100-2"
+          "id": "Q100-2",
+          "test_status": "fail",
+          "test_url": "tests-2026-11-28/#Q100-2"
         },
         {
           "title": "核对一只本人持有基金的累计收益",
@@ -17068,7 +17774,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "选择真实持仓；当前部分与全历史收益区分。",
-          "id": "Q100-3"
+          "id": "Q100-3",
+          "test_status": "fail",
+          "test_url": "tests-2026-11-28/#Q100-3"
         }
       ]
     },
@@ -17109,7 +17817,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "节点和路径来自真实返回，不补造分类。",
-          "id": "Q101-1"
+          "id": "Q101-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q101-1"
         },
         {
           "title": "从股票类策略找到可搜索路径",
@@ -17122,7 +17832,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "路径不缩写；分类名称不等策略定义。",
-          "id": "Q101-2"
+          "id": "Q101-2",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q101-2"
         },
         {
           "title": "给研究表补齐策略路径字段",
@@ -17135,7 +17847,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "同名不同父节点分开；不强制补三级。",
-          "id": "Q101-3"
+          "id": "Q101-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q101-3"
         }
       ]
     },
@@ -17178,7 +17892,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "需当前平台已连接盈米私募能力并具备对应资料权限；真实产品代码或完整策略路径由授权查询返回后确认。",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q102-1"
+          "id": "Q102-1",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q102-1"
         },
         {
           "title": "观察私募回撤与修复是否匹配",
@@ -17193,7 +17909,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "需当前平台已连接盈米私募能力并具备对应资料权限；真实产品代码或完整策略路径由授权查询返回后确认。",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q102-2"
+          "id": "Q102-2",
+          "test_status": "partial",
+          "test_url": "tests-2026-11-28/#Q102-2"
         },
         {
           "title": "比较私募长短窗口的风险画像",
@@ -17208,7 +17926,9 @@
           "readiness": "需连接后补参数",
           "prerequisite": "需当前平台已连接盈米私募能力并具备对应资料权限；真实产品代码或完整策略路径由授权查询返回后确认。",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q102-3"
+          "id": "Q102-3",
+          "test_status": "pass",
+          "test_url": "tests-2026-11-28/#Q102-3"
         }
       ]
     },
@@ -17249,7 +17969,9 @@
           "readiness": "授权后提问",
           "prerequisite": "在当前平台连接且慢账户并完成本人授权；只读访问实际返回范围，不提供或猜测账户ID。",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q103-1"
+          "id": "Q103-1",
+          "test_status": "blocked",
+          "test_url": "tests-2026-11-28/#Q103-1"
         },
         {
           "title": "先把家庭目标理清再谈投资",
@@ -17267,7 +17989,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q103-2"
+          "id": "Q103-2",
+          "test_status": "blocked",
+          "test_url": "tests-2026-11-28/#Q103-2"
         },
         {
           "title": "遇到基金下跌先帮我理清问题",
@@ -17282,7 +18006,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q103-3"
+          "id": "Q103-3",
+          "test_status": "blocked",
+          "test_url": "tests-2026-11-28/#Q103-3"
         }
       ]
     },
@@ -17330,7 +18056,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q104-1"
+          "id": "Q104-1",
+          "test_status": "blocked",
+          "test_url": "tests-2026-11-28/#Q104-1"
         },
         {
           "title": "把组合研究变成客户能读的说明",
@@ -17345,7 +18073,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q104-2"
+          "id": "Q104-2",
+          "test_status": "blocked",
+          "test_url": "tests-2026-11-28/#Q104-2"
         },
         {
           "title": "围绕收益口径做一套沟通材料",
@@ -17361,7 +18091,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q104-3"
+          "id": "Q104-3",
+          "test_status": "blocked",
+          "test_url": "tests-2026-11-28/#Q104-3"
         }
       ]
     },
@@ -17409,7 +18141,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q105-1"
+          "id": "Q105-1",
+          "test_status": "blocked",
+          "test_url": "tests-2026-11-28/#Q105-1"
         },
         {
           "title": "比较降低权益比例后的取舍",
@@ -17425,7 +18159,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q105-2"
+          "id": "Q105-2",
+          "test_status": "blocked",
+          "test_url": "tests-2026-11-28/#Q105-2"
         },
         {
           "title": "检验组合五年目标的情景范围",
@@ -17440,7 +18176,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q105-3"
+          "id": "Q105-3",
+          "test_status": "blocked",
+          "test_url": "tests-2026-11-28/#Q105-3"
         }
       ]
     },
@@ -17491,7 +18229,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q106-1"
+          "id": "Q106-1",
+          "test_status": "blocked",
+          "test_url": "tests-2026-11-28/#Q106-1"
         },
         {
           "title": "让专家团审视同一组合的取舍",
@@ -17507,7 +18247,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q106-2"
+          "id": "Q106-2",
+          "test_status": "blocked",
+          "test_url": "tests-2026-11-28/#Q106-2"
         },
         {
           "title": "为顾问首次面谈组装完整备访包",
@@ -17523,7 +18265,9 @@
           "readiness": "附素材提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q106-3"
+          "id": "Q106-3",
+          "test_status": "blocked",
+          "test_url": "tests-2026-11-28/#Q106-3"
         }
       ]
     },
@@ -17569,7 +18313,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q107-1"
+          "id": "Q107-1",
+          "test_status": "blocked",
+          "test_url": "tests-2026-11-28/#Q107-1"
         },
         {
           "title": "请策略分析师比较两种目标定位",
@@ -17582,7 +18328,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q107-2"
+          "id": "Q107-2",
+          "test_status": "blocked",
+          "test_url": "tests-2026-11-28/#Q107-2"
         },
         {
           "title": "核验策略近期风险变化是否成立",
@@ -17595,7 +18343,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q107-3"
+          "id": "Q107-3",
+          "test_status": "blocked",
+          "test_url": "tests-2026-11-28/#Q107-3"
         }
       ]
     },
@@ -17641,7 +18391,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q108-1"
+          "id": "Q108-1",
+          "test_status": "blocked",
+          "test_url": "tests-2026-11-28/#Q108-1"
         },
         {
           "title": "请尽调分析师比较三只宽基产品",
@@ -17654,7 +18406,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q108-2"
+          "id": "Q108-2",
+          "test_status": "blocked",
+          "test_url": "tests-2026-11-28/#Q108-2"
         },
         {
           "title": "给基金经理面谈准备可验证问题",
@@ -17667,7 +18421,9 @@
           "readiness": "直接提问",
           "prerequisite": "",
           "acceptance": "对象、期间和口径一致；标注实际数据日期、来源与缺失项；输出与工具能力相符。",
-          "id": "Q108-3"
+          "id": "Q108-3",
+          "test_status": "blocked",
+          "test_url": "tests-2026-11-28/#Q108-3"
         }
       ]
     }
@@ -20111,5 +20867,58 @@
       "correction": "本案例准备19000元，并要求真实收支工具返回后复核；25000元仍保留为常规全部支出。",
       "business_reason": "应急保障等财务指标必须使用一致分母，避免重复或扩大必要开支。"
     }
-  ]
+  ],
+  "execution_review": {
+    "date": "2026-11-28",
+    "url": "tests-2026-11-28/",
+    "summary": {
+      "status_counts": {
+        "fail": 13,
+        "partial": 104,
+        "pass": 189,
+        "blocked": 18
+      },
+      "layers": [
+        {
+          "layer": "MCP",
+          "pass": 177,
+          "partial": 87,
+          "fail": 12,
+          "blocked": 0,
+          "total": 276
+        },
+        {
+          "layer": "Skills",
+          "pass": 12,
+          "partial": 17,
+          "fail": 1,
+          "blocked": 0,
+          "total": 30
+        },
+        {
+          "layer": "Agent",
+          "pass": 0,
+          "partial": 0,
+          "fail": 0,
+          "blocked": 18,
+          "total": 18
+        }
+      ],
+      "question_count": 324,
+      "tool_count": 108,
+      "unique_evidence_calls": 507,
+      "question_call_references": 572,
+      "retests": {
+        "pass": 12,
+        "partial": 8
+      },
+      "artifacts": 76,
+      "test_date": "2026-11-28",
+      "frozen_question_date": "2026-11-11",
+      "privacy": "原始账户与私募响应、身份凭据不上传公开站点。",
+      "current_adapter_supplement_calls": 10,
+      "current_adapter_supplement_scope": "3条净值题、5个代表接口行为，另追加1次精确15%回撤案例；共9组10次真实调用，非213题全量双入口回归。不同授权身份可能影响数据，只对已观测行为作结论。"
+    }
+  },
+  "question_design_date": "2026-11-11"
 }

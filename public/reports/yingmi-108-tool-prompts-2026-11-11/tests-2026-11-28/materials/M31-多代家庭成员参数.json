@@ -1,0 +1,51 @@
+{
+  "material_status": "独立扩展模拟家庭FM02，仅用于多代结构测试，不并入F01真实或模拟财务账目",
+  "as_of": "2026-11-28",
+  "request": {
+    "familyMembers": [
+      {
+        "role": "本人",
+        "name": "模拟成员甲",
+        "gender": "男",
+        "birthDate": "1986-06-15",
+        "ageDescription": "40岁",
+        "occupation": "受薪雇员",
+        "residenceCity": "广州"
+      },
+      {
+        "role": "配偶",
+        "name": "模拟成员乙",
+        "gender": "女",
+        "birthDate": "1988-08-20",
+        "ageDescription": "38岁",
+        "occupation": "受薪雇员",
+        "residenceCity": "广州"
+      },
+      {
+        "role": "儿子",
+        "name": "模拟成员丙",
+        "gender": "男",
+        "birthDate": "2018-09-01",
+        "ageDescription": "8岁",
+        "occupation": "学生",
+        "residenceCity": "广州"
+      },
+      {
+        "role": "父亲",
+        "name": "模拟父亲丁",
+        "gender": "男",
+        "birthDate": "1958-07-01",
+        "occupation": "退休人员",
+        "residenceCity": "广州"
+      },
+      {
+        "role": "母亲",
+        "name": "模拟母亲戊",
+        "gender": "女",
+        "birthDate": "1960-09-01",
+        "occupation": "退休人员",
+        "residenceCity": "广州"
+      }
+    ]
+  }
+}

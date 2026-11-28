@@ -1360,13 +1360,13 @@ const initialState = {
     {
       id: "yingmi-108-tool-prompts-2026-11-11",
       "groupId": "ai-platform",
-      "title": "盈米108项能力 · 324问与演示素材库",
+      "title": "盈米108项能力 · 324问与实际验收",
       "url": "https://clairku.github.io/clair-ai-studio/reports/yingmi-108-tool-prompts-2026-11-11/",
       "preview": "yingmi-108-tool-prompts-2026-11-11.svg",
       "pinned": false,
       "position": 0,
       "createdAt": "2026-11-11T18:25:00+08:00",
-      "source": "覆盖92个MCP、10个Skills与6个Agent，每项3问共324问。含完整提问、参数准备、模拟案例附件、前置授权、预期交付、验收要点、官网与豆包工作/WorkBuddy/千问办公案例及竞品参考。支持搜索复制、Excel清单和完整离线素材包。提问设计稿，未逐题执行金融分析。",
+      "source": "覆盖92个MCP、10个Skills与6个Agent，每项3问共324问。2026-11-28已执行306道原题：189通过、104部分完成、13失败；另18道原生Agent题未完成。逐题保留实际输出、验收结论与限制，区分本地工作流复现与平台原生执行。含完整提问、参数准备、模拟案例附件、官网和竞品案例参考，支持搜索复制、Excel与离线素材包。",
       "access": "production",
       workType: "product-demo",
       "tags": [
@@ -6732,7 +6732,8 @@ function migrateState(saved) {
     }
     return {
       ...report,
-      title: refreshCatalogMetadata
+      title: refreshCatalogMetadata || (report.id === "yingmi-108-tool-prompts-2026-11-11" &&
+        savedReport.title === "盈米108项能力 · 324问与演示素材库")
         ? report.title
         : saved.version >= DATA_VERSION
         ? savedReport.title || report.title

@@ -1,0 +1,138 @@
+{
+  "material_status": "模拟案例／教学测试；非真实客户或工具返回",
+  "description": "独立演示CF01（不等同F01完整生命周期）。金额明确按元/年准备；官网金额频率未写明时，调用前需核对服务端是否按年解释。全部年龄按本人甲计算；未来工资、养老金、支出和报酬率均为人为设定；没有计入自住房和受限养老金本金；开始/结束年龄包含关系以真实服务端定义为准，不擅加一年。",
+  "as_of": "2026-11-10",
+  "request": {
+    "currentInvestableAssets": 1000000,
+    "returnRateConfig": [
+      {
+        "startAge": 40,
+        "endAge": 59,
+        "rate": 0.04
+      },
+      {
+        "startAge": 60,
+        "endAge": 89,
+        "rate": 0.03
+      }
+    ],
+    "familyMembers": [
+      {
+        "role": "本人",
+        "name": "模拟成员甲",
+        "initialAge": 40
+      },
+      {
+        "role": "配偶",
+        "name": "模拟成员乙",
+        "initialAge": 38
+      },
+      {
+        "role": "儿子",
+        "name": "模拟成员丙",
+        "initialAge": 8
+      }
+    ],
+    "continuousIncome": [
+      {
+        "startAge": 40,
+        "endAge": 59,
+        "incomeType": "salary",
+        "growthRate": 0,
+        "amount": 552000
+      },
+      {
+        "startAge": 40,
+        "endAge": 59,
+        "incomeType": "bonus",
+        "growthRate": 0,
+        "amount": 60000
+      },
+      {
+        "startAge": 60,
+        "endAge": 89,
+        "incomeType": "otherIncome",
+        "growthRate": 0.025,
+        "amount": 96000
+      }
+    ],
+    "continuousExpenses": [
+      {
+        "startAge": 40,
+        "endAge": 59,
+        "expenseType": "dailyExpenses",
+        "inflationRate": 0.025,
+        "amount": 132000
+      },
+      {
+        "startAge": 40,
+        "endAge": 59,
+        "expenseType": "mortgagePayment",
+        "inflationRate": 0,
+        "amount": 102000
+      },
+      {
+        "startAge": 40,
+        "endAge": 49,
+        "expenseType": "educationExpenses",
+        "inflationRate": 0.03,
+        "amount": 48000
+      },
+      {
+        "startAge": 40,
+        "endAge": 89,
+        "expenseType": "insurancePremium",
+        "inflationRate": 0.025,
+        "amount": 18000
+      },
+      {
+        "startAge": 40,
+        "endAge": 89,
+        "expenseType": "otherExpenses",
+        "inflationRate": 0.025,
+        "amount": 24000
+      },
+      {
+        "startAge": 40,
+        "endAge": 89,
+        "expenseType": "travelExpenses",
+        "inflationRate": 0.025,
+        "amount": 24000
+      },
+      {
+        "startAge": 60,
+        "endAge": 89,
+        "expenseType": "dailyExpenses",
+        "inflationRate": 0.025,
+        "amount": 180000
+      }
+    ],
+    "oneTimeIncome": [],
+    "oneTimeExpenses": [
+      {
+        "startAge": 50,
+        "endAge": 50,
+        "expenseType": "educationExpenses",
+        "amount": 80000
+      },
+      {
+        "startAge": 51,
+        "endAge": 51,
+        "expenseType": "educationExpenses",
+        "amount": 82400
+      },
+      {
+        "startAge": 52,
+        "endAge": 52,
+        "expenseType": "educationExpenses",
+        "amount": 84872
+      },
+      {
+        "startAge": 53,
+        "endAge": 53,
+        "expenseType": "educationExpenses",
+        "amount": 87418.16
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "material_status": "模拟案例／教学测试；非真实客户或工具返回",
+  "description": "F01明细拆分：日常开支原9000/月拆为日常7000、交通1000、缴费1000；赡养24000/年归otherExpenses。工资552000、奖金60000；支出324000、结余288000。全部金额为元/年；零值表示本模拟明确无该项。",
+  "as_of": "2026-11-10",
+  "request": {
+    "annualIncome": {
+      "otherIncome": 0,
+      "businessIncome": 0,
+      "investmentIncome": 0,
+      "housingFundWithdrawal": 0,
+      "rentalIncome": 0,
+      "bonus": 60000,
+      "salary": 552000
+    },
+    "annualExpense": {
+      "otherExpenses": 24000,
+      "travelExpenses": 24000,
+      "medicalExpenses": 0,
+      "educationExpenses": 48000,
+      "insurancePremium": 18000,
+      "parkingLoanPayment": 0,
+      "carLoanPayment": 0,
+      "mortgagePayment": 102000,
+      "transportation": 12000,
+      "utilityBills": 12000,
+      "dailyExpenses": 84000
+    }
+  }
+}
