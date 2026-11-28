@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "qieman-customer-360-service-plan",
     "qieman-lodestar-service-story",
     "qieman-lodestar-advisor-workbench",
     "mcp-strategy-detail-review",

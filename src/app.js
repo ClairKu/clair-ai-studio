@@ -226,6 +226,29 @@ const initialState = {
   ],
   reports: [
     {
+      "id": "qieman-customer-360-service-plan",
+      "groupId": "product-planning",
+      "title": "客户 360 与连续服务｜且慢产品规划",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-customer-360-service-plan/",
+      "preview": "qieman-customer-360-service-plan.svg",
+      "pinned": false,
+      "position": -12,
+      "createdAt": "2026-11-28T08:52:23Z",
+      "modifiedAt": "2026-11-28T08:52:23Z",
+      "source": "七域五层客户数据全景图，连接客户 360、财富档案、跨团队服务包与服务记录。含双场景交互、共享边界和 12 周试点决策。",
+      "access": "production",
+      "workType": "product-planning",
+      "tags": [
+        "且慢",
+        "客户360",
+        "财富档案",
+        "客户服务包",
+        "顾问工作台",
+        "产品规划",
+        "数据治理"
+      ]
+    },
+    {
       "id": "qieman-lodestar-service-story",
       "groupId": "advisor-workbench",
       "title": "会谈之后，电话之前｜且慢顾问工作台 Lodestar",
@@ -5829,6 +5852,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-customer-360-service-plan": "product-planning",
   "qieman-lodestar-service-story": "reporting",
   "qieman-lodestar-advisor-workbench": "reporting",
   "mcp-strategy-detail-review": "product-demo",
@@ -6030,6 +6054,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-customer-360-service-plan": "product-planning",
   "qieman-lodestar-service-story": "advisor-workbench",
   "qieman-lodestar-advisor-workbench": "advisor-workbench",
   "mcp-strategy-detail-review": "ai-platform",
