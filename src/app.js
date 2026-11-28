@@ -226,6 +226,30 @@ const initialState = {
   ],
   reports: [
     {
+      "id": "qieman-lodestar-service-story",
+      "groupId": "advisor-workbench",
+      "title": "会谈之后，电话之前｜且慢顾问工作台 Lodestar",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-lodestar-service-story/",
+      "preview": "qieman-lodestar-service-story.png",
+      "pinned": false,
+      "position": -11,
+      "createdAt": "2026-11-28T07:01:26Z",
+      "modifiedAt": "2026-11-28T07:01:26Z",
+      "source": "从会谈转写、企微和账户资料形成家庭财务规划，到大额赎回后的客户分流和跟进。两个服务场景串起顾问接手、团队方法与执行边界。",
+      "access": "production",
+      "workType": "reporting",
+      "tags": [
+        "且慢",
+        "投顾工作台",
+        "Lodestar",
+        "财务规划",
+        "客户经营",
+        "Skill",
+        "汇报材料",
+        "HTML"
+      ]
+    },
+    {
       "id": "qieman-lodestar-advisor-workbench",
       "groupId": "advisor-workbench",
       "title": "Lodestar｜且慢顾问工作台",
@@ -5805,6 +5829,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-lodestar-service-story": "reporting",
   "qieman-lodestar-advisor-workbench": "reporting",
   "mcp-strategy-detail-review": "product-demo",
   "qieman-advisor-workbench-roadmap-2026-11-27": "product-planning",
@@ -6005,6 +6030,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-lodestar-service-story": "advisor-workbench",
   "qieman-lodestar-advisor-workbench": "advisor-workbench",
   "mcp-strategy-detail-review": "ai-platform",
   "qieman-advisor-workbench-roadmap-2026-11-27": "advisor-workbench",

@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf9f5">
+  <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots>
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="一场会谈怎样变成财务规划报告，同样的大额赎回为什么需要不同的跟进。通过两个服务现场认识且慢顾问工作台 Lodestar。">
+  <title>会谈之后，电话之前｜且慢顾问工作台 Lodestar</title>
+  <script data-clair-access-gate data-clair-access-scope="report" data-clair-access-entry="reports/qieman-lodestar-service-story/" src="../../access-gate.js?rev=2026-11-12-fast-login-v11"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #faf9f5;
+      --white: #fff;
+      --ink: #172e3c;
+      --muted: #4b626d;
+      --rule: #ccd6d9;
+      --blue: #125ea3;
+      --bright: #1b88ee;
+      --pale: #eef5fb;
+      --night: #142f43;
+      --ochre: #845022;
+      --serif: "Songti SC", "STSong", "Source Han Serif SC", "Noto Serif CJK SC", "Noto Serif SC", "SimSun", serif;
+      --roman: Baskervville, "Iowan Old Style", "Palatino Linotype", Georgia, var(--serif);
+      --content: 1100px;
+      --side: clamp(22px, 5.5vw, 84px);
+      --top: 64px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--top) + 22px); }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.85 var(--serif); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .23em; }
+    a:focus-visible { outline: 3px solid #b57324; outline-offset: 4px; }
+    h1, h2, h3, h4, p, ol, ul, dl, dd, figure, blockquote { margin: 0; }
+    h1, h2, h3, h4 { text-wrap: balance; }
+    figure { min-width: 0; }
+    .shell { width: min(calc(100% - var(--side) * 2), var(--content)); margin-inline: auto; }
+    .skip { position: fixed; top: -7rem; left: 15px; z-index: 50; padding: 6px 14px; background: white; }
+    .skip:focus { top: 10px; }
+    .mast { position: sticky; top: 0; z-index: 12; background: #faf9f5fa; border-bottom: 1px solid #c6d1d5; }
+    .mast-row { min-height: var(--top); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .identity { display: inline-flex; align-items: center; gap: 13px; text-decoration: none; white-space: nowrap; }
+    .identity img { width: 65px; height: auto; display: block; }
+    .identity span { padding-left: 13px; border-left: 1px solid var(--rule); font-size: 15px; font-weight: 650; letter-spacing: .1em; }
+    .chapter-nav { align-self: stretch; display: flex; align-items: stretch; gap: clamp(14px, 2.5vw, 32px); }
+    .chapter-nav a { position: relative; display: inline-flex; align-items: center; color: var(--muted); text-decoration: none; font-size: 14px; white-space: nowrap; }
+    .chapter-nav a[aria-current="location"] { color: var(--blue); }
+    .chapter-nav a[aria-current="location"]::after { content: ""; position: absolute; bottom: -1px; left: 0; right: 0; height: 2px; background: var(--bright); }
+    .reading-progress { height: 2px; position: absolute; inset: auto 0 -2px; pointer-events: none; }
+    .reading-progress i { display: block; height: 100%; background: var(--bright); transform-origin: left; transform: scaleX(0); }
+    .hero { padding: clamp(48px, 7vw, 97px) 0 clamp(35px, 5vw, 64px); }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(32px, 6vw, 90px); }
+    .wordmark { color: var(--blue); font: italic 500 clamp(34px, 4.4vw, 56px)/1 var(--roman); letter-spacing: -.045em; }
+    .product { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px 17px; }
+    .product-name { font-size: 14px; letter-spacing: .11em; color: var(--muted); }
+    h1 { margin: 23px 0 22px; font-size: clamp(54px, 5.8vw, 82px); line-height: 1.18; letter-spacing: -.055em; font-weight: 700; }
+    .hero-copy { color: #37505d; max-width: 29em; font-size: clamp(17px, 1.48vw, 20px); line-height: 1.9; }
+    .read-link { display: inline-flex; align-items: center; gap: 11px; color: var(--blue); margin-top: 23px; font-size: 15px; text-decoration: none; }
+    .read-link span { border-bottom: 1px solid currentColor; }
+    .read-link b { font: 21px/1 var(--roman); }
+    .brief-back { border: 1px solid #c6d9e6; background: #e2edf6; background-image: repeating-radial-gradient(ellipse at 105% -34%, transparent 0 37px, #6c9fc019 38px 39px, transparent 40px 53px); padding: clamp(18px, 3.1vw, 39px); position: relative; }
+    .brief-paper { border: 1px solid #b5cbda; border-top: 3px solid var(--bright); background: #fff; box-shadow: 6px 8px 0 -1px #eff5f9, 6px 8px 0 0 #b5cbd8; padding: clamp(17px, 2.2vw, 28px); }
+    .ui-top, .doc-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 9px; color: var(--blue); font-size: 13px; letter-spacing: .035em; }
+    .ui-top .sample, .sample { color: var(--muted); font-size: 12px; }
+    .dot { display: inline-block; width: 7px; height: 7px; vertical-align: .1em; margin-right: 7px; border-radius: 50%; background: var(--bright); }
+    .brief-paper h2 { margin: 14px 0 12px; font-size: clamp(23px, 2.1vw, 30px); line-height: 1.36; }
+    .counts { display: grid; grid-template-columns: 1fr 1fr 1fr; margin: 0 0 15px; border-block: 1px solid #dbe3e8; padding: 13px 0; }
+    .counts div + div { border-left: 1px solid #dbe3e8; padding-left: 14px; }
+    .counts dt { line-height: 1.02; font: 500 clamp(28px, 3.1vw, 40px)/1.04 var(--roman); font-variant-numeric: lining-nums tabular-nums; }
+    .counts dd { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .counts div:last-child dt { color: var(--blue); }
+    .brief-line { display: grid; grid-template-columns: 4.3em 1fr auto; align-items: baseline; gap: 8px; padding: 6px 0; text-decoration: none; font-size: 13px; line-height: 1.65; }
+    .brief-line span:first-child { color: var(--blue); }
+    .brief-line b { font-weight: 650; }
+    .brief-line i { font-family: var(--roman); font-style: normal; color: var(--blue); }
+    .brief-line:hover b, .chapter-nav a:hover { text-decoration: underline; }
+    figcaption, .note { font-size: 13px; line-height: 1.65; color: var(--muted); }
+    .brief-figure figcaption { margin-top: 13px; }
+    .opening { padding: 0 0 clamp(53px, 7vw, 85px); }
+    .opening-grid { display: grid; grid-template-columns: .72fr 1.28fr; column-gap: clamp(28px, 7vw, 90px); border-top: 1px solid var(--rule); padding-top: 30px; align-items: start; }
+    .opening h2 { font-size: clamp(25px, 2.7vw, 35px); line-height: 1.48; }
+    .opening-grid p + p { margin-top: 9px; }
+    .chapter { padding: clamp(52px, 6vw, 80px) 0; }
+    .financial { background: white; border-block: 1px solid var(--rule); }
+    .section-tag { display: inline-flex; align-items: center; gap: 11px; font-size: 14px; letter-spacing: .16em; color: var(--blue); font-weight: 650; }
+    .section-tag::before { content: ""; width: 32px; height: 2px; background: var(--bright); }
+    .chapter-head { display: grid; grid-template-columns: 1.07fr .93fr; align-items: end; gap: clamp(22px, 5vw, 70px); }
+    .chapter-title { margin-top: 12px; font-size: clamp(34px, 3.9vw, 53px); line-height: 1.31; letter-spacing: -.045em; }
+    .chapter-intro { color: #3e5662; }
+    .chapter-head + figure, .chapter-head + .inputs { margin-top: clamp(28px, 3.7vw, 47px); }
+    .inputs { border: 1px solid #c3d0d6; background: #fcfcf9; }
+    .figure-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 15px clamp(17px, 2.5vw, 30px); border-bottom: 1px solid var(--rule); }
+    .figure-head strong { font-size: 17px; }
+    .figure-head span { font-size: 13px; color: var(--muted); }
+    .source-streams { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); list-style: none; padding: 0; }
+    .source-streams li { padding: 20px clamp(17px, 2.5vw, 30px) 25px; border-left: 1px solid var(--rule); }
+    .source-streams li:first-child { border-left: 0; }
+    .source-streams h3 { font-size: 20px; line-height: 1.45; margin: 7px 0 6px; }
+    .source-streams p, .layer dd, .boundaries p { font-size: 15px; color: var(--muted); line-height: 1.75; }
+    .source-kind { color: var(--blue); font-size: 13px; }
+    .merged { padding: 15px clamp(17px, 2.5vw, 30px); display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 23px; background: #eaf3f9; border-top: 1px solid #c3d3dc; }
+    .merged strong { font-size: 19px; color: #144e73; }
+    .merged span { font-size: 15px; color: #355667; }
+    .body-lead { max-width: 43em; margin: 30px 0 24px; }
+    .body-lead strong { color: var(--blue); }
+    .report-frame { background: #e7eef1; border: 1px solid #ccd7dd; padding: clamp(20px, 3.2vw, 43px); display: grid; grid-template-columns: 1.45fr .72fr; align-items: start; gap: clamp(20px, 3.5vw, 52px); }
+    .report-page { background: #fff; border: 1px solid #ccd7db; border-top: 4px solid #2478ad; padding: clamp(19px, 2.8vw, 36px); box-shadow: 0 5px 15px #142c3a0a; }
+    .doc-top { font-size: 12px; border-bottom: 1px solid var(--rule); padding-bottom: 13px; }
+    .doc-top img { display: block; width: 50px; height: auto; }
+    .report-page h3 { margin: 17px 0 7px; font-size: clamp(23px, 2.65vw, 35px); line-height: 1.36; letter-spacing: -.04em; }
+    .doc-summary { margin: 0 0 15px; color: #46606c; font-size: 15px; }
+    .plan-table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.7; }
+    .plan-table th, .plan-table td { text-align: left; padding: 9px 0; border-bottom: 1px solid #dae2e5; vertical-align: top; }
+    .plan-table thead th { color: #385461; border-top: 1px solid #adbfc8; font-size: 13px; }
+    .plan-table tbody th { width: 21%; color: var(--blue); }
+    .plan-table td { padding-left: 6px; }
+    .review-note { margin-top: 17px; padding: 9px 12px; background: #fbf4e6; color: #664722; font-size: 14px; line-height: 1.7; border-left: 2px solid #b38649; }
+    .notification { padding: 14px 0; }
+    .notification .label { color: var(--blue); font-size: 14px; }
+    .notification h3 { margin: 9px 0 13px; font-size: clamp(21px, 2.1vw, 27px); line-height: 1.45; }
+    .receipt-list { list-style: none; padding: 0; }
+    .receipt-list li { position: relative; padding: 9px 0 9px 17px; border-top: 1px solid #becdd4; font-size: 15px; }
+    .receipt-list li::before { content: ""; position: absolute; left: 0; top: 1.34em; width: 6px; height: 6px; background: #2877aa; transform: rotate(45deg); }
+    .notification p { font-size: 14px; color: var(--muted); margin-top: 15px; }
+    .figure-caption { margin-top: 10px; }
+    .handover { display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: baseline; margin-top: 27px; max-width: 53em; }
+    .handover strong { color: var(--blue); white-space: nowrap; }
+    .business { background: var(--night); color: #f8f7ef; }
+    .business .section-tag { color: #a6d5ff; }
+    .business .chapter-intro { color: #d3e1e9; }
+    .case-comparison { border: 1px solid #668092; }
+    .case-comparison .figure-head { border-color: #607c90; }
+    .case-comparison .figure-head span { color: #c5d9e5; }
+    .two-clients { display: grid; grid-template-columns: 1fr 1fr; }
+    .client { padding: clamp(20px, 2.6vw, 32px); }
+    .client + .client { border-left: 1px solid #607c90; background: #1c4057; }
+    .client-mark { font: italic 500 24px/1 var(--roman); color: #a6d5ff; }
+    .client h3 { font-size: clamp(22px, 2.4vw, 31px); margin: 8px 0 15px; line-height: 1.4; }
+    .client dl { display: grid; grid-template-columns: 4.1em 1fr; gap: 9px 13px; font-size: 15px; line-height: 1.75; }
+    .client dt { color: #b4d1e2; }
+    .client dd { color: #f2f6f7; }
+    .business .figure-caption { color: #c4d6e1; }
+    .follow { background: #fff; }
+    .follow .shell { padding-block: clamp(40px, 5.3vw, 64px); }
+    .follow-grid { display: grid; grid-template-columns: .72fr 1.28fr; align-items: start; gap: clamp(24px, 5vw, 66px); }
+    .mid-title { font-size: clamp(26px, 2.85vw, 38px); line-height: 1.46; letter-spacing: -.035em; }
+    .follow-copy > p { margin-top: 15px; color: var(--muted); }
+    .contact-note { margin-top: 24px; border-top: 2px solid var(--blue); padding-top: 13px; }
+    .contact-note h3 { font-size: 17px; color: var(--blue); }
+    .contact-note p { margin-top: 5px; font-size: 15px; color: var(--muted); }
+    .service-sheet { border: 1px solid #c5d1d7; background: var(--paper); }
+    .service-head { padding: 17px clamp(18px, 2.4vw, 29px); background: #eaf2f6; border-bottom: 1px solid #c5d1d7; }
+    .service-head .ui-top { font-size: 12px; }
+    .service-head h3 { font-size: clamp(23px, 2.2vw, 29px); margin-top: 5px; line-height: 1.4; }
+    .service-body { padding: 8px clamp(18px, 2.4vw, 29px) 19px; }
+    .service-row { display: grid; grid-template-columns: 4.2em 1fr; gap: 13px; padding: 11px 0; border-bottom: 1px solid #d6dfe1; font-size: 15px; line-height: 1.75; }
+    .service-row strong { color: #285b76; }
+    .phone-quote { margin: 15px 0 0; padding: 3px 0 3px 13px; border-left: 2px solid #7da8c6; color: #244b62; }
+    .phone-quote span { display: block; font-size: 12px; color: #47697a; }
+    .phone-quote p { font-size: 16px; line-height: 1.8; margin-top: 4px; }
+    .service-bottom { margin-top: 14px; color: var(--muted); font-size: 13px; }
+    .method { border-block: 1px solid var(--rule); }
+    .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(29px, 6vw, 74px); margin-top: 32px; }
+    .method-grid h3 { font-size: 23px; margin-bottom: 12px; }
+    .layer, .boundaries { margin: 0; padding: 0; list-style: none; border-top: 2px solid #94aab6; }
+    .layer > div, .boundaries li { padding: 12px 0; border-bottom: 1px solid var(--rule); }
+    .layer dt, .boundaries h4 { font-size: 17px; font-weight: 700; color: #244c66; }
+    .layer dd, .boundaries p { margin-top: 2px; }
+    .method-example { margin-top: 27px; display: grid; grid-template-columns: 7.5em 1fr; align-items: baseline; gap: 15px; padding: 19px clamp(17px, 2.4vw, 27px); background: #eaf1f3; }
+    .method-example strong { color: #24546e; }
+    .method-example p { font-size: 15px; }
+    .closing { padding: clamp(43px, 5.2vw, 72px) 0; background: #fff; }
+    .closing-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(22px, 5vw, 70px); align-items: start; }
+    .closing h2 { font-size: clamp(31px, 3.3vw, 47px); line-height: 1.4; letter-spacing: -.045em; }
+    .closing-grid p + p { margin-top: 10px; }
+    .footer { border-top: 1px solid var(--rule); padding-block: 20px 26px; }
+    .footer .shell { display: flex; gap: 10px 30px; justify-content: space-between; align-items: baseline; color: var(--muted); font-size: 13px; }
+    .footer a { color: var(--blue); white-space: nowrap; }
+    @media (max-width: 880px) {
+      .hero-grid { gap: 28px; }
+      .product { gap: 8px 12px; }
+      .report-frame { grid-template-columns: 1.29fr .71fr; gap: 24px; }
+      .chapter-head { gap: 27px; }
+      .source-streams h3 { font-size: 19px; }
+    }
+    @media (max-width: 720px) {
+      :root { --top: 80px; --side: clamp(18px, 5.5vw, 34px); }
+      body { font-size: 16px; line-height: 1.85; }
+      .mast-row { display: block; min-height: auto; }
+      .identity { min-height: 43px; }
+      .identity img { width: 54px; }
+      .identity span { font-size: 13px; }
+      .chapter-nav { gap: 0; justify-content: space-between; width: min(100%, 410px); }
+      .chapter-nav a { min-height: 36px; font-size: 13px; }
+      .hero-grid, .opening-grid, .chapter-head, .report-frame, .follow-grid, .method-grid, .closing-grid { grid-template-columns: 1fr; }
+      .hero { padding: 35px 0 30px; }
+      .hero-grid { gap: 25px; }
+      .wordmark { font-size: 37px; }
+      h1 { font-size: clamp(49px, 9.9vw, 65px); margin: 15px 0 15px; }
+      .hero-copy { max-width: 36em; }
+      .read-link { margin-top: 12px; }
+      .brief-back { padding: 19px 22px 23px 19px; }
+      .brief-paper { padding: 15px 18px; }
+      .brief-paper h2 { margin-block: 8px 10px; }
+      .counts { padding: 9px 0; margin-bottom: 9px; }
+      .brief-figure figcaption { margin-top: 8px; }
+      .opening { padding-bottom: 37px; }
+      .opening-grid { gap: 13px; padding-top: 22px; }
+      .chapter { padding: 42px 0; }
+      .chapter-head { gap: 14px; }
+      .chapter-title { margin-top: 9px; font-size: clamp(32px, 6.7vw, 44px); }
+      .chapter-head + figure, .chapter-head + .inputs { margin-top: 23px; }
+      .source-streams { grid-template-columns: 1fr; }
+      .source-streams li { display: grid; grid-template-columns: 6em 1fr; column-gap: 14px; padding: 12px 17px; border: 0; border-bottom: 1px solid var(--rule); }
+      .source-streams h3 { margin: 0; font-size: 17px; }
+      .source-streams .source-kind { grid-row: span 2; padding-top: 2px; }
+      .source-streams p { margin-top: 3px; }
+      .merged { gap: 7px; padding: 13px 17px; border-top: 0; grid-template-columns: 1fr; }
+      .figure-head { padding-block: 12px; }
+      .figure-head strong { font-size: 16px; }
+      .figure-head span { font-size: 12px; }
+      .report-frame { padding: 16px; gap: 9px; }
+      .report-page { padding: 18px; }
+      .notification { padding: 10px 3px 0; }
+      .notification h3 { font-size: 21px; margin: 3px 0 8px; }
+      .notification p { margin-top: 8px; }
+      .receipt-list li { padding-block: 5px; }
+      .receipt-list li::before { top: 1.05em; }
+      .handover { gap: 5px; grid-template-columns: 1fr; margin-top: 18px; }
+      .two-clients { grid-template-columns: 1fr; }
+      .client + .client { border-left: 0; border-top: 1px solid #607c90; }
+      .client { padding: 17px; }
+      .client h3 { display: inline; margin-left: 10px; font-size: 22px; }
+      .client dl { margin-top: 12px; gap: 6px 12px; }
+      .follow-grid, .method-grid { gap: 24px; }
+      .contact-note { margin-top: 16px; }
+      .method-grid { margin-top: 23px; }
+      .method-example { grid-template-columns: 1fr; gap: 5px; }
+      .footer .shell { align-items: flex-start; }
+    }
+    @media (max-width: 365px) {
+      .brief-line { grid-template-columns: 1fr auto; }
+      .brief-line span:first-child { grid-column: 1 / -1; }
+      .identity { gap: 9px; }
+      .source-streams li { grid-template-columns: 4.6em 1fr; }
+      .service-row { grid-template-columns: 3.2em 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    @media print {
+      @page { margin: 16mm; }
+      :root { --side: 0px; }
+      body { font-size: 10.5pt; }
+      .mast, .read-link, .footer a { display: none; }
+      .shell { width: 100%; }
+      .hero, .chapter, .closing, .follow .shell { padding-block: 14pt; }
+      .hero-grid, .opening-grid, .chapter-head, .follow-grid, .closing-grid { display: block; }
+      .hero-grid > *, .opening-grid > *, .chapter-head > *, .follow-grid > *, .closing-grid > * { margin-bottom: 8pt; }
+      h1 { font-size: 31pt; }
+      h1 br { display: none; }
+      .chapter-title { font-size: 23pt; }
+      figure, .method-example, .layer > div, .boundaries li { break-inside: avoid; }
+      h2, h3 { break-after: avoid; }
+      .report-frame, .method-grid { display: grid; grid-template-columns: 1.32fr .85fr; }
+      .business { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      a { text-decoration: none; }
+    }
+  </style>
+</head>
+<body id="top">
+  <a class="skip" href="#main">跳到正文</a>
+  <header class="mast">
+    <div class="shell mast-row">
+      <a class="identity" href="#top" aria-label="且慢顾问工作台，回到开头">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMTkiIGhlaWdodD0iNDYiIHZpZXdCb3g9IjAgMCAxMTkgNDYiIGZpbGw9Im5vbmUiIGFyaWEtaGlkZGVuPSJ0cnVlIj4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDAuMjgpIj4KICAgIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjIuMjMxOCAwQzM0LjUwOTggMCA0NC40NjQ0IDEwLjE3IDQ0LjQ2NDQgMjIuNzE1MlYyMi43MTUyTDQ0LjQ1OCAyMy4yNjc3QzQ0LjQxOTMgMjQuOTIwNCA0NC4yMDc2IDI2LjUyOTYgNDMuODQwOCAyOC4wNzZWMjguMDc2TDQzLjc2NjYgMjguMzgwMUM0MS4zMDMzIDM4LjE4NDcgMzIuNTk2NCA0NS40MzA1IDIyLjIzMTggNDUuNDMwNVY0NS40MzA1TDIxLjg2NDIgNDUuNDI3NEM5Ljc1NTA1IDQ1LjIyNjggMCAzNS4xMzUgMCAyMi43MTUyVjIyLjcxNTJMMC4wMDI5NzgzMSAyMi4zMzk2QzAuMTk5Mjk1IDkuOTY3NjQgMTAuMDc1OSAwIDIyLjIzMTggMFpNMjIuMjMyNCAwLjk2NTgwMkwyMS45MTExIDAuOTY4MjQ0QzEyLjYwNzQgMS4xMDk3MSA0LjczNDkxIDcuMzgzMTUgMS45OSAxNS45OTkzVjE1Ljk5OTNMMS44NzMzNyAxNi40MDAxQzEuNTQwNDIgMTcuNjA5OSAxLjM2MDk2IDE4Ljg4NTEgMS4zNjA5NiAyMC4yMDQzQzEuMzYwOTYgMjcuOTU2NSA3LjUxMTkzIDM0LjI0MjMgMTUuMDk5OSAzNC4yNDIzVjM0LjI0MjNMMTUuMzg0MSAzNC4yMzkzQzIxLjYyMTQgMzQuMTEgMjYuODM4OCAyOS43MzMyIDI4LjM3ODggMjMuODI0M1YyMy44MjQzTDI4LjQ1MjMgMjMuNTYzM0MyOS43MjgxIDE5LjI1OTYgMzMuNDc1IDE3LjM1NDIgMzYuNTkyIDE3LjM1NDJWMTcuMzU0MkwzNi44ODg5IDE3LjM1OTRDMzguMzY3NCAxNy40MTEzIDM5Ljc0ODYgMTcuODQ5IDQwLjk0MjYgMTguNTc3NFYxOC41Nzc0TDQxLjEwODEgMTguNjgyMkM0Mi41MjQ5IDE5LjYxNyA0My40NzAzIDIxLjIzMjcgNDMuNTA4MyAyMy4wNzZWMjMuMDc2TDQzLjUxNzYgMjIuNzE1TDQzLjUxNDcgMjIuMzU1OUM0My4zMjY0IDEwLjUyODggMzMuODUxNSAwLjk2NTgwMiAyMi4yMzI0IDAuOTY1ODAyVjAuOTY1ODAyWiIgZmlsbD0iIzFCODhFRSIvPgogICAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik01LjIyOTU4IDIxLjQ0OTVDMy43NDgzOSAyMS40NDk1IDIuODU2NzMgMjIuMzY2NyAyLjg1NjczIDIzLjQ5NzhWMjMuNDk3OEMyLjg1NjczIDIzLjcxNjIgMi44OTIzNiAyMy45Mjc3IDIuOTU1MTEgMjQuMTI2VjI0LjEyNkM0LjYyNDU1IDI5LjQyMzMgOS41ODQwNyAzMy4yNzU4IDE1LjQyNjcgMzMuMjc1OFYzMy4yNzU4QzE4LjcxMTQgMzMuMjc1OCAyMS43MTQ4IDMyLjA1NDkgMjQuMDEzMyAzMC4wNDY5VjMwLjA0NjlDMjMuMDg2IDMwLjI1NjkgMjIuMTIxNSAzMC4zNzE1IDIxLjEzMTUgMzAuMzcxNVYzMC4zNzE1QzE2LjM4NTggMzAuMzcxNSAxMi4yMjQyIDI3LjgyOSA5LjkzMzQ1IDI0LjAzNDZWMjQuMDM0Nkg5LjkzMTlDOC45OTIyMSAyMi40ODUzIDcuMjg5NDYgMjEuNDQ5NSA1LjM0NDIzIDIxLjQ0OTVWMjEuNDQ5NUg1LjIyOTU4WiIgZmlsbD0iIzFCODhFRSIvPgogIDwvZz4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1Mi4wOSA3Ljg2KSI+CiAgICA8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTIyLjEzNSAxLjc5MTg0SDkuMzgwNjNMNi44MjEwOCAwLjU5NzI4VjI4LjA3MDZIMEwwLjc3NTQ1NyAyOS4xNzg0SDMwLjkzNjlDMzEuNjAwMSAyOS4xNzg0IDMyLjE4NzMgMjguODYzMSAzMi41NjA3IDI4LjM3NTFWMjguMzc1MUwyOC45MzY3IDI1LjgzNzJMMjcuMzczNCAyOC4wNzA2SDI1LjM4ODdWMy4zNDE5OEMyNi4wNTE4IDMuMzQxOTggMjYuNjM5IDMuMDI1MTMgMjcuMDEzMiAyLjUzNzg2VjIuNTM3ODZMMjMuMzg5MiAwTDIyLjEzNSAxLjc5MTg0Wk05LjU4MDE1IDEwLjU1MkgyMi40ODg3VjIuODk5NzNIOS41ODAxNVYxMC41NTJaTTkuNTgwMTUgMTkuMzEwNUgyMi40ODg3VjExLjY1ODJIOS41ODAxNVYxOS4zMTA1Wk05LjU4MDE1IDI4LjA3MTNIMjIuNDg4N1YyMC40MTlIOS41ODAxNVYyOC4wNzEzWiIgZmlsbD0iIzFCODhFRSIvPgogIDwvZz4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4Ni40NyAxMy44NikiPgogICAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yLjIwNDc1IDMuMDQwMDRlLTA1QzIuMjM4ODMgMC4yNDA5NTcgMi4yMzg4MyAwLjQ4MTg4MyAyLjIzODgzIDAuNzU3NjdWMC43NTc2N0MyLjIzODgzIDIuODkzNDcgMS40ODA0MiA1LjIwMjAyIDAuNjg4Njk0IDYuMjAwNTlWNi4yMDA1OUMwLjI3NTAxMyA2LjYxNDI3IDAgNy4xMzA5OCAwIDcuNjQ3NjlWNy42NDc2OUMwIDguMjY4MjEgMC4zNzgwNDUgOC43MTUyMSAxLjAzMzQzIDguNzE1MjFWOC43MTUyMUMzLjQ3OTg4IDguNzE1MjEgMy41NDg4MiA1LjEzMjMgMy41NDg4MiA0LjM3NDY2VjQuMzc0NjZDMy41NDg4MiAzLjEwMDMxIDMuMzQwNDMgMS42NTMyIDIuODI0NSAzLjA0MDA0ZS0wNVYzLjA0MDA0ZS0wNUgyLjIwNDc1WiIgZmlsbD0iIzFCODhFRSIvPgogIDwvZz4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5NC4zOCAxMi40MSkiPgogICAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0wIDYuMTQ0MDJlLTA2QzAuODI2NTg1IDEuMjQwMjcgMS41ODQyMiAzLjQxMDkzIDEuNTQ5MzYgNC45NjAzVjQuOTYwM0MxLjg2MDAxIDUuMzM5ODkgMi4yMDQ3NCA1LjUxMTg3IDIuNTQ4NyA1LjUxMTg3VjUuNTExODdDMy4yNzIyNSA1LjUxMTg3IDMuODkyNzcgNC44MjMxOCAzLjg5Mjc3IDMuODIzODRWMy44MjM4NEMzLjg5Mjc3IDIuNzU0NzggMy4xMjk3MSAxLjI4ODMgMC44MzA0NTggNi4xNDQwMmUtMDZWNi4xNDQwMmUtMDZIMFoiIGZpbGw9IiMxQjg4RUUiLz4KICA8L2c+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOTUuNzQgMjYuNjMpIj4KICAgIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTYuOTk1IDEuNDQ3ODhIMS40NjQxNUwyLjIzOTYxIDIuNTU1NjhINS41MjczNkM2Ljc4NTQ0IDQuNjg2ODMgOC40NzAzOCA2LjQ3OTQ0IDEwLjUwNjIgNy45MjQyMlY3LjkyNDIyQzcuNTQzMDggOS42NjEwNiAzLjk3NDEyIDEwLjk5MiAwIDExLjg4NjdWMTEuODg2N1YxMi41MDU3QzQuNjQ5NjQgMTEuNzgyMSA4LjcxNTE4IDEwLjY0NDkgMTIuMTI1MyA4Ljk1NzY1VjguOTU3NjVDMTQuNzA5NyAxMC41MDc4IDE3Ljc3NTkgMTEuNjEwMiAyMS4wODIyIDEyLjQwMTlWMTIuNDAxOUgyMS4wODNDMjEuMzQzMyAxMS4zMzgyIDIyLjEyMTEgMTAuNDgxNSAyMy4xMzIgMTAuMDk5NVYxMC4wOTk1QzIzLjE3MzEgMTAuMDg2NCAyMy4yMTAzIDEwLjA3MDEgMjMuMjUyOSAxMC4wNTkyVjEwLjA1OTJWOS42ODEyQzIwLjIyMTUgOS4zMDE2MSAxNy4yMjQzIDguNjEyOTIgMTQuNTAyOCA3LjY0NzY2VjcuNjQ3NjZDMTYuNDM5NSA2LjQyOTA5IDE4LjA2MjUgNS4wMDk4NyAxOS4zNzY0IDMuMzQxOThWMy4zNDE5OEgyMC4wMDg1QzIwLjY3MDEgMy4zNDE5OCAyMS4yNTgxIDMuMDI1OTEgMjEuNjMxNSAyLjUzNzg2VjIuNTM3ODZMMTguMDA4MyAwTDE2Ljk5NSAxLjQ0Nzg4Wk02LjQ3MjM4IDIuNTU1NzFIMTYuNTUyNUMxNS40NDMyIDQuMTE1OTIgMTQuMDEwOCA1LjUyMzUyIDEyLjMzMzYgNi43MTg4NVY2LjcxODg1QzkuOTYzODggNS42NDY2OSA3LjkzODA4IDQuMjY2MjEgNi40NzIzOCAyLjU1NTcxVjIuNTU1NzFaIiBmaWxsPSIjMUI4OEVFIi8+CiAgPC9nPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDkxLjE5IDYuNzEpIj4KICAgIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMS4xODk5OGUtMDUgMzIuMTc2NEgwLjUwNTEwNUMxLjM3NjYyIDMyLjE3NjQgMi4xNjgzNSAzMS44MzcxIDIuNzU5NDMgMzEuMjg2M1YzMS4yODYzVjIuNjcxODhDMy4yODkzMiAyLjU4ODk5IDMuNzUzMzUgMi4zMDQ2OCA0LjA2NTU1IDEuODk2NDJWMS44OTY0MkwxLjE4OTk4ZS0wNSAwVjMyLjE3NjRaIiBmaWxsPSIjMUI4OEVFIi8+CiAgPC9nPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDk5LjY2IDYuOTkpIj4KICAgIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTIuODY4MiAxLjQ0NzExSDIuNTg1ODlMMCAwLjI0MDkyNlYxMC44NTI1SDAuNTA0MzE4QzEuMzc2NjEgMTAuODUyNSAyLjE2NzU2IDEwLjUxMjQgMi43NTk0MiA5Ljk2MTY0VjkuOTYxNjRWOS4zNzA1NkgxMy4xMTYxVjEwLjg1MjVIMTMuNjIxMkMxNC40OTI4IDEwLjg1MjUgMTUuMjgzNyAxMC41MTI0IDE1Ljg3NDggOS45NjE2NFY5Ljk2MTY0VjMuMzQxOThIMTUuODgxOEMxNi41NDQxIDMuMzQxOTggMTcuMTMyMSAzLjAyNTkxIDE3LjUwNTUgMi41Mzc4NlYyLjUzNzg2TDEzLjg4MDggMEwxMi44NjgyIDEuNDQ3MTFaTTIuNzU5MSA0Ljg1NDU4SDEzLjExNThWMi41NTQ1NUgyLjc1OTFWNC44NTQ1OFpNMi43NTkxIDguMjYyMkgxMy4xMTU4VjUuOTYyMTdIMi43NTkxVjguMjYyMloiIGZpbGw9IiMxQjg4RUUiLz4KICA8L2c+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOTcuODggMTcuODIpIj4KICAgIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTYuNjQ5NSAxLjM5NTJIMi41MTE1MkwwLjAyNDAxNTIgMC4yMzM5NTRMMCAwLjIyMzEwOVY4LjkwNDk3SDAuNTA1MDkzQzEuMzc2NjEgOC45MDQ5NyAyLjE2Njc5IDguNTY1NjYgMi43NTk0MiA4LjAxNDg2VjguMDE0ODZWNy42OTg3OUgxNi43MDQ1VjguNjk3MzZIMTcuMjk0QzE4LjEyMDYgOC42OTczNiAxOS40Mjk4IDguMTgwNjUgMTkuNDYzOSA3Ljk3NDU4VjcuOTc0NThWMi45NjkzNkMxOS45OTA3IDIuODg0MTQgMjAuNDQ5MyAyLjU5OTgzIDIwLjc2MDcgMi4xOTM5VjIuMTkzOUwxNy42MjU2IDBMMTYuNjQ5NSAxLjM5NTJaTTEzLjg5NTUgNi41OTEwMkgxNi43MDQ1VjIuNTAyMjVIMTMuODk1NVY2LjU5MTAyWk04LjMyNzI4IDYuNTkxMDJIMTEuMTM3MVYyLjUwMjI1SDguMzI3MjhWNi41OTEwMlpNMi43NTkxIDYuNTkxMDJINS41NjgwOVYyLjUwMjI1SDIuNzU5MVY2LjU5MTAyWiIgZmlsbD0iIzFCODhFRSIvPgogIDwvZz4KPC9zdmc+Cg==" width="119" height="46" alt="且慢">
+        <span>顾问工作台</span>
+      </a>
+      <nav class="chapter-nav" aria-label="文章目录">
+        <a href="#overview" aria-current="location">工作方式</a>
+        <a href="#planning">财务规划</a>
+        <a href="#service">客户经营</a>
+        <a href="#method">方法与边界</a>
+      </nav>
+    </div>
+    <div class="reading-progress" aria-hidden="true"><i></i></div>
+  </header>
+  <main id="main">
+    <section id="overview" aria-labelledby="story-title">
+      <div class="hero shell hero-grid">
+        <div>
+          <div class="product"><span class="wordmark" lang="en">Lodestar</span><span class="product-name">且慢顾问工作台</span></div>
+          <h1 id="story-title">会谈之后，<br>电话之前。</h1>
+          <p class="hero-copy">一场会谈结束，顾问收到财务规划初稿。客户发起赎回，顾问接到提醒时，手边已经有了账户复盘和通话提纲。Lodestar 把准备工作往前做，让顾问把时间留给客户。</p>
+          <a class="read-link" href="#planning"><span>从一场会谈读起</span><b aria-hidden="true">↓</b></a>
+        </div>
+        <figure class="brief-figure">
+          <div class="brief-back">
+            <div class="brief-paper">
+              <div class="ui-top"><span><i class="dot"></i>智能助手</span><span class="sample">工作台示例</span></div>
+              <h2>今天，有哪些事需要我？</h2>
+              <dl class="counts" aria-label="原稿中的工作简报示例">
+                <div><dt>15</dt><dd>件已自动处理</dd></div>
+                <div><dt>6</dt><dd>件待亲自处理</dd></div>
+                <div><dt>2</dt><dd>件待办属高优先</dd></div>
+              </dl>
+              <a class="brief-line" href="#report"><span>会后交付</span><b>家庭财务规划报告待审阅</b><i aria-hidden="true">↘</i></a>
+              <a class="brief-line" href="#followup"><span>客户跟进</span><b>赎回原因需要电话核实</b><i aria-hidden="true">↘</i></a>
+            </div>
+          </div>
+          <figcaption>助手先汇报已完成的工作，再把需要判断的事项交给顾问。</figcaption>
+        </figure>
+      </div>
+      <div class="opening">
+        <div class="shell opening-grid">
+          <h2>顾问最缺的，<br>是了解客户的时间。</h2>
+          <div>
+            <p>一份报告要翻会议记录、查账户、算现金流、排版。一条赎回提醒只给出金额，顾问还得翻聊天记录，回想客户最近有没有提过用钱。服务的难度藏在这些细节里，经验较少的顾问尤其容易漏看。</p>
+            <p>在 Lodestar，顾问可以在对话里发起任务。工作台也会在约定时间或客户情况发生变化时主动分析，把依据、草稿和待确认的问题一起送来。下面是两次顾问接手的现场。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="planning" class="chapter financial" aria-labelledby="planning-title">
+      <div class="shell">
+        <div class="chapter-head">
+          <div><p class="section-tag">场景一 · 财务规划</p><h2 class="chapter-title" id="planning-title">一次会谈，怎样写成<br>一份家庭财务规划？</h2></div>
+          <p class="chapter-intro">上午 10:13 的会谈结束了。这户家庭有购房打算，也要为生意预留周转资金。要把两个目标写进同一份方案，先得弄清客户说过什么、账户里有什么，还有哪些事没问到。</p>
+        </div>
+        <figure class="inputs" aria-label="多渠道资料汇入客户 360 档案">
+          <div class="figure-head"><strong>这一份报告用到了什么</strong><span>资料归集 · 示例</span></div>
+          <ol class="source-streams">
+            <li><span class="source-kind">听会谈</span><h3>腾讯会议与语音</h3><p>语音自动转写，提取购房意向和经营周转需求，保留客户表达这些需求时的上下文。</p></li>
+            <li><span class="source-kind">翻前情</span><h3>企业微信沟通</h3><p>演示中有 85 条企微沟通。按时间与本次会谈对照，区分此前谈妥的安排和仍待确认的想法。</p></li>
+            <li><span class="source-kind">核账户</span><h3>账户与家庭资料</h3><p>对照资产结构、收支、负债和风险测评。客户口述的家庭安排与系统可核的账户事实分别记录。</p></li>
+          </ol>
+          <figcaption class="merged"><strong>客户 360 档案</strong><span>家庭成员、资金来源、账户持仓、用钱目标和沟通记录汇到一处。顾问能从规划结论回看原始依据。</span></figcaption>
+        </figure>
+        <p class="body-lead">材料归齐后，<strong>财务规划 Skill</strong> 按同一套方法工作。它先诊断资产负债、收支和现金流，再按用钱先后梳理目标，用计算与投研工具核对期限、流动性和可承受的波动。顾问也可以直接在对话框说“替这户家庭准备一份财务规划报告”，调用同一流程。</p>
+        <figure id="report" aria-labelledby="report-title">
+          <div class="report-frame">
+            <div class="report-page">
+              <div class="doc-top"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMTkiIGhlaWdodD0iNDYiIHZpZXdCb3g9IjAgMCAxMTkgNDYiIGZpbGw9Im5vbmUiIGFyaWEtaGlkZGVuPSJ0cnVlIj4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDAuMjgpIj4KICAgIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMjIuMjMxOCAwQzM0LjUwOTggMCA0NC40NjQ0IDEwLjE3IDQ0LjQ2NDQgMjIuNzE1MlYyMi43MTUyTDQ0LjQ1OCAyMy4yNjc3QzQ0LjQxOTMgMjQuOTIwNCA0NC4yMDc2IDI2LjUyOTYgNDMuODQwOCAyOC4wNzZWMjguMDc2TDQzLjc2NjYgMjguMzgwMUM0MS4zMDMzIDM4LjE4NDcgMzIuNTk2NCA0NS40MzA1IDIyLjIzMTggNDUuNDMwNVY0NS40MzA1TDIxLjg2NDIgNDUuNDI3NEM5Ljc1NTA1IDQ1LjIyNjggMCAzNS4xMzUgMCAyMi43MTUyVjIyLjcxNTJMMC4wMDI5NzgzMSAyMi4zMzk2QzAuMTk5Mjk1IDkuOTY3NjQgMTAuMDc1OSAwIDIyLjIzMTggMFpNMjIuMjMyNCAwLjk2NTgwMkwyMS45MTExIDAuOTY4MjQ0QzEyLjYwNzQgMS4xMDk3MSA0LjczNDkxIDcuMzgzMTUgMS45OSAxNS45OTkzVjE1Ljk5OTNMMS44NzMzNyAxNi40MDAxQzEuNTQwNDIgMTcuNjA5OSAxLjM2MDk2IDE4Ljg4NTEgMS4zNjA5NiAyMC4yMDQzQzEuMzYwOTYgMjcuOTU2NSA3LjUxMTkzIDM0LjI0MjMgMTUuMDk5OSAzNC4yNDIzVjM0LjI0MjNMMTUuMzg0MSAzNC4yMzkzQzIxLjYyMTQgMzQuMTEgMjYuODM4OCAyOS43MzMyIDI4LjM3ODggMjMuODI0M1YyMy44MjQzTDI4LjQ1MjMgMjMuNTYzM0MyOS43MjgxIDE5LjI1OTYgMzMuNDc1IDE3LjM1NDIgMzYuNTkyIDE3LjM1NDJWMTcuMzU0MkwzNi44ODg5IDE3LjM1OTRDMzguMzY3NCAxNy40MTEzIDM5Ljc0ODYgMTcuODQ5IDQwLjk0MjYgMTguNTc3NFYxOC41Nzc0TDQxLjEwODEgMTguNjgyMkM0Mi41MjQ5IDE5LjYxNyA0My40NzAzIDIxLjIzMjcgNDMuNTA4MyAyMy4wNzZWMjMuMDc2TDQzLjUxNzYgMjIuNzE1TDQzLjUxNDcgMjIuMzU1OUM0My4zMjY0IDEwLjUyODggMzMuODUxNSAwLjk2NTgwMiAyMi4yMzI0IDAuOTY1ODAyVjAuOTY1ODAyWiIgZmlsbD0iIzFCODhFRSIvPgogICAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik01LjIyOTU4IDIxLjQ0OTVDMy43NDgzOSAyMS40NDk1IDIuODU2NzMgMjIuMzY2NyAyLjg1NjczIDIzLjQ5NzhWMjMuNDk3OEMyLjg1NjczIDIzLjcxNjIgMi44OTIzNiAyMy45Mjc3IDIuOTU1MTEgMjQuMTI2VjI0LjEyNkM0LjYyNDU1IDI5LjQyMzMgOS41ODQwNyAzMy4yNzU4IDE1LjQyNjcgMzMuMjc1OFYzMy4yNzU4QzE4LjcxMTQgMzMuMjc1OCAyMS43MTQ4IDMyLjA1NDkgMjQuMDEzMyAzMC4wNDY5VjMwLjA0NjlDMjMuMDg2IDMwLjI1NjkgMjIuMTIxNSAzMC4zNzE1IDIxLjEzMTUgMzAuMzcxNVYzMC4zNzE1QzE2LjM4NTggMzAuMzcxNSAxMi4yMjQyIDI3LjgyOSA5LjkzMzQ1IDI0LjAzNDZWMjQuMDM0Nkg5LjkzMTlDOC45OTIyMSAyMi40ODUzIDcuMjg5NDYgMjEuNDQ5NSA1LjM0NDIzIDIxLjQ0OTVWMjEuNDQ5NUg1LjIyOTU4WiIgZmlsbD0iIzFCODhFRSIvPgogIDwvZz4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1Mi4wOSA3Ljg2KSI+CiAgICA8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTIyLjEzNSAxLjc5MTg0SDkuMzgwNjNMNi44MjEwOCAwLjU5NzI4VjI4LjA3MDZIMEwwLjc3NTQ1NyAyOS4xNzg0SDMwLjkzNjlDMzEuNjAwMSAyOS4xNzg0IDMyLjE4NzMgMjguODYzMSAzMi41NjA3IDI4LjM3NTFWMjguMzc1MUwyOC45MzY3IDI1LjgzNzJMMjcuMzczNCAyOC4wNzA2SDI1LjM4ODdWMy4zNDE5OEMyNi4wNTE4IDMuMzQxOTggMjYuNjM5IDMuMDI1MTMgMjcuMDEzMiAyLjUzNzg2VjIuNTM3ODZMMjMuMzg5MiAwTDIyLjEzNSAxLjc5MTg0Wk05LjU4MDE1IDEwLjU1MkgyMi40ODg3VjIuODk5NzNIOS41ODAxNVYxMC41NTJaTTkuNTgwMTUgMTkuMzEwNUgyMi40ODg3VjExLjY1ODJIOS41ODAxNVYxOS4zMTA1Wk05LjU4MDE1IDI4LjA3MTNIMjIuNDg4N1YyMC40MTlIOS41ODAxNVYyOC4wNzEzWiIgZmlsbD0iIzFCODhFRSIvPgogIDwvZz4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4Ni40NyAxMy44NikiPgogICAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yLjIwNDc1IDMuMDQwMDRlLTA1QzIuMjM4ODMgMC4yNDA5NTcgMi4yMzg4MyAwLjQ4MTg4MyAyLjIzODgzIDAuNzU3NjdWMC43NTc2N0MyLjIzODgzIDIuODkzNDcgMS40ODA0MiA1LjIwMjAyIDAuNjg4Njk0IDYuMjAwNTlWNi4yMDA1OUMwLjI3NTAxMyA2LjYxNDI3IDAgNy4xMzA5OCAwIDcuNjQ3NjlWNy42NDc2OUMwIDguMjY4MjEgMC4zNzgwNDUgOC43MTUyMSAxLjAzMzQzIDguNzE1MjFWOC43MTUyMUMzLjQ3OTg4IDguNzE1MjEgMy41NDg4MiA1LjEzMjMgMy41NDg4MiA0LjM3NDY2VjQuMzc0NjZDMy41NDg4MiAzLjEwMDMxIDMuMzQwNDMgMS42NTMyIDIuODI0NSAzLjA0MDA0ZS0wNVYzLjA0MDA0ZS0wNUgyLjIwNDc1WiIgZmlsbD0iIzFCODhFRSIvPgogIDwvZz4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5NC4zOCAxMi40MSkiPgogICAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0wIDYuMTQ0MDJlLTA2QzAuODI2NTg1IDEuMjQwMjcgMS41ODQyMiAzLjQxMDkzIDEuNTQ5MzYgNC45NjAzVjQuOTYwM0MxLjg2MDAxIDUuMzM5ODkgMi4yMDQ3NCA1LjUxMTg3IDIuNTQ4NyA1LjUxMTg3VjUuNTExODdDMy4yNzIyNSA1LjUxMTg3IDMuODkyNzcgNC44MjMxOCAzLjg5Mjc3IDMuODIzODRWMy44MjM4NEMzLjg5Mjc3IDIuNzU0NzggMy4xMjk3MSAxLjI4ODMgMC44MzA0NTggNi4xNDQwMmUtMDZWNi4xNDQwMmUtMDZIMFoiIGZpbGw9IiMxQjg4RUUiLz4KICA8L2c+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOTUuNzQgMjYuNjMpIj4KICAgIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTYuOTk1IDEuNDQ3ODhIMS40NjQxNUwyLjIzOTYxIDIuNTU1NjhINS41MjczNkM2Ljc4NTQ0IDQuNjg2ODMgOC40NzAzOCA2LjQ3OTQ0IDEwLjUwNjIgNy45MjQyMlY3LjkyNDIyQzcuNTQzMDggOS42NjEwNiAzLjk3NDEyIDEwLjk5MiAwIDExLjg4NjdWMTEuODg2N1YxMi41MDU3QzQuNjQ5NjQgMTEuNzgyMSA4LjcxNTE4IDEwLjY0NDkgMTIuMTI1MyA4Ljk1NzY1VjguOTU3NjVDMTQuNzA5NyAxMC41MDc4IDE3Ljc3NTkgMTEuNjEwMiAyMS4wODIyIDEyLjQwMTlWMTIuNDAxOUgyMS4wODNDMjEuMzQzMyAxMS4zMzgyIDIyLjEyMTEgMTAuNDgxNSAyMy4xMzIgMTAuMDk5NVYxMC4wOTk1QzIzLjE3MzEgMTAuMDg2NCAyMy4yMTAzIDEwLjA3MDEgMjMuMjUyOSAxMC4wNTkyVjEwLjA1OTJWOS42ODEyQzIwLjIyMTUgOS4zMDE2MSAxNy4yMjQzIDguNjEyOTIgMTQuNTAyOCA3LjY0NzY2VjcuNjQ3NjZDMTYuNDM5NSA2LjQyOTA5IDE4LjA2MjUgNS4wMDk4NyAxOS4zNzY0IDMuMzQxOThWMy4zNDE5OEgyMC4wMDg1QzIwLjY3MDEgMy4zNDE5OCAyMS4yNTgxIDMuMDI1OTEgMjEuNjMxNSAyLjUzNzg2VjIuNTM3ODZMMTguMDA4MyAwTDE2Ljk5NSAxLjQ0Nzg4Wk02LjQ3MjM4IDIuNTU1NzFIMTYuNTUyNUMxNS40NDMyIDQuMTE1OTIgMTQuMDEwOCA1LjUyMzUyIDEyLjMzMzYgNi43MTg4NVY2LjcxODg1QzkuOTYzODggNS42NDY2OSA3LjkzODA4IDQuMjY2MjEgNi40NzIzOCAyLjU1NTcxVjIuNTU1NzFaIiBmaWxsPSIjMUI4OEVFIi8+CiAgPC9nPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDkxLjE5IDYuNzEpIj4KICAgIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMS4xODk5OGUtMDUgMzIuMTc2NEgwLjUwNTEwNUMxLjM3NjYyIDMyLjE3NjQgMi4xNjgzNSAzMS44MzcxIDIuNzU5NDMgMzEuMjg2M1YzMS4yODYzVjIuNjcxODhDMy4yODkzMiAyLjU4ODk5IDMuNzUzMzUgMi4zMDQ2OCA0LjA2NTU1IDEuODk2NDJWMS44OTY0MkwxLjE4OTk4ZS0wNSAwVjMyLjE3NjRaIiBmaWxsPSIjMUI4OEVFIi8+CiAgPC9nPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDk5LjY2IDYuOTkpIj4KICAgIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTIuODY4MiAxLjQ0NzExSDIuNTg1ODlMMCAwLjI0MDkyNlYxMC44NTI1SDAuNTA0MzE4QzEuMzc2NjEgMTAuODUyNSAyLjE2NzU2IDEwLjUxMjQgMi43NTk0MiA5Ljk2MTY0VjkuOTYxNjRWOS4zNzA1NkgxMy4xMTYxVjEwLjg1MjVIMTMuNjIxMkMxNC40OTI4IDEwLjg1MjUgMTUuMjgzNyAxMC41MTI0IDE1Ljg3NDggOS45NjE2NFY5Ljk2MTY0VjMuMzQxOThIMTUuODgxOEMxNi41NDQxIDMuMzQxOTggMTcuMTMyMSAzLjAyNTkxIDE3LjUwNTUgMi41Mzc4NlYyLjUzNzg2TDEzLjg4MDggMEwxMi44NjgyIDEuNDQ3MTFaTTIuNzU5MSA0Ljg1NDU4SDEzLjExNThWMi41NTQ1NUgyLjc1OTFWNC44NTQ1OFpNMi43NTkxIDguMjYyMkgxMy4xMTU4VjUuOTYyMTdIMi43NTkxVjguMjYyMloiIGZpbGw9IiMxQjg4RUUiLz4KICA8L2c+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOTcuODggMTcuODIpIj4KICAgIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTYuNjQ5NSAxLjM5NTJIMi41MTE1MkwwLjAyNDAxNTIgMC4yMzM5NTRMMCAwLjIyMzEwOVY4LjkwNDk3SDAuNTA1MDkzQzEuMzc2NjEgOC45MDQ5NyAyLjE2Njc5IDguNTY1NjYgMi43NTk0MiA4LjAxNDg2VjguMDE0ODZWNy42OTg3OUgxNi43MDQ1VjguNjk3MzZIMTcuMjk0QzE4LjEyMDYgOC42OTczNiAxOS40Mjk4IDguMTgwNjUgMTkuNDYzOSA3Ljk3NDU4VjcuOTc0NThWMi45NjkzNkMxOS45OTA3IDIuODg0MTQgMjAuNDQ5MyAyLjU5OTgzIDIwLjc2MDcgMi4xOTM5VjIuMTkzOUwxNy42MjU2IDBMMTYuNjQ5NSAxLjM5NTJaTTEzLjg5NTUgNi41OTEwMkgxNi43MDQ1VjIuNTAyMjVIMTMuODk1NVY2LjU5MTAyWk04LjMyNzI4IDYuNTkxMDJIMTEuMTM3MVYyLjUwMjI1SDguMzI3MjhWNi41OTEwMlpNMi43NTkxIDYuNTkxMDJINS41NjgwOVYyLjUwMjI1SDIuNzU5MVY2LjU5MTAyWiIgZmlsbD0iIzFCODhFRSIvPgogIDwvZz4KPC9zdmc+Cg==" width="119" height="46" alt="且慢"><span>交付初稿 · 摘页</span></div>
+              <h3 id="report-title">家庭财务规划报告</h3>
+              <p class="doc-summary">家庭资产主要集中于大额存单。第一步是核对近期用款与存单到期日，再识别可以长期安排的资金。</p>
+              <table class="plan-table">
+                <thead><tr><th scope="col">用钱时间</th><th scope="col">本次规划要解决的问题</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">近期</th><td>购房款何时要用？经营周转金要留多少？先把两笔钱的可用时间排清楚。</td></tr>
+                  <tr><th scope="row">中期</th><td>扣除近期用款后，哪些资金能持有更久？按期限与风险承受能力评估安排。</td></tr>
+                  <tr><th scope="row">长期</th><td>把养老、保障等长期需求单列，待家庭目标确认后，再讨论具体方案。</td></tr>
+                </tbody>
+              </table>
+              <p class="review-note"><strong>审阅前待核</strong>　配偶年龄尚无记录。退休时间需向客户核实，测算假设另行标注。</p>
+            </div>
+            <aside class="notification" aria-label="会后助手通知">
+              <span class="label"><i class="dot"></i>会后助手通知</span>
+              <h3>三件事已准备好</h3>
+              <ul class="receipt-list"><li>会议文字稿已整理</li><li>财务规划初稿可审阅</li><li>下次沟通提醒已创建</li></ul>
+              <p>打开任务，可以查看读取了哪些资料、做了哪些校验，以及哪些信息仍需补齐。</p>
+            </aside>
+          </div>
+          <figcaption class="figure-caption">财务规划报告与会后通知节选。界面据宣发稿重绘，家庭资料作匿名化处理。</figcaption>
+        </figure>
+        <div class="handover"><strong>顾问接手</strong><p>带着待核清单向客户问清年龄、用款日期和金额，调整方案，审阅定稿后亲自讲解。原来花在找数、抄录和排版上的精力，可以用来解释一个真正重要的问题——这家人的钱，为什么要这样分。</p></div>
+      </div>
+    </section>
+
+    <section id="service" aria-labelledby="service-title">
+      <div class="chapter business">
+        <div class="shell">
+          <div class="chapter-head">
+            <div><p class="section-tag">场景二 · 客户经营</p><h2 class="chapter-title" id="service-title">同样的大额赎回，<br>该先打哪通电话？</h2></div>
+            <p class="chapter-intro">两位客户都发起了大额赎回。单看交易，两条提醒几乎一样。工作台把交易放回各自的生活安排、最近的谈话和持仓变化里，顾问才看得出跟进的轻重缓急。</p>
+          </div>
+          <figure>
+            <div class="case-comparison">
+              <div class="figure-head"><strong>两条赎回提醒</strong><span>同一事件类型 · 两种服务路径</span></div>
+              <div class="two-clients">
+                <article class="client"><span class="client-mark" lang="en">A</span><h3>刚刚聊过买房</h3>
+                  <dl><dt>已知事实</dt><dd>客户在上次沟通中提过购房安排。</dd><dt>初步判断</dt><dd>这笔赎回可能是计划内用款。</dd><dt>下一步</dt><dd>核实付款日期和到账安排，优先协助用款，无须挽留。</dd></dl>
+                </article>
+                <article class="client"><span class="client-mark" lang="en">B</span><h3>连续数周担心亏损</h3>
+                  <dl><dt>已知事实</dt><dd>客户反复提到亏损，账户回撤期间查看持仓也更频繁。</dd><dt>初步判断</dt><dd>波动可能影响了决定，真实用款需求仍待了解。</dd><dt>下一步</dt><dd>优先安排电话，先听客户说原因，再决定是否一起复盘账户。</dd></dl>
+                </article>
+              </div>
+            </div>
+            <figcaption class="figure-caption">交易是事实，动机是待验证的判断。核实之后，两位客户都可能需要调整原来的跟进安排。</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="follow" id="followup">
+        <div class="shell follow-grid">
+          <div class="follow-copy">
+            <h2 class="mid-title">接起电话前，<br>手边有一份服务包。</h2>
+            <p>识别到值得过问的变化，智能助手会主动推送，任务同时进入顾问的任务中心。打开客户 B 的待办，顾问能看到为什么排在前面、证据有多充分，以及第一句话可以怎么问。</p>
+            <div class="contact-note"><h3>提醒从哪里来？</h3><p>顾问可按客户范围设置任务。每个交易日巡检适合发现长期未联系的客户，赎回、持仓偏离目标或市场波动则可以触发即时分析。两种触发方式可以一起用。</p></div>
+          </div>
+          <figure>
+            <div class="service-sheet">
+              <div class="service-head">
+                <div class="ui-top"><span>客户服务包 · 跟进报告节选</span><span class="sample">供顾问审阅</span></div>
+                <h3>客户 B 的赎回跟进单</h3>
+              </div>
+              <div class="service-body">
+                <div class="service-row"><strong>事实依据</strong><p>对照近期持仓回撤、查看账户的频率，以及客户此前关于亏损的表达。顾问可逐项回看来源。</p></div>
+                <div class="service-row"><strong>优先判断</strong><p>多个信号同时出现，建议优先联系。是否有临时资金需求、哪一部分持仓最令客户担心，都留给通话核实。</p></div>
+                <div class="service-row"><strong>跟进建议</strong><p>备好账户与市场同期表现、主要波动来源和原有目标。通话后按客户反馈决定是否发送复盘摘要、何时再联系。</p></div>
+                <blockquote class="phone-quote"><span>电话开场参考</span><p>“您这次打算赎回，是近期有一笔钱要用，还是这段时间的波动让您有些担心？我们先聊您最在意的那件事。”</p></blockquote>
+                <p class="service-bottom">通话后回填实际原因、双方约定和下次联系时间。</p>
+              </div>
+            </div>
+            <figcaption class="figure-caption">顾问可以采纳、改写或纠正建议。真实反馈会进入客户档案，成为下一次服务的依据。</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="method" class="chapter method" aria-labelledby="method-title">
+      <div class="shell">
+        <div class="chapter-head">
+          <div><p class="section-tag">方法与边界</p><h2 class="chapter-title" id="method-title">让一位好顾问的做法，<br>成为团队的日常。</h2></div>
+          <p class="chapter-intro">两个场景共用同一套分工。Skill 写清适用客户、可用资料、判断规则和交付要求。Agent 负责规划步骤，调用工具并校验结果。顾问决定哪些判断可以采纳，哪些做法值得留给下一次。</p>
+        </div>
+        <div class="method-grid">
+          <div>
+            <h3>一套底座，三层方法</h3>
+            <dl class="layer">
+              <div><dt>盈米标准</dt><dd>将投顾方法和服务标准写进基础能力。新顾问也能沿同一框架完成财务诊断与材料准备。</dd></div>
+              <div><dt>团队流程</dt><dd>团队定义哪些客户要关注、多久巡检、产出什么，统一管理服务流程与质量要求。</dd></div>
+              <div><dt>个人经验</dt><dd>顾问把有效的追问、复盘习惯或工作流程保存为自己的 Skill，按需调用，再根据使用反馈修订。</dd></div>
+            </dl>
+          </div>
+          <div>
+            <h3>每次执行，都有边界</h3>
+            <ol class="boundaries">
+              <li><h4>事前定权限</h4><p>限定客户范围、可用数据、触发条件和允许执行的动作。内部预警可以被设定为仅供顾问查看。</p></li>
+              <li><h4>事中留依据</h4><p>数字交给工具计算，事实、判断和待核项分别呈现。拿不准时转人工，对客动作默认由顾问确认。</p></li>
+              <li><h4>事后可复盘</h4><p>保留运行记录、顾问修订与客户反馈。团队可抽查交付质量，也能从共性问题安排针对性训练。</p></li>
+            </ol>
+          </div>
+        </div>
+        <aside class="method-example"><strong>一条规则的分寸</strong><p>以流失预警为例，只有“长期未联系”这一项时，可以建一条低风险待办，请顾问先核实近况。若同时出现资产下降或活跃度变化，再结合其他证据重新判断。这个任务的产出只给顾问，对客户的沟通由顾问发起。</p></aside>
+      </div>
+    </section>
+    <section class="closing" aria-labelledby="closing-title">
+      <div class="shell closing-grid">
+        <h2 id="closing-title">把准备工作交给系统，<br>把判断留在客户身边。</h2>
+        <div>
+          <p>一份财务规划的价值，在于顾问能向这个家庭解释每一笔钱的安排。一次赎回跟进的价值，在于顾问听懂客户为什么想用这笔钱，并据此调整服务。</p>
+          <p>Lodestar 负责持续留意、准备材料和跟进进展。方案定稿、投资建议与对客承诺，由了解客户、也对这次服务负责的顾问作出。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="shell"><p>据《且慢顾问工作台宣发材料－逐页改稿》29 页整编 · 2026 年 11 月 28 日</p><a href="#top">回到开头 ↑</a></div></footer>
+  <script>
+    (() => {
+      const links = Array.from(document.querySelectorAll(".chapter-nav a"));
+      const sections = links.map(link => document.getElementById(link.hash.slice(1)));
+      const bar = document.querySelector(".reading-progress i");
+      const mast = document.querySelector(".mast");
+      let scheduled = false;
+      function paint() {
+        const height = document.documentElement.scrollHeight - window.innerHeight;
+        const scroll = window.scrollY;
+        const ratio = height > 0 ? Math.max(0, Math.min(1, scroll / height)) : 1;
+        bar.style.transform = "scaleX(" + ratio + ")";
+        const line = mast.getBoundingClientRect().height + 36;
+        let current = 0;
+        sections.forEach((section, index) => {
+          if (section.getBoundingClientRect().top <= line) current = index;
+        });
+        links.forEach((link, index) => {
+          if (index === current) link.setAttribute("aria-current", "location");
+          else link.removeAttribute("aria-current");
+        });
+        scheduled = false;
+      }
+      function schedule() {
+        if (scheduled) return;
+        scheduled = true;
+        window.requestAnimationFrame(paint);
+      }
+      window.addEventListener("scroll", schedule, { passive: true });
+      window.addEventListener("resize", schedule);
+      window.addEventListener("pageshow", schedule);
+      paint();
+    })();
+  </script>
+</body>
+</html>
