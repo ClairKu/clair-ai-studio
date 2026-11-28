@@ -1147,15 +1147,30 @@ if (!(html.indexOf('id="question-analysis"') > html.indexOf('id="audience-analys
 if (/(token|secret|password)\s*[:=]\s*["'][^"']+/i.test(app)) fail("页面脚本疑似硬编码凭证");
 const renderKpisSource = app.slice(app.indexOf("function renderKpis"), app.indexOf("function niceMaximum"));
 if (renderKpisSource.includes("rangeTotals(rows)")) fail("顶部累计总览卡仍与日期区间联动");
-if (!renderKpisSource.includes("bound: currentData.metrics.bound_accounts")) fail("顶部累计总览卡没有固定使用全量 metrics");
+const receiptSource = app.slice(app.indexOf("async function applyBindingReceipt"), app.indexOf("function setFreshness"));
+const validatedReceiptSource = [
+  'fetch("./data/binding-receipt.json", { cache: "no-store" })',
+  "currentData !== snapshot", "counts.every(isWholeCount)",
+  "receipt.bound_accounts !== receipt.new_accounts + receipt.existing_accounts",
+  "parseTime(receipt.as_of) > parseTime(snapshot.meta.data_cutoff)",
+  "bindingReceipt = receipt",
+].every((source) => receiptSource.includes(source));
+const receiptAlias = "const metrics = bindingReceipt || currentData.metrics;";
+const kpisUseReceipt = validatedReceiptSource && renderKpisSource.includes(receiptAlias)
+  && /bound:\s*metrics\.bound_accounts,\s*new:\s*metrics\.new_accounts,\s*existing:\s*metrics\.existing_accounts/.test(renderKpisSource);
+if (!renderKpisSource.includes("bound: currentData.metrics.bound_accounts") && !kpisUseReceipt) fail("顶部累计总览卡没有固定使用全量 metrics 或已核实的较新绑定收据");
+if (kpisUseReceipt && !renderKpisSource.includes("formatShare(app.cohorts.all.users, currentData.metrics.bound_accounts)")) fail("绑定收据不应改变历史 App 使用率的分母");
 const renderHeroLeadSource = app.slice(app.indexOf("function renderHeroLead"), app.indexOf("function decorateRows"));
+const heroUsesReceipt = validatedReceiptSource && renderHeroLeadSource.includes(receiptAlias);
+if (heroUsesReceipt && (!renderHeroLeadSource.includes("以下转化、App 使用及逐日数据截至 ") || !renderHeroLeadSource.includes("资产截至 "))) fail("较新绑定数据必须与完整快照、资产日分别标明截止");
+const heroMetricsSource = heroUsesReceipt ? "metrics" : "currentData.metrics";
 for (const requiredSource of [
   'segment("all")',
   'segment("first_inv")',
   'segment("new_inv")',
-  "currentData.metrics.bound_accounts",
-  "currentData.metrics.new_accounts",
-  "currentData.metrics.existing_accounts",
+  `${heroMetricsSource}.bound_accounts`,
+  `${heroMetricsSource}.new_accounts`,
+  `${heroMetricsSource}.existing_accounts`,
   "all.opened_after_binding_accounts",
   "all.risk_after_binding_accounts",
   "newInvestors.inflow_amount_wan",

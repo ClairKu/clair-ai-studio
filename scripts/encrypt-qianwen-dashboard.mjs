@@ -12,6 +12,7 @@ import { mkdir, readFile, writeFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { gunzipSync, gzipSync } from "node:zlib";
 import { buildReadableQuestionCorpus } from "./build-readable-question-corpus.mjs";
+import { readOptionalBindingReceipt, restoreBindingReceipt } from "./qianwen-refresh/binding-receipt.mjs";
 
 const SLUG = "qianwen-user-acquisition-dashboard";
 const SRC = join("public", "reports", SLUG);
@@ -41,6 +42,9 @@ const [html, css, js, dataRaw, questionEnvelopeRaw] = await Promise.all([
   readFile(join(SRC, "data", "questions.enc.json"), "utf8"),
 ]);
 JSON.parse(dataRaw);   // 数据损坏时早失败，别加密出一份打不开的页面
+const bindingReceiptRestoreBytes = await readOptionalBindingReceipt(
+  join(SRC, "data", "binding-receipt.json"), JSON.parse(dataRaw).meta.data_cutoff,
+);
 const questionEnvelope = JSON.parse(questionEnvelopeRaw);
 if (questionEnvelope.schema_version !== "qianwen-question-corpus-envelope-v2") throw new Error("原始提问密文版本异常");
 
@@ -49,12 +53,16 @@ if (questionEnvelope.schema_version !== "qianwen-question-corpus-envelope-v2") t
 const inlineData = `<script>
 (function(){
   var raw = ${JSON.stringify(dataRaw)};
+  var bindingReceiptRaw = ${JSON.stringify(bindingReceiptRestoreBytes?.toString("utf8") ?? null)};
   window.QIANWEN_ACQUISITION_DATA = JSON.parse(raw);
   var original = window.fetch ? window.fetch.bind(window) : null;
   window.fetch = function(input, init){
     var url = typeof input === "string" ? input : (input && input.url) || "";
     if (url.indexOf("data/latest.json") !== -1) {
       return Promise.resolve(new Response(raw, { status: 200, headers: { "Content-Type": "application/json" } }));
+    }
+    if (bindingReceiptRaw !== null && url.indexOf("data/binding-receipt.json") !== -1) {
+      return Promise.resolve(new Response(bindingReceiptRaw, { status: 200, headers: { "Content-Type": "application/json" } }));
     }
     return original ? original(input, init) : Promise.reject(new Error("fetch unavailable"));
   };
@@ -331,6 +339,9 @@ await Promise.all([
 // 提问模块恢复直接浏览，仅按需加载压缩后的去标识提问，不再二次解密。
 await buildReadableQuestionCorpus(join(SRC, "data"), join(OUT, "data"));
 await buildReadableQuestionCorpus(join(SRC, "data"), join(SRC, "data"));
+// Keep the independently dated, anonymous binding-only receipt after removing
+// plaintext report data. The complete snapshot and its access gate stay intact.
+await restoreBindingReceipt(join(OUT, "data"), bindingReceiptRestoreBytes);
 // BEGIN USER-AUTHORIZED DAILY QUESTION CIPHERTEXT RESTORE
 // Preserve the original plaintext cleanup above. Restore only the authenticated
 // snapshot's explicitly validated date ciphertext and aggregate sealed-key index.
